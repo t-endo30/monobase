@@ -215,8 +215,70 @@
     var b = ev.target.closest('[data-add]'); if (!b) return;
     var k = b.getAttribute('data-add');
     if (k === 'voices') addVoice({});
-    else addRow($('r-' + k), '', '', k !== 'summary' ? false : false);
+    else if (k === 'scenes') addScene({});
+    else if (k === 'next') addNext({});
+    else addRow($('r-' + k), '', '', false);
   });
+
+  /* ---- 生活シーン ---- */
+  function addScene(v) {
+    var d = document.createElement('div');
+    d.className = 'card';
+    d.style.background = '#FBFCFE';
+    d.innerHTML =
+      '<label>シーンの見出し</label>' +
+      '<input type="text" data-s="title" placeholder="満員電車で、音量を上げずに音楽が聴けるようになる">' +
+      '<label>説明<span class="opt">購入前後で何が変わるかを具体的に</span></label>' +
+      '<textarea rows="3" data-s="text"></textarea>' +
+      '<div class="btn-bar"><button type="button" class="btn btn-danger rms" style="min-height:36px;font-size:12.5px;">このシーンを削除</button></div>';
+    $('r-scenes').appendChild(d);
+    Object.keys(v || {}).forEach(function (k) {
+      var el = d.querySelector('[data-s="' + k + '"]');
+      if (el) el.value = v[k];
+    });
+    d.querySelector('.rms').addEventListener('click', function () { d.remove(); });
+  }
+  function readScenes() {
+    return Array.prototype.map.call($('r-scenes').children, function (d) {
+      var o = {};
+      Array.prototype.forEach.call(d.querySelectorAll('[data-s]'), function (el) {
+        o[el.getAttribute('data-s')] = el.value.trim();
+      });
+      return o;
+    }).filter(function (o) { return o.title || o.text; });
+  }
+
+  /* ---- 次に困りそうなこと ---- */
+  function addNext(v) {
+    var d = document.createElement('div');
+    d.className = 'card';
+    d.style.background = '#FBFCFE';
+    d.innerHTML =
+      '<label>次に起きる問題</label>' +
+      '<input type="text" data-n="title" placeholder="付属イヤーピースが耳に合わない">' +
+      '<label>説明</label>' +
+      '<textarea rows="3" data-n="text"></textarea>' +
+      '<div class="row c2">' +
+        '<div><label>リンクの文言<span class="opt">任意</span></label><input type="text" data-n="link_label" placeholder="イヤーピースの選び方を見る"></div>' +
+        '<div><label>リンク先<span class="opt">実在する記事のみ</span></label><input type="text" data-n="link_url" placeholder="articles/xxx.html"></div>' +
+      '</div>' +
+      '<div class="btn-bar"><button type="button" class="btn btn-danger rmn" style="min-height:36px;font-size:12.5px;">この項目を削除</button></div>';
+    $('r-next').appendChild(d);
+    Object.keys(v || {}).forEach(function (k) {
+      var el = d.querySelector('[data-n="' + k + '"]');
+      if (el) el.value = v[k];
+    });
+    d.querySelector('.rmn').addEventListener('click', function () { d.remove(); });
+  }
+  function readNext() {
+    return Array.prototype.map.call($('r-next').children, function (d) {
+      var o = {};
+      Array.prototype.forEach.call(d.querySelectorAll('[data-n]'), function (el) {
+        o[el.getAttribute('data-n')] = el.value.trim();
+      });
+      return o;
+    }).filter(function (o) { return o.title || o.text; });
+  }
 
   /* ---- 口コミ＋対策 ---- */
   function addVoice(v) {
@@ -267,7 +329,12 @@
       date: today(), updated: today(), tags: [], icon: '📦', thumb: '',
       amazon_url: 'https://www.amazon.co.jp/', cta_label: 'Amazonで価格を見る',
       verdict_title: '結論：', summary: [], rating: { score: 0, breakdown: '' },
-      lead: '', pros: [], cons: [],
+      lead: '',
+      not_for: { intro: '', items: [] },
+      scenes: [],
+      personal_note: '',
+      next_problem: { intro: '', items: [] },
+      pros: [], cons: [],
       spec: { intro: '', headers: [], rows: [] },
       voices_intro: '', voices: [],
       conclusion_title: 'まとめ', conclusion: ''
@@ -306,10 +373,18 @@
     $('f-specHeaders').value = ((a.spec && a.spec.headers) || []).join(', ');
     $('f-specRows').value = ((a.spec && a.spec.rows) || []).map(function (r) { return r.join(', '); }).join('\n');
     $('f-voicesIntro').value = a.voices_intro || '';
+    $('f-notforIntro').value = (a.not_for && a.not_for.intro) || '';
+    $('f-personalNote').value = a.personal_note || '';
+    $('f-nextIntro').value = (a.next_problem && a.next_problem.intro) || '';
     $('f-conclTitle').value = a.conclusion_title || '';
     $('f-conclusion').value = a.conclusion || '';
 
     repeater('r-summary', a.summary, '結論の要点');
+    repeater('r-notfor', (a.not_for && a.not_for.items) || [], '〜な人には向いていません');
+    $('r-scenes').innerHTML = '';
+    ((a.scenes) || []).forEach(addScene);
+    $('r-next').innerHTML = '';
+    ((a.next_problem && a.next_problem.items) || []).forEach(addNext);
     repeater('r-pros', a.pros, 'よかった点');
     repeater('r-cons', a.cons, '気になった点');
     $('r-voices').innerHTML = '';
@@ -351,6 +426,10 @@
     };
     a.voices_intro = $('f-voicesIntro').value.trim();
     a.voices = readVoices();
+    a.not_for = { intro: $('f-notforIntro').value.trim(), items: readRepeater('r-notfor') };
+    a.scenes = readScenes();
+    a.personal_note = $('f-personalNote').value.trim();
+    a.next_problem = { intro: $('f-nextIntro').value.trim(), items: readNext() };
     a.conclusion_title = $('f-conclTitle').value.trim() || 'まとめ';
     a.conclusion = $('f-conclusion').value.trim();
     return a;

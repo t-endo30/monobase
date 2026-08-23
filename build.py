@@ -302,10 +302,13 @@ def render_article(a):
 
     # 目次
     toc = []
-    if a.get("pros") or a.get("cons"): toc.append(("sec-proscons", "メリットとデメリット"))
-    if a.get("spec", {}).get("rows"):  toc.append(("spec", "スペック比較表"))
-    if a.get("voices"):                toc.append(("sec-voice", "口コミ・気になる点と対策"))
-    if a.get("conclusion"):            toc.append(("sec-conclusion", "まとめ"))
+    if a.get("not_for", {}).get("items"): toc.append(("sec-notfor", "買わないほうがいい人"))
+    if a.get("scenes"):                   toc.append(("sec-scenes", "この商品で変わる生活シーン"))
+    if a.get("pros") or a.get("cons"):    toc.append(("sec-proscons", "メリットとデメリット"))
+    if a.get("spec", {}).get("rows"):     toc.append(("spec", "スペック比較表"))
+    if a.get("voices"):                   toc.append(("sec-voice", "共通の不満点と対処法"))
+    if a.get("next_problem", {}).get("items"): toc.append(("sec-next", "次に困りそうなこと"))
+    if a.get("conclusion"):               toc.append(("sec-conclusion", "まとめ"))
     if toc:
         li = "".join(f'            <li><a href="#{i}">{e(t)}</a></li>\n' for i, t in toc)
         add(f'''        <nav class="toc" aria-label="目次">
@@ -318,6 +321,37 @@ def render_article(a):
     add('        <div class="article-body">\n')
     if a.get("lead"):
         add(f'          <p>{a["lead"]}</p>\n')
+
+    # 1. 買わないほうがいい人（最優先のネガティブ訴求）
+    nf = a.get("not_for", {})
+    if nf.get("items"):
+        items = "".join(f'              <li>{x}</li>\n' for x in nf["items"])
+        add(f'''          <h2 id="sec-notfor">この商品を買わないほうがいい人</h2>
+          <div class="notfor-box">
+            <div class="notfor-head">⚠ 先に読んでください</div>
+            <div class="notfor-body">
+              <p>{e(nf.get("intro",""))}</p>
+              <ul class="notfor-list">
+{items}              </ul>
+              <p class="notfor-foot">上のどれかに当てはまる場合、この商品は期待に応えられない可能性が高いです。別の選択肢を検討したほうが満足度は高くなります。</p>
+            </div>
+          </div>
+''')
+
+    # 2. この商品で変わる「実際の生活シーン」
+    if a.get("scenes"):
+        add('          <h2 id="sec-scenes">この商品で変わる「実際の生活シーン」</h2>\n')
+        add('          <div class="scenes">\n')
+        for i, sc in enumerate(a["scenes"], start=1):
+            add(f'''            <div class="scene">
+              <span class="scene-num">{i}</span>
+              <div class="scene-body">
+                <h3 class="scene-title">{e(sc.get("title",""))}</h3>
+                <p>{sc.get("text","")}</p>
+              </div>
+            </div>
+''')
+        add('          </div>\n')
 
     # メリット / デメリット
     if a.get("pros") or a.get("cons"):
@@ -384,6 +418,37 @@ def render_article(a):
             {e(v.get("fix",""))}
           </div>
 ''')
+
+    # 6. 運営者の実体験コラム
+    if a.get("personal_note"):
+        add(f'''          <div class="personal-note">
+            <span class="pn-label">運営者の実体験メモ</span>
+            <p>{a["personal_note"]}</p>
+          </div>
+''')
+
+    # 7. Amazonボタン
+    add(cta(a.get("amazon_url","#"), "Amazonで価格と詳細を確認する",
+            "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
+
+    # 8. 次に困りそうなこと・併売の提案（回遊導線）
+    np_ = a.get("next_problem", {})
+    if np_.get("items"):
+        add('          <h2 id="sec-next">次に困りそうなこと</h2>\n')
+        if np_.get("intro"):
+            add(f'          <p>{e(np_["intro"])}</p>\n')
+        add('          <div class="next-grid">\n')
+        for it in np_["items"]:
+            link = ""
+            if it.get("link_url") and it.get("link_label"):
+                link = (f'\n                <a class="next-link" href="{p}{e(it["link_url"])}">'
+                        f'{e(it["link_label"])} <span aria-hidden="true">→</span></a>')
+            add(f'''            <div class="next-card">
+              <h3 class="next-title">{e(it.get("title",""))}</h3>
+              <p>{it.get("text","")}</p>{link}
+            </div>
+''')
+        add('          </div>\n')
 
     # まとめ
     if a.get("conclusion"):

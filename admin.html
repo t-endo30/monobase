@@ -111,7 +111,7 @@
     </div>
 
     <div class="card">
-      <h2>アフィリエイトボタン</h2>
+      <h2>7. アフィリエイトボタン</h2>
       <p class="hint">記事内3か所と、スマホ下部の追従ボタンに使われます。</p>
       <div class="row c2">
         <div>
@@ -148,7 +148,24 @@
     </div>
 
     <div class="card">
-      <h2>メリット・デメリット</h2>
+      <h2>1. 買わないほうがいい人</h2>
+      <p class="hint">記事の最優先パートです。ここで合わない読者を先に切ることで、残った読者の成約率と満足度が上がります。</p>
+      <label for="f-notforIntro">導入文</label>
+      <textarea id="f-notforIntro" rows="2" placeholder="先に、この商品が向いていない人をはっきり書きます。"></textarea>
+      <label>当てはまる人<span class="opt">3〜4項目が目安</span></label>
+      <div id="r-notfor"></div>
+      <button class="btn btn-ghost" data-add="notfor" style="min-height:38px;font-size:13px;">＋ 項目を追加</button>
+    </div>
+
+    <div class="card">
+      <h2>2. この商品で変わる「実際の生活シーン」</h2>
+      <p class="hint">スペックではなく、購入後にストレスが減る具体的な場面を書きます。3つが基本です。</p>
+      <div id="r-scenes"></div>
+      <button class="btn btn-ghost" data-add="scenes" style="min-height:38px;font-size:13px;">＋ シーンを追加</button>
+    </div>
+
+    <div class="card">
+      <h2>3. メリット・デメリット</h2>
       <p class="hint">デメリットを正直に書くほど成約率は上がります。空欄にするとボックス自体が非表示になります。</p>
       <label>👍 メリット</label>
       <div id="r-pros"></div>
@@ -159,7 +176,7 @@
     </div>
 
     <div class="card">
-      <h2>スペック比較表</h2>
+      <h2>4. スペック比較表</h2>
       <p class="hint">1行目が見出し行です。2列目が自社推し列としてハイライトされます。行は「項目名, 値1, 値2, 値3」のようにカンマ区切りで入力してください。</p>
       <label for="f-specIntro">表の前に置く説明文</label>
       <input type="text" id="f-specIntro">
@@ -171,12 +188,28 @@
     </div>
 
     <div class="card">
-      <h2>気になる点と対策</h2>
+      <h2>5. 共通の不満点と対処法</h2>
       <p class="hint">口コミの不満点を挙げ、その対策を示すセクションです。購入不安の払拭に効きます。</p>
       <label for="f-voicesIntro">セクションの導入文</label>
       <input type="text" id="f-voicesIntro">
       <div id="r-voices"></div>
       <button class="btn btn-ghost" data-add="voices" style="min-height:38px;font-size:13px;">＋ 口コミ＋対策を追加</button>
+    </div>
+
+    <div class="card">
+      <h2>6. 運営者の実体験コラム</h2>
+      <p class="hint">ここは<b>実際に使った人が自分で書く欄</b>です。生成AIに書かせると体験談の偽装になり、信頼性・規約の両面で問題になります。1〜2行で構いません。</p>
+      <label for="f-personalNote">実体験メモ</label>
+      <textarea id="f-personalNote" rows="3" placeholder="例：ケースの蓋の開閉が想像より硬く、片手で開けるには少し慣れが必要だった"></textarea>
+    </div>
+
+    <div class="card">
+      <h2>8. 次に困りそうなこと・関連提案</h2>
+      <p class="hint">「この商品を導入すると、次に〇〇が発生しやすくなります」という切り口で回遊導線を作ります。リンク先は<b>実在する記事にだけ</b>設定してください（空欄ならテキストのみ表示されます）。</p>
+      <label for="f-nextIntro">導入文</label>
+      <textarea id="f-nextIntro" rows="2"></textarea>
+      <div id="r-next"></div>
+      <button class="btn btn-ghost" data-add="next" style="min-height:38px;font-size:13px;">＋ 項目を追加</button>
     </div>
 
     <div class="card">

@@ -1143,3 +1143,180 @@ mark.hit{background:#FFF0CC;color:inherit;padding:0 2px;border-radius:2px;}
   .search-panel{padding:24px 26px;}
   .chip-label{flex:0 0 84px;}
 }
+
+/* ============================================================
+   1. 買わないほうがいい人（最優先のネガティブ訴求）
+   ============================================================ */
+.notfor-box{
+  border:2px solid var(--bad);
+  border-radius:var(--radius);
+  overflow:hidden;
+  margin:20px 0 28px;
+  background:#fff;
+}
+.notfor-head{
+  background:var(--bad);
+  color:#fff;
+  font-size:15.5px;
+  font-weight:700;
+  padding:10px 16px;
+  letter-spacing:.05em;
+}
+.notfor-body{padding:16px;background:var(--bad-bg);}
+.notfor-body > p{font-size:14.5px;margin-bottom:12px;}
+.notfor-list{list-style:none;margin:0 0 14px;padding:0;}
+.notfor-list li{
+  position:relative;
+  padding:10px 0 10px 30px;
+  font-size:14.5px;
+  line-height:1.8;
+  border-bottom:1px dashed rgba(224,83,61,.35);
+}
+.notfor-list li:last-child{border-bottom:none;}
+.notfor-list li::before{
+  content:"×";
+  position:absolute;left:0;top:11px;
+  width:21px;height:21px;
+  background:var(--bad);color:#fff;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;line-height:1;
+}
+.notfor-foot{
+  font-size:13.5px;
+  color:#9C3B29;
+  background:rgba(255,255,255,.7);
+  border-radius:var(--radius-sm);
+  padding:10px 12px;
+  margin:0;
+}
+
+/* ============================================================
+   2. 実際の生活シーン
+   ============================================================ */
+.scenes{margin:18px 0 28px;display:grid;gap:14px;}
+.scene{
+  display:flex;
+  gap:14px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-left:4px solid var(--info);
+  border-radius:var(--radius);
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+.scene-num{
+  flex:0 0 auto;
+  width:34px;height:34px;
+  background:var(--info);
+  color:#fff;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;line-height:1;
+}
+.scene-body{min-width:0;}
+.scene-title{
+  font-size:16px;
+  margin:2px 0 8px;
+  line-height:1.55;
+  color:var(--navy);
+}
+.scene-body p{font-size:14.5px;margin:0;line-height:1.85;}
+
+/* ============================================================
+   6. 運営者の実体験コラム枠
+   ============================================================ */
+.personal-note{
+  position:relative;
+  background:linear-gradient(180deg,#FFFDF7 0%,#FFF9EC 100%);
+  border:1px solid #F0DFB8;
+  border-left:4px solid var(--amazon);
+  border-radius:var(--radius);
+  padding:20px 18px 18px;
+  margin:30px 0;
+  box-shadow:var(--shadow);
+}
+.personal-note .pn-label{
+  position:absolute;
+  top:-11px;left:16px;
+  background:var(--amazon);
+  color:#fff;
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:.06em;
+  border-radius:50px;
+  padding:3px 14px;
+}
+.personal-note p{
+  font-size:14.5px;
+  line-height:1.9;
+  margin:0;
+  color:#5C4A28;
+}
+
+/* ============================================================
+   8. 次に困りそうなこと（回遊導線）
+   ============================================================ */
+.next-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+  margin:18px 0 28px;
+}
+.next-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-top:3px solid var(--navy);
+  border-radius:var(--radius);
+  padding:16px;
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+}
+.next-title{
+  font-size:15.5px;
+  line-height:1.6;
+  margin:0 0 8px;
+  padding-left:22px;
+  position:relative;
+}
+.next-title::before{
+  content:"！";
+  position:absolute;left:0;top:2px;
+  width:17px;height:17px;
+  background:var(--navy);color:#fff;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;line-height:1;
+}
+.next-card p{font-size:14px;line-height:1.85;margin:0 0 12px;flex:1;}
+.next-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  min-height:44px;
+  padding:8px 18px;
+  background:var(--bg-gray);
+  border:1px solid var(--border);
+  border-radius:50px;
+  color:var(--navy) !important;
+  font-size:13.5px;
+  font-weight:700;
+  text-decoration:none;
+  transition:background-color .2s ease,border-color .2s ease,transform .2s ease;
+}
+.next-link:hover{
+  background:var(--navy);
+  color:#fff !important;
+  border-color:var(--navy);
+  transform:translateX(3px);
+  text-decoration:none;
+}
+
+@media (min-width:600px){
+  .scenes{gap:16px;}
+  .next-grid{grid-template-columns:1fr 1fr;}
+  .notfor-body{padding:20px;}
+  .personal-note{padding:22px 22px 20px;}
+}
