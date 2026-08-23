@@ -12,9 +12,12 @@
 <meta property="og:site_name" content="モノベース">
 <meta property="og:url" content="https://monobase.site/category-gadget.html">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
 <link rel="stylesheet" href="./assets/style.css">
 </head>
-<body>
+<body data-cat="gadget">
 <header class="site-header">
   <div class="container header-inner">
     <div class="site-brand">
@@ -65,7 +68,7 @@
         <span class="page-hero-icon" aria-hidden="true">💻</span>
         <h1>ガジェット・PC周辺の記事</h1>
         <p>イヤホン、キーボード、モニター、充電器など。毎日使うものだからこそ、実際に使い込んでから良い点も気になる点も正直にお伝えします。</p>
-        <span class="hero-count">全 1 記事</span>
+        <span class="hero-count">全 2 記事</span>
       </div>
       <form class="searchbox" action="./search.html" method="get" role="search">
         <input type="search" name="q" placeholder="キーワードで記事を探す（例：加湿器、腰痛）" aria-label="サイト内検索">
@@ -73,7 +76,17 @@
       </form>
       <section class="section-block" style="margin-top:24px;">
       <div class="card-grid">
-        <article class="card">
+        <article class="card reveal" data-cat="gadget">
+          <a class="card-thumb" href="./articles/silent-keyboard-review.html"><span aria-hidden="true" style="font-size:26px;margin-right:8px;">⌨️</span>IMAGE 16:9</a>
+          <div class="card-body">
+            <div class="card-tags"><span class="tag">レビュー</span><span class="tag">キーボード</span><span class="tag tag-hot">ガジェット・PC周辺</span></div>
+            <h3 class="card-title"><a href="./articles/silent-keyboard-review.html">静音メカニカルキーボード KS-87 レビュー｜会議中でも打てるか</a></h3>
+            <p class="card-desc">オンライン会議で相手に打鍵音がどこまで届くのか実測。静電容量式・メンブレンとの比較付きです。</p>
+            <a class="card-link" href="./articles/silent-keyboard-review.html">詳細を見る</a>
+          </div>
+        </article>
+
+        <article class="card reveal" data-cat="gadget">
           <a class="card-thumb" href="./articles/xyz-100-review.html"><span aria-hidden="true" style="font-size:26px;margin-right:8px;">🎧</span>IMAGE 16:9</a>
           <div class="card-body">
             <div class="card-tags"><span class="tag">レビュー</span><span class="tag">イヤホン</span><span class="tag tag-hot">ガジェット・PC周辺</span></div>

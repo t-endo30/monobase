@@ -77,3 +77,45 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 })();
+
+/* ============================================================
+   スクロール表示アニメーション + ヘッダーの引き締め
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ---- 動きを減らす設定の人には適用しない ---- */
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = document.querySelectorAll('.reveal');
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(targets, function (el) { el.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target;
+        /* 同じ行のカードを少しずつ遅らせて、順に現れるようにする */
+        var i = Array.prototype.indexOf.call(el.parentNode.children, el);
+        el.style.transitionDelay = Math.min(i % 3, 2) * 70 + 'ms';
+        el.classList.add('is-in');
+        io.unobserve(el);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+
+    Array.prototype.forEach.call(targets, function (el) { io.observe(el); });
+  }
+
+  /* ---- ヘッダーの引き締め ---- */
+  var header = document.querySelector('.site-header');
+  if (!header) return;
+  var ticking = false;
+  function onScroll() {
+    header.classList.toggle('is-shrunk', (window.pageYOffset || 0) > 80);
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
+  }, { passive: true });
+  onScroll();
+})();

@@ -71,9 +71,12 @@ def head(title, desc, current, p, canonical, extra=""):
 <meta property="og:site_name" content="{e(NAME)}">
 <meta property="og:url" content="{e(canonical)}">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
 <link rel="stylesheet" href="{p}assets/style.css">
 {extra}{ga}</head>
-<body>
+<body data-cat="{current}">
 '''
 
 def header(current, p):
@@ -204,10 +207,11 @@ def thumb(a, p):
     return (f'<span aria-hidden="true" style="font-size:26px;margin-right:8px;">'
             f'{a.get("icon","📦")}</span>IMAGE 16:9')
 
-def card(a, p):
+def card(a, p, lead=False):
     tags = "".join(f'<span class="tag">{e(t)}</span>' for t in a.get("tags", [])[:2])
     tags += f'<span class="tag tag-hot">{e(CAT_LABEL.get(a["category"], ""))}</span>'
-    return f'''        <article class="card">
+    cls = "card is-lead" if lead else "card"
+    return f'''        <article class="{cls} reveal" data-cat="{a["category"]}">
           <a class="card-thumb" href="{p}articles/{e(a["slug"])}.html">{thumb(a, p)}</a>
           <div class="card-body">
             <div class="card-tags">{tags}</div>
@@ -512,14 +516,23 @@ def build_index():
     p = "./"
     feat = [a for a in PUBLISHED if a.get("featured")][:3]
     latest = PUBLISHED[:6]
-    body = hero("", f"{NAME}へようこそ", SITE["description"])
-    if FEAT.get("search"):
-        body += SEARCH_BOX
+    n_pub = len(PUBLISHED)
+    body = f'''      <section class="hero">
+        <span class="hero-eyebrow">実際に使って、正直に書く</span>
+        <h1>買って後悔しないために、<br><span class="accent">悪いところから</span>読める場所。</h1>
+        <p>{e(SITE["description"])}<br>ガジェットからデスク環境、生活家電・日用品まで。現在 {n_pub} 記事を公開しています。</p>
+{SEARCH_BOX if FEAT.get("search") else ""}      </section>
+'''
     if feat:
+        lead_html = card(feat[0], p, lead=True)
+        rest = "\n".join(card(x, p) for x in feat[1:])
         body += f'''      <section class="section-block" style="margin-top:28px;">
         <h2 class="section-heading">注目の記事</h2>
         <p class="section-sub">まず読んでほしい、実際に使い込んだレビューです</p>
-{grid(feat, p)}      </section>
+        <div class="card-grid">
+{lead_html}
+{rest}        </div>
+      </section>
 '''
     body += f'''      <section class="section-block">
         <h2 class="section-heading">新着記事</h2>
