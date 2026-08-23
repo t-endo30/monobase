@@ -1,5 +1,5 @@
 /* ============================================================
-   Kurashi Pick 管理画面
+   モノベース 管理画面
    - 記事データ(content/articles.json) と サイト設定(content/site.json) を
      GitHub Contents API 経由で読み書きする
    - 画像はブラウザ内で圧縮してからアップロード

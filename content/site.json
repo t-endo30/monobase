@@ -1,11 +1,11 @@
 {
-  "site_name": "Kurashi Pick",
+  "site_name": "モノベース",
   "tagline": "暮らしと作業を快適にするおすすめアイテム紹介",
-  "description": "暮らしと作業を快適にするおすすめアイテムを実際に使って紹介するレビューメディアです。",
-  "domain": "moonplace.link",
-  "base_url": "https://moonplace.link",
+  "description": "暮らしと作業を快適にするおすすめアイテムを、実際に使ったうえで正直に紹介するレビューメディアです。",
+  "domain": "monobase.site",
+  "base_url": "https://monobase.site",
   "author": "運営者名",
-  "email": "info@example.com",
+  "email": "info@monobase.site",
   "founded": "2026",
   "analytics": {
     "ga_measurement_id": "",
