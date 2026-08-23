@@ -398,7 +398,14 @@
 
       <div class="btn-bar">
         <button class="btn btn-primary" id="btnConnect">接続する</button>
+        <button class="btn btn-ghost" id="btnTest">接続テスト</button>
         <button class="btn btn-ghost" id="btnDisconnect">接続を解除</button>
+      </div>
+
+      <label>診断ログ<span class="opt">通信の結果がここに出ます</span></label>
+      <pre id="logBox" class="logbox">まだ通信していません。</pre>
+      <div class="btn-bar">
+        <button class="btn btn-ghost" id="btnClearLog" style="min-height:36px;font-size:12.5px;">ログを消す</button>
       </div>
     </div>
 

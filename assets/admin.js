@@ -19,6 +19,28 @@
   /* ---------------------------------------------------- utils */
   var $ = function (id) { return document.getElementById(id); };
 
+  /* ---- 診断ログ ---- */
+  function log(msg, kind) {
+    var box = document.getElementById('logBox');
+    if (!box) return;
+    if (box.textContent.indexOf('まだ通信していません') === 0) box.textContent = '';
+    var t = new Date().toTimeString().slice(0, 8);
+    var span = document.createElement('span');
+    span.className = kind || 'dim';
+    span.textContent = '[' + t + '] ' + msg + '\n';
+    box.appendChild(span);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  /* JSエラーを画面に出す（原因が見えないまま止まるのを防ぐ） */
+  window.addEventListener('error', function (ev) {
+    log('JSエラー: ' + ev.message + ' (' + (ev.filename || '').split('/').pop() + ':' + ev.lineno + ')', 'err');
+    toast('エラーが発生しました。接続タブの診断ログを確認してください', 'err');
+  });
+  window.addEventListener('unhandledrejection', function (ev) {
+    log('未処理エラー: ' + (ev.reason && ev.reason.message ? ev.reason.message : ev.reason), 'err');
+  });
+
   function toast(msg, kind) {
     var t = $('toast');
     t.textContent = msg;
@@ -83,6 +105,7 @@
   function api(path, opts) {
     opts = opts || {};
     var url = 'https://api.github.com/repos/' + cfg.owner + '/' + cfg.repo + '/' + path;
+    log((opts.method || 'GET') + ' ' + url.replace('https://api.github.com/repos/', ''));
     return fetch(url, {
       method: opts.method || 'GET',
       headers: {
@@ -92,14 +115,20 @@
       },
       body: opts.body ? JSON.stringify(opts.body) : undefined
     }).then(function (r) {
+      log('  → HTTP ' + r.status, r.ok ? 'ok' : 'err');
       if (r.status === 404 && opts.allow404) return null;
       if (!r.ok) {
         return r.json().catch(function () { return {}; }).then(function (j) {
+          var detail = j.message || '';
+          if (j.errors) { try { detail += ' / ' + JSON.stringify(j.errors); } catch (e) {} }
+          log('  → ' + detail, 'err');
           throw new Error(
-            r.status === 401 ? 'トークンが無効です。接続タブで再設定してください。' :
-            r.status === 403 ? 'アクセスが拒否されました。トークンの Contents 権限を確認してください。' :
-            r.status === 409 ? 'リポジトリ側が更新されています。「再読み込み」を押してからやり直してください。' :
-            (j.message || ('APIエラー: ' + r.status))
+            r.status === 401 ? 'トークンが無効か期限切れです（401）。接続タブで作り直してください。' :
+            r.status === 403 ? 'アクセスが拒否されました（403）。トークンに Contents の書き込み権限がありません。' :
+            r.status === 404 ? 'リポジトリまたはファイルが見つかりません（404）。ユーザー名・リポジトリ名・ブランチ名を確認してください。' :
+            r.status === 409 ? 'リポジトリ側が更新されています（409）。「再読み込み」を押してからやり直してください。' :
+            r.status === 422 ? 'ファイルの状態が合いません（422）。「再読み込み」を押してからやり直してください。' :
+            (detail || ('APIエラー: ' + r.status))
           );
         });
       }
@@ -548,16 +577,26 @@
 
   /* ---------------------------------------------------- 保存 */
   function saveArticles() {
-    if (!cfg.token) { toast('先に接続タブでGitHubを設定してください', 'err'); return; }
+    if (!cfg.token) {
+      log('保存できません：GitHubに未接続です', 'err');
+      toast('GitHubに未接続です。「接続」タブで設定してください', 'err');
+      showPanel('p-connect');
+      return;
+    }
     var json = JSON.stringify(articles, null, 2) + '\n';
+    log('記事を保存します: ' + articles.length + '件 / sha=' + (shaArticles ? shaArticles.slice(0, 7) : 'なし'));
     toast('保存中…');
     putFile('content/articles.json', b64encode(json), shaArticles,
             '記事を更新（管理画面より）')
       .then(function (res) {
         shaArticles = res.content.sha;
+        log('保存完了 commit=' + (res.commit && res.commit.sha ? res.commit.sha.slice(0, 7) : '?'), 'ok');
         toast('保存しました。1〜2分でサイトに反映されます', 'ok');
       })
-      .catch(function (e) { toast(e.message, 'err'); });
+      .catch(function (e) {
+        log('保存失敗: ' + e.message, 'err');
+        toast(e.message, 'err');
+      });
   }
 
   function saveSite(msg) {
@@ -767,6 +806,61 @@
     loadAll().then(function () { showPanel('p-articles'); });
   });
 
+  $('btnTest').addEventListener('click', function () {
+    var owner = $('g-owner').value.trim();
+    var repo = $('g-repo').value.trim();
+    var branch = $('g-branch').value.trim() || 'main';
+    var token = $('g-token').value.trim();
+    if (!owner || !repo || !token) { toast('ユーザー名・リポジトリ名・トークンを入力してください', 'err'); return; }
+
+    log('---- 接続テスト開始 ----');
+    log('owner=' + owner + ' repo=' + repo + ' branch=' + branch + ' token=' + token.slice(0, 8) + '…');
+
+    fetch('https://api.github.com/user', {
+      headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json' }
+    }).then(function (r) {
+      log('1. トークン確認 → HTTP ' + r.status, r.ok ? 'ok' : 'err');
+      if (!r.ok) throw new Error('トークンが無効です（HTTP ' + r.status + '）');
+      return r.json();
+    }).then(function (u) {
+      log('   ログイン中: ' + u.login, 'ok');
+      return fetch('https://api.github.com/repos/' + owner + '/' + repo, {
+        headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json' }
+      });
+    }).then(function (r) {
+      log('2. リポジトリ確認 → HTTP ' + r.status, r.ok ? 'ok' : 'err');
+      if (!r.ok) throw new Error('リポジトリが見つかりません（HTTP ' + r.status + '）');
+      return r.json();
+    }).then(function (repoInfo) {
+      log('   ' + repoInfo.full_name + ' / 既定ブランチ=' + repoInfo.default_branch, 'ok');
+      if (repoInfo.default_branch !== branch) {
+        log('   ⚠ 入力したブランチ(' + branch + ')が既定(' + repoInfo.default_branch + ')と異なります', 'err');
+      }
+      if (repoInfo.permissions && !repoInfo.permissions.push) {
+        log('   ⚠ 書き込み権限がありません。トークンのスコープを確認してください', 'err');
+      }
+      return fetch('https://api.github.com/repos/' + owner + '/' + repo +
+                   '/contents/content/articles.json?ref=' + encodeURIComponent(branch), {
+        headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json' }
+      });
+    }).then(function (r) {
+      log('3. articles.json 確認 → HTTP ' + r.status, r.ok ? 'ok' : 'err');
+      if (!r.ok) throw new Error('content/articles.json が見つかりません（HTTP ' + r.status + '）');
+      return r.json();
+    }).then(function (f) {
+      log('   sha=' + f.sha.slice(0, 7) + ' size=' + f.size + 'バイト', 'ok');
+      log('---- ✅ すべて正常。「接続する」を押してください ----', 'ok');
+      toast('接続テスト成功', 'ok');
+    }).catch(function (e) {
+      log('---- ❌ ' + e.message + ' ----', 'err');
+      toast(e.message, 'err');
+    });
+  });
+
+  $('btnClearLog').addEventListener('click', function () {
+    document.getElementById('logBox').textContent = 'まだ通信していません。';
+  });
+
   $('btnDisconnect').addEventListener('click', function () {
     try { localStorage.removeItem(LS); } catch (e) { /* noop */ }
     cfg = { owner: '', repo: '', branch: 'main', token: '' };
@@ -822,5 +916,6 @@
 
   /* ---------------------------------------------------- 起動 */
   loadCfg();
+  log('管理画面を起動しました' + (cfg.token ? '（保存済みの接続情報あり）' : '（未接続）'));
   loadAll();
 })();

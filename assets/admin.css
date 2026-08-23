@@ -134,3 +134,22 @@ textarea{resize:vertical;line-height:1.75;}
   .row.c3{grid-template-columns:1fr 1fr 1fr;}
   .card{padding:24px;}
 }
+
+/* 診断ログ */
+.logbox{
+  background:#0F1420;
+  color:#C8D4E6;
+  border-radius:8px;
+  padding:12px 14px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12px;
+  line-height:1.75;
+  max-height:280px;
+  overflow:auto;
+  white-space:pre-wrap;
+  word-break:break-all;
+  margin:0;
+}
+.logbox .ok{color:#5DD9A0;}
+.logbox .err{color:#FF8B76;}
+.logbox .dim{color:#7C8AA0;}
