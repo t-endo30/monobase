@@ -40,6 +40,30 @@
   }
   function today() { return new Date().toISOString().slice(0, 10); }
 
+  /* ---- Amazon URL から ASIN を抽出する ----
+     商品ページ・モバイル版・短縮リンク展開後など、主要な形式に対応 */
+  function extractAsin(str) {
+    if (!str) return '';
+    var t = String(str).trim();
+
+    /* すでにASINそのものが入力されている場合 */
+    if (/^[A-Z0-9]{10}$/i.test(t)) return t.toUpperCase();
+
+    var patterns = [
+      /\/dp\/([A-Z0-9]{10})/i,          /* /dp/B0XXXXXXXX          */
+      /\/gp\/product\/([A-Z0-9]{10})/i, /* /gp/product/B0XXXXXXXX  */
+      /\/gp\/aw\/d\/([A-Z0-9]{10})/i,   /* モバイル版               */
+      /\/product\/([A-Z0-9]{10})/i,     /* /product/B0XXXXXXXX     */
+      /[?&]asin=([A-Z0-9]{10})/i,       /* ?asin=B0XXXXXXXX        */
+      /\/([A-Z0-9]{10})(?:[/?#]|$)/i     /* 末尾がASINのパターン     */
+    ];
+    for (var i = 0; i < patterns.length; i++) {
+      var m = t.match(patterns[i]);
+      if (m) return m[1].toUpperCase();
+    }
+    return '';
+  }
+
   function slugify(s) {
     return String(s).toLowerCase()
       .replace(/[^a-z0-9\-\s]/g, '').trim()
@@ -448,6 +472,25 @@
     if (a.published && !a.description) return '公開する記事にはメタディスクリプションが必要です。';
     return null;
   }
+
+  /* ASIN欄にAmazonのURLを貼り付けたら、自動でASINだけ取り出す */
+  (function () {
+    var el = $('f-asin');
+    if (!el) return;
+    function convert() {
+      var raw = el.value.trim();
+      if (!raw || /^[A-Z0-9]{10}$/.test(raw)) return;
+      var asin = extractAsin(raw);
+      if (asin) {
+        el.value = asin;
+        toast('URLからASIN「' + asin + '」を取り出しました', 'ok');
+      } else if (raw.length > 12) {
+        toast('このURLからASINを取り出せませんでした', 'err');
+      }
+    }
+    el.addEventListener('paste', function () { setTimeout(convert, 0); });
+    el.addEventListener('blur', convert);
+  })();
 
   $('btnNew').addEventListener('click', function () { openEditor(blank()); });
 

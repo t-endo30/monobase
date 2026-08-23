@@ -115,8 +115,8 @@
       <p class="hint">記事内3か所と、スマホ下部の追従ボタンに使われます。</p>
       <div class="row c2">
         <div>
-          <label for="f-asin">ASIN<span class="opt">推奨・10桁の英数字</span></label>
-          <input type="text" id="f-asin" placeholder="B0XXXXXXXX" maxlength="10">
+          <label for="f-asin">ASIN<span class="opt">商品ページURLを貼るだけでOK</span></label>
+          <input type="text" id="f-asin" placeholder="URLを貼り付けるか B0XXXXXXXX を入力">
         </div>
         <div>
           <label for="f-cta">ボタンの文言</label>
@@ -124,7 +124,9 @@
         </div>
       </div>
       <div class="note">
-        <b>ASIN を入れておくのが確実です。</b>商品ページURLの <code>/dp/</code> の直後にある10桁の英数字がASINです。<br>
+        <b>Amazonの商品ページURLをそのまま貼り付けてください。</b>ASINを自動で抜き出します。<br>
+        <code>/dp/</code> <code>/gp/product/</code> モバイル版など主要な形式に対応しています。
+        短縮リンク（amzn.to）は展開が必要なため、ブラウザで開いてから本来のURLを貼ってください。<br>
         アソシエイトIDは「サイト設定」で一括管理され、リンクは
         <code>https://www.amazon.co.jp/dp/{ASIN}?tag={ID}</code> の形で自動生成されます。
         ID変更時も全記事へ自動反映されるため、記事ごとに貼り直す必要がありません。
