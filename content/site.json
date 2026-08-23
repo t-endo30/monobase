@@ -1,0 +1,46 @@
+{
+  "site_name": "Kurashi Pick",
+  "tagline": "暮らしと作業を快適にするおすすめアイテム紹介",
+  "description": "暮らしと作業を快適にするおすすめアイテムを実際に使って紹介するレビューメディアです。",
+  "domain": "moonplace.link",
+  "base_url": "https://moonplace.link",
+  "author": "運営者名",
+  "email": "info@example.com",
+  "founded": "2026",
+  "analytics": {
+    "ga_measurement_id": "",
+    "gsc_verification": ""
+  },
+  "features": {
+    "contact_form": false,
+    "contact_form_endpoint": "",
+    "sticky_cta": true,
+    "search": true
+  },
+  "categories": [
+    {
+      "key": "gadget",
+      "label": "ガジェット・PC周辺",
+      "icon": "💻",
+      "lead": "イヤホン、キーボード、モニター、充電器など。毎日使うものだからこそ、実際に使い込んでから良い点も気になる点も正直にお伝えします。"
+    },
+    {
+      "key": "desk",
+      "label": "デスク環境・家具",
+      "icon": "🪑",
+      "lead": "在宅ワークの快適さは、机と椅子まわりでほぼ決まります。長時間座っても疲れにくい環境づくりに役立つアイテムを紹介します。"
+    },
+    {
+      "key": "home",
+      "label": "生活家電・日用品",
+      "icon": "🏠",
+      "lead": "加湿器や掃除機のような家電から、毎日使う日用品まで。家事の手間をどれだけ減らせるかという視点で紹介します。"
+    },
+    {
+      "key": "compare",
+      "label": "比較・まとめ",
+      "icon": "📊",
+      "lead": "複数の候補で迷ったときに読む記事です。スペックの数字だけでなく、実際に使ったときに効いてくる差を基準にまとめています。"
+    }
+  ]
+}

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>管理画面 - Kurashi Pick</title>
+<link rel="stylesheet" href="./assets/admin.css">
+</head>
+<body>
+
+<header class="a-header">
+  <div class="wrap">
+    <h1>Kurashi Pick 管理画面<span class="sub">記事・サイト設定・画像をブラウザから編集</span></h1>
+    <div class="conn"><span class="dot" id="connDot"></span><span id="connText">未接続</span></div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="wrap">
+    <button class="tab is-active" data-panel="p-articles">記事</button>
+    <button class="tab" data-panel="p-edit">編集</button>
+    <button class="tab" data-panel="p-images">画像</button>
+    <button class="tab" data-panel="p-settings">サイト設定</button>
+    <button class="tab" data-panel="p-analytics">解析・SEO</button>
+    <button class="tab" data-panel="p-connect">接続</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ============================ 記事一覧 ============================ -->
+  <section class="panel is-active" id="p-articles">
+    <div class="card">
+      <h2>記事一覧</h2>
+      <p class="hint">公開／下書きの切り替え、編集、削除ができます。保存すると GitHub にコミットされ、自動でサイトが再ビルドされます。</p>
+      <div class="stat">
+        <div><b id="statAll">0</b><span>全記事</span></div>
+        <div><b id="statPub">0</b><span>公開中</span></div>
+        <div><b id="statDraft">0</b><span>下書き</span></div>
+      </div>
+      <div class="btn-bar">
+        <button class="btn btn-accent" id="btnNew">＋ 新規記事を作成</button>
+        <button class="btn btn-ghost" id="btnReload">再読み込み</button>
+        <button class="btn btn-primary" id="btnSaveArticles">GitHubに保存して公開</button>
+      </div>
+    </div>
+    <div class="card">
+      <ul class="list" id="articleList"></ul>
+    </div>
+  </section>
+
+  <!-- ============================ 記事編集 ============================ -->
+  <section class="panel" id="p-edit">
+    <div class="card">
+      <h2 id="editTitle">記事を編集</h2>
+      <p class="hint">入力内容はブラウザ内に即時保存されます。サイトに反映するには「記事」タブの「GitHubに保存して公開」を押してください。</p>
+
+      <div class="row c2">
+        <div>
+          <label for="f-title">記事タイトル（H1）</label>
+          <textarea id="f-title" rows="2"></textarea>
+        </div>
+        <div>
+          <label for="f-listTitle">一覧用の短いタイトル<span class="opt">カード表示に使用</span></label>
+          <textarea id="f-listTitle" rows="2"></textarea>
+        </div>
+      </div>
+
+      <div class="row c3">
+        <div>
+          <label for="f-slug">スラッグ<span class="opt">URLになる英数字</span></label>
+          <input type="text" id="f-slug" placeholder="xyz-100-review">
+        </div>
+        <div>
+          <label for="f-category">カテゴリー</label>
+          <select id="f-category"></select>
+        </div>
+        <div>
+          <label for="f-icon">アイコン絵文字</label>
+          <input type="text" id="f-icon" maxlength="4" placeholder="🎧">
+        </div>
+      </div>
+
+      <div class="row c3">
+        <div>
+          <label for="f-date">公開日</label>
+          <input type="date" id="f-date">
+        </div>
+        <div>
+          <label for="f-updated">更新日</label>
+          <input type="date" id="f-updated">
+        </div>
+        <div>
+          <label for="f-thumb">アイキャッチ画像<span class="opt">画像タブから選択</span></label>
+          <input type="text" id="f-thumb" placeholder="assets/img/xxx.webp">
+        </div>
+      </div>
+
+      <div class="check"><input type="checkbox" id="f-published"><label for="f-published">公開する（オフで下書き。サイトには一切出力されません）</label></div>
+      <div class="check"><input type="checkbox" id="f-featured"><label for="f-featured">トップページの「注目の記事」に表示する</label></div>
+
+      <label for="f-description">メタディスクリプション<span class="opt">検索結果に出る説明文・120字程度</span></label>
+      <textarea id="f-description" rows="3"></textarea>
+
+      <label for="f-excerpt">カード用の抜粋<span class="opt">一覧に表示される1〜2文</span></label>
+      <textarea id="f-excerpt" rows="2"></textarea>
+
+      <label for="f-tags">タグ<span class="opt">カンマ区切り。検索の絞り込みに使われます</span></label>
+      <input type="text" id="f-tags" placeholder="レビュー, イヤホン, ノイズキャンセリング">
+    </div>
+
+    <div class="card">
+      <h2>アフィリエイトボタン</h2>
+      <p class="hint">記事内3か所と、スマホ下部の追従ボタンに使われます。</p>
+      <div class="row c2">
+        <div>
+          <label for="f-amazon">Amazonアソシエイトリンク</label>
+          <input type="url" id="f-amazon" placeholder="https://amzn.to/xxxxxxx">
+        </div>
+        <div>
+          <label for="f-cta">ボタンの文言</label>
+          <input type="text" id="f-cta" placeholder="Amazonで最新価格を見る">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>結論ボックス</h2>
+      <p class="hint">ファーストビューに表示される最重要パートです。読者はここだけ読んで離脱することもあります。</p>
+      <label for="f-verdict">見出し</label>
+      <input type="text" id="f-verdict" placeholder="結論：〜なら「買い」">
+      <label>要点<span class="opt">3〜4項目が目安</span></label>
+      <div id="r-summary"></div>
+      <button class="btn btn-ghost" data-add="summary" style="min-height:38px;font-size:13px;">＋ 項目を追加</button>
+      <div class="row c2">
+        <div>
+          <label for="f-score">評価スコア<span class="opt">0にすると非表示</span></label>
+          <input type="number" id="f-score" min="0" max="5" step="0.1">
+        </div>
+        <div>
+          <label for="f-breakdown">評価の内訳</label>
+          <input type="text" id="f-breakdown" placeholder="音質4.5・装着感4.5・通話3.0">
+        </div>
+      </div>
+      <label for="f-lead">導入文<span class="opt">HTMLタグ使用可</span></label>
+      <textarea id="f-lead" rows="3"></textarea>
+    </div>
+
+    <div class="card">
+      <h2>メリット・デメリット</h2>
+      <p class="hint">デメリットを正直に書くほど成約率は上がります。空欄にするとボックス自体が非表示になります。</p>
+      <label>👍 メリット</label>
+      <div id="r-pros"></div>
+      <button class="btn btn-ghost" data-add="pros" style="min-height:38px;font-size:13px;">＋ 追加</button>
+      <label>👎 デメリット</label>
+      <div id="r-cons"></div>
+      <button class="btn btn-ghost" data-add="cons" style="min-height:38px;font-size:13px;">＋ 追加</button>
+    </div>
+
+    <div class="card">
+      <h2>スペック比較表</h2>
+      <p class="hint">1行目が見出し行です。2列目が自社推し列としてハイライトされます。行は「項目名, 値1, 値2, 値3」のようにカンマ区切りで入力してください。</p>
+      <label for="f-specIntro">表の前に置く説明文</label>
+      <input type="text" id="f-specIntro">
+      <label for="f-specHeaders">見出し行<span class="opt">カンマ区切り</span></label>
+      <input type="text" id="f-specHeaders" placeholder="項目, 本製品, A社, B社">
+      <label for="f-specRows">表の中身<span class="opt">1行1レコード・カンマ区切り</span></label>
+      <textarea id="f-specRows" rows="10" placeholder="参考価格, 12800円, 15980円, 9980円&#10;重量, 4.3g, 5.1g, 4.8g"></textarea>
+      <div class="note">◎○△×は <code>&lt;span class="mark-o"&gt;◎&lt;/span&gt;</code> のように書くと色が付きます。空欄にすると比較表セクションごと非表示になります。</div>
+    </div>
+
+    <div class="card">
+      <h2>気になる点と対策</h2>
+      <p class="hint">口コミの不満点を挙げ、その対策を示すセクションです。購入不安の払拭に効きます。</p>
+      <label for="f-voicesIntro">セクションの導入文</label>
+      <input type="text" id="f-voicesIntro">
+      <div id="r-voices"></div>
+      <button class="btn btn-ghost" data-add="voices" style="min-height:38px;font-size:13px;">＋ 口コミ＋対策を追加</button>
+    </div>
+
+    <div class="card">
+      <h2>まとめ</h2>
+      <label for="f-conclTitle">見出し</label>
+      <input type="text" id="f-conclTitle" placeholder="まとめ：〜なら第一候補">
+      <label for="f-conclusion">本文<span class="opt">HTMLタグ使用可</span></label>
+      <textarea id="f-conclusion" rows="5"></textarea>
+
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnApply">この記事を保存</button>
+        <button class="btn btn-ghost" id="btnPreview">プレビュー（新規タブ）</button>
+        <button class="btn btn-danger" id="btnDelete">この記事を削除</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 画像 ============================ -->
+  <section class="panel" id="p-images">
+    <div class="card">
+      <h2>画像のアップロード（自動圧縮）</h2>
+      <p class="hint">選んだ画像はブラウザ内で自動的にリサイズ・WebP変換されてからアップロードされます。GitHubの容量制限対策のため、常に圧縮されます。</p>
+
+      <div class="row c3">
+        <div>
+          <label for="imgMaxW">最大の横幅<span class="opt">px</span></label>
+          <input type="number" id="imgMaxW" value="1200" min="400" max="2400" step="100">
+        </div>
+        <div>
+          <label for="imgQuality">画質<span class="opt">0.5〜0.95</span></label>
+          <input type="number" id="imgQuality" value="0.82" min="0.5" max="0.95" step="0.01">
+        </div>
+        <div>
+          <label for="imgFormat">形式</label>
+          <select id="imgFormat">
+            <option value="image/webp">WebP（推奨・最も軽い）</option>
+            <option value="image/jpeg">JPEG（互換性重視）</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="imgdrop" id="imgDrop">
+        画像をここにドラッグ＆ドロップ、またはクリックして選択<br>
+        <small>JPEG / PNG / WebP に対応。複数選択できます。</small>
+      </div>
+      <input type="file" id="imgInput" accept="image/*" multiple class="hidden">
+
+      <div class="imgpreview" id="imgPreview"></div>
+
+      <div class="note warn">
+        圧縮結果を確認してから「GitHubにアップロード」を押してください。アップロード後に表示されるパスを、記事編集画面の「アイキャッチ画像」欄に貼り付けます。
+      </div>
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnUploadImages" disabled>GitHubにアップロード</button>
+        <button class="btn btn-ghost" id="btnClearImages">クリア</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ サイト設定 ============================ -->
+  <section class="panel" id="p-settings">
+    <div class="card">
+      <h2>基本設定</h2>
+      <p class="hint">ここでの変更は全ページのヘッダー・フッター・メタ情報に反映されます。</p>
+      <div class="row c2">
+        <div><label for="s-name">サイト名</label><input type="text" id="s-name"></div>
+        <div><label for="s-tagline">キャッチコピー</label><input type="text" id="s-tagline"></div>
+      </div>
+      <label for="s-desc">サイトの説明<span class="opt">トップページのメタディスクリプション</span></label>
+      <textarea id="s-desc" rows="2"></textarea>
+      <div class="row c3">
+        <div><label for="s-domain">独自ドメイン<span class="opt">CNAMEに書き出されます</span></label><input type="text" id="s-domain" placeholder="example.com"></div>
+        <div><label for="s-baseurl">サイトURL</label><input type="url" id="s-baseurl" placeholder="https://example.com"></div>
+        <div><label for="s-email">連絡先メール</label><input type="text" id="s-email"></div>
+      </div>
+      <div class="row c2">
+        <div><label for="s-author">運営者名</label><input type="text" id="s-author"></div>
+        <div><label for="s-founded">開設年</label><input type="text" id="s-founded"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>機能のON / OFF</h2>
+      <p class="hint">必要になったときにチェックを入れるだけで、該当ページ・パーツが生成されます。</p>
+      <div class="check"><input type="checkbox" id="s-contact"><label for="s-contact">お問い合わせフォームを設置する</label></div>
+      <div id="contactWrap" class="hidden">
+        <label for="s-contactEndpoint">フォームの送信先URL</label>
+        <input type="url" id="s-contactEndpoint" placeholder="https://formspree.io/f/xxxxxxxx">
+        <div class="note">GitHub Pages はサーバー処理ができないため、外部サービスの受信URLが必要です。<br>
+          無料で使える代表例：<b>Formspree</b>（月50件まで無料）／<b>Googleフォーム</b>（無制限・デザインは埋め込み）／<b>Cloudflare Workers</b>。<br>
+          未設定のあいだは、フッターのメールリンクだけが表示されます。</div>
+      </div>
+      <div class="check"><input type="checkbox" id="s-sticky"><label for="s-sticky">スマホ下部に追従するアフィリエイトボタンを表示する</label></div>
+      <div class="check"><input type="checkbox" id="s-search"><label for="s-search">サイト内検索を有効にする</label></div>
+
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnSaveSettings">GitHubに保存して反映</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 解析・SEO ============================ -->
+  <section class="panel" id="p-analytics">
+    <div class="card">
+      <h2>Google Analytics</h2>
+      <p class="hint">測定IDを入力して保存すると、全ページの &lt;head&gt; に GA4 のタグが自動で挿入されます。</p>
+      <label for="s-ga">測定ID<span class="opt">G- から始まる文字列</span></label>
+      <input type="text" id="s-ga" placeholder="G-XXXXXXXXXX">
+      <div class="note">
+        取得手順：<a href="https://analytics.google.com/" target="_blank" rel="noopener">Google Analytics</a> → 管理 → プロパティを作成 → データストリーム → ウェブ → サイトURLを入力 → 表示される「測定ID」をコピー。
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Google Search Console</h2>
+      <p class="hint">HTMLタグでの所有権確認に使うコードです。保存すると全ページに meta タグが挿入されます。</p>
+      <label for="s-gsc">確認コード<span class="opt">content="..." の中身だけ</span></label>
+      <input type="text" id="s-gsc" placeholder="abcdefg1234567_HIJKLMN...">
+      <div class="note">
+        取得手順：<a href="https://search.google.com/search-console" target="_blank" rel="noopener">Search Console</a> → プロパティを追加 → 「URLプレフィックス」を選択 → 所有権の確認で「HTMLタグ」を開く → <code>content="…"</code> の中身をコピー。<br>
+        保存・デプロイ後に「確認」を押してください。確認後、サイトマップに <code>sitemap.xml</code> を送信します。
+      </div>
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnSaveAnalytics">GitHubに保存して反映</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>公開後のチェックリスト</h2>
+      <ul style="font-size:13.5px;line-height:2;">
+        <li>Search Console でサイトマップ（<code>sitemap.xml</code>）を送信した</li>
+        <li>Analytics のリアルタイムで自分のアクセスが計測された</li>
+        <li>Amazonアソシエイトに独自ドメインを登録した</li>
+        <li>プライバシーポリシーにアクセス解析の記載がある（自動で入っています）</li>
+        <li>スマホの実機で、追従ボタンとカテゴリナビの表示を確認した</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================ 接続 ============================ -->
+  <section class="panel" id="p-connect">
+    <div class="card">
+      <h2>GitHub との接続</h2>
+      <p class="hint">この画面から直接コミットするための設定です。入力内容はこのブラウザ内（localStorage）にのみ保存され、外部に送信されるのは GitHub API だけです。</p>
+      <div class="row c3">
+        <div><label for="g-owner">ユーザー名 / Organization</label><input type="text" id="g-owner" placeholder="your-account"></div>
+        <div><label for="g-repo">リポジトリ名</label><input type="text" id="g-repo" placeholder="kurashi-pick"></div>
+        <div><label for="g-branch">ブランチ</label><input type="text" id="g-branch" placeholder="main" value="main"></div>
+      </div>
+      <label for="g-token">アクセストークン<span class="opt">Fine-grained personal access token</span></label>
+      <input type="password" id="g-token" placeholder="github_pat_...">
+
+      <div class="note danger">
+        <b>トークンの作り方（必ず権限を絞ってください）</b><br>
+        GitHub → Settings → Developer settings → Personal access tokens → <b>Fine-grained tokens</b> → Generate new token<br>
+        ・Repository access：<b>Only select repositories</b> でこのリポジトリだけを選択<br>
+        ・Permissions：<b>Contents = Read and write</b> のみ（他は不要）<br>
+        ・Expiration：90日など期限を必ず設定<br>
+        このトークンは他人と共有しないでください。共有PCでは使用後に「接続を解除」を押してください。
+      </div>
+
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnConnect">接続する</button>
+        <button class="btn btn-ghost" id="btnDisconnect">接続を解除</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>オフラインで使う場合</h2>
+      <p class="hint">GitHubに接続せず、編集結果をファイルとして書き出すこともできます。書き出した JSON を <code>content/</code> に置いて <code>python3 build.py</code> を実行してください。</p>
+      <div class="btn-bar">
+        <button class="btn btn-ghost" id="btnExportArticles">articles.json を書き出す</button>
+        <button class="btn btn-ghost" id="btnExportSite">site.json を書き出す</button>
+        <button class="btn btn-ghost" id="btnImport">JSONを読み込む</button>
+        <input type="file" id="importInput" accept="application/json" class="hidden">
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="./assets/admin.js"></script>
+</body>
+</html>

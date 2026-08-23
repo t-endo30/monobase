@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サイト内検索 - Kurashi Pick</title>
+<meta name="description" content="Kurashi Pickのサイト内検索。キーワードとタグで記事を絞り込めます。">
+<link rel="canonical" href="https://moonplace.link/search.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="サイト内検索 - Kurashi Pick">
+<meta property="og:description" content="Kurashi Pickのサイト内検索。キーワードとタグで記事を絞り込めます。">
+<meta property="og:site_name" content="Kurashi Pick">
+<meta property="og:url" content="https://moonplace.link/search.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="site-brand">
+      <div class="site-title"><a href="./index.html">Kurashi Pick</a></div>
+      <div class="site-tagline">暮らしと作業を快適にするおすすめアイテム紹介</div>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="globalNav" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="global-nav" id="globalNav">
+      <ul>
+        <li><a href="./index.html">ホーム</a></li>
+        <li><a href="./search.html">検索</a></li>
+        <li><a href="./about.html">運営者情報</a></li>
+        <li><a href="mailto:info@example.com">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- カテゴリーナビゲーション -->
+<nav class="cat-nav" aria-label="カテゴリー">
+  <div class="container">
+    <ul class="cat-nav-list">
+      <li><a href="./index.html">ALL</a></li>
+      <li><a href="./category-gadget.html"><span class="cat-icon" aria-hidden="true">💻</span>ガジェット・PC周辺</a></li>
+      <li><a href="./category-desk.html"><span class="cat-icon" aria-hidden="true">🪑</span>デスク環境・家具</a></li>
+      <li><a href="./category-home.html"><span class="cat-icon" aria-hidden="true">🏠</span>生活家電・日用品</a></li>
+      <li><a href="./category-compare.html"><span class="cat-icon" aria-hidden="true">📊</span>比較・まとめ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 広告表記 -->
+<div class="site-notice">
+  <div class="container">
+    <p>
+      <span class="notice-label">お知らせ</span>
+      当サイトの記事には広告（Amazonアソシエイト等）を含みます。掲載価格・在庫は執筆時点のもので、最新情報は販売ページをご確認ください。
+    </p>
+  </div>
+</div>
+
+<main id="top" class="layout">
+  <div class="container">
+      <div class="breadcrumb"><a href="./index.html">ホーム</a><span>›</span>サイト内検索</div>
+      <div class="page-hero">
+        <span class="page-hero-icon" aria-hidden="true">🔍</span>
+        <h1>サイト内検索</h1>
+        <p>キーワードやタグから記事を探せます。すべてブラウザ内で動作するため、入力内容が送信されることはありません。</p>
+      </div>
+
+      <div class="search-panel">
+        <form class="searchbox" role="search" onsubmit="return false;">
+          <input type="search" id="searchInput" placeholder="キーワードを入力（例：加湿器、腰痛、イヤホン）" aria-label="サイト内検索" autocomplete="off">
+          <button type="button" id="searchClear">クリア</button>
+        </form>
+
+        <div class="chip-group">
+          <span class="chip-label">カテゴリー</span>
+          <div class="chips" id="catChips">
+          <button type="button" class="chip" data-cat="gadget">💻 ガジェット・PC周辺</button>
+          <button type="button" class="chip" data-cat="desk">🪑 デスク環境・家具</button>
+          <button type="button" class="chip" data-cat="home">🏠 生活家電・日用品</button>
+          <button type="button" class="chip" data-cat="compare">📊 比較・まとめ</button>
+          </div>
+        </div>
+
+        <div class="chip-group">
+          <span class="chip-label">タグ</span>
+          <div class="chips" id="tagChips">
+          <button type="button" class="chip" data-tag="イヤホン">イヤホン</button>
+          <button type="button" class="chip" data-tag="ノイズキャンセリング">ノイズキャンセリング</button>
+          <button type="button" class="chip" data-tag="ランキング">ランキング</button>
+          <button type="button" class="chip" data-tag="レビュー">レビュー</button>
+          <button type="button" class="chip" data-tag="冬支度">冬支度</button>
+          <button type="button" class="chip" data-tag="加湿器">加湿器</button>
+          <button type="button" class="chip" data-tag="在宅ワーク">在宅ワーク</button>
+          <button type="button" class="chip" data-tag="比較">比較</button>
+          <button type="button" class="chip" data-tag="腰痛対策">腰痛対策</button>
+          <button type="button" class="chip" data-tag="選び方">選び方</button>
+          </div>
+        </div>
+
+        <p class="search-status" id="searchStatus" aria-live="polite"></p>
+      </div>
+
+      <section class="section-block" style="margin-top:20px;">
+        <div class="card-grid" id="searchResults"></div>
+        <p class="empty-state" id="searchEmpty" hidden>該当する記事が見つかりませんでした。キーワードを短くするか、タグの選択を解除してみてください。</p>
+      </section>
+  </div>
+</main>
+
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>Kurashi Pick</h3>
+        <p>暮らしと作業を快適にするおすすめアイテム紹介をコンセプトに、実際に使ったアイテムを紹介するメディアです。良い点も悪い点も正直にお伝えし、あなたの「買って後悔した」を減らすことを目指しています。</p>
+      </div>
+      <div class="footer-col">
+        <h3>カテゴリー</h3>
+        <ul>
+          <li><a href="./category-gadget.html">ガジェット・PC周辺</a></li>
+          <li><a href="./category-desk.html">デスク環境・家具</a></li>
+          <li><a href="./category-home.html">生活家電・日用品</a></li>
+          <li><a href="./category-compare.html">比較・まとめ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>サイト情報</h3>
+        <ul>
+          <li><a href="./privacy.html">プライバシーポリシー</a></li>
+          <li><a href="./disclaimer.html">免責事項</a></li>
+          <li><a href="./about.html">運営者情報</a></li>
+          <li><a href="./search.html">サイト内検索</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>お問い合わせ</h3>
+        <p>記事内容の誤り・掲載依頼などはメールでご連絡ください。通常3営業日以内に返信いたします。</p>
+        <a class="footer-contact-btn" href="mailto:info@example.com">メールで問い合わせる</a>
+      </div>
+    </div>
+
+    <p class="assoc-note">
+      当サイトは、Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定されたアフィリエイトプログラムである、Amazonアソシエイト・プログラムの参加者です。<br>
+      Amazon、Amazon.co.jp およびそれらのロゴは Amazon.com, Inc. またはその関連会社の商標です。
+    </p>
+
+    <p class="copyright">&copy; 2026 Kurashi Pick. All rights reserved.</p>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="ページ上部へ戻る">▲</button>
+
+<script src="./assets/main.js"></script>
+<script src="./assets/search.js"></script>
+</body>
+</html>
