@@ -13,6 +13,8 @@ Kurashi Pick - 静的サイトジェネレーター
         404.html / search.json / sitemap.xml / robots.txt
 """
 import json, io, os, html, shutil, sys, datetime
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tools'))
+from make_visual import build as make_visual
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
@@ -27,6 +29,7 @@ CATS     = SITE["categories"]
 FEAT     = SITE.get("features", {})
 GA       = SITE.get("analytics", {}).get("ga_measurement_id", "").strip()
 GSC      = SITE.get("analytics", {}).get("gsc_verification", "").strip()
+ASSOC_TAG = SITE.get("amazon", {}).get("associate_tag", "").strip()
 CAT_LABEL = {c["key"]: c["label"] for c in CATS}
 CAT_ICON  = {c["key"]: c["icon"]  for c in CATS}
 
@@ -35,6 +38,25 @@ PUBLISHED = sorted([a for a in ARTICLES if a.get("published")],
 
 def e(s):
     return html.escape(str(s), quote=True)
+
+
+def amazon_link(a):
+    """ASIN があればアソシエイトタグ付きリンクを組み立てる。
+       無ければ手入力の amazon_url をそのまま使う。"""
+    asin = (a.get("asin") or "").strip().upper()
+    if asin:
+        url = f"https://www.amazon.co.jp/dp/{asin}"
+        if ASSOC_TAG:
+            url += f"?tag={ASSOC_TAG}"
+        return url
+    return a.get("amazon_url") or "https://www.amazon.co.jp/"
+
+
+def visual_path(a, p):
+    """アイキャッチのパスを返す。実写真が最優先、無ければ自動生成SVG。"""
+    if a.get("thumb"):
+        return p + a["thumb"], False
+    return p + f'assets/img/auto/{a["slug"]}.svg', True
 
 def jp_date(iso):
     try:
@@ -201,18 +223,16 @@ def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="
 
 # ============================================================ 部品
 def thumb(a, p):
-    if a.get("thumb"):
-        return (f'<img src="{p}{e(a["thumb"])}" alt="{e(a.get("list_title") or a["title"])}" '
-                f'loading="lazy" width="640" height="360">')
-    return (f'<span aria-hidden="true" style="font-size:26px;margin-right:8px;">'
-            f'{a.get("icon","📦")}</span>IMAGE 16:9')
+    src, _ = visual_path(a, p)
+    return (f'<img src="{e(src)}" alt="{e(a.get("list_title") or a["title"])}" '
+            f'loading="lazy" width="640" height="360">')
 
 def card(a, p, lead=False):
     tags = "".join(f'<span class="tag">{e(t)}</span>' for t in a.get("tags", [])[:2])
     tags += f'<span class="tag tag-hot">{e(CAT_LABEL.get(a["category"], ""))}</span>'
     cls = "card is-lead" if lead else "card"
     return f'''        <article class="{cls} reveal" data-cat="{a["category"]}">
-          <a class="card-thumb" href="{p}articles/{e(a["slug"])}.html">{thumb(a, p)}</a>
+          <a class="card-thumb is-auto" href="{p}articles/{e(a["slug"])}.html">{thumb(a, p)}</a>
           <div class="card-body">
             <div class="card-tags">{tags}</div>
             <h3 class="card-title"><a href="{p}articles/{e(a["slug"])}.html">{e(a.get("list_title") or a["title"])}</a></h3>
@@ -265,18 +285,11 @@ def render_article(a):
         <h1 class="article-title">{e(a["title"])}</h1>
 ''')
 
-    # アイキャッチ
-    if a.get("thumb"):
-        add(f'''        <figure class="eyecatch has-image">
-          <img src="{p}{e(a["thumb"])}" alt="{e(a["title"])}" width="1200" height="675">
-        </figure>
-''')
-    else:
-        add(f'''        <figure class="eyecatch">
-          <div class="eyecatch-placeholder">
-            <span class="icon">{a.get("icon","📦")}</span>
-            アイキャッチ画像を配置<br>（推奨サイズ 1200 × 675px）
-          </div>
+    # アイキャッチ（実写真があればそれを、無ければ自動生成ビジュアル）
+    src, is_auto = visual_path(a, p)
+    cls = "eyecatch is-auto" if is_auto else "eyecatch has-image"
+    add(f'''        <figure class="{cls}">
+          <img src="{e(src)}" alt="{e(a["title"])}" width="1200" height="675">
         </figure>
 ''')
 
@@ -301,7 +314,7 @@ def render_article(a):
 {rating}        </section>
 ''')
 
-    add(cta(a.get("amazon_url","#"), a.get("cta_label","Amazonで価格を見る"),
+    add(cta(amazon_link(a), a.get("cta_label","Amazonで価格を見る"),
             "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
 
     # 目次
@@ -400,7 +413,7 @@ def render_article(a):
             </table>
           </div>
 ''')
-        add(cta(a.get("amazon_url","#"), a.get("cta_label","Amazonでチェックする"),
+        add(cta(amazon_link(a), a.get("cta_label","Amazonでチェックする"),
                 "タイムセール対象になっている場合があります"))
 
     # 口コミ・対策
@@ -432,7 +445,7 @@ def render_article(a):
 ''')
 
     # 7. Amazonボタン
-    add(cta(a.get("amazon_url","#"), "Amazonで価格と詳細を確認する",
+    add(cta(amazon_link(a), "Amazonで価格と詳細を確認する",
             "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
 
     # 8. 次に困りそうなこと・併売の提案（回遊導線）
@@ -459,7 +472,7 @@ def render_article(a):
         add(f'''          <h2 id="sec-conclusion">{e(a.get("conclusion_title","まとめ"))}</h2>
           <p>{a["conclusion"]}</p>
 ''')
-        add(cta(a.get("amazon_url","#"), "Amazonで購入する",
+        add(cta(amazon_link(a), "Amazonで購入する",
                 "※ 当リンクからの購入で当サイトに紹介料が発生する場合があります"))
         add(f'''        <div class="cta-wrap" style="margin-top:-10px;">
           <a class="btn-sub" href="{p}category-{cat}.html">同じカテゴリーの記事を見る</a>
@@ -767,6 +780,20 @@ def write(path, content):
 def main():
     written = []
 
+    # アイキャッチ自動生成（実写真が無い記事のぶんだけ作る）
+    auto_dir = "assets/img/auto"
+    os.makedirs(auto_dir, exist_ok=True)
+    made = 0
+    for a in PUBLISHED:
+        if not a.get("thumb"):
+            make_visual(a["slug"], a.get("list_title") or a["title"], a["category"],
+                        CAT_LABEL.get(a["category"], ""), NAME, auto_dir)
+            made += 1
+    keep_svg = {a["slug"] + ".svg" for a in PUBLISHED if not a.get("thumb")}
+    for f in os.listdir(auto_dir):
+        if f.endswith(".svg") and f not in keep_svg:
+            os.remove(os.path.join(auto_dir, f))
+
     # 記事ページ（下書きは出力しない＆既存ファイルは削除）
     os.makedirs("articles", exist_ok=True)
     keep = set()
@@ -795,7 +822,8 @@ def main():
     idx = [{"slug": a["slug"], "title": a.get("list_title") or a["title"],
             "excerpt": a.get("excerpt", ""), "desc": a.get("description", ""),
             "cat": a["category"], "catLabel": CAT_LABEL.get(a["category"], ""),
-            "icon": a.get("icon", "📦"), "thumb": a.get("thumb", ""),
+            "icon": a.get("icon", "📦"),
+            "thumb": a.get("thumb") or f'assets/img/auto/{a["slug"]}.svg',
             "tags": a.get("tags", []), "date": a["date"],
             "url": f'articles/{a["slug"]}.html'} for a in PUBLISHED]
     write("search.json", json.dumps(idx, ensure_ascii=False, separators=(",", ":")))
@@ -817,7 +845,7 @@ def main():
     write("CNAME", SITE["domain"] + "\n"); written.append("CNAME")
     write(".nojekyll", "")
 
-    print(f"\n✅ ビルド完了：{len(written)} ファイル")
+    print(f"\n✅ ビルド完了：{len(written)} ファイル（アイキャッチ自動生成 {made} 枚）")
     print(f"   公開記事 {len(PUBLISHED)} 本 / 下書き {len(ARTICLES)-len(PUBLISHED)} 本")
     print(f"   ドメイン {SITE['domain']} / GA {'設定済' if GA else '未設定'} / GSC {'設定済' if GSC else '未設定'}")
     print(f"   お問い合わせフォーム: {'ON' if FEAT.get('contact_form') else 'OFF（メールリンクのみ）'}")

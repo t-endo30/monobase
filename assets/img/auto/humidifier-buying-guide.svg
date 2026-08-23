@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="加湿器の選び方｜3方式の違いと後悔しない基準">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#12916A"/>
+      <stop offset="100%" stop-color="#0A6349"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="18%" cy="8%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".28"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#ffffff" fill-opacity=".14"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#dots)"/>
+  <rect width="1200" height="675" fill="url(#glow)"/>
+
+  <circle cx="1075" cy="128" r="190" fill="#ffffff" fill-opacity=".07"/>
+  <circle cx="1160" cy="560" r="240" fill="#000000" fill-opacity=".08"/>
+
+  <rect x="72" y="86" width="292" height="48" rx="24" fill="#ffffff" fill-opacity=".18"/>
+  <text x="98" y="117" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
+        font-size="24" font-weight="700" fill="#ffffff" letter-spacing="1.5">生活家電・日用品</text>
+
+  <text font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
+        font-size="58" font-weight="900" fill="#ffffff" letter-spacing="1"><tspan x="72" y="300">加湿器の選び方</tspan></text>
+
+  <rect x="72" y="576" width="96" height="6" rx="3" fill="#FF9900"/>
+  <text x="72" y="622" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
+        font-size="26" font-weight="700" fill="#ffffff" fill-opacity=".85" letter-spacing="2">モノベース</text>
+</svg>

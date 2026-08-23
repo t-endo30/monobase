@@ -115,14 +115,22 @@
       <p class="hint">記事内3か所と、スマホ下部の追従ボタンに使われます。</p>
       <div class="row c2">
         <div>
-          <label for="f-amazon">Amazonアソシエイトリンク</label>
-          <input type="url" id="f-amazon" placeholder="https://amzn.to/xxxxxxx">
+          <label for="f-asin">ASIN<span class="opt">推奨・10桁の英数字</span></label>
+          <input type="text" id="f-asin" placeholder="B0XXXXXXXX" maxlength="10">
         </div>
         <div>
           <label for="f-cta">ボタンの文言</label>
-          <input type="text" id="f-cta" placeholder="Amazonで最新価格を見る">
+          <input type="text" id="f-cta" placeholder="Amazonで価格と詳細を確認する">
         </div>
       </div>
+      <div class="note">
+        <b>ASIN を入れておくのが確実です。</b>商品ページURLの <code>/dp/</code> の直後にある10桁の英数字がASINです。<br>
+        アソシエイトIDは「サイト設定」で一括管理され、リンクは
+        <code>https://www.amazon.co.jp/dp/{ASIN}?tag={ID}</code> の形で自動生成されます。
+        ID変更時も全記事へ自動反映されるため、記事ごとに貼り直す必要がありません。
+      </div>
+      <label for="f-amazon">リンクを直接指定する場合<span class="opt">任意・ASINが空のときだけ使われます</span></label>
+      <input type="url" id="f-amazon" placeholder="https://amzn.to/xxxxxxx">
     </div>
 
     <div class="card">
@@ -288,6 +296,21 @@
       <div class="row c2">
         <div><label for="s-author">運営者名</label><input type="text" id="s-author"></div>
         <div><label for="s-founded">開設年</label><input type="text" id="s-founded"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Amazonアソシエイト</h2>
+      <p class="hint">ここに入れたIDが、ASINを設定している全記事のリンクへ自動で付与されます。</p>
+      <label for="s-assoc">アソシエイトID<span class="opt">例: monobase-22</span></label>
+      <input type="text" id="s-assoc" placeholder="monobase-22">
+      <div class="note warn">
+        <b>審査前は空欄のままで構いません。</b>空欄のあいだはタグ無しの通常リンクが生成され、
+        IDを入れた時点で全記事のリンクに一括で付与されます。<br>
+        アソシエイト審査には「180日以内に3件の適格販売」が必要です。記事を数本公開してから申請してください。
+      </div>
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnSaveAmazon">GitHubに保存して反映</button>
       </div>
     </div>
 

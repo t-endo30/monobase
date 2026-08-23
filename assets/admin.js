@@ -327,7 +327,7 @@
       published: false, featured: false,
       title: '', list_title: '', description: '', excerpt: '',
       date: today(), updated: today(), tags: [], icon: '📦', thumb: '',
-      amazon_url: 'https://www.amazon.co.jp/', cta_label: 'Amazonで価格を見る',
+      asin: '', amazon_url: '', cta_label: 'Amazonで価格と詳細を確認する',
       verdict_title: '結論：', summary: [], rating: { score: 0, breakdown: '' },
       lead: '',
       not_for: { intro: '', items: [] },
@@ -364,6 +364,7 @@
     $('f-excerpt').value = a.excerpt || '';
     $('f-tags').value = (a.tags || []).join(', ');
     $('f-amazon').value = a.amazon_url || '';
+    $('f-asin').value = a.asin || '';
     $('f-cta').value = a.cta_label || '';
     $('f-verdict').value = a.verdict_title || '';
     $('f-score').value = (a.rating && a.rating.score) || 0;
@@ -410,6 +411,7 @@
     a.excerpt = $('f-excerpt').value.trim();
     a.tags = $('f-tags').value.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
     a.amazon_url = $('f-amazon').value.trim();
+    a.asin = $('f-asin').value.trim().toUpperCase();
     a.cta_label = $('f-cta').value.trim() || 'Amazonで価格を見る';
     a.verdict_title = $('f-verdict').value.trim();
     a.summary = readRepeater('r-summary');
@@ -440,6 +442,8 @@
     if (!/^[a-z0-9\-]+$/.test(a.slug)) return 'スラッグは半角英小文字・数字・ハイフンのみで入力してください。';
     var dup = articles.filter(function (x) { return x.slug === a.slug && x !== a; });
     if (dup.length) return 'このスラッグは既に使われています：' + a.slug;
+    if (a.asin && !/^[A-Z0-9]{10}$/.test(a.asin)) return 'ASINは10桁の英数字で入力してください。';
+    if (a.published && !a.asin && !a.amazon_url) return '公開する記事にはASINかリンクのどちらかが必要です。';
     if (a.published && !a.excerpt) return '公開する記事にはカード用の抜粋が必要です。';
     if (a.published && !a.description) return '公開する記事にはメタディスクリプションが必要です。';
     return null;
@@ -544,6 +548,7 @@
     $('s-sticky').checked = f.sticky_cta !== false;
     $('s-search').checked = f.search !== false;
     $('contactWrap').classList.toggle('hidden', !f.contact_form);
+    $('s-assoc').value = (site.amazon || {}).associate_tag || '';
     var an = site.analytics || {};
     $('s-ga').value = an.ga_measurement_id || '';
     $('s-gsc').value = an.gsc_verification || '';
@@ -575,6 +580,14 @@
       toast('フォームを有効にするには送信先URLが必要です', 'err'); return;
     }
     saveSite('サイト設定を更新（管理画面より）');
+  });
+
+  $('btnSaveAmazon').addEventListener('click', function () {
+    var tag = $('s-assoc').value.trim();
+    if (tag && !/^[A-Za-z0-9_-]{3,30}$/.test(tag)) { toast('アソシエイトIDの形式が正しくありません', 'err'); return; }
+    site.amazon = site.amazon || {};
+    site.amazon.associate_tag = tag;
+    saveSite('アソシエイトIDを更新（管理画面より）');
   });
 
   $('btnSaveAnalytics').addEventListener('click', function () {

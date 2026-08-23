@@ -17,6 +17,8 @@ def main():
         return 0
     over, total = [], 0
     for name in sorted(os.listdir(IMG_DIR)):
+        if name == "auto":   # 自動生成SVGはビルド生成物なので対象外
+            continue
         if not name.lower().endswith((".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif")):
             continue
         size = os.path.getsize(os.path.join(IMG_DIR, name))

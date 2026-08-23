@@ -69,16 +69,14 @@
   }
 
   function cardHtml(item, terms) {
-    var thumb = item.thumb
-      ? '<img src="./' + esc(item.thumb) + '" alt="" loading="lazy" width="640" height="360">'
-      : '<span aria-hidden="true" style="font-size:26px;margin-right:8px;">' + esc(item.icon) + '</span>IMAGE 16:9';
+    var thumb = '<img src="./' + esc(item.thumb) + '" alt="" loading="lazy" width="640" height="360">';
     var tags = item.tags.slice(0, 2).map(function (t) {
       return '<span class="tag">' + esc(t) + '</span>';
     }).join('');
     tags += '<span class="tag tag-hot">' + esc(item.catLabel) + '</span>';
     return '' +
       '<article class="card">' +
-        '<a class="card-thumb" href="./' + esc(item.url) + '">' + thumb + '</a>' +
+        '<a class="card-thumb is-auto" href="./' + esc(item.url) + '">' + thumb + '</a>' +
         '<div class="card-body">' +
           '<div class="card-tags">' + tags + '</div>' +
           '<h3 class="card-title"><a href="./' + esc(item.url) + '">' + highlight(item.title, terms) + '</a></h3>' +

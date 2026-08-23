@@ -181,7 +181,8 @@
           "link_url": "articles/lumbar-cushion-review.html"
         }
       ]
-    }
+    },
+    "asin": ""
   },
   {
     "slug": "lumbar-cushion-review",
@@ -343,7 +344,8 @@
           "link_url": "category-desk.html"
         }
       ]
-    }
+    },
+    "asin": ""
   },
   {
     "slug": "humidifier-buying-guide",
@@ -503,7 +505,8 @@
           "link_url": ""
         }
       ]
-    }
+    },
+    "asin": ""
   },
   {
     "slug": "wireless-earphones-under-15000",
@@ -647,7 +650,8 @@
           "link_url": "category-desk.html"
         }
       ]
-    }
+    },
+    "asin": ""
   },
   {
     "slug": "silent-keyboard-review",
@@ -845,7 +849,8 @@
           "link_url": "articles/xyz-100-review.html"
         }
       ]
-    }
+    },
+    "asin": ""
   },
   {
     "slug": "standing-desk-compare",
@@ -893,7 +898,8 @@
     "next_problem": {
       "intro": "",
       "items": []
-    }
+    },
+    "asin": ""
   },
   {
     "slug": "robot-cleaner-1year",
@@ -941,7 +947,8 @@
     "next_problem": {
       "intro": "",
       "items": []
-    }
+    },
+    "asin": ""
   },
   {
     "slug": "amazon-sale-calendar",
@@ -989,6 +996,7 @@
     "next_problem": {
       "intro": "",
       "items": []
-    }
+    },
+    "asin": ""
   }
 ]
