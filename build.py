@@ -1029,7 +1029,10 @@ def build_search():
 # ============================================================ 固定ページ
 def static_pages():
     p = "./"
-    today = jp_date(datetime.date.today().isoformat())
+    # 「最終更新」はビルド日ではなく、規約の文面を変えた日を出す。
+    # ビルドのたびに日付が動くと、生成物が毎日変わってしまう。
+    today = jp_date(SITE.get("legal_updated")
+                    or datetime.date.today().isoformat())
     out = []
 
     privacy = f'''      <h2>個人情報の利用目的</h2>
