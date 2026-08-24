@@ -103,15 +103,32 @@
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
 
-    Array.prototype.forEach.call(targets, function (el) {
-      /* 読み込み時点で既に画面の上側にある要素は、アニメーションを待たせない。
-         #アンカー付きURLで開いたときに本文が消えたままになるのを防ぐ。 */
-      if (el.getBoundingClientRect().top < window.innerHeight) {
-        el.classList.add('is-in');
-        return;
-      }
-      io.observe(el);
-    });
+    Array.prototype.forEach.call(targets, function (el) { io.observe(el); });
+
+    /* 画面内・画面より上にある要素は、その場で表示してしまう。
+       目次リンクやアンカー付きURLで一気にスクロールすると、
+       IntersectionObserver が反応しないまま通り過ぎた要素が
+       透明のまま残るため、スクロールのたびに取りこぼしを拾う。 */
+    var sweeping = false;
+    function sweep() {
+      sweeping = false;
+      Array.prototype.forEach.call(targets, function (el) {
+        if (el.classList.contains('is-in')) return;
+        if (el.getBoundingClientRect().top < window.innerHeight) {
+          el.classList.add('is-in');
+          io.unobserve(el);
+        }
+      });
+    }
+    function queueSweep() {
+      if (sweeping) return;
+      sweeping = true;
+      window.requestAnimationFrame(sweep);
+    }
+    window.addEventListener('scroll', queueSweep, { passive: true });
+    window.addEventListener('hashchange', queueSweep);
+    window.addEventListener('resize', queueSweep);
+    sweep();
   }
 
   /* ---- ヘッダーの引き締め ---- */

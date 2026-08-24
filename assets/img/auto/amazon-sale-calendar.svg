@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="presentation" aria-hidden="true">
   <defs>
     <linearGradient id="shade" x1="0" y1="0" x2="0.35" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity=".09"/>
-      <stop offset="100%" stop-color="#000000" stop-opacity=".15"/>
+      <stop offset="0%" stop-color="#EDEDEF"/>
+      <stop offset="100%" stop-color="#DEDEE1"/>
     </linearGradient>
     <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M40 0 L0 0 0 40" fill="none" stroke="#ffffff" stroke-opacity=".055" stroke-width="1"/>
+      <path d="M40 0 L0 0 0 40" fill="none" stroke="#25282D" stroke-opacity=".05" stroke-width="1"/>
     </pattern>
   </defs>
 
-  <rect width="1200" height="600" fill="#6350A8"/>
-  <rect width="1200" height="600" fill="url(#grid)"/>
   <rect width="1200" height="600" fill="url(#shade)"/>
+  <rect width="1200" height="600" fill="url(#grid)"/>
 
-  <rect x="446" y="252" width="46" height="96"  rx="6" fill="#fff" fill-opacity=".13"/>
-  <rect x="514" y="212" width="46" height="176" rx="6" fill="#fff" fill-opacity=".18"/>
-  <rect x="582" y="176" width="46" height="248" rx="6" fill="#fff" fill-opacity=".22"/>
-  <rect x="650" y="212" width="46" height="176" rx="6" fill="#fff" fill-opacity=".18"/>
-  <rect x="718" y="252" width="46" height="96"  rx="6" fill="#fff" fill-opacity=".13"/>
+  <rect x="446" y="252" width="46" height="96"  rx="6" fill="#25282D" fill-opacity=".11"/>
+  <rect x="514" y="212" width="46" height="176" rx="6" fill="#25282D" fill-opacity=".16"/>
+  <rect x="582" y="176" width="46" height="248" rx="6" fill="#25282D" fill-opacity=".20"/>
+  <rect x="650" y="212" width="46" height="176" rx="6" fill="#25282D" fill-opacity=".16"/>
+  <rect x="718" y="252" width="46" height="96"  rx="6" fill="#25282D" fill-opacity=".11"/>
+  <rect x="0" y="0" width="14" height="600" fill="#6350A8"/>
 </svg>

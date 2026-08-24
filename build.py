@@ -12,7 +12,7 @@ Kurashi Pick - 静的サイトジェネレーター
         search.html / about.html / privacy.html / disclaimer.html /
         404.html / search.json / sitemap.xml / robots.txt
 """
-import json, io, os, html, shutil, sys, datetime
+import json, io, os, html, shutil, sys, datetime, hashlib
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tools'))
 from make_visual import build as make_visual
 
@@ -29,6 +29,20 @@ CATS     = SITE["categories"]
 FEAT     = SITE.get("features", {})
 GA       = SITE.get("analytics", {}).get("ga_measurement_id", "").strip()
 GSC      = SITE.get("analytics", {}).get("gsc_verification", "").strip()
+def _asset_version():
+    """assets の CSS/JS の内容から作る短いハッシュ。
+       中身が変わったときだけURLが変わるため、ブラウザに古い
+       スタイル・スクリプトが残り続けるのを防ぐ。"""
+    h = hashlib.sha1()
+    for f in ("style.css", "main.js", "search.js"):
+        try:
+            h.update(io.open(os.path.join(ROOT, "assets", f), "rb").read())
+        except FileNotFoundError:
+            pass
+    return h.hexdigest()[:8]
+
+ASSET_V = _asset_version()
+
 ASSOC_TAG = SITE.get("amazon", {}).get("associate_tag", "").strip()
 CAT_LABEL = {c["key"]: c["label"] for c in CATS}
 CAT_ICON  = {c["key"]: c["icon"]  for c in CATS}
@@ -97,7 +111,7 @@ def head(title, desc, current, p, canonical, extra="", body_class=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
-<link rel="stylesheet" href="{p}assets/style.css">
+<link rel="stylesheet" href="{p}assets/style.css?v={ASSET_V}">
 {extra}{ga}</head>
 <body data-cat="{current}"{bodycls}>
 '''
@@ -118,6 +132,7 @@ def header(current, p):
 
     return f'''<header class="site-header">
   <div class="container header-inner">
+    <div class="header-side" aria-hidden="true"></div>
     <div class="site-brand">
       <a class="site-title" href="{p}index.html" aria-label="{e(NAME)}">
         <span class="brand-mark" aria-hidden="true"></span>
@@ -214,7 +229,7 @@ def footer(p, sticky_url=None):
 
 {sticky}<button class="to-top" id="toTop" aria-label="ページ上部へ戻る">▲</button>
 
-<script src="{p}assets/main.js"></script>
+<script src="{p}assets/main.js?v={ASSET_V}"></script>
 </body>
 </html>
 '''
@@ -282,7 +297,6 @@ def render_article(a):
     add('      <article class="card-surface" id="review">\n')
     add(f'''        <div class="article-meta">
           <span class="badge badge-cat">{e(CAT_LABEL.get(cat,""))}</span>
-          <span class="badge badge-pr">PR・広告を含みます</span>
           <span class="article-date">{e(jp_date(a.get("updated") or a["date"]))} 更新</span>
         </div>
 
@@ -478,8 +492,7 @@ def render_article(a):
         add(f'''          <h2 id="sec-conclusion">{e(a.get("conclusion_title","まとめ"))}</h2>
           <p>{a["conclusion"]}</p>
 ''')
-        add(cta(amazon_link(a), "Amazonで購入する",
-                "※ 当リンクからの購入で当サイトに紹介料が発生する場合があります"))
+        add(cta(amazon_link(a), "Amazonで購入する"))
         add(f'''        <div class="cta-wrap" style="margin-top:-10px;">
           <a class="btn-sub" href="{p}category-{cat}.html">同じカテゴリーの記事を見る</a>
         </div>
@@ -630,7 +643,7 @@ def build_search():
 '''
     return page(f"サイト内検索 - {NAME}", f"{NAME}のサイト内検索。キーワードとタグで記事を絞り込めます。",
                 "", p, BASE_URL + "/search.html", body,
-                extra_js='<script src="./assets/search.js"></script>\n')
+                extra_js=f'<script src="./assets/search.js?v={ASSET_V}"></script>\n')
 
 # ============================================================ 固定ページ
 def static_pages():

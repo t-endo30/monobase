@@ -2,23 +2,24 @@
    Design Tokens
    ============================================================ */
 :root{
-  /* --- ブランド --- */
-  --navy:#1B2436;
-  --navy-dark:#131A28;
-  --navy-light:#2C3A55;
-  --ink:#2B3546;
-  --text:#3A4657;
-  --text-sub:#6E7A8C;
+  /* --- ブランド（モノトーン：青みを抜いたニュートラルグレー） --- */
+  --navy:#25282D;          /* ヘッダー・ボタンなどの濃い面 */
+  --navy-dark:#191B1F;
+  --navy-light:#3A3E45;
+  --ink:#23262A;           /* 見出し */
+  --text:#3F434A;          /* 本文 */
+  --text-sub:#71757D;      /* 補足 */
+  --link:#33373D;          /* 本文中のリンク */
 
   /* --- 面 --- */
   --bg:#FFFFFF;
-  --bg-gray:#F4F6FA;
+  --bg-gray:#F5F5F6;
   --surface:#FFFFFF;
-  --surface-2:#F8FAFD;
-  --border:#E4E9F1;
-  --border-strong:#D3DAE6;
+  --surface-2:#FAFAFA;
+  --border:#E5E6E8;
+  --border-strong:#D3D5D8;
 
-  /* --- アクセント --- */
+  /* --- アクセント（注意を引く必要がある箇所だけ色を使う） --- */
   --amazon:#FF9900;
   --amazon-dark:#E07E00;
   --good:#12916A;
@@ -39,9 +40,9 @@
   --radius:14px;
   --radius-lg:20px;
   --radius-sm:9px;
-  --shadow-xs:0 1px 2px rgba(20,28,45,.05);
-  --shadow:0 2px 8px rgba(20,28,45,.06),0 1px 2px rgba(20,28,45,.04);
-  --shadow-lg:0 12px 32px rgba(20,28,45,.13),0 3px 8px rgba(20,28,45,.06);
+  --shadow-xs:0 1px 2px rgba(0,0,0,.05);
+  --shadow:0 2px 8px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.12),0 3px 8px rgba(0,0,0,.06);
   --maxw:1120px;
 
   --font:"Noto Sans JP","Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans","BIZ UDPGothic",Meiryo,sans-serif;
@@ -75,7 +76,7 @@ body{
 img{max-width:100%;height:auto;display:block;}
 figure{margin:0;}
 figcaption{font-size:12.5px;color:var(--text-sub);line-height:1.7;margin-top:8px;text-align:center;}
-a{color:var(--info);text-decoration:none;}
+a{color:var(--link);text-decoration:none;}
 a:hover{text-decoration:underline;}
 ul,ol{padding-left:1.3em;}
 h1,h2,h3,h4{line-height:1.45;margin:0;font-weight:700;color:var(--ink);letter-spacing:.01em;}
@@ -116,7 +117,7 @@ table{border-collapse:collapse;}
 .site-title a{color:#fff;text-decoration:none;}
 .site-tagline{
   font-size:11.5px;
-  color:#B9C4D6;
+  color:#C2C4C8;
   line-height:1.4;
   letter-spacing:.02em;
 }
@@ -157,7 +158,7 @@ table{border-collapse:collapse;}
 .global-nav ul{list-style:none;margin:0;padding:0;}
 .global-nav a{
   display:block;
-  color:#E7ECF5;
+  color:#E9EAEC;
   padding:13px 4px;
   font-size:15px;
   font-weight:500;
@@ -172,7 +173,7 @@ table{border-collapse:collapse;}
 .cat-nav{
   background:#fff;
   border-bottom:1px solid var(--border);
-  box-shadow:0 1px 4px rgba(31,42,68,.05);
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
   position:sticky;
   top:64px;
   z-index:95;
@@ -213,7 +214,7 @@ table{border-collapse:collapse;}
    Notice bar (advertising disclosure)
    ============================================================ */
 .site-notice{
-  background:#EEF2F8;
+  background:#EFEFF1;
   border-bottom:1px solid var(--border);
   font-size:12.5px;
   line-height:1.7;
@@ -289,7 +290,7 @@ table{border-collapse:collapse;}
   position:relative;
   width:100%;
   aspect-ratio:16/9;
-  background:linear-gradient(135deg,#E9EEF6 0%,#DCE4F0 100%);
+  background:linear-gradient(135deg,#EFEFF1 0%,#E3E3E6 100%);
   border-radius:var(--radius);
   overflow:hidden;
   display:flex;
@@ -300,7 +301,7 @@ table{border-collapse:collapse;}
 }
 .eyecatch-placeholder{
   text-align:center;
-  color:#9AA7BC;
+  color:#9C9EA4;
   font-size:13px;
   font-weight:600;
   letter-spacing:.06em;
@@ -631,11 +632,11 @@ table{border-collapse:collapse;}
 .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
 .card-thumb{
   aspect-ratio:16/9;
-  background:linear-gradient(135deg,#E9EEF6 0%,#DCE4F0 100%);
+  background:linear-gradient(135deg,#EFEFF1 0%,#E3E3E6 100%);
   display:flex;
   align-items:center;
   justify-content:center;
-  color:#9AA7BC;
+  color:#9C9EA4;
   font-size:12px;
   font-weight:600;
   letter-spacing:.06em;
@@ -647,7 +648,7 @@ table{border-collapse:collapse;}
   font-size:11px;
   font-weight:700;
   color:var(--navy);
-  background:#EEF2F8;
+  background:#EFEFF1;
   border-radius:3px;
   padding:2px 8px;
   letter-spacing:.03em;
@@ -765,7 +766,7 @@ table{border-collapse:collapse;}
   left:0;right:0;bottom:0;
   background:rgba(255,255,255,.96);
   border-top:1px solid var(--border);
-  box-shadow:0 -3px 14px rgba(31,42,68,.12);
+  box-shadow:0 -3px 14px rgba(0,0,0,.12);
   padding:8px 12px calc(8px + env(safe-area-inset-bottom));
   z-index:90;
   transform:translateY(120%);
@@ -981,9 +982,9 @@ table{border-collapse:collapse;}
 /* ============================================================
    Card thumb as link / image
    ============================================================ */
-a.card-thumb{text-decoration:none;overflow:hidden;}
-a.card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease;}
-.card:hover a.card-thumb img{transform:scale(1.04);}
+.card-thumb{text-decoration:none;overflow:hidden;}
+.card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease;}
+.card:hover .card-thumb img{transform:scale(1.04);}
 .card-title a{color:var(--navy);text-decoration:none;}
 .card-title a:hover{color:var(--info);text-decoration:underline;}
 .eyecatch.has-image{background:none;}
@@ -1366,14 +1367,14 @@ mark.hit{background:#FFF0CC;color:inherit;padding:0 2px;border-radius:2px;}
 
 /* ---------- ヘッダー：スクロールで引き締まる ---------- */
 .site-header{
-  background:rgba(27,36,54,.92);
+  background:rgba(37,40,45,.92);
   backdrop-filter:saturate(180%) blur(12px);
   -webkit-backdrop-filter:saturate(180%) blur(12px);
   box-shadow:none;
   border-bottom:1px solid rgba(255,255,255,.08);
   transition:padding .25s var(--ease),background-color .25s var(--ease);
 }
-.site-header.is-shrunk{box-shadow:0 4px 20px rgba(20,28,45,.18);}
+.site-header.is-shrunk{box-shadow:0 4px 20px rgba(0,0,0,.18);}
 .site-header.is-shrunk .header-inner{min-height:54px;}
 .site-header.is-shrunk .site-tagline{
   opacity:0;max-height:0;overflow:hidden;transition:opacity .2s,max-height .2s;
@@ -1423,7 +1424,7 @@ mark.hit{background:#FFF0CC;color:inherit;padding:0 2px;border-radius:2px;}
 .hero::after{
   content:"";
   position:absolute;inset:0;
-  background-image:radial-gradient(rgba(27,36,54,.05) 1px,transparent 1px);
+  background-image:radial-gradient(rgba(37,40,45,.05) 1px,transparent 1px);
   background-size:18px 18px;
   pointer-events:none;
   mask-image:linear-gradient(180deg,rgba(0,0,0,.5),transparent 70%);
@@ -1486,7 +1487,7 @@ mark.hit{background:#FFF0CC;color:inherit;padding:0 2px;border-radius:2px;}
   position:relative;
   background:
     radial-gradient(70% 100% at 25% 0%, color-mix(in srgb,var(--accent) 14%,transparent) 0%, transparent 60%),
-    linear-gradient(135deg,#EEF2F8 0%,#E2E8F2 100%);
+    linear-gradient(135deg,#EFEFF1 0%,#E3E3E6 100%);
   border-bottom:none;
 }
 .card .card-thumb::after{
@@ -1660,14 +1661,14 @@ mark.hit{background:#FFF0CC;color:inherit;padding:0 2px;border-radius:2px;}
 }
 
 /* カードのサムネイルも自動ビジュアルを敷く */
-a.card-thumb.is-auto{background:none;}
-a.card-thumb.is-auto img{
+.card-thumb.is-auto{background:none;}
+.card-thumb.is-auto img{
   width:100%;height:100%;object-fit:cover;
   border-radius:0;
   transition:transform .35s var(--ease);
 }
-.card:hover a.card-thumb.is-auto img{transform:scale(1.05);}
-a.card-thumb.is-auto::after{display:none;}
+.card:hover .card-thumb.is-auto img{transform:scale(1.05);}
+.card-thumb.is-auto::after{display:none;}
 
 /* ════════════════════════════════════════════════════════════
    ヘッダーのブランド表示（ドットフォント）
@@ -1753,13 +1754,13 @@ a.card-thumb.is-auto::after{display:none;}
     grid-template-columns:118px 1fr;
     align-items:stretch;
   }
-  .card a.card-thumb{
+  .card .card-thumb{
     aspect-ratio:auto;
     height:100%;
     min-height:96px;
     border-radius:var(--radius) 0 0 var(--radius);
   }
-  .card a.card-thumb img{border-radius:0;}
+  .card .card-thumb img{border-radius:0;}
   .card-body{padding:11px 13px 12px;}
   .card-tags{margin-bottom:5px;gap:4px;}
   .card-tags .tag{font-size:10px;padding:1px 6px;}
@@ -1788,7 +1789,7 @@ a.card-thumb.is-auto::after{display:none;}
 
   /* 注目記事だけは縦組みのまま、少し低く */
   .card.is-lead{grid-template-columns:1fr;}
-  .card.is-lead a.card-thumb{
+  .card.is-lead .card-thumb{
     aspect-ratio:2/1;
     min-height:0;
     border-radius:var(--radius) var(--radius) 0 0;
@@ -1818,12 +1819,12 @@ a.card-thumb.is-auto::after{display:none;}
 .card{height:100%;}
 
 /* サムネイルの比率を全カードで固定する */
-.card a.card-thumb{
+.card .card-thumb{
   aspect-ratio:16/9;
   width:100%;
   overflow:hidden;
 }
-.card a.card-thumb img{
+.card .card-thumb img{
   width:100%;height:100%;
   object-fit:cover;
   object-position:center;
@@ -1848,12 +1849,12 @@ a.card-thumb.is-auto::after{display:none;}
 
 /* ホバーは控えめに */
 .card:hover{transform:translateY(-3px);}
-.card:hover a.card-thumb img{transform:none;}
+.card:hover .card-thumb img{transform:none;}
 
 /* 注目記事：PCでは横組み、サムネは本文と同じ高さに揃える */
 @media (min-width:900px){
   .card.is-lead{grid-template-columns:1.25fr 1fr;}
-  .card.is-lead a.card-thumb{aspect-ratio:auto;height:100%;}
+  .card.is-lead .card-thumb{aspect-ratio:auto;height:100%;}
   .card.is-lead .card-title{
     font-size:21px;-webkit-line-clamp:3;min-height:0;
   }
@@ -1903,9 +1904,9 @@ a.card-thumb.is-auto::after{display:none;}
 
 /* スマホの横並びカードでは比率指定を解除して高さを詰める */
 @media (max-width:599px){
-  .card a.card-thumb{aspect-ratio:auto;}
+  .card .card-thumb{aspect-ratio:auto;}
   .card-title{min-height:0;-webkit-line-clamp:3;}
-  .card.is-lead a.card-thumb{aspect-ratio:2/1;}
+  .card.is-lead .card-thumb{aspect-ratio:2/1;}
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -1913,8 +1914,8 @@ a.card-thumb.is-auto::after{display:none;}
    ════════════════════════════════════════════════════════════ */
 
 /* PC・タブレット：横長にして高さを削る */
-.card a.card-thumb{aspect-ratio:2.6/1;}
-.card.is-lead a.card-thumb{aspect-ratio:2.4/1;}
+.card .card-thumb{aspect-ratio:2.6/1;}
+.card.is-lead .card-thumb{aspect-ratio:2.4/1;}
 
 /* 記事のアイキャッチも一段低く */
 .eyecatch{aspect-ratio:2.6/1;}
@@ -1924,21 +1925,21 @@ a.card-thumb.is-auto::after{display:none;}
 }
 
 @media (min-width:900px){
-  .card a.card-thumb{aspect-ratio:2.8/1;}
+  .card .card-thumb{aspect-ratio:2.8/1;}
   /* 注目記事の横組みでは高さ合わせのままにする */
-  .card.is-lead a.card-thumb{aspect-ratio:auto;height:100%;}
+  .card.is-lead .card-thumb{aspect-ratio:auto;height:100%;}
 }
 
 /* スマホ：横並びのサムネ幅を詰める */
 @media (max-width:599px){
   .card{grid-template-columns:96px 1fr;}
-  .card a.card-thumb{aspect-ratio:auto;min-height:84px;}
+  .card .card-thumb{aspect-ratio:auto;min-height:84px;}
   .card-body{padding:9px 12px 10px;}
   .card-title{font-size:14px;line-height:1.45;-webkit-line-clamp:3;}
   .card-desc{display:none;}          /* 一覧では抜粋を出さず高さを最小化 */
   .card-tags{min-height:0;margin-bottom:4px;}
 
-  .card.is-lead a.card-thumb{aspect-ratio:2.8/1;min-height:0;}
+  .card.is-lead .card-thumb{aspect-ratio:2.8/1;min-height:0;}
   .card.is-lead .card-desc{display:-webkit-box;-webkit-line-clamp:2;}
   .eyecatch{aspect-ratio:2.4/1;margin-bottom:18px;}
 }
@@ -1967,18 +1968,18 @@ a.card-thumb.is-auto::after{display:none;}
 .eyecatch img{width:100%;height:100%;object-fit:cover;}
 
 /* カードのサムネは図案なので、どの比率でも破綻しない */
-.card a.card-thumb{aspect-ratio:2.6/1;}
-.card.is-lead a.card-thumb{aspect-ratio:2.6/1;}
+.card .card-thumb{aspect-ratio:2.6/1;}
+.card.is-lead .card-thumb{aspect-ratio:2.6/1;}
 
 @media (min-width:900px){
-  .card a.card-thumb{aspect-ratio:2.6/1;}
+  .card .card-thumb{aspect-ratio:2.6/1;}
   /* 注目記事の横組みは高さ合わせ。図案なので切り抜かれても問題ない */
-  .card.is-lead a.card-thumb{aspect-ratio:auto;height:100%;min-height:200px;}
+  .card.is-lead .card-thumb{aspect-ratio:auto;height:100%;min-height:200px;}
 }
 
 @media (max-width:599px){
-  .card a.card-thumb{aspect-ratio:auto;}
-  .card.is-lead a.card-thumb{aspect-ratio:2.8/1;}
+  .card .card-thumb{aspect-ratio:auto;}
+  .card.is-lead .card-thumb{aspect-ratio:2.8/1;}
   .eyecatch{aspect-ratio:16/9;}
   .article-accent{margin-bottom:18px;}
 }
@@ -2016,7 +2017,7 @@ a.card-thumb.is-auto::after{display:none;}
   .card:hover{transform:none;box-shadow:var(--shadow);}
   .cat-tile:active,.btn-amazon:active,.chip:active,.next-card:active{transform:scale(.97);}
 }
-a,button,.card,.cat-tile,.chip{-webkit-tap-highlight-color:rgba(31,42,68,.08);}
+a,button,.card,.cat-tile,.chip{-webkit-tap-highlight-color:rgba(0,0,0,.08);}
 
 /* ---- カテゴリータブ：スマホでのタップ領域と現在地の分かりやすさ ---- */
 @media (max-width:767px){
@@ -2070,4 +2071,121 @@ body.is-swiping-out.to-right{transform:translateX(14px);}
     border-radius:0 var(--radius) var(--radius) 0;
   }
   .table-scroll.is-end::after{opacity:0;transition:opacity .2s ease;}
+}
+
+/* ============================================================
+   ヘッダー：タイトルを中央、メニューを右に置く
+   ============================================================ */
+.header-inner{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  grid-template-areas:
+    "side brand nav"
+    "menu menu menu";
+  align-items:center;
+  column-gap:12px;
+  row-gap:0;
+}
+.header-side{grid-area:side;min-width:0;}
+.site-brand{
+  grid-area:brand;
+  justify-self:center;
+  align-items:center;
+  text-align:center;
+  min-width:0;
+}
+.nav-toggle{grid-area:nav;justify-self:end;}
+.global-nav{grid-area:menu;}
+/* 中央寄せに合わせて、サブタイトルの左寄せ用オフセットを外す */
+.site-tagline{padding-left:0;text-align:center;}
+
+@media (min-width:900px){
+  /* メニューは右カラムへ。中央のタイトルは画面中央に残る */
+  .global-nav{grid-area:nav;justify-self:end;}
+  .header-inner{grid-template-areas:"side brand nav";}
+}
+
+/* ============================================================
+   ブランドのドットマーク：粒を大きく、間隔を広く（荒いドット表現）
+   ============================================================ */
+.brand-mark{width:28px;height:28px;}
+.brand-mark::before{
+  top:2px;left:0;
+  width:6px;height:6px;
+  border-radius:1px;
+  background:var(--amazon);
+  box-shadow:
+                      11px 0    0 rgba(255,255,255,.94),
+                      22px 0    0 rgba(255,255,255,.94),
+     0    11px 0 rgba(255,255,255,.94),  11px 11px 0 rgba(255,255,255,.94),
+    22px  11px 0 rgba(255,255,255,.94),
+     0    22px 0 rgba(255,255,255,.58),  11px 22px 0 rgba(255,255,255,.58),
+    22px  22px 0 rgba(255,255,255,.58);
+}
+/* モノトーンに合わせて、文字の発光は色を持たせない */
+.brand-name{text-shadow:0 0 14px rgba(255,255,255,.22);}
+.site-title:hover .brand-name{
+  color:#fff;
+  text-shadow:0 0 18px rgba(255,255,255,.45);
+}
+@media (min-width:900px){
+  .brand-mark{width:32px;height:32px;}
+  .brand-mark::before{width:7px;height:7px;
+    box-shadow:
+                        12px 0    0 rgba(255,255,255,.94),
+                        24px 0    0 rgba(255,255,255,.94),
+       0    12px 0 rgba(255,255,255,.94),  12px 12px 0 rgba(255,255,255,.94),
+      24px  12px 0 rgba(255,255,255,.94),
+       0    24px 0 rgba(255,255,255,.58),  12px 24px 0 rgba(255,255,255,.58),
+      24px  24px 0 rgba(255,255,255,.58);}
+  .site-tagline{padding-left:0;}
+}
+
+/* ============================================================
+   画面幅に追従するサイズ調整（clamp）
+   ------------------------------------------------------------
+   従来はブレークポイントごとに固定値を切り替えていたため、
+   360px と 430px の端末で同じサイズになり、狭い端末では詰まって
+   広い端末では余っていた。clamp で幅に比例して変化させる。
+   最小値は狭い端末でも破綻しない値、最大値は従来のPC時の値。
+   ============================================================ */
+:root{
+  /* 画面の左右余白も幅に追従させる */
+  --pad-x:clamp(12px,3.6vw,24px);
+}
+.container{padding-left:var(--pad-x);padding-right:var(--pad-x);}
+
+body{font-size:clamp(15px,3.9vw,16.5px);}
+@media (min-width:600px){ body{font-size:16px;} }
+@media (min-width:900px){ body{font-size:16.5px;} }
+
+/* --- 見出し --- */
+.hero h1{font-size:clamp(21px,6.2vw,40px);}
+.page-hero h1{font-size:clamp(19px,5.2vw,29px);}
+.article-title{font-size:clamp(20px,5.4vw,31px);}
+.article-body h2{font-size:clamp(17px,4.4vw,23px);}
+.section-heading{font-size:clamp(17px,4.2vw,22px);}
+.card-title{font-size:clamp(14.5px,3.9vw,16.5px);}
+.card.is-lead .card-title{font-size:clamp(16px,4.6vw,23px);}
+.card-desc{font-size:clamp(12.5px,3.4vw,13.5px);}
+
+/* --- 余白 --- */
+.layout{padding:clamp(16px,4vw,32px) 0 clamp(40px,8vw,64px);}
+.card-grid{gap:clamp(10px,2.6vw,16px);}
+.card-body{padding:clamp(11px,3vw,14px) clamp(12px,3.4vw,16px) clamp(12px,3.4vw,16px);}
+.card-surface{padding:clamp(18px,4.6vw,32px) clamp(14px,4vw,28px) clamp(28px,6vw,40px);}
+
+/* --- 押せる要素は狭い画面でも指で押せる大きさを保つ --- */
+.card-link{min-height:clamp(40px,11vw,48px);font-size:clamp(13px,3.5vw,14px);}
+.btn-amazon{font-size:clamp(14px,4vw,17px);}
+.cat-nav-list a{font-size:clamp(12.5px,3.5vw,14.5px);}
+
+/* --- 極端に狭い端末（320px前後）で崩れないようにする --- */
+@media (max-width:359px){
+  .card{grid-template-columns:96px 1fr;}
+  .site-tagline{font-size:10px;letter-spacing:0;}
+  .brand-name{font-size:20px;letter-spacing:.08em;}
+  .brand-mark{width:24px;height:24px;}
+  .cat-nav-list a{padding:0 12px;}
+  .tag{font-size:10px;padding:2px 6px;}
 }
