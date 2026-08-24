@@ -9,3 +9,6 @@ orders*.json
 
 # wrangler のローカル作業ファイル
 .wrangler/
+
+# Worker のローカル用シークレット（絶対にコミットしない）
+.dev.vars

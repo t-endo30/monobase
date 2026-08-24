@@ -14,7 +14,7 @@
 //   ADMIN_SECRET   … ログイン状態の署名に使うランダムな文字列
 // 未設定のときは、設定手順を出したうえで通さない（開いたままにしない）。
 
-const MAINTENANCE = false;
+const MAINTENANCE = __MAINTENANCE__;
 
 const ADMIN_PATHS = ["/admin", "/admin.html"];
 const MAINT_ALLOW = ["/assets/", "/maintenance.html", "/maintenance"];

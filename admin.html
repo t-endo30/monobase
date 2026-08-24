@@ -9,35 +9,6 @@
 </head>
 <body>
 
-<!-- ログイン。パスワードマネージャーとパスキーに対応させる。
-     これはブラウザ内の鍵で、本当の保護は Cloudflare Access が担当する。 -->
-<div class="lock" id="lockScreen" hidden>
-  <form class="lock-box" id="lockForm" action="#" method="post" autocomplete="on">
-    <p class="lock-mark" aria-hidden="true"></p>
-    <h1>モノベース 管理画面</h1>
-    <p class="lock-hint" id="lockHint">パスワードを入力してください。</p>
-
-    <label class="lock-label" for="lockUser">ユーザー名</label>
-    <input type="text" id="lockUser" name="username" value="admin"
-           autocomplete="username" autocapitalize="off" spellcheck="false">
-
-    <label class="lock-label" for="lockPass">パスワード</label>
-    <input type="password" id="lockPass" name="password"
-           autocomplete="current-password" placeholder="パスワード">
-
-    <button class="btn btn-primary" type="submit" id="lockSubmit">開く</button>
-    <button class="btn lock-passkey" type="button" id="btnPasskeyLogin" hidden>
-      <span aria-hidden="true">🔐</span> パスキーで開く
-    </button>
-
-    <p class="lock-err" id="lockErr" hidden></p>
-    <p class="lock-note">
-      これはブラウザ内の簡易的な鍵です。第三者が触れる可能性のある環境では、
-      <b>Cloudflare Access</b> も併せて設定してください。
-    </p>
-  </form>
-</div>
-
 <header class="a-header">
   <div class="wrap">
     <h1>モノベース 管理画面<span class="sub">記事・サイト設定・画像をブラウザから編集</span></h1>
@@ -147,6 +118,7 @@
           <select id="f-kind">
             <option value="review">レビュー（1商品を掘り下げる）</option>
             <option value="roundup">特集（複数を比較する）</option>
+            <option value="guide">選び方（基準を解説する）</option>
           </select>
         </div>
         <div>
@@ -270,6 +242,13 @@
     <div class="card">
       <h2>4. スペック比較表</h2>
       <p class="hint">1行目が見出し行です。2列目が自社推し列としてハイライトされます。行は「項目名, 値1, 値2, 値3」のようにカンマ区切りで入力してください。</p>
+      <label for="f-productsIntro">比較した商品：導入文<span class="opt">特集記事で使います／空行で段落を分ける</span></label>
+      <textarea id="f-productsIntro" rows="2" placeholder="今回は価格帯と用途の異なる5製品を並べました。"></textarea>
+
+      <label for="f-products">比較した商品<span class="opt">1行に1商品／「商品名 | メーカー | 価格 | ASIN | 記事スラッグ | 一言 | イチオシ表記」の順、縦棒区切り</span></label>
+      <textarea id="f-products" rows="6" placeholder="MX MASTER 3s | ロジクール | 約14,000円 | B0B1234567 | mx-master-3s-review | 静音クリックと高速ホイール | 総合1位&#10;M750 | ロジクール | 約6,000円 | B0B7654321 |  | 手が小さい人向けの中型"></textarea>
+      <div class="note">記事スラッグを入れると、その商品の個別レビューへ「詳しいレビュー →」のリンクが出ます。<br>逆にレビュー記事側にも「この商品を比較した特集」が自動で表示されます。空欄の項目は省略できます。</div>
+
       <label for="f-specIntro">表の前に置く説明文</label>
       <input type="text" id="f-specIntro">
 
@@ -595,33 +574,21 @@
   <section class="panel" id="p-connect">
     <div class="card">
       <h2>この画面の鍵</h2>
-      <p class="hint">管理画面を開くときのパスワードとパスキーを設定します。<b>この端末のブラウザにのみ保存され</b>、GitHubやサイトには送信されません。</p>
-
-      <div class="row c2">
-        <div>
-          <label for="lkNew">新しいパスワード</label>
-          <input type="password" id="lkNew" autocomplete="new-password" placeholder="8文字以上を推奨">
-        </div>
-        <div>
-          <label for="lkNew2">確認のためもう一度</label>
-          <input type="password" id="lkNew2" autocomplete="new-password">
-        </div>
+      <p class="hint">管理画面は<b>サーバー側（Cloudflare）でパスワード確認をしています</b>。ログインしていない状態でURLを直接開いても、中身は返りません。</p>
+      <div class="note">
+        パスワードの変更は Cloudflare ダッシュボードで行います。<br>
+        <b>Workers &amp; Pages → monobase → 設定 → 変数とシークレット</b> の
+        <code>ADMIN_PASSWORD</code> を書き換えてください。<br>
+        ログイン状態は12時間で切れます。すぐ切りたいときは下のボタンを押してください。
       </div>
       <div class="btn-bar">
-        <button class="btn btn-primary" id="btnLkSave">パスワードを設定する</button>
+        <a class="btn" href="/admin/logout">ログアウト</a>
       </div>
-
-      <label style="margin-top:18px;">パスキー<span class="opt">Touch ID・Face ID・Windows Hello・スマートフォン</span></label>
-      <div class="note" id="pkState">確認しています…</div>
-      <div class="btn-bar">
-        <button class="btn" id="btnPasskeyAdd">パスキーを登録する</button>
-        <button class="btn btn-ghost" id="btnPasskeyDel">パスキーを解除する</button>
-      </div>
-
       <div class="note warn">
-        <b>この鍵はブラウザ内だけのものです。</b>ページのHTMLやデータは、鍵がなくても直接URLを開けば取得できます。
-        本当に他人から守るには、Cloudflare の <b>Zero Trust → Access</b> で <code>/admin*</code> を保護してください。
-        そちらはサーバー側で止めるので、URLを直接叩かれても通りません。
+        ブラウザのパスワード保存には対応しています（ログイン画面で保存を選べます）。<br>
+        <b>パスキー（Touch ID・Face ID）で開きたい場合</b>は、Cloudflare の
+        <b>Zero Trust → Access</b> で <code>/admin*</code> を保護する形に切り替えます。
+        必要になったら声をかけてください。
       </div>
     </div>
 

@@ -3,9 +3,16 @@
 {
   "name": "monobase",
   "compatibility_date": "2026-08-24",
+  "main": "worker.js",
   "assets": {
     "directory": "./",
     "not_found_handling": "404-page",
-    "html_handling": "auto-trailing-slash"
+    "html_handling": "auto-trailing-slash",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/admin",
+      "/admin.html",
+      "/admin/*"
+    ]
   }
 }

@@ -465,6 +465,29 @@
     return out;
   }
 
+  /* 比較した商品。1行1商品を縦棒で区切って書く。
+     商品名 | メーカー | 価格 | ASIN | 記事スラッグ | 一言 | イチオシ表記 */
+  var PD_KEYS = ['name', 'maker', 'price', 'asin', 'slug', 'note', 'pick'];
+
+  function pdToText(list) {
+    return (list || []).map(function (it) {
+      return PD_KEYS.map(function (k) { return it[k] || ''; })
+        .join(' | ').replace(/(\s*\|\s*)+$/, '');
+    }).join('\n');
+  }
+  function textToPd(text) {
+    return String(text || '').split('\n')
+      .map(function (line) { return line.trim(); })
+      .filter(Boolean)
+      .map(function (line) {
+        var cols = line.split('|').map(function (c) { return c.trim(); });
+        var o = {};
+        PD_KEYS.forEach(function (k, i) { if (cols[i]) o[k] = cols[i]; });
+        return o;
+      })
+      .filter(function (o) { return o.name; });
+  }
+
   /* 「ここが効く」は {title, text} の並び。編集画面では
      「## 見出し」＋続く段落、という同じ書き方で扱う。 */
   function hlToText(list) {
@@ -535,6 +558,8 @@
     $('f-breakdown').value = (a.rating && a.rating.breakdown) || '';
     $('f-lead').value = toText(a.lead);
     $('f-sections').value = sectionsToText(a.sections);
+    $('f-products').value = pdToText(a.products);
+    $('f-productsIntro').value = toText(a.products_intro);
     $('f-specIntro').value = (a.spec && a.spec.intro) || '';
     $('f-specRead').value = toText(a.spec && a.spec.read);
     $('f-specHeaders').value = ((a.spec && a.spec.headers) || []).join(', ');
@@ -592,6 +617,14 @@
     a.sections = textToSections($('f-sections').value, a.sections);
     a.pros = readRepeater('r-pros');
     a.cons = readRepeater('r-cons');
+    var pd = textToPd($('f-products').value);
+    if (pd.length) {
+      a.products = pd;
+      a.products_intro = toParas($('f-productsIntro').value);
+    } else {
+      delete a.products;
+      delete a.products_intro;
+    }
     a.spec = {
       intro: $('f-specIntro').value.trim(),
       read: toParas($('f-specRead').value),
@@ -847,221 +880,6 @@
 
   $('btnSaveArticles').addEventListener('click', saveArticles);
   $('btnReload').addEventListener('click', loadAll);
-
-  /* ---------------------------------------------------- ログイン */
-  /* この画面を開くための鍵。方式は2つ。
-       ・パスワード … PBKDF2 でハッシュ化した値だけを端末に保存する
-       ・パスキー   … WebAuthn の資格情報IDを端末に保存し、生体認証で開く
-     どちらも「他人がうっかり開く」のを防ぐためのもので、
-     サーバー側の保護（Cloudflare Access）の代わりにはならない。 */
-  var LOCK_KEY = 'monobase-admin-lock';    // {salt, hash}
-  var PK_KEY   = 'monobase-admin-passkey'; // 資格情報ID（base64url）
-
-  function lsGet(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
-  function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
-  function lsDel(k) { try { localStorage.removeItem(k); } catch (e) {} }
-
-  function b64url(buf) {
-    var s = btoa(String.fromCharCode.apply(null, new Uint8Array(buf)));
-    return s.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-  }
-  function unb64url(str) {
-    var s = str.replace(/-/g, '+').replace(/_/g, '/');
-    while (s.length % 4) s += '=';
-    var bin = atob(s), out = new Uint8Array(bin.length);
-    for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
-    return out;
-  }
-  function randomBytes(n) { return crypto.getRandomValues(new Uint8Array(n)); }
-
-  /* パスワードは総当たりに時間がかかる形（PBKDF2）で保存する */
-  function hashPass(pass, saltB64) {
-    var salt = unb64url(saltB64);
-    return crypto.subtle
-      .importKey('raw', new TextEncoder().encode(pass), 'PBKDF2', false, ['deriveBits'])
-      .then(function (key) {
-        return crypto.subtle.deriveBits(
-          { name: 'PBKDF2', salt: salt, iterations: 150000, hash: 'SHA-256' }, key, 256);
-      })
-      .then(b64url);
-  }
-
-  function setPassword(pass) {
-    var salt = b64url(randomBytes(16));
-    return hashPass(pass, salt).then(function (h) {
-      lsSet(LOCK_KEY, { salt: salt, hash: h });
-    });
-  }
-
-  function checkPassword(pass) {
-    var rec = lsGet(LOCK_KEY);
-    if (!rec) return Promise.resolve(false);
-    return hashPass(pass, rec.salt).then(function (h) { return h === rec.hash; });
-  }
-
-  /* ブラウザのパスワード保存を促す。対応していない場合は何も起きない。 */
-  function offerToSave(user, pass) {
-    if (!window.PasswordCredential || !navigator.credentials) return;
-    try {
-      /* 対応していないブラウザでは黙って失敗させる（画面には出さない） */
-      var p = navigator.credentials.store(new PasswordCredential({
-        id: user || 'admin', password: pass, name: 'モノベース 管理画面'
-      }));
-      if (p && p.catch) p.catch(function () {});
-    } catch (e) {}
-  }
-
-  /* ---- パスキー（WebAuthn） ---- */
-  function passkeySupported() {
-    return !!(window.PublicKeyCredential && navigator.credentials &&
-              navigator.credentials.create);
-  }
-
-  function passkeyRegister() {
-    if (!passkeySupported()) {
-      return Promise.reject(new Error('この端末・ブラウザはパスキーに対応していません'));
-    }
-    return navigator.credentials.create({
-      publicKey: {
-        challenge: randomBytes(32),
-        rp: { name: 'モノベース 管理画面' },
-        user: { id: randomBytes(16), name: 'admin', displayName: '管理者' },
-        pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
-        authenticatorSelection: { userVerification: 'preferred', residentKey: 'preferred' },
-        timeout: 60000,
-        attestation: 'none'
-      }
-    }).then(function (cred) {
-      if (!cred) throw new Error('登録できませんでした');
-      lsSet(PK_KEY, b64url(cred.rawId));
-      return true;
-    });
-  }
-
-  function passkeyLogin() {
-    var id = lsGet(PK_KEY);
-    if (!id) return Promise.reject(new Error('パスキーが登録されていません'));
-    return navigator.credentials.get({
-      publicKey: {
-        challenge: randomBytes(32),
-        allowCredentials: [{ type: 'public-key', id: unb64url(id) }],
-        userVerification: 'preferred',
-        timeout: 60000
-      }
-    }).then(function (assertion) {
-      if (!assertion) throw new Error('認証できませんでした');
-      return true;
-    });
-  }
-
-  function renderPasskeyState() {
-    var box = $('pkState');
-    if (!box) return;
-    if (!passkeySupported()) {
-      box.textContent = 'この端末・ブラウザはパスキーに対応していません。';
-      $('btnPasskeyAdd').disabled = true;
-      $('btnPasskeyDel').disabled = true;
-      return;
-    }
-    var has = !!lsGet(PK_KEY);
-    box.innerHTML = has
-      ? '<b>登録済みです。</b>ログイン画面の「パスキーで開く」から、生体認証で開けます。'
-      : 'まだ登録されていません。登録すると、パスワードを打たずに開けるようになります。';
-    $('btnPasskeyDel').disabled = !has;
-  }
-
-  /* ---- ログイン画面 ---- */
-  function unlock() {
-    $('lockScreen').hidden = true;
-    document.body.classList.remove('is-locked');
-  }
-
-  function lockError(msg) {
-    var el = $('lockErr');
-    el.textContent = msg;
-    el.hidden = false;
-  }
-
-  function lockSetup() {
-    var rec = lsGet(LOCK_KEY);
-    var first = !rec;
-    var screen = $('lockScreen');
-
-    document.body.classList.add('is-locked');
-    screen.hidden = false;
-
-    if (first) {
-      $('lockHint').textContent =
-        'この端末で使うパスワードを決めてください。次回からこのパスワードで開きます。';
-      $('lockPass').setAttribute('autocomplete', 'new-password');
-      $('lockPass').placeholder = 'パスワードを決める（初回）';
-      $('lockSubmit').textContent = 'このパスワードで始める';
-    }
-
-    if (lsGet(PK_KEY) && passkeySupported()) {
-      $('btnPasskeyLogin').hidden = false;
-    }
-
-    setTimeout(function () { $('lockPass').focus(); }, 60);
-
-    $('lockForm').addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var user = $('lockUser').value.trim() || 'admin';
-      var pass = $('lockPass').value;
-      if (!pass) return;
-      $('lockErr').hidden = true;
-
-      if (first) {
-        if (pass.length < 4) { lockError('4文字以上にしてください。'); return; }
-        setPassword(pass).then(function () {
-          offerToSave(user, pass);
-          unlock();
-          toast('パスワードを設定しました', 'ok');
-          renderPasskeyState();
-        });
-        return;
-      }
-
-      checkPassword(pass).then(function (ok) {
-        if (ok) { offerToSave(user, pass); unlock(); }
-        else { lockError('パスワードが違います。'); $('lockPass').value = ''; $('lockPass').focus(); }
-      });
-    });
-
-    $('btnPasskeyLogin').addEventListener('click', function () {
-      $('lockErr').hidden = true;
-      passkeyLogin()
-        .then(unlock)
-        .catch(function (e) { lockError(e.message || 'パスキーで開けませんでした。'); });
-    });
-  }
-
-  /* ---- 接続タブ側の設定 ---- */
-  if ($('btnLkSave')) {
-    $('btnLkSave').addEventListener('click', function () {
-      var a = $('lkNew').value, b = $('lkNew2').value;
-      if (a.length < 4) { toast('4文字以上にしてください', 'err'); return; }
-      if (a !== b) { toast('確認用のパスワードが一致しません', 'err'); return; }
-      setPassword(a).then(function () {
-        $('lkNew').value = ''; $('lkNew2').value = '';
-        offerToSave('admin', a);
-        toast('パスワードを変更しました', 'ok');
-      });
-    });
-
-    $('btnPasskeyAdd').addEventListener('click', function () {
-      passkeyRegister()
-        .then(function () { renderPasskeyState(); toast('パスキーを登録しました', 'ok'); })
-        .catch(function (e) { toast(e.message || '登録できませんでした', 'err'); });
-    });
-
-    $('btnPasskeyDel').addEventListener('click', function () {
-      if (!confirm('この端末のパスキーを解除します。よろしいですか？')) return;
-      lsDel(PK_KEY);
-      renderPasskeyState();
-      toast('パスキーを解除しました');
-    });
-  }
 
   /* ---------------------------------------------------- 公開状態 */
   /* メンテナンス表示の切り替え。ヘッダーのチップにも状態を出す。 */
@@ -1439,8 +1257,6 @@
   });
 
   /* ---------------------------------------------------- 起動 */
-  lockSetup();
-  renderPasskeyState();
   loadCfg();
   log('管理画面を起動しました' + (cfg.token ? '（保存済みの接続情報あり）' : '（未接続）'));
   loadAll();

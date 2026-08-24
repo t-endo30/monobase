@@ -4001,3 +4001,95 @@ body,p,li,dd,dt,figcaption,a,span,button,
   /* 狭い画面では種類バッジを優先し、タグのほうを隠す */
   .card-tags .tag-kind{display:inline-block;}
 }
+
+/* ============================================================
+   記事ページ：PCでもサイドを出さず、本文を広く使う
+   ------------------------------------------------------------
+   一覧ページはサイドを出したままなので、本文の幅だけを
+   これまでの3カラムぶんまで広げる。読み幅が広がりすぎない
+   よう、上限を決めて中央に置く。
+   ============================================================ */
+body.is-article .layout > .container{
+  max-width:1000px;
+}
+@media (min-width:1240px){
+  body.is-article .layout > .container{max-width:1080px;}
+}
+/* 記事ページの関連記事は、幅が広くなるぶん3列まで並べる */
+@media (min-width:900px){
+  body.is-article .card-grid{grid-template-columns:repeat(3,1fr);}
+}
+
+/* ============================================================
+   特集：比較した商品の表
+   ============================================================ */
+.pd-table table{min-width:640px;}
+.pd-table th[scope="row"]{
+  text-align:left;
+  line-height:1.5;
+  min-width:190px;
+}
+.pd-pick{
+  display:inline-block;
+  font-size:10.5px;
+  font-weight:700;
+  letter-spacing:.06em;
+  color:#fff;
+  background:var(--amazon);
+  border-radius:3px;
+  padding:1px 7px;
+  margin-bottom:4px;
+}
+.pd-maker{
+  display:block;
+  font-size:11px;
+  font-weight:600;
+  color:var(--text-sub);
+}
+.pd-name{display:block;font-size:14px;font-weight:700;color:var(--ink);}
+.pd-price{white-space:nowrap;font-weight:700;}
+.pd-links{white-space:nowrap;}
+.pd-buy,.pd-review{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  text-decoration:none;
+  white-space:nowrap;
+  margin:2px 0;
+}
+.pd-buy{color:#9A5B00;}
+.pd-buy:hover{text-decoration:underline;}
+.pd-review{color:#1B4F86;}
+.pd-review:hover{text-decoration:underline;}
+
+/* ============================================================
+   レビュー記事から特集への導線
+   ============================================================ */
+.fi-grid{display:grid;gap:12px;margin-bottom:clamp(20px,4vw,30px);}
+@media (min-width:760px){ .fi-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));} }
+.fi-card{
+  display:block;
+  padding:clamp(13px,3vw,17px);
+  border-radius:var(--radius);
+  border:1px solid #F3D2A8;
+  background:linear-gradient(180deg,#FFFBF4 0%,#FFF7EA 100%);
+  text-decoration:none;
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease);
+  box-shadow:var(--shadow-xs);
+}
+.fi-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);text-decoration:none;}
+.fi-label{
+  display:inline-block;
+  font-size:10.5px;font-weight:700;letter-spacing:.1em;
+  color:#9A5B00;background:#FDEBD8;border:1px solid #F3D2A8;
+  border-radius:3px;padding:1px 8px;margin-bottom:7px;
+}
+.fi-title{display:block;font-size:15px;font-weight:700;line-height:1.55;color:var(--ink);}
+.fi-desc{display:block;margin-top:5px;font-size:12.5px;line-height:1.8;color:var(--text-sub);}
+
+/* 種類バッジ：選び方ガイド */
+.tag-kind.is-guide{
+  background:#E7F4EC;
+  color:#1E6B43;
+  border-color:#C2E2CF;
+}

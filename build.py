@@ -442,7 +442,7 @@ def thumb(a, p):
     return (f'<img src="{e(src)}" alt="{e(a.get("list_title") or a["title"])}" '
             f'loading="lazy" width="1200" height="430">')
 
-KIND_LABEL = {"review": "レビュー", "roundup": "特集"}
+KIND_LABEL = {"review": "レビュー", "roundup": "特集", "guide": "選び方"}
 
 
 def kind_of(a):
@@ -458,6 +458,72 @@ def kind_of(a):
 def kind_badge(a):
     k = kind_of(a)
     return f'<span class="tag tag-kind is-{k}">{KIND_LABEL[k]}</span>'
+
+
+def product_table(a, p):
+    """特集用の商品比較表。行が1商品で、価格・特徴・リンクを並べる。
+       個別レビューがある商品は、その記事へ送る導線も置く。"""
+    items = a.get("products") or []
+    if not items:
+        return ""
+    pub = {x["slug"]: x for x in PUBLISHED}
+    rows = ""
+    for it in items:
+        pick = (f'<span class="pd-pick">{e(it["pick"])}</span>' if it.get("pick") else "")
+        maker = (f'<span class="pd-maker">{e(it["maker"])}</span>' if it.get("maker") else "")
+        buy = ""
+        if it.get("asin") or it.get("url"):
+            href = amazon_link({"asin": it.get("asin"), "amazon_url": it.get("url")})
+            buy = (f'<a class="pd-buy" href="{e(href)}" target="_blank" '
+                   f'rel="nofollow sponsored noopener">Amazonで見る</a>')
+        rev = ""
+        tgt = pub.get((it.get("slug") or "").strip())
+        if tgt:
+            rev = (f'<a class="pd-review" href="{p}articles/{e(tgt["slug"])}.html">'
+                   f'詳しいレビュー <span aria-hidden="true">→</span></a>')
+        rows += f'''                <tr>
+                  <th scope="row">{pick}{maker}<span class="pd-name">{it.get("name","")}</span></th>
+                  <td class="pd-price">{it.get("price","")}</td>
+                  <td>{it.get("note","")}</td>
+                  <td class="pd-links">{buy}{rev}</td>
+                </tr>
+'''
+    return f'''          <h2 id="sec-products">比較した商品</h2>
+{paras(a.get("products_intro"))}          <p class="scroll-hint">← 横にスクロールできます →</p>
+          <div class="table-scroll pd-table" tabindex="0" role="region" aria-label="商品の比較表">
+            <table>
+              <thead>
+                <tr><th scope="col">商品</th><th scope="col">価格の目安</th><th scope="col">特徴</th><th scope="col">リンク</th></tr>
+              </thead>
+              <tbody>
+{rows}              </tbody>
+            </table>
+          </div>
+'''
+
+
+def featured_in(a, p):
+    """この商品を扱っている特集を探して、記事の下に置く導線にする。
+       特集側の products[].slug を見て、逆向きにたどる。"""
+    me = a["slug"]
+    hits = [x for x in PUBLISHED
+            if x["slug"] != me
+            and any((it.get("slug") or "") == me for it in (x.get("products") or []))]
+    if not hits:
+        return ""
+    cards = ""
+    for x in hits[:3]:
+        cards += (f'''            <a class="fi-card" href="{p}articles/{e(x["slug"])}.html">
+              <span class="fi-label">特集</span>
+              <span class="fi-title">{title_lines(x.get("list_title") or x["title"])}</span>
+              <span class="fi-desc">{e(x.get("excerpt",""))}</span>
+            </a>
+''')
+    return f'''          <h2 id="sec-featured-in">この商品を比較した特集</h2>
+          <p>ほかの選択肢と並べて見たい場合は、こちらもあわせてどうぞ。</p>
+          <div class="fi-grid">
+{cards}          </div>
+'''
 
 
 def card(a, p, lead=False):
@@ -564,11 +630,13 @@ def render_article(a):
     if a.get("not_for", {}).get("items"): toc.append(("sec-notfor", "買わないほうがいい人"))
     if a.get("scenes"):                   toc.append(("sec-scenes", "この商品で変わる生活シーン"))
     if a.get("pros") or a.get("cons"):    toc.append(("sec-proscons", "メリットとデメリット"))
+    if a.get("products"):                 toc.append(("sec-products", "比較した商品"))
     if a.get("spec", {}).get("rows"):     toc.append(("spec", "スペック比較表"))
     for i, sec in enumerate(a.get("sections", []), start=1):
         toc.append((f"sec-note{i}", sec.get("heading", "")))
     if a.get("voices"):                   toc.append(("sec-voice", "共通の不満点と対処法"))
     if a.get("next_problem", {}).get("items"): toc.append(("sec-next", "次に困りそうなこと"))
+    if featured_in(a, p):                 toc.append(("sec-featured-in", "この商品を比較した特集"))
     if a.get("conclusion"):               toc.append(("sec-conclusion", "まとめ"))
     if toc:
         li = "".join(f'            <li><a href="#{i}">{e(t)}</a></li>\n' for i, t in toc)
@@ -658,6 +726,9 @@ def render_article(a):
           </div>
 ''')
         add(paras(a.get("proscons_note")))
+
+    # 比較した商品（特集用）
+    add(product_table(a, p))
 
     # スペック比較表
     sp = a.get("spec", {})
@@ -751,6 +822,9 @@ def render_article(a):
 ''')
         add('          </div>\n')
 
+    # この商品を扱っている特集への導線
+    add(featured_in(a, p))
+
     # まとめ
     if a.get("conclusion"):
         add(f'''          <h2 id="sec-conclusion">{a.get("conclusion_title","まとめ")}</h2>
@@ -791,7 +865,8 @@ def render_article(a):
                 cat, p, url, "".join(b),
                 sticky_url=(amazon_link(a) if (a.get("asin") or a.get("amazon_url")) else None),
                 extra_js=extra_js,
-                sidebar=True, current_sub=a.get("sub", ""),
+                # 記事ページはサイドを出さず、本文だけを広く使う
+                sidebar=False, body_class="is-article", current_sub=a.get("sub", ""),
                 crumbs=[("ホーム", f"{p}index.html"),
                         (CAT_LABEL.get(cat, ""), f"{p}category-{cat}.html"),
                         (a.get("list_title") or a["title"], None)])
@@ -1048,40 +1123,20 @@ def build_search():
 
 # ============================================================ Worker
 def worker_js(maintenance):
-    """メンテナンス中に全ページを差し替える Worker。
-       通常時は wrangler.jsonc から外れるので実行されない。
-       管理画面と資産は通し、それ以外は 503 でメンテナンス画面を返す。
-       503 を返すのは、検索エンジンに「一時的な停止」だと伝えるため
-       （404 や 200 で返すと、この状態でインデックスされてしまう）。"""
-    flag = "true" if maintenance else "false"
-    return f'''// このファイルは build.py が生成します。直接編集しないでください。
-// メンテナンス表示の切り替えは、管理画面（サイト設定）から行います。
-const MAINTENANCE = {flag};
+    """Cloudflare Workers の入口。中身は tools/worker.template.js。
+       やっていることは2つ。
 
-// 停止中でも通すパス。管理画面から復旧の操作ができるようにしておく。
-const ALLOW = ["/admin", "/admin.html", "/assets/", "/content/", "/maintenance.html"];
+       1. 管理画面の保護
+          /admin* はパスワードを知っている人だけに通す。判定を
+          サーバー側で行うので、URLを直接叩かれても中身は返らない。
+       2. メンテナンス表示
+          有効なあいだ、全ページを 503 の「準備中」に差し替える。
 
-export default {{
-  async fetch(request, env) {{
-    if (!MAINTENANCE) return env.ASSETS.fetch(request);
-
-    const url = new URL(request.url);
-    if (ALLOW.some((p) => url.pathname === p || url.pathname.startsWith(p))) {{
-      return env.ASSETS.fetch(request);
-    }}
-
-    const page = await env.ASSETS.fetch(new URL("/maintenance.html", url));
-    return new Response(page.body, {{
-      status: 503,
-      headers: {{
-        "content-type": "text/html; charset=utf-8",
-        "cache-control": "no-store",
-        "retry-after": "3600",
-      }},
-    }});
-  }},
-}};
-'''
+       パスワードはリポジトリに置かない。Cloudflare の Worker 設定に
+       シークレット（ADMIN_PASSWORD / ADMIN_SECRET）として登録する。"""
+    tpl = io.open(os.path.join(ROOT, "tools", "worker.template.js"),
+                  encoding="utf-8").read()
+    return tpl.replace("__MAINTENANCE__", "true" if maintenance else "false")
 
 
 # ============================================================ 固定ページ
@@ -1462,17 +1517,17 @@ def main():
         # これに合わせて拡張子なしで出している（public_url を参照）。
         "html_handling": "auto-trailing-slash",
     }
+    # Worker は常に置く。管理画面のログイン判定をサーバー側で行うため。
+    assets["binding"] = "ASSETS"
+    # 通常時は /admin* だけ Worker を通す（他は静的配信のまま速い）。
+    # メンテナンス中は全ページを差し替えるので、すべて Worker を通す。
+    assets["run_worker_first"] = True if maint else ["/admin", "/admin.html", "/admin/*"]
     wrangler = {
         "name": hs.get("worker_name") or SITE["domain"].split(".")[0],
         "compatibility_date": hs.get("compatibility_date", "2026-08-24"),
+        "main": "worker.js",
         "assets": assets,
     }
-    if maint:
-        # メンテナンス中だけ、全リクエストを Worker に通して
-        # メンテナンス画面へ差し替える。通常時は素の静的配信のまま。
-        assets["binding"] = "ASSETS"
-        assets["run_worker_first"] = True
-        wrangler["main"] = "worker.js"
     write("worker.js", worker_js(maint))
     written.append("worker.js")
     write("wrangler.jsonc",
@@ -1521,7 +1576,7 @@ def main():
         "/*.html",
         "  Cache-Control: public, max-age=0, must-revalidate",
         "",
-        "# 管理画面は検索させない（HTML側の meta と二重に掛ける）",
+        "# 管理画面は Worker 側でも止めているが、念のため二重に掛ける",
         "/admin.html",
         "  X-Robots-Tag: noindex, nofollow",
         "",
