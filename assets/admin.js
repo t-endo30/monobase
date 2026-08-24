@@ -1324,9 +1324,12 @@
       }).then(function () {
         $('f-thumb').value = path;
         $('f-imageAi').checked = false;   /* 自分で用意した画像なので断り書きは出さない */
+        editing.thumb = path;
+        delete editing.image_ai;
         ecPreview();
-        note.textContent = '保存しました：' + path;
-        toast('アイキャッチを設定しました', 'ok');
+        note.innerHTML = '保存しました：<code>' + path + '</code><br>' +
+          '<b>「記事」タブの「GitHubに保存して公開」を押すと、サイトに反映されます。</b>';
+        toast('アイキャッチを設定しました。記事を保存すると反映されます', 'ok');
       });
     }).catch(function (e) {
       note.textContent = '失敗しました：' + e.message;
@@ -1349,8 +1352,9 @@
         $('f-thumb').value = path;
         $('f-imageAi').checked = true;
         ecPreview();
-        note.textContent = '作って保存しました：' + path;
-        toast('アイキャッチを作りました', 'ok');
+        note.innerHTML = '作って保存しました：<code>' + path + '</code><br>' +
+          '<b>「記事」タブの「GitHubに保存して公開」を押すと、サイトに反映されます。</b>';
+        toast('アイキャッチを作りました。記事を保存すると反映されます', 'ok');
       })
       .catch(function (e) {
         note.textContent = '失敗しました：' + e.message;
