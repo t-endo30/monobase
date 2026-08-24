@@ -6,26 +6,35 @@
   var nav = document.getElementById('globalNav');
   if (!toggle || !nav) return;
 
-  toggle.addEventListener('click', function () {
-    var open = nav.classList.toggle('is-open');
+  /* 背面の覆い。押すと閉じる（メニューは画面に被せて出す） */
+  var veil = document.createElement('div');
+  veil.className = 'nav-veil';
+  veil.hidden = true;
+  document.body.appendChild(veil);
+
+  function setOpen(open) {
+    nav.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    veil.hidden = !open;
+  }
+  veil.addEventListener('click', function () { setOpen(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && nav.classList.contains('is-open')) setOpen(false);
+  });
+
+  toggle.addEventListener('click', function () {
+    setOpen(!nav.classList.contains('is-open'));
   });
 
   /* ナビ内リンクを押したら閉じる（スマホ時） */
   nav.addEventListener('click', function (e) {
-    if (e.target.tagName === 'A' && window.innerWidth < 900) {
-      nav.classList.remove('is-open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
+    if (e.target.tagName === 'A' && window.innerWidth < 900) setOpen(false);
   });
 
   /* PC幅に戻したときは状態をリセット */
   window.addEventListener('resize', function () {
-    if (window.innerWidth >= 900) {
-      nav.classList.remove('is-open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
+    if (window.innerWidth >= 900) setOpen(false);
   });
 
 })();
@@ -710,4 +719,85 @@
   el.textContent = pick
     ? '現在（' + pick + '）など ' + nCat + ' カテゴリーで ' + nPub + ' 記事公開中'
     : '現在 ' + nCat + ' カテゴリーで ' + nPub + ' 記事公開中';
+})();
+
+/* ============================================================
+   「今日のモノ」：日替わりで1本だけ出すミニウィジェット
+   ------------------------------------------------------------
+   よく見ているジャンルの記事から選ぶ。読み込むたびに変わると
+   「今日の」ではなくなるため、日付をもとに選び、同じ日は同じ記事を出す。
+   ============================================================ */
+(function () {
+  'use strict';
+  var boxes = document.querySelectorAll('.today-box');
+  if (!boxes.length) return;
+
+  var data = {};
+  try { data = JSON.parse(document.body.getAttribute('data-rank') || '{}'); }
+  catch (e) { return; }
+  var items = data.items || [];
+  if (!items.length) return;
+
+  var counts = {};
+  try { counts = JSON.parse(localStorage.getItem('mb.catCounts') || '{}') || {}; }
+  catch (e) { counts = {}; }
+
+  /* よく見ているジャンルを候補にする。まだ履歴がなければ全記事から選ぶ。 */
+  var liked = Object.keys(counts).filter(function (k) { return counts[k] > 0; });
+  var pool = items.filter(function (it) { return liked.indexOf(it.catKey) >= 0; });
+  if (pool.length < 2) pool = items;
+
+  /* 日付から決める。同じ日は同じ記事、日が変われば別の記事になる。 */
+  var today = new Date();
+  var seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  var h = seed;
+  for (var i = 0; i < liked.length; i++) h += liked[i].charCodeAt(0) * (i + 7);
+  var pick = pool[h % pool.length];
+  if (!pick) return;
+
+  Array.prototype.forEach.call(boxes, function (box) {
+    var a = box.querySelector('.today-card');
+    var img = box.querySelector('.today-thumb img');
+    a.href = pick.url;
+    img.src = pick.thumb;
+    img.alt = pick.title;
+    box.querySelector('.today-cat').textContent = pick.cat;
+    box.querySelector('.today-title').textContent = pick.title;
+    box.hidden = false;
+  });
+})();
+
+/* ============================================================
+   スマホ：画面下に浮かぶ検索
+   ------------------------------------------------------------
+   記事の詳細ページ以外で出す。スクロール中は隠し、
+   指が止まったらふわっと戻す。
+   ============================================================ */
+(function () {
+  'use strict';
+  if (document.querySelector('article.card-surface')) return;   /* 記事ページには出さない */
+  var form = document.querySelector('.search-tile .searchbox, .side-search .searchbox');
+  if (!form) return;
+
+  var bar = document.createElement('div');
+  bar.className = 'float-search';
+  bar.innerHTML = form.outerHTML;
+  document.body.appendChild(bar);
+
+  var timer = null;
+  function show() { bar.classList.add('is-visible'); }
+  function hide() { bar.classList.remove('is-visible'); }
+
+  show();
+  window.addEventListener('scroll', function () {
+    hide();
+    clearTimeout(timer);
+    timer = setTimeout(show, 220);      /* 指が止まってから戻す */
+  }, { passive: true });
+
+  /* 入力中は隠さない */
+  var input = bar.querySelector('input');
+  if (input) {
+    input.addEventListener('focus', function () { clearTimeout(timer); show(); });
+  }
 })();

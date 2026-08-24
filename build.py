@@ -63,6 +63,9 @@ def rank_json(p):
                    "title": a.get("list_title") or a["title"],
                    "url": f'{p}articles/{a["slug"]}.html',
                    "cat": CAT_LABEL.get(a["category"], ""),
+                   "catKey": a["category"],
+                   "thumb": visual_path(a, p)[0],
+                   "excerpt": a.get("excerpt", ""),
                    "date": a.get("date", "")}
                   for a in PUBLISHED],
     }
@@ -191,6 +194,21 @@ def cat_tree(p, current="", current_sub="", idp="nav"):
             f'      </li>\n')
     return ('    <ul class="cat-tree" id="' + idp + 'CatTree">\n'
             + "".join(out) + '    </ul>\n')
+
+
+def today_panel(cls=""):
+    """日替わりで1本だけ出すミニウィジェット。
+       よく見ているジャンルから、その日の分を選ぶ（中身は assets/main.js）。"""
+    return (f'    <section class="today-box {cls}" hidden>\n'
+            f'      <p class="today-heading">今日のモノ</p>\n'
+            f'      <a class="today-card" href="#">\n'
+            f'        <span class="today-thumb"><img src="" alt="" width="1200" height="600"></span>\n'
+            f'        <span class="today-body">\n'
+            f'          <span class="today-cat"></span>\n'
+            f'          <span class="today-title"></span>\n'
+            f'        </span>\n'
+            f'      </a>\n'
+            f'    </section>\n')
 
 
 def rank_panel(p, limit=10):
@@ -376,15 +394,18 @@ def main_block(body, p, current="", current_sub="", sidebar=False):
     tree = cat_tree(p, current, current_sub, "side")
     return ('\n<main id="top" class="layout has-side">\n'
             '  <div class="container layout-grid">\n'
-            '    <aside class="side-nav" aria-label="カテゴリー">\n'
+            '    <div class="side-col">\n'
             + (side_search(p) if FEAT.get("search") else "") +
+            '    <aside class="side-nav side-tile" aria-label="カテゴリー">\n'
             '      <p class="side-heading">CATEGORIES</p>\n'
             + tree +
             '    </aside>\n'
+            '    </div>\n'
             '    <div class="layout-main">\n'
             + body +
             '    </div>\n'
-            '    <div class="side-rank">\n' + rank_panel(p, 10) + '    </div>\n'
+            '    <div class="side-rank">\n' + today_panel("is-side")
+            + rank_panel(p, 10) + '    </div>\n'
             '  </div>\n</main>\n\n')
 
 
@@ -690,24 +711,24 @@ def hero(icon, h1, lead, count=None):
       </div>
 '''
 
+SEARCH_HINT = "例：加湿器、モニターアーム、腰痛"
+
+
 def side_search(p):
-    """PCのサイドバー先頭に置く検索。カテゴリーより上に出す。"""
-    return (f'      <div class="side-search">\n'
-            f'        <p class="side-heading">記事をさがす</p>\n'
-            f'        <form class="searchbox" action="{p}search.html" method="get" role="search">\n'
-            f'          <input type="search" name="q" placeholder="キーワード" aria-label="サイト内検索">\n'
-            f'          <button type="submit">検索</button>\n'
-            f'        </form>\n'
-            f'      </div>\n')
+    """PCのサイドに置く検索。カテゴリーとは別のタイルにする。"""
+    return (f'    <div class="side-tile side-search">\n'
+            f'      <form class="searchbox" action="{p}search.html" method="get" role="search">\n'
+            f'        <input type="search" name="q" placeholder="{e(SEARCH_HINT)}" aria-label="サイト内検索">\n'
+            f'        <button type="submit">検索</button>\n'
+            f'      </form>\n'
+            f'    </div>\n')
 
 
 SEARCH_TILE = '''        <div class="search-tile">
-          <p class="search-tile-title">記事をさがす</p>
           <form class="searchbox" action="./search.html" method="get" role="search">
-            <input type="search" name="q" placeholder="キーワードで探す（例：加湿器、腰痛）" aria-label="サイト内検索">
+            <input type="search" name="q" placeholder="例：加湿器、モニターアーム、腰痛" aria-label="サイト内検索">
             <button type="submit">検索</button>
           </form>
-          <p class="search-tile-note">カテゴリーからも探せます。左のカテゴリー一覧、またはメニューをご利用ください。</p>
         </div>
 '''
 
@@ -811,6 +832,7 @@ def build_index():
         </div>
 {SEARCH_TILE if FEAT.get("search") else ""}      </section>
 '''
+    body += today_panel("is-mobile")
     body += feature_cards(p)
 
     body += f'''      <section class="section-block">
