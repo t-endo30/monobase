@@ -3565,7 +3565,8 @@ body,p,li,dd,dt,figcaption,a,span,button,
 }
 .hero-band .hero-row{
   align-items:center;
-  padding:clamp(12px,2.6vw,20px) 0;
+  padding-top:clamp(12px,2.6vw,20px);
+  padding-bottom:clamp(12px,2.6vw,20px);
   gap:clamp(12px,2.6vw,24px);
 }
 .hero-band .hero{
