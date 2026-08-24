@@ -6,3 +6,6 @@ __pycache__/
 *.csv
 Retail.OrderHistory*
 orders*.json
+
+# wrangler のローカル作業ファイル
+.wrangler/

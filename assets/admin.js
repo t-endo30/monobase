@@ -196,7 +196,10 @@
       .forEach(function (a) {
         var li = document.createElement('li');
         li.innerHTML =
-          '<span class="ico">' + (a.icon || '📦') + '</span>' +
+          /* アイキャッチを設定していればサムネイル、無ければ絵文字 */
+          (a.thumb
+            ? '<span class="thumb"><img src="' + a.thumb + '" alt="" loading="lazy"></span>'
+            : '<span class="ico">' + (a.icon || '📦') + '</span>') +
           '<span class="meta">' +
             '<span class="ttl">' + (a.list_title || a.title || '(無題)') + '</span>' +
             '<span class="sub">' +
@@ -704,6 +707,108 @@
     w.document.close();
   });
 
+  /* ---------------------------------------------------- サイトプレビュー */
+  /* 公開中のページを枠の中に読み込み、まだ保存していない内容を
+     上から当てて見せる。ビルドを走らせずに見た目を確かめるための機能。
+     ページの組み方そのものはビルド時に決まるので、ここで直せるのは
+     articles.json 由来の部分（カードの見出し・抜粋・画像・バッジ）だけ。 */
+  var pvReady = false;
+
+  function pvBase() {
+    return location.pathname.replace(/admin\.html$/, '');
+  }
+
+  function pvFillPages() {
+    var sel = $('pvPage');
+    var opts = [
+      ['', 'トップページ'],
+      ['new.html', '新着記事'],
+      ['ranking.html', 'アクセスランキング'],
+    ];
+    (site.categories || []).forEach(function (c) {
+      opts.push(['category-' + c.key + '.html', 'カテゴリー：' + c.label]);
+    });
+    articles.filter(function (a) { return a.published; }).forEach(function (a) {
+      opts.push(['articles/' + a.slug + '.html', '記事：' + (a.list_title || a.title)]);
+    });
+    sel.innerHTML = opts.map(function (o) {
+      return '<option value="' + o[0] + '">' + o[1] + '</option>';
+    }).join('');
+  }
+
+  /* 未保存の内容をカードへ反映する。iframe は同じドメインなので中を触れる。 */
+  function pvPatch(doc) {
+    var bySlug = {};
+    articles.forEach(function (a) { bySlug[a.slug] = a; });
+    var n = 0;
+    Array.prototype.forEach.call(doc.querySelectorAll('.card[data-slug]'), function (card) {
+      var a = bySlug[card.getAttribute('data-slug')];
+      if (!a) return;
+      n++;
+      var t = card.querySelector('.card-title a');
+      if (t) t.textContent = a.list_title || a.title || '';
+      var d = card.querySelector('.card-desc');
+      if (d) d.textContent = a.excerpt || '';
+      var img = card.querySelector('.card-thumb img');
+      if (img && a.thumb) img.src = pvBase() + a.thumb;
+      var kind = card.querySelector('.tag-kind');
+      if (kind) {
+        var k = a.kind || (a.category === 'feature' ? 'roundup' : 'review');
+        kind.textContent = k === 'roundup' ? '特集' : 'レビュー';
+        kind.className = 'tag tag-kind is-' + k;
+      }
+    });
+    /* 記事ページを見ているときは、見出しと結論を差し替える */
+    var slug = (doc.location.pathname.match(/articles\/([^/.]+)/) || [])[1];
+    var cur = slug && bySlug[slug];
+    if (cur) {
+      var h1 = doc.querySelector('.article-title');
+      if (h1) h1.textContent = cur.title || '';
+      n++;
+    }
+    return n;
+  }
+
+  function pvLoad() {
+    var frame = $('pvFrame');
+    var url = pvBase() + $('pvPage').value + '?pv=' + Date.now();
+    $('pvNote').textContent = '読み込んでいます…';
+    frame.onload = function () {
+      var doc;
+      try { doc = frame.contentDocument; } catch (e) { doc = null; }
+      if (!doc) { $('pvNote').textContent = 'プレビューを読み込めませんでした。'; return; }
+      var n = pvPatch(doc);
+      $('pvNote').innerHTML =
+        '未保存の内容を <b>' + n + ' か所</b> に当てて表示しています。'
+        + '本文の組み方や目次はビルド後に確定します。';
+    };
+    frame.src = url;
+  }
+
+  function pvResize() {
+    var w = Number($('pvWidth').value) || 1440;
+    var h = w < 500 ? 780 : 760;
+    var frame = $('pvFrame'), shrink = $('pvShrink'), stage = $('pvStage');
+    frame.style.width = w + 'px';
+    frame.style.height = h + 'px';
+    /* 枠に収まらないぶんだけ縮める。iframe の中の画面幅は w のまま。 */
+    var avail = stage.clientWidth - 28;
+    var scale = Math.min(1, avail / w);
+    shrink.style.transform = 'scale(' + scale + ')';
+    shrink.style.width = w + 'px';
+    shrink.style.height = (h * scale) + 'px';
+  }
+  window.addEventListener('resize', function () { if (pvReady) pvResize(); });
+
+  $('pvWidth').addEventListener('change', function () { pvResize(); });
+  $('pvPage').addEventListener('change', pvLoad);
+  $('btnPvReload').addEventListener('click', pvLoad);
+
+  function pvOpen() {
+    if (!pvReady) { pvFillPages(); pvResize(); pvReady = true; }
+    pvLoad();
+  }
+
   /* ---------------------------------------------------- 保存 */
   function saveArticles() {
     if (!cfg.token) {
@@ -743,8 +848,118 @@
   $('btnSaveArticles').addEventListener('click', saveArticles);
   $('btnReload').addEventListener('click', loadAll);
 
+  /* ---------------------------------------------------- ログイン */
+  /* ブラウザ内だけの簡易的な鍵。合言葉は保存せず、
+     照合用のハッシュだけを localStorage に置く。
+     これは「他人がうっかり開く」のを防ぐためのもので、
+     本格的な保護は Cloudflare Access（サーバー側）で行う。 */
+  var LOCK_KEY = 'monobase-admin-lock';
+
+  function digest(text) {
+    var enc = new TextEncoder().encode('monobase:' + text);
+    return crypto.subtle.digest('SHA-256', enc).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+        return ('0' + b.toString(16)).slice(-2);
+      }).join('');
+    });
+  }
+
+  function lockSetup() {
+    var saved = '';
+    try { saved = localStorage.getItem(LOCK_KEY) || ''; } catch (e) {}
+    var screen = $('lockScreen');
+
+    if (!saved) {
+      /* 初回。ここで決めた合言葉を、この端末の鍵にする */
+      $('lockPass').placeholder = '合言葉を決めてください（初回）';
+      $('lockScreen').querySelector('.lock-hint').textContent =
+        'この端末で使う合言葉を決めてください。次回からこの言葉で開きます。';
+    }
+    screen.hidden = false;
+    setTimeout(function () { $('lockPass').focus(); }, 50);
+
+    $('lockForm').addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var v = $('lockPass').value;
+      if (!v) return;
+      digest(v).then(function (h) {
+        if (!saved) {
+          try { localStorage.setItem(LOCK_KEY, h); } catch (e) {}
+          screen.hidden = true;
+          toast('合言葉を設定しました', 'ok');
+          return;
+        }
+        if (h === saved) {
+          screen.hidden = true;
+        } else {
+          $('lockErr').hidden = false;
+          $('lockPass').value = '';
+          $('lockPass').focus();
+        }
+      });
+    });
+  }
+
+  /* ---------------------------------------------------- 公開状態 */
+  /* メンテナンス表示の切り替え。ヘッダーのチップにも状態を出す。 */
+  function renderMaint() {
+    var on = !!(site.features && site.features.maintenance);
+    var chip = $('chipMaint');
+    $('maintState').textContent = on ? 'メンテナンス中' : '公開中';
+    chip.className = 'hchip ' + (on ? 'is-maint' : 'is-live');
+  }
+
+  $('chipMaint').addEventListener('click', function (ev) {
+    ev.preventDefault();
+    showPanel('p-settings');
+    $('maintCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  $('btnSaveMaint').addEventListener('click', function () {
+    var on = $('s-maintenance').checked;
+    if (on && !confirm('サイト全体を「準備中」画面に切り替えます。よろしいですか？')) return;
+    site.features = site.features || {};
+    site.features.maintenance = on;
+    site.maintenance_message = $('s-maintMsg').value.trim();
+    renderMaint();
+    saveSite(on ? 'メンテナンス表示に切り替え（管理画面より）'
+                : 'メンテナンス表示を解除（管理画面より）');
+  });
+
+  /* ---------------------------------------------------- ビルド回数 */
+  /* Cloudflare は月500回までビルドできる。何回使ったかは
+     「ビルドを起こしたコミット数」で数える。
+     画像だけのコミットには [skip ci] が付いていて走らないので、それは除く。 */
+  function countDeploys() {
+    if (!cfg.token) return;
+    var since = new Date();
+    since = new Date(since.getFullYear(), since.getMonth(), 1).toISOString();
+    api('commits?sha=' + encodeURIComponent(cfg.branch || 'main') +
+        '&since=' + encodeURIComponent(since) + '&per_page=100')
+      .then(function (list) {
+        if (!Array.isArray(list)) return;
+        var n = list.filter(function (c) {
+          var m = (c.commit && c.commit.message) || '';
+          return !/\[skip ci\]|\[ci skip\]/i.test(m);
+        }).length;
+        var chip = $('chipDeploy');
+        $('deployCount').textContent = n + ' / 500';
+        chip.className = 'hchip' + (n >= 450 ? ' is-danger' : n >= 300 ? ' is-warn' : '');
+        chip.title = '今月ビルドが走った回数の目安（上限500回）。'
+                   + '画像だけのコミットは走らないので数えていません。';
+      })
+      .catch(function () {});
+  }
+
+  $('chipDeploy').addEventListener('click', function (ev) {
+    ev.preventDefault();
+    countDeploys();
+    toast('ビルド回数を数え直しました');
+  });
+
   /* ---------------------------------------------------- サイト設定 */
   function renderSettings() {
+    renderMaint();
     $('s-name').value = site.site_name || '';
     $('s-tagline').value = site.tagline || '';
     $('s-desc').value = site.description || '';
@@ -754,6 +969,8 @@
     $('s-author').value = site.author || '';
     $('s-founded').value = site.founded || '';
     var f = site.features || {};
+    $('s-maintenance').checked = !!f.maintenance;
+    $('s-maintMsg').value = site.maintenance_message || '';
     $('s-contact').checked = !!f.contact_form;
     $('s-contactEndpoint').value = f.contact_form_endpoint || '';
     $('s-sticky').checked = f.sticky_cta !== false;
@@ -1043,6 +1260,7 @@
     Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (t) {
       t.classList.toggle('is-active', t.getAttribute('data-panel') === id);
     });
+    if (id === 'p-preview') pvOpen();
   }
   Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (t) {
     t.addEventListener('click', function () { showPanel(t.getAttribute('data-panel')); });
@@ -1058,9 +1276,11 @@
   });
 
   /* ---------------------------------------------------- 起動 */
+  lockSetup();
   loadCfg();
   log('管理画面を起動しました' + (cfg.token ? '（保存済みの接続情報あり）' : '（未接続）'));
   loadAll();
+  countDeploys();
 
   /* ==================================================== アクセス状況 */
   /* content/ranking.json（GA4から自動生成）を読んで一覧にする。 */
@@ -1362,6 +1582,14 @@
         note.textContent = '失敗しました：' + e.message;
       })
       .then(function () { $('btnEcGen').disabled = false; });
+  });
+
+  /* 編集画面の上下で同じ操作ができるようにする（長い記事で下まで行かなくて済む） */
+  [['btnApplyTop', 'btnApply'],
+   ['btnPreviewTop', 'btnPreview'],
+   ['btnDeleteTop', 'btnDelete']].forEach(function (pair) {
+    var top = $(pair[0]), bottom = $(pair[1]);
+    if (top && bottom) top.addEventListener('click', function () { bottom.click(); });
   });
 
   function blobToB64(blob) {

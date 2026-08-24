@@ -1046,6 +1046,44 @@ def build_search():
                 sidebar=True,
                 crumbs=[("ホーム", f"{p}index.html"), ("サイト内検索", None)])
 
+# ============================================================ Worker
+def worker_js(maintenance):
+    """メンテナンス中に全ページを差し替える Worker。
+       通常時は wrangler.jsonc から外れるので実行されない。
+       管理画面と資産は通し、それ以外は 503 でメンテナンス画面を返す。
+       503 を返すのは、検索エンジンに「一時的な停止」だと伝えるため
+       （404 や 200 で返すと、この状態でインデックスされてしまう）。"""
+    flag = "true" if maintenance else "false"
+    return f'''// このファイルは build.py が生成します。直接編集しないでください。
+// メンテナンス表示の切り替えは、管理画面（サイト設定）から行います。
+const MAINTENANCE = {flag};
+
+// 停止中でも通すパス。管理画面から復旧の操作ができるようにしておく。
+const ALLOW = ["/admin", "/admin.html", "/assets/", "/content/", "/maintenance.html"];
+
+export default {{
+  async fetch(request, env) {{
+    if (!MAINTENANCE) return env.ASSETS.fetch(request);
+
+    const url = new URL(request.url);
+    if (ALLOW.some((p) => url.pathname === p || url.pathname.startsWith(p))) {{
+      return env.ASSETS.fetch(request);
+    }}
+
+    const page = await env.ASSETS.fetch(new URL("/maintenance.html", url));
+    return new Response(page.body, {{
+      status: 503,
+      headers: {{
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "no-store",
+        "retry-after": "3600",
+      }},
+    }});
+  }},
+}};
+'''
+
+
 # ============================================================ 固定ページ
 def static_pages():
     p = "./"
@@ -1154,6 +1192,24 @@ def static_pages():
         out.append((fname, page(f"{title} - {NAME}", desc, "", p,
                                 f"{BASE_URL}/{fname}", body,
                                 crumbs=[("ホーム", f"{p}index.html"), (title, None)])))
+
+    # メンテナンス画面（features.maintenance が true のときだけ表示される）
+    mnote = SITE.get("maintenance_message") or "ただいまサイトの準備・調整を行っています。"
+    bodym = f'''      <div class="page-hero" style="text-align:center;">
+        <div class="page-hero-head" style="justify-content:center;">
+          <span class="page-hero-icon" aria-hidden="true">🔧</span><h1>ただいま準備中です</h1>
+        </div>
+        <p>{e(mnote)}</p>
+      </div>
+      <div class="prose" style="text-align:center;">
+        <p>もうしばらくお待ちください。準備が整いしだい公開します。</p>
+        <p class="field-hint">お急ぎのご用件は <a href="mailto:{e(SITE["email"])}">{e(SITE["email"])}</a> までお願いします。</p>
+      </div>
+'''
+    out.append(("maintenance.html",
+                page(f"準備中 - {NAME}", "ただいま準備中です。", "", p,
+                     f"{BASE_URL}/maintenance.html", bodym,
+                     extra_head='<meta name="robots" content="noindex,nofollow">\n')))
 
     # 404
     body404 = f'''      <div class="page-hero" style="text-align:center;">
@@ -1395,20 +1451,30 @@ def main():
     #   デプロイは `npx wrangler deploy` が読む。これが無いと
     #   「デプロイするものが分からない」としてビルドが失敗する。
     hs = SITE.get("hosting", {})
+    maint = bool(FEAT.get("maintenance"))
+    assets = {
+        # リポジトリ直下がそのまま公開ディレクトリ。
+        # 配信したくないファイルは .assetsignore で除く。
+        "directory": "./",
+        # 見つからないURLでは 404.html を返す（真っ白なページを出さない）
+        "not_found_handling": "404-page",
+        # /foo.html を /foo に寄せる既定の挙動。canonical と sitemap も
+        # これに合わせて拡張子なしで出している（public_url を参照）。
+        "html_handling": "auto-trailing-slash",
+    }
     wrangler = {
         "name": hs.get("worker_name") or SITE["domain"].split(".")[0],
         "compatibility_date": hs.get("compatibility_date", "2026-08-24"),
-        "assets": {
-            # リポジトリ直下がそのまま公開ディレクトリ。
-            # 配信したくないファイルは .assetsignore で除く。
-            "directory": "./",
-            # 見つからないURLでは 404.html を返す（真っ白なページを出さない）
-            "not_found_handling": "404-page",
-            # /foo.html を /foo に寄せる既定の挙動。canonical と sitemap も
-            # これに合わせて拡張子なしで出している（public_url を参照）。
-            "html_handling": "auto-trailing-slash",
-        },
+        "assets": assets,
     }
+    if maint:
+        # メンテナンス中だけ、全リクエストを Worker に通して
+        # メンテナンス画面へ差し替える。通常時は素の静的配信のまま。
+        assets["binding"] = "ASSETS"
+        assets["run_worker_first"] = True
+        wrangler["main"] = "worker.js"
+    write("worker.js", worker_js(maint))
+    written.append("worker.js")
     write("wrangler.jsonc",
           "// このファイルは build.py が生成します。直接編集しないでください。\n"
           "// 設定を変えるときは content/site.json の hosting を編集します。\n"
@@ -1434,6 +1500,7 @@ def main():
         "tools",
         "node_modules",
         "__pycache__",
+        ".wrangler",
         "",
     ]))
     written.append(".assetsignore")

@@ -17,7 +17,9 @@
     "sticky_cta": true,
     "search": true,
     "feature_threshold": 5,
-    "_contact_note": "contact_form_endpoint が空のあいだは、送信ボタンでメールソフトが開く。Formspree などの窓口URLを入れるとその場で送信できるようになる。"
+    "_contact_note": "contact_form_endpoint が空のあいだは、送信ボタンでメールソフトが開く。Formspree などの窓口URLを入れるとその場で送信できるようになる。",
+    "maintenance": false,
+    "_maintenance_note": "true にすると全ページがメンテナンス画面（503）に切り替わる。管理画面と assets/content は通るので、管理画面から戻せる。"
   },
   "categories": [
     {
@@ -413,5 +415,6 @@
     "compatibility_date": "2026-08-24"
   },
   "legal_updated": "2026-08-25",
-  "_legal_updated_note": "プライバシーポリシー・免責事項・運営者情報の「最終更新」に出る日付。文面を変えたときだけ手で更新する。"
+  "_legal_updated_note": "プライバシーポリシー・免責事項・運営者情報の「最終更新」に出る日付。文面を変えたときだけ手で更新する。",
+  "maintenance_message": "ただいまサイトの準備・調整を行っています。"
 }

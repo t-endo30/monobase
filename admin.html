@@ -9,10 +9,32 @@
 </head>
 <body>
 
+<!-- ログイン。合言葉が合うまで中身を見せない。
+     本格的な保護は Cloudflare Access（サーバー側）で行う。 -->
+<div class="lock" id="lockScreen" hidden>
+  <form class="lock-box" id="lockForm">
+    <p class="lock-mark" aria-hidden="true"></p>
+    <h1>モノベース 管理画面</h1>
+    <p class="lock-hint">合言葉を入力してください。</p>
+    <input type="password" id="lockPass" autocomplete="current-password" placeholder="合言葉">
+    <button class="btn btn-primary" type="submit">開く</button>
+    <p class="lock-err" id="lockErr" hidden>合言葉が違います。</p>
+    <p class="lock-note">この画面はブラウザ内の簡易的な鍵です。<br>第三者に触られる可能性がある環境では、Cloudflare Access も併用してください。</p>
+  </form>
+</div>
+
 <header class="a-header">
   <div class="wrap">
     <h1>モノベース 管理画面<span class="sub">記事・サイト設定・画像をブラウザから編集</span></h1>
-    <div class="conn"><span class="dot" id="connDot"></span><span id="connText">未接続</span></div>
+    <div class="hstat">
+      <a class="hchip" id="chipMaint" href="#" title="サイト設定で切り替えます">
+        <span class="hchip-k">公開状態</span><b id="maintState">—</b>
+      </a>
+      <a class="hchip" id="chipDeploy" href="#" title="今月ビルドが走った回数（上限500回）">
+        <span class="hchip-k">今月のビルド</span><b id="deployCount">—</b>
+      </a>
+      <span class="conn"><span class="dot" id="connDot"></span><span id="connText">未接続</span></span>
+    </div>
   </div>
 </header>
 
@@ -20,6 +42,7 @@
   <div class="wrap">
     <button class="tab is-active" data-panel="p-articles">記事</button>
     <button class="tab" data-panel="p-edit">編集</button>
+    <button class="tab" data-panel="p-preview">プレビュー</button>
     <button class="tab" data-panel="p-images">画像</button>
     <button class="tab" data-panel="p-settings">サイト設定</button>
     <button class="tab" data-panel="p-analytics">解析・SEO</button>
@@ -33,7 +56,7 @@
   <section class="panel is-active" id="p-articles">
     <div class="card">
       <h2>記事一覧</h2>
-      <p class="hint">公開／下書きの切り替え、編集、削除ができます。保存すると GitHub にコミットされ、自動でサイトが再ビルドされます。</p>
+      <p class="hint">公開／下書きの切り替え、編集、削除ができます。<b>編集内容はこのボタンを押すまでサイトに出ません。</b>複数の記事をまとめて公開すれば、ビルドは1回で済みます。</p>
       <div class="stat">
         <div><b id="statAll">0</b><span>全記事</span></div>
         <div><b id="statPub">0</b><span>公開中</span></div>
@@ -42,7 +65,7 @@
       <div class="btn-bar">
         <button class="btn btn-accent" id="btnNew">＋ 新規記事を作成</button>
         <button class="btn btn-ghost" id="btnReload">再読み込み</button>
-        <button class="btn btn-primary" id="btnSaveArticles">GitHubに保存して公開</button>
+        <button class="btn btn-primary" id="btnSaveArticles">変更をまとめて公開（ビルド1回）</button>
       </div>
     </div>
     <div class="card">
@@ -54,7 +77,12 @@
   <section class="panel" id="p-edit">
     <div class="card">
       <h2 id="editTitle">記事を編集</h2>
-      <p class="hint">入力内容はブラウザ内に即時保存されます。サイトに反映するには「記事」タブの「GitHubに保存して公開」を押してください。</p>
+      <div class="edit-actions">
+        <button class="btn btn-primary" id="btnApplyTop">この記事を保存</button>
+        <button class="btn" id="btnPreviewTop">プレビュー</button>
+        <button class="btn btn-danger" id="btnDeleteTop">削除</button>
+      </div>
+      <p class="hint">入力はブラウザ内に保持されます。<b>サイトに反映するには「記事」タブの「GitHubに保存して公開」</b>を押してください。まとめて何本でも一度に公開できます（ビルドは1回で済みます）。</p>
 
       <!-- アイキャッチ：記事ごとにここで指定する -->
       <div class="eyecatch-panel">
@@ -277,9 +305,41 @@
 
       <div class="btn-bar">
         <button class="btn btn-primary" id="btnApply">この記事を保存</button>
-        <button class="btn btn-ghost" id="btnPreview">プレビュー（新規タブ）</button>
+        <button class="btn btn-ghost" id="btnPreview">記事プレビュー（新規タブ）</button>
         <button class="btn btn-danger" id="btnDelete">この記事を削除</button>
       </div>
+    </div>
+  </section>
+
+  <!-- ============================ プレビュー ============================ -->
+  <section class="panel" id="p-preview">
+    <div class="card">
+      <h2>サイトプレビュー</h2>
+      <p class="hint">公開中のサイトを読み込み、<b>まだ保存していない編集内容を上から当てて</b>表示します。ビルドを走らせずに見た目を確認できます。</p>
+      <div class="row c3">
+        <div>
+          <label for="pvPage">ページ</label>
+          <select id="pvPage"></select>
+        </div>
+        <div>
+          <label for="pvWidth">画面幅</label>
+          <select id="pvWidth">
+            <option value="390">スマホ（390px）</option>
+            <option value="820">タブレット（820px）</option>
+            <option value="1440" selected>PC（1440px）</option>
+          </select>
+        </div>
+        <div>
+          <label>&nbsp;</label>
+          <button class="btn" id="btnPvReload" style="width:100%">読み込み直す</button>
+        </div>
+      </div>
+      <div class="pv-stage" id="pvStage">
+        <div class="pv-shrink" id="pvShrink">
+          <iframe id="pvFrame" title="サイトプレビュー"></iframe>
+        </div>
+      </div>
+      <div class="note" id="pvNote">記事カードの見出し・抜粋・アイキャッチ・種類バッジには、未保存の内容が反映されます。本文の細かい組み方はビルド後に確定します。</div>
     </div>
   </section>
 
@@ -370,6 +430,20 @@
 
   <!-- ============================ サイト設定 ============================ -->
   <section class="panel" id="p-settings">
+    <div class="card" id="maintCard">
+      <h2>サイトの公開状態</h2>
+      <p class="hint">メンテナンス中にすると、<b>全ページが「準備中」画面（503）に切り替わります</b>。管理画面はそのまま使えるので、ここから戻せます。</p>
+      <div class="check"><input type="checkbox" id="s-maintenance"><label for="s-maintenance"><b>メンテナンス中にする（一般には見せない）</b></label></div>
+      <label for="s-maintMsg">準備中の画面に出す一文</label>
+      <input type="text" id="s-maintMsg" placeholder="ただいまサイトの準備・調整を行っています。">
+      <div class="note warn">
+        切り替えは <b>GitHubに保存 → 自動ビルド → 反映</b> の順に進むため、実際に切り替わるまで1〜2分かかります。<br>
+        検索エンジンには「一時的な停止」として伝わる形（503）なので、この状態でインデックスされることはありません。
+      </div>
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnSaveMaint">保存して切り替える</button>
+      </div>
+    </div>
     <div class="card">
       <h2>基本設定</h2>
       <p class="hint">ここでの変更は全ページのヘッダー・フッター・メタ情報に反映されます。</p>
