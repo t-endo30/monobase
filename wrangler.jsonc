@@ -1,0 +1,11 @@
+// このファイルは build.py が生成します。直接編集しないでください。
+// 設定を変えるときは content/site.json の hosting を編集します。
+{
+  "name": "monobase",
+  "compatibility_date": "2026-08-24",
+  "assets": {
+    "directory": "./",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}

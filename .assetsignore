@@ -1,0 +1,16 @@
+# ここに書いたものは配信されない（build.py が生成）
+.git
+.github
+.gitignore
+.DS_Store
+.nojekyll
+.assetsignore
+wrangler.jsonc
+CNAME
+build.py
+README.md
+AmazonExport
+docs
+tools
+node_modules
+__pycache__

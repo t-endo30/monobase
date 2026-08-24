@@ -1364,16 +1364,53 @@ def main():
     write("CNAME", SITE["domain"] + "\n"); written.append("CNAME")
 
     # ---- Cloudflare Pages 用の設定ファイル -------------------------------
-    # _redirects：見つからないURLに 404.html を返す。
-    #   これを置かないと、存在しないURLで真っ白なページが出る。
-    #   実在するファイルのほうが優先されるので、記事のURLには影響しない。
-    write("_redirects", "\n".join([
-        "# Cloudflare Pages。上から順に、静的ファイルが無い場合だけ効く。",
-        "/index.html      /            301",
-        "/*               /404.html    404",
+
+    # wrangler.jsonc：Cloudflare Workers（静的アセット配信）の設定。
+    #   デプロイは `npx wrangler deploy` が読む。これが無いと
+    #   「デプロイするものが分からない」としてビルドが失敗する。
+    hs = SITE.get("hosting", {})
+    wrangler = {
+        "name": hs.get("worker_name") or SITE["domain"].split(".")[0],
+        "compatibility_date": hs.get("compatibility_date", "2026-08-24"),
+        "assets": {
+            # リポジトリ直下がそのまま公開ディレクトリ。
+            # 配信したくないファイルは .assetsignore で除く。
+            "directory": "./",
+            # 見つからないURLでは 404.html を返す（真っ白なページを出さない）
+            "not_found_handling": "404-page",
+            # /foo.html を /foo に寄せる既定の挙動。canonical と sitemap も
+            # これに合わせて拡張子なしで出している（public_url を参照）。
+            "html_handling": "auto-trailing-slash",
+        },
+    }
+    write("wrangler.jsonc",
+          "// このファイルは build.py が生成します。直接編集しないでください。\n"
+          "// 設定を変えるときは content/site.json の hosting を編集します。\n"
+          + json.dumps(wrangler, ensure_ascii=False, indent=2) + "\n")
+    written.append("wrangler.jsonc")
+
+    # .assetsignore：配信しないもの。ソースや作業用ファイルを公開しない。
+    #   content/ は管理画面が読むので残す（公開リポジトリなので秘密は無い）。
+    write(".assetsignore", "\n".join([
+        "# ここに書いたものは配信されない（build.py が生成）",
+        ".git",
+        ".github",
+        ".gitignore",
+        ".DS_Store",
+        ".nojekyll",
+        ".assetsignore",
+        "wrangler.jsonc",
+        "CNAME",
+        "build.py",
+        "README.md",
+        "AmazonExport",
+        "docs",
+        "tools",
+        "node_modules",
+        "__pycache__",
         "",
     ]))
-    written.append("_redirects")
+    written.append(".assetsignore")
 
     # _headers：ハッシュ付きの資産は長期キャッシュ、HTMLは毎回確認。
     #   あわせて最低限の防御ヘッダーを付ける。
