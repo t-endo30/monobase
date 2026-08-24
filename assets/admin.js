@@ -908,7 +908,7 @@
           var fr = new FileReader();
           fr.onload = function () {
             var b64 = fr.result.split(',')[1];
-            putFile('assets/img/' + img.name, b64, null, '画像を追加：' + img.name)
+            putFile('assets/img/' + img.name, b64, null, '画像を追加：' + img.name + ' [skip ci]')
               .then(function () { paths.push('assets/img/' + img.name); res(); })
               .catch(rej);
           };
@@ -1215,7 +1215,7 @@
     var path = 'assets/img/gen/' + a.slug + '.jpg';
     return blobToB64(img.blob).then(function (b64) {
       return getFile(path).then(function (res) {
-        return putFile(path, b64, res && res.sha, '記事の画像を追加（管理画面より）');
+        return putFile(path, b64, res && res.sha, '記事の画像を追加（管理画面より） [skip ci]');
       });
     }).then(function () {
       a.thumb = path;
@@ -1320,7 +1320,7 @@
       var path = 'assets/img/' + (editing.slug || 'article') + '-' +
                  Date.now().toString(36) + '.webp';
       return blobToB64(img.blob).then(function (b64) {
-        return putFile(path, b64, null, 'アイキャッチを追加（管理画面より）');
+        return putFile(path, b64, null, 'アイキャッチを追加（管理画面より） [skip ci]');
       }).then(function () {
         $('f-thumb').value = path;
         $('f-imageAi').checked = false;   /* 自分で用意した画像なので断り書きは出さない */
