@@ -3698,3 +3698,27 @@ body,p,li,dd,dt,figcaption,a,span,button,
 .contact-mail{margin:0 0 8px;font-size:15px;font-weight:700;word-break:break-all;}
 .contact-list{margin:0;padding-left:1.1em;font-size:13px;line-height:1.9;color:var(--text-sub);}
 .contact-list li{margin-bottom:6px;}
+
+/* ============================================================
+   PC：右のランキングも固定しない
+   ------------------------------------------------------------
+   画面の高さで頭打ちにしていたため、10位までのうち下のほうが
+   見切れていた。中身の高さのまま置き、ページと一緒に流す。
+   ============================================================ */
+@media (min-width:1240px){
+  .side-rank{
+    position:static;
+    top:auto;
+    max-height:none;
+    overflow:visible;
+  }
+}
+
+/* ============================================================
+   フッターのサイト情報・お問い合わせは中央寄せ
+   ============================================================ */
+.footer-row{justify-content:center;}
+.footer-rows .footer-inline{justify-content:center;}
+@media (max-width:599px){
+  .footer-row{align-items:center;text-align:center;}
+}

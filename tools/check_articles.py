@@ -7,11 +7,40 @@
 
   $ python3 tools/check_articles.py
 """
-import json, io, os, sys
+import json, io, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 MIN_BLOCKS = 3      # summary/pros/cons/scenes/voices の合計要素数の下限
+MIN_CHARS = 5000    # 本文の文字数の下限（docs/article-prompt.md と揃える）
+MAX_CHARS = 7600    # 上限。長すぎる記事は読み切られない
+
+# 文字数に数えないキー（識別子・URL・分類など、読者が読む文ではない）
+SKIP_KEYS = {"slug", "thumb", "banner", "amazon_url", "asin", "date", "updated",
+             "icon", "category", "sub", "tags", "cta_label", "image_prompt",
+             "feature_of", "feature_covers"}
+
+
+def body_chars(a):
+    """記事本文の文字数。入れ子の配列・辞書をたどって文字列だけ数える。
+       HTMLタグは読者が読む文字ではないので取り除く。"""
+    buf = []
+
+    def walk(v):
+        if isinstance(v, str):
+            buf.append(re.sub(r"<[^>]+>", "", v))
+        elif isinstance(v, list):
+            for x in v:
+                walk(x)
+        elif isinstance(v, dict):
+            for k, x in v.items():
+                if k not in SKIP_KEYS:
+                    walk(x)
+
+    for k, v in a.items():
+        if k not in SKIP_KEYS:
+            walk(v)
+    return len("".join(buf))
 
 
 def main():
@@ -42,6 +71,13 @@ def main():
             warns.append(f"{slug}: ASIN・リンクのどちらも未設定です")
         if not a.get("conclusion"):
             warns.append(f"{slug}: まとめが未記入です")
+
+        n = body_chars(a)
+        if n < MIN_CHARS:
+            warns.append(f"{slug}: 本文が {n:,} 文字です（下限 {MIN_CHARS:,} 文字）。"
+                         "表だけでなく、地の文を足してください")
+        elif n > MAX_CHARS:
+            warns.append(f"{slug}: 本文が {n:,} 文字あります（上限 {MAX_CHARS:,} 文字）")
 
     # 内部リンク切れの検査：公開記事から未公開記事へのリンクは404になる
     pubslugs = {a.get("slug") for a in arts if a.get("published")}

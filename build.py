@@ -457,6 +457,16 @@ def stars(n):
     return "★" * n + "☆" * (5 - n)
 
 # ============================================================ 記事ページ
+def paras(v, cls=""):
+    """文字列でも配列でも受け取り、段落に組む。
+       ライターの地の文はここを通す。改行だけの段落は捨てる。"""
+    if not v:
+        return ""
+    items = v if isinstance(v, list) else [v]
+    c = f' class="{cls}"' if cls else ""
+    return "".join(f"          <p{c}>{t}</p>\n" for t in items if str(t).strip())
+
+
 def render_article(a):
     p = "../"
     slug = a["slug"]
@@ -518,6 +528,8 @@ def render_article(a):
     if a.get("scenes"):                   toc.append(("sec-scenes", "この商品で変わる生活シーン"))
     if a.get("pros") or a.get("cons"):    toc.append(("sec-proscons", "メリットとデメリット"))
     if a.get("spec", {}).get("rows"):     toc.append(("spec", "スペック比較表"))
+    for i, sec in enumerate(a.get("sections", []), start=1):
+        toc.append((f"sec-note{i}", sec.get("heading", "")))
     if a.get("voices"):                   toc.append(("sec-voice", "共通の不満点と対処法"))
     if a.get("next_problem", {}).get("items"): toc.append(("sec-next", "次に困りそうなこと"))
     if a.get("conclusion"):               toc.append(("sec-conclusion", "まとめ"))
@@ -531,8 +543,7 @@ def render_article(a):
 ''')
 
     add('        <div class="article-body">\n')
-    if a.get("lead"):
-        add(f'          <p>{a["lead"]}</p>\n')
+    add(paras(a.get("lead")))
 
     # 1. 買わないほうがいい人（最優先のネガティブ訴求）
     nf = a.get("not_for", {})
@@ -549,10 +560,12 @@ def render_article(a):
             </div>
           </div>
 ''')
+        add(paras(nf.get("after")))
 
     # 2. この商品で変わる「実際の生活シーン」
     if a.get("scenes"):
         add('          <h2 id="sec-scenes">この商品で変わる「実際の生活シーン」</h2>\n')
+        add(paras(a.get("scenes_intro")))
         add('          <div class="scenes">\n')
         for i, sc in enumerate(a["scenes"], start=1):
             add(f'''            <div class="scene">
@@ -564,6 +577,7 @@ def render_article(a):
             </div>
 ''')
         add('          </div>\n')
+        add(paras(a.get("scenes_after")))
 
     # メリット / デメリット
     if a.get("pros") or a.get("cons"):
@@ -583,6 +597,7 @@ def render_article(a):
             </div>
           </div>
 ''')
+        add(paras(a.get("proscons_note")))
 
     # スペック比較表
     sp = a.get("spec", {})
@@ -608,8 +623,21 @@ def render_article(a):
             </table>
           </div>
 ''')
+        add(paras(sp.get("read")))
         add(cta(amazon_link(a), a.get("cta_label","Amazonでチェックする"),
                 "タイムセール対象になっている場合があります"))
+
+    # ライターの地の文。見出し＋段落の自由記述で、表では伝わらない
+    # 判断の根拠や使いどころを書く。
+    for i, sec in enumerate(a.get("sections", []), start=1):
+        add(f'          <h2 id="sec-note{i}">{e(sec.get("heading",""))}</h2>\n')
+        add(paras(sec.get("paras")))
+        if sec.get("aside"):
+            add(f'''          <div class="personal-note">
+            <span class="pn-label">{e(sec.get("aside_label","レビューを読み込んで見えたこと"))}</span>
+            <p>{sec["aside"]}</p>
+          </div>
+''')
 
     # 口コミ・対策
     if a.get("voices"):
@@ -630,6 +658,7 @@ def render_article(a):
             {e(v.get("fix",""))}
           </div>
 ''')
+        add(paras(a.get("voices_after")))
 
     # 6. 運営者の実体験コラム
     if a.get("personal_note"):
@@ -665,8 +694,8 @@ def render_article(a):
     # まとめ
     if a.get("conclusion"):
         add(f'''          <h2 id="sec-conclusion">{e(a.get("conclusion_title","まとめ"))}</h2>
-          <p>{a["conclusion"]}</p>
 ''')
+        add(paras(a["conclusion"]))
         add(cta(amazon_link(a), "Amazonで購入する"))
         add(f'''        <div class="cta-wrap" style="margin-top:-10px;">
           <a class="btn-sub" href="{p}category-{cat}.html">同じカテゴリーの記事を見る</a>
