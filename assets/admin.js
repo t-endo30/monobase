@@ -412,6 +412,56 @@
     };
   }
 
+  /* ---- 段落まわりの変換 ----------------------------------------
+     JSON側は「文字列 or 文字列の配列」を受け取る。編集画面では
+     空行区切りのテキストとして扱い、保存時に配列へ戻す。 */
+  function toText(v) {
+    if (!v) return '';
+    return (Array.isArray(v) ? v : [v]).join('\n\n');
+  }
+  function toParas(text) {
+    var list = String(text || '').split(/\n\s*\n/)
+      .map(function (s) { return s.trim(); })
+      .filter(Boolean);
+    if (!list.length) return '';
+    return list.length === 1 ? list[0] : list;
+  }
+
+  /* 本文セクションを、編集しやすい一枚のテキストにする。
+       ## 見出し
+       段落…（空行区切り）
+       > 分析コラム枠
+  */
+  function sectionsToText(list) {
+    return (list || []).map(function (sec) {
+      var out = '## ' + (sec.heading || '');
+      var paras = (Array.isArray(sec.paras) ? sec.paras : [sec.paras || '']).filter(Boolean);
+      if (paras.length) out += '\n\n' + paras.join('\n\n');
+      if (sec.aside) out += '\n\n> ' + sec.aside;
+      return out;
+    }).join('\n\n');
+  }
+  function textToSections(text, prev) {
+    var out = [];
+    String(text || '').split(/^##\s*/m).forEach(function (chunk) {
+      chunk = chunk.trim();
+      if (!chunk) return;
+      var lines = chunk.split(/\n\s*\n/).map(function (s) { return s.trim(); }).filter(Boolean);
+      var heading = lines.shift() || '';
+      var sec = { heading: heading, paras: [] };
+      lines.forEach(function (l) {
+        if (l.charAt(0) === '>') sec.aside = l.replace(/^>\s*/, '');
+        else sec.paras.push(l);
+      });
+      /* コラム枠の見出し語は編集画面に出していないので、
+         元の記事に付いていたものを引き継ぐ */
+      var old = (prev || [])[out.length];
+      if (sec.aside && old && old.aside_label) sec.aside_label = old.aside_label;
+      out.push(sec);
+    });
+    return out;
+  }
+
   /* 選んだカテゴリーに合わせてサブカテゴリーの選択肢を入れ替える。
      content/site.json の categories[].sub[] をそのまま並べる。 */
   function fillSub(want) {
@@ -457,16 +507,19 @@
     $('f-verdict').value = a.verdict_title || '';
     $('f-score').value = (a.rating && a.rating.score) || 0;
     $('f-breakdown').value = (a.rating && a.rating.breakdown) || '';
-    $('f-lead').value = a.lead || '';
+    $('f-lead').value = toText(a.lead);
+    $('f-sections').value = sectionsToText(a.sections);
     $('f-specIntro').value = (a.spec && a.spec.intro) || '';
+    $('f-specRead').value = toText(a.spec && a.spec.read);
     $('f-specHeaders').value = ((a.spec && a.spec.headers) || []).join(', ');
     $('f-specRows').value = ((a.spec && a.spec.rows) || []).map(function (r) { return r.join(', '); }).join('\n');
     $('f-voicesIntro').value = a.voices_intro || '';
     $('f-notforIntro').value = (a.not_for && a.not_for.intro) || '';
+    $('f-notforAfter').value = toText(a.not_for && a.not_for.after);
     $('f-personalNote').value = a.personal_note || '';
     $('f-nextIntro').value = (a.next_problem && a.next_problem.intro) || '';
     $('f-conclTitle').value = a.conclusion_title || '';
-    $('f-conclusion').value = a.conclusion || '';
+    $('f-conclusion').value = toText(a.conclusion);
 
     repeater('r-summary', a.summary, '結論の要点');
     repeater('r-notfor', (a.not_for && a.not_for.items) || [], '〜な人には向いていません');
@@ -505,11 +558,13 @@
     a.verdict_title = $('f-verdict').value.trim();
     a.summary = readRepeater('r-summary');
     a.rating = { score: Number($('f-score').value || 0), breakdown: $('f-breakdown').value.trim() };
-    a.lead = $('f-lead').value.trim();
+    a.lead = toParas($('f-lead').value);
+    a.sections = textToSections($('f-sections').value, a.sections);
     a.pros = readRepeater('r-pros');
     a.cons = readRepeater('r-cons');
     a.spec = {
       intro: $('f-specIntro').value.trim(),
+      read: toParas($('f-specRead').value),
       headers: $('f-specHeaders').value.split(',').map(function (s) { return s.trim(); }).filter(Boolean),
       rows: $('f-specRows').value.split('\n').map(function (line) {
         return line.split(',').map(function (s) { return s.trim(); });
@@ -517,12 +572,14 @@
     };
     a.voices_intro = $('f-voicesIntro').value.trim();
     a.voices = readVoices();
-    a.not_for = { intro: $('f-notforIntro').value.trim(), items: readRepeater('r-notfor') };
+    a.not_for = { intro: $('f-notforIntro').value.trim(),
+                  after: toParas($('f-notforAfter').value),
+                  items: readRepeater('r-notfor') };
     a.scenes = readScenes();
     a.personal_note = $('f-personalNote').value.trim();
     a.next_problem = { intro: $('f-nextIntro').value.trim(), items: readNext() };
     a.conclusion_title = $('f-conclTitle').value.trim() || 'まとめ';
-    a.conclusion = $('f-conclusion').value.trim();
+    a.conclusion = toParas($('f-conclusion').value);
     return a;
   }
 

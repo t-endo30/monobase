@@ -164,8 +164,8 @@
           <input type="text" id="f-breakdown" placeholder="音質4.5・装着感4.5・通話3.0">
         </div>
       </div>
-      <label for="f-lead">導入文<span class="opt">HTMLタグ使用可</span></label>
-      <textarea id="f-lead" rows="3"></textarea>
+      <label for="f-lead">導入文<span class="opt">HTMLタグ使用可／空行で段落を分ける</span></label>
+      <textarea id="f-lead" rows="6"></textarea>
     </div>
 
     <div class="card">
@@ -173,6 +173,9 @@
       <p class="hint">記事の最優先パートです。ここで合わない読者を先に切ることで、残った読者の成約率と満足度が上がります。</p>
       <label for="f-notforIntro">導入文</label>
       <textarea id="f-notforIntro" rows="2" placeholder="先に、この商品が向いていない人をはっきり書きます。"></textarea>
+
+      <label for="f-notforAfter">枠のあとの本文<span class="opt">空行で段落を分ける</span></label>
+      <textarea id="f-notforAfter" rows="3" placeholder="この5項目のうち、実際に事故が多いのは…"></textarea>
       <label>当てはまる人<span class="opt">3〜4項目が目安</span></label>
       <div id="r-notfor"></div>
       <button class="btn btn-ghost" data-add="notfor" style="min-height:38px;font-size:13px;">＋ 項目を追加</button>
@@ -201,6 +204,9 @@
       <p class="hint">1行目が見出し行です。2列目が自社推し列としてハイライトされます。行は「項目名, 値1, 値2, 値3」のようにカンマ区切りで入力してください。</p>
       <label for="f-specIntro">表の前に置く説明文</label>
       <input type="text" id="f-specIntro">
+
+      <label for="f-specRead">表の読み方<span class="opt">表の下に出る本文／空行で段落を分ける</span></label>
+      <textarea id="f-specRead" rows="3" placeholder="表で最初に見るべきは…"></textarea>
       <label for="f-specHeaders">見出し行<span class="opt">カンマ区切り</span></label>
       <input type="text" id="f-specHeaders" placeholder="項目, 本製品, A社, B社">
       <label for="f-specRows">表の中身<span class="opt">1行1レコード・カンマ区切り</span></label>
@@ -221,6 +227,9 @@
       <h2>6. レビューから見えたこと</h2>
       <p class="hint">購入者レビューを読み込んで気づいた、<b>スペック表からは分からないポイント</b>を書きます。
       「自分が使った」という書き方は避け、レビューを整理した内容として書いてください（実際に使用した商品の場合は、その旨を明記すれば問題ありません）。</p>
+      <label for="f-sections">本文セクション（ライターの地の文）<span class="opt">「## 見出し」で区切り、空行で段落を分ける。「&gt; 」で始まる行は分析コラム枠になる</span></label>
+      <textarea id="f-sections" rows="14" placeholder="## 実測すべきは3か所だけ&#10;&#10;レビューの低評価をひたすら読み込んで気づいたのは…&#10;&#10;1つ目は天板の厚み。…&#10;&#10;&gt; 低評価レビューの内容は「壊れた」より「設置できなかった」に集中しています。&#10;&#10;## 設置してからの1週間でやり直すこと&#10;&#10;取り付けが終わって画面が浮いた瞬間は…"></textarea>
+
       <label for="f-personalNote">レビュー分析メモ</label>
       <textarea id="f-personalNote" rows="3" placeholder="例：低評価レビューの多くが「思ったより明るすぎる」という内容で、住宅密集地では光の向きの調整が前提になっている"></textarea>
     </div>
@@ -238,8 +247,8 @@
       <h2>まとめ</h2>
       <label for="f-conclTitle">見出し</label>
       <input type="text" id="f-conclTitle" placeholder="まとめ：〜なら第一候補">
-      <label for="f-conclusion">本文<span class="opt">HTMLタグ使用可</span></label>
-      <textarea id="f-conclusion" rows="5"></textarea>
+      <label for="f-conclusion">本文<span class="opt">HTMLタグ使用可／空行で段落を分ける</span></label>
+      <textarea id="f-conclusion" rows="8"></textarea>
 
       <div class="btn-bar">
         <button class="btn btn-primary" id="btnApply">この記事を保存</button>

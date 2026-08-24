@@ -87,6 +87,12 @@ def main():
             continue
         for it in (a.get("next_problem") or {}).get("items", []):
             url = (it.get("link_url") or "").strip()
+            # カテゴリーページへのリンク。site.json の分類を変えると
+            # 古いURLが残り、そのまま404になるためここで止める。
+            if url.startswith("category-"):
+                if not os.path.exists(os.path.join(ROOT, url)):
+                    errors.append(f"{a['slug']}: リンク先のカテゴリーページがありません（{url}）")
+                continue
             if not url.startswith("articles/"):
                 continue
             target = url[len("articles/"):].removesuffix(".html")
