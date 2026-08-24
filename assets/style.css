@@ -2048,14 +2048,11 @@ a,button,.card,.cat-tile,.chip{-webkit-tap-highlight-color:rgba(0,0,0,.08);}
 @media (hover:none) and (max-width:767px){
   body.is-listing .swipe-hint{display:block;}
 }
-body.is-swiping-out{
-  transition:opacity .16s ease,transform .16s ease;
-  opacity:.35;
-}
-body.is-swiping-out.to-left{transform:translateX(-14px);}
-body.is-swiping-out.to-right{transform:translateX(14px);}
-@media (prefers-reduced-motion:reduce){
-  body.is-swiping-out{transition:none;transform:none;opacity:1;}
+/* スワイプ中に画面を動かす土台。指の動きに追従させるため
+   transform を JS 側から直接書き換える。 */
+body.is-listing main.layout{
+  will-change:transform;
+  touch-action:pan-y;
 }
 
 /* ---- 横スクロールする表：スクロールできることを見せる ---- */
@@ -2188,4 +2185,103 @@ body{font-size:clamp(15px,3.9vw,16.5px);}
   .brand-mark{width:24px;height:24px;}
   .cat-nav-list a{padding:0 12px;}
   .tag{font-size:10px;padding:2px 6px;}
+}
+
+/* ============================================================
+   カードのタップ挙動：文字が選択・ハイライトされないようにする
+   ============================================================ */
+.card{
+  -webkit-tap-highlight-color:transparent;
+  -webkit-touch-callout:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.card .card-stretch{-webkit-tap-highlight-color:transparent;}
+.card ::selection{background:transparent;}
+
+/* ============================================================
+   日本語の改行：句読点・文節の位置で折り返す
+   ------------------------------------------------------------
+   word-break:auto-phrase は文節単位で改行位置を決める指定。
+   未対応のブラウザでは従来どおりの折り返しになるだけで崩れない。
+   ============================================================ */
+body,p,li,dd,dt,figcaption,
+.card-title,.card-desc,.article-title,.article-body,
+.summary-list,.scene-text,.next-card,.voice-text{
+  word-break:auto-phrase;
+  line-break:strict;
+  overflow-wrap:anywhere;
+}
+p,li,.card-desc{text-wrap:pretty;}
+h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
+
+/* ============================================================
+   タイトルを「主題」と「補足」の2段で見せる（｜の代わり）
+   ============================================================ */
+.t-main{display:block;}
+.t-sub{
+  display:block;
+  margin-top:.28em;
+  font-size:.78em;
+  font-weight:500;
+  color:var(--text-sub);
+  letter-spacing:.01em;
+}
+.article-title .t-sub{font-size:.62em;line-height:1.6;margin-top:.45em;}
+.card-title .t-sub{font-size:.86em;}
+
+/* ============================================================
+   パンくずの帯（カテゴリーナビの下）
+   ============================================================ */
+.crumb-bar{
+  background:var(--bg-gray);
+  border-bottom:1px solid var(--border);
+  font-size:clamp(11px,3vw,12.5px);
+  color:var(--text-sub);
+}
+.crumb-bar .container{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:2px 0;
+  min-height:38px;
+  padding-top:8px;
+  padding-bottom:8px;
+}
+.crumb-bar a{color:var(--text-sub);text-decoration:none;}
+.crumb-bar a:hover{color:var(--ink);text-decoration:underline;}
+.crumb-bar .crumb-sep{margin:0 7px;opacity:.55;}
+.crumb-bar [aria-current="page"]{
+  color:var(--ink);
+  font-weight:700;
+  /* 記事名は長くなるため、狭い画面では省略する */
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+@media (max-width:599px){
+  .crumb-bar .container{min-height:34px;flex-wrap:nowrap;}
+  .crumb-bar a{white-space:nowrap;}
+}
+
+/* ============================================================
+   フッター：スマホで縦に伸びすぎないよう、リンクを横並びに
+   ============================================================ */
+.footer-inline{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 18px;
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.footer-inline li{margin:0;}
+.footer-inline a{white-space:nowrap;}
+@media (max-width:767px){
+  .footer-grid{gap:22px;}
+  .footer-col h3{margin-bottom:8px;}
+  .footer-col p{font-size:13px;line-height:1.8;}
+  .site-footer{padding-top:28px;}
+  .assoc-note{font-size:11px;line-height:1.7;}
 }

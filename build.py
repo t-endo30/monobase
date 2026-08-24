@@ -72,6 +72,16 @@ def visual_path(a, p):
         return p + a["thumb"], False
     return p + f'assets/img/auto/{a["slug"]}.svg', True
 
+def title_lines(t):
+    """「主題｜補足」形式のタイトルを2段に分けて表示する。
+       1行に詰めると読みにくいうえ、区切り記号が目立ちすぎるため。"""
+    if "｜" in t:
+        main, sub = t.split("｜", 1)
+        return (f'<span class="t-main">{e(main.strip())}</span>'
+                f'<span class="t-sub">{e(sub.strip())}</span>')
+    return f'<span class="t-main">{e(t)}</span>'
+
+
 def jp_date(iso):
     try:
         y, m, d = iso.split("-")
@@ -116,7 +126,26 @@ def head(title, desc, current, p, canonical, extra="", body_class=""):
 <body data-cat="{current}"{bodycls}>
 '''
 
-def header(current, p):
+def crumb_bar(items):
+    """カテゴリーナビの下に置くパンくず。items = [(ラベル, URL or None), ...]
+       トップページ以外では常に出す。現在地が分かるようにするため。"""
+    if not items:
+        return ""
+    parts = []
+    for i, (label, url) in enumerate(items):
+        if i:
+            parts.append('<span class="crumb-sep" aria-hidden="true">›</span>')
+        if url:
+            parts.append(f'<a href="{url}">{e(label)}</a>')
+        else:
+            parts.append(f'<span aria-current="page">{e(label)}</span>')
+    return f'''<nav class="crumb-bar" aria-label="現在の位置">
+  <div class="container">{"".join(parts)}</div>
+</nav>
+'''
+
+
+def header(current, p, crumbs=None):
     allcur = ' class="is-current"' if current == "all" else ""
     nav = f'      <li><a href="{p}index.html"{allcur}>ALL</a></li>\n'
     for c in CATS:
@@ -161,7 +190,7 @@ def header(current, p):
   </div>
 </nav>
 
-<!-- 広告表記 -->
+{crumb_bar(crumbs)}<!-- 広告表記 -->
 <div class="site-notice">
   <div class="container">
     <p>
@@ -173,8 +202,6 @@ def header(current, p):
 '''
 
 def footer(p, sticky_url=None):
-    catlinks = "".join(
-        f'          <li><a href="{p}category-{c["key"]}.html">{e(c["label"])}</a></li>\n' for c in CATS)
     if FEAT.get("contact_form"):
         contact = (f'<p>下記のフォームからお気軽にご連絡ください。通常3営業日以内に返信いたします。</p>\n'
                    f'        <a class="footer-contact-btn" href="{p}contact.html">お問い合わせフォーム</a>')
@@ -198,14 +225,9 @@ def footer(p, sticky_url=None):
         <h3>{e(NAME)}</h3>
         <p>購入者レビューと製品仕様をもとに、商品を整理して紹介しています。良い点だけでなく、合わない場面や不満点も省かずに記載しています。</p>
       </div>
-      <div class="footer-col">
-        <h3>カテゴリー</h3>
-        <ul>
-{catlinks}        </ul>
-      </div>
-      <div class="footer-col">
+      <div class="footer-col footer-links">
         <h3>サイト情報</h3>
-        <ul>
+        <ul class="footer-inline">
           <li><a href="{p}privacy.html">プライバシーポリシー</a></li>
           <li><a href="{p}disclaimer.html">免責事項</a></li>
           <li><a href="{p}about.html">運営者情報</a></li>
@@ -234,9 +256,9 @@ def footer(p, sticky_url=None):
 </html>
 '''
 
-def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class=""):
+def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class="", crumbs=None):
     return (head(title, desc, current, p, canonical, extra_head, body_class)
-            + header(current, p)
+            + header(current, p, crumbs)
             + f'\n<main id="top" class="layout">\n  <div class="container">\n{body}  </div>\n</main>\n\n'
             + footer(p, sticky_url).replace("</body>", extra_js + "</body>"))
 
@@ -254,7 +276,7 @@ def card(a, p, lead=False):
           <div class="card-thumb is-auto">{thumb(a, p)}</div>
           <div class="card-body">
             <div class="card-tags">{tags}</div>
-            <h3 class="card-title"><a class="card-stretch" href="{p}articles/{e(a["slug"])}.html">{e(a.get("list_title") or a["title"])}</a></h3>
+            <h3 class="card-title"><a class="card-stretch" href="{p}articles/{e(a["slug"])}.html">{title_lines(a.get("list_title") or a["title"])}</a></h3>
             <p class="card-desc">{e(a.get("excerpt",""))}</p>
             <span class="card-link" aria-hidden="true">詳細を見る</span>
           </div>
@@ -289,18 +311,13 @@ def render_article(a):
     b = []
     add = b.append
 
-    add(f'''      <div class="breadcrumb">
-        <a href="{p}index.html">ホーム</a><span>›</span>
-        <a href="{p}category-{cat}.html">{e(CAT_LABEL.get(cat,""))}</a><span>›</span>{e(a.get("list_title") or a["title"])}
-      </div>
-''')
     add('      <article class="card-surface" id="review">\n')
     add(f'''        <div class="article-meta">
           <span class="badge badge-cat">{e(CAT_LABEL.get(cat,""))}</span>
           <span class="article-date">{e(jp_date(a.get("updated") or a["date"]))} 更新</span>
         </div>
 
-        <h1 class="article-title">{e(a["title"])}</h1>
+        <h1 class="article-title">{title_lines(a["title"])}</h1>
 ''')
 
     # アイキャッチは実写真があるときだけ置く。
@@ -525,7 +542,10 @@ def render_article(a):
 
     return page(f'{a["title"]} - {NAME}', a.get("description") or a.get("excerpt",""),
                 cat, p, url, "".join(b),
-                sticky_url=a.get("amazon_url"), extra_js=extra_js)
+                sticky_url=a.get("amazon_url"), extra_js=extra_js,
+                crumbs=[("ホーム", f"{p}index.html"),
+                        (CAT_LABEL.get(cat, ""), f"{p}category-{cat}.html"),
+                        (a.get("list_title") or a["title"], None)])
 
 # ============================================================ 一覧・固定ページ
 def hero(icon, h1, lead, count=None):
@@ -594,7 +614,7 @@ def build_index():
 def build_category(c):
     p = "./"
     items = [a for a in PUBLISHED if a["category"] == c["key"]]
-    body = f'      <div class="breadcrumb"><a href="{p}index.html">ホーム</a><span>›</span>{e(c["label"])}</div>\n'
+    body = ""
     body += hero(c["icon"], c["label"] + "の記事", c["lead"], len(items))
     if FEAT.get("search"):
         body += SEARCH_BOX
@@ -604,7 +624,8 @@ def build_category(c):
     return page(f'{c["label"]}の記事一覧 - {NAME}',
                 c["lead"][:110], c["key"], p,
                 f'{BASE_URL}/category-{c["key"]}.html', body,
-                body_class="is-listing")
+                body_class="is-listing",
+                crumbs=[("ホーム", f"{p}index.html"), (c["label"], None)])
 
 def build_search():
     p = "./"
@@ -613,8 +634,7 @@ def build_search():
                     for t in tags)
     catchips = "".join(f'          <button type="button" class="chip" data-cat="{c["key"]}">{c["icon"]} {e(c["label"])}</button>\n'
                        for c in CATS)
-    body = f'''      <div class="breadcrumb"><a href="{p}index.html">ホーム</a><span>›</span>サイト内検索</div>
-{hero("🔍", "サイト内検索", "キーワードやタグから記事を探せます。すべてブラウザ内で動作するため、入力内容が送信されることはありません。")}
+    body = f'''{hero("🔍", "サイト内検索", "キーワードやタグから記事を探せます。すべてブラウザ内で動作するため、入力内容が送信されることはありません。")}
       <div class="search-panel">
         <form class="searchbox" role="search" onsubmit="return false;">
           <input type="search" id="searchInput" placeholder="キーワードを入力（例：加湿器、腰痛、イヤホン）" aria-label="サイト内検索" autocomplete="off">
@@ -643,7 +663,8 @@ def build_search():
 '''
     return page(f"サイト内検索 - {NAME}", f"{NAME}のサイト内検索。キーワードとタグで記事を絞り込めます。",
                 "", p, BASE_URL + "/search.html", body,
-                extra_js=f'<script src="./assets/search.js?v={ASSET_V}"></script>\n')
+                extra_js=f'<script src="./assets/search.js?v={ASSET_V}"></script>\n',
+                crumbs=[("ホーム", f"{p}index.html"), ("サイト内検索", None)])
 
 # ============================================================ 固定ページ
 def static_pages():
@@ -744,11 +765,11 @@ def static_pages():
         ("about.html", "運営者情報",
          f"{NAME}の運営者情報。サイトの方針、レビューの基準、お問い合わせ先を記載しています。", about),
     ]:
-        body = (f'      <div class="breadcrumb"><a href="{p}index.html">ホーム</a><span>›</span>{e(title)}</div>\n'
-                f'      <div class="page-hero"><h1>{e(title)}</h1></div>\n'
+        body = (                f'      <div class="page-hero"><h1>{e(title)}</h1></div>\n'
                 f'      <div class="prose">\n{content}\n      </div>\n')
         out.append((fname, page(f"{title} - {NAME}", desc, "", p,
-                                f"{BASE_URL}/{fname}", body)))
+                                f"{BASE_URL}/{fname}", body,
+                                crumbs=[("ホーム", f"{p}index.html"), (title, None)])))
 
     # 404
     body404 = f'''      <div class="page-hero" style="text-align:center;">
@@ -765,8 +786,7 @@ def static_pages():
     # お問い合わせフォーム（features.contact_form が true のときだけ生成）
     if FEAT.get("contact_form"):
         endpoint = FEAT.get("contact_form_endpoint", "")
-        body = f'''      <div class="breadcrumb"><a href="{p}index.html">ホーム</a><span>›</span>お問い合わせ</div>
-      <div class="page-hero"><h1>お問い合わせ</h1>
+        body = f'''      <div class="page-hero"><h1>お問い合わせ</h1>
         <p>記事内容の誤りのご指摘、掲載・レビュー依頼などはこちらからご連絡ください。通常3営業日以内に返信いたします。</p>
       </div>
       <div class="prose">
@@ -790,7 +810,9 @@ def static_pages():
 '''
         out.append(("contact.html", page(f"お問い合わせ - {NAME}",
                                          f"{NAME}へのお問い合わせフォームです。", "", p,
-                                         f"{BASE_URL}/contact.html", body)))
+                                         f"{BASE_URL}/contact.html", body,
+                                         crumbs=[("ホーム", f"{p}index.html"),
+                                                 ("お問い合わせ", None)])))
     return out
 
 # ============================================================ 出力

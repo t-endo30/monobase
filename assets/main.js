@@ -146,19 +146,39 @@
 })();
 
 /* ============================================================
-   スマホの操作性：カテゴリータブの左右スワイプ切り替え
+   スマホの操作性：カテゴリーの横スワイプ切り替え
    ------------------------------------------------------------
    一覧ページ（トップ／カテゴリー）でだけ有効。
-   カテゴリーナビの並び順（ALL → 各カテゴリー）をそのまま使うので、
-   タブを増やしても JS 側の変更は要らない。
+   指の動きに画面が追従し、離した位置で「切り替える／戻す」を決める。
+   カテゴリーナビの並び順をそのまま使うので、タブを増やしても
+   このコードを直す必要はない。
    ============================================================ */
 (function () {
   'use strict';
 
-  if (!document.body.classList.contains('is-listing')) return;
-
   var list = document.querySelector('.cat-nav-list');
   if (!list) return;
+
+  /* ---- 直近に見たカテゴリーを ALL の右隣へ移動する ----
+     よく見るカテゴリーが常に指の届く位置に来るようにする。
+     一覧ページ以外（記事ページなど）でも並び順を揃えたいので、
+     スワイプ機能とは切り離してここで実行する。 */
+  var RECENT_KEY = 'mb.recentCat';
+  var bodyCat = document.body.getAttribute('data-cat') || '';
+  try {
+    if (bodyCat && bodyCat !== 'all') localStorage.setItem(RECENT_KEY, bodyCat);
+    var recent = localStorage.getItem(RECENT_KEY);
+    if (recent) {
+      var li = list.querySelector('a[href*="category-' + recent + '.html"]');
+      li = li && li.parentNode;
+      var first = list.querySelector('li');          /* ALL */
+      if (li && first && li !== first && li.previousElementSibling !== first) {
+        first.insertAdjacentElement('afterend', li);
+      }
+    }
+  } catch (e) { /* localStorage が使えなくても並び順が変わらないだけ */ }
+
+  if (!document.body.classList.contains('is-listing')) return;
 
   var links = Array.prototype.slice.call(list.querySelectorAll('a'));
   if (links.length < 2) return;
@@ -166,13 +186,25 @@
   var current = links.findIndex(function (a) { return a.classList.contains('is-current'); });
   if (current < 0) current = 0;
 
-  /* ---- 現在のタブを常に画面内に見せる（横スクロールするため） ---- */
+  /* ---- 現在のタブを画面内に見せる ---- */
   var cur = links[current];
   if (cur && list.scrollWidth > list.clientWidth) {
     list.scrollLeft = cur.offsetLeft - (list.clientWidth - cur.offsetWidth) / 2;
   }
 
-  /* ---- スワイプできることを伝える一文（タッチ端末のみCSSで表示） ---- */
+  /* ---- 隣のページを先読みしておく（切り替えを待たせない） ---- */
+  [current - 1, current + 1].forEach(function (i) {
+    if (i < 0 || i >= links.length) return;
+    var l = document.createElement('link');
+    l.rel = 'prefetch';
+    l.href = links[i].getAttribute('href');
+    document.head.appendChild(l);
+  });
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var stage = document.querySelector('main.layout') || document.querySelector('main');
+  if (!stage) return;
+
   var KEY = 'mb.swipeHintSeen';
   var seen = false;
   try { seen = localStorage.getItem(KEY) === '1'; } catch (e) { seen = false; }
@@ -180,52 +212,95 @@
     var hint = document.createElement('p');
     hint.className = 'swipe-hint';
     hint.textContent = '← 左右にスワイプでカテゴリーを切り替え →';
-    var main = document.querySelector('main .container');
-    if (main && main.firstElementChild) {
-      main.insertBefore(hint, main.firstElementChild);
-    }
+    var box = document.querySelector('main .container');
+    if (box && box.firstElementChild) box.insertBefore(hint, box.firstElementChild);
   }
 
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   function go(dir) {
-    try { localStorage.setItem(KEY, '1'); } catch (e) { /* 保存できなくても動作に影響しない */ }
     var next = current + dir;
-    if (next < 0 || next >= links.length) return;      /* 端では何もしない */
+    if (next < 0 || next >= links.length) return;
+    try { localStorage.setItem(KEY, '1'); } catch (e) {}
     var href = links[next].getAttribute('href');
     if (!href) return;
     if (reduce) { window.location.href = href; return; }
-    document.body.classList.add('is-swiping-out', dir > 0 ? 'to-left' : 'to-right');
-    setTimeout(function () { window.location.href = href; }, 150);
+    /* 画面を最後まで送り出してから遷移する */
+    stage.style.transition = 'transform .22s var(--ease, ease), opacity .22s ease';
+    stage.style.transform = 'translate3d(' + (dir > 0 ? '-16%' : '16%') + ',0,0)';
+    stage.style.opacity = '0';
+    setTimeout(function () { window.location.href = href; }, 190);
   }
 
-  /* ---- スワイプ判定 ----
-     ・横移動が縦移動より明確に大きいときだけ切り替える（縦スクロールを邪魔しない）
-     ・横スクロールする部品（表・タブ・カルーセル）の上から始まった操作は無視する */
-  var x0 = 0, y0 = 0, t0 = 0, tracking = false;
+  /* ---- 指の動きに追従させる ----
+     縦横どちらの操作か決まるまでは何もしない。
+     横だと判定した後だけ、既定のスクロールを止めて画面を動かす。 */
+  var x0 = 0, y0 = 0, t0 = 0;
+  var state = 'idle';        /* idle → maybe → drag */
   var IGNORE = '.table-scroll,.cat-nav,.chips,input,textarea,select,button';
-  var MIN_X = 60;        /* この距離を超えたら切り替え */
-  var MAX_Y = 45;        /* 縦にこれ以上動いたらスクロール操作とみなす */
-  var MAX_MS = 700;      /* ゆっくりした操作は対象外 */
+  var LOCK = 12;             /* この距離で縦か横かを決める */
+  var DECIDE = 0.28;         /* 画面幅のこの割合を超えたら切り替える */
+  var FLICK = 0.45;          /* px/ms：速く払ったら距離が短くても切り替える */
+
+  function width() { return window.innerWidth || 360; }
+
+  function reset(animate) {
+    stage.style.transition = animate ? 'transform .22s var(--ease, ease)' : '';
+    stage.style.transform = '';
+    stage.style.opacity = '';
+  }
+
+  function edge(dir) {
+    /* 端では動かせないので、引っ張っても戻る量を小さくする */
+    var next = current + dir;
+    return next < 0 || next >= links.length;
+  }
 
   document.addEventListener('touchstart', function (ev) {
-    if (ev.touches.length !== 1) { tracking = false; return; }
-    if (ev.target.closest && ev.target.closest(IGNORE)) { tracking = false; return; }
+    if (ev.touches.length !== 1) { state = 'idle'; return; }
+    if (ev.target.closest && ev.target.closest(IGNORE)) { state = 'idle'; return; }
     var t = ev.touches[0];
-    x0 = t.clientX; y0 = t.clientY; t0 = Date.now(); tracking = true;
+    x0 = t.clientX; y0 = t.clientY; t0 = Date.now();
+    state = 'maybe';
+    stage.style.transition = '';
   }, { passive: true });
 
-  document.addEventListener('touchend', function (ev) {
-    if (!tracking) return;
-    tracking = false;
-    var t = ev.changedTouches[0];
+  document.addEventListener('touchmove', function (ev) {
+    if (state === 'idle') return;
+    var t = ev.touches[0];
     var dx = t.clientX - x0;
     var dy = t.clientY - y0;
-    if (Date.now() - t0 > MAX_MS) return;
-    if (Math.abs(dy) > MAX_Y) return;
-    if (Math.abs(dx) < MIN_X) return;
-    if (Math.abs(dx) < Math.abs(dy) * 1.6) return;
-    go(dx < 0 ? 1 : -1);          /* 左へスワイプ＝次のカテゴリー */
+
+    if (state === 'maybe') {
+      if (Math.abs(dy) > LOCK && Math.abs(dy) > Math.abs(dx)) { state = 'idle'; return; }
+      if (Math.abs(dx) > LOCK && Math.abs(dx) > Math.abs(dy) * 1.4) { state = 'drag'; }
+      else return;
+    }
+
+    /* 横スワイプと決まったら、縦スクロールは起こさせない */
+    if (ev.cancelable) ev.preventDefault();
+    var move = dx * (edge(dx < 0 ? 1 : -1) ? 0.22 : 0.72);   /* 端は重くする */
+    stage.style.transform = 'translate3d(' + move.toFixed(1) + 'px,0,0)';
+    stage.style.opacity = String(Math.max(0.55, 1 - Math.abs(move) / width()));
+  }, { passive: false });
+
+  function release(ev) {
+    if (state !== 'drag') { state = 'idle'; return; }
+    state = 'idle';
+    var t = ev.changedTouches[0];
+    var dx = t.clientX - x0;
+    var speed = Math.abs(dx) / Math.max(1, Date.now() - t0);
+    var dir = dx < 0 ? 1 : -1;
+    /* 速く払った場合でも、ある程度の距離がなければ誤操作とみなす */
+    var flick = speed > FLICK && Math.abs(dx) > 48;
+    if (!edge(dir) && (Math.abs(dx) > width() * DECIDE || flick)) {
+      go(dir);
+    } else {
+      reset(true);
+    }
+  }
+  document.addEventListener('touchend', release, { passive: true });
+  document.addEventListener('touchcancel', function () {
+    if (state === 'drag') reset(true);
+    state = 'idle';
   }, { passive: true });
 
   /* ---- PCではキーボードの左右でも移動できるようにする ---- */
@@ -236,6 +311,9 @@
     if (ev.key === 'ArrowRight') go(1);
     if (ev.key === 'ArrowLeft') go(-1);
   });
+
+  /* 戻るボタンで戻ってきたときに、送り出した状態が残らないようにする */
+  window.addEventListener('pageshow', function () { reset(false); });
 })();
 
 /* ============================================================

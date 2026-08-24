@@ -12,10 +12,9 @@
   <rect width="1200" height="600" fill="url(#shade)"/>
   <rect width="1200" height="600" fill="url(#grid)"/>
 
-  <rect x="446" y="252" width="46" height="96"  rx="6" fill="#25282D" fill-opacity=".11"/>
-  <rect x="514" y="212" width="46" height="176" rx="6" fill="#25282D" fill-opacity=".16"/>
-  <rect x="582" y="176" width="46" height="248" rx="6" fill="#25282D" fill-opacity=".20"/>
-  <rect x="650" y="212" width="46" height="176" rx="6" fill="#25282D" fill-opacity=".16"/>
-  <rect x="718" y="252" width="46" height="96"  rx="6" fill="#25282D" fill-opacity=".11"/>
-  <rect x="0" y="0" width="14" height="600" fill="#6350A8"/>
+  <rect x="446" y="252" width="46" height="96"  rx="6" fill="#6350A8" fill-opacity=".40"/>
+  <rect x="514" y="212" width="46" height="176" rx="6" fill="#6350A8" fill-opacity=".55"/>
+  <rect x="582" y="176" width="46" height="248" rx="6" fill="#6350A8" fill-opacity=".65"/>
+  <rect x="650" y="212" width="46" height="176" rx="6" fill="#6350A8" fill-opacity=".55"/>
+  <rect x="718" y="252" width="46" height="96"  rx="6" fill="#6350A8" fill-opacity=".40"/>
 </svg>
