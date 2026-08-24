@@ -9,17 +9,32 @@
 </head>
 <body>
 
-<!-- ログイン。合言葉が合うまで中身を見せない。
-     本格的な保護は Cloudflare Access（サーバー側）で行う。 -->
+<!-- ログイン。パスワードマネージャーとパスキーに対応させる。
+     これはブラウザ内の鍵で、本当の保護は Cloudflare Access が担当する。 -->
 <div class="lock" id="lockScreen" hidden>
-  <form class="lock-box" id="lockForm">
+  <form class="lock-box" id="lockForm" action="#" method="post" autocomplete="on">
     <p class="lock-mark" aria-hidden="true"></p>
     <h1>モノベース 管理画面</h1>
-    <p class="lock-hint">合言葉を入力してください。</p>
-    <input type="password" id="lockPass" autocomplete="current-password" placeholder="合言葉">
-    <button class="btn btn-primary" type="submit">開く</button>
-    <p class="lock-err" id="lockErr" hidden>合言葉が違います。</p>
-    <p class="lock-note">この画面はブラウザ内の簡易的な鍵です。<br>第三者に触られる可能性がある環境では、Cloudflare Access も併用してください。</p>
+    <p class="lock-hint" id="lockHint">パスワードを入力してください。</p>
+
+    <label class="lock-label" for="lockUser">ユーザー名</label>
+    <input type="text" id="lockUser" name="username" value="admin"
+           autocomplete="username" autocapitalize="off" spellcheck="false">
+
+    <label class="lock-label" for="lockPass">パスワード</label>
+    <input type="password" id="lockPass" name="password"
+           autocomplete="current-password" placeholder="パスワード">
+
+    <button class="btn btn-primary" type="submit" id="lockSubmit">開く</button>
+    <button class="btn lock-passkey" type="button" id="btnPasskeyLogin" hidden>
+      <span aria-hidden="true">🔐</span> パスキーで開く
+    </button>
+
+    <p class="lock-err" id="lockErr" hidden></p>
+    <p class="lock-note">
+      これはブラウザ内の簡易的な鍵です。第三者が触れる可能性のある環境では、
+      <b>Cloudflare Access</b> も併せて設定してください。
+    </p>
   </form>
 </div>
 
@@ -578,6 +593,38 @@
 
   <!-- ============================ 接続 ============================ -->
   <section class="panel" id="p-connect">
+    <div class="card">
+      <h2>この画面の鍵</h2>
+      <p class="hint">管理画面を開くときのパスワードとパスキーを設定します。<b>この端末のブラウザにのみ保存され</b>、GitHubやサイトには送信されません。</p>
+
+      <div class="row c2">
+        <div>
+          <label for="lkNew">新しいパスワード</label>
+          <input type="password" id="lkNew" autocomplete="new-password" placeholder="8文字以上を推奨">
+        </div>
+        <div>
+          <label for="lkNew2">確認のためもう一度</label>
+          <input type="password" id="lkNew2" autocomplete="new-password">
+        </div>
+      </div>
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnLkSave">パスワードを設定する</button>
+      </div>
+
+      <label style="margin-top:18px;">パスキー<span class="opt">Touch ID・Face ID・Windows Hello・スマートフォン</span></label>
+      <div class="note" id="pkState">確認しています…</div>
+      <div class="btn-bar">
+        <button class="btn" id="btnPasskeyAdd">パスキーを登録する</button>
+        <button class="btn btn-ghost" id="btnPasskeyDel">パスキーを解除する</button>
+      </div>
+
+      <div class="note warn">
+        <b>この鍵はブラウザ内だけのものです。</b>ページのHTMLやデータは、鍵がなくても直接URLを開けば取得できます。
+        本当に他人から守るには、Cloudflare の <b>Zero Trust → Access</b> で <code>/admin*</code> を保護してください。
+        そちらはサーバー側で止めるので、URLを直接叩かれても通りません。
+      </div>
+    </div>
+
     <div class="card">
       <h2>GitHub との接続</h2>
       <p class="hint">この画面から直接コミットするための設定です。入力内容はこのブラウザ内（localStorage）にのみ保存され、外部に送信されるのは GitHub API だけです。</p>

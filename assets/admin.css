@@ -210,6 +210,24 @@ textarea{resize:vertical;line-height:1.75;}
   text-align:center;
 }
 .lock-box h1{font-size:18px;margin:0 0 6px;}
+.lock-label{
+  display:block;
+  text-align:left;
+  font-size:11.5px;
+  font-weight:700;
+  color:#6B7280;
+  margin:10px 0 4px;
+}
+.lock-box input{text-align:left;letter-spacing:normal;}
+.lock-box #lockPass{letter-spacing:.16em;}
+.lock-box .btn{margin-top:6px;}
+.lock-passkey{
+  margin-top:8px;
+  background:#F3F4F7;
+  border:1px solid #DDDFE4;
+}
+.lock-passkey[hidden]{display:none;}
+body.is-locked{overflow:hidden;}
 .lock-mark{
   width:34px;height:34px;margin:0 auto 12px;
   border-radius:9px;
