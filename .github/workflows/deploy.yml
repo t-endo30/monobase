@@ -6,9 +6,11 @@ on:
   workflow_dispatch:
 
 # 配信は Cloudflare Pages が担当する（GitHubのリポジトリを直接見ている）。
-# ここは「壊れたものを main に入れない」ための検査だけを行う。
+# Cloudflare は「コミットされているHTML」をそのまま配るため、
+# 管理画面から articles.json だけが変わった場合はここで再生成して
+# コミットし直す。そうしないと本文の変更がサイトに出ない。
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: build-check
@@ -19,6 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # 生成物を push し直すため、認証情報を残す
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -43,13 +48,26 @@ jobs:
         run: python3 tools/feature_plan.py
         continue-on-error: true
 
-      # ビルド結果がコミット済みの内容と一致しているか確認する。
-      # ズレていると、Cloudflare Pages が古いHTMLを配信し続けることになる。
-      - name: Ensure build output is committed
+      # 生成物にズレがあれば、ここで作り直してコミットする。
+      # 管理画面は articles.json と画像だけを push するため、
+      # この工程がないと Cloudflare Pages が古いHTMLを配り続ける。
+      - name: Commit regenerated site
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            echo "::error::build.py の出力がコミットされていません。ローカルで python3 build.py を実行して commit してください。"
-            git status --short
-            exit 1
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "✅ 生成物はコミット済みの内容と一致しています"
+            exit 0
           fi
-          echo "✅ 生成物はコミット済みの内容と一致しています"
+          echo "生成物に差分があります。作り直した内容をコミットします。"
+          git status --short
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "サイトを再生成（自動）"
+          # 同時に別のpushが入っていることがあるので、取り込んでから送る
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            echo "push に失敗しました。再試行します（$i/3）"
+            sleep 5
+          done
+          echo "::error::生成物のpushに失敗しました"
+          exit 1
