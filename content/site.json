@@ -4,7 +4,7 @@
   "description": "暮らしと作業を快適にするおすすめアイテムを、実際に使ったうえで正直に紹介するレビューメディアです。",
   "domain": "monobase.site",
   "base_url": "https://monobase.site",
-  "author": "運営者名",
+  "author": "モノベース運営事務局",
   "email": "info@monobase.site",
   "founded": "2026",
   "analytics": {
@@ -388,7 +388,7 @@
         "start": "2026-07-14",
         "end": "2026-07-17",
         "url": "https://www.amazon.co.jp/events/primeday",
-        "note": "年に一度の大型セール"
+        "note": ""
       },
       {
         "name": "Amazon ブラックフライデー",
