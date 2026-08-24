@@ -1810,3 +1810,100 @@ a.card-thumb.is-auto::after{display:none;}
 @media (min-width:600px){
   .eyecatch{aspect-ratio:1.9/1;}
 }
+
+/* ════════════════════════════════════════════════════════════
+   カードの統一 — 高さ・文字量・余白を揃える
+   ════════════════════════════════════════════════════════════ */
+.card-grid{align-items:stretch;}
+.card{height:100%;}
+
+/* サムネイルの比率を全カードで固定する */
+.card a.card-thumb{
+  aspect-ratio:16/9;
+  width:100%;
+  overflow:hidden;
+}
+.card a.card-thumb img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+
+/* 本文の行数を揃えることで、カードの高さが揃う */
+.card-title{
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  min-height:calc(1.6em * 2);
+}
+.card-desc{
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.card-tags{min-height:22px;}
+.card-link{margin-top:auto;}
+
+/* ホバーは控えめに */
+.card:hover{transform:translateY(-3px);}
+.card:hover a.card-thumb img{transform:none;}
+
+/* 注目記事：PCでは横組み、サムネは本文と同じ高さに揃える */
+@media (min-width:900px){
+  .card.is-lead{grid-template-columns:1.25fr 1fr;}
+  .card.is-lead a.card-thumb{aspect-ratio:auto;height:100%;}
+  .card.is-lead .card-title{
+    font-size:21px;-webkit-line-clamp:3;min-height:0;
+  }
+  .card.is-lead .card-desc{-webkit-line-clamp:3;}
+}
+
+/* ════════════════════════════════════════════════════════════
+   装飾の抑制 — 過剰な演出を削ぎ落とす
+   ════════════════════════════════════════════════════════════ */
+
+/* CTAの光沢アニメーションを停止（常時光るのは主張が強すぎる） */
+.btn-amazon::after{display:none;animation:none;}
+
+/* ヒーロー：多色グラデーションをやめ、単色に近い落ち着いた面にする */
+.hero{
+  background:linear-gradient(170deg,#FFFFFF 0%,#F2F5FA 100%);
+  border:1px solid var(--border);
+  text-align:left;
+  padding:38px 22px 34px;
+}
+.hero::after{display:none;}
+.hero h1{
+  font-size:25px;
+  line-height:1.55;
+  letter-spacing:.01em;
+  margin-bottom:12px;
+}
+.hero h1 .accent{
+  background:linear-gradient(180deg,transparent 66%,rgba(255,153,0,.32) 66%);
+}
+.hero p{margin-left:0;margin-right:0;max-width:38em;}
+.hero .searchbox{margin:0;max-width:560px;}
+.pc-only{display:none;}
+
+/* タグは2つまでの想定に合わせて余白を調整 */
+.card-tags .tag{font-size:11px;}
+
+@media (min-width:600px){
+  .hero{padding:44px 34px 40px;}
+  .hero h1{font-size:29px;}
+  .pc-only{display:inline;}
+}
+@media (min-width:900px){
+  .hero{padding:56px 44px 50px;}
+  .hero h1{font-size:34px;line-height:1.5;}
+}
+
+/* スマホの横並びカードでは比率指定を解除して高さを詰める */
+@media (max-width:599px){
+  .card a.card-thumb{aspect-ratio:auto;}
+  .card-title{min-height:0;-webkit-line-clamp:3;}
+  .card.is-lead a.card-thumb{aspect-ratio:2/1;}
+}

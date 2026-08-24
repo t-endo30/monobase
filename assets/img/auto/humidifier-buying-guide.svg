@@ -1,33 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="加湿器の選び方｜3方式の違いと後悔しない基準">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="生活家電・日用品">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#12916A"/>
-      <stop offset="100%" stop-color="#0A6349"/>
+    <linearGradient id="shade" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".10"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity=".16"/>
     </linearGradient>
-    <radialGradient id="glow" cx="18%" cy="8%" r="70%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity=".28"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
-      <circle cx="2" cy="2" r="1.6" fill="#ffffff" fill-opacity=".14"/>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0 L0 0 0 48" fill="none" stroke="#ffffff" stroke-opacity=".07" stroke-width="1"/>
     </pattern>
   </defs>
 
-  <rect width="1200" height="675" fill="url(#bg)"/>
-  <rect width="1200" height="675" fill="url(#dots)"/>
-  <rect width="1200" height="675" fill="url(#glow)"/>
+  <rect width="1200" height="675" fill="#1E7A5E"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <rect width="1200" height="675" fill="url(#shade)"/>
 
-  <circle cx="1075" cy="128" r="190" fill="#ffffff" fill-opacity=".07"/>
-  <circle cx="1160" cy="560" r="240" fill="#000000" fill-opacity=".08"/>
+  <path d="M980 208 L1112 318 L1112 462 L848 462 L848 318 Z"
+        fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <path d="M940 462 L940 372 L1020 372 L1020 462"
+        fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2"/>
 
-  <rect x="72" y="86" width="292" height="48" rx="24" fill="#ffffff" fill-opacity=".18"/>
-  <text x="98" y="117" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
-        font-size="24" font-weight="700" fill="#ffffff" letter-spacing="1.5">生活家電・日用品</text>
-
-  <text font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
-        font-size="58" font-weight="900" fill="#ffffff" letter-spacing="1"><tspan x="72" y="300">加湿器の選び方</tspan></text>
-
-  <rect x="72" y="576" width="96" height="6" rx="3" fill="#FF9900"/>
-  <text x="72" y="622" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
-        font-size="26" font-weight="700" fill="#ffffff" fill-opacity=".85" letter-spacing="2">モノベース</text>
+  <line x1="80" y1="470" x2="176" y2="470" stroke="#FF9900" stroke-width="5"/>
+  <text x="80" y="530" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
+        font-size="40" font-weight="700" fill="#ffffff" letter-spacing="3">生活家電・日用品</text>
+  <text x="80" y="580" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
+        font-size="23" font-weight="400" fill="#ffffff" fill-opacity=".62" letter-spacing="4">モノベース</text>
 </svg>

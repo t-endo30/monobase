@@ -180,7 +180,7 @@ def footer(p, sticky_url=None):
     <div class="footer-grid">
       <div class="footer-col">
         <h3>{e(NAME)}</h3>
-        <p>{e(TAGLINE)}をコンセプトに、実際に使ったアイテムを紹介するメディアです。良い点も悪い点も正直にお伝えし、あなたの「買って後悔した」を減らすことを目指しています。</p>
+        <p>実際に買って使ったものを記録しています。良い点だけでなく、合わなかった場面や不満点も残すようにしています。</p>
       </div>
       <div class="footer-col">
         <h3>カテゴリー</h3>
@@ -231,8 +231,8 @@ def thumb(a, p):
             f'loading="lazy" width="640" height="360">')
 
 def card(a, p, lead=False):
-    tags = "".join(f'<span class="tag">{e(t)}</span>' for t in a.get("tags", [])[:2])
-    tags += f'<span class="tag tag-hot">{e(CAT_LABEL.get(a["category"], ""))}</span>'
+    tags = f'<span class="tag tag-hot">{e(CAT_LABEL.get(a["category"], ""))}</span>'
+    tags += "".join(f'<span class="tag">{e(t)}</span>' for t in a.get("tags", [])[:1])
     cls = "card is-lead" if lead else "card"
     return f'''        <article class="{cls} reveal" data-cat="{a["category"]}">
           <a class="card-thumb is-auto" href="{p}articles/{e(a["slug"])}.html">{thumb(a, p)}</a>
@@ -491,8 +491,7 @@ def render_article(a):
     if rel:
         add(f'''
       <section class="section-block">
-        <h2 class="section-heading">あわせて読みたい</h2>
-        <p class="section-sub">同じ悩みを扱った記事です</p>
+        <h2 class="section-heading">関連記事</h2>
 {grid(rel, p)}      </section>
 ''')
 
@@ -534,9 +533,8 @@ def build_index():
     latest = PUBLISHED[:6]
     n_pub = len(PUBLISHED)
     body = f'''      <section class="hero">
-        <span class="hero-eyebrow">実際に使って、正直に書く</span>
-        <h1>買って後悔しないために、<br><span class="accent">悪いところから</span>読める場所。</h1>
-        <p>{e(SITE["description"])}<br>ガジェットからデスク環境、生活家電・日用品まで。現在 {n_pub} 記事を公開しています。</p>
+        <h1>使ってみて分かったことを、<span class="accent">そのまま書く</span>。</h1>
+        <p>良い点だけでなく、合わない場面や不満点まで含めて記録しています。<br class="pc-only">ガジェット・デスク環境・生活家電・日用品を中心に {n_pub} 記事。</p>
 {SEARCH_BOX if FEAT.get("search") else ""}      </section>
 '''
     if feat:
@@ -544,7 +542,6 @@ def build_index():
         rest = "\n".join(card(x, p) for x in feat[1:])
         body += f'''      <section class="section-block" style="margin-top:28px;">
         <h2 class="section-heading">注目の記事</h2>
-        <p class="section-sub">まず読んでほしい、実際に使い込んだレビューです</p>
         <div class="card-grid">
 {lead_html}
 {rest}        </div>
@@ -552,12 +549,10 @@ def build_index():
 '''
     body += f'''      <section class="section-block">
         <h2 class="section-heading">新着記事</h2>
-        <p class="section-sub">ガジェットからデスク環境、生活家電・日用品まで</p>
 {grid(latest, p)}      </section>
 
       <section class="section-block">
-        <h2 class="section-heading">カテゴリーから探す</h2>
-        <p class="section-sub">目的に近いカテゴリーからどうぞ</p>
+        <h2 class="section-heading">カテゴリー</h2>
         <div class="cat-tiles">
 '''
     for c in CATS:
@@ -573,7 +568,7 @@ def build_index():
 
       <section class="disclosure">
         <h2>当サイトについて</h2>
-        <p>当サイトでは、実際に購入・使用したアイテムを中心に、暮らしと作業を快適にするおすすめ商品を紹介しています。掲載しているスペック・価格は執筆時点のものであり、最新の情報は必ず販売ページにてご確認ください。</p>
+        <p>掲載しているスペック・価格は執筆時点のものです。最新の情報は販売ページでご確認ください。</p>
         <p>Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
       </section>
 '''
