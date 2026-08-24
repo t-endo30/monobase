@@ -36,7 +36,7 @@ def _asset_version():
        中身が変わったときだけURLが変わるため、ブラウザに古い
        スタイル・スクリプトが残り続けるのを防ぐ。"""
     h = hashlib.sha1()
-    for f in ("style.css", "main.js", "search.js"):
+    for f in ("style.css", "main.js", "search.js", "contact.js"):
         try:
             h.update(io.open(os.path.join(ROOT, "assets", f), "rb").read())
         except FileNotFoundError:
@@ -278,7 +278,7 @@ def icon(key, cls="cat-icon"):
             f'<use href="#i-{key}"></use></svg>')
 
 
-def header(current, p, crumbs=None, current_sub=""):
+def header(current, p, crumbs=None, current_sub="", band=""):
     allcur = ' class="is-current"' if current == "all" else ""
     nav = (f'      <li><a href="{p}index.html"{allcur}>{icon("all")}'
            f'<span class="cat-nav-label">ALL</span></a></li>\n')
@@ -325,7 +325,7 @@ def header(current, p, crumbs=None, current_sub=""):
   </div>
 </nav>
 
-{tab_bar(p, current, current_sub)}{crumb_bar(crumbs)}<!-- セール告知：期間内だけ JS が表示する（assets/main.js） -->
+{tab_bar(p, current, current_sub)}{crumb_bar(crumbs)}{band}<!-- セール告知：期間内だけ JS が表示する（assets/main.js） -->
 <div class="site-notice" id="saleNotice" hidden data-sales='{SALES_JSON}'>
   <div class="container">
     <span class="notice-label">お知らせ</span>
@@ -410,9 +410,9 @@ def main_block(body, p, current="", current_sub="", sidebar=False):
             '  </div>\n</main>\n\n')
 
 
-def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class="", crumbs=None, current_sub="", sidebar=False):
+def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class="", crumbs=None, current_sub="", sidebar=False, band=""):
     return (head(title, desc, current, p, canonical, extra_head, body_class)
-            + header(current, p, crumbs, current_sub)
+            + header(current, p, crumbs, current_sub, band)
             + main_block(body, p, current, current_sub, sidebar)
             + footer(p, sticky_url).replace("</body>", extra_js + "</body>"))
 
@@ -830,15 +830,18 @@ def build_index():
         [c["label"] for c in CATS
          if c["key"] != "feature" and any(a["category"] == c["key"] for a in PUBLISHED)],
         ensure_ascii=False), quote=True)
-    body = f'''      <section class="hero-row">
-        <div class="hero">
-          <h1 class="fit-line">レビューを読み込んで、<span class="accent">不満点まで</span>まとめる。</h1>
-          <p>購入者レビューと製品仕様を突き合わせ、良い点だけでなく「合わない場面」まで整理しています。</p>
-          <p class="hero-count" data-cats='{cat_names}' data-n-cat="{n_cat}" data-n-pub="{n_pub}"></p>
-        </div>
-{SEARCH_TILE if FEAT.get("search") else ""}      </section>
+    # 見出しタイルはヘッダー直下に横長で敷く。お知らせはそのさらに下。
+    band = f'''<div class="hero-band">
+  <div class="container hero-row">
+    <div class="hero">
+      <h1 class="fit-line">レビューを読み込んで、<span class="accent">不満点まで</span>まとめる。</h1>
+      <p>購入者レビューと製品仕様を突き合わせ、良い点だけでなく「合わない場面」まで整理しています。</p>
+      <p class="hero-count" data-cats='{cat_names}' data-n-cat="{n_cat}" data-n-pub="{n_pub}"></p>
+    </div>
+{SEARCH_TILE if FEAT.get("search") else ""}  </div>
+</div>
 '''
-    body += today_panel("is-mobile")
+    body = today_panel("is-mobile")
     body += feature_cards(p)
 
     body += f'''      <section class="section-block">
@@ -846,7 +849,7 @@ def build_index():
 {grid(latest, p)}      </section>
 '''
     return page(f"{NAME}｜{TAGLINE}", SITE["description"], "all", p, BASE_URL + "/", body,
-                body_class="is-listing", sidebar=True)
+                body_class="is-listing", sidebar=True, band=band)
 
 def build_category(c):
     p = "./"
@@ -1072,32 +1075,91 @@ def static_pages():
 
     # お問い合わせフォーム（features.contact_form が true のときだけ生成）
     if FEAT.get("contact_form"):
-        endpoint = FEAT.get("contact_form_endpoint", "")
+        endpoint = FEAT.get("contact_form_endpoint", "").strip()
         body = f'''      <div class="page-hero"><h1>お問い合わせ</h1>
-        <p>記事内容の誤りのご指摘、掲載・レビュー依頼などはこちらからご連絡ください。通常3営業日以内に返信いたします。</p>
+        <p>記事内容の誤りのご指摘、掲載・レビューのご依頼、その他のご連絡はこちらからお願いします。内容を確認のうえ、通常3営業日以内にご返信します。</p>
       </div>
-      <div class="prose">
-        <form class="contact-form" action="{e(endpoint)}" method="POST">
-          <label for="cf-name">お名前 <span class="req">必須</span></label>
-          <input type="text" id="cf-name" name="name" required>
 
-          <label for="cf-email">メールアドレス <span class="req">必須</span></label>
-          <input type="email" id="cf-email" name="email" required>
+      <div class="contact-wrap">
+        <form class="contact-form" id="contactForm"
+              data-endpoint="{e(endpoint)}" data-mailto="{e(SITE["email"])}"
+              action="{e(endpoint) or "mailto:" + e(SITE["email"])}" method="POST" novalidate>
 
-          <label for="cf-subject">件名</label>
-          <input type="text" id="cf-subject" name="subject">
+          <div class="field">
+            <label for="cf-topic">ご用件</label>
+            <select id="cf-topic" name="topic">
+              <option>記事内容についてのご指摘・ご質問</option>
+              <option>掲載・レビューのご依頼</option>
+              <option>取材・執筆のご依頼</option>
+              <option>広告・提携について</option>
+              <option>その他</option>
+            </select>
+          </div>
 
-          <label for="cf-body">お問い合わせ内容 <span class="req">必須</span></label>
-          <textarea id="cf-body" name="message" rows="8" required></textarea>
+          <div class="field">
+            <label for="cf-name">お名前 <span class="req">必須</span></label>
+            <input type="text" id="cf-name" name="name" autocomplete="name"
+                   required maxlength="80" placeholder="山田 太郎">
+            <p class="field-error" id="cf-name-err" hidden></p>
+          </div>
 
-          <p class="form-note">送信をもって<a href="{p}privacy.html">プライバシーポリシー</a>に同意したものとみなします。</p>
-          <button type="submit" class="btn-submit">送信する</button>
+          <div class="field">
+            <label for="cf-email">メールアドレス <span class="req">必須</span></label>
+            <input type="email" id="cf-email" name="email" autocomplete="email"
+                   required maxlength="120" placeholder="you@example.com">
+            <p class="field-hint">ご返信先です。お間違いのないようご確認ください。</p>
+            <p class="field-error" id="cf-email-err" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="cf-url">該当ページのURL</label>
+            <input type="url" id="cf-url" name="page_url" maxlength="300"
+                   placeholder="https://{e(SITE["domain"])}/articles/…">
+            <p class="field-hint">記事へのご指摘の場合にご記入ください。</p>
+          </div>
+
+          <div class="field">
+            <label for="cf-body">お問い合わせ内容 <span class="req">必須</span></label>
+            <textarea id="cf-body" name="message" rows="9" required maxlength="2000"
+                      placeholder="お問い合わせの内容をご記入ください。"></textarea>
+            <p class="field-count"><span id="cf-count">0</span> / 2000 文字</p>
+            <p class="field-error" id="cf-body-err" hidden></p>
+          </div>
+
+          <!-- 迷惑送信よけ。人には見えない欄で、埋まっていたら送らない -->
+          <div class="cf-trap" aria-hidden="true">
+            <label for="cf-company">会社名（入力しないでください）</label>
+            <input type="text" id="cf-company" name="_gotcha" tabindex="-1" autocomplete="off">
+          </div>
+
+          <p class="form-note">送信をもって<a href="{p}privacy.html">プライバシーポリシー</a>に同意いただいたものとみなします。
+          いただいた個人情報は、ご返信の目的以外には利用しません。</p>
+
+          <button type="submit" class="btn-submit" id="cfSubmit">送信する</button>
+          <p class="form-status" id="cfStatus" role="status" aria-live="polite" hidden></p>
         </form>
+
+        <aside class="contact-side">
+          <div class="side-tile">
+            <p class="side-heading">メールでも受け付けています</p>
+            <p class="contact-mail"><a href="mailto:{e(SITE["email"])}">{e(SITE["email"])}</a></p>
+            <p class="field-hint">フォームがうまく送れない場合は、こちらへ直接お送りください。</p>
+          </div>
+          <div class="side-tile">
+            <p class="side-heading">お答えできないこと</p>
+            <ul class="contact-list">
+              <li>個別の商品購入・返品に関するお問い合わせ（Amazonカスタマーサービスへご連絡ください）</li>
+              <li>製品の故障・修理に関するご相談（メーカーの窓口をご利用ください）</li>
+              <li>掲載を確約するご依頼</li>
+            </ul>
+          </div>
+        </aside>
       </div>
 '''
         out.append(("contact.html", page(f"お問い合わせ - {NAME}",
-                                         f"{NAME}へのお問い合わせフォームです。", "", p,
+                                         f"{NAME}へのお問い合わせフォームです。記事内容のご指摘、掲載のご依頼などを受け付けています。", "", p,
                                          f"{BASE_URL}/contact.html", body,
+                                         extra_js=f'<script src="{p}assets/contact.js?v={ASSET_V}" defer></script>\n',
                                          crumbs=[("ホーム", f"{p}index.html"),
                                                  ("お問い合わせ", None)])))
     return out
@@ -1187,7 +1249,10 @@ def main():
              if any(a["category"] == c["key"] and a.get("sub") == sc["key"]
                     for a in PUBLISHED)]
     urls += [(f'{BASE_URL}/articles/{a["slug"]}.html', "0.9") for a in PUBLISHED]
-    urls += [(f"{BASE_URL}/{f}", "0.3") for f in ("about.html", "privacy.html", "disclaimer.html")]
+    static = ["about.html", "privacy.html", "disclaimer.html"]
+    if FEAT.get("contact_form"):
+        static.append("contact.html")
+    urls += [(f"{BASE_URL}/{f}", "0.3") for f in static]
     today = datetime.date.today().isoformat()
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     for u, pr in urls:

@@ -12,11 +12,12 @@
     "gsc_verification": ""
   },
   "features": {
-    "contact_form": false,
+    "contact_form": true,
     "contact_form_endpoint": "",
     "sticky_cta": true,
     "search": true,
-    "feature_threshold": 5
+    "feature_threshold": 5,
+    "_contact_note": "contact_form_endpoint が空のあいだは、送信ボタンでメールソフトが開く。Formspree などの窓口URLを入れるとその場で送信できるようになる。"
   },
   "categories": [
     {

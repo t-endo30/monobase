@@ -3552,3 +3552,149 @@ body,p,li,dd,dt,figcaption,a,span,button,
   overflow-wrap:anywhere;
   line-break:normal;
 }
+
+/* ============================================================
+   ヘッダー直下の横長タイル
+   ------------------------------------------------------------
+   見出しタイルは本文の器の中ではなく、メニューのすぐ下に
+   画面いっぱいの帯として敷く。お知らせはその下に続く。
+   ============================================================ */
+.hero-band{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+}
+.hero-band .hero-row{
+  align-items:center;
+  padding:clamp(12px,2.6vw,20px) 0;
+  gap:clamp(12px,2.6vw,24px);
+}
+.hero-band .hero{
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  padding:0;
+}
+.hero-band .hero h1{margin-bottom:8px;}
+.hero-band .search-tile{
+  background:var(--bg);
+  padding:clamp(12px,2.4vw,16px);
+}
+@media (max-width:899px){
+  /* スマホは検索が画面下部に浮くので、帯の中では出さない */
+  .hero-band .search-tile{display:none;}
+}
+@media (min-width:1024px){
+  /* PCは左サイドに検索があるので、帯の中では出さず見出しを広く使う */
+  .hero-band .search-tile{display:none;}
+  .hero-band .hero-row{grid-template-columns:1fr;}
+}
+
+/* ============================================================
+   画面下に浮かぶものを Motion に任せる
+   ------------------------------------------------------------
+   .has-motion が付いた要素は、出し入れの動きを JS のばねで
+   作る。CSS側の transition と二重にかからないよう打ち消す。
+   Motion が読み込めない・「動きを減らす」設定のときは
+   このクラスが付かないので、これまでどおり CSS が担当する。
+   ============================================================ */
+.float-search.has-motion,
+.sticky-cta.has-motion,
+.to-top.has-motion{
+  transition:background-color .2s ease;
+  transform:none;
+  visibility:visible;
+}
+.float-search.has-motion,
+.to-top.has-motion{pointer-events:none;}
+.float-search.has-motion.is-visible,
+.to-top.has-motion.is-visible{pointer-events:auto;}
+
+/* ============================================================
+   スマホ：カテゴリーメニューは12件すべてを収める
+   ------------------------------------------------------------
+   62vh で切っていたため下の数件が見切れていた。ヘッダーとタブの
+   実測値を差し引いた残り全部を使い、1件あたりの高さも詰める。
+   それでも入りきらない端末では中だけをスクロールさせる。
+   ============================================================ */
+@media (max-width:899px){
+  .cat-panel,
+  .site-header.is-shrunk ~ .cat-panel,
+  body.is-tab-hidden .cat-panel,
+  body.is-tab-hidden .site-header.is-shrunk ~ .cat-panel{
+    max-height:calc(100vh - var(--header-h) - var(--tab-h) - 8px);
+    max-height:calc(100dvh - var(--header-h) - var(--tab-h) - 8px);
+    overscroll-behavior:contain;
+  }
+  .cat-panel .container{
+    padding-bottom:calc(10px + env(safe-area-inset-bottom));
+  }
+  /* 1行を詰めて、閉じた状態なら全カテゴリーが一度に見えるようにする */
+  .cat-panel .cat-tree details > summary{min-height:40px;padding:3px 2px;}
+  .cat-panel .cat-tree .tree-cat{font-size:14px;}
+  .cat-panel .cat-tree .tree-subs{margin-bottom:8px;}
+}
+
+/* ============================================================
+   お問い合わせフォーム
+   ============================================================ */
+.contact-wrap{display:grid;grid-template-columns:1fr;gap:24px;margin-top:24px;}
+@media (min-width:1000px){
+  .contact-wrap{grid-template-columns:minmax(0,1.7fr) minmax(260px,1fr);align-items:start;}
+}
+.contact-form{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:clamp(18px,4vw,30px);
+}
+.contact-form .field{margin-bottom:22px;}
+.contact-form .field:last-of-type{margin-bottom:16px;}
+.contact-form select{
+  width:100%;
+  padding:12px 14px;
+  font:inherit;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid var(--border-strong);
+  border-radius:10px;
+}
+.contact-form input,
+.contact-form textarea,
+.contact-form select{transition:border-color .18s ease,box-shadow .18s ease;}
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus{
+  outline:none;
+  border-color:var(--navy);
+  box-shadow:0 0 0 3px rgba(20,20,22,.08);
+}
+.contact-form .is-invalid{border-color:#C0392B;}
+.contact-form .is-invalid:focus{box-shadow:0 0 0 3px rgba(192,57,43,.14);}
+.field-hint{margin:6px 0 0;font-size:12px;line-height:1.7;color:var(--text-sub);}
+.field-count{margin:6px 0 0;font-size:12px;color:var(--text-sub);text-align:right;}
+.field-error{margin:6px 0 0;font-size:12.5px;font-weight:700;color:#C0392B;}
+.field-error[hidden]{display:none;}
+
+/* 迷惑送信よけの欄。読み上げにも出さず、画面からも外す */
+.cf-trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+
+.form-status{
+  margin:14px 0 0;
+  padding:12px 14px;
+  border-radius:10px;
+  font-size:13.5px;
+  line-height:1.8;
+  border:1px solid var(--border);
+  background:var(--bg-gray);
+  color:var(--ink);
+}
+.form-status.is-ok{background:#E8F5EE;border-color:#B7DFC8;}
+.form-status.is-ng{background:#FBEAE8;border-color:#EEC3BD;}
+.form-status[hidden]{display:none;}
+.btn-submit:disabled{opacity:.55;cursor:default;}
+
+.contact-side{display:grid;gap:16px;}
+.contact-side .side-tile{padding:18px;}
+.contact-mail{margin:0 0 8px;font-size:15px;font-weight:700;word-break:break-all;}
+.contact-list{margin:0;padding-left:1.1em;font-size:13px;line-height:1.9;color:var(--text-sub);}
+.contact-list li{margin-bottom:6px;}

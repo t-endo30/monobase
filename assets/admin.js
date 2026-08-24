@@ -412,6 +412,21 @@
     };
   }
 
+  /* 選んだカテゴリーに合わせてサブカテゴリーの選択肢を入れ替える。
+     content/site.json の categories[].sub[] をそのまま並べる。 */
+  function fillSub(want) {
+    var sub = $('f-sub');
+    if (!sub) return;
+    var key = $('f-category').value;
+    var cat = (site.categories || []).filter(function (c) { return c.key === key; })[0];
+    var list = (cat && cat.sub) || [];
+    sub.innerHTML = '<option value="">（指定なし）</option>' + list.map(function (sc) {
+      return '<option value="' + sc.key + '">' + sc.label + '</option>';
+    }).join('');
+    /* 記事に付いていた値を選び直す。別カテゴリーへ移した場合は空に戻る。 */
+    sub.value = want || '';
+  }
+
   function openEditor(a) {
     editing = a;
     $('editTitle').textContent = a.slug ? '記事を編集：' + (a.list_title || a.title) : '新しい記事を作成';

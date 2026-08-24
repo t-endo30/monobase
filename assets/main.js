@@ -573,7 +573,7 @@
   var dots = box.querySelectorAll('.feat-dot');
   var wait = parseInt(box.getAttribute('data-interval'), 10) || 5000;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var i = 0, timer = null;
+  var i = 0, timer = null, onScreen = true;
 
   box.classList.add('is-ready');
 
@@ -586,7 +586,7 @@
   }
   function next() { show(i + 1); }
   function start() {
-    if (reduce || timer) return;
+    if (reduce || timer || !onScreen) return;
     timer = setInterval(next, wait);
   }
   function stop() { clearInterval(timer); timer = null; }
@@ -606,11 +606,26 @@
     });
   });
 
-  box.addEventListener('mouseenter', stop);
-  box.addEventListener('mouseleave', start);
+  /* 指の端末で mouseenter だけが起きて mouseleave が来ないと、
+     自動送りが止まったまま戻らない。マウスのある端末に限って結ぶ。 */
+  var hoverable = window.matchMedia && window.matchMedia('(hover:hover)').matches;
+  if (hoverable) {
+    box.addEventListener('mouseenter', stop);
+    box.addEventListener('mouseleave', start);
+  }
   document.addEventListener('visibilitychange', function () {
-    if (document.hidden) stop(); else start();
+    if (document.hidden) stop(); else if (onScreen) start();
   });
+
+  /* 画面の外にあるあいだは送らない。戻ってきたら送り直す。 */
+  if (window.IntersectionObserver) {
+    onScreen = false;
+    stop();
+    new IntersectionObserver(function (es) {
+      onScreen = es[0].isIntersecting;
+      if (onScreen && !document.hidden) start(); else stop();
+    }, { threshold: .25 }).observe(box);
+  }
 
   /* 指でも送れるようにする。カテゴリー切り替えのスワイプと
      取り合いにならないよう、この枠の中では横移動を打ち切る。 */
@@ -973,6 +988,100 @@
       return function () { M.animate(cart, { x: 0 }, spring); };
     });
   });
+
+  /* ホバー：カードをわずかに持ち上げる（指の端末では起きない） */
+  var hoverable = window.matchMedia && window.matchMedia('(hover:hover)').matches;
+  if (hoverable) {
+    Array.prototype.forEach.call(
+      document.querySelectorAll('.card, .feat-card, .today-card, .cat-tile'),
+      function (el) {
+        M.hover(el, function () {
+          M.animate(el, { y: -3 }, spring);
+          return function () { M.animate(el, { y: 0 }, spring); };
+        });
+      }
+    );
+    /* Amazonボタンは、指す先が分かるようカートを先に進める */
+    Array.prototype.forEach.call(document.querySelectorAll('.btn-amazon'), function (btn) {
+      var cart = btn.querySelector('.cart');
+      M.hover(btn, function () {
+        if (cart) M.animate(cart, { x: 4 }, spring);
+        return function () { if (cart) M.animate(cart, { x: 0 }, spring); };
+      });
+    });
+    /* 「詳細を見る」の矢印を右へ送る */
+    Array.prototype.forEach.call(document.querySelectorAll('.card'), function (card) {
+      var link = card.querySelector('.card-link');
+      if (!link) return;
+      M.hover(card, function () {
+        M.animate(link, { x: 3 }, spring);
+        return function () { M.animate(link, { x: 0 }, spring); };
+      });
+    });
+  }
+
+  /* 画面下から浮き出るもの（検索・購入ボタン・先頭へ戻る）
+     ------------------------------------------------------------
+     出す／隠すの合図は各機能が is-visible の付け外しで送ってくる。
+     その切り替わりを見て、ばねで下から持ち上げる。 */
+  (function () {
+    if (!window.MutationObserver) return;
+    var floats = document.querySelectorAll('.float-search, .sticky-cta, .to-top');
+    if (!floats.length) return;
+
+    var rise = { type: 'spring', stiffness: 240, damping: 24, mass: .9 };
+    var sink = { duration: .2, ease: [.4, 0, 1, 1] };
+
+    Array.prototype.forEach.call(floats, function (el) {
+      var shown = el.classList.contains('is-visible');
+      /* CSS側の出し入れと二重にならないよう、動きはこちらに任せる */
+      el.classList.add('has-motion');
+      M.animate(el, shown ? { y: 0, opacity: 1 } : { y: 28, opacity: 0 }, { duration: 0 });
+
+      new MutationObserver(function () {
+        var now = el.classList.contains('is-visible');
+        if (now === shown) return;
+        shown = now;
+        if (now) M.animate(el, { y: [28, 0], opacity: [0, 1] }, rise);
+        else M.animate(el, { y: 20, opacity: 0 }, sink);
+      }).observe(el, { attributes: true, attributeFilter: ['class'] });
+    });
+  })();
+
+  /* 特集を送ったとき、今表示している点をぷくっとさせる */
+  Array.prototype.forEach.call(document.querySelectorAll('.feat-dots'), function (dots) {
+    new MutationObserver(function (recs) {
+      recs.forEach(function (r) {
+        var d = r.target;
+        if (d.classList && d.classList.contains('is-current')) {
+          M.animate(d, { scale: [1, 1.45, 1.25] }, { duration: .32, ease: 'easeOut' });
+        }
+      });
+    }).observe(dots, { subtree: true, attributes: true, attributeFilter: ['class'] });
+  });
+
+  /* New / Hot のバッジは、付いた瞬間に軽く跳ねる */
+  if (M.inView) {
+    Array.prototype.forEach.call(document.querySelectorAll('.card-flags'), function (f) {
+      M.inView(f, function () {
+        var b = f.children;
+        Array.prototype.forEach.call(b, function (el, i) {
+          M.animate(el, { scale: [.6, 1], opacity: [0, 1] },
+                    { type: 'spring', stiffness: 600, damping: 18, delay: i * .06 });
+        });
+      }, { amount: .5 });
+    });
+  }
+
+  /* ハンバーガーは開閉に合わせて回す */
+  (function () {
+    var t = document.getElementById('navToggle');
+    if (!t || !window.MutationObserver) return;
+    new MutationObserver(function () {
+      var open = t.getAttribute('aria-expanded') === 'true';
+      M.animate(t, { rotate: open ? 90 : 0 }, spring);
+    }).observe(t, { attributes: true, attributeFilter: ['aria-expanded'] });
+  })();
 
   /* 画面に入ってきたランキングの行を、順に浮かび上がらせる */
   if (M.inView) {
