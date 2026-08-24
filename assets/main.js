@@ -818,3 +818,45 @@
     input.addEventListener('focus', function () { clearTimeout(timer); show(); });
   }
 })();
+
+/* ============================================================
+   スマホ：下へスクロールしているあいだはタブを隠す
+   ------------------------------------------------------------
+   本文の表示領域を稼ぐため。ヘッダーとパンくずは残したままにして、
+   今どこを見ているかは常に分かるようにする。
+   上へスクロールするか、ページの先頭に戻ると再び出す。
+   ============================================================ */
+(function () {
+  'use strict';
+  var bar = document.querySelector('.tab-bar');
+  if (!bar) return;
+  if (!window.matchMedia || !window.matchMedia('(max-width:899px)').matches) return;
+
+  var last = window.pageYOffset || 0;
+  var ticking = false;
+  var SHOW_FROM_TOP = 120;   /* この位置より上では常に出す */
+  var STEP = 6;              /* 小さな揺れで切り替わらないようにする */
+
+  function onScroll() {
+    ticking = false;
+    var y = window.pageYOffset || 0;
+    if (Math.abs(y - last) < STEP) return;
+    var down = y > last;
+    last = y;
+    if (y < SHOW_FROM_TOP) {
+      document.body.classList.remove('is-tab-hidden');
+      return;
+    }
+    document.body.classList.toggle('is-tab-hidden', down);
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
+  }, { passive: true });
+
+  /* カテゴリーメニューを開いているあいだはタブを隠さない */
+  var btn = document.getElementById('tabCats');
+  if (btn) btn.addEventListener('click', function () {
+    document.body.classList.remove('is-tab-hidden');
+  });
+})();

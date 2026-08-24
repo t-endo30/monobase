@@ -3444,3 +3444,62 @@ body[data-cat="ranking"] .side-rank{display:none;}
   text-align:right;
   line-height:1.6;
 }
+
+/* ============================================================
+   改行の見直し
+   ------------------------------------------------------------
+   ・見出しに使っていた text-wrap:balance は、行の長さを揃えるために
+     わざと早く折り返す指定で、右側に大きな空きができていた。やめる。
+   ・箇条書きは1項目が短く、文節で折り返すと空きが目立つため、
+     ふつうの折り返しに戻す。長い本文（段落）だけ文節で折り返す。
+   ============================================================ */
+h1,h2,h3,h4,
+.card-title,.article-title,.section-heading,
+.scene-title,.next-title,.voice-heading,.toc-title,.feat-title{
+  text-wrap:pretty;          /* balance を打ち消す */
+}
+li,dd,dt,
+h1,h2,h3,h4,
+.card-title,.article-title,.section-heading,
+.scene-title,.next-title,.voice-heading,.toc-title,.feat-title,
+.notfor-box li,.pros-cons li,.summary-list li,
+.card-desc,.next-card p,.voice-text{
+  word-break:normal;
+  overflow-wrap:anywhere;
+}
+/* 長い文章が続く本文の段落だけ、文節の位置で折り返す */
+.article-body p,.prose p{
+  word-break:auto-phrase;
+  text-wrap:pretty;
+}
+
+/* ============================================================
+   スマホ：下へスクロール中はタブを畳む
+   （ヘッダーとパンくずは固定のまま残す）
+   ============================================================ */
+@media (max-width:899px){
+  .tab-bar{
+    transition:transform .25s var(--ease),opacity .2s ease;
+    will-change:transform;
+  }
+  body.is-tab-hidden .tab-bar{
+    transform:translateY(-100%);
+    opacity:0;
+    pointer-events:none;
+  }
+  /* タブが畳まれたら、パンくずをヘッダーの直下まで上げる。
+     top を transition すると、貼り付き位置がスクロールのたびに
+     アニメーションをやり直して追従できなくなるため、変化は即時にする。 */
+  /* ヘッダーが縮んだときの指定（.site-header.is-shrunk ~ …）のほうが
+     詳細度が高いので、こちらも同じ形で書いて打ち消す。 */
+  body.is-tab-hidden .crumb-bar,
+  body.is-tab-hidden .site-header.is-shrunk ~ .crumb-bar{top:64px;}
+  /* メニューと覆いの位置も合わせる */
+  body.is-tab-hidden .cat-panel,
+  body.is-tab-hidden .site-header.is-shrunk ~ .cat-panel,
+  body.is-tab-hidden .cat-veil,
+  body.is-tab-hidden .site-header.is-shrunk ~ .cat-veil{top:64px;}
+}
+@media (prefers-reduced-motion:reduce){
+  .tab-bar{transition:none;}
+}

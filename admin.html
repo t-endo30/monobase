@@ -245,6 +245,49 @@
   <!-- ============================ 画像 ============================ -->
   <section class="panel" id="p-images">
     <div class="card">
+      <h2>AIで記事の画像を作る（Gemini）</h2>
+      <p class="hint">記事のカテゴリーに合わせた英文プロンプトを組み立て、Geminiに写真風の画像を作らせます。作った画像はこの画面から圧縮してGitHubへ保存できます。</p>
+
+      <label for="gmKey">Gemini APIキー<span class="opt">このブラウザにだけ保存されます</span></label>
+      <input type="password" id="gmKey" placeholder="AIza...">
+      <div class="note">
+        キーは <b>localStorage（この端末のブラウザ内）にのみ保存</b>され、GitHubへは送信されません。共有パソコンでは使わないでください。<br>
+        取得：<a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio → Get API key</a>
+      </div>
+
+      <div class="row c3">
+        <div>
+          <label for="gmArticle">対象の記事</label>
+          <select id="gmArticle"></select>
+        </div>
+        <div>
+          <label for="gmModel">モデル<span class="opt">無料枠のあるもの</span></label>
+          <select id="gmModel">
+            <option value="gemini-2.5-flash-image">gemini-2.5-flash-image</option>
+            <option value="gemini-3.1-flash-lite-image">gemini-3.1-flash-lite-image</option>
+            <option value="gemini-3.1-flash-image">gemini-3.1-flash-image</option>
+          </select>
+        </div>
+        <div>
+          <label>&nbsp;</label>
+          <button class="btn btn-primary" id="btnGenImage" style="width:100%">この記事の画像を作る</button>
+        </div>
+      </div>
+
+      <label for="gmPrompt">送信するプロンプト<span class="opt">編集できます</span></label>
+      <textarea id="gmPrompt" rows="7"></textarea>
+
+      <div id="gmResult" class="note">記事を選ぶとプロンプトが入ります。</div>
+      <div class="btn-bar">
+        <button class="btn" id="btnUseImage" disabled>この画像を記事に使う（GitHubへ保存）</button>
+      </div>
+      <div class="note warn">
+        無料枠には1分あたり・1日あたりの回数制限があります。上限に当たったときは時間をおいて試してください。<br>
+        生成画像には「イメージ（AI生成）」の断り書きが記事に入ります。実在の製品写真の代わりにはなりません。
+      </div>
+    </div>
+
+    <div class="card">
       <h2>画像のアップロード（自動圧縮）</h2>
       <p class="hint">選んだ画像はブラウザ内で自動的にリサイズ・WebP変換されてからアップロードされます。GitHubの容量制限対策のため、常に圧縮されます。</p>
 
@@ -394,6 +437,16 @@
       <div class="btn-bar">
         <button class="btn btn-primary" id="btnSaveAnalytics">GitHubに保存して反映</button>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>アクセス状況</h2>
+      <p class="hint">GA4から取り込んだ記事別のアクセス数です（<code>content/ranking.json</code>）。毎日5:00に自動更新され、サイトのランキングとHotバッジもこの値で並びます。</p>
+      <div class="btn-bar">
+        <button class="btn" id="btnLoadRanking">最新を読み込む</button>
+        <a class="btn" id="lnkGa4" href="https://analytics.google.com/" target="_blank" rel="noopener">GA4を開く</a>
+      </div>
+      <div id="rankingBox" class="note">「最新を読み込む」を押してください。</div>
     </div>
 
     <div class="card">

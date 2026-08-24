@@ -186,6 +186,7 @@
 
   /* ---------------------------------------------------- 記事一覧 */
   function renderList() {
+    if (typeof fillGmArticles === 'function') fillGmArticles();
     var ul = $('articleList');
     ul.innerHTML = '';
     var cats = {};
@@ -952,4 +953,203 @@
   loadCfg();
   log('管理画面を起動しました' + (cfg.token ? '（保存済みの接続情報あり）' : '（未接続）'));
   loadAll();
+
+  /* ==================================================== アクセス状況 */
+  /* content/ranking.json（GA4から自動生成）を読んで一覧にする。 */
+  function loadRanking() {
+    var box = $('rankingBox');
+    box.textContent = '読み込み中…';
+    getFile('content/ranking.json').then(function (res) {
+      if (!res || res.status === 404) { box.textContent = 'まだ ranking.json がありません。'; return; }
+      var data = JSON.parse(decodeURIComponent(escape(atob(res.content.replace(/\n/g, '')))));
+      var views = data.views || {};
+      var keys = Object.keys(views).sort(function (a, b) { return views[b] - views[a]; });
+      if (!keys.length) {
+        box.innerHTML = '<b>まだデータがありません。</b><br>' +
+          'GA4の計測が始まってから、GitHubのSecretsに GA4_PROPERTY_ID と GA4_SA_KEY を登録すると、' +
+          '毎日5:00に取り込まれます。それまではサイト側は端末ごとの閲覧回数で並びます。';
+        return;
+      }
+      var titles = {};
+      articles.forEach(function (a) { titles[a.slug] = a.list_title || a.title; });
+      box.innerHTML =
+        '<div style="margin-bottom:6px;">更新日：<b>' + (data.updated || '不明') + '</b>' +
+        '（直近' + (data.range_days || '?') + '日）</div>' +
+        '<ol style="margin:0;padding-left:1.4em;line-height:1.9;">' +
+        keys.slice(0, 20).map(function (k) {
+          return '<li>' + (titles[k] || k) + ' — <b>' + views[k] + '</b></li>';
+        }).join('') + '</ol>';
+    }).catch(function (e) { box.textContent = '読み込めませんでした：' + e.message; });
+  }
+  $('btnLoadRanking').addEventListener('click', loadRanking);
+
+  /* ==================================================== 画像の自動生成 */
+  var GM_KEY = 'mb.geminiKey';
+  var gmBlob = null;
+  try {
+    var savedKey = localStorage.getItem(GM_KEY);
+    if (savedKey && $('gmKey')) $('gmKey').value = savedKey;
+  } catch (e) { /* 使えなくても入力欄が空になるだけ */ }
+
+  /* サブカテゴリーごとの被写体。tools/make_images.py と同じ考え方。 */
+  var GM_SUBJECT = {
+    'pc/monitor': ['a widescreen computer monitor', 'a wooden desk in a tidy home office'],
+    'pc/input': ['a computer mouse and a low-profile keyboard', 'a wooden desk beside a closed notebook'],
+    'pc/peripheral': ['a compact aluminium USB-C docking hub with cables plugged in', 'a desk next to a laptop edge'],
+    'pc/network': ['a white Wi-Fi router with upright antennas', 'a shelf beside a small plant'],
+    'pc/tablet': ['an e-ink reading tablet lying flat', 'a linen bedside table with a mug'],
+    'pc/laptop': ['a thin silver laptop, lid open at an angle', 'a bright desk near a window'],
+    'pc/storage': ['a small external SSD drive and a short cable', 'a slate grey desk surface'],
+    'av/mic': ['a small wireless lavalier microphone and its charging case', 'a matte grey table'],
+    'av/headphone': ['a pair of over-ear headphones resting on their side', 'a wooden desk'],
+    'av/speaker': ['a fabric-covered desktop speaker', 'a shelf against a plain wall'],
+    'av/tv': ['a slim projector unit facing slightly away', 'a low sideboard in a dim living room'],
+    'appliance/light': ['a slim LED light fixture switched on', 'a plain ceiling or a desk edge'],
+    'appliance/aircon': ['a floor-standing fan or a steam humidifier, front three-quarter view', 'a bright living room floor beside a curtain'],
+    'appliance/smart': ['a small square smart home hub with a status light', 'a shelf beside a remote control'],
+    'appliance/clean': ['a cordless stick vacuum standing upright', 'a wooden floor in a bright room'],
+    'furniture/desk': ['an adjustable footrest under a desk', 'a wooden floor beneath a desk'],
+    'furniture/chair': ['an ergonomic office chair, three-quarter view', 'a bright room with a plain wall'],
+    'furniture/shelf': ['a slim metal shelving rack holding a few objects', 'beside a desk against a plain wall'],
+    'furniture/bed': ['a single pillow on a made bed', 'a bedroom with soft morning light'],
+    'daily/clean': ['a tall slim rubbish bin', 'a narrow gap beside a kitchen counter'],
+    'daily/safety': ['a small outdoor security camera on a wall mount', 'an exterior wall under an eave'],
+    'health/measure': ['a smartwatch lying flat, screen facing up', 'a wooden table beside a notebook'],
+    'feature/compare': ['three unbranded consumer gadgets lined up in a row', 'a clean light grey studio surface']
+  };
+
+  function gmPromptFor(a) {
+    var s = GM_SUBJECT[(a.category || '') + '/' + (a.sub || '')] ||
+            ['a single unbranded consumer product', 'a clean light grey studio surface'];
+    return 'A photograph of ' + s[0] + ', placed on ' + s[1] + '. ' +
+      'The product fills about 70 percent of the frame, positioned slightly off-centre ' +
+      'following the rule of thirds, seen from a natural eye-level three-quarter angle. ' +
+      'Only a partial human hand may appear at the edge of the frame, and only if it helps ' +
+      'show scale; never show a face or a full body. ' +
+      'Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, ' +
+      'shallow depth of field, background softly blurred so the product stays sharp. ' +
+      'Lit by soft diffused daylight from a large window on the left, a subtle fill from the ' +
+      'right, gentle natural shadows. ' +
+      'Photorealistic, natural material texture — visible plastic grain, brushed metal, woven ' +
+      'fabric and wood grain, realistic specular highlights and soft reflections, accurate ' +
+      'white balance, fine surface detail, no digital smoothing. ' +
+      'The product is generic and unbranded with no logos or lettering of any kind. ' +
+      'Landscape orientation, 16:9. ' +
+      'Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching ' +
+      'or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, readable text, ' +
+      'watermarks, full human figures or faces, distorted or extra fingers, warped straight ' +
+      'edges, duplicated objects, floating or physically impossible arrangements, cluttered background.';
+  }
+
+  function fillGmArticles() {
+    var sel = $('gmArticle');
+    if (!sel) return;
+    sel.innerHTML = articles.map(function (a, i) {
+      return '<option value="' + i + '">' + (a.thumb ? '　' : '★ ') +
+             (a.list_title || a.title || a.slug) + '</option>';
+    }).join('');
+    sel.onchange = function () {
+      var a = articles[Number(sel.value)];
+      if (a) $('gmPrompt').value = gmPromptFor(a);
+    };
+    sel.onchange();
+  }
+
+  function b64ToBlob(b64, mime) {
+    var bin = atob(b64), len = bin.length, buf = new Uint8Array(len);
+    for (var i = 0; i < len; i++) buf[i] = bin.charCodeAt(i);
+    return new Blob([buf], { type: mime || 'image/jpeg' });
+  }
+
+  function pickImage(data) {
+    /* 応答の形が版によって違うため、画像データのある場所を順に探す */
+    if (data.output_image && data.output_image.data) return data.output_image.data;
+    var out = data.output || [];
+    for (var i = 0; i < out.length; i++) {
+      if (out[i] && out[i].type === 'image' && out[i].data) return out[i].data;
+      var cont = (out[i] && out[i].content) || [];
+      for (var j = 0; j < cont.length; j++) if (cont[j].data) return cont[j].data;
+    }
+    var cands = data.candidates || [];
+    for (var k = 0; k < cands.length; k++) {
+      var parts = ((cands[k].content) || {}).parts || [];
+      for (var m = 0; m < parts.length; m++) {
+        var inl = parts[m].inline_data || parts[m].inlineData;
+        if (inl && inl.data) return inl.data;
+      }
+    }
+    return null;
+  }
+
+  $('btnGenImage').addEventListener('click', function () {
+    var key = ($('gmKey').value || '').trim();
+    if (!key) { toast('Gemini APIキーを入力してください', 'err'); return; }
+    try { localStorage.setItem(GM_KEY, key); } catch (e) {}
+    var a = articles[Number($('gmArticle').value)];
+    if (!a) return;
+    var box = $('gmResult');
+    box.textContent = '生成中…（10〜30秒かかります）';
+    $('btnGenImage').disabled = true;
+    $('btnUseImage').disabled = true;
+
+    fetch('https://generativelanguage.googleapis.com/v1beta/interactions', {
+      method: 'POST',
+      headers: { 'x-goog-api-key': key, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: $('gmModel').value,
+        input: [{ type: 'text', text: $('gmPrompt').value }],
+        response_format: { type: 'image', mime_type: 'image/jpeg',
+                           aspect_ratio: '16:9', image_size: '1K' }
+      })
+    }).then(function (r) {
+      return r.json().then(function (j) {
+        if (!r.ok) throw new Error((j.error && j.error.message) || ('HTTP ' + r.status));
+        return j;
+      });
+    }).then(function (data) {
+      var b64 = pickImage(data);
+      if (!b64) throw new Error('応答に画像が含まれていません');
+      var blob = b64ToBlob(b64, 'image/jpeg');
+      /* サイトの上限（300KB）に収まるよう、既存の圧縮処理を通す */
+      return compress(new File([blob], a.slug + '.jpg', { type: 'image/jpeg' }), 1200, 0.8, 'image/jpeg');
+    }).then(function (img) {
+      gmBlob = { img: img, article: a };
+      box.innerHTML = '<img src="' + img.preview + '" alt="" style="max-width:100%;border-radius:8px;">' +
+        '<div style="margin-top:6px;">' + img.w + '×' + img.h + '／' + kb(img.after) + '</div>' +
+        '<div>内容を確認して、問題なければ下のボタンで保存してください。</div>';
+      $('btnUseImage').disabled = false;
+    }).catch(function (e) {
+      box.textContent = '失敗しました：' + e.message;
+    }).then(function () { $('btnGenImage').disabled = false; });
+  });
+
+  $('btnUseImage').addEventListener('click', function () {
+    if (!gmBlob) return;
+    var a = gmBlob.article, img = gmBlob.img;
+    var path = 'assets/img/gen/' + a.slug + '.jpg';
+    $('btnUseImage').disabled = true;
+    blobToB64(img.blob).then(function (b64) {
+      return getFile(path).then(function (res) {
+        return putFile(path, b64, res && res.sha, '記事の画像を追加（管理画面より）');
+      });
+    }).then(function () {
+      a.thumb = path;
+      a.image_ai = true;
+      toast('画像を保存しました。記事を「GitHubに保存して公開」すると反映されます', 'ok');
+      $('gmResult').textContent = '保存しました：' + path;
+    }).catch(function (e) {
+      toast(e.message, 'err');
+      $('btnUseImage').disabled = false;
+    });
+  });
+
+  function blobToB64(blob) {
+    return new Promise(function (resolve, reject) {
+      var fr = new FileReader();
+      fr.onload = function () { resolve(String(fr.result).split(',')[1]); };
+      fr.onerror = reject;
+      fr.readAsDataURL(blob);
+    });
+  }
+
 })();
