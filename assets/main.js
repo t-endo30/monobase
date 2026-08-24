@@ -572,11 +572,8 @@
 
   var dots = box.querySelectorAll('.feat-dot');
   var wait = parseInt(box.getAttribute('data-interval'), 10) || 5000;
-  /* 「動きを減らす」設定（iOSの視差効果を減らす等）でも送り自体は続ける。
-     スライドの滑る動きはCSS側で切ってあるので、切り替えは一瞬で終わる。
-     そのぶん間隔を長めに取り、目が追いつかなくならないようにする。 */
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) wait = Math.max(wait * 1.6, 8000);
+  /* 端末の「動きを減らす」設定にかかわらず、PCと同じ間隔・同じ滑らかさで送る。
+     （サイトの見え方を端末設定で変えたくない、という運営方針による） */
   var i = 0, timer = null, onScreen = true;
 
   box.classList.add('is-ready');

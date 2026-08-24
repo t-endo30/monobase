@@ -21,6 +21,23 @@ NG_CONTEXT = [
     r"日本最[安大高]",
 ]
 
+# 本文にそのまま出てしまったHTMLタグ。テンプレート側で
+# エスケープしすぎると <strong> が文字として表示される。
+ESCAPED_TAG = re.compile(r"&lt;/?(?:strong|em|b|i|br|span|a|p|ul|li|code)\b[^&]{0,40}?&gt;")
+
+
+def check_escaped_tags():
+    hits = []
+    for f in sorted(glob.glob("articles/*.html")) + sorted(glob.glob("*.html")):
+        if os.path.basename(f) == "admin.html":
+            continue          # 管理画面の説明文には例として書いてある
+        raw = open(f, encoding="utf-8").read()
+        for m in ESCAPED_TAG.finditer(raw):
+            ctx = raw[max(0, m.start() - 30): m.start() + 40].replace("\n", " ").strip()
+            hits.append((f, m.group(0), ctx))
+    return hits
+
+
 def main():
     os.chdir(ROOT)
     hits = []
@@ -40,13 +57,21 @@ def main():
                 ctx = s[max(0, m.start() - 25): m.start() + 25].replace("\n", " ").strip()
                 hits.append((f, m.group(0), ctx))
 
+    tags = check_escaped_tags()
+    if tags:
+        print(f"::error::HTMLタグが本文にそのまま出ています（{len(tags)} 件）。"
+              "build.py でエスケープしすぎている可能性があります。")
+        for f, w, ctx in tags[:20]:
+            print(f"  [{w}] {f}\n       …{ctx}…")
+
     if hits:
         print(f"::error::保証・断定表現が {len(hits)} 件見つかりました。")
         for f, w, ctx in hits:
             print(f"  [{w}] {f}\n       …{ctx}…")
+    if hits or tags:
         return 1
 
-    print(f"✅ 禁止表現なし（{len(glob.glob('articles/*.html'))} 記事を検査）")
+    print(f"✅ 禁止表現・タグの露出なし（{len(glob.glob('articles/*.html'))} 記事を検査）")
     return 0
 
 if __name__ == "__main__":

@@ -1,17 +1,17 @@
-name: Build & Deploy to GitHub Pages
+name: Build & Check
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
+# 配信は Cloudflare Pages が担当する（GitHubのリポジトリを直接見ている）。
+# ここは「壊れたものを main に入れない」ための検査だけを行う。
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: build-check
   cancel-in-progress: true
 
 jobs:
@@ -43,18 +43,13 @@ jobs:
         run: python3 tools/feature_plan.py
         continue-on-error: true
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      # ビルド結果がコミット済みの内容と一致しているか確認する。
+      # ズレていると、Cloudflare Pages が古いHTMLを配信し続けることになる。
+      - name: Ensure build output is committed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::build.py の出力がコミットされていません。ローカルで python3 build.py を実行して commit してください。"
+            git status --short
+            exit 1
+          fi
+          echo "✅ 生成物はコミット済みの内容と一致しています"

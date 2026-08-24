@@ -404,5 +404,10 @@
     "_note": "画像生成の設定。APIキーはここに書かない（公開リポジトリのため）。ローカルは環境変数 GEMINI_API_KEY、GitHub Actions は Secrets を使う。",
     "model": "gemini-3.1-flash-image",
     "aspect": "16:9"
+  },
+  "hosting": {
+    "_note": "配信先。Cloudflare Pages は /foo.html を /foo へ寄せるため、canonical と sitemap も拡張子なしで出す。GitHub Pages へ戻す場合は clean_urls を false にする。",
+    "provider": "cloudflare-pages",
+    "clean_urls": true
   }
 }

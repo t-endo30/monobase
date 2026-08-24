@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
-<link rel="stylesheet" href="./assets/style.css?v=f79c9521">
+<link rel="stylesheet" href="./assets/style.css?v=afa3ae63">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ85V2J7EK"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -320,7 +320,17 @@
 <main id="top" class="layout has-side">
   <div class="container layout-grid">
     <div class="side-col">
-    <div class="side-tile side-search">
+    <section class="today-box is-side" hidden>
+      <p class="today-heading">本日のお勧めのモノ</p>
+      <a class="today-card" href="#">
+        <span class="today-thumb"><img src="" alt="" width="1200" height="600"></span>
+        <span class="today-body">
+          <span class="today-cat"></span>
+          <span class="today-title"></span>
+        </span>
+      </a>
+    </section>
+    <div class="side-tile side-search only-2col">
       <form class="searchbox" action="./search.html" method="get" role="search">
         <input type="search" name="q" placeholder="例：加湿器、モニターアーム、腰痛" aria-label="サイト内検索">
         <button type="submit">検索</button>
@@ -543,7 +553,7 @@
     </div>
     <div class="layout-main">
     <section class="today-box is-mobile" hidden>
-      <p class="today-heading">今日のお勧めモノ</p>
+      <p class="today-heading">本日のお勧めのモノ</p>
       <a class="today-card" href="#">
         <span class="today-thumb"><img src="" alt="" width="1200" height="600"></span>
         <span class="today-body">
@@ -654,16 +664,12 @@
       </section>
     </div>
     <div class="side-rank">
-    <section class="today-box is-side" hidden>
-      <p class="today-heading">今日のお勧めモノ</p>
-      <a class="today-card" href="#">
-        <span class="today-thumb"><img src="" alt="" width="1200" height="600"></span>
-        <span class="today-body">
-          <span class="today-cat"></span>
-          <span class="today-title"></span>
-        </span>
-      </a>
-    </section>
+    <div class="side-tile side-search only-3col">
+      <form class="searchbox" action="./search.html" method="get" role="search">
+        <input type="search" name="q" placeholder="例：加湿器、モニターアーム、腰痛" aria-label="サイト内検索">
+        <button type="submit">検索</button>
+      </form>
+    </div>
     <section class="rank-box" data-rank-limit="10">
       <p class="rank-heading">ACCESS RANKING</p>
       <ol class="rank-list"></ol>
@@ -705,6 +711,6 @@
 <button class="to-top" id="toTop" aria-label="ページ上部へ戻る">▲</button>
 
 <script src="./assets/vendor/motion-mini.min.js" defer></script>
-<script src="./assets/main.js?v=f79c9521" defer></script>
+<script src="./assets/main.js?v=afa3ae63" defer></script>
 </body>
 </html>

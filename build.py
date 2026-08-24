@@ -122,6 +122,20 @@ def jp_date(iso):
         return iso
 
 # ============================================================ 共通パーツ
+def public_url(url):
+    """検索エンジンに知らせるURL。ホスティング側の作法に合わせて整える。
+       Cloudflare Pages は /foo.html を /foo へ307でリダイレクトするため、
+       canonical と sitemap にも拡張子なしの形を載せる。
+       （サイト内のリンクは .html のままで問題なく開ける）"""
+    if not SITE.get("hosting", {}).get("clean_urls", True):
+        return url
+    if url.endswith("/index.html"):
+        return url[: -len("index.html")]
+    if url.endswith(".html"):
+        return url[: -len(".html")]
+    return url
+
+
 def head(title, desc, current, p, canonical, extra="", body_class=""):
     """p = ルートへの相対プレフィックス（"./" または "../"）"""
     ga = ""
@@ -144,12 +158,12 @@ def head(title, desc, current, p, canonical, extra="", body_class=""):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
-<link rel="canonical" href="{e(canonical)}">
+<link rel="canonical" href="{e(public_url(canonical))}">
 {gsc}<meta property="og:type" content="website">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:site_name" content="{e(NAME)}">
-<meta property="og:url" content="{e(canonical)}">
+<meta property="og:url" content="{e(public_url(canonical))}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -200,7 +214,7 @@ def today_panel(cls=""):
     """日替わりで1本だけ出すミニウィジェット。
        よく見ているジャンルから、その日の分を選ぶ（中身は assets/main.js）。"""
     return (f'    <section class="today-box {cls}" hidden>\n'
-            f'      <p class="today-heading">今日のお勧めモノ</p>\n'
+            f'      <p class="today-heading">本日のお勧めのモノ</p>\n'
             f'      <a class="today-card" href="#">\n'
             f'        <span class="today-thumb"><img src="" alt="" width="1200" height="600"></span>\n'
             f'        <span class="today-body">\n'
@@ -393,10 +407,15 @@ def main_block(body, p, current="", current_sub="", sidebar=False):
         return ('\n<main id="top" class="layout">\n  <div class="container">\n'
                 + body + '  </div>\n</main>\n\n')
     tree = cat_tree(p, current, current_sub, "side")
+    # 3カラムのときは「本日のお勧めのモノ」を左、検索を右に置く。
+    # 2カラムに縮んだときは右列が消えるので、検索は左に残す。
+    # 両方を書き出し、どちらを見せるかはCSSの幅で切り替える。
+    search_l = (side_search(p, "only-2col") if FEAT.get("search") else "")
+    search_r = (side_search(p, "only-3col") if FEAT.get("search") else "")
     return ('\n<main id="top" class="layout has-side">\n'
             '  <div class="container layout-grid">\n'
             '    <div class="side-col">\n'
-            + (side_search(p) if FEAT.get("search") else "") +
+            + today_panel("is-side") + search_l +
             '    <aside class="side-nav side-tile" aria-label="カテゴリー">\n'
             '      <p class="side-heading">CATEGORIES</p>\n'
             + tree +
@@ -405,7 +424,8 @@ def main_block(body, p, current="", current_sub="", sidebar=False):
             '    <div class="layout-main">\n'
             + body +
             '    </div>\n'
-            '    <div class="side-rank">\n' + today_panel("is-side")
+            '    <div class="side-rank">\n'
+            + search_r
             + rank_panel(p, 10) + '    </div>\n'
             '  </div>\n</main>\n\n')
 
@@ -500,7 +520,7 @@ def render_article(a):
 
     # 結論ボックス
     if a.get("summary"):
-        items = "".join(f'              <li>{e(s)}</li>\n' for s in a["summary"])
+        items = "".join(f'              <li>{s}</li>\n' for s in a["summary"])
         rating = ""
         sc = a.get("rating", {}).get("score") or 0
         if sc:
@@ -511,7 +531,7 @@ def render_article(a):
           </div>
 '''
         add(f'''        <section class="summary-box">
-          <div class="summary-head">{e(a.get("verdict_title","結論"))}</div>
+          <div class="summary-head">{a.get("verdict_title","結論")}</div>
           <div class="summary-body">
             <ul class="summary-list">
 {items}            </ul>
@@ -553,7 +573,7 @@ def render_article(a):
           <div class="notfor-box">
             <div class="notfor-head">⚠ 先に読んでください</div>
             <div class="notfor-body">
-              <p>{e(nf.get("intro",""))}</p>
+              <p>{nf.get("intro","")}</p>
               <ul class="notfor-list">
 {items}              </ul>
               <p class="notfor-foot">上のどれかに当てはまる場合、この商品は期待に応えられない可能性が高いです。別の選択肢を検討したほうが満足度は高くなります。</p>
@@ -571,7 +591,7 @@ def render_article(a):
             add(f'''            <div class="scene">
               <span class="scene-num">{i}</span>
               <div class="scene-body">
-                <h3 class="scene-title">{e(sc.get("title",""))}</h3>
+                <h3 class="scene-title">{sc.get("title","")}</h3>
                 <p>{sc.get("text","")}</p>
               </div>
             </div>
@@ -611,7 +631,7 @@ def render_article(a):
                           for i, v in enumerate(r[1:], start=1))
             rows += f'                <tr><th scope="row">{r[0]}</th>{tds}</tr>\n'
         add(f'''          <h2 id="spec">スペック比較表</h2>
-          <p>{e(sp.get("intro",""))}</p>
+          <p>{sp.get("intro","")}</p>
           <p class="scroll-hint">← 横にスクロールできます →</p>
           <div class="table-scroll" tabindex="0" role="region" aria-label="スペック比較表">
             <table>
@@ -643,19 +663,19 @@ def render_article(a):
     if a.get("voices"):
         add(f'          <h2 id="sec-voice">気になる点と、その対策</h2>\n')
         if a.get("voices_intro"):
-            add(f'          <p>{e(a["voices_intro"])}</p>\n')
+            add(f'          <p>{a["voices_intro"]}</p>\n')
         for v in a["voices"]:
             st = (f'<span class="voice-stars">{stars(v["stars"])}</span>'
                   if v.get("stars") else "")
             neg = " is-negative" if v.get("negative") else ""
-            add(f'''          <h3>{e(v.get("heading",""))}</h3>
+            add(f'''          <h3>{v.get("heading","")}</h3>
           <div class="voice{neg}">
-            <span class="voice-name">{e(v.get("who",""))}{st}</span>
-            {e(v.get("text",""))}
+            <span class="voice-name">{v.get("who","")}{st}</span>
+            {v.get("text","")}
           </div>
           <div class="fix-box">
-            <span class="fix-title">✔ {e(v.get("fix_title",""))}</span>
-            {e(v.get("fix",""))}
+            <span class="fix-title">✔ {v.get("fix_title","")}</span>
+            {v.get("fix","")}
           </div>
 ''')
         add(paras(a.get("voices_after")))
@@ -677,7 +697,7 @@ def render_article(a):
     if np_.get("items"):
         add('          <h2 id="sec-next">次に困りそうなこと</h2>\n')
         if np_.get("intro"):
-            add(f'          <p>{e(np_["intro"])}</p>\n')
+            add(f'          <p>{np_["intro"]}</p>\n')
         add('          <div class="next-grid">\n')
         for it in np_["items"]:
             link = ""
@@ -685,7 +705,7 @@ def render_article(a):
                 link = (f'\n                <a class="next-link" href="{p}{e(it["link_url"])}">'
                         f'{e(it["link_label"])} <span aria-hidden="true">→</span></a>')
             add(f'''            <div class="next-card">
-              <h3 class="next-title">{e(it.get("title",""))}</h3>
+              <h3 class="next-title">{it.get("title","")}</h3>
               <p>{it.get("text","")}</p>{link}
             </div>
 ''')
@@ -693,7 +713,7 @@ def render_article(a):
 
     # まとめ
     if a.get("conclusion"):
-        add(f'''          <h2 id="sec-conclusion">{e(a.get("conclusion_title","まとめ"))}</h2>
+        add(f'''          <h2 id="sec-conclusion">{a.get("conclusion_title","まとめ")}</h2>
 ''')
         add(paras(a["conclusion"]))
         add(cta(amazon_link(a), "Amazonで購入する"))
@@ -750,9 +770,9 @@ def hero(icon, h1, lead, count=None):
 SEARCH_HINT = "例：加湿器、モニターアーム、腰痛"
 
 
-def side_search(p):
+def side_search(p, cls=""):
     """PCのサイドに置く検索。カテゴリーとは別のタイルにする。"""
-    return (f'    <div class="side-tile side-search">\n'
+    return (f'    <div class="side-tile side-search {cls}">\n'
             f'      <form class="searchbox" action="{p}search.html" method="get" role="search">\n'
             f'        <input type="search" name="q" placeholder="{e(SEARCH_HINT)}" aria-label="サイト内検索">\n'
             f'        <button type="submit">検索</button>\n'
@@ -922,7 +942,7 @@ def build_new():
     """新着一覧。スマホのタブ「NEW」の行き先。"""
     p = "./"
     items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)[:24]
-    body = hero("🆕", "新着記事", "24時間以内に公開した記事には New が付きます。", len(items))
+    body = hero("🆕", "新着記事", "24時間以内に公開した記事には New が付きます。")
     body += f'''      <section class="section-block" style="margin-top:24px;">
 {grid(items, p)}      </section>
 '''
@@ -1283,27 +1303,77 @@ def main():
     written.append("search.json")
 
     # sitemap / robots / CNAME / .nojekyll
-    urls = [(BASE_URL + "/", "1.0")]
-    urls += [(f'{BASE_URL}/new.html', "0.7"), (f'{BASE_URL}/ranking.html', "0.7")]
-    urls += [(f'{BASE_URL}/category-{c["key"]}.html', "0.8") for c in CATS]
-    urls += [(f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html', "0.6")
+    def mod(a):
+        return a.get("updated") or a.get("date") or ""
+
+    # 一覧ページの更新日は、そこに載っている記事の最新日にする。
+    # ビルドした日を入れると「毎日全ページが更新された」という嘘になり、
+    # 生成物も日替わりで変わってしまう。
+    newest = max((mod(a) for a in PUBLISHED), default=datetime.date.today().isoformat())
+
+    def cat_mod(key, sub=None):
+        ds = [mod(a) for a in PUBLISHED
+              if a["category"] == key and (sub is None or a.get("sub") == sub)]
+        return max(ds, default=newest)
+
+    urls = [(BASE_URL + "/", "1.0", newest)]
+    urls += [(f'{BASE_URL}/new.html', "0.7", newest),
+             (f'{BASE_URL}/ranking.html', "0.7", newest)]
+    urls += [(f'{BASE_URL}/category-{c["key"]}.html', "0.8", cat_mod(c["key"])) for c in CATS]
+    urls += [(f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html', "0.6",
+              cat_mod(c["key"], sc["key"]))
              for c in CATS for sc in c.get("sub", [])
              if any(a["category"] == c["key"] and a.get("sub") == sc["key"]
                     for a in PUBLISHED)]
-    urls += [(f'{BASE_URL}/articles/{a["slug"]}.html', "0.9") for a in PUBLISHED]
+    urls += [(f'{BASE_URL}/articles/{a["slug"]}.html', "0.9", mod(a)) for a in PUBLISHED]
     static = ["about.html", "privacy.html", "disclaimer.html"]
     if FEAT.get("contact_form"):
         static.append("contact.html")
-    urls += [(f"{BASE_URL}/{f}", "0.3") for f in static]
-    today = datetime.date.today().isoformat()
+    urls += [(f"{BASE_URL}/{f}", "0.3", newest) for f in static]
+    urls = [(public_url(u), pr, d) for u, pr, d in urls]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    for u, pr in urls:
-        sm += f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{today}</lastmod>\n    <priority>{pr}</priority>\n  </url>\n"
+    for u, pr, d in urls:
+        sm += f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{d}</lastmod>\n    <priority>{pr}</priority>\n  </url>\n"
     sm += "</urlset>\n"
     write("sitemap.xml", sm); written.append("sitemap.xml")
     write("robots.txt", f"User-agent: *\nAllow: /\nDisallow: /admin.html\n\nSitemap: {BASE_URL}/sitemap.xml\n")
     written.append("robots.txt")
     write("CNAME", SITE["domain"] + "\n"); written.append("CNAME")
+
+    # ---- Cloudflare Pages 用の設定ファイル -------------------------------
+    # _redirects：見つからないURLに 404.html を返す。
+    #   これを置かないと、存在しないURLで真っ白なページが出る。
+    #   実在するファイルのほうが優先されるので、記事のURLには影響しない。
+    write("_redirects", "\n".join([
+        "# Cloudflare Pages。上から順に、静的ファイルが無い場合だけ効く。",
+        "/index.html      /            301",
+        "/*               /404.html    404",
+        "",
+    ]))
+    written.append("_redirects")
+
+    # _headers：ハッシュ付きの資産は長期キャッシュ、HTMLは毎回確認。
+    #   あわせて最低限の防御ヘッダーを付ける。
+    write("_headers", "\n".join([
+        "/*",
+        "  X-Content-Type-Options: nosniff",
+        "  Referrer-Policy: strict-origin-when-cross-origin",
+        "  X-Frame-Options: SAMEORIGIN",
+        "  Permissions-Policy: geolocation=(), microphone=(), camera=()",
+        "",
+        "# ファイル名に ?v= が付くので、中身が変わればURLも変わる",
+        "/assets/*",
+        "  Cache-Control: public, max-age=31536000, immutable",
+        "",
+        "/*.html",
+        "  Cache-Control: public, max-age=0, must-revalidate",
+        "",
+        "# 管理画面は検索させない・埋め込ませない",
+        "/admin.html",
+        "  X-Robots-Tag: noindex, nofollow",
+        "",
+    ]))
+    written.append("_headers")
     write(".nojekyll", "")
 
     print(f"\n✅ ビルド完了：{len(written)} ファイル（アイキャッチ自動生成 {made} 枚）")

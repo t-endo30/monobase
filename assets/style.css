@@ -2726,7 +2726,8 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
 }
 @media (min-width:1240px){
   .layout.has-side .layout-grid{
-    grid-template-columns:262px minmax(0,1fr) 268px;
+    /* 左右のサイドは同じ幅にそろえる */
+    grid-template-columns:262px minmax(0,1fr) 262px;
   }
   .side-rank{
     display:block;
@@ -2966,9 +2967,8 @@ body[data-cat="ranking"] .side-rank{display:none;}
   overflow:visible;
   transition:transform .55s var(--ease);
 }
-@media (prefers-reduced-motion:reduce){
-  .feat-carousel.is-ready .feat-track{transition:none;}
-}
+/* スライドの動きは端末設定に関わらずPCと同じにする
+   （運営方針。ほかの装飾アニメーションは従来どおり設定に従う） */
 .feat-slide{flex:0 0 100%;min-width:0;scroll-snap-align:start;}
 .feat-slide .feat-card{box-shadow:var(--shadow);height:100%;}
 
@@ -3231,7 +3231,8 @@ body[data-cat="ranking"] .side-rank{display:none;}
   .layout.has-side .layout-grid{grid-template-columns:390px minmax(0,1fr);}
 }
 @media (min-width:1240px){
-  .layout.has-side .layout-grid{grid-template-columns:390px minmax(0,1fr) 268px;}
+  /* 左右のサイドは同じ幅にそろえる */
+  .layout.has-side .layout-grid{grid-template-columns:390px minmax(0,1fr) 390px;}
 }
 @media (min-width:1024px) and (max-width:1239px){
   .layout.has-side .container{max-width:1240px;}
@@ -3804,3 +3805,111 @@ body,p,li,dd,dt,figcaption,a,span,button,
   .page-hero p{margin-top:4px;}
   .page-hero .hero-count{margin-top:4px;}
 }
+
+/* ============================================================
+   PCサイドの並べ替え
+   ------------------------------------------------------------
+   3カラム（1240px〜）：左に「本日のお勧めのモノ」、右に検索。
+   2カラム（1024〜1239px）：右列が無いので、検索は左に置く。
+   ============================================================ */
+.side-search.only-2col,
+.side-search.only-3col{display:none;}
+@media (min-width:1024px){
+  .side-search.only-2col{display:block;}
+}
+@media (min-width:1240px){
+  .side-search.only-2col{display:none;}
+  .side-search.only-3col{display:block;}
+  /* 左列の先頭に来るので、下の CATEGORIES との間を空ける */
+  .side-col .today-box.is-side{display:block;margin:0 0 14px;}
+  .side-col .today-box.is-side[hidden]{display:none;}
+}
+/* 右列に移した検索は、ランキングの上に置く */
+.side-rank .side-search{margin-bottom:14px;}
+
+/* ============================================================
+   特集カルーセルだけは端末設定の影響を受けない
+   ------------------------------------------------------------
+   「動きを減らす」設定ではサイト全体の transition を止めている。
+   ただし特集の送りは、止まっているように見えてしまうため
+   PCと同じ滑らかさで動かす（運営方針）。
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  .feat-carousel.is-ready .feat-track{
+    transition:transform .55s var(--ease) !important;
+  }
+}
+
+/* ============================================================
+   タイルの立体感を強める
+   ------------------------------------------------------------
+   影を2段（近くの薄い影＋遠くの広い影）にして、面が浮いて
+   見えるようにする。押したときは影を縮めて沈ませる。
+   ============================================================ */
+:root{
+  --shadow:0 1px 2px rgba(20,20,22,.06),0 3px 8px rgba(20,20,22,.07),0 8px 20px rgba(20,20,22,.05);
+  --shadow-lg:0 2px 4px rgba(20,20,22,.08),0 10px 24px rgba(20,20,22,.13),0 22px 48px rgba(20,20,22,.10);
+  --shadow-in:0 1px 2px rgba(20,20,22,.10) inset,0 1px 1px rgba(20,20,22,.06);
+}
+.card,
+.feat-card,
+.today-box,
+.rank-box,
+.side-tile,
+.search-tile,
+.card-surface,
+.next-card,
+.contact-form,
+.page-hero{
+  box-shadow:var(--shadow);
+}
+.card,
+.feat-card,
+.today-card,
+.cat-tile{
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease);
+}
+
+/* 指で押したときに沈む。Motion が動く端末では JS が上書きするが、
+   読み込めない場合もこれだけで手応えが出る。 */
+@media (hover:none){
+  .card:active,
+  .feat-card:active,
+  .today-card:active,
+  .cat-tile:active,
+  .rank-item a:active,
+  .next-card:active{
+    transform:translateY(1px) scale(.985);
+    box-shadow:var(--shadow-in);
+  }
+  .btn-amazon:active,
+  .btn-sub:active,
+  .searchbox button:active,
+  .btn-submit:active{
+    transform:translateY(2px) scale(.985);
+    box-shadow:var(--shadow-in);
+  }
+  .tab-bar a:active,
+  .tab-bar button:active{transform:scale(.94);}
+}
+
+/* ============================================================
+   スマホ：ランキング／新着のタイル内を中央寄せ
+   ============================================================ */
+@media (max-width:899px){
+  .rank-page .rank-box,
+  .rank-page .rank-heading,
+  .rank-page .rank-note{text-align:center;}
+  .rank-page .rank-item{justify-content:center;}
+  .rank-page .rank-item a{text-align:center;}
+  .rank-page .rank-title,
+  .rank-page .rank-cat{text-align:center;}
+
+  body[data-cat="new"] .page-hero,
+  body[data-cat="ranking"] .page-hero{text-align:center;}
+  body[data-cat="new"] .page-hero-head,
+  body[data-cat="ranking"] .page-hero-head{justify-content:center;}
+}
+
+/* 記事数の一文は、幅がある限り1行で見せる（38emの制限を外す） */
+.hero-band .hero p{max-width:none;}

@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>スマートリモコンは結局ラクになるのか｜SwitchBot スマートリモコンで確認すべき前提条件 - モノベース</title>
 <meta name="description" content="SwitchBot スマートリモコン（温湿度計機能付き）について、購入者レビューと仕様を整理。赤外線が届く配置、対応しない家電、スマートスピーカー連携の前提など、導入前に確認すべき条件をまとめました。">
-<link rel="canonical" href="https://monobase.site/articles/switchbot-hub-remote-review.html">
+<link rel="canonical" href="https://monobase.site/articles/switchbot-hub-remote-review">
 <meta property="og:type" content="website">
 <meta property="og:title" content="スマートリモコンは結局ラクになるのか｜SwitchBot スマートリモコンで確認すべき前提条件 - モノベース">
 <meta property="og:description" content="SwitchBot スマートリモコン（温湿度計機能付き）について、購入者レビューと仕様を整理。赤外線が届く配置、対応しない家電、スマートスピーカー連携の前提など、導入前に確認すべき条件をまとめました。">
 <meta property="og:site_name" content="モノベース">
-<meta property="og:url" content="https://monobase.site/articles/switchbot-hub-remote-review.html">
+<meta property="og:url" content="https://monobase.site/articles/switchbot-hub-remote-review">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=f79c9521">
+<link rel="stylesheet" href="../assets/style.css?v=afa3ae63">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ85V2J7EK"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -308,7 +308,17 @@
 <main id="top" class="layout has-side">
   <div class="container layout-grid">
     <div class="side-col">
-    <div class="side-tile side-search">
+    <section class="today-box is-side" hidden>
+      <p class="today-heading">本日のお勧めのモノ</p>
+      <a class="today-card" href="#">
+        <span class="today-thumb"><img src="" alt="" width="1200" height="600"></span>
+        <span class="today-body">
+          <span class="today-cat"></span>
+          <span class="today-title"></span>
+        </span>
+      </a>
+    </section>
+    <div class="side-tile side-search only-2col">
       <form class="searchbox" action="../search.html" method="get" role="search">
         <input type="search" name="q" placeholder="例：加湿器、モニターアーム、腰痛" aria-label="サイト内検索">
         <button type="submit">検索</button>
@@ -690,7 +700,7 @@
           </div>
           <div class="fix-box">
             <span class="fix-title">✔ 対策：本体と家電の間に遮るものがない位置へ置き直す</span>
-            赤外線は光と同じで、家具や観葉植物、扉に遮られると届きません。&lt;strong&gt;本体を部屋の中央寄り・高い位置に置くと到達率が上がります。&lt;/strong&gt;反射を利用して届く場合もあるため、位置を数十cm動かして試す価値があります。
+            赤外線は光と同じで、家具や観葉植物、扉に遮られると届きません。<strong>本体を部屋の中央寄り・高い位置に置くと到達率が上がります。</strong>反射を利用して届く場合もあるため、位置を数十cm動かして試す価値があります。
           </div>
           <h3>指摘②「自宅の家電が登録できなかった」</h3>
           <div class="voice is-negative">
@@ -699,7 +709,7 @@
           </div>
           <div class="fix-box">
             <span class="fix-title">✔ 対策：登録できなかった場合の手動学習の手順を把握しておく</span>
-            プリセットにない機種でも、手持ちのリモコンから信号を1ボタンずつ学習させる方法が用意されています。&lt;strong&gt;使うボタンだけ登録すれば実用にはなります。&lt;/strong&gt;古い家電やマイナーな機種を使っている場合は、この作業が前提と考えてください。
+            プリセットにない機種でも、手持ちのリモコンから信号を1ボタンずつ学習させる方法が用意されています。<strong>使うボタンだけ登録すれば実用にはなります。</strong>古い家電やマイナーな機種を使っている場合は、この作業が前提と考えてください。
           </div>
           <h3>指摘③「温湿度の値が実際とずれている気がする」</h3>
           <div class="voice is-negative">
@@ -708,7 +718,7 @@
           </div>
           <div class="fix-box">
             <span class="fix-title">✔ 対策：本体の設置環境を疑う</span>
-            本体は通電により微弱な発熱をするうえ、直射日光やエアコンの吹き出し口の近くでは値が偏ります。&lt;strong&gt;日の当たらない、風の直撃しない場所&lt;/strong&gt;に移すだけで改善することがあります。自動化の判定に使うなら特に重要です。
+            本体は通電により微弱な発熱をするうえ、直射日光やエアコンの吹き出し口の近くでは値が偏ります。<strong>日の当たらない、風の直撃しない場所</strong>に移すだけで改善することがあります。自動化の判定に使うなら特に重要です。
           </div>
           <p>3つの指摘は、置き場所・家電の対応・センサーの環境と、すべて<strong>導入する側でコントロールできる要素</strong>です。製品を替えても解決しない代わりに、環境を整えれば解決する。裏を返せば、環境を整える手間をかけられない人には向かない製品だということでもあります。</p>
           <div class="personal-note">
@@ -789,16 +799,12 @@
       </section>
     </div>
     <div class="side-rank">
-    <section class="today-box is-side" hidden>
-      <p class="today-heading">今日のお勧めモノ</p>
-      <a class="today-card" href="#">
-        <span class="today-thumb"><img src="" alt="" width="1200" height="600"></span>
-        <span class="today-body">
-          <span class="today-cat"></span>
-          <span class="today-title"></span>
-        </span>
-      </a>
-    </section>
+    <div class="side-tile side-search only-3col">
+      <form class="searchbox" action="../search.html" method="get" role="search">
+        <input type="search" name="q" placeholder="例：加湿器、モニターアーム、腰痛" aria-label="サイト内検索">
+        <button type="submit">検索</button>
+      </form>
+    </div>
     <section class="rank-box" data-rank-limit="10">
       <p class="rank-heading">ACCESS RANKING</p>
       <ol class="rank-list"></ol>
@@ -846,7 +852,7 @@
 <button class="to-top" id="toTop" aria-label="ページ上部へ戻る">▲</button>
 
 <script src="../assets/vendor/motion-mini.min.js" defer></script>
-<script src="../assets/main.js?v=f79c9521" defer></script>
+<script src="../assets/main.js?v=afa3ae63" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "スマートリモコンは結局ラクになるのか｜SwitchBot スマートリモコンで確認すべき前提条件", "description": "SwitchBot スマートリモコン（温湿度計機能付き）について、購入者レビューと仕様を整理。赤外線が届く配置、対応しない家電、スマートスピーカー連携の前提など、導入前に確認すべき条件をまとめました。", "datePublished": "2026-08-24", "dateModified": "2026-08-24", "author": {"@type": "Person", "name": "モノベース運営事務局"}, "publisher": {"@type": "Organization", "name": "モノベース"}, "mainEntityOfPage": "https://monobase.site/articles/switchbot-hub-remote-review.html"}</script>
 </body>
 </html>
