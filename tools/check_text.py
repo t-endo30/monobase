@@ -17,7 +17,12 @@ def main():
     os.chdir(ROOT)
     hits = []
     for f in sorted(glob.glob("articles/*.html")):
-        s = html.unescape(re.sub(r"<[^>]+>", "", open(f, encoding="utf-8").read()))
+        raw = open(f, encoding="utf-8").read()
+        # ヘッダー・フッター・ナビは対象外。記事本文だけを検査する
+        m = re.search(r'<article class="card-surface".*?</article>', raw, re.S)
+        if not m:
+            continue
+        s = html.unescape(re.sub(r"<[^>]+>", "", m.group(0)))
         for w in NG:
             for m in re.finditer(re.escape(w), s):
                 ctx = s[max(0, m.start() - 25): m.start() + 25].replace("\n", " ").strip()

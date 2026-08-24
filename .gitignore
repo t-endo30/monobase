@@ -1,3 +1,8 @@
 .DS_Store
 __pycache__/
 *.pyc
+
+# Amazon注文履歴CSV（個人情報を含むため絶対にコミットしない）
+*.csv
+Retail.OrderHistory*
+orders*.json
