@@ -228,7 +228,7 @@ def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="
 def thumb(a, p):
     src, _ = visual_path(a, p)
     return (f'<img src="{e(src)}" alt="{e(a.get("list_title") or a["title"])}" '
-            f'loading="lazy" width="640" height="360">')
+            f'loading="lazy" width="1200" height="430">')
 
 def card(a, p, lead=False):
     tags = f'<span class="tag tag-hot">{e(CAT_LABEL.get(a["category"], ""))}</span>'
@@ -292,7 +292,7 @@ def render_article(a):
     src, is_auto = visual_path(a, p)
     cls = "eyecatch is-auto" if is_auto else "eyecatch has-image"
     add(f'''        <figure class="{cls}">
-          <img src="{e(src)}" alt="{e(a["title"])}" width="1200" height="675">
+          <img src="{e(src)}" alt="{e(a["title"])}" width="1200" height="430">
         </figure>
 ''')
 

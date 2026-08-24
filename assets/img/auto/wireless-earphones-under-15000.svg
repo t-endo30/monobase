@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="比較・まとめ">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-label="比較・まとめ">
   <defs>
     <linearGradient id="shade" x1="0" y1="0" x2="0.4" y2="1">
       <stop offset="0%" stop-color="#ffffff" stop-opacity=".10"/>
@@ -9,19 +9,19 @@
     </pattern>
   </defs>
 
-  <rect width="1200" height="675" fill="#6350A8"/>
-  <rect width="1200" height="675" fill="url(#grid)"/>
-  <rect width="1200" height="675" fill="url(#shade)"/>
+  <rect width="1200" height="430" fill="#6350A8"/>
+  <rect width="1200" height="430" fill="url(#grid)"/>
+  <rect width="1200" height="430" fill="url(#shade)"/>
 
-  <rect x="866" y="366" width="46" height="104" fill="#fff" fill-opacity=".20"/>
-  <rect x="934" y="296" width="46" height="174" fill="#fff" fill-opacity=".30"/>
-  <rect x="1002" y="336" width="46" height="134" fill="#fff" fill-opacity=".24"/>
-  <rect x="1070" y="252" width="46" height="218" fill="#fff" fill-opacity=".16"/>
-  <line x1="840" y1="470" x2="1140" y2="470" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+  <rect x="878" y="236" width="42" height="86"  fill="#fff" fill-opacity=".18"/>
+  <rect x="940" y="176" width="42" height="146" fill="#fff" fill-opacity=".28"/>
+  <rect x="1002" y="212" width="42" height="110" fill="#fff" fill-opacity=".22"/>
+  <rect x="1064" y="140" width="42" height="182" fill="#fff" fill-opacity=".14"/>
+  <line x1="856" y1="322" x2="1128" y2="322" stroke="#fff" stroke-opacity=".32" stroke-width="2"/>
 
-  <line x1="80" y1="470" x2="176" y2="470" stroke="#FF9900" stroke-width="5"/>
-  <text x="80" y="530" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
-        font-size="40" font-weight="700" fill="#ffffff" letter-spacing="3">比較・まとめ</text>
-  <text x="80" y="580" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
-        font-size="23" font-weight="400" fill="#ffffff" fill-opacity=".62" letter-spacing="4">モノベース</text>
+  <line x1="80" y1="168" x2="164" y2="168" stroke="#FF9900" stroke-width="5"/>
+  <text x="80" y="232" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
+        font-size="44" font-weight="700" fill="#ffffff" letter-spacing="3">比較・まとめ</text>
+  <text x="80" y="284" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
+        font-size="24" font-weight="400" fill="#ffffff" fill-opacity=".60" letter-spacing="4">モノベース</text>
 </svg>

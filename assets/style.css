@@ -1907,3 +1907,38 @@ a.card-thumb.is-auto::after{display:none;}
   .card-title{min-height:0;-webkit-line-clamp:3;}
   .card.is-lead a.card-thumb{aspect-ratio:2/1;}
 }
+
+/* ════════════════════════════════════════════════════════════
+   サムネイルをさらに圧縮 — 文字情報を主役にする
+   ════════════════════════════════════════════════════════════ */
+
+/* PC・タブレット：横長にして高さを削る */
+.card a.card-thumb{aspect-ratio:2.6/1;}
+.card.is-lead a.card-thumb{aspect-ratio:2.4/1;}
+
+/* 記事のアイキャッチも一段低く */
+.eyecatch{aspect-ratio:2.6/1;}
+
+@media (min-width:600px){
+  .eyecatch{aspect-ratio:2.6/1;}
+}
+
+@media (min-width:900px){
+  .card a.card-thumb{aspect-ratio:2.8/1;}
+  /* 注目記事の横組みでは高さ合わせのままにする */
+  .card.is-lead a.card-thumb{aspect-ratio:auto;height:100%;}
+}
+
+/* スマホ：横並びのサムネ幅を詰める */
+@media (max-width:599px){
+  .card{grid-template-columns:96px 1fr;}
+  .card a.card-thumb{aspect-ratio:auto;min-height:84px;}
+  .card-body{padding:9px 12px 10px;}
+  .card-title{font-size:14px;line-height:1.45;-webkit-line-clamp:3;}
+  .card-desc{display:none;}          /* 一覧では抜粋を出さず高さを最小化 */
+  .card-tags{min-height:0;margin-bottom:4px;}
+
+  .card.is-lead a.card-thumb{aspect-ratio:2.8/1;min-height:0;}
+  .card.is-lead .card-desc{display:-webkit-box;-webkit-line-clamp:2;}
+  .eyecatch{aspect-ratio:2.4/1;margin-bottom:18px;}
+}

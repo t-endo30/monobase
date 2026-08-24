@@ -22,38 +22,39 @@ DEFAULT = "#3A4557"
 
 # カテゴリーごとの幾何モチーフ（意味を持たせて描き分ける）
 def motif(category):
+    """カテゴリーごとの幾何モチーフ。中心は (985, 215) に統一する。"""
     if category == "gadget":      # 同心円＝波形・信号
-        return '''
-  <circle cx="980" cy="338" r="150" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="2"/>
-  <circle cx="980" cy="338" r="110" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
-  <circle cx="980" cy="338" r="70"  fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2"/>
-  <circle cx="980" cy="338" r="26"  fill="#fff" fill-opacity=".30"/>'''
+        return """
+  <circle cx="985" cy="215" r="150" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="2"/>
+  <circle cx="985" cy="215" r="108" fill="none" stroke="#fff" stroke-opacity=".20" stroke-width="2"/>
+  <circle cx="985" cy="215" r="66"  fill="none" stroke="#fff" stroke-opacity=".26" stroke-width="2"/>
+  <circle cx="985" cy="215" r="24"  fill="#fff" fill-opacity=".28"/>"""
     if category == "desk":        # 直線の組み合わせ＝机・什器
-        return '''
-  <rect x="852" y="212" width="256" height="180" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
-  <line x1="852" y1="392" x2="852" y2="470" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
-  <line x1="1108" y1="392" x2="1108" y2="470" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
-  <line x1="820" y1="392" x2="1140" y2="392" stroke="#fff" stroke-opacity=".30" stroke-width="3"/>'''
+        return """
+  <rect x="868" y="112" width="234" height="140" fill="none" stroke="#fff" stroke-opacity=".20" stroke-width="2"/>
+  <line x1="868" y1="252" x2="868" y2="322" stroke="#fff" stroke-opacity=".20" stroke-width="2"/>
+  <line x1="1102" y1="252" x2="1102" y2="322" stroke="#fff" stroke-opacity=".20" stroke-width="2"/>
+  <line x1="840" y1="252" x2="1130" y2="252" stroke="#fff" stroke-opacity=".30" stroke-width="3"/>"""
     if category == "home":        # 家型＝住まい
-        return '''
-  <path d="M980 208 L1112 318 L1112 462 L848 462 L848 318 Z"
-        fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
-  <path d="M940 462 L940 372 L1020 372 L1020 462"
-        fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2"/>'''
+        return """
+  <path d="M985 92 L1104 190 L1104 322 L866 322 L866 190 Z"
+        fill="none" stroke="#fff" stroke-opacity=".20" stroke-width="2"/>
+  <path d="M949 322 L949 242 L1021 242 L1021 322"
+        fill="none" stroke="#fff" stroke-opacity=".26" stroke-width="2"/>"""
     # compare：棒グラフ＝比較
-    return '''
-  <rect x="866" y="366" width="46" height="104" fill="#fff" fill-opacity=".20"/>
-  <rect x="934" y="296" width="46" height="174" fill="#fff" fill-opacity=".30"/>
-  <rect x="1002" y="336" width="46" height="134" fill="#fff" fill-opacity=".24"/>
-  <rect x="1070" y="252" width="46" height="218" fill="#fff" fill-opacity=".16"/>
-  <line x1="840" y1="470" x2="1140" y2="470" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>'''
+    return """
+  <rect x="878" y="236" width="42" height="86"  fill="#fff" fill-opacity=".18"/>
+  <rect x="940" y="176" width="42" height="146" fill="#fff" fill-opacity=".28"/>
+  <rect x="1002" y="212" width="42" height="110" fill="#fff" fill-opacity=".22"/>
+  <rect x="1064" y="140" width="42" height="182" fill="#fff" fill-opacity=".14"/>
+  <line x1="856" y1="322" x2="1128" y2="322" stroke="#fff" stroke-opacity=".32" stroke-width="2"/>"""
 
 
 def build(slug, title, category, cat_label, site_name, out_dir):
     base = CAT_COLOR.get(category, DEFAULT)
     label = html.escape(cat_label)
 
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="{label}">
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-label="{label}">
   <defs>
     <linearGradient id="shade" x1="0" y1="0" x2="0.4" y2="1">
       <stop offset="0%" stop-color="#ffffff" stop-opacity=".10"/>
@@ -64,16 +65,16 @@ def build(slug, title, category, cat_label, site_name, out_dir):
     </pattern>
   </defs>
 
-  <rect width="1200" height="675" fill="{base}"/>
-  <rect width="1200" height="675" fill="url(#grid)"/>
-  <rect width="1200" height="675" fill="url(#shade)"/>
+  <rect width="1200" height="430" fill="{base}"/>
+  <rect width="1200" height="430" fill="url(#grid)"/>
+  <rect width="1200" height="430" fill="url(#shade)"/>
 {motif(category)}
 
-  <line x1="80" y1="470" x2="176" y2="470" stroke="#FF9900" stroke-width="5"/>
-  <text x="80" y="530" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
-        font-size="40" font-weight="700" fill="#ffffff" letter-spacing="3">{label}</text>
-  <text x="80" y="580" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
-        font-size="23" font-weight="400" fill="#ffffff" fill-opacity=".62" letter-spacing="4">{html.escape(site_name)}</text>
+  <line x1="80" y1="168" x2="164" y2="168" stroke="#FF9900" stroke-width="5"/>
+  <text x="80" y="232" font-family="\'Noto Sans JP\',\'Hiragino Sans\',\'Yu Gothic\',sans-serif"
+        font-size="44" font-weight="700" fill="#ffffff" letter-spacing="3">{label}</text>
+  <text x="80" y="284" font-family="\'Noto Sans JP\',\'Hiragino Sans\',\'Yu Gothic\',sans-serif"
+        font-size="24" font-weight="400" fill="#ffffff" fill-opacity=".60" letter-spacing="4">{html.escape(site_name)}</text>
 </svg>
 '''
     os.makedirs(out_dir, exist_ok=True)

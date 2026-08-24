@@ -69,7 +69,7 @@
   }
 
   function cardHtml(item, terms) {
-    var thumb = '<img src="./' + esc(item.thumb) + '" alt="" loading="lazy" width="640" height="360">';
+    var thumb = '<img src="./' + esc(item.thumb) + '" alt="" loading="lazy" width="1200" height="430">';
     var tags = item.tags.slice(0, 2).map(function (t) {
       return '<span class="tag">' + esc(t) + '</span>';
     }).join('');
