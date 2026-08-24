@@ -544,6 +544,7 @@ def render_article(a):
 
     # 目次
     toc = []
+    if a.get("highlights", {}).get("items"): toc.append(("sec-highlights", "ここが効く"))
     if a.get("not_for", {}).get("items"): toc.append(("sec-notfor", "買わないほうがいい人"))
     if a.get("scenes"):                   toc.append(("sec-scenes", "この商品で変わる生活シーン"))
     if a.get("pros") or a.get("cons"):    toc.append(("sec-proscons", "メリットとデメリット"))
@@ -564,6 +565,25 @@ def render_article(a):
 
     add('        <div class="article-body">\n')
     add(paras(a.get("lead")))
+
+    # 良い点を先に、はっきり見せる枠。
+    hl = a.get("highlights", {})
+    if hl.get("items"):
+        add(f'''          <h2 id="sec-highlights">{hl.get("heading", "ここが効く")}</h2>
+''')
+        add(paras(hl.get("intro")))
+        add('          <div class="hl-grid">\n')
+        for i, it in enumerate(hl["items"], start=1):
+            add(f'''            <div class="hl-card">
+              <span class="hl-num">{i}</span>
+              <div class="hl-body">
+                <h3 class="hl-title">{it.get("title","")}</h3>
+                <p>{it.get("text","")}</p>
+              </div>
+            </div>
+''')
+        add('          </div>\n')
+        add(paras(hl.get("after")))
 
     # 1. 買わないほうがいい人（最優先のネガティブ訴求）
     nf = a.get("not_for", {})

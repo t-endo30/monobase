@@ -3913,3 +3913,45 @@ body,p,li,dd,dt,figcaption,a,span,button,
 
 /* 記事数の一文は、幅がある限り1行で見せる（38emの制限を外す） */
 .hero-band .hero p{max-width:none;}
+
+/* ============================================================
+   「ここが効く」：良い点を先に、はっきり見せる枠
+   ============================================================ */
+.hl-grid{display:grid;gap:clamp(10px,2.4vw,14px);margin:0 0 clamp(18px,3.4vw,26px);}
+@media (min-width:760px){ .hl-grid{grid-template-columns:1fr;} }
+.hl-card{
+  display:flex;
+  gap:clamp(10px,2.6vw,14px);
+  padding:clamp(13px,3vw,18px);
+  border-radius:var(--radius);
+  background:linear-gradient(180deg,#FFFBF4 0%,#FFF7EA 100%);
+  border:1px solid #F0DCBC;
+  box-shadow:var(--shadow-xs);
+}
+.hl-num{
+  flex:0 0 auto;
+  width:28px;height:28px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:var(--amazon);
+  color:#fff;
+  font-size:13px;
+  font-weight:700;
+  line-height:1;
+}
+.hl-body{min-width:0;}
+.hl-title{
+  margin:0 0 5px;
+  font-size:clamp(14.5px,3.8vw,16.5px);
+  font-weight:700;
+  line-height:1.55;
+  color:var(--ink);
+}
+.hl-body p{
+  margin:0;
+  font-size:clamp(13px,3.5vw,14.5px);
+  line-height:1.9;
+  color:var(--text-sub);
+  text-align:justify;
+  text-justify:inter-character;
+}

@@ -462,6 +462,26 @@
     return out;
   }
 
+  /* 「ここが効く」は {title, text} の並び。編集画面では
+     「## 見出し」＋続く段落、という同じ書き方で扱う。 */
+  function hlToText(list) {
+    return (list || []).map(function (it) {
+      return '## ' + (it.title || '') + '\n' + (it.text || '');
+    }).join('\n\n');
+  }
+  function textToHl(text) {
+    var out = [];
+    String(text || '').split(/^##\s*/m).forEach(function (c) {
+      c = c.trim();
+      if (!c) return;
+      var nl = c.indexOf('\n');
+      var title = nl < 0 ? c : c.slice(0, nl).trim();
+      var body = nl < 0 ? '' : c.slice(nl + 1).replace(/\s*\n\s*/g, ' ').trim();
+      out.push({ title: title, text: body });
+    });
+    return out;
+  }
+
   /* 選んだカテゴリーに合わせてサブカテゴリーの選択肢を入れ替える。
      content/site.json の categories[].sub[] をそのまま並べる。 */
   function fillSub(want) {
@@ -516,6 +536,7 @@
     $('f-specHeaders').value = ((a.spec && a.spec.headers) || []).join(', ');
     $('f-specRows').value = ((a.spec && a.spec.rows) || []).map(function (r) { return r.join(', '); }).join('\n');
     $('f-voicesIntro').value = a.voices_intro || '';
+    $('f-highlights').value = hlToText(a.highlights && a.highlights.items);
     $('f-notforIntro').value = (a.not_for && a.not_for.intro) || '';
     $('f-notforAfter').value = toText(a.not_for && a.not_for.after);
     $('f-personalNote').value = a.personal_note || '';
@@ -576,6 +597,13 @@
     };
     a.voices_intro = $('f-voicesIntro').value.trim();
     a.voices = readVoices();
+    var hl = textToHl($('f-highlights').value);
+    if (hl.length) {
+      a.highlights = a.highlights || {};
+      a.highlights.items = hl;
+    } else {
+      delete a.highlights;
+    }
     a.not_for = { intro: $('f-notforIntro').value.trim(),
                   after: toParas($('f-notforAfter').value),
                   items: readRepeater('r-notfor') };
