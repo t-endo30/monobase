@@ -3418,3 +3418,20 @@ body[data-cat="ranking"] .side-rank{display:none;}
 .notfor-box li + li,.pros-cons li + li{margin-top:clamp(9px,2.2vw,13px);}
 /* 段落どうしの間隔 */
 .article-body p{margin-bottom:1.5em;}
+
+/* ============================================================
+   画面下に出るバーは、ゆっくり浮かび上がらせる
+   （検索・商品リンクとも同じ動き方に揃える）
+   ============================================================ */
+.float-search,.sticky-cta{
+  transform:translateY(140%);
+  opacity:0;
+  transition:transform .6s cubic-bezier(.22,.85,.28,1),opacity .5s ease .05s;
+}
+.float-search.is-visible,.sticky-cta.is-visible{
+  transform:translateY(0);
+  opacity:1;
+}
+@media (prefers-reduced-motion:reduce){
+  .float-search,.sticky-cta{transition:opacity .25s ease;transform:none;}
+}

@@ -344,7 +344,7 @@ def footer(p, sticky_url=None):
     if sticky_url and FEAT.get("sticky_cta"):
         sticky = f'''<div class="sticky-cta" id="stickyCta">
   <a class="btn-amazon" href="{e(sticky_url)}" target="_blank" rel="nofollow sponsored noopener">
-    <span class="cart">🛒</span>Amazonで価格を見る
+    <span class="cart">🛒</span>Amazonで商品の詳細を見る
   </a>
 </div>
 
@@ -695,7 +695,8 @@ def render_article(a):
 
     return page(f'{a["title"]} - {NAME}', a.get("description") or a.get("excerpt",""),
                 cat, p, url, "".join(b),
-                sticky_url=a.get("amazon_url"), extra_js=extra_js,
+                sticky_url=(amazon_link(a) if (a.get("asin") or a.get("amazon_url")) else None),
+                extra_js=extra_js,
                 sidebar=True, current_sub=a.get("sub", ""),
                 crumbs=[("ホーム", f"{p}index.html"),
                         (CAT_LABEL.get(cat, ""), f"{p}category-{cat}.html"),
