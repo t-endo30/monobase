@@ -15,32 +15,309 @@
     "contact_form": false,
     "contact_form_endpoint": "",
     "sticky_cta": true,
-    "search": true
+    "search": true,
+    "feature_threshold": 5
   },
   "categories": [
     {
-      "key": "gadget",
-      "label": "ガジェット・PC周辺",
-      "icon": "💻",
-      "lead": "イヤホン、キーボード、モニター、充電器など。毎日使うものだからこそ、実際に使い込んでから良い点も気になる点も正直にお伝えします。"
-    },
-    {
-      "key": "desk",
-      "label": "デスク環境・家具",
-      "icon": "🪑",
-      "lead": "在宅ワークの快適さは、机と椅子まわりでほぼ決まります。長時間座っても疲れにくい環境づくりに役立つアイテムを紹介します。"
-    },
-    {
-      "key": "home",
-      "label": "生活家電・日用品",
-      "icon": "🏠",
-      "lead": "加湿器や掃除機のような家電から、毎日使う日用品まで。家事の手間をどれだけ減らせるかという視点で紹介します。"
-    },
-    {
-      "key": "compare",
-      "label": "比較・まとめ",
+      "key": "feature",
+      "label": "特集・まとめ",
       "icon": "📊",
-      "lead": "複数の候補で迷ったときに読む記事です。スペックの数字だけでなく、実際に使ったときに効いてくる差を基準にまとめています。"
+      "lead": "複数の製品を横に並べて比較した記事と、買い時などのまとめ記事です。個別のレビューを読む前の全体像として使ってください。",
+      "sub": [
+        {
+          "key": "compare",
+          "label": "比較・ランキング"
+        },
+        {
+          "key": "guide",
+          "label": "選び方ガイド"
+        },
+        {
+          "key": "season",
+          "label": "セール・買い時"
+        }
+      ]
+    },
+    {
+      "key": "appliance",
+      "label": "家電",
+      "icon": "🏠",
+      "lead": "加湿器・扇風機・照明・掃除機など、暮らしの土台になる家電。家事の手間をどれだけ減らせるかという視点で整理しています。",
+      "sub": [
+        {
+          "key": "aircon",
+          "label": "空調・季節家電"
+        },
+        {
+          "key": "clean",
+          "label": "掃除機・掃除家電"
+        },
+        {
+          "key": "laundry",
+          "label": "洗濯・アイロン"
+        },
+        {
+          "key": "light",
+          "label": "照明"
+        },
+        {
+          "key": "smart",
+          "label": "スマート家電"
+        },
+        {
+          "key": "power",
+          "label": "電源・電池"
+        }
+      ]
+    },
+    {
+      "key": "smartphone",
+      "label": "スマートフォン",
+      "icon": "📱",
+      "lead": "スマホ本体と、ケース・充電器・アクセサリー。毎日触れるものなので、使い勝手の差が出やすい領域です。",
+      "sub": [
+        {
+          "key": "body",
+          "label": "スマホ本体"
+        },
+        {
+          "key": "case",
+          "label": "ケース・保護フィルム"
+        },
+        {
+          "key": "charger",
+          "label": "充電器・モバイルバッテリー"
+        },
+        {
+          "key": "acc",
+          "label": "スマホアクセサリー"
+        }
+      ]
+    },
+    {
+      "key": "pc",
+      "label": "パソコン",
+      "icon": "💻",
+      "lead": "ノートPC・モニター・入力機器・周辺機器まで。作業時間が長い人ほど、小さな差が積み上がる分野です。",
+      "sub": [
+        {
+          "key": "laptop",
+          "label": "ノートパソコン"
+        },
+        {
+          "key": "tablet",
+          "label": "タブレット・電子書籍"
+        },
+        {
+          "key": "monitor",
+          "label": "ディスプレイ・モニター"
+        },
+        {
+          "key": "input",
+          "label": "キーボード・マウス・入力機器"
+        },
+        {
+          "key": "peripheral",
+          "label": "周辺機器・USBハブ"
+        },
+        {
+          "key": "storage",
+          "label": "ストレージ・外付けドライブ"
+        },
+        {
+          "key": "network",
+          "label": "Wi-Fi・ネットワーク"
+        },
+        {
+          "key": "parts",
+          "label": "PCパーツ"
+        },
+        {
+          "key": "software",
+          "label": "ソフトウェア"
+        }
+      ]
+    },
+    {
+      "key": "av",
+      "label": "AV機器",
+      "icon": "🎧",
+      "lead": "イヤホン・スピーカー・マイク・映像機器。音と映像は数値より、使う場面との相性で評価が変わります。",
+      "sub": [
+        {
+          "key": "headphone",
+          "label": "イヤホン・ヘッドホン"
+        },
+        {
+          "key": "speaker",
+          "label": "スピーカー"
+        },
+        {
+          "key": "tv",
+          "label": "テレビ・プロジェクター"
+        },
+        {
+          "key": "mic",
+          "label": "マイク・配信機材"
+        }
+      ]
+    },
+    {
+      "key": "camera",
+      "label": "カメラ",
+      "icon": "📷",
+      "lead": "カメラ本体とレンズ、三脚などの撮影機材。作例より、運用のしやすさを中心に整理します。",
+      "sub": [
+        {
+          "key": "body",
+          "label": "カメラ本体"
+        },
+        {
+          "key": "lens",
+          "label": "レンズ"
+        },
+        {
+          "key": "tripod",
+          "label": "三脚・ジンバル"
+        },
+        {
+          "key": "acc",
+          "label": "カメラアクセサリー"
+        }
+      ]
+    },
+    {
+      "key": "beauty",
+      "label": "美容・コスメ",
+      "icon": "💄",
+      "lead": "スキンケア・ヘアケア・美容家電。肌質や髪質で結果が変わるため、合わない場合の条件も併せて書きます。",
+      "sub": [
+        {
+          "key": "skincare",
+          "label": "スキンケア"
+        },
+        {
+          "key": "haircare",
+          "label": "ヘアケア"
+        },
+        {
+          "key": "makeup",
+          "label": "メイク"
+        },
+        {
+          "key": "device",
+          "label": "美容家電"
+        },
+        {
+          "key": "shave",
+          "label": "シェービング"
+        }
+      ]
+    },
+    {
+      "key": "health",
+      "label": "ヘルスケア",
+      "icon": "🩺",
+      "lead": "体調や睡眠の記録、体のケア用品。医療機器ではないため、数値は目安として扱います。",
+      "sub": [
+        {
+          "key": "measure",
+          "label": "計測・スマートウォッチ"
+        },
+        {
+          "key": "care",
+          "label": "マッサージ・体のケア"
+        },
+        {
+          "key": "supplement",
+          "label": "サプリメント"
+        },
+        {
+          "key": "hygiene",
+          "label": "衛生用品"
+        }
+      ]
+    },
+    {
+      "key": "kitchen",
+      "label": "キッチン",
+      "icon": "🍳",
+      "lead": "調理家電と調理器具、food周りの収納。片付けまで含めた手間で評価します。",
+      "sub": [
+        {
+          "key": "appliance",
+          "label": "調理家電"
+        },
+        {
+          "key": "tool",
+          "label": "調理器具"
+        },
+        {
+          "key": "ware",
+          "label": "食器・保存容器"
+        },
+        {
+          "key": "storage",
+          "label": "キッチン収納"
+        }
+      ]
+    },
+    {
+      "key": "daily",
+      "label": "日用品・雑貨",
+      "icon": "🧺",
+      "lead": "毎日使う消耗品と雑貨、防災・防犯まわり。派手さはないぶん、合う合わないがはっきり出ます。",
+      "sub": [
+        {
+          "key": "storage",
+          "label": "収納・整理"
+        },
+        {
+          "key": "clean",
+          "label": "掃除・洗濯用品"
+        },
+        {
+          "key": "bath",
+          "label": "バス・トイレ"
+        },
+        {
+          "key": "safety",
+          "label": "防災・防犯"
+        },
+        {
+          "key": "misc",
+          "label": "その他雑貨"
+        }
+      ]
+    },
+    {
+      "key": "furniture",
+      "label": "家具・インテリア",
+      "icon": "🪑",
+      "lead": "デスク・チェア・収納・寝具。在宅作業の快適さは、この領域でほぼ決まります。",
+      "sub": [
+        {
+          "key": "desk",
+          "label": "デスク・デスク周り"
+        },
+        {
+          "key": "chair",
+          "label": "チェア"
+        },
+        {
+          "key": "shelf",
+          "label": "収納家具・ラック"
+        },
+        {
+          "key": "bed",
+          "label": "寝具"
+        },
+        {
+          "key": "deco",
+          "label": "インテリア雑貨"
+        }
+      ]
     }
   ],
   "amazon": {

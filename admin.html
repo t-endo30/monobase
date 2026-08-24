@@ -77,6 +77,10 @@
           <select id="f-category"></select>
         </div>
         <div>
+          <label for="f-sub">サブカテゴリー</label>
+          <select id="f-sub"></select>
+        </div>
+        <div>
           <label for="f-icon">アイコン絵文字</label>
           <input type="text" id="f-icon" maxlength="4" placeholder="🎧">
         </div>
@@ -330,6 +334,14 @@
       </div>
       <div class="check"><input type="checkbox" id="s-sticky"><label for="s-sticky">スマホ下部に追従するアフィリエイトボタンを表示する</label></div>
       <div class="check"><input type="checkbox" id="s-search"><label for="s-search">サイト内検索を有効にする</label></div>
+
+      <label for="s-featureTh">特集を作る目安（同じサブカテゴリーの記事数）</label>
+      <select id="s-featureTh">
+        <option value="5">5本たまったら</option>
+        <option value="10">10本たまったら</option>
+        <option value="15">15本たまったら</option>
+      </select>
+      <div class="note">ここで決めた本数に達したサブカテゴリーは、ビルド時に「特集を作る目安に達したジャンル」として通知されます。特集記事はカテゴリー「特集・まとめ」で作成してください。</div>
 
       <div class="btn-bar">
         <button class="btn btn-primary" id="btnSaveSettings">GitHubに保存して反映</button>

@@ -15,9 +15,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=57c55146">
+<link rel="stylesheet" href="../assets/style.css?v=ec904c46">
 </head>
-<body data-cat="gadget">
+<body data-cat="av">
 <header class="site-header">
   <div class="container header-inner">
     <div class="header-side" aria-hidden="true"></div>
@@ -31,13 +31,201 @@
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="globalNav" aria-label="メニューを開く">
       <span></span><span></span><span></span>
     </button>
-    <nav class="global-nav" id="globalNav">
-      <ul>
+    <nav class="global-nav" id="globalNav" aria-label="メニュー">
+      <ul class="nav-links">
         <li><a href="../index.html">ホーム</a></li>
         <li><a href="../search.html">検索</a></li>
         <li><a href="../about.html">運営者情報</a></li>
         <li><a href="mailto:info@monobase.site">お問い合わせ</a></li>
       </ul>
+      <p class="nav-heading">CATEGORIES</p>
+    <ul class="cat-tree" id="menuCatTree">
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">📊</span>
+            <span class="tree-cat">特集・まとめ</span>
+            <span class="tree-num">2</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-feature.html">特集・まとめの記事をすべて見る</a></li>
+            <li><span class="tree-empty">比較・ランキング<span class="tree-num">0</span></span></li>
+            <li><a href="../category-feature-guide.html">選び方ガイド<span class="tree-num">1</span></a></li>
+            <li><a href="../category-feature-season.html">セール・買い時<span class="tree-num">1</span></a></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">🏠</span>
+            <span class="tree-cat">家電</span>
+            <span class="tree-num">6</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-appliance.html">家電の記事をすべて見る</a></li>
+            <li><a href="../category-appliance-aircon.html">空調・季節家電<span class="tree-num">2</span></a></li>
+            <li><span class="tree-empty">掃除機・掃除家電<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">洗濯・アイロン<span class="tree-num">0</span></span></li>
+            <li><a href="../category-appliance-light.html">照明<span class="tree-num">3</span></a></li>
+            <li><a href="../category-appliance-smart.html">スマート家電<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">電源・電池<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">📱</span>
+            <span class="tree-cat">スマートフォン</span>
+            <span class="tree-num">0</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-smartphone.html">スマートフォンの記事をすべて見る</a></li>
+            <li><span class="tree-empty">スマホ本体<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">ケース・保護フィルム<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">充電器・モバイルバッテリー<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">スマホアクセサリー<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">💻</span>
+            <span class="tree-cat">パソコン</span>
+            <span class="tree-num">6</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-pc.html">パソコンの記事をすべて見る</a></li>
+            <li><span class="tree-empty">ノートパソコン<span class="tree-num">0</span></span></li>
+            <li><a href="../category-pc-tablet.html">タブレット・電子書籍<span class="tree-num">1</span></a></li>
+            <li><a href="../category-pc-monitor.html">ディスプレイ・モニター<span class="tree-num">2</span></a></li>
+            <li><a href="../category-pc-input.html">キーボード・マウス・入力機器<span class="tree-num">1</span></a></li>
+            <li><a href="../category-pc-peripheral.html">周辺機器・USBハブ<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">ストレージ・外付けドライブ<span class="tree-num">0</span></span></li>
+            <li><a href="../category-pc-network.html">Wi-Fi・ネットワーク<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">PCパーツ<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">ソフトウェア<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details open>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">🎧</span>
+            <span class="tree-cat">AV機器</span>
+            <span class="tree-num">2</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-av.html">AV機器の記事をすべて見る</a></li>
+            <li><span class="tree-empty">イヤホン・ヘッドホン<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">スピーカー<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">テレビ・プロジェクター<span class="tree-num">0</span></span></li>
+            <li><a href="../category-av-mic.html" class="is-current">マイク・配信機材<span class="tree-num">2</span></a></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">📷</span>
+            <span class="tree-cat">カメラ</span>
+            <span class="tree-num">0</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-camera.html">カメラの記事をすべて見る</a></li>
+            <li><span class="tree-empty">カメラ本体<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">レンズ<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">三脚・ジンバル<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">カメラアクセサリー<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">💄</span>
+            <span class="tree-cat">美容・コスメ</span>
+            <span class="tree-num">0</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-beauty.html">美容・コスメの記事をすべて見る</a></li>
+            <li><span class="tree-empty">スキンケア<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">ヘアケア<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">メイク<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">美容家電<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">シェービング<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">🩺</span>
+            <span class="tree-cat">ヘルスケア</span>
+            <span class="tree-num">1</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-health.html">ヘルスケアの記事をすべて見る</a></li>
+            <li><a href="../category-health-measure.html">計測・スマートウォッチ<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">マッサージ・体のケア<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">サプリメント<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">衛生用品<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">🍳</span>
+            <span class="tree-cat">キッチン</span>
+            <span class="tree-num">0</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-kitchen.html">キッチンの記事をすべて見る</a></li>
+            <li><span class="tree-empty">調理家電<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">調理器具<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">食器・保存容器<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">キッチン収納<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">🧺</span>
+            <span class="tree-cat">日用品・雑貨</span>
+            <span class="tree-num">2</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-daily.html">日用品・雑貨の記事をすべて見る</a></li>
+            <li><span class="tree-empty">収納・整理<span class="tree-num">0</span></span></li>
+            <li><a href="../category-daily-clean.html">掃除・洗濯用品<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">バス・トイレ<span class="tree-num">0</span></span></li>
+            <li><a href="../category-daily-safety.html">防災・防犯<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">その他雑貨<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">🪑</span>
+            <span class="tree-cat">家具・インテリア</span>
+            <span class="tree-num">4</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-furniture.html">家具・インテリアの記事をすべて見る</a></li>
+            <li><a href="../category-furniture-desk.html">デスク・デスク周り<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">チェア<span class="tree-num">0</span></span></li>
+            <li><a href="../category-furniture-shelf.html">収納家具・ラック<span class="tree-num">2</span></a></li>
+            <li><a href="../category-furniture-bed.html">寝具<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">インテリア雑貨<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+    </ul>
     </nav>
   </div>
 </header>
@@ -47,16 +235,23 @@
   <div class="container">
     <ul class="cat-nav-list">
       <li><a href="../index.html">ALL</a></li>
-      <li><a href="../category-gadget.html" class="is-current"><span class="cat-icon" aria-hidden="true">💻</span>ガジェット・PC周辺</a></li>
-      <li><a href="../category-desk.html"><span class="cat-icon" aria-hidden="true">🪑</span>デスク環境・家具</a></li>
-      <li><a href="../category-home.html"><span class="cat-icon" aria-hidden="true">🏠</span>生活家電・日用品</a></li>
-      <li><a href="../category-compare.html"><span class="cat-icon" aria-hidden="true">📊</span>比較・まとめ</a></li>
+      <li><a href="../category-feature.html"><span class="cat-icon" aria-hidden="true">📊</span>特集・まとめ</a></li>
+      <li><a href="../category-appliance.html"><span class="cat-icon" aria-hidden="true">🏠</span>家電</a></li>
+      <li><a href="../category-smartphone.html"><span class="cat-icon" aria-hidden="true">📱</span>スマートフォン</a></li>
+      <li><a href="../category-pc.html"><span class="cat-icon" aria-hidden="true">💻</span>パソコン</a></li>
+      <li><a href="../category-av.html" class="is-current"><span class="cat-icon" aria-hidden="true">🎧</span>AV機器</a></li>
+      <li><a href="../category-camera.html"><span class="cat-icon" aria-hidden="true">📷</span>カメラ</a></li>
+      <li><a href="../category-beauty.html"><span class="cat-icon" aria-hidden="true">💄</span>美容・コスメ</a></li>
+      <li><a href="../category-health.html"><span class="cat-icon" aria-hidden="true">🩺</span>ヘルスケア</a></li>
+      <li><a href="../category-kitchen.html"><span class="cat-icon" aria-hidden="true">🍳</span>キッチン</a></li>
+      <li><a href="../category-daily.html"><span class="cat-icon" aria-hidden="true">🧺</span>日用品・雑貨</a></li>
+      <li><a href="../category-furniture.html"><span class="cat-icon" aria-hidden="true">🪑</span>家具・インテリア</a></li>
     </ul>
   </div>
 </nav>
 
 <nav class="crumb-bar" aria-label="現在の位置">
-  <div class="container"><a href="../index.html">ホーム</a><span class="crumb-sep" aria-hidden="true">›</span><a href="../category-gadget.html">ガジェット・PC周辺</a><span class="crumb-sep" aria-hidden="true">›</span><span aria-current="page">会議用スピーカーフォンは必要か</span></div>
+  <div class="container"><a href="../index.html">ホーム</a><span class="crumb-sep" aria-hidden="true">›</span><a href="../category-av.html">AV機器</a><span class="crumb-sep" aria-hidden="true">›</span><span aria-current="page">会議用スピーカーフォンは必要か</span></div>
 </nav>
 <!-- 広告表記 -->
 <div class="site-notice">
@@ -68,11 +263,202 @@
   </div>
 </div>
 
-<main id="top" class="layout">
-  <div class="container">
+<main id="top" class="layout has-side">
+  <div class="container layout-grid">
+    <aside class="side-nav" aria-label="カテゴリー">
+      <p class="side-heading">CATEGORIES</p>
+    <ul class="cat-tree" id="sideCatTree">
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">📊</span>
+            <span class="tree-cat">特集・まとめ</span>
+            <span class="tree-num">2</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-feature.html">特集・まとめの記事をすべて見る</a></li>
+            <li><span class="tree-empty">比較・ランキング<span class="tree-num">0</span></span></li>
+            <li><a href="../category-feature-guide.html">選び方ガイド<span class="tree-num">1</span></a></li>
+            <li><a href="../category-feature-season.html">セール・買い時<span class="tree-num">1</span></a></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">🏠</span>
+            <span class="tree-cat">家電</span>
+            <span class="tree-num">6</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-appliance.html">家電の記事をすべて見る</a></li>
+            <li><a href="../category-appliance-aircon.html">空調・季節家電<span class="tree-num">2</span></a></li>
+            <li><span class="tree-empty">掃除機・掃除家電<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">洗濯・アイロン<span class="tree-num">0</span></span></li>
+            <li><a href="../category-appliance-light.html">照明<span class="tree-num">3</span></a></li>
+            <li><a href="../category-appliance-smart.html">スマート家電<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">電源・電池<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">📱</span>
+            <span class="tree-cat">スマートフォン</span>
+            <span class="tree-num">0</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-smartphone.html">スマートフォンの記事をすべて見る</a></li>
+            <li><span class="tree-empty">スマホ本体<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">ケース・保護フィルム<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">充電器・モバイルバッテリー<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">スマホアクセサリー<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">💻</span>
+            <span class="tree-cat">パソコン</span>
+            <span class="tree-num">6</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-pc.html">パソコンの記事をすべて見る</a></li>
+            <li><span class="tree-empty">ノートパソコン<span class="tree-num">0</span></span></li>
+            <li><a href="../category-pc-tablet.html">タブレット・電子書籍<span class="tree-num">1</span></a></li>
+            <li><a href="../category-pc-monitor.html">ディスプレイ・モニター<span class="tree-num">2</span></a></li>
+            <li><a href="../category-pc-input.html">キーボード・マウス・入力機器<span class="tree-num">1</span></a></li>
+            <li><a href="../category-pc-peripheral.html">周辺機器・USBハブ<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">ストレージ・外付けドライブ<span class="tree-num">0</span></span></li>
+            <li><a href="../category-pc-network.html">Wi-Fi・ネットワーク<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">PCパーツ<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">ソフトウェア<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details open>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">🎧</span>
+            <span class="tree-cat">AV機器</span>
+            <span class="tree-num">2</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-av.html">AV機器の記事をすべて見る</a></li>
+            <li><span class="tree-empty">イヤホン・ヘッドホン<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">スピーカー<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">テレビ・プロジェクター<span class="tree-num">0</span></span></li>
+            <li><a href="../category-av-mic.html" class="is-current">マイク・配信機材<span class="tree-num">2</span></a></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">📷</span>
+            <span class="tree-cat">カメラ</span>
+            <span class="tree-num">0</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-camera.html">カメラの記事をすべて見る</a></li>
+            <li><span class="tree-empty">カメラ本体<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">レンズ<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">三脚・ジンバル<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">カメラアクセサリー<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">💄</span>
+            <span class="tree-cat">美容・コスメ</span>
+            <span class="tree-num">0</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-beauty.html">美容・コスメの記事をすべて見る</a></li>
+            <li><span class="tree-empty">スキンケア<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">ヘアケア<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">メイク<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">美容家電<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">シェービング<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">🩺</span>
+            <span class="tree-cat">ヘルスケア</span>
+            <span class="tree-num">1</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-health.html">ヘルスケアの記事をすべて見る</a></li>
+            <li><a href="../category-health-measure.html">計測・スマートウォッチ<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">マッサージ・体のケア<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">サプリメント<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">衛生用品<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">🍳</span>
+            <span class="tree-cat">キッチン</span>
+            <span class="tree-num">0</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-kitchen.html">キッチンの記事をすべて見る</a></li>
+            <li><span class="tree-empty">調理家電<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">調理器具<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">食器・保存容器<span class="tree-num">0</span></span></li>
+            <li><span class="tree-empty">キッチン収納<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">🧺</span>
+            <span class="tree-cat">日用品・雑貨</span>
+            <span class="tree-num">2</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-daily.html">日用品・雑貨の記事をすべて見る</a></li>
+            <li><span class="tree-empty">収納・整理<span class="tree-num">0</span></span></li>
+            <li><a href="../category-daily-clean.html">掃除・洗濯用品<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">バス・トイレ<span class="tree-num">0</span></span></li>
+            <li><a href="../category-daily-safety.html">防災・防犯<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">その他雑貨<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+      <li class="tree-item">
+        <details>
+          <summary>
+            <span class="tree-icon" aria-hidden="true">🪑</span>
+            <span class="tree-cat">家具・インテリア</span>
+            <span class="tree-num">4</span>
+          </summary>
+          <ul class="tree-subs">
+            <li><a class="tree-all" href="../category-furniture.html">家具・インテリアの記事をすべて見る</a></li>
+            <li><a href="../category-furniture-desk.html">デスク・デスク周り<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">チェア<span class="tree-num">0</span></span></li>
+            <li><a href="../category-furniture-shelf.html">収納家具・ラック<span class="tree-num">2</span></a></li>
+            <li><a href="../category-furniture-bed.html">寝具<span class="tree-num">1</span></a></li>
+            <li><span class="tree-empty">インテリア雑貨<span class="tree-num">0</span></span></li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+    </aside>
+    <div class="layout-main">
       <article class="card-surface" id="review">
         <div class="article-meta">
-          <span class="badge badge-cat">ガジェット・PC周辺</span>
+          <span class="badge badge-cat">AV機器</span>
           <span class="article-date">2026年8月24日 更新</span>
         </div>
 
@@ -260,7 +646,7 @@
           </a>
         </div>
         <div class="cta-wrap" style="margin-top:-10px;">
-          <a class="btn-sub" href="../category-gadget.html">同じカテゴリーの記事を見る</a>
+          <a class="btn-sub" href="../category-av.html">同じカテゴリーの記事を見る</a>
         </div>
         </div>
       </article>
@@ -268,37 +654,38 @@
       <section class="section-block">
         <h2 class="section-heading">関連記事</h2>
       <div class="card-grid">
-        <article class="card reveal" data-cat="gadget">
-          <div class="card-thumb is-auto"><img src="../assets/img/auto/anker-568-usbc-dock-review.svg" alt="USB-Cドッキングステーションは1本化に見合うか" loading="lazy" width="1200" height="430"></div>
+        <article class="card reveal" data-cat="av">
+          <div class="card-thumb is-auto"><img src="../assets/img/auto/dji-mic-mini-review.svg" alt="ワイヤレスピンマイクは撮影の何を変えるか" loading="lazy" width="1200" height="430"></div>
           <div class="card-body">
-            <div class="card-tags"><span class="tag tag-hot">ガジェット・PC周辺</span><span class="tag">ドッキングステーション</span></div>
-            <h3 class="card-title"><a class="card-stretch" href="../articles/anker-568-usbc-dock-review.html"><span class="t-main">USB-Cドッキングステーションは1本化に見合うか</span></a></h3>
-            <p class="card-desc">ケーブル1本化は快適。ただし「何画面出せるか」はPC側の仕様で決まります。</p>
+            <div class="card-tags"><span class="tag tag-hot">AV機器</span><span class="tag">マイク</span></div>
+            <h3 class="card-title"><a class="card-stretch" href="../articles/dji-mic-mini-review.html"><span class="t-main">ワイヤレスピンマイクは撮影の何を変えるか</span></a></h3>
+            <p class="card-desc">音が良くなるのではなく、口元にマイクが来ることで別物になります。</p>
             <span class="card-link" aria-hidden="true">詳細を見る</span>
           </div>
         </article>
 
-        <article class="card reveal" data-cat="gadget">
-          <div class="card-thumb is-auto"><img src="../assets/img/auto/mx-master-3s-review.svg" alt="ロジクール MX MASTER 3s は静音化で何が変わったか" loading="lazy" width="1200" height="430"></div>
+        <article class="card reveal" data-cat="appliance">
+          <div class="card-thumb is-auto"><img src="../assets/img/auto/led-floodlight-ip66-review.svg" alt="LED投光器（コンセント式・IP66）はどんな人に向くか" loading="lazy" width="1200" height="430"></div>
           <div class="card-body">
-            <div class="card-tags"><span class="tag tag-hot">ガジェット・PC周辺</span><span class="tag">マウス</span></div>
-            <h3 class="card-title"><a class="card-stretch" href="../articles/mx-master-3s-review.html"><span class="t-main">ロジクール MX MASTER 3s は静音化で何が変わったか</span></a></h3>
-            <p class="card-desc">静音クリックとホイールが本体。ただし大きく重いので、持ち方によっては合いません。</p>
+            <div class="card-tags"><span class="tag tag-hot">家電</span><span class="tag">選び方</span></div>
+            <h3 class="card-title"><a class="card-stretch" href="../articles/led-floodlight-ip66-review.html"><span class="t-main">LED投光器（コンセント式・IP66）はどんな人に向くか</span></a></h3>
+            <p class="card-desc">電源の確保、コード長2mの制約、光の向き。設置前に確認すべき点をレビューから整理しました。</p>
             <span class="card-link" aria-hidden="true">詳細を見る</span>
           </div>
         </article>
 
-        <article class="card reveal" data-cat="gadget">
-          <div class="card-thumb is-auto"><img src="../assets/img/auto/kindle-paperwhite-signature-review.svg" alt="Kindle Paperwhite シグニチャー エディションは何が違うか" loading="lazy" width="1200" height="430"></div>
+        <article class="card reveal" data-cat="feature">
+          <div class="card-thumb is-auto"><img src="../assets/img/auto/amazon-sale-calendar.svg" alt="Amazonセールの買い時カレンダー｜年間の狙い目" loading="lazy" width="1200" height="430"></div>
           <div class="card-body">
-            <div class="card-tags"><span class="tag tag-hot">ガジェット・PC周辺</span><span class="tag">電子書籍</span></div>
-            <h3 class="card-title"><a class="card-stretch" href="../articles/kindle-paperwhite-signature-review.html"><span class="t-main">Kindle Paperwhite シグニチャー エディションは何が違うか</span></a></h3>
-            <p class="card-desc">容量・ワイヤレス充電・明るさ自動調節。差額に見合う人の条件を整理しました。</p>
+            <div class="card-tags"><span class="tag tag-hot">特集・まとめ</span><span class="tag">セール</span></div>
+            <h3 class="card-title"><a class="card-stretch" href="../articles/amazon-sale-calendar.html"><span class="t-main">Amazonセールの買い時カレンダー</span><span class="t-sub">年間の狙い目</span></a></h3>
+            <p class="card-desc">主要セールの時期と、値下がりしやすい商品の傾向を整理。「待つべきか、今買うべきか」の判断基準をまとめました。</p>
             <span class="card-link" aria-hidden="true">詳細を見る</span>
           </div>
         </article>
       </div>
       </section>
+    </div>
   </div>
 </main>
 
@@ -336,7 +723,7 @@
 
 <button class="to-top" id="toTop" aria-label="ページ上部へ戻る">▲</button>
 
-<script src="../assets/main.js?v=57c55146"></script>
+<script src="../assets/main.js?v=ec904c46"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "会議用スピーカーフォンは必要か｜Anker PowerConf S360 とヘッドセットの使い分け", "description": "Anker PowerConf S360（会議用マイクスピーカー・ノイズリダクション・ハウリング抑制）について、購入者レビューと仕様を整理。ヘッドセットとの違い、複数人の会議での効果、部屋の反響による影響をまとめました。", "datePublished": "2026-08-24", "dateModified": "2026-08-24", "author": {"@type": "Person", "name": "運営者名"}, "publisher": {"@type": "Organization", "name": "モノベース"}, "mainEntityOfPage": "https://monobase.site/articles/speakerphone-conference-review.html"}</script>
 </body>
 </html>

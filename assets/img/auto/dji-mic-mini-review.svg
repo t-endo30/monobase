@@ -12,8 +12,9 @@
   <rect width="1200" height="600" fill="url(#shade)"/>
   <rect width="1200" height="600" fill="url(#grid)"/>
 
-  <circle cx="600" cy="300" r="230" fill="none" stroke="#2F5FA8" stroke-opacity=".55" stroke-width="2"/>
-  <circle cx="600" cy="300" r="170" fill="none" stroke="#2F5FA8" stroke-opacity=".70" stroke-width="2"/>
-  <circle cx="600" cy="300" r="110" fill="none" stroke="#2F5FA8" stroke-opacity=".85" stroke-width="2"/>
-  <circle cx="600" cy="300" r="52"  fill="#2F5FA8" fill-opacity=".45"/>
+  <rect x="446" y="252" width="46" height="96"  rx="6" fill="#5A5D63" fill-opacity=".40"/>
+  <rect x="514" y="212" width="46" height="176" rx="6" fill="#5A5D63" fill-opacity=".55"/>
+  <rect x="582" y="176" width="46" height="248" rx="6" fill="#5A5D63" fill-opacity=".65"/>
+  <rect x="650" y="212" width="46" height="176" rx="6" fill="#5A5D63" fill-opacity=".55"/>
+  <rect x="718" y="252" width="46" height="96"  rx="6" fill="#5A5D63" fill-opacity=".40"/>
 </svg>

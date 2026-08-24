@@ -393,7 +393,7 @@
   /* ---------------------------------------------------- エディタ */
   function blank() {
     return {
-      slug: '', category: (site.categories[0] || {}).key || 'gadget',
+      slug: '', category: (site.categories[0] || {}).key || 'feature', sub: '',
       published: false, featured: false,
       title: '', list_title: '', description: '', excerpt: '',
       date: today(), updated: today(), tags: [], icon: '📦', thumb: '',
@@ -416,6 +416,7 @@
     $('editTitle').textContent = a.slug ? '記事を編集：' + (a.list_title || a.title) : '新しい記事を作成';
 
     var sel = $('f-category');
+    sel.onchange = function () { fillSub(); };
     sel.innerHTML = (site.categories || []).map(function (c) {
       return '<option value="' + c.key + '">' + c.icon + ' ' + c.label + '</option>';
     }).join('');
@@ -424,6 +425,7 @@
     $('f-listTitle').value = a.list_title || '';
     $('f-slug').value = a.slug || '';
     sel.value = a.category;
+    fillSub(a.sub);
     $('f-icon').value = a.icon || '';
     $('f-date').value = a.date || today();
     $('f-updated').value = a.updated || today();
@@ -471,6 +473,7 @@
     a.list_title = $('f-listTitle').value.trim() || a.title;
     a.slug = ($('f-slug').value.trim() || slugify(a.title));
     a.category = $('f-category').value;
+    a.sub = $('f-sub').value;
     a.icon = $('f-icon').value.trim() || '📦';
     a.date = $('f-date').value || today();
     a.updated = $('f-updated').value || today();
@@ -646,6 +649,7 @@
     $('s-contactEndpoint').value = f.contact_form_endpoint || '';
     $('s-sticky').checked = f.sticky_cta !== false;
     $('s-search').checked = f.search !== false;
+    $('s-featureTh').value = String(f.feature_threshold || 5);
     $('contactWrap').classList.toggle('hidden', !f.contact_form);
     $('s-assoc').value = (site.amazon || {}).associate_tag || '';
     var an = site.analytics || {};
@@ -671,6 +675,7 @@
     site.features.contact_form_endpoint = $('s-contactEndpoint').value.trim();
     site.features.sticky_cta = $('s-sticky').checked;
     site.features.search = $('s-search').checked;
+    site.features.feature_threshold = parseInt($('s-featureTh').value, 10) || 5;
   }
 
   $('btnSaveSettings').addEventListener('click', function () {

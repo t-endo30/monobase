@@ -12,8 +12,9 @@
   <rect width="1200" height="600" fill="url(#shade)"/>
   <rect width="1200" height="600" fill="url(#grid)"/>
 
-  <line x1="330" y1="300" x2="870" y2="300" stroke="#A0722B" stroke-opacity=".85" stroke-width="4"/>
-  <line x1="410" y1="300" x2="410" y2="452" stroke="#A0722B" stroke-opacity=".65" stroke-width="3"/>
-  <line x1="790" y1="300" x2="790" y2="452" stroke="#A0722B" stroke-opacity=".65" stroke-width="3"/>
-  <rect x="452" y="150" width="296" height="150" fill="none" stroke="#A0722B" stroke-opacity=".50" stroke-width="2"/>
+  <rect x="446" y="252" width="46" height="96"  rx="6" fill="#5A5D63" fill-opacity=".40"/>
+  <rect x="514" y="212" width="46" height="176" rx="6" fill="#5A5D63" fill-opacity=".55"/>
+  <rect x="582" y="176" width="46" height="248" rx="6" fill="#5A5D63" fill-opacity=".65"/>
+  <rect x="650" y="212" width="46" height="176" rx="6" fill="#5A5D63" fill-opacity=".55"/>
+  <rect x="718" y="252" width="46" height="96"  rx="6" fill="#5A5D63" fill-opacity=".40"/>
 </svg>

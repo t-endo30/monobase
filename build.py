@@ -26,6 +26,8 @@ NAME     = SITE["site_name"]
 TAGLINE  = SITE["tagline"]
 BASE_URL = SITE["base_url"].rstrip("/")
 CATS     = SITE["categories"]
+SUB_LABEL = {(c["key"], sc["key"]): sc["label"]
+             for c in CATS for sc in c.get("sub", [])}
 FEAT     = SITE.get("features", {})
 GA       = SITE.get("analytics", {}).get("ga_measurement_id", "").strip()
 GSC      = SITE.get("analytics", {}).get("gsc_verification", "").strip()
@@ -126,6 +128,43 @@ def head(title, desc, current, p, canonical, extra="", body_class=""):
 <body data-cat="{current}"{bodycls}>
 '''
 
+def cat_tree(p, current="", current_sub="", idp="nav"):
+    """カテゴリーとサブカテゴリーの一覧（PCの左サイド／スマホのメニューで共用）。
+       記事のあるサブカテゴリーだけリンクにし、0件のものは件数付きの
+       ただの文字として出す。中身のないページを作らないため。"""
+    out = []
+    for c in CATS:
+        n = len([a for a in PUBLISHED if a["category"] == c["key"]])
+        open_ = " open" if c["key"] == current else ""
+        subs = ""
+        for sc in c.get("sub", []):
+            m = len([a for a in PUBLISHED
+                     if a["category"] == c["key"] and a.get("sub") == sc["key"]])
+            cur = ' class="is-current"' if (c["key"] == current and sc["key"] == current_sub) else ""
+            if m:
+                subs += (f'            <li><a href="{p}category-{c["key"]}-{sc["key"]}.html"{cur}>'
+                         f'{e(sc["label"])}<span class="tree-num">{m}</span></a></li>\n')
+            else:
+                subs += (f'            <li><span class="tree-empty">{e(sc["label"])}'
+                         f'<span class="tree-num">0</span></span></li>\n')
+        out.append(
+            f'      <li class="tree-item">\n'
+            f'        <details{open_}>\n'
+            f'          <summary>\n'
+            f'            <span class="tree-icon" aria-hidden="true">{c["icon"]}</span>\n'
+            f'            <span class="tree-cat">{e(c["label"])}</span>\n'
+            f'            <span class="tree-num">{n}</span>\n'
+            f'          </summary>\n'
+            f'          <ul class="tree-subs">\n'
+            f'            <li><a class="tree-all" href="{p}category-{c["key"]}.html">'
+            f'{e(c["label"])}の記事をすべて見る</a></li>\n'
+            f'{subs}          </ul>\n'
+            f'        </details>\n'
+            f'      </li>\n')
+    return ('    <ul class="cat-tree" id="' + idp + 'CatTree">\n'
+            + "".join(out) + '    </ul>\n')
+
+
 def crumb_bar(items):
     """カテゴリーナビの下に置くパンくず。items = [(ラベル, URL or None), ...]
        トップページ以外では常に出す。現在地が分かるようにするため。"""
@@ -145,7 +184,7 @@ def crumb_bar(items):
 '''
 
 
-def header(current, p, crumbs=None):
+def header(current, p, crumbs=None, current_sub=""):
     allcur = ' class="is-current"' if current == "all" else ""
     nav = f'      <li><a href="{p}index.html"{allcur}>ALL</a></li>\n'
     for c in CATS:
@@ -158,6 +197,8 @@ def header(current, p, crumbs=None):
     contact_nav = (f'<li><a href="{p}contact.html">お問い合わせ</a></li>'
                    if FEAT.get("contact_form") else
                    f'<li><a href="mailto:{e(SITE["email"])}">お問い合わせ</a></li>')
+
+    tree = cat_tree(p, current, current_sub, "menu")
 
     return f'''<header class="site-header">
   <div class="container header-inner">
@@ -172,13 +213,14 @@ def header(current, p, crumbs=None):
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="globalNav" aria-label="メニューを開く">
       <span></span><span></span><span></span>
     </button>
-    <nav class="global-nav" id="globalNav">
-      <ul>
+    <nav class="global-nav" id="globalNav" aria-label="メニュー">
+      <ul class="nav-links">
         <li><a href="{p}index.html">ホーム</a></li>
         {search_link}<li><a href="{p}about.html">運営者情報</a></li>
         {contact_nav}
       </ul>
-    </nav>
+      <p class="nav-heading">CATEGORIES</p>
+{tree}    </nav>
   </div>
 </header>
 
@@ -256,10 +298,29 @@ def footer(p, sticky_url=None):
 </html>
 '''
 
-def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class="", crumbs=None):
+def main_block(body, p, current="", current_sub="", sidebar=False):
+    """本文の器。一覧ページではPC幅のときだけ左にカテゴリー一覧を置く。
+       スマホでは幅が足りないので出さず、ハンバーガーメニュー側に集約する。"""
+    if not sidebar:
+        return ('\n<main id="top" class="layout">\n  <div class="container">\n'
+                + body + '  </div>\n</main>\n\n')
+    tree = cat_tree(p, current, current_sub, "side")
+    return ('\n<main id="top" class="layout has-side">\n'
+            '  <div class="container layout-grid">\n'
+            '    <aside class="side-nav" aria-label="カテゴリー">\n'
+            '      <p class="side-heading">CATEGORIES</p>\n'
+            + tree +
+            '    </aside>\n'
+            '    <div class="layout-main">\n'
+            + body +
+            '    </div>\n'
+            '  </div>\n</main>\n\n')
+
+
+def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class="", crumbs=None, current_sub="", sidebar=False):
     return (head(title, desc, current, p, canonical, extra_head, body_class)
-            + header(current, p, crumbs)
-            + f'\n<main id="top" class="layout">\n  <div class="container">\n{body}  </div>\n</main>\n\n'
+            + header(current, p, crumbs, current_sub)
+            + main_block(body, p, current, current_sub, sidebar)
             + footer(p, sticky_url).replace("</body>", extra_js + "</body>"))
 
 # ============================================================ 部品
@@ -543,6 +604,7 @@ def render_article(a):
     return page(f'{a["title"]} - {NAME}', a.get("description") or a.get("excerpt",""),
                 cat, p, url, "".join(b),
                 sticky_url=a.get("amazon_url"), extra_js=extra_js,
+                sidebar=True, current_sub=a.get("sub", ""),
                 crumbs=[("ホーム", f"{p}index.html"),
                         (CAT_LABEL.get(cat, ""), f"{p}category-{cat}.html"),
                         (a.get("list_title") or a["title"], None)])
@@ -563,26 +625,72 @@ SEARCH_BOX = '''      <form class="searchbox" action="./search.html" method="get
       </form>
 '''
 
+def feature_banner(a, p):
+    """特集のバナー。記事に banner が設定されていればそれを使い、
+       無ければ文字入りのSVGを自動生成して当てる。"""
+    if a.get("banner"):
+        return (f'<img src="{p}{e(a["banner"])}" alt="{e(a.get("list_title") or a["title"])}" '
+                f'loading="lazy" width="1200" height="300">')
+    src, _ = visual_path(a, p)
+    return (f'<img src="{e(src)}" alt="{e(a.get("list_title") or a["title"])}" '
+            f'loading="lazy" width="1200" height="300">')
+
+
+def feature_cards(p):
+    """特集記事（category=feature）をバナー付きで並べる。"""
+    feats = [a for a in PUBLISHED if a["category"] == "feature"][:4]
+    if not feats:
+        return ""
+    cards = ""
+    for a in feats:
+        cards += (
+            f'          <a class="feat-card" href="{p}articles/{e(a["slug"])}.html">\n'
+            f'            <span class="feat-banner">{feature_banner(a, p)}</span>\n'
+            f'            <span class="feat-body">\n'
+            f'              <span class="feat-label">特集</span>\n'
+            f'              <span class="feat-title">{title_lines(a.get("list_title") or a["title"])}</span>\n'
+            f'              <span class="feat-desc">{e(a.get("excerpt",""))}</span>\n'
+            f'            </span>\n'
+            f'          </a>\n')
+    return ('      <section class="section-block" style="margin-top:28px;">\n'
+            '        <h2 class="section-heading">特集</h2>\n'
+            '        <div class="feat-grid">\n' + cards +
+            '        </div>\n      </section>\n')
+
+
+def feature_ready():
+    """特集を作る目安に達したジャンルを返す。
+       しきい値は content/site.json の features.feature_threshold（5/10/15）。"""
+    th = int(FEAT.get("feature_threshold") or 5)
+    ready = []
+    for c in CATS:
+        if c["key"] == "feature":
+            continue
+        for sc in c.get("sub", []):
+            n = len([a for a in PUBLISHED
+                     if a["category"] == c["key"] and a.get("sub") == sc["key"]])
+            if n >= th:
+                done = any(a["category"] == "feature"
+                           and a.get("feature_of") == f'{c["key"]}/{sc["key"]}'
+                           for a in ARTICLES)
+                if not done:
+                    ready.append((f'{c["label"]}／{sc["label"]}', n))
+    return th, ready
+
+
 def build_index():
     p = "./"
     feat = [a for a in PUBLISHED if a.get("featured")][:3]
     latest = PUBLISHED[:6]
     n_pub = len(PUBLISHED)
+    n_cat = len([c for c in CATS if any(a["category"] == c["key"] for a in PUBLISHED)])
     body = f'''      <section class="hero">
         <h1>レビューを読み込んで、<span class="accent">不満点まで</span>まとめる。</h1>
-        <p>購入者レビューと製品仕様を突き合わせ、良い点だけでなく「合わない場面」まで整理しています。<br class="pc-only">ガジェット・デスク環境・生活家電・日用品を中心に {n_pub} 記事。</p>
+        <p>購入者レビューと製品仕様を突き合わせ、良い点だけでなく「合わない場面」まで整理しています。<br class="pc-only">家電・パソコン・家具・日用品など {n_cat} カテゴリーで {n_pub} 記事。</p>
 {SEARCH_BOX if FEAT.get("search") else ""}      </section>
 '''
-    if feat:
-        lead_html = card(feat[0], p, lead=True)
-        rest = "\n".join(card(x, p) for x in feat[1:])
-        body += f'''      <section class="section-block" style="margin-top:28px;">
-        <h2 class="section-heading">注目の記事</h2>
-        <div class="card-grid">
-{lead_html}
-{rest}        </div>
-      </section>
-'''
+    body += feature_cards(p)
+
     body += f'''      <section class="section-block">
         <h2 class="section-heading">新着記事</h2>
 {grid(latest, p)}      </section>
@@ -609,7 +717,7 @@ def build_index():
       </section>
 '''
     return page(f"{NAME}｜{TAGLINE}", SITE["description"], "all", p, BASE_URL + "/", body,
-                body_class="is-listing")
+                body_class="is-listing", sidebar=True)
 
 def build_category(c):
     p = "./"
@@ -624,8 +732,28 @@ def build_category(c):
     return page(f'{c["label"]}の記事一覧 - {NAME}',
                 c["lead"][:110], c["key"], p,
                 f'{BASE_URL}/category-{c["key"]}.html', body,
-                body_class="is-listing",
+                body_class="is-listing", sidebar=True,
                 crumbs=[("ホーム", f"{p}index.html"), (c["label"], None)])
+
+def build_subcategory(c, sc):
+    """サブカテゴリーの一覧ページ。記事が1本以上あるときだけ作る。"""
+    p = "./"
+    items = [a for a in PUBLISHED
+             if a["category"] == c["key"] and a.get("sub") == sc["key"]]
+    body = hero(c["icon"], sc["label"],
+                f'{c["label"]}のうち、{sc["label"]}に分類した記事です。', len(items))
+    body += f'''      <section class="section-block" style="margin-top:24px;">
+{grid(items, p)}      </section>
+'''
+    return page(f'{sc["label"]}の記事一覧 - {NAME}',
+                f'{NAME}の{sc["label"]}に関する記事一覧です。購入者レビューと仕様をもとに整理しています。',
+                c["key"], p,
+                f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html', body,
+                body_class="is-listing", sidebar=True, current_sub=sc["key"],
+                crumbs=[("ホーム", f"{p}index.html"),
+                        (c["label"], f'{p}category-{c["key"]}.html'),
+                        (sc["label"], None)])
+
 
 def build_search():
     p = "./"
@@ -664,6 +792,7 @@ def build_search():
     return page(f"サイト内検索 - {NAME}", f"{NAME}のサイト内検索。キーワードとタグで記事を絞り込めます。",
                 "", p, BASE_URL + "/search.html", body,
                 extra_js=f'<script src="./assets/search.js?v={ASSET_V}"></script>\n',
+                sidebar=True,
                 crumbs=[("ホーム", f"{p}index.html"), ("サイト内検索", None)])
 
 # ============================================================ 固定ページ
@@ -854,6 +983,21 @@ def main():
     for c in CATS:
         f = f'category-{c["key"]}.html'
         write(f, build_category(c)); written.append(f)
+        # サブカテゴリーは記事があるものだけページを作る
+        for sc in c.get("sub", []):
+            if not any(a["category"] == c["key"] and a.get("sub") == sc["key"]
+                       for a in PUBLISHED):
+                continue
+            f = f'category-{c["key"]}-{sc["key"]}.html'
+            write(f, build_subcategory(c, sc)); written.append(f)
+
+    # カテゴリーを組み替えたときに、古いカテゴリーページが残らないようにする
+    live = {os.path.basename(f) for f in written if f.startswith("category-")}
+    import glob as _glob
+    for old in _glob.glob("category-*.html"):
+        if os.path.basename(old) not in live:
+            os.remove(old)
+            print(f"   🗑  {old}（古いカテゴリー）")
     if FEAT.get("search"):
         write("search.html", build_search()); written.append("search.html")
     for f, c in static_pages():
@@ -877,6 +1021,10 @@ def main():
     # sitemap / robots / CNAME / .nojekyll
     urls = [(BASE_URL + "/", "1.0")]
     urls += [(f'{BASE_URL}/category-{c["key"]}.html', "0.8") for c in CATS]
+    urls += [(f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html', "0.6")
+             for c in CATS for sc in c.get("sub", [])
+             if any(a["category"] == c["key"] and a.get("sub") == sc["key"]
+                    for a in PUBLISHED)]
     urls += [(f'{BASE_URL}/articles/{a["slug"]}.html', "0.9") for a in PUBLISHED]
     urls += [(f"{BASE_URL}/{f}", "0.3") for f in ("about.html", "privacy.html", "disclaimer.html")]
     today = datetime.date.today().isoformat()
@@ -892,6 +1040,11 @@ def main():
 
     print(f"\n✅ ビルド完了：{len(written)} ファイル（アイキャッチ自動生成 {made} 枚）")
     print(f"   公開記事 {len(PUBLISHED)} 本 / 下書き {len(ARTICLES)-len(PUBLISHED)} 本")
+    th, ready = feature_ready()
+    if ready:
+        print(f"   📌 特集を作る目安（{th}本）に達したジャンル:")
+        for label, n in ready:
+            print(f"      ・{label}（{n}本）")
     print(f"   ドメイン {SITE['domain']} / GA {'設定済' if GA else '未設定'} / GSC {'設定済' if GSC else '未設定'}")
     print(f"   お問い合わせフォーム: {'ON' if FEAT.get('contact_form') else 'OFF（メールリンクのみ）'}")
 
