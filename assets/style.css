@@ -3319,3 +3319,102 @@ body[data-cat="ranking"] .side-rank{display:none;}
 @media (min-width:1024px){
   .side-col{position:static;max-height:none;overflow:visible;}
 }
+
+/* ============================================================
+   追従CTAのオレンジが画面下端まで広がる問題を直す
+   ------------------------------------------------------------
+   ボタンの外側に大きなオレンジの影が出ており、それが枠の外へ
+   はみ出して画面の最下部を覆っていた。iOSでは下端の色を拾って
+   ブラウザのツールバーまでオレンジになる。
+   影を枠の中に収め、下端は白で終わるようにする。
+   ============================================================ */
+.sticky-cta{
+  bottom:0;
+  background:#fff;
+  padding:10px 12px calc(16px + env(safe-area-inset-bottom));
+  overflow:hidden;                     /* 影を枠の外へ出さない */
+}
+.sticky-cta .btn-amazon{
+  /* 外側に広がる影は使わず、立体感は下方向の実線だけで出す */
+  box-shadow:0 3px 0 var(--amazon-dark);
+  margin-bottom:3px;
+}
+.sticky-cta .btn-amazon:hover,
+.sticky-cta .btn-amazon:active{box-shadow:0 1px 0 var(--amazon-dark);}
+@media (max-width:899px){
+  .sticky-cta{bottom:0;}
+  /* 追従CTAが出ているページでは、戻るボタンを一段上へ */
+  .to-top{bottom:86px;}
+}
+
+/* ============================================================
+   スクロールが止まったときの、浮かぶ検索の出かた
+   ============================================================ */
+.float-search{
+  transform:translateY(130%) scale(.98);
+  opacity:0;
+  transition:transform .34s cubic-bezier(.16,.9,.3,1.1),opacity .26s ease;
+}
+.float-search.is-visible{transform:translateY(0) scale(1);opacity:1;}
+@media (prefers-reduced-motion:reduce){
+  .float-search{transition:opacity .2s ease;transform:none;}
+  .float-search.is-visible{transform:none;}
+}
+
+/* ============================================================
+   今日のお勧めモノ：見出しを中央に
+   ============================================================ */
+.today-heading{text-align:center;}
+
+/* ============================================================
+   目次：中央寄りに置き、番号の位置は揃える
+   ============================================================ */
+.toc ol{
+  display:table;          /* 中身の幅ぶんだけの箱にして、それを中央へ寄せる */
+  margin:0 auto;
+  padding-left:0;
+  list-style:none;
+  counter-reset:toc;
+  text-align:left;        /* 文字は左揃えのまま（番号の位置を揃えるため） */
+}
+.toc li{
+  counter-increment:toc;
+  display:grid;
+  grid-template-columns:1.9em minmax(0,1fr);
+  align-items:baseline;
+  gap:2px;
+  margin:8px 0;
+}
+.toc li::before{
+  content:counter(toc) ".";
+  color:var(--text-sub);
+  font-weight:700;
+  font-variant-numeric:tabular-nums;   /* 桁が増えても番号の幅を揃える */
+  text-align:right;
+  padding-right:.5em;
+}
+
+/* ============================================================
+   記事の余白をさらに広げる
+   ------------------------------------------------------------
+   項目のかたまりが続くと詰まって見えるため、見出しの前後と
+   枠どうしの間隔をもう一段広く取る。
+   ============================================================ */
+.article-body h2{
+  margin-top:clamp(64px,12vw,96px);
+  margin-bottom:clamp(26px,5.5vw,36px);
+  padding-bottom:16px;
+}
+.article-body h2:first-child{margin-top:clamp(8px,2vw,16px);}
+.article-body h3{margin-top:clamp(34px,6vw,46px);}
+.notfor-box,.scenes,.pros-cons,.table-scroll,.voice-list,.next-grid,
+.personal-note,.summary-box,.cta-wrap,.toc{
+  margin-bottom:clamp(34px,7vw,52px);
+}
+/* かたまりの中のカードどうしも、もう少し離す */
+.scenes{gap:clamp(16px,3.6vw,22px);}
+.next-grid{gap:clamp(14px,3.2vw,20px);}
+.voice-list > * + *{margin-top:clamp(18px,4vw,26px);}
+.notfor-box li + li,.pros-cons li + li{margin-top:clamp(9px,2.2vw,13px);}
+/* 段落どうしの間隔 */
+.article-body p{margin-bottom:1.5em;}

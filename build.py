@@ -200,7 +200,7 @@ def today_panel(cls=""):
     """日替わりで1本だけ出すミニウィジェット。
        よく見ているジャンルから、その日の分を選ぶ（中身は assets/main.js）。"""
     return (f'    <section class="today-box {cls}" hidden>\n'
-            f'      <p class="today-heading">今日のモノ</p>\n'
+            f'      <p class="today-heading">今日のお勧めモノ</p>\n'
             f'      <a class="today-card" href="#">\n'
             f'        <span class="today-thumb"><img src="" alt="" width="1200" height="600"></span>\n'
             f'        <span class="today-body">\n'
