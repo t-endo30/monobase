@@ -76,12 +76,12 @@
     tags += '<span class="tag tag-hot">' + esc(item.catLabel) + '</span>';
     return '' +
       '<article class="card">' +
-        '<a class="card-thumb is-auto" href="./' + esc(item.url) + '">' + thumb + '</a>' +
+        '<div class="card-thumb is-auto">' + thumb + '</div>' +
         '<div class="card-body">' +
           '<div class="card-tags">' + tags + '</div>' +
-          '<h3 class="card-title"><a href="./' + esc(item.url) + '">' + highlight(item.title, terms) + '</a></h3>' +
+          '<h3 class="card-title"><a class="card-stretch" href="./' + esc(item.url) + '">' + highlight(item.title, terms) + '</a></h3>' +
           '<p class="card-desc">' + highlight(item.excerpt, terms) + '</p>' +
-          '<a class="card-link" href="./' + esc(item.url) + '">詳細を見る</a>' +
+          '<span class="card-link" aria-hidden="true">詳細を見る</span>' +
         '</div>' +
       '</article>';
   }

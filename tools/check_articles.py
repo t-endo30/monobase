@@ -43,6 +43,22 @@ def main():
         if not a.get("conclusion"):
             warns.append(f"{slug}: まとめが未記入です")
 
+    # 内部リンク切れの検査：公開記事から未公開記事へのリンクは404になる
+    pubslugs = {a.get("slug") for a in arts if a.get("published")}
+    allslugs = {a.get("slug") for a in arts}
+    for a in arts:
+        if not a.get("published"):
+            continue
+        for it in (a.get("next_problem") or {}).get("items", []):
+            url = (it.get("link_url") or "").strip()
+            if not url.startswith("articles/"):
+                continue
+            target = url[len("articles/"):].removesuffix(".html")
+            if target not in allslugs:
+                errors.append(f"{a['slug']}: リンク先の記事が存在しません（{url}）")
+            elif target not in pubslugs:
+                errors.append(f"{a['slug']}: リンク先が下書きのままです（{url}）")
+
     pub = sum(1 for a in arts if a.get("published"))
     print(f"公開記事 {pub} 本を検査")
 

@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
 <link rel="stylesheet" href="./assets/style.css">
 </head>
-<body data-cat="compare">
+<body data-cat="compare" class="is-listing">
 <header class="site-header">
   <div class="container header-inner">
     <div class="site-brand">
@@ -71,7 +71,7 @@
         <span class="page-hero-icon" aria-hidden="true">📊</span>
         <h1>比較・まとめの記事</h1>
         <p>複数の候補で迷ったときに読む記事です。スペックの数字だけでなく、実際に使ったときに効いてくる差を基準にまとめています。</p>
-        <span class="hero-count">全 2 記事</span>
+        <span class="hero-count">全 1 記事</span>
       </div>
       <form class="searchbox" action="./search.html" method="get" role="search">
         <input type="search" name="q" placeholder="キーワードで記事を探す（例：加湿器、腰痛）" aria-label="サイト内検索">
@@ -80,22 +80,12 @@
       <section class="section-block" style="margin-top:24px;">
       <div class="card-grid">
         <article class="card reveal" data-cat="compare">
-          <a class="card-thumb is-auto" href="./articles/amazon-sale-calendar.html"><img src="./assets/img/auto/amazon-sale-calendar.svg" alt="Amazonセールの買い時カレンダー｜年間の狙い目" loading="lazy" width="1200" height="430"></a>
+          <div class="card-thumb is-auto"><img src="./assets/img/auto/amazon-sale-calendar.svg" alt="Amazonセールの買い時カレンダー｜年間の狙い目" loading="lazy" width="1200" height="430"></div>
           <div class="card-body">
             <div class="card-tags"><span class="tag tag-hot">比較・まとめ</span><span class="tag">セール</span></div>
-            <h3 class="card-title"><a href="./articles/amazon-sale-calendar.html">Amazonセールの買い時カレンダー｜年間の狙い目</a></h3>
+            <h3 class="card-title"><a class="card-stretch" href="./articles/amazon-sale-calendar.html">Amazonセールの買い時カレンダー｜年間の狙い目</a></h3>
             <p class="card-desc">主要セールの時期と、値下がりしやすい商品の傾向を整理。「待つべきか、今買うべきか」の判断基準をまとめました。</p>
-            <a class="card-link" href="./articles/amazon-sale-calendar.html">詳細を見る</a>
-          </div>
-        </article>
-
-        <article class="card reveal" data-cat="compare">
-          <a class="card-thumb is-auto" href="./articles/wireless-earphones-under-15000.html"><img src="./assets/img/auto/wireless-earphones-under-15000.svg" alt="【2026年版】1万円台ワイヤレスイヤホン おすすめ7選" loading="lazy" width="1200" height="430"></a>
-          <div class="card-body">
-            <div class="card-tags"><span class="tag tag-hot">比較・まとめ</span><span class="tag">比較</span></div>
-            <h3 class="card-title"><a href="./articles/wireless-earphones-under-15000.html">【2026年版】1万円台ワイヤレスイヤホン おすすめ7選</a></h3>
-            <p class="card-desc">実際に購入した7製品を、ノイキャン・音質・装着感の3軸で採点して比較しました。</p>
-            <a class="card-link" href="./articles/wireless-earphones-under-15000.html">詳細を見る</a>
+            <span class="card-link" aria-hidden="true">詳細を見る</span>
           </div>
         </article>
       </div>

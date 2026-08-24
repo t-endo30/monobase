@@ -66,7 +66,7 @@ def jp_date(iso):
         return iso
 
 # ============================================================ 共通パーツ
-def head(title, desc, current, p, canonical, extra=""):
+def head(title, desc, current, p, canonical, extra="", body_class=""):
     """p = ルートへの相対プレフィックス（"./" または "../"）"""
     ga = ""
     if GA:
@@ -79,6 +79,7 @@ def head(title, desc, current, p, canonical, extra=""):
 </script>
 '''
     gsc = f'<meta name="google-site-verification" content="{e(GSC)}">\n' if GSC else ""
+    bodycls = f' class="{e(body_class)}"' if body_class else ""
     return f'''<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -98,7 +99,7 @@ def head(title, desc, current, p, canonical, extra=""):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
 <link rel="stylesheet" href="{p}assets/style.css">
 {extra}{ga}</head>
-<body data-cat="{current}">
+<body data-cat="{current}"{bodycls}>
 '''
 
 def header(current, p):
@@ -218,8 +219,8 @@ def footer(p, sticky_url=None):
 </html>
 '''
 
-def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js=""):
-    return (head(title, desc, current, p, canonical, extra_head)
+def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class=""):
+    return (head(title, desc, current, p, canonical, extra_head, body_class)
             + header(current, p)
             + f'\n<main id="top" class="layout">\n  <div class="container">\n{body}  </div>\n</main>\n\n'
             + footer(p, sticky_url).replace("</body>", extra_js + "</body>"))
@@ -235,12 +236,12 @@ def card(a, p, lead=False):
     tags += "".join(f'<span class="tag">{e(t)}</span>' for t in a.get("tags", [])[:1])
     cls = "card is-lead" if lead else "card"
     return f'''        <article class="{cls} reveal" data-cat="{a["category"]}">
-          <a class="card-thumb is-auto" href="{p}articles/{e(a["slug"])}.html">{thumb(a, p)}</a>
+          <div class="card-thumb is-auto">{thumb(a, p)}</div>
           <div class="card-body">
             <div class="card-tags">{tags}</div>
-            <h3 class="card-title"><a href="{p}articles/{e(a["slug"])}.html">{e(a.get("list_title") or a["title"])}</a></h3>
+            <h3 class="card-title"><a class="card-stretch" href="{p}articles/{e(a["slug"])}.html">{e(a.get("list_title") or a["title"])}</a></h3>
             <p class="card-desc">{e(a.get("excerpt",""))}</p>
-            <a class="card-link" href="{p}articles/{e(a["slug"])}.html">詳細を見る</a>
+            <span class="card-link" aria-hidden="true">詳細を見る</span>
           </div>
         </article>
 '''
@@ -574,7 +575,8 @@ def build_index():
         <p>Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
       </section>
 '''
-    return page(f"{NAME}｜{TAGLINE}", SITE["description"], "all", p, BASE_URL + "/", body)
+    return page(f"{NAME}｜{TAGLINE}", SITE["description"], "all", p, BASE_URL + "/", body,
+                body_class="is-listing")
 
 def build_category(c):
     p = "./"
@@ -588,7 +590,8 @@ def build_category(c):
 '''
     return page(f'{c["label"]}の記事一覧 - {NAME}',
                 c["lead"][:110], c["key"], p,
-                f'{BASE_URL}/category-{c["key"]}.html', body)
+                f'{BASE_URL}/category-{c["key"]}.html', body,
+                body_class="is-listing")
 
 def build_search():
     p = "./"

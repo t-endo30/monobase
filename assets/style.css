@@ -1982,3 +1982,92 @@ a.card-thumb.is-auto::after{display:none;}
   .eyecatch{aspect-ratio:16/9;}
   .article-accent{margin-bottom:18px;}
 }
+
+/* ============================================================
+   タッチ操作の改善（カード全体の押下 / スワイプ / タップ領域）
+   ============================================================ */
+
+/* ---- カード全体を1つのリンクとして押せるようにする ----
+   タイトルのリンクを疑似要素でカード全面に広げる（stretched link）。
+   リンクの入れ子を作らないため、スクリーンリーダーの読み上げは
+   「記事タイトル」1件のままになる。 */
+.card{position:relative;}
+.card .card-stretch::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  border-radius:var(--radius);
+}
+.card .card-title a{text-decoration:none;color:inherit;}
+/* カード内のボタン風表示は装飾。押下判定はカード全面が受ける */
+.card .card-link{pointer-events:none;}
+/* キーボード操作でも、どのカードを選んでいるか分かるようにする */
+.card:focus-within{
+  box-shadow:0 0 0 3px var(--amazon),var(--shadow-lg);
+  transform:translateY(-4px);
+}
+.card .card-stretch:focus{outline:none;}
+.card .card-stretch:focus-visible{outline:none;}
+
+/* ---- タップ時のフィードバック（:hover が効かない端末向け） ---- */
+@media (hover:none){
+  .card:active{transform:scale(.985);box-shadow:var(--shadow);}
+  .card:hover{transform:none;box-shadow:var(--shadow);}
+  .cat-tile:active,.btn-amazon:active,.chip:active,.next-card:active{transform:scale(.97);}
+}
+a,button,.card,.cat-tile,.chip{-webkit-tap-highlight-color:rgba(31,42,68,.08);}
+
+/* ---- カテゴリータブ：スマホでのタップ領域と現在地の分かりやすさ ---- */
+@media (max-width:767px){
+  .cat-nav-list a{min-height:48px;padding:0 16px;}
+  .cat-nav-list a.is-current{background:var(--bg-gray);}
+  /* 横スクロールできることが分かるよう、右端をぼかす */
+  .cat-nav{position:sticky;}
+  .cat-nav .container{position:relative;}
+  .cat-nav .container::after{
+    content:"";
+    position:absolute;
+    top:0;right:0;bottom:0;
+    width:24px;
+    pointer-events:none;
+    background:linear-gradient(90deg,rgba(255,255,255,0) 0%,#fff 85%);
+  }
+}
+
+/* ---- 左右スワイプでカテゴリーを切り替えるときのヒントと動き ---- */
+.swipe-hint{
+  display:none;
+  margin:10px 0 0;
+  font-size:12px;
+  color:var(--text-sub);
+  text-align:center;
+  letter-spacing:.02em;
+}
+@media (hover:none) and (max-width:767px){
+  body.is-listing .swipe-hint{display:block;}
+}
+body.is-swiping-out{
+  transition:opacity .16s ease,transform .16s ease;
+  opacity:.35;
+}
+body.is-swiping-out.to-left{transform:translateX(-14px);}
+body.is-swiping-out.to-right{transform:translateX(14px);}
+@media (prefers-reduced-motion:reduce){
+  body.is-swiping-out{transition:none;transform:none;opacity:1;}
+}
+
+/* ---- 横スクロールする表：スクロールできることを見せる ---- */
+.table-scroll{position:relative;}
+@media (max-width:767px){
+  .table-scroll::after{
+    content:"";
+    position:absolute;
+    top:0;right:0;bottom:0;
+    width:28px;
+    pointer-events:none;
+    background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.95) 90%);
+    border-radius:0 var(--radius) var(--radius) 0;
+  }
+  .table-scroll.is-end::after{opacity:0;transition:opacity .2s ease;}
+}
