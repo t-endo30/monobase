@@ -11,6 +11,9 @@
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 
-# 管理画面は検索させない・埋め込ませない
+# 管理画面は検索させない（HTML側の meta と二重に掛ける）
 /admin.html
+  X-Robots-Tag: noindex, nofollow
+
+/admin
   X-Robots-Tag: noindex, nofollow

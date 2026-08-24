@@ -1359,7 +1359,13 @@ def main():
         sm += f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{d}</lastmod>\n    <priority>{pr}</priority>\n  </url>\n"
     sm += "</urlset>\n"
     write("sitemap.xml", sm); written.append("sitemap.xml")
-    write("robots.txt", f"User-agent: *\nAllow: /\nDisallow: /admin.html\n\nSitemap: {BASE_URL}/sitemap.xml\n")
+    # 管理画面は拡張子ありでも無しでも開けるので、両方を止める
+    write("robots.txt",
+          "User-agent: *\n"
+          "Allow: /\n"
+          "Disallow: /admin.html\n"
+          "Disallow: /admin\n"
+          f"\nSitemap: {BASE_URL}/sitemap.xml\n")
     written.append("robots.txt")
     write("CNAME", SITE["domain"] + "\n"); written.append("CNAME")
 
@@ -1428,8 +1434,11 @@ def main():
         "/*.html",
         "  Cache-Control: public, max-age=0, must-revalidate",
         "",
-        "# 管理画面は検索させない・埋め込ませない",
+        "# 管理画面は検索させない（HTML側の meta と二重に掛ける）",
         "/admin.html",
+        "  X-Robots-Tag: noindex, nofollow",
+        "",
+        "/admin",
         "  X-Robots-Tag: noindex, nofollow",
         "",
     ]))
