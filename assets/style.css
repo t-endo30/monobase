@@ -3435,3 +3435,12 @@ body[data-cat="ranking"] .side-rank{display:none;}
 @media (prefers-reduced-motion:reduce){
   .float-search,.sticky-cta{transition:opacity .25s ease;transform:none;}
 }
+
+/* アイキャッチがAI生成のときの断り書き */
+.eyecatch-note{
+  margin-top:6px;
+  font-size:11.5px;
+  color:var(--text-sub);
+  text-align:right;
+  line-height:1.6;
+}

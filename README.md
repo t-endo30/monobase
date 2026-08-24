@@ -163,3 +163,33 @@ export GA4_PROPERTY_ID=123456789
 export GOOGLE_APPLICATION_CREDENTIALS=~/ga4-sa.json
 python3 tools/fetch_ranking.py --days 28
 ```
+
+## 記事の画像をAIで作る
+
+`tools/make_images.py` が記事ごとに英文プロンプトを組み立て、Gemini に写真風の
+画像を作らせます。作った画像は `assets/img/gen/<slug>.jpg` に保存され、
+`articles.json` の `thumb` が差し替わります。
+
+```bash
+python3 tools/make_images.py --dry-run                 # プロンプトの確認だけ
+export GEMINI_API_KEY=xxxxxxxx
+python3 tools/make_images.py --slug mx-master-3s-review
+python3 tools/make_images.py --all --limit 5
+```
+
+GitHub 上で動かす場合は、Settings → Secrets and variables → Actions に
+**`GEMINI_API_KEY`** を登録し、Actions タブの「Generate article images」を
+手動実行してください（課金されるため自動実行にはしていません）。
+
+**APIキーを管理画面に入力しないでください。** 管理画面の内容はGitHubへ
+コミットされるため、公開リポジトリにキーが残ります。管理画面ではモデルの
+選択だけを行い、キーは必ず Secrets か環境変数で渡します。
+
+### 画像の扱いについて
+
+- 生成画像には `image_ai: true` が付き、記事のアイキャッチの下に
+  「イメージ（AI生成）。実際の製品とは異なります。」と表示されます
+- プロンプトはブランド名・ロゴ・文字を出さない指定にしています。実在する製品の
+  外観を模した画像は、商標や意匠の問題に加えて読者の誤認を招くためです
+- Amazonの商品画像は保存・加工が規約で禁止されているため、生成画像とは
+  別物として扱ってください（記事内の公式リンクで表示する用途に限られます）

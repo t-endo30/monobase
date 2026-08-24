@@ -348,6 +348,22 @@
       <div class="note">ここに入れた期間だけ、サイト上部に「現在○○開催中！」の告知が流れます。期間外は何も表示されません。<br>
         Amazonはセール日程を機械的に配布していないため、発表されたら手で追加してください。日付の判定は閲覧時のブラウザが行うので、期間に入れば再ビルドなしで表示されます。</div>
 
+      <label for="s-imgModel">画像生成に使うモデル</label>
+      <select id="s-imgModel">
+        <option value="gemini-3.1-flash-image">gemini-3.1-flash-image（標準）</option>
+        <option value="gemini-3.1-flash-lite-image">gemini-3.1-flash-lite-image（速い・安い）</option>
+        <option value="gemini-3-pro-image">gemini-3-pro-image（高品質）</option>
+      </select>
+      <div class="note warn">
+        <b>APIキーはこの画面には入力しないでください。</b>この管理画面はGitHubへコミットする仕組みのため、
+        入力するとキーが公開リポジトリに残ります。<br>
+        キーは GitHub の Settings → Secrets and variables → Actions に
+        <b>GEMINI_API_KEY</b> として登録してください。ローカルで実行する場合は
+        <code>export GEMINI_API_KEY=...</code> を使います。<br>
+        生成は <code>python3 tools/make_images.py --all</code>、または Actions の
+        「Generate article images」から実行します。
+      </div>
+
       <div class="btn-bar">
         <button class="btn btn-primary" id="btnSaveSettings">GitHubに保存して反映</button>
       </div>

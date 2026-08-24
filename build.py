@@ -476,8 +476,12 @@ def render_article(a):
     # アイキャッチは実写真があるときだけ置く。
     # 自動生成の模様を記事冒頭に大きく出しても情報がなく、結論ボックスを押し下げるだけなので出さない。
     if a.get("thumb"):
+        # AIで作った画像は、実物の写真ではないことを画像の下に明記する。
+        note = ('\n          <figcaption class="eyecatch-note">'
+                'イメージ（AI生成）。実際の製品とは異なります。</figcaption>'
+                if a.get("image_ai") else "")
         add(f'''        <figure class="eyecatch has-image">
-          <img src="{p}{e(a["thumb"])}" alt="{e(a["title"])}" width="1200" height="600">
+          <img src="{p}{e(a["thumb"])}" alt="{e(a["title"])}" width="1200" height="600">{note}
         </figure>
 ''')
     else:

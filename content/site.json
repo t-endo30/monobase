@@ -398,5 +398,10 @@
         "note": ""
       }
     ]
+  },
+  "images": {
+    "_note": "画像生成の設定。APIキーはここに書かない（公開リポジトリのため）。ローカルは環境変数 GEMINI_API_KEY、GitHub Actions は Secrets を使う。",
+    "model": "gemini-3.1-flash-image",
+    "aspect": "16:9"
   }
 }

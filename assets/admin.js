@@ -650,6 +650,7 @@
     $('s-sticky').checked = f.sticky_cta !== false;
     $('s-search').checked = f.search !== false;
     $('s-featureTh').value = String(f.feature_threshold || 5);
+    $('s-imgModel').value = (site.images || {}).model || 'gemini-3.1-flash-image';
     $('s-sales').value = (((site.sales || {}).items) || []).map(function (x) {
       return [x.name, x.start, x.end, x.url || ''].join(' | ');
     }).join('\n');
@@ -679,6 +680,8 @@
     site.features.sticky_cta = $('s-sticky').checked;
     site.features.search = $('s-search').checked;
     site.features.feature_threshold = parseInt($('s-featureTh').value, 10) || 5;
+    site.images = site.images || {};
+    site.images.model = $('s-imgModel').value;
     site.sales = site.sales || {};
     site.sales.items = $('s-sales').value.split('\n').map(function (line) {
       var c = line.split('|').map(function (v) { return v.trim(); });
