@@ -637,3 +637,77 @@
     start();
   }, { passive: true });
 })();
+
+/* ============================================================
+   トップの見出しを1行に収める
+   ------------------------------------------------------------
+   文字数と枠の幅は端末で変わるので、実際に測って字を詰める。
+   小さくしすぎないよう下限を決め、それでも入らない場合は
+   折り返しを許して読めなくならないようにする。
+   ============================================================ */
+(function () {
+  'use strict';
+  var el = document.querySelector('.fit-line');
+  if (!el) return;
+
+  var MAX = 34, MIN = 12;      /* px。これ以上は小さくしない */
+  var box = el.parentElement;
+  if (!box) return;
+
+  function overflows() {
+    /* はみ出しているかは、要素自身の表示幅と中身の幅を比べて判定する。
+       親の幅から余白を引く方法だと1px単位でずれ、いつまでも縮み続ける。 */
+    return el.scrollWidth > el.clientWidth + 1;
+  }
+
+  function fit() {
+    if (!el.clientWidth) return;           /* まだ表示されていないときは測らない */
+    el.style.whiteSpace = 'nowrap';
+    el.style.fontSize = MAX + 'px';
+    if (!overflows()) return;
+
+    /* はみ出し量から必要な大きさを見積もり、そこから微調整する */
+    var size = Math.max(MIN, Math.floor(MAX * el.clientWidth / el.scrollWidth * 2) / 2);
+    el.style.fontSize = size + 'px';
+    var guard = 0;
+    while (size > MIN && overflows() && guard++ < 60) {
+      size -= 0.5;
+      el.style.fontSize = size + 'px';
+    }
+    if (overflows()) el.style.whiteSpace = '';   /* 下限でも入らなければ折り返す */
+  }
+
+  /* 枠の幅が決まったタイミングで測る。読み込み直後やフォント適用前だと
+     幅が確定しておらず、必要以上に小さくなることがあるため。 */
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(fit).observe(box);
+  } else {
+    window.addEventListener('resize', fit);
+  }
+  requestAnimationFrame(fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+
+/* ============================================================
+   トップの記事数の一文（カテゴリー名は毎回3つ選ぶ）
+   ============================================================ */
+(function () {
+  'use strict';
+  var el = document.querySelector('.hero-count');
+  if (!el) return;
+  var names = [];
+  try { names = JSON.parse(el.getAttribute('data-cats') || '[]'); } catch (e) { names = []; }
+  var nCat = el.getAttribute('data-n-cat') || '0';
+  var nPub = el.getAttribute('data-n-pub') || '0';
+
+  /* 並びを混ぜて先頭3つを使う */
+  for (var i = names.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = names[i]; names[i] = names[j]; names[j] = t;
+  }
+  /* カテゴリー名自体に「・」が入るものがあるため、区切りは「／」にする */
+  var pick = names.slice(0, 3).join('／');
+  el.textContent = pick
+    ? '現在（' + pick + '）など ' + nCat + ' カテゴリーで ' + nPub + ' 記事公開中'
+    : '現在 ' + nCat + ' カテゴリーで ' + nPub + ' 記事公開中';
+})();

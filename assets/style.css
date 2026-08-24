@@ -3014,3 +3014,98 @@ body[data-cat="ranking"] .side-rank{display:none;}
   cursor:pointer;
 }
 .feat-dot.is-current{background:var(--amazon);transform:scale(1.25);}
+
+/* ============================================================
+   固定バーの位置ずれを直す
+   ------------------------------------------------------------
+   スクロールでヘッダーの高さが変わると、その下に貼り付けている
+   タブバーとパンくずの位置がずれる（追従がワンテンポ遅れる）。
+   スマホでは高さを変えず、常に同じ位置に貼り付ける。
+   ============================================================ */
+@media (max-width:899px){
+  .site-header.is-shrunk .header-inner{min-height:64px;}
+  .site-header.is-shrunk .site-tagline{opacity:1;max-height:24px;}
+  .tab-bar,.site-header.is-shrunk ~ .tab-bar{top:64px;}
+  .crumb-bar,.site-header.is-shrunk ~ .crumb-bar{top:116px;}   /* 64 + 52 */
+  .cat-panel,.site-header.is-shrunk ~ .cat-panel{top:116px;}
+  .cat-veil,.site-header.is-shrunk ~ .cat-veil{top:116px;}
+}
+/* PC側も同じ考え方で固定する */
+@media (min-width:900px){
+  .site-header.is-shrunk .header-inner{min-height:72px;}
+  .cat-nav,.site-header.is-shrunk ~ .cat-nav{top:72px;}
+  .crumb-bar,.site-header.is-shrunk ~ .crumb-bar{top:124px;}   /* 72 + 52 */
+}
+
+/* ============================================================
+   サイト内のスクロールバーを見せない
+   ------------------------------------------------------------
+   ページ全体（ウインドウ）のスクロールバーは残し、
+   サイドバーやメニューなど中の要素のバーだけを隠す。
+   ============================================================ */
+.side-nav,.side-rank,.cat-panel,.global-nav,.cat-tree,
+.table-scroll,.cat-nav-list,.feat-track,.chips{
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+.side-nav::-webkit-scrollbar,
+.side-rank::-webkit-scrollbar,
+.cat-panel::-webkit-scrollbar,
+.global-nav::-webkit-scrollbar,
+.cat-tree::-webkit-scrollbar,
+.table-scroll::-webkit-scrollbar,
+.cat-nav-list::-webkit-scrollbar,
+.feat-track::-webkit-scrollbar,
+.chips::-webkit-scrollbar{width:0;height:0;display:none;}
+
+/* ============================================================
+   ページ見出しの枠（運営者情報など）：上部の色をグレーに、控えめに
+   ============================================================ */
+.page-hero{
+  border-top:3px solid var(--border-strong);
+  padding:clamp(14px,3.4vw,18px) clamp(14px,3.6vw,22px);
+  margin-bottom:clamp(16px,3.4vw,20px);
+}
+.page-hero .page-hero-icon{font-size:22px;margin-bottom:5px;}
+.page-hero h1{font-size:clamp(16px,4vw,21px);line-height:1.5;}
+.page-hero p{font-size:clamp(12px,3.2vw,13px);line-height:1.75;margin-top:6px;}
+.page-hero .hero-count{font-size:11.5px;margin-top:6px;}
+@media (min-width:900px){
+  .page-hero{padding:18px 22px;}
+  .page-hero h1{font-size:21px;}
+}
+
+/* ============================================================
+   フッター：サイト情報とお問い合わせを1行ずつ
+   ============================================================ */
+.footer-rows{display:flex;flex-direction:column;gap:10px;}
+.footer-row{
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:4px 14px;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.footer-row:last-child{border-bottom:none;}
+.footer-row-label{
+  flex:0 0 auto;
+  min-width:86px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  color:#C2C4C8;
+}
+.footer-rows .footer-inline{gap:6px 16px;}
+.footer-rows .footer-inline a{font-size:13px;}
+@media (max-width:599px){
+  .footer-row{flex-direction:column;gap:6px;}
+  .footer-row-label{min-width:0;font-size:11px;}
+}
+
+/* 1行に収める見出し。文字サイズはJSが実測して決める */
+.hero h1.fit-line{
+  line-height:1.45;
+  margin-bottom:12px;
+  overflow:hidden;
+}

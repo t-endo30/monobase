@@ -275,8 +275,6 @@ def header(current, p, crumbs=None, current_sub=""):
                    if FEAT.get("contact_form") else
                    f'<li><a href="mailto:{e(SITE["email"])}">お問い合わせ</a></li>')
 
-    tree = cat_tree(p, current, current_sub, "menu")
-
     return f'''{ICON_SPRITE}
 <header class="site-header">
   <div class="container header-inner">
@@ -297,8 +295,7 @@ def header(current, p, crumbs=None, current_sub=""):
         {search_link}<li><a href="{p}about.html">運営者情報</a></li>
         {contact_nav}
       </ul>
-      <p class="nav-heading">CATEGORIES</p>
-{tree}    </nav>
+    </nav>
   </div>
 </header>
 
@@ -321,11 +318,9 @@ def header(current, p, crumbs=None, current_sub=""):
 
 def footer(p, sticky_url=None):
     if FEAT.get("contact_form"):
-        contact = (f'<p>下記のフォームからお気軽にご連絡ください。通常3営業日以内に返信いたします。</p>\n'
-                   f'        <a class="footer-contact-btn" href="{p}contact.html">お問い合わせフォーム</a>')
+        contact_link = f'<a href="{p}contact.html">お問い合わせフォーム</a>'
     else:
-        contact = (f'<p>記事内容の誤り・掲載依頼などはメールでご連絡ください。通常3営業日以内に返信いたします。</p>\n'
-                   f'        <a class="footer-contact-btn" href="mailto:{e(SITE["email"])}">メールで問い合わせる</a>')
+        contact_link = f'<a href="mailto:{e(SITE["email"])}">{e(SITE["email"])}</a>'
 
     sticky = ""
     if sticky_url and FEAT.get("sticky_cta"):
@@ -338,13 +333,9 @@ def footer(p, sticky_url=None):
 '''
     return f'''<footer class="site-footer" id="contact">
   <div class="container">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h3>{e(NAME)}</h3>
-        <p>購入者レビューと製品仕様をもとに、商品を整理して紹介しています。良い点だけでなく、合わない場面や不満点も省かずに記載しています。</p>
-      </div>
-      <div class="footer-col footer-links">
-        <h3>サイト情報</h3>
+    <div class="footer-rows">
+      <div class="footer-row">
+        <span class="footer-row-label">サイト情報</span>
         <ul class="footer-inline">
           <li><a href="{p}privacy.html">プライバシーポリシー</a></li>
           <li><a href="{p}disclaimer.html">免責事項</a></li>
@@ -352,9 +343,11 @@ def footer(p, sticky_url=None):
           <li><a href="{p}search.html">サイト内検索</a></li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h3>お問い合わせ</h3>
-        {contact}
+      <div class="footer-row">
+        <span class="footer-row-label">お問い合わせ</span>
+        <ul class="footer-inline">
+          <li>{contact_link}</li>
+        </ul>
       </div>
     </div>
 
@@ -805,11 +798,16 @@ def build_index():
     latest = PUBLISHED[:6]
     n_pub = len(PUBLISHED)
     n_cat = len([c for c in CATS if any(a["category"] == c["key"] for a in PUBLISHED)])
+    # 記事のあるカテゴリー名。表示する3つはページを開くたびにJSが選ぶ。
+    cat_names = html.escape(json.dumps(
+        [c["label"] for c in CATS
+         if c["key"] != "feature" and any(a["category"] == c["key"] for a in PUBLISHED)],
+        ensure_ascii=False), quote=True)
     body = f'''      <section class="hero-row">
         <div class="hero">
-          <h1>レビューを読み込んで、<br><span class="accent">不満点まで</span>まとめる。</h1>
+          <h1 class="fit-line">レビューを読み込んで、<span class="accent">不満点まで</span>まとめる。</h1>
           <p>購入者レビューと製品仕様を突き合わせ、良い点だけでなく「合わない場面」まで整理しています。</p>
-          <p class="hero-count">家電・パソコン・家具・日用品など {n_cat} カテゴリーで {n_pub} 記事</p>
+          <p class="hero-count" data-cats='{cat_names}' data-n-cat="{n_cat}" data-n-pub="{n_pub}"></p>
         </div>
 {SEARCH_TILE if FEAT.get("search") else ""}      </section>
 '''
@@ -982,6 +980,7 @@ def static_pages():
     about = f'''      <h2>サイトの方針</h2>
       <p>{e(NAME)} は、「{e(TAGLINE)}」をコンセプトに、<strong>購入者レビューと製品仕様をもとに商品を整理して紹介する</strong>メディアです。ガジェットやPC周辺機器から、デスク環境を整える家具、毎日使う生活家電・日用品まで、ジャンルを限定せずに扱っています。</p>
       <p>読んだ人が「買って後悔した」を減らせることを目的にしているため、良い点だけでなく、気になった点や向いていない人についても必ず記載しています。</p>
+      <p>購入者レビューと製品仕様をもとに、商品を整理して紹介しています。良い点だけでなく、合わない場面や不満点も省かずに記載しています。</p>
 
       <h2>記事の作り方</h2>
       <dl>
