@@ -45,8 +45,30 @@ def _asset_version():
 
 ASSET_V = _asset_version()
 
+# アクセスランキング用のデータ。
+# content/ranking.json に実データ（GA4等）があればそれを使い、
+# 無ければ閲覧者自身の端末に記録した閲覧回数で並べる（assets/main.js）。
+try:
+    RANKING = json.load(io.open(os.path.join(ROOT, "content", "ranking.json"),
+                                encoding="utf-8")).get("views") or {}
+except (FileNotFoundError, ValueError):
+    RANKING = {}
+
 # セール告知に使う日程。JSON をそのまま埋め込み、表示の可否は
 # 閲覧時点の日付でブラウザ側が判断する（再ビルド不要にするため）。
+def rank_json(p):
+    data = {
+        "views": RANKING,
+        "items": [{"slug": a["slug"],
+                   "title": a.get("list_title") or a["title"],
+                   "url": f'{p}articles/{a["slug"]}.html',
+                   "cat": CAT_LABEL.get(a["category"], ""),
+                   "date": a.get("date", "")}
+                  for a in PUBLISHED],
+    }
+    return html.escape(json.dumps(data, ensure_ascii=False), quote=True)
+
+
 SALES_JSON = html.escape(json.dumps(
     (SITE.get("sales") or {}).get("items", []), ensure_ascii=False), quote=True)
 
@@ -111,6 +133,7 @@ def head(title, desc, current, p, canonical, extra="", body_class=""):
 '''
     gsc = f'<meta name="google-site-verification" content="{e(GSC)}">\n' if GSC else ""
     bodycls = f' class="{e(body_class)}"' if body_class else ""
+    rank_data = rank_json(p)
     return f'''<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -130,7 +153,7 @@ def head(title, desc, current, p, canonical, extra="", body_class=""):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
 <link rel="stylesheet" href="{p}assets/style.css?v={ASSET_V}">
 {extra}{ga}</head>
-<body data-cat="{current}"{bodycls}>
+<body data-cat="{current}"{bodycls} data-rank='{rank_data}'>
 '''
 
 def cat_tree(p, current="", current_sub="", idp="nav"):
@@ -168,6 +191,40 @@ def cat_tree(p, current="", current_sub="", idp="nav"):
             f'      </li>\n')
     return ('    <ul class="cat-tree" id="' + idp + 'CatTree">\n'
             + "".join(out) + '    </ul>\n')
+
+
+def rank_panel(p, limit=10):
+    """アクセスランキングの枠。中身は assets/main.js が入れる。
+       サイト全体の実データ（content/ranking.json）があればそれを、
+       無ければ閲覧者自身の端末に記録された閲覧回数で並べる。"""
+    return (f'    <section class="rank-box" data-rank-limit="{limit}">\n'
+            f'      <p class="rank-heading">ACCESS RANKING</p>\n'
+            f'      <ol class="rank-list"></ol>\n'
+            f'      <p class="rank-note"></p>\n'
+            f'    </section>\n')
+
+
+def tab_bar(p, current="", current_sub=""):
+    """スマホ用の固定タブ。横スクロールさせず4つに絞る。
+       CATEGORIES はページ遷移せず、その場でカテゴリー一覧を開く。"""
+    def cur(flag):
+        return ' class="is-current"' if flag else ""
+    is_all = current == "all"
+    return (
+        '<nav class="tab-bar" aria-label="表示の切り替え">\n'
+        '  <div class="container">\n'
+        f'    <a href="{p}index.html"{cur(is_all)}>{icon("all", "tab-icon")}<span>ALL</span></a>\n'
+        f'    <a href="{p}new.html"{cur(current == "new")}>{icon("new", "tab-icon")}<span>NEW</span></a>\n'
+        '    <button type="button" id="tabCats" aria-expanded="false" aria-controls="catPanel">'
+        f'{icon("cats", "tab-icon")}<span>CATEGORIES</span></button>\n'
+        f'    <a href="{p}ranking.html"{cur(current == "ranking")}>{icon("rank", "tab-icon")}<span>RANKING</span></a>\n'
+        '  </div>\n'
+        '</nav>\n'
+        '<div class="cat-panel" id="catPanel" hidden>\n'
+        '  <div class="container">\n'
+        + cat_tree(p, current, current_sub, "panel") +
+        '  </div>\n'
+        '</div>\n')
 
 
 def crumb_bar(items):
@@ -253,7 +310,7 @@ def header(current, p, crumbs=None, current_sub=""):
   </div>
 </nav>
 
-{crumb_bar(crumbs)}<!-- セール告知：期間内だけ JS が表示する（assets/main.js） -->
+{tab_bar(p, current, current_sub)}{crumb_bar(crumbs)}<!-- セール告知：期間内だけ JS が表示する（assets/main.js） -->
 <div class="site-notice" id="saleNotice" hidden data-sales='{SALES_JSON}'>
   <div class="container">
     <span class="notice-label">お知らせ</span>
@@ -333,6 +390,7 @@ def main_block(body, p, current="", current_sub="", sidebar=False):
             '    <div class="layout-main">\n'
             + body +
             '    </div>\n'
+            '    <div class="side-rank">\n' + rank_panel(p, 10) + '    </div>\n'
             '  </div>\n</main>\n\n')
 
 
@@ -352,8 +410,8 @@ def card(a, p, lead=False):
     tags = f'<span class="tag tag-hot">{e(CAT_LABEL.get(a["category"], ""))}</span>'
     tags += "".join(f'<span class="tag">{e(t)}</span>' for t in a.get("tags", [])[:1])
     cls = "card is-lead" if lead else "card"
-    return f'''        <article class="{cls} reveal" data-cat="{a["category"]}">
-          <div class="card-thumb is-auto">{thumb(a, p)}</div>
+    return f'''        <article class="{cls} reveal" data-cat="{a["category"]}" data-slug="{e(a["slug"])}" data-date="{e(a.get("date",""))}">
+          <div class="card-thumb is-auto"><span class="card-flags" aria-hidden="true"></span>{thumb(a, p)}</div>
           <div class="card-body">
             <div class="card-tags">{tags}</div>
             <h3 class="card-title"><a class="card-stretch" href="{p}articles/{e(a["slug"])}.html">{title_lines(a.get("list_title") or a["title"])}</a></h3>
@@ -729,12 +787,6 @@ def build_index():
     body += f'''      <section class="section-block">
         <h2 class="section-heading">新着記事</h2>
 {grid(latest, p)}      </section>
-
-      <section class="disclosure">
-        <h2>当サイトについて</h2>
-        <p>掲載しているスペック・価格は執筆時点のものです。最新の情報は販売ページでご確認ください。</p>
-        <p>Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。</p>
-      </section>
 '''
     return page(f"{NAME}｜{TAGLINE}", SITE["description"], "all", p, BASE_URL + "/", body,
                 body_class="is-listing", sidebar=True)
@@ -773,6 +825,34 @@ def build_subcategory(c, sc):
                 crumbs=[("ホーム", f"{p}index.html"),
                         (c["label"], f'{p}category-{c["key"]}.html'),
                         (sc["label"], None)])
+
+
+def build_new():
+    """新着一覧。スマホのタブ「NEW」の行き先。"""
+    p = "./"
+    items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)[:24]
+    body = hero("🆕", "新着記事", "公開・更新が新しい順に並べています。24時間以内に公開した記事には New が付きます。", len(items))
+    body += f'''      <section class="section-block" style="margin-top:24px;">
+{grid(items, p)}      </section>
+'''
+    return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。", "new", p,
+                f"{BASE_URL}/new.html", body, body_class="is-listing", sidebar=True,
+                crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)])
+
+
+def build_ranking():
+    """アクセスランキングのページ。スマホのタブ「RANKING」の行き先。"""
+    p = "./"
+    body = hero("🏆", "アクセスランキング",
+                "よく読まれている記事を上位から並べています。", None)
+    body += ('      <section class="section-block" style="margin-top:24px;">\n'
+             '        <div class="rank-page">\n'
+             + rank_panel(p, 10) +
+             '        </div>\n      </section>\n')
+    return page(f"アクセスランキング - {NAME}",
+                f"{NAME}でよく読まれている記事のランキングです。", "ranking", p,
+                f"{BASE_URL}/ranking.html", body, body_class="is-listing", sidebar=True,
+                crumbs=[("ホーム", f"{p}index.html"), ("アクセスランキング", None)])
 
 
 def build_search():
@@ -1000,6 +1080,8 @@ def main():
             print("  removed (非公開):", f)
 
     write("index.html", build_index()); written.append("index.html")
+    write("new.html", build_new()); written.append("new.html")
+    write("ranking.html", build_ranking()); written.append("ranking.html")
     for c in CATS:
         f = f'category-{c["key"]}.html'
         write(f, build_category(c)); written.append(f)
@@ -1040,6 +1122,7 @@ def main():
 
     # sitemap / robots / CNAME / .nojekyll
     urls = [(BASE_URL + "/", "1.0")]
+    urls += [(f'{BASE_URL}/new.html', "0.7"), (f'{BASE_URL}/ranking.html', "0.7")]
     urls += [(f'{BASE_URL}/category-{c["key"]}.html', "0.8") for c in CATS]
     urls += [(f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html', "0.6")
              for c in CATS for sc in c.get("sub", [])

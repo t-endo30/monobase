@@ -2631,3 +2631,198 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
 .search-tile .searchbox{display:flex;gap:8px;align-items:center;}
 .search-tile .searchbox input{flex:1;min-width:0;}
 .search-tile .searchbox button{flex:0 0 auto;}
+
+/* ============================================================
+   New / Hot バッジ（カードの左上）
+   ============================================================ */
+.card-thumb{position:relative;}
+.card-flags{
+  position:absolute;
+  top:8px;left:8px;
+  display:flex;
+  gap:4px;
+  z-index:2;
+  pointer-events:none;
+}
+.flag{
+  font-size:10.5px;
+  font-weight:700;
+  letter-spacing:.06em;
+  line-height:1;
+  padding:4px 7px;
+  border-radius:3px;
+  color:#fff;
+  box-shadow:0 1px 3px rgba(0,0,0,.2);
+}
+.flag-new{background:var(--good);}
+.flag-hot{background:var(--bad);}
+@media (max-width:599px){
+  .card-flags{top:6px;left:6px;}
+  .flag{font-size:9.5px;padding:3px 6px;}
+}
+
+/* ============================================================
+   アクセスランキング
+   ============================================================ */
+.rank-box{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:14px 14px 10px;
+}
+.rank-heading{
+  margin:0 0 8px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.16em;
+  color:var(--text-sub);
+}
+.rank-list{list-style:none;margin:0;padding:0;counter-reset:rank;}
+.rank-item{border-top:1px solid var(--border);}
+.rank-item:first-child{border-top:none;}
+.rank-item a{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:10px 2px;
+  text-decoration:none;
+  color:inherit;
+}
+.rank-item a:hover .rank-title{text-decoration:underline;}
+.rank-no{
+  flex:0 0 auto;
+  width:22px;height:22px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:4px;
+  background:var(--bg-gray);
+  color:var(--text-sub);
+  font-size:12px;
+  font-weight:700;
+}
+.rank-no-1{background:#C9A227;color:#fff;}
+.rank-no-2{background:#9AA0A6;color:#fff;}
+.rank-no-3{background:#A9743C;color:#fff;}
+.rank-body{min-width:0;}
+.rank-title{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  line-height:1.5;
+  color:var(--ink);
+  /* 3行で切る。順位が縦に伸びすぎると一覧性が落ちるため */
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.rank-meta{display:block;margin-top:3px;font-size:11px;color:var(--text-sub);}
+.rank-note{margin:8px 0 0;font-size:11px;line-height:1.6;color:var(--text-sub);}
+.rank-page .rank-box{max-width:640px;}
+
+/* --- PC：左にカテゴリー、右にランキング --- */
+.side-rank{display:none;}
+@media (min-width:1024px){
+  .layout.has-side .layout-grid{grid-template-columns:272px minmax(0,1fr);}
+  .side-rank{display:none;}
+}
+@media (min-width:1240px){
+  .layout.has-side .layout-grid{
+    grid-template-columns:262px minmax(0,1fr) 268px;
+  }
+  .side-rank{
+    display:block;
+    position:sticky;
+    top:132px;
+    max-height:calc(100vh - 156px);
+    overflow-y:auto;
+  }
+  /* 3カラムになるぶん、カードは2列に戻す */
+  .layout.has-side .card-grid{grid-template-columns:repeat(2,1fr);}
+}
+/* ランキングページ自体では、右の重複表示を出さない */
+body[data-cat="ranking"] .side-rank{display:none;}
+
+/* ============================================================
+   スマホの固定タブ（ALL / NEW / CATEGORIES / RANKING）
+   ============================================================ */
+.tab-bar{display:none;}
+@media (max-width:899px){
+  /* カテゴリーの横並びはスマホでは出さない */
+  .cat-nav{display:none;}
+  .tab-bar{
+    display:block;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:64px;
+    z-index:95;
+    box-shadow:0 1px 4px rgba(0,0,0,.05);
+  }
+  .site-header.is-shrunk ~ .tab-bar{top:54px;}
+  .tab-bar .container{display:grid;grid-template-columns:repeat(4,1fr);padding:0;}
+  .tab-bar a,.tab-bar button{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    min-height:52px;
+    padding:6px 2px;
+    background:none;
+    border:none;
+    border-bottom:3px solid transparent;
+    font-family:inherit;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.06em;
+    color:var(--text-sub);
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .tab-bar .tab-icon{width:16px;height:16px;color:currentColor;shape-rendering:crispEdges;}
+  .tab-bar a.is-current,.tab-bar button.is-current{
+    color:var(--ink);
+    border-bottom-color:var(--amazon);
+  }
+  /* パンくずはタブバーの下に貼り付ける */
+  .crumb-bar{top:calc(64px + 52px);}
+  .site-header.is-shrunk ~ .crumb-bar{top:calc(54px + 52px);}
+}
+/* CATEGORIES を押したときに開く一覧 */
+.cat-panel{
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  max-height:min(70vh,560px);
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.cat-panel .container{padding-top:8px;padding-bottom:12px;}
+@media (min-width:900px){.cat-panel{display:none;}}
+
+/* ============================================================
+   3カラム時のヒーロー：中央の実幅で並べ方を決める
+   ------------------------------------------------------------
+   画面幅で判定すると、左右にサイドが入ったぶん中央が狭くなっても
+   2列のままになり、見出しが1文字ずつ折り返してしまう。
+   中央カラム自身の幅（コンテナクエリ）で切り替える。
+   ============================================================ */
+.layout-main{container-type:inline-size;}
+.layout.has-side .hero-row{grid-template-columns:1fr;}
+@container (min-width:620px){
+  /* 打ち消す側と同じ強さにしておく（詳細度が低いと効かないため） */
+  .layout.has-side .hero-row{grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr);}
+}
+/* コンテナクエリに未対応のブラウザ向け（十分に広い画面でだけ2列にする） */
+@supports not (container-type:inline-size){
+  @media (min-width:1700px){
+    .layout.has-side .hero-row{grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr);}
+  }
+}
+
+/* サイドを2本置くページは、本文が痩せないよう外枠を広げる */
+@media (min-width:1240px){
+  .layout.has-side .container{max-width:1400px;}
+}
+@media (min-width:1024px) and (max-width:1239px){
+  .layout.has-side .container{max-width:1180px;}
+}

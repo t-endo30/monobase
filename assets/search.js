@@ -75,8 +75,8 @@
     }).join('');
     tags += '<span class="tag tag-hot">' + esc(item.catLabel) + '</span>';
     return '' +
-      '<article class="card">' +
-        '<div class="card-thumb is-auto">' + thumb + '</div>' +
+      '<article class="card" data-slug="' + esc(item.slug || '') + '" data-date="' + esc(item.date || '') + '">' +
+        '<div class="card-thumb is-auto"><span class="card-flags" aria-hidden="true"></span>' + thumb + '</div>' +
         '<div class="card-body">' +
           '<div class="card-tags">' + tags + '</div>' +
           '<h3 class="card-title"><a class="card-stretch" href="./' + esc(item.url) + '">' + highlight(item.title, terms) + '</a></h3>' +

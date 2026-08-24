@@ -173,9 +173,17 @@
     try { localStorage.setItem(COUNT_KEY, JSON.stringify(counts)); } catch (e) {}
   }
 
-  /* スワイプの移動順は、並び替える前の「サイト本来の順序」を使う。
-     見た目の順序で動かすと、切り替えるたびに隣が変わってしまう。 */
-  var order = Array.prototype.slice.call(list.querySelectorAll('a'));
+  /* スワイプの移動順。並び替える前の「サイト本来の順序」を使う。
+     見た目の順序で動かすと、切り替えるたびに隣が変わってしまう。
+     スマホではカテゴリーの横並びを出していないので、
+     ALL / NEW / RANKING を見ているときはその3つの間を移動し、
+     カテゴリーのページを見ているときはカテゴリー間を移動する。 */
+  var tabs = document.querySelector('.tab-bar');
+  var onTabPage = ['all', 'new', 'ranking'].indexOf(bodyCat) >= 0;
+  var narrow = window.matchMedia && window.matchMedia('(max-width:899px)').matches;
+  var order = (narrow && tabs && onTabPage)
+    ? Array.prototype.slice.call(tabs.querySelectorAll('a'))
+    : Array.prototype.slice.call(list.querySelectorAll('a'));
 
   var top = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; })[0];
   if (top && counts[top] >= 2) {
@@ -190,7 +198,13 @@
   var links = order;
   if (links.length < 2) return;
 
-  var current = links.findIndex(function (a) { return a.classList.contains('is-current'); });
+  var here = location.pathname.split('/').pop() || 'index.html';
+  var current = links.findIndex(function (a) {
+    return (a.getAttribute('href') || '').split('/').pop() === here;
+  });
+  if (current < 0) {
+    current = links.findIndex(function (a) { return a.classList.contains('is-current'); });
+  }
   if (current < 0) current = 0;
 
   /* ---- 現在のタブを画面内に見せる ---- */
@@ -218,7 +232,9 @@
   if (!seen) {
     var hint = document.createElement('p');
     hint.className = 'swipe-hint';
-    hint.textContent = '← 左右にスワイプでカテゴリーを切り替え →';
+    hint.textContent = (narrow && tabs && onTabPage)
+      ? '← 左右にスワイプで ALL / NEW / RANKING を切り替え →'
+      : '← 左右にスワイプでカテゴリーを切り替え →';
     var box = document.querySelector('main .container');
     if (box && box.firstElementChild) box.insertBefore(hint, box.firstElementChild);
   }
@@ -391,4 +407,119 @@
   /* 文字数に応じて流す時間を変える。短い文が速く流れると読みにくいため */
   var len = label.length;
   text.style.animationDuration = Math.max(14, Math.round(len / 3)) + 's';
+})();
+
+/* ============================================================
+   閲覧回数の記録 / New・Hot バッジ / アクセスランキング
+   ------------------------------------------------------------
+   ランキングの元データは2通り。
+     ① content/ranking.json に値が入っていれば、それ（サイト全体の実数）
+     ② 空なら、その端末に記録した閲覧回数
+   ②は閲覧者ごとの記録なので、初めての人には出せない。その場合は
+   新着順で埋め、断り書きを添える。
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var VIEW_KEY = 'mb.views';
+  var data = {};
+  try { data = JSON.parse(document.body.getAttribute('data-rank') || '{}'); }
+  catch (e) { data = {}; }
+  var items = data.items || [];
+  var siteViews = data.views || {};
+  var hasSiteViews = Object.keys(siteViews).length > 0;
+
+  /* ---- この端末の閲覧回数を数える ---- */
+  var mine = {};
+  try { mine = JSON.parse(localStorage.getItem(VIEW_KEY) || '{}') || {}; }
+  catch (e) { mine = {}; }
+
+  var article = document.querySelector('article.card-surface');
+  if (article) {
+    var m = location.pathname.match(/articles\/([^/]+)\.html$/);
+    if (m) {
+      mine[m[1]] = (mine[m[1]] || 0) + 1;
+      try { localStorage.setItem(VIEW_KEY, JSON.stringify(mine)); } catch (e) {}
+    }
+  }
+
+  /* ---- 並び順を決める ---- */
+  var counts = hasSiteViews ? siteViews : mine;
+  var ranked = items.slice().sort(function (a, b) {
+    var d = (counts[b.slug] || 0) - (counts[a.slug] || 0);
+    if (d) return d;
+    return (b.date || '').localeCompare(a.date || '');   /* 同数なら新しい順 */
+  });
+  var hot = {};
+  ranked.slice(0, 10).forEach(function (it) {
+    if ((counts[it.slug] || 0) > 0) hot[it.slug] = true;
+  });
+
+  /* ---- カードに New / Hot を付ける ---- */
+  var DAY = 24 * 60 * 60 * 1000;
+  function flags(root) {
+    var cards = (root || document).querySelectorAll('.card[data-slug]');
+    Array.prototype.forEach.call(cards, function (card) {
+      var box = card.querySelector('.card-flags');
+      if (!box || box.dataset.done) return;
+      box.dataset.done = '1';
+      var d = card.getAttribute('data-date');
+      if (d) {
+        var t = new Date(d + 'T00:00:00').getTime();
+        if (!isNaN(t) && Date.now() - t < DAY) {
+          box.insertAdjacentHTML('beforeend', '<span class="flag flag-new">New</span>');
+        }
+      }
+      if (hot[card.getAttribute('data-slug')]) {
+        box.insertAdjacentHTML('beforeend', '<span class="flag flag-hot">Hot</span>');
+      }
+    });
+  }
+  flags();
+  /* 検索結果はあとから差し込まれるので、増えたぶんにも付ける */
+  var results = document.getElementById('searchResults');
+  if (results && 'MutationObserver' in window) {
+    new MutationObserver(function () { flags(results); })
+      .observe(results, { childList: true });
+  }
+
+  /* ---- ランキングを描く ---- */
+  var lists = document.querySelectorAll('.rank-list');
+  if (!lists.length) return;
+  var top = ranked.slice(0, 10);
+  var html = top.map(function (it, i) {
+    var n = counts[it.slug] || 0;
+    return '<li class="rank-item">' +
+      '<a href="' + it.url + '">' +
+        '<span class="rank-no rank-no-' + (i + 1) + '">' + (i + 1) + '</span>' +
+        '<span class="rank-body">' +
+          '<span class="rank-title">' + it.title + '</span>' +
+          '<span class="rank-meta">' + it.cat + (n ? '　' + n + '回' : '') + '</span>' +
+        '</span>' +
+      '</a></li>';
+  }).join('');
+  Array.prototype.forEach.call(lists, function (el) { el.innerHTML = html; });
+
+  var note = hasSiteViews
+    ? ''
+    : 'この端末で読んだ回数をもとに並べています。まだ読んでいない記事は新着順です。';
+  Array.prototype.forEach.call(document.querySelectorAll('.rank-note'), function (el) {
+    el.textContent = note;
+  });
+})();
+
+/* ============================================================
+   スマホのタブ「CATEGORIES」：その場でカテゴリー一覧を開閉する
+   ============================================================ */
+(function () {
+  'use strict';
+  var btn = document.getElementById('tabCats');
+  var panel = document.getElementById('catPanel');
+  if (!btn || !panel) return;
+  btn.addEventListener('click', function () {
+    var open = panel.hasAttribute('hidden');
+    if (open) panel.removeAttribute('hidden'); else panel.setAttribute('hidden', '');
+    btn.setAttribute('aria-expanded', String(open));
+    btn.classList.toggle('is-current', open);
+  });
 })();
