@@ -3503,3 +3503,52 @@ h1,h2,h3,h4,
 @media (prefers-reduced-motion:reduce){
   .tab-bar{transition:none;}
 }
+
+/* ============================================================
+   固定バーの位置は実測値（--header-h / --tab-h）で決める
+   ------------------------------------------------------------
+   端末や文字サイズでヘッダーの高さが変わるため、固定値で
+   置くとタブがヘッダーの裏に潜って一部しか見えなくなる。
+   JS が実測した高さを使い、常にぴったり下に並べる。
+   ============================================================ */
+:root{
+  --header-h:64px;   /* JSが上書きする。読み込み前の初期値 */
+  --tab-h:52px;
+}
+@media (max-width:899px){
+  .tab-bar,
+  .site-header.is-shrunk ~ .tab-bar{top:var(--header-h);}
+  .crumb-bar,
+  .site-header.is-shrunk ~ .crumb-bar{top:calc(var(--header-h) + var(--tab-h));}
+  .cat-panel,
+  .site-header.is-shrunk ~ .cat-panel,
+  .cat-veil,
+  .site-header.is-shrunk ~ .cat-veil{top:calc(var(--header-h) + var(--tab-h));}
+  body.is-tab-hidden .crumb-bar,
+  body.is-tab-hidden .site-header.is-shrunk ~ .crumb-bar,
+  body.is-tab-hidden .cat-panel,
+  body.is-tab-hidden .site-header.is-shrunk ~ .cat-panel,
+  body.is-tab-hidden .cat-veil,
+  body.is-tab-hidden .site-header.is-shrunk ~ .cat-veil{top:var(--header-h);}
+  .global-nav,.nav-veil{top:var(--header-h);}
+}
+@media (min-width:900px){
+  .cat-nav,.site-header.is-shrunk ~ .cat-nav{top:var(--header-h);}
+  .crumb-bar,
+  .site-header.is-shrunk ~ .crumb-bar{top:calc(var(--header-h) + var(--tab-h));}
+}
+
+/* ============================================================
+   文節での折り返しをやめる
+   ------------------------------------------------------------
+   word-break:auto-phrase は文節の切れ目で折り返すため読みやすい反面、
+   行末に最大で3〜4割の空きが出る。空きのほうが気になるという判断で、
+   通常の折り返し（行いっぱいまで詰める）に統一する。
+   ============================================================ */
+body,p,li,dd,dt,figcaption,a,span,button,
+.article-body,.article-body p,.prose,.prose p,
+.card-desc,.btn-amazon,.today-card,.rank-title,.feat-desc{
+  word-break:normal;
+  overflow-wrap:anywhere;
+  line-break:normal;
+}

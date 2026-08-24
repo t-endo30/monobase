@@ -380,7 +380,8 @@ def footer(p, sticky_url=None):
 
 {sticky}<button class="to-top" id="toTop" aria-label="ページ上部へ戻る">▲</button>
 
-<script src="{p}assets/main.js?v={ASSET_V}"></script>
+<script src="{p}assets/vendor/motion-mini.min.js" defer></script>
+<script src="{p}assets/main.js?v={ASSET_V}" defer></script>
 </body>
 </html>
 '''

@@ -553,6 +553,8 @@
     renderList();
     toast('記事を保存しました。サイトに反映するには「記事」タブで GitHubに保存 を押してください', 'ok');
     showPanel('p-articles');
+    /* 画像がまだ無い記事は、その場でAIに作らせる（キーがあるときだけ） */
+    if ($('f-autoImg') && $('f-autoImg').value === 'auto' && !a.thumb) autoImage(a);
   });
 
   $('btnDelete').addEventListener('click', function () {
@@ -1081,23 +1083,13 @@
     return null;
   }
 
-  $('btnGenImage').addEventListener('click', function () {
-    var key = ($('gmKey').value || '').trim();
-    if (!key) { toast('Gemini APIキーを入力してください', 'err'); return; }
-    try { localStorage.setItem(GM_KEY, key); } catch (e) {}
-    var a = articles[Number($('gmArticle').value)];
-    if (!a) return;
-    var box = $('gmResult');
-    box.textContent = '生成中…（10〜30秒かかります）';
-    $('btnGenImage').disabled = true;
-    $('btnUseImage').disabled = true;
-
-    fetch('https://generativelanguage.googleapis.com/v1beta/interactions', {
+  function genImage(a, key, model, promptOverride) {
+    return fetch('https://generativelanguage.googleapis.com/v1beta/interactions', {
       method: 'POST',
       headers: { 'x-goog-api-key': key, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: $('gmModel').value,
-        input: [{ type: 'text', text: $('gmPrompt').value }],
+        model: model,
+        input: [{ type: 'text', text: promptOverride || gmPromptFor(a) }],
         response_format: { type: 'image', mime_type: 'image/jpeg',
                            aspect_ratio: '16:9', image_size: '1K' }
       })
@@ -1110,9 +1102,36 @@
       var b64 = pickImage(data);
       if (!b64) throw new Error('応答に画像が含まれていません');
       var blob = b64ToBlob(b64, 'image/jpeg');
-      /* サイトの上限（300KB）に収まるよう、既存の圧縮処理を通す */
-      return compress(new File([blob], a.slug + '.jpg', { type: 'image/jpeg' }), 1200, 0.8, 'image/jpeg');
-    }).then(function (img) {
+      return compress(new File([blob], a.slug + '.jpg', { type: 'image/jpeg' }),
+                      1200, 0.8, 'image/jpeg');
+    });
+  }
+
+  function saveImage(a, img) {
+    var path = 'assets/img/gen/' + a.slug + '.jpg';
+    return blobToB64(img.blob).then(function (b64) {
+      return getFile(path).then(function (res) {
+        return putFile(path, b64, res && res.sha, '記事の画像を追加（管理画面より）');
+      });
+    }).then(function () {
+      a.thumb = path;
+      a.image_ai = true;
+      return path;
+    });
+  }
+
+  $('btnGenImage').addEventListener('click', function () {
+    var key = ($('gmKey').value || '').trim();
+    if (!key) { toast('Gemini APIキーを入力してください', 'err'); return; }
+    try { localStorage.setItem(GM_KEY, key); } catch (e) {}
+    var a = articles[Number($('gmArticle').value)];
+    if (!a) return;
+    var box = $('gmResult');
+    box.textContent = '生成中…（10〜30秒かかります）';
+    $('btnGenImage').disabled = true;
+    $('btnUseImage').disabled = true;
+
+    genImage(a, key, $('gmModel').value, $('gmPrompt').value).then(function (img) {
       gmBlob = { img: img, article: a };
       box.innerHTML = '<img src="' + img.preview + '" alt="" style="max-width:100%;border-radius:8px;">' +
         '<div style="margin-top:6px;">' + img.w + '×' + img.h + '／' + kb(img.after) + '</div>' +
@@ -1126,22 +1145,37 @@
   $('btnUseImage').addEventListener('click', function () {
     if (!gmBlob) return;
     var a = gmBlob.article, img = gmBlob.img;
-    var path = 'assets/img/gen/' + a.slug + '.jpg';
     $('btnUseImage').disabled = true;
-    blobToB64(img.blob).then(function (b64) {
-      return getFile(path).then(function (res) {
-        return putFile(path, b64, res && res.sha, '記事の画像を追加（管理画面より）');
-      });
-    }).then(function () {
-      a.thumb = path;
-      a.image_ai = true;
+    saveImage(a, img).then(function (path) {
       toast('画像を保存しました。記事を「GitHubに保存して公開」すると反映されます', 'ok');
       $('gmResult').textContent = '保存しました：' + path;
+      renderList();
     }).catch(function (e) {
       toast(e.message, 'err');
       $('btnUseImage').disabled = false;
     });
   });
+
+  /* 記事の保存時に呼ばれる自動生成。失敗しても保存自体は妨げない。 */
+  function autoImage(a) {
+    var key = '';
+    try { key = localStorage.getItem(GM_KEY) || ''; } catch (e) {}
+    if (!key) {
+      toast('画像は作りませんでした（「画像」タブでGemini APIキーを設定すると自動で作ります）');
+      return;
+    }
+    toast('画像を作っています…', 'ok');
+    genImage(a, key, ($('gmModel') && $('gmModel').value) || 'gemini-2.5-flash-image')
+      .then(function (img) {
+        return saveImage(a, img).then(function (path) {
+          toast('画像を作って記事に設定しました：' + path, 'ok');
+          renderList();
+        });
+      })
+      .catch(function (e) {
+        toast('画像は作れませんでした（' + e.message + '）。記事の保存は済んでいます', 'err');
+      });
+  }
 
   function blobToB64(blob) {
     return new Promise(function (resolve, reject) {

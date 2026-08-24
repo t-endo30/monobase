@@ -860,3 +860,131 @@
     document.body.classList.remove('is-tab-hidden');
   });
 })();
+
+/* ============================================================
+   固定バーの高さを実測して、下に続く帯の位置をそこに合わせる
+   ------------------------------------------------------------
+   これまではヘッダー64px・タブ52pxという固定値で位置を決めていたが、
+   実際の高さは文字サイズや端末で変わる。ずれるとタブがヘッダーの
+   裏に潜って一部しか見えなくなるため、実測した高さを CSS 変数に入れる。
+   ============================================================ */
+(function () {
+  'use strict';
+  var header = document.querySelector('.site-header');
+  if (!header) return;
+  var tab = document.querySelector('.tab-bar');
+  var catNav = document.querySelector('.cat-nav');
+  var root = document.documentElement;
+
+  function visibleHeight(el) {
+    if (!el) return 0;
+    if (getComputedStyle(el).display === 'none') return 0;
+    return Math.round(el.getBoundingClientRect().height);
+  }
+
+  function sync() {
+    root.style.setProperty('--header-h',
+      Math.round(header.getBoundingClientRect().height) + 'px');
+    /* ヘッダーの下に並ぶ帯は、スマホはタブ、PCはカテゴリーナビ。
+       表示されているほうの高さを使う。 */
+    var t = visibleHeight(tab) || visibleHeight(catNav);
+    if (t > 0) root.style.setProperty('--tab-h', t + 'px');
+  }
+
+  sync();
+  if ('ResizeObserver' in window) {
+    var ro = new ResizeObserver(sync);
+    ro.observe(header);
+    if (tab) ro.observe(tab);
+    if (catNav) ro.observe(catNav);
+  }
+  window.addEventListener('resize', sync);
+  window.addEventListener('orientationchange', sync);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+})();
+
+/* ============================================================
+   Motion（motion.dev）による、押した感触・ホバーの動き
+   ------------------------------------------------------------
+   CSSのtransitionだけだと、押したときの「戻り」が機械的になる。
+   ばね（spring）を使うと、指を離したあとの戻り方が自然になる。
+   ・ライブラリは assets/vendor に置いた必要最小限の版（約11KB）
+   ・読み込めていない場合や「動きを減らす」設定のときは、
+     何もしない（CSS側の見た目のまま動く）
+   ============================================================ */
+(function () {
+  'use strict';
+  var M = window.Motion;
+  if (!M || !M.press) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var spring = { type: 'spring', stiffness: 520, damping: 26, mass: .7 };
+  var quick = { duration: .18, ease: [.2, .7, .3, 1] };
+
+  function pressable(selector, downScale) {
+    var els = document.querySelectorAll(selector);
+    if (!els.length) return;
+    Array.prototype.forEach.call(els, function (el) {
+      M.press(el, function () {
+        M.animate(el, { scale: downScale }, quick);
+        return function () { M.animate(el, { scale: 1 }, spring); };
+      });
+    });
+  }
+
+  /* 押せるもの：面積が大きいほど縮み方は控えめにする */
+  pressable('.btn-amazon', .97);
+  pressable('.card', .985);
+  pressable('.feat-card, .today-card, .cat-tile', .985);
+  pressable('.card-link, .btn-sub, .searchbox button, .chip', .94);
+  pressable('.tab-bar a, .tab-bar button', .93);
+  pressable('.feat-arrow, .to-top, .nav-toggle', .88);
+  pressable('.rank-item a, .cat-tree .tree-subs a', .985);
+
+  /* ホバー：アイコンだけ少し持ち上げる（指の端末では起きない） */
+  Array.prototype.forEach.call(
+    document.querySelectorAll('.cat-nav-list a, .tree-item > details > summary'),
+    function (el) {
+      var icon = el.querySelector('.cat-icon, .tree-icon');
+      if (!icon) return;
+      M.hover(el, function () {
+        M.animate(icon, { y: -2, scale: 1.12 }, spring);
+        return function () { M.animate(icon, { y: 0, scale: 1 }, spring); };
+      });
+    }
+  );
+
+  /* 「＋」の開閉に合わせて、サブカテゴリーを滑り出させる */
+  Array.prototype.forEach.call(document.querySelectorAll('.cat-tree details'), function (d) {
+    d.addEventListener('toggle', function () {
+      if (!d.open) return;
+      var ul = d.querySelector('.tree-subs');
+      if (!ul) return;
+      M.animate(ul, { opacity: [0, 1], y: [-6, 0] }, { duration: .22, ease: 'easeOut' });
+    });
+  });
+
+  /* カートの絵文字だけ、ボタンを押したときに少し先へ動かす */
+  Array.prototype.forEach.call(document.querySelectorAll('.btn-amazon .cart'), function (cart) {
+    var btn = cart.closest('.btn-amazon');
+    if (!btn) return;
+    M.press(btn, function () {
+      M.animate(cart, { x: 3 }, quick);
+      return function () { M.animate(cart, { x: 0 }, spring); };
+    });
+  });
+
+  /* 画面に入ってきたランキングの行を、順に浮かび上がらせる */
+  if (M.inView) {
+    var rank = document.querySelector('.rank-list');
+    if (rank) {
+      M.inView(rank, function () {
+        var rows = rank.querySelectorAll('.rank-item');
+        Array.prototype.forEach.call(rows, function (row, i) {
+          M.animate(row, { opacity: [0, 1], y: [8, 0] },
+                    { duration: .3, delay: Math.min(i, 6) * .04, ease: 'easeOut' });
+        });
+      }, { amount: .2 });
+    }
+  }
+})();
