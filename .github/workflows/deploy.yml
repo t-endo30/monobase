@@ -25,6 +25,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Check article completeness
+        run: python3 tools/check_articles.py
+
       - name: Build site
         run: python3 build.py
 

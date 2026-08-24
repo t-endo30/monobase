@@ -1036,7 +1036,7 @@
   {
     "slug": "standing-desk-compare",
     "category": "desk",
-    "published": true,
+    "published": false,
     "featured": false,
     "title": "昇降デスクは高い順に良い？2万円台と10万円台を並べて比べた",
     "list_title": "昇降デスクは高い順に良い？2万円台と10万円台を並べて比べた",
@@ -1085,7 +1085,7 @@
   {
     "slug": "robot-cleaner-1year",
     "category": "home",
-    "published": true,
+    "published": false,
     "featured": false,
     "title": "ロボット掃除機は本当にラクになる？1年使って分かった向き不向き",
     "list_title": "ロボット掃除機は本当にラクになる？1年使って分かった向き不向き",
@@ -1134,7 +1134,7 @@
   {
     "slug": "amazon-sale-calendar",
     "category": "compare",
-    "published": true,
+    "published": false,
     "featured": false,
     "title": "Amazonセールの買い時カレンダー｜狙うべき時期と値下がり傾向",
     "list_title": "Amazonセールの買い時カレンダー｜狙うべき時期と値下がり傾向",

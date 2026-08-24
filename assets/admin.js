@@ -222,7 +222,24 @@
     var slug;
     if ((slug = b.getAttribute('data-edit'))) { openEditor(find(slug)); }
     else if ((slug = b.getAttribute('data-toggle'))) {
-      var a = find(slug); a.published = !a.published; renderList();
+      var a = find(slug);
+      if (!a.published) {
+        /* 公開へ切り替えるときだけ中身を検査する */
+        var blocks = ['summary', 'pros', 'cons', 'scenes', 'voices']
+          .reduce(function (n, k) { return n + ((a[k] || []).length); }, 0)
+          + (((a.not_for || {}).items) || []).length;
+        var lack = [];
+        if (blocks === 0) lack.push('本文が空です');
+        if (!a.description) lack.push('メタディスクリプションが未設定');
+        if (!a.excerpt) lack.push('カード用の抜粋が未設定');
+        if (lack.length) {
+          toast('公開できません：' + lack.join(' / '), 'err');
+          log('公開を中止: ' + slug + ' → ' + lack.join(' / '), 'err');
+          openEditor(a);
+          return;
+        }
+      }
+      a.published = !a.published; renderList();
       toast(a.published ? '公開に変更しました（未保存）' : '下書きに変更しました（未保存）');
     }
     else if ((slug = b.getAttribute('data-del'))) {
