@@ -267,7 +267,7 @@
       "key": "daily",
       "label": "日用品・雑貨",
       "icon": "🧺",
-      "lead": "毎日使う消耗品と雑貨、防災・防犯まわり。派手さはないぶん、合う合わないがはっきり出ます。",
+      "lead": "毎日使う消耗品と雑貨に加え、工具・園芸・アウトドア・ホビーなど、他のカテゴリーに収まらない領域もここにまとめています。",
       "sub": [
         {
           "key": "storage",
@@ -288,6 +288,34 @@
         {
           "key": "misc",
           "label": "その他雑貨"
+        },
+        {
+          "key": "fashion",
+          "label": "ファッション・時計"
+        },
+        {
+          "key": "tool",
+          "label": "DIY・工具"
+        },
+        {
+          "key": "garden",
+          "label": "ガーデニング"
+        },
+        {
+          "key": "hobby",
+          "label": "ゲーム・ホビー"
+        },
+        {
+          "key": "car",
+          "label": "車・バイク"
+        },
+        {
+          "key": "outdoor",
+          "label": "アウトドア・スポーツ"
+        },
+        {
+          "key": "stationery",
+          "label": "文具・オフィス"
         }
       ]
     },
@@ -318,10 +346,57 @@
           "label": "インテリア雑貨"
         }
       ]
+    },
+    {
+      "key": "pet",
+      "label": "ペット",
+      "icon": "🐾",
+      "lead": "犬・猫を中心としたペット用品。生き物が相手なので、合わなかったときの切り替えやすさも含めて整理します。",
+      "sub": [
+        {
+          "key": "dog",
+          "label": "犬用品"
+        },
+        {
+          "key": "cat",
+          "label": "猫用品"
+        },
+        {
+          "key": "food",
+          "label": "フード・おやつ"
+        },
+        {
+          "key": "care",
+          "label": "ケア・衛生"
+        },
+        {
+          "key": "aqua",
+          "label": "アクアリウム・小動物"
+        }
+      ]
     }
   ],
   "amazon": {
     "associate_tag": "",
     "_note": "アソシエイトID（例: monobase-22）。審査通過後にここへ入れると、ASIN指定の全記事リンクへ自動で付与されます。"
+  },
+  "sales": {
+    "_note": "Amazonのセール日程は公式に配信されていないため、日程が発表されたらここに追加する。期間内だけサイト上部に流れる告知が出る。",
+    "items": [
+      {
+        "name": "Amazon プライムデー",
+        "start": "2026-07-14",
+        "end": "2026-07-17",
+        "url": "https://www.amazon.co.jp/events/primeday",
+        "note": "年に一度の大型セール"
+      },
+      {
+        "name": "Amazon ブラックフライデー",
+        "start": "2026-11-27",
+        "end": "2026-12-01",
+        "url": "https://www.amazon.co.jp/events/blackfriday",
+        "note": ""
+      }
+    ]
   }
 }

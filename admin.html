@@ -343,6 +343,11 @@
       </select>
       <div class="note">ここで決めた本数に達したサブカテゴリーは、ビルド時に「特集を作る目安に達したジャンル」として通知されます。特集記事はカテゴリー「特集・まとめ」で作成してください。</div>
 
+      <label for="s-sales">セール日程<span class="opt">1行1件：名前 | 開始 | 終了 | URL</span></label>
+      <textarea id="s-sales" rows="4" placeholder="Amazon プライムデー | 2026-07-14 | 2026-07-17 | https://www.amazon.co.jp/events/primeday"></textarea>
+      <div class="note">ここに入れた期間だけ、サイト上部に「現在○○開催中！」の告知が流れます。期間外は何も表示されません。<br>
+        Amazonはセール日程を機械的に配布していないため、発表されたら手で追加してください。日付の判定は閲覧時のブラウザが行うので、期間に入れば再ビルドなしで表示されます。</div>
+
       <div class="btn-bar">
         <button class="btn btn-primary" id="btnSaveSettings">GitHubに保存して反映</button>
       </div>

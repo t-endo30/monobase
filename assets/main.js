@@ -159,28 +159,35 @@
   var list = document.querySelector('.cat-nav-list');
   if (!list) return;
 
-  /* ---- 直近に見たカテゴリーを ALL の右隣へ移動する ----
-     よく見るカテゴリーが常に指の届く位置に来るようにする。
-     一覧ページ以外（記事ページなど）でも並び順を揃えたいので、
-     スワイプ機能とは切り離してここで実行する。 */
-  var RECENT_KEY = 'mb.recentCat';
+  /* ---- よく見るカテゴリーを ALL の右隣へ寄せる ----
+     直近に見たものを動かすと、2つのカテゴリーを行き来しただけで
+     並びが入れ替わり続けてしまうため、閲覧回数の多い順にする。
+     並び替えるのは先頭の1つだけで、残りは元の順序のままにしておく。 */
+  var COUNT_KEY = 'mb.catCounts';
   var bodyCat = document.body.getAttribute('data-cat') || '';
-  try {
-    if (bodyCat && bodyCat !== 'all') localStorage.setItem(RECENT_KEY, bodyCat);
-    var recent = localStorage.getItem(RECENT_KEY);
-    if (recent) {
-      var li = list.querySelector('a[href*="category-' + recent + '.html"]');
-      li = li && li.parentNode;
-      var first = list.querySelector('li');          /* ALL */
-      if (li && first && li !== first && li.previousElementSibling !== first) {
-        first.insertAdjacentElement('afterend', li);
-      }
-    }
-  } catch (e) { /* localStorage が使えなくても並び順が変わらないだけ */ }
+  var counts = {};
+  try { counts = JSON.parse(localStorage.getItem(COUNT_KEY) || '{}') || {}; }
+  catch (e) { counts = {}; }
+  if (bodyCat && bodyCat !== 'all') {
+    counts[bodyCat] = (counts[bodyCat] || 0) + 1;
+    try { localStorage.setItem(COUNT_KEY, JSON.stringify(counts)); } catch (e) {}
+  }
+
+  /* スワイプの移動順は、並び替える前の「サイト本来の順序」を使う。
+     見た目の順序で動かすと、切り替えるたびに隣が変わってしまう。 */
+  var order = Array.prototype.slice.call(list.querySelectorAll('a'));
+
+  var top = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; })[0];
+  if (top && counts[top] >= 2) {
+    var li = list.querySelector('a[href*="category-' + top + '.html"]');
+    li = li && li.parentNode;
+    var first = list.querySelector('li');          /* ALL */
+    if (li && first && li !== first) first.insertAdjacentElement('afterend', li);
+  }
 
   if (!document.body.classList.contains('is-listing')) return;
 
-  var links = Array.prototype.slice.call(list.querySelectorAll('a'));
+  var links = order;
   if (links.length < 2) return;
 
   var current = links.findIndex(function (a) { return a.classList.contains('is-current'); });
@@ -332,4 +339,56 @@
     window.addEventListener('resize', update);
     update();
   });
+})();
+
+/* ============================================================
+   セール告知：期間内だけ、右から左へ流して表示する
+   ------------------------------------------------------------
+   Amazonはセール日程を機械的に配信していないため、日程は
+   content/site.json に登録しておき、表示するかどうかは
+   閲覧時点の日付でここが判断する（再ビルドしなくても切り替わる）。
+   ============================================================ */
+(function () {
+  'use strict';
+  var box = document.getElementById('saleNotice');
+  var text = document.getElementById('saleText');
+  if (!box || !text) return;
+
+  var items;
+  try { items = JSON.parse(box.getAttribute('data-sales') || '[]'); }
+  catch (e) { return; }
+  if (!items.length) return;
+
+  function ymd(d) {
+    return d.getFullYear() + '/' +
+      ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2);
+  }
+
+  var now = new Date();
+  var live = items.filter(function (s) {
+    var st = new Date(s.start + 'T00:00:00');
+    var en = new Date(s.end + 'T23:59:59');
+    return !isNaN(st) && !isNaN(en) && now >= st && now <= en;
+  });
+  if (!live.length) return;          /* セール期間外は何も出さない */
+
+  var s = live[0];
+  var span = ymd(new Date(s.start + 'T00:00:00')) + '〜' + ymd(new Date(s.end + 'T00:00:00'));
+  var label = '現在' + s.name + '開催中！　期間：' + span +
+              (s.note ? '　' + s.note : '');
+  if (s.url) {
+    var a = document.createElement('a');
+    a.href = s.url;
+    a.target = '_blank';
+    a.rel = 'nofollow sponsored noopener';
+    a.textContent = label;
+    text.appendChild(a);
+  } else {
+    text.textContent = label;
+  }
+  box.hidden = false;
+
+  /* 文字数に応じて流す時間を変える。短い文が速く流れると読みにくいため */
+  var len = label.length;
+  text.style.animationDuration = Math.max(14, Math.round(len / 3)) + 's';
 })();

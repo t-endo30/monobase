@@ -37,6 +37,12 @@ jobs:
       - name: Check for prohibited expressions
         run: python3 tools/check_text.py
 
+      # 特集を作る段に達したジャンルがあれば、ログに出して気づけるようにする
+      # （記事の追加は止めたくないので、失敗にはしない）
+      - name: Check feature opportunities
+        run: python3 tools/feature_plan.py
+        continue-on-error: true
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

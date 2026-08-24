@@ -2458,3 +2458,176 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
   }
   .cat-nav-list::-webkit-scrollbar{display:none;}
 }
+
+/* ============================================================
+   セール告知（期間中だけ表示・右から左へ流す）
+   ============================================================ */
+.site-notice .container{display:flex;align-items:center;gap:10px;overflow:hidden;}
+.notice-marquee{flex:1;min-width:0;overflow:hidden;}
+.notice-marquee p{
+  margin:0;
+  white-space:nowrap;
+  will-change:transform;
+  animation:notice-flow 20s linear infinite;
+}
+.notice-marquee a{color:inherit;text-decoration:none;}
+.notice-marquee a:hover{text-decoration:underline;}
+@keyframes notice-flow{
+  from{transform:translateX(100%);}
+  to{transform:translateX(-100%);}
+}
+/* 動きを減らす設定の人には流さず、そのまま表示する */
+@media (prefers-reduced-motion:reduce){
+  .notice-marquee p{animation:none;white-space:normal;}
+}
+.site-notice:hover .notice-marquee p{animation-play-state:paused;}
+
+/* ============================================================
+   ヘッダー・カテゴリー・パンくずの調整
+   ============================================================ */
+
+/* サブタイトルはスクロールしても隠さない */
+.site-header.is-shrunk .site-tagline{
+  opacity:1;
+  max-height:24px;
+  margin:0;
+  overflow:visible;
+}
+
+/* --- ドット絵アイコン --- */
+.cat-icon,.tree-icon{
+  width:1.05em;
+  height:1.05em;
+  flex:0 0 auto;
+  color:var(--text-sub);
+  shape-rendering:crispEdges;   /* ドットの角をぼかさない */
+}
+.cat-nav-list a{gap:7px;}
+.cat-nav-list a.is-current .cat-icon{color:var(--accent);}
+.cat-tree .tree-icon{width:15px;height:15px;color:var(--text-sub);}
+.global-nav .cat-tree .tree-icon{color:#B9BCC2;}
+.cat-nav-list a .cat-icon{margin-right:0;}
+
+/* --- カテゴリー名は折り返さない --- */
+.cat-nav-label{white-space:nowrap;}
+.cat-tree .tree-cat{white-space:nowrap;}
+.cat-tree details > summary{flex-wrap:nowrap;}
+@media (min-width:1024px){
+  /* サイドの幅を広げ、「家具・インテリア」なども1行に収める */
+  .layout.has-side .layout-grid{grid-template-columns:272px minmax(0,1fr);}
+}
+
+/* --- スマホ：パンくずはカテゴリーナビの下に貼り付ける --- */
+@media (max-width:899px){
+  .crumb-bar{
+    position:sticky;
+    top:calc(64px + 46px);   /* ヘッダー + カテゴリーナビ */
+    z-index:94;
+    background:var(--bg-gray);
+  }
+  .site-header.is-shrunk ~ .crumb-bar{top:calc(54px + 46px);}
+}
+
+/* ============================================================
+   トップ：見出しタイルと検索タイルを左右に置く
+   ============================================================ */
+.hero-row{display:grid;grid-template-columns:1fr;gap:clamp(10px,2.4vw,16px);}
+@media (min-width:900px){
+  .hero-row{grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);align-items:stretch;}
+}
+.hero{
+  padding:clamp(18px,4.5vw,30px) clamp(16px,4vw,32px);
+  margin:0;
+}
+.hero h1{
+  font-size:clamp(19px,4.6vw,30px);
+  line-height:1.5;
+  margin:0 0 10px;
+  letter-spacing:.01em;
+}
+.hero p{font-size:clamp(12.5px,3.4vw,14.5px);line-height:1.85;margin:0 0 6px;color:var(--text-sub);}
+.hero .hero-count{font-size:clamp(11.5px,3.2vw,13px);color:var(--text-sub);opacity:.85;margin:0;}
+.search-tile{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:10px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:clamp(14px,3.6vw,22px);
+}
+.search-tile-title{
+  margin:0;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.08em;
+  color:var(--ink);
+}
+.search-tile .searchbox{margin:0;}
+.search-tile-note{margin:0;font-size:11.5px;line-height:1.7;color:var(--text-sub);}
+@media (max-width:899px){
+  .search-tile-note{display:none;}
+}
+
+/* ============================================================
+   比較表の作り直し
+   ------------------------------------------------------------
+   これまでは本文行の見出し列だけを左に固定していたため、横に
+   スクロールすると表頭の1列目だけが一緒に流れ、列がずれて
+   「固定が壊れている」ように見えていた。
+   表頭の1列目も同じ位置に固定し、境目に影を落として、
+   固定されている列だと分かるようにする。
+   ============================================================ */
+.table-scroll{
+  overflow:auto hidden;
+  border-radius:var(--radius-sm);
+}
+.table-scroll table{
+  min-width:clamp(460px,120vw,640px);
+  font-size:clamp(12.5px,3.4vw,14px);
+  border-collapse:separate;
+  border-spacing:0;
+}
+.table-scroll th,.table-scroll td{
+  padding:clamp(8px,2.4vw,11px) clamp(9px,2.6vw,12px);
+  border-bottom:1px solid var(--border);
+  border-right:1px solid var(--border);
+}
+/* 表頭：上に固定するのはやめる（縦スクロールしない領域のため） */
+.table-scroll thead th{position:static;}
+/* 1列目は表頭・本文とも左に固定する */
+.table-scroll thead th:first-child,
+.table-scroll tbody th{
+  position:sticky;
+  left:0;
+  min-width:clamp(92px,26vw,132px);
+  text-align:left;
+  box-shadow:1px 0 0 var(--border-strong);
+}
+.table-scroll thead th:first-child{
+  background:var(--navy);
+  color:#fff;
+  z-index:3;
+}
+.table-scroll tbody th{
+  background:var(--surface-2);
+  color:var(--ink);
+  z-index:2;
+}
+/* 横に流れる列は、固定列の下をくぐらせる */
+.table-scroll tbody td{background:var(--surface);position:relative;z-index:0;}
+.table-scroll tbody tr:nth-child(even) td{background:#FAFAFB;}
+.table-scroll tbody tr:nth-child(even) th{background:#F3F3F5;}
+/* スクロールできる向きを示す影は、固定列と重ならない位置に出す */
+@media (max-width:767px){
+  .table-scroll::after{width:20px;}
+  .table-scroll table{font-size:12.5px;}
+  .table-scroll th,.table-scroll td{padding:8px 9px;line-height:1.55;}
+}
+.table-scroll .mark-o,.table-scroll .mark-x{font-size:1.05em;}
+
+/* 検索タイル内の入力欄は、残り幅いっぱいまで広げる */
+.search-tile .searchbox{display:flex;gap:8px;align-items:center;}
+.search-tile .searchbox input{flex:1;min-width:0;}
+.search-tile .searchbox button{flex:0 0 auto;}

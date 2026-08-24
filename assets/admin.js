@@ -650,6 +650,9 @@
     $('s-sticky').checked = f.sticky_cta !== false;
     $('s-search').checked = f.search !== false;
     $('s-featureTh').value = String(f.feature_threshold || 5);
+    $('s-sales').value = (((site.sales || {}).items) || []).map(function (x) {
+      return [x.name, x.start, x.end, x.url || ''].join(' | ');
+    }).join('\n');
     $('contactWrap').classList.toggle('hidden', !f.contact_form);
     $('s-assoc').value = (site.amazon || {}).associate_tag || '';
     var an = site.analytics || {};
@@ -676,6 +679,12 @@
     site.features.sticky_cta = $('s-sticky').checked;
     site.features.search = $('s-search').checked;
     site.features.feature_threshold = parseInt($('s-featureTh').value, 10) || 5;
+    site.sales = site.sales || {};
+    site.sales.items = $('s-sales').value.split('\n').map(function (line) {
+      var c = line.split('|').map(function (v) { return v.trim(); });
+      if (!c[0] || !c[1] || !c[2]) return null;
+      return { name: c[0], start: c[1], end: c[2], url: c[3] || '', note: '' };
+    }).filter(Boolean);
   }
 
   $('btnSaveSettings').addEventListener('click', function () {

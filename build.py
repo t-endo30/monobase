@@ -45,6 +45,11 @@ def _asset_version():
 
 ASSET_V = _asset_version()
 
+# セール告知に使う日程。JSON をそのまま埋め込み、表示の可否は
+# 閲覧時点の日付でブラウザ側が判断する（再ビルド不要にするため）。
+SALES_JSON = html.escape(json.dumps(
+    (SITE.get("sales") or {}).get("items", []), ensure_ascii=False), quote=True)
+
 ASSOC_TAG = SITE.get("amazon", {}).get("associate_tag", "").strip()
 CAT_LABEL = {c["key"]: c["label"] for c in CATS}
 CAT_ICON  = {c["key"]: c["icon"]  for c in CATS}
@@ -151,7 +156,7 @@ def cat_tree(p, current="", current_sub="", idp="nav"):
             f'      <li class="tree-item">\n'
             f'        <details{open_}>\n'
             f'          <summary>\n'
-            f'            <span class="tree-icon" aria-hidden="true">{c["icon"]}</span>\n'
+            f'            {icon(c["key"], "tree-icon")}\n'
             f'            <span class="tree-cat">{e(c["label"])}</span>\n'
             f'            <span class="tree-num">{n}</span>\n'
             f'          </summary>\n'
@@ -184,13 +189,28 @@ def crumb_bar(items):
 '''
 
 
+ICON_SPRITE = ""
+try:
+    ICON_SPRITE = io.open(os.path.join(ROOT, "assets", "img", "cat-icons.svg"),
+                          encoding="utf-8").read().strip()
+except FileNotFoundError:
+    pass
+
+
+def icon(key, cls="cat-icon"):
+    """カテゴリーのドット絵アイコン。スプライトの symbol を参照する。"""
+    return (f'<svg class="{cls}" aria-hidden="true" focusable="false">'
+            f'<use href="#i-{key}"></use></svg>')
+
+
 def header(current, p, crumbs=None, current_sub=""):
     allcur = ' class="is-current"' if current == "all" else ""
-    nav = f'      <li><a href="{p}index.html"{allcur}>ALL</a></li>\n'
+    nav = (f'      <li><a href="{p}index.html"{allcur}>{icon("all")}'
+           f'<span class="cat-nav-label">ALL</span></a></li>\n')
     for c in CATS:
         cur = ' class="is-current"' if c["key"] == current else ""
         nav += (f'      <li><a href="{p}category-{c["key"]}.html"{cur}>'
-                f'<span class="cat-icon" aria-hidden="true">{c["icon"]}</span>{e(c["label"])}</a></li>\n')
+                f'{icon(c["key"])}<span class="cat-nav-label">{e(c["label"])}</span></a></li>\n')
 
     search_link = (f'<li><a href="{p}search.html">検索</a></li>\n        '
                    if FEAT.get("search") else "")
@@ -200,7 +220,8 @@ def header(current, p, crumbs=None, current_sub=""):
 
     tree = cat_tree(p, current, current_sub, "menu")
 
-    return f'''<header class="site-header">
+    return f'''{ICON_SPRITE}
+<header class="site-header">
   <div class="container header-inner">
     <div class="header-side" aria-hidden="true"></div>
     <div class="site-brand">
@@ -232,13 +253,11 @@ def header(current, p, crumbs=None, current_sub=""):
   </div>
 </nav>
 
-{crumb_bar(crumbs)}<!-- 広告表記 -->
-<div class="site-notice">
+{crumb_bar(crumbs)}<!-- セール告知：期間内だけ JS が表示する（assets/main.js） -->
+<div class="site-notice" id="saleNotice" hidden data-sales='{SALES_JSON}'>
   <div class="container">
-    <p>
-      <span class="notice-label">お知らせ</span>
-      当サイトの記事には広告（Amazonアソシエイト等）を含みます。掲載価格・在庫は執筆時点のもので、最新情報は販売ページをご確認ください。
-    </p>
+    <span class="notice-label">お知らせ</span>
+    <div class="notice-marquee"><p id="saleText"></p></div>
   </div>
 </div>
 '''
@@ -619,6 +638,16 @@ def hero(icon, h1, lead, count=None):
       </div>
 '''
 
+SEARCH_TILE = '''        <div class="search-tile">
+          <p class="search-tile-title">記事をさがす</p>
+          <form class="searchbox" action="./search.html" method="get" role="search">
+            <input type="search" name="q" placeholder="キーワードで探す（例：加湿器、腰痛）" aria-label="サイト内検索">
+            <button type="submit">検索</button>
+          </form>
+          <p class="search-tile-note">カテゴリーからも探せます。左のカテゴリー一覧、またはメニューをご利用ください。</p>
+        </div>
+'''
+
 SEARCH_BOX = '''      <form class="searchbox" action="./search.html" method="get" role="search">
         <input type="search" name="q" placeholder="キーワードで記事を探す（例：加湿器、腰痛）" aria-label="サイト内検索">
         <button type="submit">検索</button>
@@ -659,9 +688,15 @@ def feature_cards(p):
 
 
 def feature_ready():
-    """特集を作る目安に達したジャンルを返す。
-       しきい値は content/site.json の features.feature_threshold（5/10/15）。"""
+    """特集を作る段に達したジャンルを返す。
+       しきい値ごとの「段」で数え、1本増えるたびに作り直さないようにする。
+       判定の詳細と記事の選出は tools/feature_plan.py と同じ考え方。"""
     th = int(FEAT.get("feature_threshold") or 5)
+    done = {}
+    for a in ARTICLES:
+        if a.get("category") == "feature" and a.get("feature_of"):
+            done[a["feature_of"]] = max(done.get(a["feature_of"], 0),
+                                        int(a.get("feature_stage") or 1))
     ready = []
     for c in CATS:
         if c["key"] == "feature":
@@ -669,12 +704,9 @@ def feature_ready():
         for sc in c.get("sub", []):
             n = len([a for a in PUBLISHED
                      if a["category"] == c["key"] and a.get("sub") == sc["key"]])
-            if n >= th:
-                done = any(a["category"] == "feature"
-                           and a.get("feature_of") == f'{c["key"]}/{sc["key"]}'
-                           for a in ARTICLES)
-                if not done:
-                    ready.append((f'{c["label"]}／{sc["label"]}', n))
+            stage = n // th
+            if stage >= 1 and stage > done.get(f'{c["key"]}/{sc["key"]}', 0):
+                ready.append((f'{c["label"]}／{sc["label"]}', n, stage))
     return th, ready
 
 
@@ -684,31 +716,19 @@ def build_index():
     latest = PUBLISHED[:6]
     n_pub = len(PUBLISHED)
     n_cat = len([c for c in CATS if any(a["category"] == c["key"] for a in PUBLISHED)])
-    body = f'''      <section class="hero">
-        <h1>レビューを読み込んで、<span class="accent">不満点まで</span>まとめる。</h1>
-        <p>購入者レビューと製品仕様を突き合わせ、良い点だけでなく「合わない場面」まで整理しています。<br class="pc-only">家電・パソコン・家具・日用品など {n_cat} カテゴリーで {n_pub} 記事。</p>
-{SEARCH_BOX if FEAT.get("search") else ""}      </section>
+    body = f'''      <section class="hero-row">
+        <div class="hero">
+          <h1>レビューを読み込んで、<br><span class="accent">不満点まで</span>まとめる。</h1>
+          <p>購入者レビューと製品仕様を突き合わせ、良い点だけでなく「合わない場面」まで整理しています。</p>
+          <p class="hero-count">家電・パソコン・家具・日用品など {n_cat} カテゴリーで {n_pub} 記事</p>
+        </div>
+{SEARCH_TILE if FEAT.get("search") else ""}      </section>
 '''
     body += feature_cards(p)
 
     body += f'''      <section class="section-block">
         <h2 class="section-heading">新着記事</h2>
 {grid(latest, p)}      </section>
-
-      <section class="section-block">
-        <h2 class="section-heading">カテゴリー</h2>
-        <div class="cat-tiles">
-'''
-    for c in CATS:
-        n = len([a for a in PUBLISHED if a["category"] == c["key"]])
-        body += f'''          <a class="cat-tile" href="{p}category-{c["key"]}.html">
-            <span class="cat-tile-icon" aria-hidden="true">{c["icon"]}</span>
-            <span class="cat-tile-label">{e(c["label"])}</span>
-            <span class="cat-tile-count">{n} 記事</span>
-          </a>
-'''
-    body += '''        </div>
-      </section>
 
       <section class="disclosure">
         <h2>当サイトについて</h2>
@@ -1042,9 +1062,10 @@ def main():
     print(f"   公開記事 {len(PUBLISHED)} 本 / 下書き {len(ARTICLES)-len(PUBLISHED)} 本")
     th, ready = feature_ready()
     if ready:
-        print(f"   📌 特集を作る目安（{th}本）に達したジャンル:")
-        for label, n in ready:
-            print(f"      ・{label}（{n}本）")
+        print(f"   📌 特集を作る段（{th}本ごと）に達したジャンル:")
+        for label, n, stage in ready:
+            print(f"      ・{label}（{n}本 → {stage}段目）")
+        print("      $ python3 tools/feature_plan.py --write で下書きを作れます")
     print(f"   ドメイン {SITE['domain']} / GA {'設定済' if GA else '未設定'} / GSC {'設定済' if GSC else '未設定'}")
     print(f"   お問い合わせフォーム: {'ON' if FEAT.get('contact_form') else 'OFF（メールリンクのみ）'}")
 
