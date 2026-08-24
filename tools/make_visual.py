@@ -3,13 +3,13 @@
 """記事のサムネイル用SVGを生成する。
 
 方針：
-・記事タイトルは載せない。カード本文と重複するうえ、
-  表示サイズによって文字の大きさが変わり統一感が崩れるため。
-・カテゴリーごとに落ち着いた単色＋細い罫線で構成し、
-  どのサイズで切り取られても破綻しないようにする。
+・文字を一切入れない。切り抜き（object-fit: cover）で端が削れるうえ、
+  表示サイズによって文字の大きさが変わり、カード間で統一感が崩れるため。
+  カテゴリー名はカード側のタグ・記事側のバッジで既に示している。
+・モチーフは中央に配置し、どの比率で切り取られても破綻しないようにする。
 ・外部素材を使わないため著作権・規約のリスクがない。
 """
-import os, html
+import os
 
 # カテゴリー別の地色（彩度を抑えた単色）
 CAT_COLOR = {
@@ -20,61 +20,55 @@ CAT_COLOR = {
 }
 DEFAULT = "#3A4557"
 
-# カテゴリーごとの幾何モチーフ（意味を持たせて描き分ける）
+CX, CY = 600, 300     # キャンバス中心
+
+
 def motif(category):
-    """カテゴリーごとの幾何モチーフ。中心は (985, 215) に統一する。"""
+    """カテゴリーごとの幾何モチーフ。中心 (600,300) から対称に描く。"""
     if category == "gadget":      # 同心円＝波形・信号
-        return """
-  <circle cx="985" cy="215" r="150" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="2"/>
-  <circle cx="985" cy="215" r="108" fill="none" stroke="#fff" stroke-opacity=".20" stroke-width="2"/>
-  <circle cx="985" cy="215" r="66"  fill="none" stroke="#fff" stroke-opacity=".26" stroke-width="2"/>
-  <circle cx="985" cy="215" r="24"  fill="#fff" fill-opacity=".28"/>"""
-    if category == "desk":        # 直線の組み合わせ＝机・什器
-        return """
-  <rect x="868" y="112" width="234" height="140" fill="none" stroke="#fff" stroke-opacity=".20" stroke-width="2"/>
-  <line x1="868" y1="252" x2="868" y2="322" stroke="#fff" stroke-opacity=".20" stroke-width="2"/>
-  <line x1="1102" y1="252" x2="1102" y2="322" stroke="#fff" stroke-opacity=".20" stroke-width="2"/>
-  <line x1="840" y1="252" x2="1130" y2="252" stroke="#fff" stroke-opacity=".30" stroke-width="3"/>"""
-    if category == "home":        # 家型＝住まい
-        return """
-  <path d="M985 92 L1104 190 L1104 322 L866 322 L866 190 Z"
-        fill="none" stroke="#fff" stroke-opacity=".20" stroke-width="2"/>
-  <path d="M949 322 L949 242 L1021 242 L1021 322"
-        fill="none" stroke="#fff" stroke-opacity=".26" stroke-width="2"/>"""
-    # compare：棒グラフ＝比較
-    return """
-  <rect x="878" y="236" width="42" height="86"  fill="#fff" fill-opacity=".18"/>
-  <rect x="940" y="176" width="42" height="146" fill="#fff" fill-opacity=".28"/>
-  <rect x="1002" y="212" width="42" height="110" fill="#fff" fill-opacity=".22"/>
-  <rect x="1064" y="140" width="42" height="182" fill="#fff" fill-opacity=".14"/>
-  <line x1="856" y1="322" x2="1128" y2="322" stroke="#fff" stroke-opacity=".32" stroke-width="2"/>"""
+        return '''
+  <circle cx="600" cy="300" r="230" fill="none" stroke="#fff" stroke-opacity=".10" stroke-width="2"/>
+  <circle cx="600" cy="300" r="170" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="2"/>
+  <circle cx="600" cy="300" r="110" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+  <circle cx="600" cy="300" r="52"  fill="#fff" fill-opacity=".16"/>'''
+    if category == "desk":        # 水平線と支柱＝什器
+        return '''
+  <line x1="330" y1="300" x2="870" y2="300" stroke="#fff" stroke-opacity=".22" stroke-width="4"/>
+  <line x1="410" y1="300" x2="410" y2="452" stroke="#fff" stroke-opacity=".16" stroke-width="3"/>
+  <line x1="790" y1="300" x2="790" y2="452" stroke="#fff" stroke-opacity=".16" stroke-width="3"/>
+  <rect x="452" y="150" width="296" height="150" fill="none" stroke="#fff" stroke-opacity=".13" stroke-width="2"/>'''
+    if category == "home":        # 同心の角丸＝住まいの層
+        return '''
+  <rect x="418" y="148" width="364" height="304" rx="26" fill="none" stroke="#fff" stroke-opacity=".11" stroke-width="2"/>
+  <rect x="478" y="196" width="244" height="208" rx="20" fill="none" stroke="#fff" stroke-opacity=".15" stroke-width="2"/>
+  <rect x="538" y="244" width="124" height="112" rx="14" fill="#fff" fill-opacity=".13"/>'''
+    # compare：左右対称の棒＝比較
+    return '''
+  <rect x="446" y="252" width="46" height="96"  rx="6" fill="#fff" fill-opacity=".13"/>
+  <rect x="514" y="212" width="46" height="176" rx="6" fill="#fff" fill-opacity=".18"/>
+  <rect x="582" y="176" width="46" height="248" rx="6" fill="#fff" fill-opacity=".22"/>
+  <rect x="650" y="212" width="46" height="176" rx="6" fill="#fff" fill-opacity=".18"/>
+  <rect x="718" y="252" width="46" height="96"  rx="6" fill="#fff" fill-opacity=".13"/>'''
 
 
 def build(slug, title, category, cat_label, site_name, out_dir):
     base = CAT_COLOR.get(category, DEFAULT)
-    label = html.escape(cat_label)
 
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-label="{label}">
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="presentation" aria-hidden="true">
   <defs>
-    <linearGradient id="shade" x1="0" y1="0" x2="0.4" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity=".10"/>
-      <stop offset="100%" stop-color="#000000" stop-opacity=".16"/>
+    <linearGradient id="shade" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".09"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity=".15"/>
     </linearGradient>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M48 0 L0 0 0 48" fill="none" stroke="#ffffff" stroke-opacity=".07" stroke-width="1"/>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0 L0 0 0 40" fill="none" stroke="#ffffff" stroke-opacity=".055" stroke-width="1"/>
     </pattern>
   </defs>
 
-  <rect width="1200" height="430" fill="{base}"/>
-  <rect width="1200" height="430" fill="url(#grid)"/>
-  <rect width="1200" height="430" fill="url(#shade)"/>
+  <rect width="1200" height="600" fill="{base}"/>
+  <rect width="1200" height="600" fill="url(#grid)"/>
+  <rect width="1200" height="600" fill="url(#shade)"/>
 {motif(category)}
-
-  <line x1="80" y1="168" x2="164" y2="168" stroke="#FF9900" stroke-width="5"/>
-  <text x="80" y="232" font-family="\'Noto Sans JP\',\'Hiragino Sans\',\'Yu Gothic\',sans-serif"
-        font-size="44" font-weight="700" fill="#ffffff" letter-spacing="3">{label}</text>
-  <text x="80" y="284" font-family="\'Noto Sans JP\',\'Hiragino Sans\',\'Yu Gothic\',sans-serif"
-        font-size="24" font-weight="400" fill="#ffffff" fill-opacity=".60" letter-spacing="4">{html.escape(site_name)}</text>
 </svg>
 '''
     os.makedirs(out_dir, exist_ok=True)

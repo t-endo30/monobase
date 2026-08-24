@@ -1,26 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-label="ガジェット・PC周辺">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="presentation" aria-hidden="true">
   <defs>
-    <linearGradient id="shade" x1="0" y1="0" x2="0.4" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity=".10"/>
-      <stop offset="100%" stop-color="#000000" stop-opacity=".16"/>
+    <linearGradient id="shade" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".09"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity=".15"/>
     </linearGradient>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M48 0 L0 0 0 48" fill="none" stroke="#ffffff" stroke-opacity=".07" stroke-width="1"/>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0 L0 0 0 40" fill="none" stroke="#ffffff" stroke-opacity=".055" stroke-width="1"/>
     </pattern>
   </defs>
 
-  <rect width="1200" height="430" fill="#2F5FA8"/>
-  <rect width="1200" height="430" fill="url(#grid)"/>
-  <rect width="1200" height="430" fill="url(#shade)"/>
+  <rect width="1200" height="600" fill="#2F5FA8"/>
+  <rect width="1200" height="600" fill="url(#grid)"/>
+  <rect width="1200" height="600" fill="url(#shade)"/>
 
-  <circle cx="985" cy="215" r="150" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="2"/>
-  <circle cx="985" cy="215" r="108" fill="none" stroke="#fff" stroke-opacity=".20" stroke-width="2"/>
-  <circle cx="985" cy="215" r="66"  fill="none" stroke="#fff" stroke-opacity=".26" stroke-width="2"/>
-  <circle cx="985" cy="215" r="24"  fill="#fff" fill-opacity=".28"/>
-
-  <line x1="80" y1="168" x2="164" y2="168" stroke="#FF9900" stroke-width="5"/>
-  <text x="80" y="232" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
-        font-size="44" font-weight="700" fill="#ffffff" letter-spacing="3">ガジェット・PC周辺</text>
-  <text x="80" y="284" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
-        font-size="24" font-weight="400" fill="#ffffff" fill-opacity=".60" letter-spacing="4">モノベース</text>
+  <circle cx="600" cy="300" r="230" fill="none" stroke="#fff" stroke-opacity=".10" stroke-width="2"/>
+  <circle cx="600" cy="300" r="170" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="2"/>
+  <circle cx="600" cy="300" r="110" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+  <circle cx="600" cy="300" r="52"  fill="#fff" fill-opacity=".16"/>
 </svg>

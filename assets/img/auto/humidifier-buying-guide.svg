@@ -1,26 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-label="生活家電・日用品">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="presentation" aria-hidden="true">
   <defs>
-    <linearGradient id="shade" x1="0" y1="0" x2="0.4" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity=".10"/>
-      <stop offset="100%" stop-color="#000000" stop-opacity=".16"/>
+    <linearGradient id="shade" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".09"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity=".15"/>
     </linearGradient>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M48 0 L0 0 0 48" fill="none" stroke="#ffffff" stroke-opacity=".07" stroke-width="1"/>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0 L0 0 0 40" fill="none" stroke="#ffffff" stroke-opacity=".055" stroke-width="1"/>
     </pattern>
   </defs>
 
-  <rect width="1200" height="430" fill="#1E7A5E"/>
-  <rect width="1200" height="430" fill="url(#grid)"/>
-  <rect width="1200" height="430" fill="url(#shade)"/>
+  <rect width="1200" height="600" fill="#1E7A5E"/>
+  <rect width="1200" height="600" fill="url(#grid)"/>
+  <rect width="1200" height="600" fill="url(#shade)"/>
 
-  <path d="M985 92 L1104 190 L1104 322 L866 322 L866 190 Z"
-        fill="none" stroke="#fff" stroke-opacity=".20" stroke-width="2"/>
-  <path d="M949 322 L949 242 L1021 242 L1021 322"
-        fill="none" stroke="#fff" stroke-opacity=".26" stroke-width="2"/>
-
-  <line x1="80" y1="168" x2="164" y2="168" stroke="#FF9900" stroke-width="5"/>
-  <text x="80" y="232" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
-        font-size="44" font-weight="700" fill="#ffffff" letter-spacing="3">生活家電・日用品</text>
-  <text x="80" y="284" font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif"
-        font-size="24" font-weight="400" fill="#ffffff" fill-opacity=".60" letter-spacing="4">モノベース</text>
+  <rect x="418" y="148" width="364" height="304" rx="26" fill="none" stroke="#fff" stroke-opacity=".11" stroke-width="2"/>
+  <rect x="478" y="196" width="244" height="208" rx="20" fill="none" stroke="#fff" stroke-opacity=".15" stroke-width="2"/>
+  <rect x="538" y="244" width="124" height="112" rx="14" fill="#fff" fill-opacity=".13"/>
 </svg>

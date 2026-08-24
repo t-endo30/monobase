@@ -1942,3 +1942,43 @@ a.card-thumb.is-auto::after{display:none;}
   .card.is-lead .card-desc{display:-webkit-box;-webkit-line-clamp:2;}
   .eyecatch{aspect-ratio:2.4/1;margin-bottom:18px;}
 }
+
+/* ════════════════════════════════════════════════════════════
+   サムネイルの統一 — 文字を持たない図案に合わせた最終調整
+   ════════════════════════════════════════════════════════════ */
+
+/* 実写真がない記事では、冒頭に細いアクセント帯だけを置く */
+.article-accent{
+  height:5px;
+  border-radius:3px;
+  background:linear-gradient(90deg,var(--accent) 0%,color-mix(in srgb,var(--accent) 35%,#fff) 100%);
+  margin:0 0 24px;
+}
+
+/* 実写真がある場合のアイキャッチ */
+.eyecatch{
+  aspect-ratio:16/9;
+  margin:0 0 24px;
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+.eyecatch img{width:100%;height:100%;object-fit:cover;}
+
+/* カードのサムネは図案なので、どの比率でも破綻しない */
+.card a.card-thumb{aspect-ratio:2.6/1;}
+.card.is-lead a.card-thumb{aspect-ratio:2.6/1;}
+
+@media (min-width:900px){
+  .card a.card-thumb{aspect-ratio:2.6/1;}
+  /* 注目記事の横組みは高さ合わせ。図案なので切り抜かれても問題ない */
+  .card.is-lead a.card-thumb{aspect-ratio:auto;height:100%;min-height:200px;}
+}
+
+@media (max-width:599px){
+  .card a.card-thumb{aspect-ratio:auto;}
+  .card.is-lead a.card-thumb{aspect-ratio:2.8/1;}
+  .eyecatch{aspect-ratio:16/9;}
+  .article-accent{margin-bottom:18px;}
+}

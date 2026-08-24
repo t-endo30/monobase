@@ -288,13 +288,15 @@ def render_article(a):
         <h1 class="article-title">{e(a["title"])}</h1>
 ''')
 
-    # アイキャッチ（実写真があればそれを、無ければ自動生成ビジュアル）
-    src, is_auto = visual_path(a, p)
-    cls = "eyecatch is-auto" if is_auto else "eyecatch has-image"
-    add(f'''        <figure class="{cls}">
-          <img src="{e(src)}" alt="{e(a["title"])}" width="1200" height="430">
+    # アイキャッチは実写真があるときだけ置く。
+    # 自動生成の模様を記事冒頭に大きく出しても情報がなく、結論ボックスを押し下げるだけなので出さない。
+    if a.get("thumb"):
+        add(f'''        <figure class="eyecatch has-image">
+          <img src="{p}{e(a["thumb"])}" alt="{e(a["title"])}" width="1200" height="600">
         </figure>
 ''')
+    else:
+        add('        <div class="article-accent" aria-hidden="true"></div>\n')
 
     # 結論ボックス
     if a.get("summary"):

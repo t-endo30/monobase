@@ -10,8 +10,16 @@ import re, os, sys, glob, html
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 保証・断定表現（記事本文に出してはいけない）
+# 単語として出た時点で問題になるもの
 NG = ["絶対", "必ず", "確実に", "保証します", "間違いなく", "100%",
-      "誰でも", "永久に", "完治", "最安値", "業界No.1", "日本一"]
+      "誰でも", "永久に", "完治", "業界No.1", "日本一"]
+
+# 文脈によっては問題ない語。断定の主張として使われた場合だけ検出する
+NG_CONTEXT = [
+    r"最安値(?:です|でした|保証|を保証|！|。)",   # 「過去の最安値を確認」は対象外
+    r"業界最安",
+    r"日本最[安大高]",
+]
 
 def main():
     os.chdir(ROOT)
@@ -27,6 +35,10 @@ def main():
             for m in re.finditer(re.escape(w), s):
                 ctx = s[max(0, m.start() - 25): m.start() + 25].replace("\n", " ").strip()
                 hits.append((f, w, ctx))
+        for pat in NG_CONTEXT:
+            for m in re.finditer(pat, s):
+                ctx = s[max(0, m.start() - 25): m.start() + 25].replace("\n", " ").strip()
+                hits.append((f, m.group(0), ctx))
 
     if hits:
         print(f"::error::保証・断定表現が {len(hits)} 件見つかりました。")
