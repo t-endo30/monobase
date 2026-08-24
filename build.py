@@ -442,6 +442,24 @@ def thumb(a, p):
     return (f'<img src="{e(src)}" alt="{e(a.get("list_title") or a["title"])}" '
             f'loading="lazy" width="1200" height="430">')
 
+KIND_LABEL = {"review": "レビュー", "roundup": "特集"}
+
+
+def kind_of(a):
+    """記事の種類を返す。明示が無ければカテゴリーから推測する。
+       review  : 1つの商品を掘り下げるレビュー
+       roundup : 複数の商品を比べる特集"""
+    k = a.get("kind")
+    if k in KIND_LABEL:
+        return k
+    return "roundup" if a.get("category") == "feature" else "review"
+
+
+def kind_badge(a):
+    k = kind_of(a)
+    return f'<span class="tag tag-kind is-{k}">{KIND_LABEL[k]}</span>'
+
+
 def card(a, p, lead=False):
     tags = f'<span class="tag tag-hot">{e(CAT_LABEL.get(a["category"], ""))}</span>'
     tags += "".join(f'<span class="tag">{e(t)}</span>' for t in a.get("tags", [])[:1])
@@ -449,7 +467,7 @@ def card(a, p, lead=False):
     return f'''        <article class="{cls} reveal" data-cat="{a["category"]}" data-slug="{e(a["slug"])}" data-date="{e(a.get("date",""))}">
           <div class="card-thumb is-auto"><span class="card-flags" aria-hidden="true"></span>{thumb(a, p)}</div>
           <div class="card-body">
-            <div class="card-tags">{tags}</div>
+            <div class="card-tags">{tags}{kind_badge(a)}</div>
             <h3 class="card-title"><a class="card-stretch" href="{p}articles/{e(a["slug"])}.html">{title_lines(a.get("list_title") or a["title"])}</a></h3>
             <p class="card-desc">{e(a.get("excerpt",""))}</p>
             <span class="card-link" aria-hidden="true">詳細を見る</span>
@@ -498,6 +516,7 @@ def render_article(a):
     add('      <article class="card-surface" id="review">\n')
     add(f'''        <div class="article-meta">
           <span class="badge badge-cat">{e(CAT_LABEL.get(cat,""))}</span>
+          {kind_badge(a)}
           <span class="article-date">{e(jp_date(a.get("updated") or a["date"]))} 更新</span>
         </div>
 
@@ -539,9 +558,6 @@ def render_article(a):
 {rating}        </section>
 ''')
 
-    add(cta(amazon_link(a), a.get("cta_label","Amazonで価格を見る"),
-            "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
-
     # 目次
     toc = []
     if a.get("highlights", {}).get("items"): toc.append(("sec-highlights", "ここが効く"))
@@ -562,6 +578,10 @@ def render_article(a):
 {li}          </ol>
         </nav>
 ''')
+
+    # 購入リンクは目次の下に置く。結論を読んですぐ動ける位置。
+    add(cta(amazon_link(a), a.get("cta_label", "Amazonで価格を見る"),
+            "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
 
     add('        <div class="article-body">\n')
     add(paras(a.get("lead")))

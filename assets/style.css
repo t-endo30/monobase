@@ -3381,13 +3381,15 @@ body[data-cat="ranking"] .side-rank{display:none;}
 .toc li{
   counter-increment:toc;
   display:grid;
-  grid-template-columns:1.9em minmax(0,1fr);
+  /* 2桁になっても「10.」が折り返さない幅を確保する */
+  grid-template-columns:2.6em minmax(0,1fr);
   align-items:baseline;
   gap:2px;
   margin:8px 0;
 }
 .toc li::before{
   content:counter(toc) ".";
+  white-space:nowrap;        /* 番号と「.」を切り離さない */
   color:var(--text-sub);
   font-weight:700;
   font-variant-numeric:tabular-nums;   /* 桁が増えても番号の幅を揃える */
@@ -3954,4 +3956,48 @@ body,p,li,dd,dt,figcaption,a,span,button,
   color:var(--text-sub);
   text-align:justify;
   text-justify:inter-character;
+}
+
+/* ============================================================
+   記事の種類バッジ（レビュー／特集）
+   ------------------------------------------------------------
+   1商品を掘り下げる「レビュー」と、複数を比べる「特集」を
+   一目で見分けられるようにする。カテゴリー名の右端に置く。
+   ============================================================ */
+/* カテゴリー・タグ・種類バッジを必ず1行に収める。
+   幅が足りないときは真ん中のタグから詰める。 */
+.card-tags{
+  align-items:center;
+  flex-wrap:nowrap;
+  overflow:hidden;
+}
+.card-tags .tag{
+  flex:0 1 auto;
+  min-width:0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.card-tags .tag.tag-hot,
+.card-tags .tag.tag-kind{flex:0 0 auto;}   /* カテゴリー名と種類バッジは削らない */
+.tag-kind{
+  margin-left:auto;          /* 行の右端へ寄せる */
+  flex:0 0 auto;
+  border:1px solid transparent;
+}
+.tag-kind.is-review{
+  background:#E8F1FB;
+  color:#1B4F86;
+  border-color:#C5DCF2;
+}
+.tag-kind.is-roundup{
+  background:#FDEBD8;
+  color:#9A5B00;
+  border-color:#F3D2A8;
+}
+/* 記事ページのメタ欄では、カテゴリーバッジの隣に並べる */
+.article-meta .tag-kind{margin-left:0;}
+@media (max-width:599px){
+  /* 狭い画面では種類バッジを優先し、タグのほうを隠す */
+  .card-tags .tag-kind{display:inline-block;}
 }

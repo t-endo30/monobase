@@ -512,6 +512,7 @@
     $('f-slug').value = a.slug || '';
     sel.value = a.category;
     fillSub(a.sub);
+    $('f-kind').value = a.kind || (a.category === 'feature' ? 'roundup' : 'review');
     $('f-icon').value = a.icon || '';
     $('f-date').value = a.date || today();
     $('f-updated').value = a.updated || today();
@@ -566,6 +567,7 @@
     a.slug = ($('f-slug').value.trim() || slugify(a.title));
     a.category = $('f-category').value;
     a.sub = $('f-sub').value;
+    a.kind = $('f-kind').value;
     a.icon = $('f-icon').value.trim() || '📦';
     a.date = $('f-date').value || today();
     a.updated = $('f-updated').value || today();
