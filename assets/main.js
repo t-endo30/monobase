@@ -572,7 +572,11 @@
 
   var dots = box.querySelectorAll('.feat-dot');
   var wait = parseInt(box.getAttribute('data-interval'), 10) || 5000;
+  /* 「動きを減らす」設定（iOSの視差効果を減らす等）でも送り自体は続ける。
+     スライドの滑る動きはCSS側で切ってあるので、切り替えは一瞬で終わる。
+     そのぶん間隔を長めに取り、目が追いつかなくならないようにする。 */
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) wait = Math.max(wait * 1.6, 8000);
   var i = 0, timer = null, onScreen = true;
 
   box.classList.add('is-ready');
@@ -586,7 +590,7 @@
   }
   function next() { show(i + 1); }
   function start() {
-    if (reduce || timer || !onScreen) return;
+    if (timer || !onScreen) return;
     timer = setInterval(next, wait);
   }
   function stop() { clearInterval(timer); timer = null; }
@@ -712,7 +716,9 @@
    ============================================================ */
 (function () {
   'use strict';
-  var el = document.querySelector('.hero-count');
+  /* トップの一文だけが対象。一覧ページの「全 N 記事」は
+     同じクラスを使っているので、データ属性の有無で見分ける。 */
+  var el = document.querySelector('.hero-count[data-n-pub]');
   if (!el) return;
   var names = [];
   try { names = JSON.parse(el.getAttribute('data-cats') || '[]'); } catch (e) { names = []; }

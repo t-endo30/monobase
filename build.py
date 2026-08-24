@@ -738,11 +738,12 @@ def render_article(a):
 
 # ============================================================ 一覧・固定ページ
 def hero(icon, h1, lead, count=None):
-    ic = f'<span class="page-hero-icon" aria-hidden="true">{icon}</span>\n        ' if icon else ""
+    """ページ見出しの枠。アイコンと見出しは横に並べて1行に収める。"""
+    ic = f'<span class="page-hero-icon" aria-hidden="true">{icon}</span>' if icon else ""
     c = f'\n        <span class="hero-count">全 {count} 記事</span>' if count is not None else ""
+    lead_html = f'\n        <p>{e(lead)}</p>' if lead else ""
     return f'''      <div class="page-hero">
-        {ic}<h1>{e(h1)}</h1>
-        <p>{e(lead)}</p>{c}
+        <div class="page-hero-head">{ic}<h1>{e(h1)}</h1></div>{lead_html}{c}
       </div>
 '''
 
@@ -795,11 +796,13 @@ def feature_cards(p):
     slides = ""
     for i, a in enumerate(feats):
         slides += (
-            f'            <li class="feat-slide"{"" if i else ""}>\n'
+            f'            <li class="feat-slide">\n'
             f'              <a class="feat-card" href="{p}articles/{e(a["slug"])}.html">\n'
-            f'                <span class="feat-banner">{feature_banner(a, p)}</span>\n'
-            f'                <span class="feat-body">\n'
+            f'                <span class="feat-banner">\n'
             f'                  <span class="feat-label">特集</span>\n'
+            f'                  {feature_banner(a, p)}\n'
+            f'                </span>\n'
+            f'                <span class="feat-body">\n'
             f'                  <span class="feat-title">{title_lines(a.get("list_title") or a["title"])}</span>\n'
             f'                  <span class="feat-desc">{e(a.get("excerpt",""))}</span>\n'
             f'                </span>\n'
@@ -815,8 +818,7 @@ def feature_cards(p):
                 '<span aria-hidden="true">◀</span></button>\n'
                 '        <button type="button" class="feat-arrow feat-next" aria-label="次の特集">'
                 '<span aria-hidden="true">▶</span></button>\n')
-    return ('      <section class="section-block" style="margin-top:28px;">\n'
-            '        <h2 class="section-heading">特集</h2>\n'
+    return ('      <section class="section-block is-flush">\n'
             f'        <div class="feat-carousel" data-interval="5000" data-count="{len(feats)}">\n'
             '          <ul class="feat-track">\n' + slides +
             '          </ul>\n' + ctrl +
@@ -920,7 +922,7 @@ def build_new():
     """新着一覧。スマホのタブ「NEW」の行き先。"""
     p = "./"
     items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)[:24]
-    body = hero("🆕", "新着記事", "公開・更新が新しい順に並べています。24時間以内に公開した記事には New が付きます。", len(items))
+    body = hero("🆕", "新着記事", "24時間以内に公開した記事には New が付きます。", len(items))
     body += f'''      <section class="section-block" style="margin-top:24px;">
 {grid(items, p)}      </section>
 '''
@@ -1170,7 +1172,18 @@ def static_pages():
 
         <aside class="contact-side">
           <div class="side-tile">
-            <p class="side-heading">メールでも受け付けています</p>
+            <p class="side-heading">レビューのご依頼も受け付けています</p>
+            <p class="field-hint">メーカー・販売店の方からの掲載・レビューのご依頼を歓迎します。
+            上のフォームで「掲載・レビューのご依頼」を選び、次の内容をお知らせください。</p>
+            <ul class="contact-list">
+              <li>製品名と、公式の製品ページのURL</li>
+              <li>訴求したい点と、想定している読者</li>
+              <li>サンプル提供の可否と、貸出の場合は期間</li>
+              <li>希望する公開時期（あれば）</li>
+            </ul>
+            <p class="field-hint">当サイトは<strong>購入者レビューと公表仕様をもとに、合わない場面まで書く方針</strong>です。
+            提供の有無にかかわらず内容は編集しません。良い点だけを書くご依頼はお受けできません。
+            記事化する場合は、提供を受けた旨を明記します。</p>
             <p class="contact-mail"><a href="mailto:{e(SITE["email"])}">{e(SITE["email"])}</a></p>
             <p class="field-hint">フォームがうまく送れない場合は、こちらへ直接お送りください。</p>
           </div>

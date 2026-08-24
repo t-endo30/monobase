@@ -56,6 +56,25 @@
       <h2 id="editTitle">記事を編集</h2>
       <p class="hint">入力内容はブラウザ内に即時保存されます。サイトに反映するには「記事」タブの「GitHubに保存して公開」を押してください。</p>
 
+      <!-- アイキャッチ：記事ごとにここで指定する -->
+      <div class="eyecatch-panel">
+        <div class="eyecatch-preview" id="ecPreview">
+          <span class="eyecatch-empty">画像なし</span>
+        </div>
+        <div class="eyecatch-ctrl">
+          <label for="f-thumb">アイキャッチ画像<span class="opt">この記事のカード・記事上部に使われます</span></label>
+          <input type="text" id="f-thumb" placeholder="assets/img/xxx.webp">
+          <div class="btn-bar">
+            <button type="button" class="btn" id="btnEcPick">画像を選んでアップロード</button>
+            <button type="button" class="btn" id="btnEcGen">AIで作る</button>
+            <button type="button" class="btn btn-ghost" id="btnEcClear">外す</button>
+          </div>
+          <input type="file" id="ecFile" accept="image/*" class="hidden">
+          <div class="check"><input type="checkbox" id="f-imageAi"><label for="f-imageAi">AIで作った画像（記事に「イメージ（AI生成）」と表示します）</label></div>
+          <div class="note" id="ecNote">選んだ画像は自動で1200px・WebPに圧縮してからGitHubへ保存します。</div>
+        </div>
+      </div>
+
       <div class="row c2">
         <div>
           <label for="f-title">記事タイトル（H1）</label>
@@ -101,10 +120,6 @@
         <div>
           <label for="f-updated">更新日</label>
           <input type="date" id="f-updated">
-        </div>
-        <div>
-          <label for="f-thumb">アイキャッチ画像<span class="opt">画像タブから選択</span></label>
-          <input type="text" id="f-thumb" placeholder="assets/img/xxx.webp">
         </div>
       </div>
 

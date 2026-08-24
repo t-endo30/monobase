@@ -3723,3 +3723,84 @@ body,p,li,dd,dt,figcaption,a,span,button,
 @media (max-width:599px){
   .footer-row{align-items:center;text-align:center;}
 }
+
+/* ============================================================
+   本文は左右そろえ（均等割り付け）にする
+   ------------------------------------------------------------
+   日本語は文字単位で折り返すため、行末に1文字ぶんの隙間が
+   残りやすい。左端はそろっているのに右端だけがギザギザに
+   見えるのはこのため。text-align:justify で文字間に隙間を
+   分配し、左右とも同じ位置で揃うようにする。
+   見出し・ボタン・表など、そろえる必要のないものは対象外。
+   ============================================================ */
+.article-body p,
+.article-body li,
+.summary-list li,
+.notfor-list li,
+.notfor-foot,
+.scene-body p,
+.voice,
+.fix-box,
+.personal-note p,
+.next-card p,
+.prose p,
+.prose li,
+.page-hero p,
+.hero p,
+.card-desc,
+.feat-desc,
+.field-hint{
+  text-align:justify;
+  text-justify:inter-character;   /* 日本語は文字間で調整する */
+}
+/* 英数字だけの行が間延びしないよう、単語の分割は許したままにする */
+.article-body p,
+.article-body li,
+.prose p,
+.prose li{ overflow-wrap:anywhere; }
+
+/* ============================================================
+   特集タイル：見出しをなくし、横のタイルと上端をそろえる
+   ------------------------------------------------------------
+   バッジは記事名の上ではなく、画像の左上に重ねる。
+   ============================================================ */
+.section-block.is-flush{margin-top:0;}
+.feat-banner{position:relative;}
+.feat-banner .feat-label{
+  position:absolute;
+  top:10px;
+  left:10px;
+  z-index:2;
+  margin:0;
+  background:rgba(20,20,22,.82);
+  backdrop-filter:blur(2px);
+  box-shadow:0 2px 6px rgba(0,0,0,.25);
+}
+.feat-body .feat-title{margin-top:0;}
+
+/* ============================================================
+   一覧ページの見出し：アイコンと見出しを1行に並べ、枠を薄くする
+   ============================================================ */
+.page-hero-head{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+}
+.page-hero-head .page-hero-icon{
+  flex:0 0 auto;
+  display:block;
+  margin:0;
+  font-size:clamp(17px,4.4vw,20px);
+  line-height:1;
+}
+.page-hero-head h1{margin:0;min-width:0;}
+@media (max-width:899px){
+  .page-hero{
+    padding:clamp(10px,2.6vw,13px) clamp(12px,3.2vw,16px);
+    margin-bottom:clamp(12px,2.8vw,16px);
+  }
+  .page-hero h1{font-size:clamp(15px,4.2vw,18px);}
+  .page-hero p{margin-top:4px;}
+  .page-hero .hero-count{margin-top:4px;}
+}

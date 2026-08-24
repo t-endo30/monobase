@@ -496,6 +496,8 @@
     $('f-date').value = a.date || today();
     $('f-updated').value = a.updated || today();
     $('f-thumb').value = a.thumb || '';
+    $('f-imageAi').checked = !!a.image_ai;
+    ecPreview();
     $('f-published').checked = !!a.published;
     $('f-featured').checked = !!a.featured;
     $('f-description').value = a.description || '';
@@ -547,6 +549,8 @@
     a.date = $('f-date').value || today();
     a.updated = $('f-updated').value || today();
     a.thumb = $('f-thumb').value.trim();
+    if ($('f-imageAi').checked && a.thumb) a.image_ai = true;
+    else delete a.image_ai;
     a.published = $('f-published').checked;
     a.featured = $('f-featured').checked;
     a.description = $('f-description').value.trim();
@@ -1248,6 +1252,83 @@
         toast('画像は作れませんでした（' + e.message + '）。記事の保存は済んでいます', 'err');
       });
   }
+
+  /* ---------------------------------------------------- アイキャッチ */
+  /* 記事ごとのアイキャッチを、編集画面の一番上で差し替えられるようにする。
+     圧縮とGitHubへの保存は「画像」タブと同じ処理を使う。 */
+  function ecPreview() {
+    var box = $('ecPreview');
+    var path = ($('f-thumb').value || '').trim();
+    if (!path) { box.innerHTML = '<span class="eyecatch-empty">画像なし</span>'; return; }
+    /* 管理画面はサイト直下に置いてあるので、相対パスがそのまま使える */
+    box.innerHTML = '<img src="' + path + '?t=' + Date.now() + '" alt="">';
+    box.firstChild.onerror = function () {
+      box.innerHTML = '<span class="eyecatch-empty">まだGitHubに反映されていません</span>';
+    };
+  }
+
+  $('f-thumb').addEventListener('input', ecPreview);
+
+  $('btnEcClear').addEventListener('click', function () {
+    $('f-thumb').value = '';
+    $('f-imageAi').checked = false;
+    ecPreview();
+    $('ecNote').textContent = 'アイキャッチを外しました。保存すると反映されます。';
+  });
+
+  $('btnEcPick').addEventListener('click', function () {
+    if (!cfg.token) { toast('先に接続タブでGitHubを設定してください', 'err'); return; }
+    $('ecFile').click();
+  });
+
+  $('ecFile').addEventListener('change', function () {
+    var file = this.files && this.files[0];
+    this.value = '';
+    if (!file || !editing) return;
+    var note = $('ecNote');
+    note.textContent = '圧縮しています…';
+    compress(file, 1200, 0.82, 'image/webp').then(function (img) {
+      note.textContent = '保存しています…（' + img.w + '×' + img.h + '／' + kb(img.after) + '）';
+      var path = 'assets/img/' + (editing.slug || 'article') + '-' +
+                 Date.now().toString(36) + '.webp';
+      return blobToB64(img.blob).then(function (b64) {
+        return putFile(path, b64, null, 'アイキャッチを追加（管理画面より）');
+      }).then(function () {
+        $('f-thumb').value = path;
+        $('f-imageAi').checked = false;   /* 自分で用意した画像なので断り書きは出さない */
+        ecPreview();
+        note.textContent = '保存しました：' + path;
+        toast('アイキャッチを設定しました', 'ok');
+      });
+    }).catch(function (e) {
+      note.textContent = '失敗しました：' + e.message;
+      toast(e.message, 'err');
+    });
+  });
+
+  $('btnEcGen').addEventListener('click', function () {
+    if (!editing) return;
+    if (!cfg.token) { toast('先に接続タブでGitHubを設定してください', 'err'); return; }
+    var key = '';
+    try { key = localStorage.getItem(GM_KEY) || ''; } catch (e) {}
+    if (!key) { toast('「画像」タブでGemini APIキーを設定してください', 'err'); return; }
+    var note = $('ecNote');
+    note.textContent = '生成中…（10〜30秒かかります）';
+    $('btnEcGen').disabled = true;
+    genImage(editing, key, ($('gmModel') && $('gmModel').value) || 'gemini-2.5-flash-image')
+      .then(function (img) { return saveImage(editing, img); })
+      .then(function (path) {
+        $('f-thumb').value = path;
+        $('f-imageAi').checked = true;
+        ecPreview();
+        note.textContent = '作って保存しました：' + path;
+        toast('アイキャッチを作りました', 'ok');
+      })
+      .catch(function (e) {
+        note.textContent = '失敗しました：' + e.message;
+      })
+      .then(function () { $('btnEcGen').disabled = false; });
+  });
 
   function blobToB64(blob) {
     return new Promise(function (resolve, reject) {
