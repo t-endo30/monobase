@@ -384,6 +384,7 @@ def main_block(body, p, current="", current_sub="", sidebar=False):
     return ('\n<main id="top" class="layout has-side">\n'
             '  <div class="container layout-grid">\n'
             '    <aside class="side-nav" aria-label="カテゴリー">\n'
+            + (side_search(p) if FEAT.get("search") else "") +
             '      <p class="side-heading">CATEGORIES</p>\n'
             + tree +
             '    </aside>\n'
@@ -696,6 +697,17 @@ def hero(icon, h1, lead, count=None):
       </div>
 '''
 
+def side_search(p):
+    """PCのサイドバー先頭に置く検索。カテゴリーより上に出す。"""
+    return (f'      <div class="side-search">\n'
+            f'        <p class="side-heading">記事をさがす</p>\n'
+            f'        <form class="searchbox" action="{p}search.html" method="get" role="search">\n'
+            f'          <input type="search" name="q" placeholder="キーワード" aria-label="サイト内検索">\n'
+            f'          <button type="submit">検索</button>\n'
+            f'        </form>\n'
+            f'      </div>\n')
+
+
 SEARCH_TILE = '''        <div class="search-tile">
           <p class="search-tile-title">記事をさがす</p>
           <form class="searchbox" action="./search.html" method="get" role="search">
@@ -724,25 +736,44 @@ def feature_banner(a, p):
 
 
 def feature_cards(p):
-    """特集記事（category=feature）をバナー付きで並べる。"""
-    feats = [a for a in PUBLISHED if a["category"] == "feature"][:4]
+    """特集をカルーセルで1本ずつ見せる。
+       枠は常に1つぶんの幅にし、自動送りと前後ボタンで切り替える。
+       中身の切り替えは assets/main.js（JSが動かない環境では
+       横スクロールできる並びとして機能する）。"""
+    feats = [a for a in PUBLISHED if a["category"] == "feature"][:8]
     if not feats:
         return ""
-    cards = ""
-    for a in feats:
-        cards += (
-            f'          <a class="feat-card" href="{p}articles/{e(a["slug"])}.html">\n'
-            f'            <span class="feat-banner">{feature_banner(a, p)}</span>\n'
-            f'            <span class="feat-body">\n'
-            f'              <span class="feat-label">特集</span>\n'
-            f'              <span class="feat-title">{title_lines(a.get("list_title") or a["title"])}</span>\n'
-            f'              <span class="feat-desc">{e(a.get("excerpt",""))}</span>\n'
-            f'            </span>\n'
-            f'          </a>\n')
+    slides = ""
+    for i, a in enumerate(feats):
+        slides += (
+            f'            <li class="feat-slide"{"" if i else ""}>\n'
+            f'              <a class="feat-card" href="{p}articles/{e(a["slug"])}.html">\n'
+            f'                <span class="feat-banner">{feature_banner(a, p)}</span>\n'
+            f'                <span class="feat-body">\n'
+            f'                  <span class="feat-label">特集</span>\n'
+            f'                  <span class="feat-title">{title_lines(a.get("list_title") or a["title"])}</span>\n'
+            f'                  <span class="feat-desc">{e(a.get("excerpt",""))}</span>\n'
+            f'                </span>\n'
+            f'              </a>\n'
+            f'            </li>\n')
+    dots = "".join(
+        f'            <button type="button" class="feat-dot" data-go="{i}" '
+        f'aria-label="{i + 1}件目を表示"></button>\n' for i in range(len(feats)))
+    multi = len(feats) > 1
+    ctrl = ""
+    if multi:
+        ctrl = ('        <button type="button" class="feat-arrow feat-prev" aria-label="前の特集">'
+                '<span aria-hidden="true">◀</span></button>\n'
+                '        <button type="button" class="feat-arrow feat-next" aria-label="次の特集">'
+                '<span aria-hidden="true">▶</span></button>\n')
     return ('      <section class="section-block" style="margin-top:28px;">\n'
             '        <h2 class="section-heading">特集</h2>\n'
-            '        <div class="feat-grid">\n' + cards +
-            '        </div>\n      </section>\n')
+            f'        <div class="feat-carousel" data-interval="5000" data-count="{len(feats)}">\n'
+            '          <ul class="feat-track">\n' + slides +
+            '          </ul>\n' + ctrl +
+            ('          <div class="feat-dots">\n' + dots + '          </div>\n' if multi else '') +
+            '        </div>\n'
+            '      </section>\n')
 
 
 def feature_ready():

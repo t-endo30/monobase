@@ -516,10 +516,124 @@
   var btn = document.getElementById('tabCats');
   var panel = document.getElementById('catPanel');
   if (!btn || !panel) return;
-  btn.addEventListener('click', function () {
-    var open = panel.hasAttribute('hidden');
+  var bar = btn.closest('.tab-bar');
+
+  /* 背面の覆いは実体のある要素にする。疑似要素だと押した場所を
+     受け取れず、外側を押しても閉じられないため。 */
+  var veil = document.createElement('div');
+  veil.className = 'cat-veil';
+  veil.hidden = true;
+  document.body.appendChild(veil);
+  veil.addEventListener('click', function () { setOpen(false); });
+
+  function setOpen(open) {
     if (open) panel.removeAttribute('hidden'); else panel.setAttribute('hidden', '');
     btn.setAttribute('aria-expanded', String(open));
     btn.classList.toggle('is-current', open);
+    /* 開いているあいだは現在ページのタブの色を消す。
+       選択されている印が2か所に出ると、どちらが今の状態か分からなくなる。 */
+    if (bar) bar.classList.toggle('is-panel-open', open);
+    document.body.classList.toggle('is-cat-open', open);
+    veil.hidden = !open;
+  }
+
+  btn.addEventListener('click', function () {
+    setOpen(panel.hasAttribute('hidden'));
   });
+  /* メニューの外を押したら閉じる */
+  document.addEventListener('click', function (ev) {
+    if (panel.hasAttribute('hidden')) return;
+    if (panel.contains(ev.target) || btn.contains(ev.target)) return;
+    setOpen(false);
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape' && !panel.hasAttribute('hidden')) setOpen(false);
+  });
+})();
+
+/* ============================================================
+   特集カルーセル：1枠に1件ずつ、5秒ごとに送る
+   ------------------------------------------------------------
+   ・自動送りは、指で操作している間・タブが裏にある間は止める
+   ・前後ボタンと下の点、指のスワイプでも動かせる
+   ・「動きを減らす」設定の人には自動送りをしない
+   ============================================================ */
+(function () {
+  'use strict';
+  var box = document.querySelector('.feat-carousel');
+  if (!box) return;
+  var track = box.querySelector('.feat-track');
+  var slides = box.querySelectorAll('.feat-slide');
+  if (!track || slides.length < 2) return;
+
+  var dots = box.querySelectorAll('.feat-dot');
+  var wait = parseInt(box.getAttribute('data-interval'), 10) || 5000;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var i = 0, timer = null;
+
+  box.classList.add('is-ready');
+
+  function show(n) {
+    i = (n + slides.length) % slides.length;
+    track.style.transform = 'translate3d(' + (-i * 100) + '%,0,0)';
+    Array.prototype.forEach.call(dots, function (d, k) {
+      d.classList.toggle('is-current', k === i);
+    });
+  }
+  function next() { show(i + 1); }
+  function start() {
+    if (reduce || timer) return;
+    timer = setInterval(next, wait);
+  }
+  function stop() { clearInterval(timer); timer = null; }
+  function restart() { stop(); start(); }
+
+  show(0);
+  start();
+
+  var prev = box.querySelector('.feat-prev');
+  var nxt = box.querySelector('.feat-next');
+  if (prev) prev.addEventListener('click', function () { show(i - 1); restart(); });
+  if (nxt) nxt.addEventListener('click', function () { show(i + 1); restart(); });
+  Array.prototype.forEach.call(dots, function (d) {
+    d.addEventListener('click', function () {
+      show(parseInt(d.getAttribute('data-go'), 10) || 0);
+      restart();
+    });
+  });
+
+  box.addEventListener('mouseenter', stop);
+  box.addEventListener('mouseleave', start);
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) stop(); else start();
+  });
+
+  /* 指でも送れるようにする。カテゴリー切り替えのスワイプと
+     取り合いにならないよう、この枠の中では横移動を打ち切る。 */
+  var x0 = 0, y0 = 0, drag = false;
+  box.addEventListener('touchstart', function (ev) {
+    if (ev.touches.length !== 1) return;
+    x0 = ev.touches[0].clientX; y0 = ev.touches[0].clientY; drag = true;
+    stop();
+  }, { passive: true });
+  box.addEventListener('touchmove', function (ev) {
+    if (!drag) return;
+    var dx = ev.touches[0].clientX - x0;
+    var dy = ev.touches[0].clientY - y0;
+    if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      ev.stopPropagation();
+      if (ev.cancelable) ev.preventDefault();
+    }
+  }, { passive: false });
+  box.addEventListener('touchend', function (ev) {
+    if (!drag) return;
+    drag = false;
+    var dx = ev.changedTouches[0].clientX - x0;
+    var dy = ev.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      ev.stopPropagation();
+      show(i + (dx < 0 ? 1 : -1));
+    }
+    start();
+  }, { passive: true });
 })();

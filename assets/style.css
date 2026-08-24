@@ -2405,8 +2405,7 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
 /* ============================================================
    特集（トップの最上段）
    ============================================================ */
-.feat-grid{display:grid;grid-template-columns:1fr;gap:clamp(10px,2.6vw,16px);}
-@media (min-width:700px){.feat-grid{grid-template-columns:repeat(2,1fr);}}
+/* 特集は1枠。中身をカルーセルで入れ替える */
 .feat-card{
   display:block;
   position:relative;
@@ -2826,3 +2825,192 @@ body[data-cat="ranking"] .side-rank{display:none;}
 @media (min-width:1024px) and (max-width:1239px){
   .layout.has-side .container{max-width:1180px;}
 }
+
+/* ============================================================
+   記事の余白：項目のまとまりを作る
+   ------------------------------------------------------------
+   見出しの下線のすぐ下から本文が始まり、次の項目との切れ目も
+   分かりにくかったため、見出し下と項目間の間隔を広げる。
+   ============================================================ */
+.article-body h2{
+  margin:clamp(48px,9vw,72px) 0 clamp(20px,4.5vw,28px);
+  padding-bottom:14px;
+  /* 見出しの下線と本文のあいだに一行ぶんの余白を置く */
+  scroll-margin-top:170px;   /* 目次から飛んだとき、固定ヘッダーに隠れない */
+}
+.article-body h2:first-child{margin-top:0;}
+.article-body h3{margin-top:clamp(28px,5vw,38px);}
+/* 項目のかたまり（枠・グリッド）どうしの間隔 */
+.article-body > * + *{margin-top:0;}
+.notfor-box,.scenes,.pros-cons,.table-scroll,.voice-list,.next-grid,
+.personal-note,.summary-box,.cta-wrap{
+  margin-bottom:clamp(26px,5.5vw,40px);
+}
+.scenes{margin-top:0;}
+/* 各カードの中身も、上下に少し呼吸を入れる */
+.scene-body,.voice-body,.next-card{line-height:1.95;}
+
+/* CATEGORIES を開いているあいだは、現在ページ側の選択色を消す */
+.tab-bar.is-panel-open a.is-current{color:var(--text-sub);border-bottom-color:transparent;}
+
+/* ============================================================
+   パンくず：上部メニューの下に固定し、スクロールしても隠さない
+   ============================================================ */
+.crumb-bar{
+  position:sticky;
+  z-index:94;
+  top:calc(64px + 46px);       /* ヘッダー + カテゴリーナビ */
+  background:var(--bg-gray);
+}
+.site-header.is-shrunk ~ .crumb-bar{top:calc(54px + 46px);}
+@media (min-width:900px){
+  .crumb-bar{top:calc(72px + 52px);}
+  .site-header.is-shrunk ~ .crumb-bar{top:calc(54px + 52px);}
+}
+/* 固定するぶん、サイドの追従位置も合わせる */
+@media (min-width:1024px){
+  .side-nav,.side-rank{top:172px;max-height:calc(100vh - 196px);}
+}
+
+/* ============================================================
+   検索の置き場所
+   ------------------------------------------------------------
+   PC（サイドが出る幅）はサイドバーの先頭に置き、カテゴリーの上に
+   来るようにする。サイドが出ない幅では、トップの見出し下に置く。
+   ============================================================ */
+.side-search{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.side-search .side-heading{margin:0 0 8px;}
+.side-search .searchbox{display:flex;gap:6px;margin:0;}
+.side-search .searchbox input{flex:1;min-width:0;}
+.side-search .searchbox button{flex:0 0 auto;padding-left:14px;padding-right:14px;}
+@media (min-width:1024px){
+  /* サイドに検索があるので、トップの検索タイルは出さない */
+  .layout.has-side .search-tile{display:none;}
+  .layout.has-side .hero-row{grid-template-columns:1fr;}
+}
+@container (min-width:620px){
+  .layout.has-side .hero-row{grid-template-columns:1fr;}
+}
+
+/* ============================================================
+   スマホ：CATEGORIES はタブから飛び出すメニューにする
+   ------------------------------------------------------------
+   ページの中身を押し下げるのではなく、タブの下に重ねて出す。
+   背面を薄く覆い、外を押すと閉じる。
+   ============================================================ */
+@media (max-width:899px){
+  .cat-panel{
+    position:fixed;
+    left:0;right:0;
+    top:calc(64px + 52px);      /* ヘッダー + タブバー */
+    z-index:97;
+    max-height:calc(100vh - 64px - 52px - 16px);
+    overflow-y:auto;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    box-shadow:0 14px 28px rgba(0,0,0,.18);
+    /* 飛び出す動き */
+    transform-origin:top center;
+    animation:cat-pop .18s var(--ease) both;
+  }
+  .site-header.is-shrunk ~ .cat-panel{top:calc(54px + 52px);}
+  @keyframes cat-pop{
+    from{opacity:0;transform:translateY(-8px) scaleY(.96);}
+    to{opacity:1;transform:none;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .cat-panel{animation:none;}
+  }
+  /* 背面の覆い。押すと閉じる */
+  .cat-veil{
+    position:fixed;
+    inset:0;
+    top:calc(64px + 52px);
+    background:rgba(0,0,0,.35);
+    z-index:96;
+  }
+  .site-header.is-shrunk ~ .cat-veil{top:calc(54px + 52px);}
+  body.is-cat-open{overflow:hidden;}   /* 背面はスクロールさせない */
+  .cat-panel .container{padding-top:6px;padding-bottom:14px;}
+}
+
+/* スマホはカテゴリーの横並びを出さないので、パンくずはタブバー（52px）の下 */
+@media (max-width:899px){
+  .crumb-bar{top:calc(64px + 52px);}
+  .site-header.is-shrunk ~ .crumb-bar{top:calc(54px + 52px);}
+  /* メニューは画面いっぱいにせず、下に「外側」を残して閉じられるようにする */
+  .cat-panel{max-height:min(62vh,520px);}
+}
+
+.cat-veil[hidden]{display:none;}
+@media (min-width:900px){.cat-veil{display:none;}}
+
+/* ============================================================
+   特集カルーセル
+   ------------------------------------------------------------
+   JSが動かない場合は、横に並んだものを指でスクロールできる状態に
+   なるだけで、内容は読める形にしておく。
+   ============================================================ */
+.feat-carousel{position:relative;overflow:hidden;border-radius:var(--radius);}
+.feat-track{
+  display:flex;
+  list-style:none;
+  margin:0;padding:0;
+  /* JSなしのときは横スクロール、JSが効くと transform で送る */
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+}
+.feat-track::-webkit-scrollbar{display:none;}
+.feat-carousel.is-ready .feat-track{
+  overflow:visible;
+  transition:transform .55s var(--ease);
+}
+@media (prefers-reduced-motion:reduce){
+  .feat-carousel.is-ready .feat-track{transition:none;}
+}
+.feat-slide{flex:0 0 100%;min-width:0;scroll-snap-align:start;}
+.feat-slide .feat-card{box-shadow:var(--shadow);height:100%;}
+
+/* 前後ボタン：画面に重ねる半透明の三角 */
+.feat-arrow{
+  position:absolute;
+  top:calc(50% - 22px);
+  width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  border:none;
+  border-radius:50%;
+  background:rgba(20,20,22,.42);
+  color:#fff;
+  font-size:13px;
+  cursor:pointer;
+  z-index:3;
+  transition:background-color .2s var(--ease),opacity .2s var(--ease);
+}
+.feat-arrow:hover{background:rgba(20,20,22,.66);}
+.feat-prev{left:10px;}
+.feat-next{right:10px;}
+@media (max-width:599px){
+  .feat-arrow{width:38px;height:38px;font-size:11px;}
+  .feat-prev{left:6px;}
+  .feat-next{right:6px;}
+}
+/* 現在位置 */
+.feat-dots{
+  position:absolute;
+  left:0;right:0;
+  bottom:10px;
+  display:flex;
+  justify-content:center;
+  gap:7px;
+  z-index:3;
+}
+.feat-dot{
+  width:8px;height:8px;
+  padding:0;
+  border:none;
+  border-radius:50%;
+  background:rgba(20,20,22,.28);
+  cursor:pointer;
+}
+.feat-dot.is-current{background:var(--amazon);transform:scale(1.25);}

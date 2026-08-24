@@ -117,3 +117,49 @@ Actions の定期実行で価格・在庫・公式画像を毎日更新する構
 
 > **注意：** SNSのOGP画像はSVG非対応のため、シェア時のサムネイルを出したい記事には
 > PNG/JPEG の実画像が必要。
+
+## アクセスランキング
+
+トップ右（PC）とランキングページに表示します。元データは2系統です。
+
+1. `content/ranking.json` に値があれば、それ（サイト全体の実数）
+2. 空なら、閲覧者自身の端末に記録された閲覧回数
+
+2 のままでも動きますが、閲覧者ごとの数字なので「サイトでよく読まれている記事」には
+なりません。実数に切り替えるには GA4 と接続します。
+
+### GA4 と接続する手順
+
+1. **GA4 の測定IDを設定する**
+   管理画面「サイト設定」→ GA測定ID（`G-XXXXXXXXXX`）を入力して保存。
+   これを入れないとアクセスが計測されません。
+
+2. **サービスアカウントを作る**
+   Google Cloud コンソール → IAMとサービスアカウント → サービスアカウントを作成 →
+   鍵（JSON）を作成してダウンロード。
+
+3. **GA4 に閲覧権限を与える**
+   GA4 の管理 → プロパティのアクセス管理 → 2 で作ったサービスアカウントの
+   メールアドレスを「閲覧者」で追加。
+
+4. **GitHub に登録する**
+   リポジトリの Settings → Secrets and variables → Actions で2つ登録します。
+
+   | Secret 名 | 中身 |
+   |---|---|
+   | `GA4_PROPERTY_ID` | GA4 のプロパティID（数字のみ。測定IDとは別） |
+   | `GA4_SA_KEY` | 2 でダウンロードしたJSONの中身をそのまま貼り付け |
+
+5. あとは毎日 5:00（JST）に `.github/workflows/ranking.yml` が動き、
+   `content/ranking.json` を更新してコミットします。手動で動かす場合は
+   Actions タブから「Update access ranking」を実行してください。
+
+Secret が未設定でも、ワークフローは警告を出して終了するだけで失敗しません。
+ローカルで試す場合は次のとおりです。
+
+```bash
+pip install google-analytics-data
+export GA4_PROPERTY_ID=123456789
+export GOOGLE_APPLICATION_CREDENTIALS=~/ga4-sa.json
+python3 tools/fetch_ranking.py --days 28
+```
