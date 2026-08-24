@@ -509,12 +509,7 @@
   }).join('');
   Array.prototype.forEach.call(lists, function (el) { el.innerHTML = html; });
 
-  var note = hasSiteViews
-    ? ''
-    : 'この端末で読んだ回数をもとに並べています。まだ読んでいない記事は新着順です。';
-  Array.prototype.forEach.call(document.querySelectorAll('.rank-note'), function (el) {
-    el.textContent = note;
-  });
+  /* 並び順の説明文は出さない（画面を説明で埋めない） */
 })();
 
 /* ============================================================
@@ -719,6 +714,27 @@
   el.textContent = pick
     ? '現在（' + pick + '）など ' + nCat + ' カテゴリーで ' + nPub + ' 記事公開中'
     : '現在 ' + nCat + ' カテゴリーで ' + nPub + ' 記事公開中';
+
+  /* 右に余白があるなら1行で見せる。入らないときだけ折り返す。 */
+  function fitCount() {
+    if (!el.clientWidth) return;
+    el.style.whiteSpace = 'nowrap';
+    el.style.fontSize = '';
+    var base = parseFloat(getComputedStyle(el).fontSize) || 13;
+    var size = base;
+    /* 少し詰めれば1行に入る場合だけ縮める。読めない大きさにはしない。 */
+    while (size > base - 2 && size > 11.5 && el.scrollWidth > el.clientWidth + 1) {
+      size -= 0.25;
+      el.style.fontSize = size + 'px';
+    }
+    if (el.scrollWidth > el.clientWidth + 1) {
+      el.style.fontSize = '';        /* 入らないときは元の大きさで折り返す */
+      el.style.whiteSpace = '';
+    }
+  }
+  if ('ResizeObserver' in window) new ResizeObserver(fitCount).observe(el);
+  else window.addEventListener('resize', fitCount);
+  requestAnimationFrame(fitCount);
 })();
 
 /* ============================================================
@@ -776,6 +792,7 @@
 (function () {
   'use strict';
   if (document.querySelector('article.card-surface')) return;   /* 記事ページには出さない */
+  if (document.getElementById('searchResults')) return;         /* 検索ページにも出さない */
   var form = document.querySelector('.search-tile .searchbox, .side-search .searchbox');
   if (!form) return;
 
