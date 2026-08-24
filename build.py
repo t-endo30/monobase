@@ -95,7 +95,7 @@ def head(title, desc, current, p, canonical, extra=""):
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
 <link rel="stylesheet" href="{p}assets/style.css">
 {extra}{ga}</head>
 <body data-cat="{current}">
@@ -118,7 +118,10 @@ def header(current, p):
     return f'''<header class="site-header">
   <div class="container header-inner">
     <div class="site-brand">
-      <div class="site-title"><a href="{p}index.html">{e(NAME)}</a></div>
+      <a class="site-title" href="{p}index.html" aria-label="{e(NAME)}">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">{e(NAME)}</span>
+      </a>
       <div class="site-tagline">{e(TAGLINE)}</div>
     </div>
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="globalNav" aria-label="メニューを開く">

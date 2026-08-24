@@ -380,12 +380,16 @@
       <h2>GitHub との接続</h2>
       <p class="hint">この画面から直接コミットするための設定です。入力内容はこのブラウザ内（localStorage）にのみ保存され、外部に送信されるのは GitHub API だけです。</p>
       <div class="row c3">
-        <div><label for="g-owner">ユーザー名 / Organization</label><input type="text" id="g-owner" placeholder="your-account"></div>
-        <div><label for="g-repo">リポジトリ名</label><input type="text" id="g-repo" placeholder="monobase"></div>
+        <div><label for="g-owner">ユーザー名 / Organization</label><input type="text" id="g-owner" placeholder="t-endo30" value="t-endo30"></div>
+        <div><label for="g-repo">リポジトリ名</label><input type="text" id="g-repo" placeholder="monobase" value="monobase"></div>
         <div><label for="g-branch">ブランチ</label><input type="text" id="g-branch" placeholder="main" value="main"></div>
       </div>
-      <label for="g-token">アクセストークン<span class="opt">Fine-grained personal access token</span></label>
-      <input type="password" id="g-token" placeholder="github_pat_...">
+      <label for="g-token">アクセストークン<span class="opt">ここだけ入力が必要です</span></label>
+      <input type="password" id="g-token" placeholder="ghp_... または github_pat_...">
+      <div class="note">
+        ユーザー名・リポジトリ名・ブランチは設定済みです。<br>
+        <b>トークンを貼り付けて「接続する」を押すだけ</b>で使えます。一度接続すればこのブラウザに記憶されます。
+      </div>
 
       <div class="note danger">
         <b>トークンの作り方（必ず権限を絞ってください）</b><br>

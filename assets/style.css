@@ -1629,71 +1629,7 @@ mark.hit{background:#FFF0CC;color:inherit;padding:0 2px;border-radius:2px;}
   .card.is-lead .card-title{font-size:23px;}
 }
 
-/* ---------- ダークモード ---------- */
-@media (prefers-color-scheme:dark){
-  :root{
-    --bg:#11151E;
-    --bg-gray:#0D1118;
-    --surface:#171C27;
-    --surface-2:#1E2431;
-    --border:#2A3242;
-    --border-strong:#3A4457;
-    --ink:#E8EDF5;
-    --text:#C3CCDA;
-    --text-sub:#8D99AB;
-    --navy:#0E1219;
-    --navy-dark:#090C12;
-    --navy-light:#232C3E;
-    --good-bg:#0F2A22;
-    --bad-bg:#2C1712;
-    --info-bg:#111E33;
-    --cat-gadget:#5B8DF5;
-    --cat-desk:#E0A44A;
-    --cat-home:#2FB88B;
-    --cat-compare:#A07DEA;
-    --shadow:0 2px 8px rgba(0,0,0,.4);
-    --shadow-lg:0 14px 34px rgba(0,0,0,.55);
-  }
-  body{background:var(--bg-gray);}
-  .site-header{background:rgba(14,18,25,.92);}
-  .cat-nav{background:rgba(23,28,39,.94);}
-  .cat-nav-list a{color:var(--text);}
-  .site-notice{background:var(--surface-2);border-bottom-color:var(--border);}
-  .card-surface,.card,.prose,.page-hero,.search-panel,.voice,.next-card,.scene,
-  .cat-tile,.disclosure,.empty-state,.table-scroll,.pagination a,.pagination span{
-    background:var(--surface);
-  }
-  .hero{
-    background:
-      radial-gradient(80% 120% at 12% 0%, rgba(91,141,245,.16) 0%, transparent 55%),
-      radial-gradient(70% 110% at 92% 10%, rgba(255,153,0,.14) 0%, transparent 52%),
-      linear-gradient(160deg,#1A2130 0%,#131924 100%);
-  }
-  .hero::after{background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);}
-  .card .card-thumb{
-    background:
-      radial-gradient(70% 100% at 25% 0%, color-mix(in srgb,var(--accent) 20%,transparent) 0%, transparent 60%),
-      linear-gradient(135deg,#222A39 0%,#1A2130 100%);
-    color:#7E8B9F;
-  }
-  .table-scroll tbody th{background:var(--surface-2);}
-  .col-highlight{background:rgba(255,153,0,.09);}
-  .personal-note{
-    background:linear-gradient(180deg,#241F14 0%,#1D1A12 100%);
-    border-color:#4A3D22;
-  }
-  .personal-note p{color:#E2D3B0;}
-  .notfor-foot{background:rgba(0,0,0,.25);color:#F0A594;}
-  .toc,.summary-box{background:var(--surface);}
-  .summary-body,.rating-row{background:transparent;}
-  .rating-row{background:var(--surface-2);}
-  mark.hit{background:#4A3A12;color:#FFE9B8;}
-  .searchbox input[type="search"],.contact-form input,.contact-form textarea{
-    background:var(--surface-2);color:var(--ink);border-color:var(--border);
-  }
-  .chip{background:var(--surface-2);color:var(--text);}
-  .sticky-cta{background:rgba(23,28,39,.96);border-top-color:var(--border);}
-}
+
 
 /* ============================================================
    アイキャッチ：自動生成ビジュアル対応
@@ -1732,3 +1668,145 @@ a.card-thumb.is-auto img{
 }
 .card:hover a.card-thumb.is-auto img{transform:scale(1.05);}
 a.card-thumb.is-auto::after{display:none;}
+
+/* ════════════════════════════════════════════════════════════
+   ヘッダーのブランド表示（ドットフォント）
+   ════════════════════════════════════════════════════════════ */
+.site-brand{gap:3px;}
+.site-title{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  text-decoration:none;
+  line-height:1;
+}
+.site-title:hover{text-decoration:none;}
+
+/* 左のドットマーク：4pxの点を box-shadow で3×3に並べる */
+.brand-mark{
+  flex:0 0 auto;
+  position:relative;
+  width:20px;height:20px;
+}
+.brand-mark::before{
+  content:"";
+  position:absolute;
+  top:2px;left:0;
+  width:4px;height:4px;
+  border-radius:1px;
+  background:var(--amazon);
+  box-shadow:
+                     8px 0     0 rgba(255,255,255,.92),
+                    16px 0     0 rgba(255,255,255,.92),
+     0    8px 0 rgba(255,255,255,.92),  8px 8px  0 rgba(255,255,255,.92),
+    16px  8px 0 rgba(255,255,255,.92),
+     0   16px 0 rgba(255,255,255,.55),  8px 16px 0 rgba(255,255,255,.55),
+    16px 16px 0 rgba(255,255,255,.55);
+  transition:background-color .2s var(--ease);
+}
+.site-title:hover .brand-mark::before{background:#fff;}
+
+.brand-name{
+  font-family:"DotGothic16","Noto Sans JP",monospace;
+  font-size:23px;
+  font-weight:400;
+  letter-spacing:.14em;
+  color:#fff;
+  text-shadow:0 0 14px rgba(255,153,0,.35);
+  transition:color .2s var(--ease),text-shadow .2s var(--ease);
+}
+.site-title:hover .brand-name{
+  color:var(--amazon);
+  text-shadow:0 0 18px rgba(255,153,0,.6);
+}
+.site-tagline{
+  font-size:11px;
+  letter-spacing:.06em;
+  padding-left:31px;
+}
+
+/* 走査線でレトロ感を少しだけ足す */
+.site-header::after{
+  content:"";
+  position:absolute;inset:0;
+  pointer-events:none;
+  background:repeating-linear-gradient(
+    180deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px);
+}
+.site-header{position:sticky;}
+
+@media (min-width:900px){
+  .brand-name{font-size:26px;}
+  .brand-mark{width:23px;height:23px;}
+  .site-tagline{font-size:12px;padding-left:35px;}
+}
+
+/* ════════════════════════════════════════════════════════════
+   画像スペースの圧縮（特にスマホ）
+   ════════════════════════════════════════════════════════════ */
+
+/* --- スマホ：カードを横並びにして高さを大幅に削る --- */
+@media (max-width:599px){
+  .card-grid{gap:12px;}
+  .card{
+    display:grid;
+    grid-template-columns:118px 1fr;
+    align-items:stretch;
+  }
+  .card a.card-thumb{
+    aspect-ratio:auto;
+    height:100%;
+    min-height:96px;
+    border-radius:var(--radius) 0 0 var(--radius);
+  }
+  .card a.card-thumb img{border-radius:0;}
+  .card-body{padding:11px 13px 12px;}
+  .card-tags{margin-bottom:5px;gap:4px;}
+  .card-tags .tag{font-size:10px;padding:1px 6px;}
+  /* スマホでは3つ目のカテゴリタグだけ残して情報量を絞る */
+  .card-tags .tag:not(.tag-hot):nth-of-type(2){display:none;}
+  .card-title{
+    font-size:14.5px;
+    line-height:1.5;
+    margin-bottom:5px;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .card-desc{
+    font-size:12px;
+    line-height:1.7;
+    margin-bottom:0;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .card-link{display:none;}          /* カード全体がリンクなので不要 */
+  .card:hover{transform:none;}       /* タップ環境では浮かせない */
+
+  /* 注目記事だけは縦組みのまま、少し低く */
+  .card.is-lead{grid-template-columns:1fr;}
+  .card.is-lead a.card-thumb{
+    aspect-ratio:2/1;
+    min-height:0;
+    border-radius:var(--radius) var(--radius) 0 0;
+  }
+  .card.is-lead .card-body{padding:14px 15px 16px;}
+  .card.is-lead .card-title{font-size:17px;-webkit-line-clamp:3;}
+  .card.is-lead .card-desc{font-size:13px;-webkit-line-clamp:3;}
+
+  /* 記事のアイキャッチも低く */
+  .eyecatch{aspect-ratio:2/1;margin-bottom:20px;}
+
+  /* ヒーローの余白を詰める */
+  .hero{padding:26px 16px 24px;}
+  .hero h1{font-size:23px;}
+  .hero p{font-size:13.5px;margin-bottom:16px;}
+}
+
+/* --- タブレット以上でもアイキャッチを少し抑える --- */
+@media (min-width:600px){
+  .eyecatch{aspect-ratio:1.9/1;}
+}
