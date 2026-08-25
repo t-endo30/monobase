@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://monobase.site/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://monobase.site/new</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://monobase.site/ranking</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -27,7 +27,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-smartphone</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -42,12 +42,12 @@
   </url>
   <url>
     <loc>https://monobase.site/category-camera</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-beauty</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -57,7 +57,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-kitchen</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -72,7 +72,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-pet</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -98,6 +98,11 @@
   <url>
     <loc>https://monobase.site/category-appliance-smart</loc>
     <lastmod>2026-08-24</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/category-smartphone-charger</loc>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -136,6 +141,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://monobase.site/category-kitchen-appliance</loc>
+    <lastmod>2026-08-25</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/category-daily-clean</loc>
     <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
@@ -159,6 +169,21 @@
     <loc>https://monobase.site/category-furniture-bed</loc>
     <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/anker-621-maggo-battery-review</loc>
+    <lastmod>2026-08-25</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/iris-kpc-ma4-pressure-cooker-review</loc>
+    <lastmod>2026-08-25</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/zojirushi-ck-ax08-kettle-review</loc>
+    <lastmod>2026-08-25</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://monobase.site/articles/led-floodlight-ip66-review</loc>
@@ -277,22 +302,22 @@
   </url>
   <url>
     <loc>https://monobase.site/about</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/privacy</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/disclaimer</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/contact</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.3</priority>
   </url>
 </urlset>

@@ -90,6 +90,7 @@ def build_prompt(a, site, prompt_md):
         f"選べるサブカテゴリーのkey：{subs}",
         f'JANコード：{a.get("jan") or "不明"}',
         f'買えるモール：{"、".join(shops) or "不明"}',
+        facts_block(a),
         "",
         "---------------- 出力の決まり ----------------",
         "・JSONだけを返す。前置きも、コードフェンスも付けない。",
@@ -104,6 +105,22 @@ def build_prompt(a, site, prompt_md):
         "・next_problem の項目にリンクURLを入れない。",
         "・価格は書かない。変動するため。",
     ])
+
+
+def facts_block(a):
+    """メーカー公式で裏を取った仕様を渡す。
+       ここを渡さないと、無い機能を「ある」と書いてしまう。
+       実際、温度調節のない電気ケトルに温度調節の節が付いた。"""
+    facts = a.get("facts") or []
+    if isinstance(facts, str):
+        facts = [facts]
+    if not facts:
+        return ("\n【仕様について】確かな仕様が渡されていません。"
+                "数値や機能の有無を断定せず、レビューから読み取れる範囲で書いてください。")
+    return ("\n【メーカー公式で確認済みの仕様】\n"
+            + "\n".join(f"・{f}" for f in facts)
+            + "\nここに無い機能を「ある」と書かないでください。"
+            "スペック表もこの範囲で作ります。")
 
 
 SYSTEM = ("あなたは日本語の商品レビュー記事を書くライターです。"
