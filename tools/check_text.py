@@ -38,6 +38,29 @@ def check_escaped_tags():
     return hits
 
 
+# 記事に出てはいけない、組み立てに失敗した跡。
+# 管理画面や生成ツールが {title, text} の項目を文字列へ潰すと出る。
+BROKEN = [
+    ("[object Object]", "管理画面で {title, text} の項目が文字列に潰れています"),
+    ("{'title':", "Pythonの辞書がそのまま文字になっています"),
+    ('{"title":', "JSONがそのまま文字になっています"),
+]
+
+
+def check_broken():
+    hits = []
+    for f in sorted(glob.glob("articles/*.html")):
+        raw = open(f, encoding="utf-8").read()
+        m = re.search(r'<article class="card-surface".*?</article>', raw, re.S)
+        if not m:
+            continue
+        s = m.group(0)
+        for needle, why in BROKEN:
+            if needle in s:
+                hits.append((f, needle, why))
+    return hits
+
+
 def main():
     os.chdir(ROOT)
     hits = []
@@ -57,6 +80,12 @@ def main():
                 ctx = s[max(0, m.start() - 25): m.start() + 25].replace("\n", " ").strip()
                 hits.append((f, m.group(0), ctx))
 
+    broken = check_broken()
+    if broken:
+        print(f"::error::組み立てに失敗した跡が本文に出ています（{len(broken)} 件）。")
+        for f, needle, why in broken:
+            print(f"  [{needle}] {f}\n       {why}")
+
     tags = check_escaped_tags()
     if tags:
         print(f"::error::HTMLタグが本文にそのまま出ています（{len(tags)} 件）。"
@@ -68,10 +97,10 @@ def main():
         print(f"::error::保証・断定表現が {len(hits)} 件見つかりました。")
         for f, w, ctx in hits:
             print(f"  [{w}] {f}\n       …{ctx}…")
-    if hits or tags:
+    if hits or tags or broken:
         return 1
 
-    print(f"✅ 禁止表現・タグの露出なし（{len(glob.glob('articles/*.html'))} 記事を検査）")
+    print(f"✅ 禁止表現・タグの露出・組み立て崩れなし（{len(glob.glob('articles/*.html'))} 記事を検査）")
     return 0
 
 if __name__ == "__main__":

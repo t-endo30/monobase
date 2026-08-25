@@ -4988,3 +4988,26 @@ body{
 .hero-tile .hero-count{margin-top:3px;}
 .hero-policy{margin-top:2px;}
 .hero-policy summary{padding:6px 13px;font-size:12px;}
+
+/* ============================================================
+   PCのカテゴリーナビ：切り取らずに折り返す
+   ------------------------------------------------------------
+   横スクロールのままだと、幅が足りないときに端の項目が
+   途中で切れて見える（スクロールバーも出さないため、
+   切れているのか崩れているのか区別が付かない）。
+   指で流せないPCでは、折り返して全部見せる。
+   ============================================================ */
+@media (min-width:900px){
+  .cat-nav-list{
+    flex-wrap:wrap;
+    justify-content:center;
+    overflow-x:visible;
+    row-gap:0;
+  }
+  /* 1行に収まる可能性を上げるため、PCでは左右の余白を少し詰める */
+  .cat-nav-list a{padding:0 11px;font-size:13px;}
+  .cat-nav-list a .cat-icon{margin-right:4px;}
+}
+
+/* 「本日のお勧めのモノ」：画像を少し内側に置く（枠の縁にくっつけない） */
+.today-thumb{margin-left:clamp(6px,2.2vw,14px);}

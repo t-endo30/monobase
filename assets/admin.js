@@ -261,26 +261,70 @@
   }
 
   /* ---------------------------------------------------- 繰り返しフィールド */
-  function repeater(containerId, values, placeholder, multiline) {
+  /* pair を立てた枠は、1項目が {title, text} の組になる。
+     結論の要点と「買わないほうがいい人」がこれにあたる。
+     組のまま扱わないと、保存のときに文字列へ潰れて
+     記事に [object Object] と出てしまう。 */
+  function repeater(containerId, values, placeholder, multiline, pair) {
     var box = $(containerId);
     box.innerHTML = '';
-    (values || []).forEach(function (v) { addRow(box, v, placeholder, multiline); });
-    if (!values || !values.length) addRow(box, '', placeholder, multiline);
+    box.setAttribute('data-pair', pair ? '1' : '');
+    (values || []).forEach(function (v) { addRow(box, v, placeholder, multiline, pair); });
+    if (!values || !values.length) addRow(box, '', placeholder, multiline, pair);
   }
-  function addRow(box, val, placeholder, multiline) {
+  function addRow(box, val, placeholder, multiline, pair) {
+    if (pair === undefined) pair = box.getAttribute('data-pair') === '1';
     var d = document.createElement('div');
-    d.className = 'repeat-item';
-    var field = multiline
-      ? '<textarea rows="2" placeholder="' + (placeholder || '') + '"></textarea>'
-      : '<input type="text" placeholder="' + (placeholder || '') + '">';
+    d.className = 'repeat-item' + (pair ? ' is-pair' : '');
+    var title = '', text = '';
+    if (val && typeof val === 'object') {
+      title = val.title || '';
+      text = val.text || '';
+    } else {
+      text = val || '';
+    }
+    var field = pair
+      ? '<div class="rp-pair">'
+        + '<input type="text" class="rp-title" placeholder="見出し（空でも可）">'
+        + '<textarea class="rp-text" rows="2" placeholder="' + (placeholder || '') + '"></textarea>'
+        + '</div>'
+      : (multiline
+          ? '<textarea rows="2" placeholder="' + (placeholder || '') + '"></textarea>'
+          : '<input type="text" placeholder="' + (placeholder || '') + '">');
     d.innerHTML = field + '<button type="button" class="rm" aria-label="削除">×</button>';
-    d.querySelector(multiline ? 'textarea' : 'input').value = val || '';
+    if (pair) {
+      d.querySelector('.rp-title').value = title;
+      d.querySelector('.rp-text').value = text;
+    } else {
+      d.querySelector(multiline ? 'textarea' : 'input').value = text;
+    }
     d.querySelector('.rm').addEventListener('click', function () { d.remove(); });
     box.appendChild(d);
   }
+  /* 箇条書き1項目のHTML。build.py の li_html と同じ組み立て方にする。 */
+  function liHtml(x) {
+    if (x && typeof x === 'object') {
+      var t = (x.title || '').trim(), b = (x.text || x.body || '').trim();
+      if (t && b) return '<b class="li-t">' + t + '</b><span class="li-b">' + b + '</span>';
+      return t || b;
+    }
+    return String(x == null ? '' : x);
+  }
+
   function readRepeater(containerId) {
+    var box = $(containerId);
+    if (box.getAttribute('data-pair') === '1') {
+      return Array.prototype.map.call(box.querySelectorAll('.repeat-item'),
+        function (row) {
+          var t = (row.querySelector('.rp-title') || {}).value || '';
+          var b = (row.querySelector('.rp-text') || {}).value || '';
+          t = t.trim(); b = b.trim();
+          if (!t && !b) return null;
+          return t ? { title: t, text: b } : b;   /* 見出しが無ければ文字列のまま */
+        }).filter(Boolean);
+    }
     return Array.prototype.map.call(
-      $(containerId).querySelectorAll('input, textarea'),
+      box.querySelectorAll('input, textarea'),
       function (el) { return el.value.trim(); }
     ).filter(Boolean);
   }
@@ -577,8 +621,9 @@
     $('f-conclTitle').value = a.conclusion_title || '';
     $('f-conclusion').value = toText(a.conclusion);
 
-    repeater('r-summary', a.summary, '結論の要点');
-    repeater('r-notfor', (a.not_for && a.not_for.items) || [], '〜な人には向いていません');
+    repeater('r-summary', a.summary, '結論の要点', true, true);
+    repeater('r-notfor', (a.not_for && a.not_for.items) || [],
+             '〜な人には向いていません', true, true);
     $('r-scenes').innerHTML = '';
     ((a.scenes) || []).forEach(addScene);
     $('r-next').innerHTML = '';
@@ -745,7 +790,7 @@
       '<h1 class="article-title">' + (a.title || '(無題)') + '</h1>' +
       '<section class="summary-box"><div class="summary-head">' + (a.verdict_title || '結論') + '</div>' +
       '<div class="summary-body"><ul class="summary-list">' +
-        a.summary.map(function (s) { return '<li>' + s + '</li>'; }).join('') +
+        a.summary.map(function (s) { return '<li>' + liHtml(s) + '</li>'; }).join('') +
       '</ul></div></section>' +
       '<div class="cta-wrap"><a class="btn-amazon" href="#"><span class="cart">🛒</span>' + a.cta_label + '</a></div>' +
       '<div class="article-body"><p>' + a.lead + '</p>' +

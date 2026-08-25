@@ -216,10 +216,19 @@
   }
   if (current < 0) current = 0;
 
-  /* ---- 現在のタブを画面内に見せる ---- */
+  /* ---- 現在のタブが隠れているときだけ、見える位置まで送る ----
+     links はスマホだとタブバー側の要素になることがあるので、
+     この横並びの中にあるものだけを対象にする。ほかの入れ物の
+     offsetLeft で位置を決めると、関係のない量だけ横にずれる。
+     また、既に見えているときは動かさない。動かすと先頭の項目が
+     中途半端に切れた状態で表示されてしまう。 */
   var cur = links[current];
-  if (cur && list.scrollWidth > list.clientWidth) {
-    list.scrollLeft = cur.offsetLeft - (list.clientWidth - cur.offsetWidth) / 2;
+  if (cur && list.contains(cur) && list.scrollWidth > list.clientWidth + 1) {
+    var cl = cur.offsetLeft, cr = cl + cur.offsetWidth;
+    var vs = list.scrollLeft, ve = vs + list.clientWidth;
+    var max = list.scrollWidth - list.clientWidth;
+    if (cl < vs) list.scrollLeft = Math.max(0, cl - 12);
+    else if (cr > ve) list.scrollLeft = Math.min(max, cr - list.clientWidth + 12);
   }
 
   /* ---- 隣のページを先読みしておく（切り替えを待たせない） ---- */
