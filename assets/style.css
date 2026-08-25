@@ -4358,14 +4358,13 @@ body.is-article .layout > .container{
     gap:16px;
   }
   .header-inner .header-side{display:none;}
-  .site-brand{
-    flex:0 1 auto;
-    text-align:left;
-    align-items:flex-start;
-  }
-  .site-brand .site-title{justify-content:flex-start;}
-  .site-brand .site-tagline{text-align:left;}
-  .global-nav{flex:0 0 auto;margin-left:auto;}
+  /* タイトルは画面の中央に置き、メニューは右端に寄せる。
+     左右に同じ幅の余白を置くことで、タイトルの中心をそろえる。 */
+  .header-inner .header-side{display:block;flex:1 1 0;min-width:0;}
+  .site-brand{flex:0 0 auto;text-align:center;align-items:center;}
+  .site-brand .site-title{justify-content:center;}
+  .site-brand .site-tagline{text-align:center;}
+  .global-nav{flex:1 1 0;min-width:0;display:flex;justify-content:flex-end;}
   .global-nav .nav-links{justify-content:flex-end;}
 }
 
