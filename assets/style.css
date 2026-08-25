@@ -3936,15 +3936,15 @@ body.is-article .layout > .container{
    続きがあることが分かるようにする。
    PCではこれまでどおりの並びなので、CSSだけで切り替える。
    ============================================================ */
-.rail-hint,
 .rail-more{display:none;}
 
 @media (max-width:899px){
   .rail{
-    /* 画面の端まで広げると、負の余白のぶんページ全体が横に
-       はみ出してしまう。枠の中に収めたうえで、4枚目を覗かせる。 */
+    /* 左右とも少しはみ出させて、続きがあることを見せる。
+       ページ全体が横に伸びないよう、内側の余白で位置を戻す。 */
     margin:0;
-    padding:2px 0 10px;
+    padding:2px 12px 10px;
+    scroll-padding-left:12px;
     overflow-x:auto;
     overscroll-behavior-x:contain;
     scroll-snap-type:x proximity;
@@ -3978,14 +3978,7 @@ body.is-article .layout > .container{
   .rail .card-desc,
   .rail .card-link{display:none;}      /* 小さいカードでは見出しだけに絞る */
 
-  .rail-hint{
-    display:block;
-    margin:2px 0 12px;
-    font-size:11.5px;
-    color:var(--text-sub);
-    text-align:center;
-  }
-  .rail-more{display:block;margin-top:4px;}
+  .rail-more{display:block;margin-top:2px;}
 }
 
 /* PC・タブレットでは、横スクロールの仕掛けを一切効かせない */
@@ -4069,22 +4062,18 @@ body.is-article .layout > .container{
 }
 
 /* ============================================================
-   カテゴリーから探す
+   カテゴリーから探す（画像つきのタイル）
    ============================================================ */
 .cf-grid{
   display:grid;
-  /* minmax(0,1fr) にしないと、中の長い文字が縮まず枠を押し広げる */
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:10px;
 }
 @media (min-width:600px){ .cf-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
-@media (min-width:1240px){ .cf-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
 .cf-tile{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:13px 14px;
+  display:block;
   border-radius:var(--radius);
+  overflow:hidden;
   background:var(--surface);
   border:1px solid var(--border);
   box-shadow:var(--shadow-xs);
@@ -4094,24 +4083,40 @@ body.is-article .layout > .container{
 }
 .cf-tile:hover{transform:translateY(-2px);box-shadow:var(--shadow);text-decoration:none;}
 @media (hover:none){ .cf-tile:active{transform:translateY(1px) scale(.985);box-shadow:var(--shadow-in);} }
-.cf-icon{flex:0 0 auto;display:flex;align-items:center;font-size:17px;line-height:1;}
+.cf-thumb{
+  display:block;
+  aspect-ratio:16/8;
+  overflow:hidden;
+  background:var(--bg-gray);
+}
+.cf-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.cf-body{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:9px 11px 11px;
+}
 .cf-label{
-  flex:1 1 auto;
+  display:flex;
+  align-items:center;
+  gap:7px;
   min-width:0;
-  font-size:13.5px;
+  font-size:13px;
   font-weight:700;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
+.cf-label .cat-icon{flex:0 0 auto;}
 .cf-count{
   flex:0 0 auto;
-  font-size:11px;
+  font-size:10.5px;
   font-weight:700;
   color:var(--text-sub);
   background:var(--bg-gray);
   border-radius:20px;
-  padding:2px 9px;
+  padding:2px 8px;
 }
 
 /* ============================================================
@@ -4316,3 +4321,66 @@ body.is-article .layout > .container{
 .cat-nav-list .has-sub.is-open > a{background:var(--bg-gray);border-radius:8px;}
 /* スマホではタブのパネルが同じ役割を持つので、こちらは出さない */
 @media (max-width:899px){ .sub-pop{display:none;} }
+
+/* ============================================================
+   トップページのPCレイアウト
+   ------------------------------------------------------------
+   ・見出しバナーは3列ぶんの幅で最上部に置く
+   ・特集を新着記事より上に出す（順番はCSSのorderで入れ替える）
+   ・「カテゴリーから探す」は左サイドのCATEGORIESと重複するので出さない
+   ============================================================ */
+.hero-slot{grid-column:1 / -1;}
+
+@media (min-width:1024px){
+  /* 区画の順番をPCだけ差し替えられるよう、縦に積むflexにする */
+  body.is-home .layout-main{display:flex;flex-direction:column;}
+  body.is-home .tb{order:50;}
+  body.is-home .tb[data-tb="feature"]{order:10;}
+  body.is-home .tb[data-tb="new"]{order:20;}
+  body.is-home .tb[data-tb="policy"]{order:80;}
+  /* 左サイドに同じ役割のCATEGORIESがあるため、本文側には出さない */
+  body.is-home .tb[data-tb="categories"]{display:none;}
+}
+
+/* 「このサイトの読み方」はPCでも縦に積む（横3列だと1項目が窮屈になる） */
+@media (min-width:900px){
+  .policy{grid-template-columns:minmax(0,1fr);}
+}
+
+/* ============================================================
+   PCのヘッダー：タイトルは左、メニューは右
+   ============================================================ */
+@media (min-width:900px){
+  .header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .header-inner .header-side{display:none;}
+  .site-brand{
+    flex:0 1 auto;
+    text-align:left;
+    align-items:flex-start;
+  }
+  .site-brand .site-title{justify-content:flex-start;}
+  .site-brand .site-tagline{text-align:left;}
+  .global-nav{flex:0 0 auto;margin-left:auto;}
+  .global-nav .nav-links{justify-content:flex-end;}
+}
+
+/* ============================================================
+   もっと見る系のボタンは、縦の場所を取りすぎないよう小さくする
+   ============================================================ */
+.cta-wrap .btn-sub{
+  min-height:38px;
+  padding:8px 20px;
+  font-size:13px;
+}
+.section-block .cta-wrap{
+  margin-top:10px;
+  margin-bottom:0;
+}
+@media (max-width:899px){
+  .cta-wrap .btn-sub{min-height:36px;padding:7px 18px;font-size:12.5px;}
+}

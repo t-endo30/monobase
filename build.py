@@ -438,7 +438,7 @@ def footer(p, sticky_url=None):
 </html>
 '''
 
-def main_block(body, p, current="", current_sub="", sidebar=False):
+def main_block(body, p, current="", current_sub="", sidebar=False, hero_slot=""):
     """本文の器。一覧ページではPC幅のときだけ左にカテゴリー一覧を置く。
        スマホでは幅が足りないので出さず、ハンバーガーメニュー側に集約する。"""
     if not sidebar:
@@ -452,6 +452,7 @@ def main_block(body, p, current="", current_sub="", sidebar=False):
     search_r = (side_search(p, "only-3col") if FEAT.get("search") else "")
     return ('\n<main id="top" class="layout has-side">\n'
             '  <div class="container layout-grid">\n'
+            + hero_slot +
             '    <div class="side-col">\n'
             + today_panel("is-side") + search_l +
             '    <aside class="side-nav side-tile" aria-label="カテゴリー">\n'
@@ -463,15 +464,14 @@ def main_block(body, p, current="", current_sub="", sidebar=False):
             + body +
             '    </div>\n'
             '    <div class="side-rank">\n'
-            + search_r
-            + rank_panel(p, 10) + '    </div>\n'
+            + rank_panel(p, 10) + search_r + '    </div>\n'
             '  </div>\n</main>\n\n')
 
 
-def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class="", crumbs=None, current_sub="", sidebar=False, band=""):
+def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class="", crumbs=None, current_sub="", sidebar=False, band="", hero_slot=""):
     return (head(title, desc, current, p, canonical, extra_head, body_class)
             + header(current, p, crumbs, current_sub, band)
-            + main_block(body, p, current, current_sub, sidebar)
+            + main_block(body, p, current, current_sub, sidebar, hero_slot)
             + footer(p, sticky_url).replace("</body>", extra_js + "</body>"))
 
 # ============================================================ 部品
@@ -1066,7 +1066,6 @@ def news_rail(items, p):
     return ('      <section class="section-block">\n'
             '        <div class="rail">\n' + grid(items, p) +
             '        </div>\n'
-            '        <p class="rail-hint">← 横にスワイプでもっと見る →</p>\n'
             '        <div class="cta-wrap rail-more">\n'
             f'          <a class="btn-sub" href="{p}new.html">新着記事をもっと見る</a>\n'
             '        </div>\n'
@@ -1086,17 +1085,23 @@ def mobile_ranking(p):
 
 
 def cat_finder(p):
-    """カテゴリーから探すタイル。記事のあるカテゴリーだけを、件数つきで並べる。
-       スマホではタブのパネルからしか辿れないので、本文側にも入口を作る。"""
+    """カテゴリーから探すタイル。記事のあるカテゴリーを、代表記事の
+       画像つきで並べる。画像は、そのカテゴリーで最も新しい記事のものを
+       借りる（無ければ自動生成のものになる）。"""
     rows = ""
     for c in CATS:
-        n = len([a for a in PUBLISHED if a["category"] == c["key"]])
-        if not n:
+        items = [a for a in PUBLISHED if a["category"] == c["key"]]
+        if not items:
             continue
+        newest = max(items, key=lambda a: a.get("updated") or a.get("date") or "")
+        src, _ = visual_path(newest, p)
         rows += (f'          <a class="cf-tile" href="{p}category-{c["key"]}.html">\n'
-                 f'            <span class="cf-icon">{icon(c["key"])}</span>\n'
-                 f'            <span class="cf-label">{e(c["label"])}</span>\n'
-                 f'            <span class="cf-count">{n}</span>\n'
+                 f'            <span class="cf-thumb"><img src="{e(src)}" alt="" '
+                 f'loading="lazy" width="1200" height="430"></span>\n'
+                 f'            <span class="cf-body">\n'
+                 f'              <span class="cf-label">{icon(c["key"])}{e(c["label"])}</span>\n'
+                 f'              <span class="cf-count">{len(items)} 記事</span>\n'
+                 f'            </span>\n'
                  f'          </a>\n')
     if not rows:
         return ""
@@ -1105,7 +1110,6 @@ def cat_finder(p):
             '        <div class="cf-grid">\n' + rows +
             '        </div>\n'
             '      </section>\n')
-
 
 POLICY = [
     ("01", "購入者レビューと公表仕様を突き合わせています",
@@ -1167,7 +1171,6 @@ def build_index():
     # トップに置く区画。並び順と表示・非表示は content/site.json の
     # layout.top で決める（管理画面からドラッグして入れ替えられる）。
     blocks = {
-        "hero":       lambda: hero_tile,
         "today":      lambda: today_panel("is-mobile"),
         "new":        lambda: news_rail(latest, p),
         "feature":    lambda: feature_cards(p),
@@ -1176,12 +1179,20 @@ def build_index():
         "policy":     lambda: policy_box(p),
     }
     body = ""
+    hero_on = True
     for item in top_layout():
+        if item["key"] == "hero":
+            hero_on = item.get("on", True)
+            continue
         make = blocks.get(item["key"])
         if make and item.get("on", True):
-            body += make()
+            # PCで並び替えられるよう、区画ごとに印を付けておく
+            body += f'<div class="tb" data-tb="{item["key"]}">\n' + make() + '</div>\n'
+    hero_slot = ('    <div class="hero-slot">\n' + hero_tile + '    </div>\n'
+                 if hero_on else "")
     return page(f"{NAME}｜{TAGLINE}", SITE["description"], "all", p, BASE_URL + "/", body,
-                body_class="is-listing", sidebar=True, band=band)
+                body_class="is-listing is-home", sidebar=True, band=band,
+                hero_slot=hero_slot)
 
 def build_category(c):
     p = "./"
