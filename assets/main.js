@@ -1,3 +1,25 @@
+/* ============================================================
+   重ねて出すものを開いているあいだ、背面のスクロールを止める
+   ------------------------------------------------------------
+   overflow:hidden にすると、PCではスクロールバーが消えたぶん
+   ページ全体が横に広がって見える（画面サイズが変わったように見える）。
+   消える幅と同じだけ余白を足して、位置が動かないようにする。
+   ============================================================ */
+window.mbLockScroll = function (on, cls) {
+  var b = document.body;
+  if (on) {
+    var gap = window.innerWidth - document.documentElement.clientWidth;
+    if (gap > 0) b.style.paddingRight = gap + 'px';
+    b.classList.add(cls);
+  } else {
+    b.classList.remove(cls);
+    if (!b.classList.contains('is-cat-open')
+        && !b.classList.contains('is-policy-open')) {
+      b.style.paddingRight = '';
+    }
+  }
+};
+
 (function () {
   'use strict';
 
@@ -650,7 +672,7 @@
     /* 開いているあいだは現在ページのタブの色を消す。
        選択されている印が2か所に出ると、どちらが今の状態か分からなくなる。 */
     if (bar) bar.classList.toggle('is-panel-open', open);
-    document.body.classList.toggle('is-cat-open', open);
+    window.mbLockScroll(open, 'is-cat-open');
     veil.hidden = !open;
   }
 
@@ -1263,7 +1285,7 @@
   function close() { if (d.open) d.open = false; }
 
   d.addEventListener('toggle', function () {
-    document.body.classList.toggle('is-policy-open', d.open);
+    window.mbLockScroll(d.open, 'is-policy-open');
     if (d.open && pop) pop.focus && pop.focus();
   });
 
