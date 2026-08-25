@@ -5023,3 +5023,42 @@ body{
 @media (min-width:1620px){
   .layout.has-side .container{max-width:1560px;}
 }
+
+/* ============================================================
+   広告の枠
+   ------------------------------------------------------------
+   ・読み込む前から高さを空けておく（あとから文章が飛ばないように）
+   ・「スポンサーリンク」と明記して、記事の一部に見えないようにする
+   ・購入ボタンや記事カードとは、はっきり間を空ける
+   ============================================================ */
+.ad-slot{
+  display:block;
+  margin:clamp(28px,6vw,44px) 0;
+  padding:10px 0 0;
+  border-top:1px dashed var(--border);
+  text-align:center;
+}
+.ad-label{
+  display:block;
+  margin-bottom:8px;
+  font-size:11px;
+  letter-spacing:.08em;
+  color:var(--text-sub);
+  opacity:.75;
+}
+.ad-slot .adsbygoogle{
+  display:block;
+  min-height:100px;          /* 読み込み前の場所取り */
+  margin:0 auto;
+  max-width:100%;
+}
+.ad-slot.is-inline{margin:clamp(24px,5vw,36px) 0;}
+.ad-slot.is-side{
+  margin:14px 0 0;
+  padding:12px;
+  border:1px solid var(--border);
+  border-top:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+}
+.ad-slot.is-side .adsbygoogle{min-height:250px;}

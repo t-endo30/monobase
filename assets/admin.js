@@ -1193,6 +1193,14 @@
     $('s-sticky').checked = f.sticky_cta !== false;
     $('s-search').checked = f.search !== false;
     $('s-featureTh').value = String(f.feature_threshold || 5);
+    var ad = site.ads || {};
+    $('s-adsOn').checked = !!ad.enabled;
+    $('s-adsClient').value = ad.client || '';
+    $('s-adsMode').value = ad.mode || 'manual';
+    var sl = ad.slots || {};
+    $('s-adsMid').value = sl.article_mid || '';
+    $('s-adsEnd').value = sl.article_end || '';
+    $('s-adsSide').value = sl.side || '';
     var au = site.automation || {};
     $('s-autoOn').checked = au.enabled !== false;
     $('s-autoRuns').value = String(au.runs_per_week || 1);
@@ -1228,6 +1236,17 @@
     site.features.sticky_cta = $('s-sticky').checked;
     site.features.search = $('s-search').checked;
     site.features.feature_threshold = parseInt($('s-featureTh').value, 10) || 5;
+    /* 広告の設定。コードそのものは触らず、出す・出さないと置き場所だけを持つ。 */
+    site.ads = site.ads || {};
+    site.ads.enabled = $('s-adsOn').checked;
+    site.ads.client = $('s-adsClient').value.trim();
+    site.ads.mode = $('s-adsMode').value;
+    site.ads.slots = {
+      article_mid: $('s-adsMid').value.trim(),
+      article_end: $('s-adsEnd').value.trim(),
+      side: $('s-adsSide').value.trim()
+    };
+
     /* 自動作成の設定。ワークフローは毎日まわり、tools/schedule_gate.py が
        この値を読んで実行日と本数を決める。 */
     site.automation = site.automation || {};

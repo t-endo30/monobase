@@ -406,6 +406,18 @@
   "_note": "画像生成の設定。APIキーはここに書かない（公開リポジトリのため）。ローカルは環境変数 GEMINI_API_KEY、GitHub Actions は Secrets を使う。",
   "model": "gemini-3.1-flash-image"
  },
+ "ads": {
+  "_note": "Google AdSense。enabled を true にすると読み込みタグが入る。コードは書き換えず、置き場所だけこちらで決める（規約）。mode=auto は自動広告、manual は下の slots に入れた広告ユニットIDの位置だけに出す。",
+  "enabled": true,
+  "client": "ca-pub-4017242913861863",
+  "mode": "manual",
+  "label": "スポンサーリンク",
+  "slots": {
+   "article_mid": "",
+   "article_end": "",
+   "side": ""
+  }
+ },
  "automation": {
   "_note": "記事を自動で作る頻度と本数。ワークフローは毎日まわし、tools/schedule_gate.py がこの設定で間引く。",
   "enabled": true,

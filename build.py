@@ -30,6 +30,7 @@ SUB_LABEL = {(c["key"], sc["key"]): sc["label"]
              for c in CATS for sc in c.get("sub", [])}
 FEAT     = SITE.get("features", {})
 GA       = SITE.get("analytics", {}).get("ga_measurement_id", "").strip()
+ADS      = SITE.get("ads", {}) or {}
 GSC      = SITE.get("analytics", {}).get("gsc_verification", "").strip()
 def _asset_version():
     """assets の CSS/JS の内容から作る短いハッシュ。
@@ -137,6 +138,52 @@ def public_url(url):
     return url
 
 
+# ============================================================ 広告（AdSense）
+# Googleが配るコードは書き換えない（規約）。こちらで決めるのは
+#   ・読み込みタグを置く場所（<head>）
+#   ・広告ユニットを差し込む位置
+# の2つだけ。枠の周りに自前の器やラベルを付けるのは認められている。
+def ads_on():
+    return bool(ADS.get("enabled") and (ADS.get("client") or "").strip())
+
+
+def ads_meta():
+    """所有確認のメタタグ。審査中や広告を止めているあいだも出しておく。"""
+    c = (ADS.get("client") or "").strip()
+    return f'<meta name="google-adsense-account" content="{e(c)}">\n' if c else ""
+
+
+def ads_head():
+    """読み込みタグ。Googleが配る形のまま置く。"""
+    if not ads_on():
+        return ""
+    return ('<script async src="https://pagead2.googlesyndication.com/pagead/js/'
+            f'adsbygoogle.js?client={e(ADS["client"].strip())}"\n'
+            '     crossorigin="anonymous"></script>\n')
+
+
+def ad_slot(name, cls=""):
+    """広告ユニット1枠。mode=auto のときは何も置かない
+       （どこに出すかはGoogle側が決めるため）。
+       枠の高さをあらかじめ空けておき、読み込みで文章が飛ばないようにする。"""
+    if not ads_on() or str(ADS.get("mode", "manual")) != "manual":
+        return ""
+    slot = str((ADS.get("slots") or {}).get(name) or "").strip()
+    if not slot:
+        return ""
+    label = e(str(ADS.get("label") or "スポンサーリンク"))
+    c = f" {cls}" if cls else ""
+    return (f'        <aside class="ad-slot{c}" aria-label="広告">\n'
+            f'          <span class="ad-label">{label}</span>\n'
+            f'          <ins class="adsbygoogle" style="display:block"\n'
+            f'               data-ad-client="{e(ADS["client"].strip())}"\n'
+            f'               data-ad-slot="{e(slot)}"\n'
+            f'               data-ad-format="auto"\n'
+            f'               data-full-width-responsive="true"></ins>\n'
+            f'          <script>(adsbygoogle = window.adsbygoogle || []).push({{}});</script>\n'
+            f'        </aside>\n')
+
+
 def head(title, desc, current, p, canonical, extra="", body_class=""):
     """p = ルートへの相対プレフィックス（"./" または "../"）"""
     ga = ""
@@ -160,7 +207,7 @@ def head(title, desc, current, p, canonical, extra="", body_class=""):
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{e(public_url(canonical))}">
-{gsc}<meta property="og:type" content="website">
+{gsc}{ads_meta()}<meta property="og:type" content="website">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:site_name" content="{e(NAME)}">
@@ -170,7 +217,7 @@ def head(title, desc, current, p, canonical, extra="", body_class=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
 <link rel="stylesheet" href="{p}assets/style.css?v={ASSET_V}">
-{extra}{ga}</head>
+{extra}{ga}{ads_head()}</head>
 <body data-cat="{current}"{bodycls} data-rank='{rank_data}'>
 '''
 
@@ -467,7 +514,8 @@ def main_block(body, p, current="", current_sub="", sidebar=False, hero_slot="",
             + body +
             '    </div>\n'
             '    <div class="side-rank">\n'
-            + rank_panel(p, 10) + search_r + '    </div>\n'
+            + rank_panel(p, 10) + search_r + ad_slot("side", "is-side")
+            + '    </div>\n'
             '  </div>\n</main>\n\n')
 
 
@@ -920,6 +968,10 @@ def render_article(a):
 ''')
         add(paras(a.get("proscons_note")))
 
+    # 広告は本文の中ほどに1枠だけ。購入ボタンの近くには置かない
+    # （どちらを押しているか分からなくなるため。規約上もリスクになる）。
+    add(ad_slot("article_mid", "is-inline"))
+
     # 比較した商品（特集用）
     add(product_table(a, p))
 
@@ -1045,6 +1097,10 @@ def render_article(a):
         <h2 class="section-heading">関連記事</h2>
 {grid(rel, p)}      </section>
 ''')
+
+    # 広告はページのいちばん下にもう1枠。関連記事より下に置いて、
+    # 記事を読み終えた人の目に入る位置にする。
+    add(ad_slot("article_end"))
 
     # 構造化データ
     ld = {
@@ -1879,6 +1935,15 @@ def main():
           "Disallow: /admin\n"
           f"\nSitemap: {BASE_URL}/sitemap.xml\n")
     written.append("robots.txt")
+
+    # ads.txt：この広告枠を売ってよいのは誰か、をドメインの持ち主が宣言する。
+    # 置いていないと AdSense 側で「要注意」と警告が出て、収益にも響く。
+    # 中身は AdSense が配る1行をそのまま書く（pub-… はアカウント固有）。
+    client = (ADS.get("client") or "").strip()
+    if client:
+        pub = client[3:] if client.startswith("ca-") else client
+        write("ads.txt", f"google.com, {pub}, DIRECT, f08c47fec0942fa0\n")
+        written.append("ads.txt")
 
     # ---- Cloudflare Pages 用の設定ファイル -------------------------------
 
