@@ -73,6 +73,12 @@ def get_json(url, headers=None):
             return json.load(r)
     except urllib.error.HTTPError as ex:
         body = ex.read().decode("utf-8", "replace")[:300]
+        # 楽天は理由を error_description で返す。そのまま見せないと直せない。
+        try:
+            j = json.loads(body)
+            body = j.get("error_description") or j.get("error") or body
+        except Exception:                                 # noqa: BLE001
+            pass
         raise RuntimeError(f"HTTP {ex.code}: {body}") from ex
 
 
@@ -205,7 +211,19 @@ def build_candidates(rakuten_id, yahoo_id, categories, limit, per_category):
                 found = rakuten_search(rakuten_id, genre=conf["rakuten_genre"],
                                        hits=per_category)
             except Exception as ex:                       # noqa: BLE001
-                print(f"::warning::楽天の検索に失敗（{cat}）: {ex}", file=sys.stderr)
+                # ジャンルは改編される。弾かれたらキーワードで探し直す。
+                if "genre" in str(ex).lower():
+                    time.sleep(PAUSE)
+                    try:
+                        found = rakuten_search(rakuten_id,
+                                               keyword=conf["words"][0],
+                                               hits=per_category)
+                    except Exception as ex2:              # noqa: BLE001
+                        print(f"::warning::楽天の検索に失敗（{cat}）: {ex2}",
+                              file=sys.stderr)
+                else:
+                    print(f"::warning::楽天の検索に失敗（{cat}）: {ex}",
+                          file=sys.stderr)
             time.sleep(PAUSE)
         if not found and yahoo_id:
             try:

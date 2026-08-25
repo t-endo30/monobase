@@ -1844,10 +1844,24 @@
     });
     if (opts.genre) q.set('genreId', String(opts.genre));
     if (opts.jan || opts.keyword) q.set('keyword', opts.jan || opts.keyword);
+    /* アフィリエイトIDは渡さない。渡すと商品URLが楽天直アフィリエイトの
+       ものに変わり、もしも経由の成果として計上されなくなる。 */
     return fetch(RAKUTEN_API + '?' + q.toString())
       .then(function (r) {
-        if (!r.ok) throw new Error('楽天API HTTP ' + r.status);
-        return r.json();
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          if (r.ok) return j;
+          /* 楽天は理由を error_description で返す。そのまま見せないと
+             どこが悪いのか分からず、直しようがない。 */
+          var why = j.error_description || j.error || ('HTTP ' + r.status);
+          if (/applicationId/i.test(why)) {
+            why = 'アプリIDが違います（' + why + '）。'
+                + '楽天ウェブサービスの「アプリID/デベロッパーID」欄の数字だけを入れてください。'
+                + 'アフィリエイトIDやアクセスキーではありません。';
+          } else if (/genre/i.test(why)) {
+            why = 'ジャンルIDが違います（' + why + '）。キーワード検索に切り替えます。';
+          }
+          throw new Error('楽天：' + why);
+        });
       })
       .then(function (d) {
         return (d.Items || []).map(function (w) {
@@ -1932,9 +1946,19 @@
     $('fd-state').textContent = '検索中…';
     $('btnFind').disabled = true;
 
-    var first = keys.rakuten
-      ? rakutenSearch(keys.rakuten, { genre: conf.genre, hits: hits })
-      : yahooSearch(keys.yahoo, { query: conf.word, hits: hits });
+    /* ジャンルIDで絞るほうが精度は高いが、楽天のジャンルは改編される。
+       弾かれたらキーワード検索に切り替えて、検索そのものは通す。 */
+    var first;
+    if (keys.rakuten) {
+      first = rakutenSearch(keys.rakuten, { genre: conf.genre, hits: hits })
+        .catch(function (err) {
+          if (!/ジャンルID/.test(err.message)) throw err;
+          toast('ジャンルIDが使えないため、キーワードで探します');
+          return rakutenSearch(keys.rakuten, { keyword: conf.word, hits: hits });
+        });
+    } else {
+      first = yahooSearch(keys.yahoo, { query: conf.word, hits: hits });
+    }
 
     first.then(function (list) {
       var picked = [];
@@ -2055,10 +2079,16 @@
 
     if ($('btnSaveKeys')) {
       $('btnSaveKeys').addEventListener('click', function () {
-        saveShopKeys({
-          rakuten: $('k-rakuten').value.trim(),
-          yahoo: $('k-yahoo').value.trim()
-        });
+        /* 貼り付けたときに紛れ込む空白・改行を落とす。
+           楽天のアプリIDは数字だけなので、それ以外が入っていたら知らせる。 */
+        var rk = $('k-rakuten').value.replace(/\s/g, '');
+        var yh = $('k-yahoo').value.replace(/\s/g, '');
+        if (rk && !/^[0-9]{10,}$/.test(rk)) {
+          toast('楽天のアプリIDは数字だけの列です。アフィリエイトIDやアクセスキーではないか確認してください', 'err');
+        }
+        $('k-rakuten').value = rk;
+        $('k-yahoo').value = yh;
+        saveShopKeys({ rakuten: rk, yahoo: yh });
         wireKeyState();
         toast('APIのIDを保存しました');
       });
