@@ -288,7 +288,10 @@
    "iPhone 12〜14シリーズ向け。マグネット非対応のケースでは装着できない",
    "iPhone 13 mini / 12 mini はサイズが合わないため推奨されていない",
    "厚さ約11.5mm"
-  ]
+  ],
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "slug": "iris-kpc-ma4-pressure-cooker-review",
@@ -584,7 +587,10 @@
    "最高圧力 70kPa",
    "本体サイズ 幅約320×奥行約334×高さ約232mm、質量 約4.5kg",
    "電源コード 約2.0m（マグネットプラグ）"
-  ]
+  ],
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "slug": "zojirushi-ck-ax08-kettle-review",
@@ -889,7 +895,10 @@
    "本体二重構造：外側が熱くなりにくく、手をそえて注げる",
    "転倒湯もれ防止構造あり"
   ],
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "slug": "led-floodlight-ip66-review",
@@ -1144,7 +1153,10 @@
    ],
    "after": "ここまで書いておいて何ですが、これらはすべて<strong>「電源が取れる場所に設置できれば」</strong>という前提の上に成り立っています。逆に言えば、その一点さえクリアできれば外しようがない買い物です。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "slug": "humidifier-buying-guide",
@@ -1401,7 +1413,10 @@
    ],
    "after": "この記事の残りは、<strong>方式の選び方と、適用畳数の落とし穴</strong>の2点に絞って書いています。ここさえ押さえれば、あとはデザインで選んで構いません。"
   },
-  "kind": "guide"
+  "kind": "guide",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "slug": "amazon-sale-calendar",
@@ -1677,7 +1692,10 @@
    ],
    "after": "この3つを押さえれば、セールは<strong>支出を減らす道具</strong>として働きます。使わなければ、ただ余計な物が増える期間になるだけです。"
   },
-  "kind": "roundup"
+  "kind": "roundup",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -1928,7 +1946,10 @@
   "kind": "review",
   "rakuten_url": "https://item.rakuten.co.jp/ergotron/e1r00wv/",
   "yahoo_url": "https://store.shopping.yahoo.co.jp/synnex/e1r00wv.html",
-  "jan": "0698833073829"
+  "jan": "0698833073829",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -2179,7 +2200,10 @@
    ],
    "after": "この3つはどれも、モニターの上に載せられる人だけが得られる価値です。<strong>逆に言えば、載りさえすれば効果を実感しやすい</strong>という、珍しく期待の裏切られにくい製品でもあります。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -2429,7 +2453,10 @@
    ],
    "after": "どれもカタログのポート数一覧には表れない価値です。<strong>数を買うのではなく、動作の単純さを買う</strong>製品だと考えると、価格の見え方も変わってきます。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -2683,7 +2710,10 @@
   "kind": "review",
   "rakuten_url": "https://item.rakuten.co.jp/logicool/mx2300crda/",
   "yahoo_url": "https://store.shopping.yahoo.co.jp/logicool/4943765058380.html",
-  "jan": "4943765058380"
+  "jan": "4943765058380",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -2940,7 +2970,10 @@
    ],
    "after": "この3つはどれも、<strong>文字中心の本を読む人にだけ、はっきり効く</strong>価値です。裏を返せば、読む本の種類さえ合っていれば期待は裏切られません。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -3194,7 +3227,10 @@
   "kind": "review",
   "rakuten_url": "https://item.rakuten.co.jp/switchbot/10000076/",
   "yahoo_url": "https://store.shopping.yahoo.co.jp/switchbot/w3202100.html",
-  "jan": "0850046603174"
+  "jan": "0850046603174",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -3451,7 +3487,10 @@
    ],
    "after": "いずれも<strong>接続台数が多い家でこそ効く</strong>価値です。まず有線で回線速度を測り、原因がルーター側にあると確認できたなら、投資として素直に報われます。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -3702,7 +3741,10 @@
    ],
    "after": "この3つを得るための条件は、<strong>天井の引掛シーリングと、畳数をワンランク上げること</strong>の2つだけ。どちらも購入前に確認できます。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -3964,7 +4006,10 @@
   "kind": "review",
   "rakuten_url": "https://item.rakuten.co.jp/yamayuu/yj-4488/",
   "yahoo_url": "https://store.shopping.yahoo.co.jp/e-alamode/27-3910.html",
-  "jan": "4903208044882"
+  "jan": "4903208044882",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -4223,7 +4268,10 @@
    ],
    "after": "この3つは<strong>年間の稼働時間が長いほど回収が早くなる</strong>種類の価値です。就寝時に毎晩使うなら、価格差は数シーズンで気にならなくなります。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -4473,7 +4521,10 @@
    ],
    "after": "この3つは<strong>複数のウィンドウを横に並べる作業をしている人</strong>にだけ効きます。当てはまるなら、投資に見合う体感はかなりはっきり返ってきます。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -4727,7 +4778,10 @@
   "kind": "review",
   "rakuten_url": "https://item.rakuten.co.jp/dji-shop/6941565991430/",
   "yahoo_url": "https://store.shopping.yahoo.co.jp/dji-store/6941565991430.html",
-  "jan": "6941565991430"
+  "jan": "6941565991430",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -4986,7 +5040,10 @@
    ],
    "after": "この3つは<strong>同じ部屋に複数人いる会議</strong>でこそ効きます。在宅で一人ならヘッドセットのほうが有利なので、用途で使い分けるのが現実的です。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -5237,7 +5294,10 @@
    ],
    "after": "この3つは<strong>通知と記録に用途を絞れば</strong>すべて手に入ります。決済やiPhoneでの返信を求めなければ、上位機との差はほとんど気になりません。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -5488,7 +5548,10 @@
    ],
    "after": "この3つは<strong>冬でも日が当たり、Wi-Fiが届く場所</strong>であればすべて成立します。判定は現地にスマートフォンを持っていくだけで済みます。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -5747,7 +5810,10 @@
    ],
    "after": "この3つは<strong>座ったときに足裏が床から浮いている人</strong>にだけ効きます。判定は座って隙間を測るだけ、数秒で終わります。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -6006,7 +6072,10 @@
    ],
    "after": "この3つは<strong>机の横に25cm前後の余白がある人</strong>にだけ効きます。床にテープで外形を貼れば、数分で判定できます。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -6279,7 +6348,10 @@
    ],
    "after": "この3つの対価が電気代と動作音です。<strong>手入れが続かなくて使わなくなるほうがもったいない</strong>と考えるなら、この交換条件は割に合います。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -6539,7 +6611,10 @@
    ],
    "after": "この3つは<strong>通路幅さえ確保できれば</strong>すべて手に入ります。床にテープを貼って、荷物を持ったまま通れるか試すだけで判定できます。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  },
  {
   "published": true,
@@ -6785,6 +6860,9 @@
    ],
    "after": "この3つは<strong>自分に必要な高さを知ってから選べば</strong>手に入ります。壁を使って測るだけなので、道具も費用もかかりません。"
   },
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-08-25"
+  }
  }
 ]
