@@ -860,32 +860,27 @@
      短くして1行に収めたほうが見出しの下が締まる。 */
   var brief = nCat + ' カテゴリー・' + nPub + ' 記事を公開中';
 
-  /* 1行に収める。長いほうが入らなければ短いほうに切り替える。 */
+  /* 長い言い方と短い言い方を、置ける幅で選ぶ。
+     以前は文字を実測して縮めていたが、書き換えるたびに
+     ResizeObserver が反応して測り直し、文言と大きさが行き来していた。
+     幅の判定だけにして、決まったら二度と動かさない。 */
+  var WIDE = 560;                  /* この幅より広ければ長いほうを出す */
+  var shown = null;
+
   function fitCount() {
-    if (!el.clientWidth) return;
-    el.style.whiteSpace = 'nowrap';
-    var base = parseFloat(getComputedStyle(el).fontSize) || 13;
-
-    function tryText(t) {
-      el.textContent = t;
-      el.style.fontSize = '';
-      if (el.scrollWidth <= el.clientWidth + 1) return true;
-      /* 少し詰めれば入る場合だけ縮める。読めない大きさにはしない。 */
-      var size = base;
-      while (size > base - 2 && size > 11.5 && el.scrollWidth > el.clientWidth + 1) {
-        size -= 0.25;
-        el.style.fontSize = size + 'px';
-      }
-      return el.scrollWidth <= el.clientWidth + 1;
-    }
-
-    if (tryText(full)) return;
-    if (tryText(brief)) return;
-    el.style.fontSize = '';        /* どちらも入らないときは折り返す */
-    el.style.whiteSpace = '';
+    var box = el.parentElement || el;
+    var w = box.clientWidth;
+    if (!w) return;
+    var want = w >= WIDE ? 'full' : 'brief';
+    if (want === shown) return;    /* 変わらないときは触らない（暴れの元） */
+    shown = want;
+    el.textContent = want === 'full' ? full : brief;
   }
 
-  if ('ResizeObserver' in window) new ResizeObserver(fitCount).observe(el);
+  /* 監視するのは入れ物のほう。文字を書き換える本人を見張ると、
+     自分の変化に自分で反応して止まらなくなる。 */
+  var box = el.parentElement || el;
+  if ('ResizeObserver' in window) new ResizeObserver(fitCount).observe(box);
   else window.addEventListener('resize', fitCount);
   requestAnimationFrame(fitCount);
 })();

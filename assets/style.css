@@ -4212,7 +4212,11 @@ body.is-article .layout > .container{
   text-align:center;
 }
 @media (min-width:900px){
-  .hero-tile{grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);text-align:left;}
+  /* 見出しの横に検索を置くと、900〜1023pxの幅で記事数の一文が
+     検索枠の上にぶら下がり、どこの説明か分からなくなる。
+     どの幅でも「見出し → 記事数 → 読み方 → 検索」の縦一列にする。 */
+  .hero-tile{grid-template-columns:minmax(0,1fr);text-align:center;}
+  .hero-tile .search-tile{max-width:520px;margin:0 auto;width:100%;}
 }
 @media (min-width:1024px){
   /* サイドに検索があるので、タイル内の検索は出さず中身を中央に置く */
@@ -4851,20 +4855,15 @@ body{
    行数を固定し、カードに下限の高さを与えて頭とお尻をそろえる。
    ============================================================ */
 @media (max-width:599px){
+  /* 見出しと抜粋の行数を固定すれば、高さは自然にそろう。
+     カード側で高さを決め打ちすると、中身が入りきらずに消える。 */
   .card-grid{align-items:stretch;}
-  .card:not(.is-lead){min-height:122px;}
-  .card:not(.is-lead) .card-body{
-    justify-content:flex-start;
-    overflow:hidden;
-  }
+  .card:not(.is-lead) .card-body{justify-content:flex-start;}
+  /* 横並びになって1行に入る文字が増えたので、記事名は3行まで見せる。
+     行数を固定してあるので、3行に満たない記事があっても高さはそろう。 */
   .card:not(.is-lead) .card-title{
-    -webkit-line-clamp:2;         /* 3行だと1行ぶんの段差が出る */
-    min-height:calc(14.5px * 1.5 * 2);
-  }
-  .card:not(.is-lead) .card-desc{
-    flex:0 0 auto;
-    -webkit-line-clamp:2;
-    min-height:calc(12px * 1.7 * 2);
+    -webkit-line-clamp:3;
+    min-height:calc(14px * 1.45 * 3);
   }
 }
 
@@ -5000,9 +4999,12 @@ body{
      アイコンは並びの識別に効いていないので、PCでは出さない
      （スマホのタブバー側では残す）。 */
   .cat-nav-list{
-    flex-wrap:nowrap;
+    /* 収まるなら1行、収まらないときだけ折り返す。
+       横スクロールのままだと、PCでは端の項目が切れて見えるため。 */
+    flex-wrap:wrap;
     justify-content:center;
-    overflow-x:auto;
+    overflow-x:visible;
+    row-gap:0;
   }
   .cat-nav-list a{padding:0 8px;font-size:12.5px;}
   .cat-nav-list a .cat-icon{display:none;}
@@ -5071,3 +5073,47 @@ body{
   background:var(--surface);
 }
 .ad-slot.is-side .adsbygoogle{min-height:250px;}
+
+/* ヘッダーのメニュー：折り返して2行になると頭が揃わない。
+   900〜1099px の狭い範囲だけ、文字と余白を詰めて1行に保つ。 */
+@media (min-width:900px){
+  .global-nav ul{flex-wrap:nowrap;}
+  .global-nav a{white-space:nowrap;}
+}
+@media (min-width:900px) and (max-width:1099px){
+  .global-nav a{padding:10px 9px;font-size:13px;}
+  .brand-name{font-size:26px;}
+  .site-tagline{font-size:11.5px;}
+}
+
+/* ============================================================
+   記事タイルのボタン
+   ------------------------------------------------------------
+   PC：本文の幅いっぱいに伸ばして中央に置く。
+   スマホ：タイルの真下に、間を空けて横いっぱいに置く。
+        （タイルは画像が左・本文が右の横並びなので、本文の下ではなく
+          タイル全体の下に敷く。押下判定はタイル全面が受ける）
+   ============================================================ */
+.card-link{
+  display:flex;
+  width:100%;
+  text-align:center;
+}
+@media (max-width:599px){
+  .card:not(.is-lead){
+    position:relative;
+    padding-bottom:54px;          /* ボタンぶんの余白 */
+  }
+  .card:not(.is-lead) .card-link{
+    display:flex;
+    position:absolute;
+    left:11px;
+    right:11px;
+    bottom:11px;
+    width:auto;
+    min-height:40px;
+    padding:6px 14px;
+    font-size:13px;
+    z-index:2;
+  }
+}
