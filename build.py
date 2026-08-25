@@ -205,7 +205,20 @@ def ad_slot(name, cls=""):
             f'        </aside>\n')
 
 
-def head(title, desc, current, p, canonical, extra="", body_class=""):
+def og_image(img):
+    """OGP画像の絶対URL。SNSと検索結果のカードに出る絵。
+       相対パスのままだと読まれないので、必ず絶対URLにする。
+       自動生成のSVGは多くのSNSが解釈しないため、実画像があるときだけ出す。"""
+    u = (img or "").strip()
+    if not u or u.endswith(".svg"):
+        return ""
+    if u.startswith("http"):
+        return u
+    return f'{BASE_URL}/{u.lstrip("./")}'
+
+
+def head(title, desc, current, p, canonical, extra="", body_class="", image="",
+         noindex=False):
     """p = ルートへの相対プレフィックス（"./" または "../"）"""
     ga = ""
     if GA:
@@ -218,6 +231,18 @@ def head(title, desc, current, p, canonical, extra="", body_class=""):
 </script>
 '''
     gsc = f'<meta name="google-site-verification" content="{e(GSC)}">\n' if GSC else ""
+    # 検索結果のページは検索エンジンに載せない。中身が毎回変わるうえ、
+    # 「検索結果の検索結果」はGoogleが載せない方針のため、
+    # クロールの予算を記事のほうへ回す。
+    norobots = ('<meta name="robots" content="noindex,follow">\n'
+                if noindex else "")
+    oi = og_image(image)
+    ogimg = ""
+    if oi:
+        ogimg = (f'<meta property="og:image" content="{e(oi)}">\n'
+                 f'<meta property="og:image:width" content="1200">\n'
+                 f'<meta property="og:image:height" content="630">\n'
+                 f'<meta name="twitter:image" content="{e(oi)}">\n')
     bodycls = f' class="{e(body_class)}"' if body_class else ""
     rank_data = rank_json(p)
     return f'''<!DOCTYPE html>
@@ -228,12 +253,13 @@ def head(title, desc, current, p, canonical, extra="", body_class=""):
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{e(public_url(canonical))}">
-{gsc}{ads_meta()}<meta property="og:type" content="website">
+<link rel="alternate" type="application/rss+xml" title="{e(NAME)}" href="{BASE_URL}/feed.xml">
+{gsc}{norobots}{ads_meta()}<meta property="og:type" content="website">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:site_name" content="{e(NAME)}">
 <meta property="og:url" content="{e(public_url(canonical))}">
-<meta name="twitter:card" content="summary_large_image">
+{ogimg}<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
@@ -327,6 +353,23 @@ def tab_bar(p, current="", current_sub=""):
         + cat_tree(p, current, current_sub, "panel") +
         '  </div>\n'
         '</div>\n')
+
+
+def breadcrumb_ld(items):
+    """パンくずの構造化データ。items = [(ラベル, 絶対URL), ...]
+       画面のパンくずと同じ並びを、検索エンジンにも読める形で渡す。"""
+    items = [(t, u) for t, u in items if t]
+    if len(items) < 2:
+        return ""
+    ld = {
+        "@context": "https://schema.org", "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": i, "name": t, "item": public_url(u)}
+            for i, (t, u) in enumerate(items, start=1)
+        ],
+    }
+    return ('<script type="application/ld+json">'
+            + json.dumps(ld, ensure_ascii=False) + '</script>\n')
 
 
 def crumb_bar(items):
@@ -540,8 +583,9 @@ def main_block(body, p, current="", current_sub="", sidebar=False, hero_slot="",
             '  </div>\n</main>\n\n')
 
 
-def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class="", crumbs=None, current_sub="", sidebar=False, band="", hero_slot="", side_search_on=True):
-    return (head(title, desc, current, p, canonical, extra_head, body_class)
+def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class="", crumbs=None, current_sub="", sidebar=False, band="", hero_slot="", side_search_on=True, image="", noindex=False):
+    return (head(title, desc, current, p, canonical, extra_head, body_class, image,
+                 noindex)
             + header(current, p, crumbs, current_sub, band)
             + main_block(body, p, current, current_sub, sidebar, hero_slot,
                          side_search_on)
@@ -1124,17 +1168,34 @@ def render_article(a):
     # 記事を読み終えた人の目に入る位置にする。
     add(ad_slot("article_end"))
 
-    # 構造化データ
+    # 構造化データ。検索結果に日付・書き手・画像を出すための材料。
     ld = {
       "@context": "https://schema.org", "@type": "Article",
-      "headline": a["title"], "description": a.get("description",""),
+      "headline": a["title"][:110],       # Googleは110字までしか読まない
+      "description": a.get("description", ""),
       "datePublished": a["date"], "dateModified": a.get("updated") or a["date"],
-      "author": {"@type": "Person", "name": SITE["author"]},
-      "publisher": {"@type": "Organization", "name": NAME},
-      "mainEntityOfPage": url,
+      "author": {"@type": "Person", "name": SITE["author"],
+                 "url": f"{BASE_URL}/about"},
+      "publisher": {"@type": "Organization", "name": NAME,
+                    "url": BASE_URL},
+      "mainEntityOfPage": {"@type": "WebPage", "@id": public_url(url)},
+      "inLanguage": "ja",
     }
+    oi = og_image(a.get("thumb"))
+    if oi:
+        ld["image"] = [oi]
+    if a.get("tags"):
+        ld["keywords"] = "、".join(a["tags"])
+
+    # パンくずの構造化データ。検索結果に「ホーム › 家電 › 記事名」と出る。
+    crumb_ld = breadcrumb_ld([
+        ("ホーム", f"{BASE_URL}/"),
+        (CAT_LABEL.get(cat, ""), f"{BASE_URL}/category-{cat}.html"),
+        (a.get("list_title") or a["title"], public_url(url)),
+    ])
     extra_js = ('<script type="application/ld+json">'
-                + json.dumps(ld, ensure_ascii=False) + '</script>\n')
+                + json.dumps(ld, ensure_ascii=False) + '</script>\n'
+                + crumb_ld)
 
     return page(f'{a["title"]} - {NAME}', a.get("description") or a.get("excerpt",""),
                 cat, p, url, "".join(b),
@@ -1142,6 +1203,7 @@ def render_article(a):
                 extra_js=extra_js,
                 # 記事ページはサイドを出さず、本文だけを広く使う
                 sidebar=False, body_class="is-article", current_sub=a.get("sub", ""),
+                image=a.get("thumb", ""),
                 crumbs=[("ホーム", f"{p}index.html"),
                         (CAT_LABEL.get(cat, ""), f"{p}category-{cat}.html"),
                         (a.get("list_title") or a["title"], None)])
@@ -1454,9 +1516,29 @@ def build_index():
             body += f'<div class="tb" data-tb="{item["key"]}">\n' + make() + '</div>\n'
     hero_slot = ('    <div class="hero-slot">\n' + hero_tile + '    </div>\n'
                  if hero_on else "")
+    # サイトそのものの構造化データ。検索結果にサイト名と検索窓を出す材料。
+    site_ld = [
+        {"@context": "https://schema.org", "@type": "WebSite",
+         "name": NAME, "url": BASE_URL + "/",
+         "inLanguage": "ja",
+         "description": SITE["description"],
+         "potentialAction": {
+             "@type": "SearchAction",
+             "target": {"@type": "EntryPoint",
+                        "urlTemplate": f"{BASE_URL}/search?q={{search_term_string}}"},
+             "query-input": "required name=search_term_string"}},
+        {"@context": "https://schema.org", "@type": "Organization",
+         "name": NAME, "url": BASE_URL + "/",
+         "description": SITE["description"],
+         "email": SITE.get("email", "")},
+    ]
+    ld_js = "".join('<script type="application/ld+json">'
+                    + json.dumps(x, ensure_ascii=False) + "</script>\n"
+                    for x in site_ld)
     return page(f"{NAME}｜{TAGLINE}", SITE["description"], "all", p, BASE_URL + "/", body,
                 body_class="is-listing is-home", sidebar=True, band=band,
-                hero_slot=hero_slot)
+                hero_slot=hero_slot, extra_js=ld_js,
+                image=(PUBLISHED[0].get("thumb") if PUBLISHED else ""))
 
 def build_category(c):
     p = "./"
@@ -1472,6 +1554,10 @@ def build_category(c):
                 c["lead"][:110], c["key"], p,
                 f'{BASE_URL}/category-{c["key"]}.html', body,
                 body_class="is-listing", sidebar=True,
+                image=(items[0].get("thumb") if items else ""),
+                extra_js=breadcrumb_ld([
+                    ("ホーム", f"{BASE_URL}/"),
+                    (c["label"], f'{BASE_URL}/category-{c["key"]}.html')]),
                 crumbs=[("ホーム", f"{p}index.html"), (c["label"], None)])
 
 def build_subcategory(c, sc):
@@ -1489,6 +1575,11 @@ def build_subcategory(c, sc):
                 c["key"], p,
                 f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html', body,
                 body_class="is-listing", sidebar=True, current_sub=sc["key"],
+                image=(items[0].get("thumb") if items else ""),
+                extra_js=breadcrumb_ld([
+                    ("ホーム", f"{BASE_URL}/"),
+                    (c["label"], f'{BASE_URL}/category-{c["key"]}.html'),
+                    (sc["label"], f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html')]),
                 crumbs=[("ホーム", f"{p}index.html"),
                         (c["label"], f'{p}category-{c["key"]}.html'),
                         (sc["label"], None)])
@@ -1569,6 +1660,7 @@ def build_search():
                 "search", p, BASE_URL + "/search.html", body,
                 extra_js=f'<script src="./assets/search.js?v={ASSET_V}"></script>\n',
                 body_class="is-listing", sidebar=True, side_search_on=False,
+                noindex=True,
                 crumbs=[("ホーム", f"{p}index.html"), ("サイト内検索", None)])
 
 # ============================================================ Worker
@@ -1957,6 +2049,42 @@ def main():
           "Disallow: /admin\n"
           f"\nSitemap: {BASE_URL}/sitemap.xml\n")
     written.append("robots.txt")
+
+    # feed.xml：更新を知らせるフィード。
+    # 読者の購読だけでなく、検索エンジンやニュース系のクローラが
+    # 新着を見つける手がかりにもなる（sitemap より更新に敏感）。
+    def rfc822(iso):
+        try:
+            y, m, d = str(iso)[:10].split("-")
+            wd = datetime.date(int(y), int(m), int(d)).strftime("%a")
+            mo = datetime.date(int(y), int(m), int(d)).strftime("%b")
+            return f"{wd}, {int(d):02d} {mo} {y} 00:00:00 +0900"
+        except (ValueError, TypeError):
+            return ""
+
+    items = ""
+    for a in PUBLISHED[:20]:
+        link = public_url(f'{BASE_URL}/articles/{a["slug"]}.html')
+        items += (f"  <item>\n"
+                  f"    <title>{e(a.get('list_title') or a['title'])}</title>\n"
+                  f"    <link>{e(link)}</link>\n"
+                  f"    <guid isPermaLink=\"true\">{e(link)}</guid>\n"
+                  f"    <description>{e(a.get('excerpt') or a.get('description',''))}</description>\n"
+                  f"    <category>{e(CAT_LABEL.get(a['category'],''))}</category>\n"
+                  f"    <pubDate>{rfc822(a.get('updated') or a['date'])}</pubDate>\n"
+                  f"  </item>\n")
+    write("feed.xml",
+          '<?xml version="1.0" encoding="UTF-8"?>\n'
+          '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
+          '<channel>\n'
+          f"  <title>{e(NAME)}</title>\n"
+          f"  <link>{BASE_URL}/</link>\n"
+          f"  <description>{e(SITE['description'])}</description>\n"
+          "  <language>ja</language>\n"
+          f'  <atom:link href="{BASE_URL}/feed.xml" rel="self" type="application/rss+xml"/>\n'
+          + items +
+          "</channel>\n</rss>\n")
+    written.append("feed.xml")
 
     # ads.txt：この広告枠を売ってよいのは誰か、をドメインの持ち主が宣言する。
     # 置いていないと AdSense 側で「要注意」と警告が出て、収益にも響く。

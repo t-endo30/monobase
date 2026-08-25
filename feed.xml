@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>モノベース</title>
+  <link>https://monobase.site/</link>
+  <description>暮らしと作業を快適にするアイテムを、購入者レビューと公式仕様を突き合わせて検証。良い点だけでなく「向かない人」まで整理して紹介します。</description>
+  <language>ja</language>
+  <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>Anker 621 MagGoは買いか</title>
+    <link>https://monobase.site/articles/anker-621-maggo-battery-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/anker-621-maggo-battery-review</guid>
+    <description>容量ではなく「充電を始めるまでの手数」を買う製品。向く環境と向かない環境を整理しました。</description>
+    <category>スマートフォン</category>
+    <pubDate>Tue, 25 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>アイリスオーヤマ 電気圧力鍋4.0Lの実力</title>
+    <link>https://monobase.site/articles/iris-kpc-ma4-pressure-cooker-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/iris-kpc-ma4-pressure-cooker-review</guid>
+    <description>4.0Lの電気圧力鍋。効くのは時短より「火のそばを離れられる」ことでした。</description>
+    <category>キッチン</category>
+    <pubDate>Tue, 25 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>象印 CK-AX08-BA レビュー</title>
+    <link>https://monobase.site/articles/zojirushi-ck-ax08-kettle-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/zojirushi-ck-ax08-kettle-review</guid>
+    <description>0.8Lの割り切りと蒸気レス構造。狭い台所とドリップ派に噛み合う一台を検証。</description>
+    <category>キッチン</category>
+    <pubDate>Tue, 25 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>LED投光器（コンセント式・IP66）はどんな人に向くか</title>
+    <link>https://monobase.site/articles/led-floodlight-ip66-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/led-floodlight-ip66-review</guid>
+    <description>電源の確保、コード長2mの制約、光の向き。設置前に確認すべき点をレビューから整理しました。</description>
+    <category>家電</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>Amazonセールの買い時カレンダー｜年間の狙い目</title>
+    <link>https://monobase.site/articles/amazon-sale-calendar</link>
+    <guid isPermaLink="true">https://monobase.site/articles/amazon-sale-calendar</guid>
+    <description>主要セールの時期と、値下がりしやすい商品の傾向を整理。「待つべきか、今買うべきか」の判断基準をまとめました。</description>
+    <category>特集・まとめ</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>エルゴトロン LX モニターアームは何を解決するのか</title>
+    <link>https://monobase.site/articles/ergotron-lx-monitor-arm-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/ergotron-lx-monitor-arm-review</guid>
+    <description>天板の厚み、VESA規格、モニター重量。設置してから気づくと詰む条件をレビューから整理しました。</description>
+    <category>パソコン</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>BenQ ScreenBar は手元の暗さを解決するのか</title>
+    <link>https://monobase.site/articles/benq-screenbar-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/benq-screenbar-review</guid>
+    <description>画面に映り込まないのが本質。ただしモニターの形状によっては載りません。</description>
+    <category>家電</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>USB-Cドッキングステーションは1本化に見合うか</title>
+    <link>https://monobase.site/articles/anker-568-usbc-dock-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/anker-568-usbc-dock-review</guid>
+    <description>ケーブル1本化は快適。ただし「何画面出せるか」はPC側の仕様で決まります。</description>
+    <category>パソコン</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>ロジクール MX MASTER 3s は静音化で何が変わったか</title>
+    <link>https://monobase.site/articles/mx-master-3s-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/mx-master-3s-review</guid>
+    <description>静音クリックとホイールが本体。ただし大きく重いので、持ち方によっては合いません。</description>
+    <category>パソコン</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>Kindle Paperwhite シグニチャー エディションは何が違うか</title>
+    <link>https://monobase.site/articles/kindle-paperwhite-signature-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/kindle-paperwhite-signature-review</guid>
+    <description>容量・ワイヤレス充電・明るさ自動調節。差額に見合う人の条件を整理しました。</description>
+    <category>パソコン</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>スマートリモコンは結局ラクになるのか</title>
+    <link>https://monobase.site/articles/switchbot-hub-remote-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/switchbot-hub-remote-review</guid>
+    <description>赤外線が届くかどうかが全て。設置場所を先に決めないと動きません。</description>
+    <category>家電</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>Wi-Fi 6ルーターに替えると何が変わるか</title>
+    <link>https://monobase.site/articles/buffalo-wifi6-ax5400-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/buffalo-wifi6-ax5400-review</guid>
+    <description>回線が遅いままなら速くなりません。効くのは「同時接続の多い家」です。</description>
+    <category>パソコン</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>導光板タイプのLEDシーリングライトは何が違うか</title>
+    <link>https://monobase.site/articles/iris-panel-light-ceiling-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/iris-panel-light-ceiling-review</guid>
+    <description>見た目は圧倒的に薄い。ただし畳数の選び方を間違えると暗く感じます。</description>
+    <category>家電</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>縦長スリムのゴミ箱は使いやすいのか</title>
+    <link>https://monobase.site/articles/tower-trash-can-slim-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/tower-trash-can-slim-review</guid>
+    <description>隙間に入る細さが本体。袋のサイズと臭い対策だけは事前に考えておく必要があります。</description>
+    <category>日用品・雑貨</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>DCモーター扇風機は買い替える価値があるか</title>
+    <link>https://monobase.site/articles/dc-motor-fan-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/dc-motor-fan-review</guid>
+    <description>静かさと微風のためのDCモーター。価格差に見合うかは使う時間で決まります。</description>
+    <category>家電</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>34インチ曲面ウルトラワイドは作業効率を上げるのか</title>
+    <link>https://monobase.site/articles/ultrawide-34-monitor-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/ultrawide-34-monitor-review</guid>
+    <description>ベゼルが消えるのが本質。ただし机の奥行きと文字サイズは事前に検討が要ります。</description>
+    <category>パソコン</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>ワイヤレスピンマイクは撮影の何を変えるか</title>
+    <link>https://monobase.site/articles/dji-mic-mini-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/dji-mic-mini-review</guid>
+    <description>音が良くなるのではなく、口元にマイクが来ることで別物になります。</description>
+    <category>AV機器</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>会議用スピーカーフォンは必要か</title>
+    <link>https://monobase.site/articles/speakerphone-conference-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/speakerphone-conference-review</guid>
+    <description>1人ならヘッドセットで足ります。複数人が同じ部屋にいる会議で意味が出ます。</description>
+    <category>AV機器</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>1万円台のスマートウォッチで足りるのか</title>
+    <link>https://monobase.site/articles/redmi-watch-5-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/redmi-watch-5-review</guid>
+    <description>通知と睡眠・歩数の記録が目的なら足ります。医療用途と決済には期待しないこと。</description>
+    <category>ヘルスケア</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>ソーラー式の屋外防犯カメラは電源工事なしで使えるのか</title>
+    <link>https://monobase.site/articles/solar-security-camera-review</link>
+    <guid isPermaLink="true">https://monobase.site/articles/solar-security-camera-review</guid>
+    <description>配線不要が魅力。ただし日照とWi-Fiが届くかで成否が決まります。</description>
+    <category>日用品・雑貨</category>
+    <pubDate>Mon, 24 Aug 2026 00:00:00 +0900</pubDate>
+  </item>
+</channel>
+</rss>
