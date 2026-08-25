@@ -2566,7 +2566,7 @@ body[data-cat="ranking"] .side-rank{display:none;}
     box-shadow:0 1px 4px rgba(0,0,0,.05);
   }
   .site-header.is-shrunk ~ .tab-bar{top:54px;}
-  .tab-bar .container{display:grid;grid-template-columns:repeat(4,1fr);padding:0;}
+  .tab-bar .container{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:0;}
   .tab-bar a,.tab-bar button{
     display:flex;
     flex-direction:column;
@@ -3941,8 +3941,10 @@ body.is-article .layout > .container{
 
 @media (max-width:899px){
   .rail{
-    margin:0 calc(var(--pad-x) * -1);   /* 画面の端まで使って、続きを覗かせる */
-    padding:2px var(--pad-x) 10px;
+    /* 画面の端まで広げると、負の余白のぶんページ全体が横に
+       はみ出してしまう。枠の中に収めたうえで、4枚目を覗かせる。 */
+    margin:0;
+    padding:2px 0 10px;
     overflow-x:auto;
     overscroll-behavior-x:contain;
     scroll-snap-type:x proximity;
@@ -4025,4 +4027,155 @@ body.is-article .layout > .container{
   /* 幅の狭いレールのカードでは、種類バッジまで入らないので出さない */
   .rail .card-tags .tag-kind,
   .rail .card-tags .tag:not(.tag-hot){display:none;}
+}
+
+/* ============================================================
+   ランキング専用ページ：記事名は中央、補助情報は左に置く
+   ------------------------------------------------------------
+   カテゴリー名と表示回数は「見出しに添える情報」なので、
+   中央に浮かせるより行頭にそろえたほうが目で追いやすい。
+   ============================================================ */
+@media (max-width:899px){
+  .rank-page .rank-meta,
+  .rank-page .rank-cat{text-align:left;}
+  .rank-page .rank-body{align-items:stretch;}
+}
+
+/* ============================================================
+   ハンバーガーメニューの中身は中央寄せ
+   ============================================================ */
+@media (max-width:899px){
+  .global-nav .nav-links{text-align:center;}
+  .global-nav .nav-links li{text-align:center;}
+  .global-nav .nav-links a{
+    display:block;
+    text-align:center;
+  }
+}
+
+/* ============================================================
+   ヘッダー直下の帯（サイトの立ち位置を示すタイル）は中央寄せ
+   ============================================================ */
+.hero-band .hero{text-align:center;}
+.hero-band .hero h1{text-align:center;}
+.hero-band .hero p{
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+}
+@media (min-width:1024px){
+  /* 検索タイルを出さない幅では、帯の中身を中央に置く */
+  .hero-band .hero-row{justify-items:center;}
+}
+
+/* ============================================================
+   カテゴリーから探す
+   ============================================================ */
+.cf-grid{
+  display:grid;
+  /* minmax(0,1fr) にしないと、中の長い文字が縮まず枠を押し広げる */
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+@media (min-width:600px){ .cf-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
+@media (min-width:1240px){ .cf-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+.cf-tile{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:13px 14px;
+  border-radius:var(--radius);
+  background:var(--surface);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-xs);
+  text-decoration:none;
+  color:var(--ink);
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease);
+}
+.cf-tile:hover{transform:translateY(-2px);box-shadow:var(--shadow);text-decoration:none;}
+@media (hover:none){ .cf-tile:active{transform:translateY(1px) scale(.985);box-shadow:var(--shadow-in);} }
+.cf-icon{flex:0 0 auto;display:flex;align-items:center;font-size:17px;line-height:1;}
+.cf-label{
+  flex:1 1 auto;
+  min-width:0;
+  font-size:13.5px;
+  font-weight:700;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.cf-count{
+  flex:0 0 auto;
+  font-size:11px;
+  font-weight:700;
+  color:var(--text-sub);
+  background:var(--bg-gray);
+  border-radius:20px;
+  padding:2px 9px;
+}
+
+/* ============================================================
+   このサイトの読み方
+   ============================================================ */
+.policy{
+  display:grid;
+  gap:12px;
+  margin-bottom:clamp(14px,3vw,20px);
+}
+@media (min-width:900px){ .policy{grid-template-columns:repeat(3,minmax(0,1fr));} }
+.policy-item{
+  display:flex;
+  gap:12px;
+  padding:15px 16px;
+  border-radius:var(--radius);
+  background:var(--surface);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-xs);
+}
+.policy-num{
+  flex:0 0 auto;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.04em;
+  color:var(--amazon);
+  line-height:1.5;
+}
+.policy-body{min-width:0;}
+.policy-body h3{
+  margin:0 0 5px;
+  font-size:14px;
+  font-weight:700;
+  line-height:1.55;
+  color:var(--ink);
+}
+.policy-body p{
+  margin:0;
+  font-size:12.5px;
+  line-height:1.85;
+  color:var(--text-sub);
+  text-align:justify;
+  text-justify:inter-character;
+}
+@media (max-width:899px){
+  .policy-item{text-align:left;}
+  .policy-body p{text-align:left;}
+}
+
+/* タブが5つになったぶん、1つあたりの幅を詰めて1行に収める */
+@media (max-width:899px){
+  .tab-bar .container{gap:0;}
+  .tab-bar a,
+  .tab-bar button{padding-left:0;padding-right:0;min-width:0;}
+  .tab-bar span{
+    font-size:9.5px;
+    letter-spacing:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:100%;
+  }
+}
+@media (max-width:359px){
+  /* 画面が特に狭い端末では、さらに小さくして折り返しを防ぐ */
+  .tab-bar span{font-size:8.5px;}
 }

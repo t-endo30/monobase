@@ -248,9 +248,10 @@ def tab_bar(p, current="", current_sub=""):
         '  <div class="container">\n'
         f'    <a href="{p}index.html"{cur(is_all)}>{icon("all", "tab-icon")}<span>ALL</span></a>\n'
         f'    <a href="{p}new.html"{cur(current == "new")}>{icon("new", "tab-icon")}<span>NEW</span></a>\n'
+        f'    <a href="{p}ranking.html"{cur(current == "ranking")}>{icon("rank", "tab-icon")}<span>RANKING</span></a>\n'
+        f'    <a href="{p}search.html"{cur(current == "search")}>{icon("search", "tab-icon")}<span>SEARCH</span></a>\n'
         '    <button type="button" id="tabCats" aria-expanded="false" aria-controls="catPanel">'
         f'{icon("cats", "tab-icon")}<span>CATEGORIES</span></button>\n'
-        f'    <a href="{p}ranking.html"{cur(current == "ranking")}>{icon("rank", "tab-icon")}<span>RANKING</span></a>\n'
         '  </div>\n'
         '</nav>\n'
         '<div class="cat-panel" id="catPanel" hidden>\n'
@@ -999,6 +1000,121 @@ def feature_ready():
     return th, ready
 
 
+DEFAULT_TOP = [
+    {"key": "today",      "on": True},
+    {"key": "new",        "on": True},
+    {"key": "feature",    "on": True},
+    {"key": "ranking",    "on": True},
+    {"key": "categories", "on": True},
+    {"key": "policy",     "on": True},
+]
+
+# 管理画面に出す名前。ここに無いものは並べ替えの対象にしない。
+TOP_LABEL = {
+    "today":      "本日のお勧めのモノ",
+    "new":        "新着記事",
+    "feature":    "特集",
+    "ranking":    "よく読まれている記事（スマホのみ）",
+    "categories": "カテゴリーから探す",
+    "policy":     "このサイトの読み方",
+}
+
+
+def top_layout():
+    """トップの区画の並び順。設定に無いものは既定の位置に補う。"""
+    saved = (SITE.get("layout") or {}).get("top") or []
+    out, seen = [], set()
+    for it in saved:
+        k = it.get("key")
+        if k in TOP_LABEL and k not in seen:
+            out.append({"key": k, "on": bool(it.get("on", True))})
+            seen.add(k)
+    for it in DEFAULT_TOP:
+        if it["key"] not in seen:
+            out.append(dict(it))
+    return out
+
+
+def news_rail(items, p):
+    """新着。スマホでは横に流す小さめのカード、PCではこれまでどおりの並び。
+       中身は同じHTMLで、見せ方だけCSSで切り替える。"""
+    return ('      <section class="section-block">\n'
+            '        <h2 class="section-heading">新着記事</h2>\n'
+            '        <div class="rail">\n' + grid(items, p) +
+            '        </div>\n'
+            '        <p class="rail-hint">← 横にスワイプでもっと見る →</p>\n'
+            '        <div class="cta-wrap rail-more">\n'
+            f'          <a class="btn-sub" href="{p}new.html">新着記事をもっと見る</a>\n'
+            '        </div>\n'
+            '      </section>\n')
+
+
+def mobile_ranking(p):
+    """スマホにはPCのようなサイドが無く、ランキングへ行く手立てがタブだけに
+       なる。トップにも上位を出して、読まれている記事から入れるようにする。"""
+    return ('      <section class="section-block is-mobile-only">\n'
+            '        <h2 class="section-heading">よく読まれている記事</h2>\n'
+            + rank_panel(p, 5) +
+            '        <div class="cta-wrap">\n'
+            f'          <a class="btn-sub" href="{p}ranking.html">ランキングをすべて見る</a>\n'
+            '        </div>\n'
+            '      </section>\n')
+
+
+def cat_finder(p):
+    """カテゴリーから探すタイル。記事のあるカテゴリーだけを、件数つきで並べる。
+       スマホではタブのパネルからしか辿れないので、本文側にも入口を作る。"""
+    rows = ""
+    for c in CATS:
+        n = len([a for a in PUBLISHED if a["category"] == c["key"]])
+        if not n:
+            continue
+        rows += (f'          <a class="cf-tile" href="{p}category-{c["key"]}.html">\n'
+                 f'            <span class="cf-icon">{icon(c["key"])}</span>\n'
+                 f'            <span class="cf-label">{e(c["label"])}</span>\n'
+                 f'            <span class="cf-count">{n}</span>\n'
+                 f'          </a>\n')
+    if not rows:
+        return ""
+    return ('      <section class="section-block">\n'
+            '        <h2 class="section-heading">カテゴリーから探す</h2>\n'
+            '        <div class="cf-grid">\n' + rows +
+            '        </div>\n'
+            '      </section>\n')
+
+
+POLICY = [
+    ("01", "購入者レビューと公表仕様を突き合わせています",
+     "良い評価だけでなく、低い評価に繰り返し出てくる内容まで読み込み、仕様と照らして整理しています。"),
+    ("02", "「合わない場面」を先に書きます",
+     "どんな製品にも向かない環境があります。買ってから気づく条件を、記事の前半ではっきり書くようにしています。"),
+    ("03", "広告収益の有無で内容は変えません",
+     "Amazonアソシエイトによる収益がありますが、掲載の可否や評価は独立して判断しています。"),
+]
+
+
+def policy_box(p):
+    """このサイトの読み方。何を根拠に書いているかを短く示す。
+       広告収益のあるサイトでは、書き方の基準を明示しておくことが
+       読者の判断材料になる（検索エンジンの評価でも見られる部分）。"""
+    items = ""
+    for num, head, text in POLICY:
+        items += ('          <div class="policy-item">\n'
+                  f'            <span class="policy-num">{num}</span>\n'
+                  '            <div class="policy-body">\n'
+                  f'              <h3>{e(head)}</h3>\n'
+                  f'              <p>{e(text)}</p>\n'
+                  '            </div>\n'
+                  '          </div>\n')
+    return ('      <section class="section-block">\n'
+            '        <h2 class="section-heading">このサイトの読み方</h2>\n'
+            '        <div class="policy">\n' + items +
+            '        </div>\n'
+            f'        <div class="cta-wrap"><a class="btn-sub" href="{p}about.html">'
+            '運営者情報を見る</a></div>\n'
+            '      </section>\n')
+
+
 def build_index():
     p = "./"
     feat = [a for a in PUBLISHED if a.get("featured")][:3]
@@ -1021,31 +1137,21 @@ def build_index():
 {SEARCH_TILE if FEAT.get("search") else ""}  </div>
 </div>
 '''
-    body = today_panel("is-mobile")
-    body += feature_cards(p)
-
-    # 新着。スマホでは横に流す小さめのカード、PCではこれまでどおりの並び。
-    # 中身は同じHTMLで、見せ方だけCSSで切り替える。
-    body += f'''      <section class="section-block">
-        <h2 class="section-heading">新着記事</h2>
-        <div class="rail">
-{grid(latest, p)}        </div>
-        <p class="rail-hint">← 横にスワイプでもっと見る →</p>
-        <div class="cta-wrap rail-more">
-          <a class="btn-sub" href="{p}new.html">新着記事をもっと見る</a>
-        </div>
-      </section>
-'''
-
-    # スマホにはPCのようなサイドが無く、ランキングへ行く手立てがタブだけになる。
-    # トップにも上位を出して、読まれている記事から入れるようにする。
-    body += f'''      <section class="section-block is-mobile-only">
-        <h2 class="section-heading">よく読まれている記事</h2>
-{rank_panel(p, 5)}        <div class="cta-wrap">
-          <a class="btn-sub" href="{p}ranking.html">ランキングをすべて見る</a>
-        </div>
-      </section>
-'''
+    # トップに置く区画。並び順と表示・非表示は content/site.json の
+    # layout.top で決める（管理画面からドラッグして入れ替えられる）。
+    blocks = {
+        "today":      lambda: today_panel("is-mobile"),
+        "new":        lambda: news_rail(latest, p),
+        "feature":    lambda: feature_cards(p),
+        "ranking":    lambda: mobile_ranking(p),
+        "categories": lambda: cat_finder(p),
+        "policy":     lambda: policy_box(p),
+    }
+    body = ""
+    for item in top_layout():
+        make = blocks.get(item["key"])
+        if make and item.get("on", True):
+            body += make()
     return page(f"{NAME}｜{TAGLINE}", SITE["description"], "all", p, BASE_URL + "/", body,
                 body_class="is-listing", sidebar=True, band=band)
 
@@ -1148,7 +1254,7 @@ def build_search():
       </section>
 '''
     return page(f"サイト内検索 - {NAME}", f"{NAME}のサイト内検索。キーワードとタグで記事を絞り込めます。",
-                "", p, BASE_URL + "/search.html", body,
+                "search", p, BASE_URL + "/search.html", body,
                 extra_js=f'<script src="./assets/search.js?v={ASSET_V}"></script>\n',
                 sidebar=True,
                 crumbs=[("ホーム", f"{p}index.html"), ("サイト内検索", None)])

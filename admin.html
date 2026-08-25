@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=1aed3e1a">
+<link rel="stylesheet" href="./assets/admin.css?v=668bc6e5">
 </head>
 <body>
 
@@ -27,7 +27,6 @@
 <nav class="tabs">
   <div class="wrap">
     <button class="tab is-active" data-panel="p-articles">記事</button>
-    <button class="tab" data-panel="p-edit">編集</button>
     <button class="tab" data-panel="p-preview">プレビュー</button>
     <button class="tab" data-panel="p-images">画像</button>
     <button class="tab" data-panel="p-settings">サイト設定</button>
@@ -64,6 +63,7 @@
     <div class="card">
       <h2 id="editTitle">記事を編集</h2>
       <div class="edit-actions">
+        <button class="btn btn-ghost" id="btnBackTop">← 記事一覧へ</button>
         <button class="btn btn-primary" id="btnApplyTop">この記事を保存</button>
         <button class="btn" id="btnPreviewTop">プレビュー</button>
         <button class="btn btn-danger" id="btnDeleteTop">削除</button>
@@ -672,6 +672,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=1aed3e1a"></script>
+<script src="./assets/admin.js?v=668bc6e5"></script>
 </body>
 </html>

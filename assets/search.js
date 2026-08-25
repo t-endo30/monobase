@@ -103,16 +103,24 @@
         return a.it.date < b.it.date ? 1 : -1;
       });
 
-    results.innerHTML = hits.map(function (r) { return cardHtml(r.it, terms); }).join('');
-    empty.hidden = hits.length > 0;
-
     var cond = [];
     if (terms.length) cond.push('「' + input.value.trim() + '」');
     if (activeCats.length) cond.push('カテゴリー' + activeCats.length + '件');
     if (activeTags.length) cond.push('タグ：' + activeTags.join('・'));
-    status.textContent = cond.length
-      ? cond.join(' / ') + ' の検索結果：' + hits.length + '件'
-      : '全 ' + hits.length + ' 件の記事を表示しています';
+
+    /* 条件を入れていないうちは、記事を並べない。
+       検索の画面に全記事が出ていると、一覧との違いが分からなくなるため。 */
+    if (!cond.length) {
+      results.innerHTML = '';
+      empty.hidden = true;
+      status.textContent = 'キーワードを入れるか、下のカテゴリー・タグを選んでください。';
+      history.replaceState(null, '', location.pathname);
+      return;
+    }
+
+    results.innerHTML = hits.map(function (r) { return cardHtml(r.it, terms); }).join('');
+    empty.hidden = hits.length > 0;
+    status.textContent = cond.join(' / ') + ' の検索結果：' + hits.length + '件';
 
     /* URL に検索条件を反映（リロード・共有できるように） */
     var params = new URLSearchParams();

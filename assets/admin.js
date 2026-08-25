@@ -1587,6 +1587,11 @@
       .then(function () { $('btnEcGen').disabled = false; });
   });
 
+  /* タブから「編集」を外したので、一覧へ戻る手立てを用意する */
+  if ($('btnBackTop')) {
+    $('btnBackTop').addEventListener('click', function () { showPanel('p-articles'); });
+  }
+
   /* 編集画面の上下で同じ操作ができるようにする（長い記事で下まで行かなくて済む） */
   [['btnApplyTop', 'btnApply'],
    ['btnPreviewTop', 'btnPreview'],

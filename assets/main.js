@@ -267,7 +267,10 @@
      横だと判定した後だけ、既定のスクロールを止めて画面を動かす。 */
   var x0 = 0, y0 = 0, t0 = 0;
   var state = 'idle';        /* idle → maybe → drag */
-  var IGNORE = '.table-scroll,.cat-nav,.chips,input,textarea,select,button';
+  /* この中で指を動かしたときは、カテゴリー切り替えのスワイプを起こさない。
+     それぞれが自前の横スクロールを持っているため。 */
+  var IGNORE = '.table-scroll,.cat-nav,.chips,.rail,.feat-carousel,'
+             + 'input,textarea,select,button';
   var LOCK = 12;             /* この距離で縦か横かを決める */
   var DECIDE = 0.28;         /* 画面幅のこの割合を超えたら切り替える */
   var FLICK = 0.45;          /* px/ms：速く払ったら距離が短くても切り替える */
