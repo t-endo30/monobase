@@ -12,3 +12,7 @@ orders*.json
 
 # Worker のローカル用シークレット（絶対にコミットしない）
 .dev.vars
+
+# npm のローカルキャッシュ
+.npm-cache/
+node_modules/

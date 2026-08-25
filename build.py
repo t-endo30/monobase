@@ -1557,6 +1557,7 @@ def main():
         "docs",
         "tools",
         "node_modules",
+        ".npm-cache",
         "__pycache__",
         ".wrangler",
         "",
