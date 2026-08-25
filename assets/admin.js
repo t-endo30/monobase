@@ -1092,22 +1092,34 @@
     if (!cfg.token) return;
     var since = new Date();
     since = new Date(since.getFullYear(), since.getMonth(), 1).toISOString();
-    api('commits?sha=' + encodeURIComponent(cfg.branch || 'main') +
-        '&since=' + encodeURIComponent(since) + '&per_page=100')
-      .then(function (list) {
+    var q = 'commits?sha=' + encodeURIComponent(cfg.branch || 'main') +
+            '&since=' + encodeURIComponent(since) + '&per_page=100';
+    var total = 0, capped = false;
+
+    /* 1ページ100件までしか返らない。月の前半でもコミットが100を超えるので、
+       次のページを読みに行く。ここを読まないと、新しい100件のうち
+       [skip ci] が増えるぶんだけ表示が減っていき、数が減るように見える。 */
+    function page(n) {
+      return api(q + '&page=' + n).then(function (list) {
         if (!Array.isArray(list)) return;
-        var n = list.filter(function (c) {
+        total += list.filter(function (c) {
           var m = (c.commit && c.commit.message) || '';
           return !/\[skip ci\]|\[ci skip\]/i.test(m);
         }).length;
-        var chip = $('chipDeploy');
-        $('deployCount').textContent = n + ' 回';
-        chip.className = 'hchip' + (n >= 900 ? ' is-danger' : n >= 600 ? ' is-warn' : '');
-        chip.title = '今月ビルドが走った回数の目安（' + n + ' 回）。毎月1日に0へ戻ります。\n'
-                   + '画像だけのコミットはビルドを起こさないので数えていません。\n'
-                   + '実際の残量は Cloudflare ダッシュボードで確認してください。';
-      })
-      .catch(function () {});
+        if (list.length < 100) return;
+        if (n >= 10) { capped = true; return; }   /* 1000件で打ち切る */
+        return page(n + 1);
+      });
+    }
+
+    page(1).then(function () {
+      var chip = $('chipDeploy');
+      $('deployCount').textContent = total + (capped ? '回以上' : ' 回');
+      chip.className = 'hchip' + (total >= 900 ? ' is-danger' : total >= 600 ? ' is-warn' : '');
+      chip.title = '今月ビルドが走った回数の目安（' + total + ' 回）。毎月1日に0へ戻ります。\n'
+                 + '画像だけのコミットはビルドを起こさないので数えていません。\n'
+                 + '実際の残量は Cloudflare ダッシュボードで確認してください。';
+    }).catch(function () {});
   }
 
   $('chipDeploy').addEventListener('click', function (ev) {
