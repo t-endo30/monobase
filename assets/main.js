@@ -524,6 +524,90 @@
 })();
 
 /* ============================================================
+   PC：カテゴリーを押すと、その場でサブカテゴリーを開く
+   ------------------------------------------------------------
+   横並びのカテゴリーを押したとき、いきなり画面を移すのではなく
+   下にサブカテゴリーを出す。もう一度押すか、外を押すと閉じる。
+   サブカテゴリーが無いカテゴリーは、これまでどおり画面が移る。
+   JavaScript が動かない環境でも、リンクとしてそのまま機能する。
+   ============================================================ */
+(function () {
+  'use strict';
+  var list = document.querySelector('.cat-nav-list');
+  var nav = document.querySelector('.cat-nav');
+  if (!list || !nav) return;
+  var wide = window.matchMedia && window.matchMedia('(min-width:900px)');
+  var open = null;
+
+  /* 横並びは overflow で切り取られるので、パネルは一段外に出して置く。
+     位置は押した項目に合わせて、そのつど計算する。 */
+  Array.prototype.forEach.call(list.querySelectorAll('.sub-pop'), function (pop) {
+    nav.appendChild(pop);
+  });
+
+  function place(li) {
+    var pop = li._pop;
+    var a = li.querySelector('a');
+    var ar = a.getBoundingClientRect();
+    var nr = nav.getBoundingClientRect();
+    pop.hidden = false;
+    var w = pop.offsetWidth;
+    var left = ar.left - nr.left;
+    /* 画面からはみ出すときは、右端に合わせて内側へ寄せる */
+    var maxLeft = nr.width - w - 8;
+    pop.style.left = Math.max(8, Math.min(left, maxLeft)) + 'px';
+    pop.style.top = (ar.bottom - nr.top + 2) + 'px';
+  }
+
+  function close() {
+    if (!open) return;
+    open._pop.hidden = true;
+    open.classList.remove('is-open');
+    var a = open.querySelector('a');
+    if (a) a.setAttribute('aria-expanded', 'false');
+    open = null;
+  }
+
+  function show(li) {
+    if (open === li) { close(); return; }
+    close();
+    place(li);
+    li.classList.add('is-open');
+    var a = li.querySelector('a');
+    if (a) a.setAttribute('aria-expanded', 'true');
+    open = li;
+  }
+
+  /* 開くのはPC幅のときだけ。スマホはタブのパネルが同じ役割を持つ。 */
+  Array.prototype.forEach.call(list.querySelectorAll('.has-sub'), function (li, i) {
+    li._pop = nav.querySelectorAll('.sub-pop')[i];
+    var a = li.querySelector('a');
+    a.setAttribute('aria-expanded', 'false');
+    a.addEventListener('click', function (ev) {
+      if (!wide || !wide.matches) return;      /* 狭い画面ではそのまま移動 */
+      ev.preventDefault();
+      show(li);
+    });
+  });
+
+  document.addEventListener('click', function (ev) {
+    if (!open) return;
+    if (!ev.target.closest) { close(); return; }
+    if (!ev.target.closest('.has-sub') && !ev.target.closest('.sub-pop')) close();
+  });
+  /* スクロールで位置がずれるので、開いたまま動かさない */
+  window.addEventListener('scroll', close, { passive: true });
+  list.addEventListener('scroll', close, { passive: true });
+  window.addEventListener('resize', close);
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') close();
+  });
+  if (wide && wide.addEventListener) {
+    wide.addEventListener('change', function () { close(); });
+  }
+})();
+
+/* ============================================================
    スマホのタブ「CATEGORIES」：その場でカテゴリー一覧を開閉する
    ============================================================ */
 (function () {

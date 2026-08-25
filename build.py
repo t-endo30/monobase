@@ -295,9 +295,30 @@ def icon(key, cls="cat-icon"):
 
 
 def cat_nav_item(c, p, cls=""):
+    """PCのカテゴリー一覧の1件。サブカテゴリーがあるものは、
+       押すとその場で開くパネルを一緒に持たせる（画面は移動しない）。
+       JavaScriptが動かない環境では、そのままカテゴリーページへ進む。"""
     a = f' class="{cls}"' if cls else ""
-    return (f'      <li><a href="{p}category-{c["key"]}.html"{a}>'
-            f'{icon(c["key"])}<span class="cat-nav-label">{e(c["label"])}</span></a></li>\n')
+    subs = [sc for sc in c.get("sub", [])
+            if any(x["category"] == c["key"] and x.get("sub") == sc["key"]
+                   for x in PUBLISHED)]
+    link = (f'<a href="{p}category-{c["key"]}.html"{a}>'
+            f'{icon(c["key"])}<span class="cat-nav-label">{e(c["label"])}</span></a>')
+    if not subs:
+        return f'      <li>{link}</li>\n'
+
+    items = (f'          <li><a href="{p}category-{c["key"]}.html">'
+             f'{e(c["label"])}のすべて</a></li>\n')
+    for sc in subs:
+        n = len([x for x in PUBLISHED
+                 if x["category"] == c["key"] and x.get("sub") == sc["key"]])
+        items += (f'          <li><a href="{p}category-{c["key"]}-{sc["key"]}.html">'
+                  f'{e(sc["label"])}<span class="sub-n">{n}</span></a></li>\n')
+    return (f'      <li class="has-sub" data-cat="{c["key"]}">{link}\n'
+            f'        <div class="sub-pop" hidden>\n'
+            f'          <ul>\n{items}          </ul>\n'
+            f'        </div>\n'
+            f'      </li>\n')
 
 
 def header(current, p, crumbs=None, current_sub="", band=""):
@@ -316,7 +337,9 @@ def header(current, p, crumbs=None, current_sub="", band=""):
             continue          # 先頭に出したので、ここでは出さない
         nav += cat_nav_item(c, p)
 
-    search_link = (f'<li><a href="{p}search.html">検索</a></li>\n        '
+    # ハンバーガー内の検索は出さない。スマホには SEARCH タブがあり、
+    # PCではヘッダーの右側に同じリンクが並ぶため。
+    search_link = (f'<li class="pc-only-link"><a href="{p}search.html">検索</a></li>\n        '
                    if FEAT.get("search") else "")
     contact_nav = (f'<li><a href="{p}contact.html">お問い合わせ</a></li>'
                    if FEAT.get("contact_form") else
@@ -1041,7 +1064,6 @@ def news_rail(items, p):
     """新着。スマホでは横に流す小さめのカード、PCではこれまでどおりの並び。
        中身は同じHTMLで、見せ方だけCSSで切り替える。"""
     return ('      <section class="section-block">\n'
-            '        <h2 class="section-heading">新着記事</h2>\n'
             '        <div class="rail">\n' + grid(items, p) +
             '        </div>\n'
             '        <p class="rail-hint">← 横にスワイプでもっと見る →</p>\n'

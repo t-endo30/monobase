@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
-<link rel="stylesheet" href="./assets/style.css?v=5238b2a9">
+<link rel="stylesheet" href="./assets/style.css?v=b28ae68b">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ85V2J7EK"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -42,7 +42,7 @@
     <nav class="global-nav" id="globalNav" aria-label="メニュー">
       <ul class="nav-links">
         <li><a href="./index.html">ホーム</a></li>
-        <li><a href="./search.html">検索</a></li>
+        <li class="pc-only-link"><a href="./search.html">検索</a></li>
         <li><a href="./about.html">運営者情報</a></li>
         <li><a href="./contact.html">お問い合わせ</a></li>
       </ul>
@@ -55,17 +55,76 @@
   <div class="container">
     <ul class="cat-nav-list">
       <li><a href="./index.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-all"></use></svg><span class="cat-nav-label">ALL</span></a></li>
-      <li><a href="./category-av.html" class="is-current is-here"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-av"></use></svg><span class="cat-nav-label">AV機器</span></a></li>
-      <li><a href="./category-feature.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-feature"></use></svg><span class="cat-nav-label">特集・まとめ</span></a></li>
-      <li><a href="./category-appliance.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-appliance"></use></svg><span class="cat-nav-label">家電</span></a></li>
+      <li class="has-sub" data-cat="av"><a href="./category-av.html" class="is-current is-here"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-av"></use></svg><span class="cat-nav-label">AV機器</span></a>
+        <div class="sub-pop" hidden>
+          <ul>
+          <li><a href="./category-av.html">AV機器のすべて</a></li>
+          <li><a href="./category-av-mic.html">マイク・配信機材<span class="sub-n">2</span></a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="has-sub" data-cat="feature"><a href="./category-feature.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-feature"></use></svg><span class="cat-nav-label">特集・まとめ</span></a>
+        <div class="sub-pop" hidden>
+          <ul>
+          <li><a href="./category-feature.html">特集・まとめのすべて</a></li>
+          <li><a href="./category-feature-guide.html">選び方ガイド<span class="sub-n">1</span></a></li>
+          <li><a href="./category-feature-season.html">セール・買い時<span class="sub-n">1</span></a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="has-sub" data-cat="appliance"><a href="./category-appliance.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-appliance"></use></svg><span class="cat-nav-label">家電</span></a>
+        <div class="sub-pop" hidden>
+          <ul>
+          <li><a href="./category-appliance.html">家電のすべて</a></li>
+          <li><a href="./category-appliance-aircon.html">空調・季節家電<span class="sub-n">2</span></a></li>
+          <li><a href="./category-appliance-light.html">照明<span class="sub-n">3</span></a></li>
+          <li><a href="./category-appliance-smart.html">スマート家電<span class="sub-n">1</span></a></li>
+          </ul>
+        </div>
+      </li>
       <li><a href="./category-smartphone.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-smartphone"></use></svg><span class="cat-nav-label">スマートフォン</span></a></li>
-      <li><a href="./category-pc.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-pc"></use></svg><span class="cat-nav-label">パソコン</span></a></li>
+      <li class="has-sub" data-cat="pc"><a href="./category-pc.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-pc"></use></svg><span class="cat-nav-label">パソコン</span></a>
+        <div class="sub-pop" hidden>
+          <ul>
+          <li><a href="./category-pc.html">パソコンのすべて</a></li>
+          <li><a href="./category-pc-tablet.html">タブレット・電子書籍<span class="sub-n">1</span></a></li>
+          <li><a href="./category-pc-monitor.html">ディスプレイ・モニター<span class="sub-n">2</span></a></li>
+          <li><a href="./category-pc-input.html">キーボード・マウス・入力機器<span class="sub-n">1</span></a></li>
+          <li><a href="./category-pc-peripheral.html">周辺機器・USBハブ<span class="sub-n">1</span></a></li>
+          <li><a href="./category-pc-network.html">Wi-Fi・ネットワーク<span class="sub-n">1</span></a></li>
+          </ul>
+        </div>
+      </li>
       <li><a href="./category-camera.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-camera"></use></svg><span class="cat-nav-label">カメラ</span></a></li>
       <li><a href="./category-beauty.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-beauty"></use></svg><span class="cat-nav-label">美容・コスメ</span></a></li>
-      <li><a href="./category-health.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-health"></use></svg><span class="cat-nav-label">ヘルスケア</span></a></li>
+      <li class="has-sub" data-cat="health"><a href="./category-health.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-health"></use></svg><span class="cat-nav-label">ヘルスケア</span></a>
+        <div class="sub-pop" hidden>
+          <ul>
+          <li><a href="./category-health.html">ヘルスケアのすべて</a></li>
+          <li><a href="./category-health-measure.html">計測・スマートウォッチ<span class="sub-n">1</span></a></li>
+          </ul>
+        </div>
+      </li>
       <li><a href="./category-kitchen.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-kitchen"></use></svg><span class="cat-nav-label">キッチン</span></a></li>
-      <li><a href="./category-daily.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-daily"></use></svg><span class="cat-nav-label">日用品・雑貨</span></a></li>
-      <li><a href="./category-furniture.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-furniture"></use></svg><span class="cat-nav-label">家具・インテリア</span></a></li>
+      <li class="has-sub" data-cat="daily"><a href="./category-daily.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-daily"></use></svg><span class="cat-nav-label">日用品・雑貨</span></a>
+        <div class="sub-pop" hidden>
+          <ul>
+          <li><a href="./category-daily.html">日用品・雑貨のすべて</a></li>
+          <li><a href="./category-daily-clean.html">掃除・洗濯用品<span class="sub-n">1</span></a></li>
+          <li><a href="./category-daily-safety.html">防災・防犯<span class="sub-n">1</span></a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="has-sub" data-cat="furniture"><a href="./category-furniture.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-furniture"></use></svg><span class="cat-nav-label">家具・インテリア</span></a>
+        <div class="sub-pop" hidden>
+          <ul>
+          <li><a href="./category-furniture.html">家具・インテリアのすべて</a></li>
+          <li><a href="./category-furniture-desk.html">デスク・デスク周り<span class="sub-n">1</span></a></li>
+          <li><a href="./category-furniture-shelf.html">収納家具・ラック<span class="sub-n">2</span></a></li>
+          <li><a href="./category-furniture-bed.html">寝具<span class="sub-n">1</span></a></li>
+          </ul>
+        </div>
+      </li>
       <li><a href="./category-pet.html"><svg class="cat-icon" aria-hidden="true" focusable="false"><use href="#i-pet"></use></svg><span class="cat-nav-label">ペット</span></a></li>
     </ul>
   </div>
@@ -622,6 +681,6 @@
 <button class="to-top" id="toTop" aria-label="ページ上部へ戻る">▲</button>
 
 <script src="./assets/vendor/motion-mini.min.js" defer></script>
-<script src="./assets/main.js?v=5238b2a9" defer></script>
+<script src="./assets/main.js?v=b28ae68b" defer></script>
 </body>
 </html>
