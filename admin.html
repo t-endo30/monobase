@@ -607,21 +607,16 @@
   <section class="panel" id="p-connect">
     <div class="card">
       <h2>この画面の鍵</h2>
-      <p class="hint">管理画面は<b>サーバー側（Cloudflare）でパスワード確認をしています</b>。ログインしていない状態でURLを直接開いても、中身は返りません。</p>
+      <p class="hint">管理画面は <b>Cloudflare Access（Zero Trust）</b> が守っています。認証を通っていない人は、URLを直接開いてもこのページに到達できません。</p>
       <div class="note">
-        パスワードの変更は Cloudflare ダッシュボードで行います。<br>
-        <b>Workers &amp; Pages → monobase → 設定 → 変数とシークレット</b> の
-        <code>ADMIN_PASSWORD</code> を書き換えてください。<br>
-        ログイン状態は12時間で切れます。すぐ切りたいときは下のボタンを押してください。
+        <b>ログインできる人の管理</b><br>
+        Zero Trust ダッシュボード → <b>Access → アプリケーション → モノベース管理画面</b> のポリシーで、
+        許可するメールアドレスを追加・削除できます。<br><br>
+        <b>パスキーで開きたいとき</b><br>
+        同じアプリの「ログイン方法」に Google などを追加すると、そのアカウントのパスキー（Touch ID・Face ID）で認証できます。
       </div>
       <div class="btn-bar">
-        <a class="btn" href="/admin/logout">ログアウト</a>
-      </div>
-      <div class="note warn">
-        ブラウザのパスワード保存には対応しています（ログイン画面で保存を選べます）。<br>
-        <b>パスキー（Touch ID・Face ID）で開きたい場合</b>は、Cloudflare の
-        <b>Zero Trust → Access</b> で <code>/admin*</code> を保護する形に切り替えます。
-        必要になったら声をかけてください。
+        <a class="btn" href="/cdn-cgi/access/logout">ログアウト</a>
       </div>
     </div>
 

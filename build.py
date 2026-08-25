@@ -1126,14 +1126,12 @@ def worker_js(maintenance):
     """Cloudflare Workers の入口。中身は tools/worker.template.js。
        やっていることは2つ。
 
-       1. 管理画面の保護
-          /admin* はパスワードを知っている人だけに通す。判定を
-          サーバー側で行うので、URLを直接叩かれても中身は返らない。
+       1. 管理画面の入口をそろえる
+          /admin.html を /admin に寄せる。保護は Cloudflare Access が
+          /admin を見張って行うので、入口を1つにしておかないと
+          片方だけ素通りしてしまう。
        2. メンテナンス表示
-          有効なあいだ、全ページを 503 の「準備中」に差し替える。
-
-       パスワードはリポジトリに置かない。Cloudflare の Worker 設定に
-       シークレット（ADMIN_PASSWORD / ADMIN_SECRET）として登録する。"""
+          有効なあいだ、全ページを 503 の「準備中」に差し替える。"""
     tpl = io.open(os.path.join(ROOT, "tools", "worker.template.js"),
                   encoding="utf-8").read()
     return tpl.replace("__MAINTENANCE__", "true" if maintenance else "false")
