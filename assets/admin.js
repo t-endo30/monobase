@@ -2112,6 +2112,23 @@
     return { jans: jans, names: names };
   }
 
+  /* 探すカテゴリーは押すたびにこちらで選ぶ。選ぶ人の好みに寄ると
+     同じジャンルばかり増えるため、記事が少ないカテゴリーを優先し、
+     同数のものからは無作為に選ぶ。 */
+  function pickCategory() {
+    var keys = (site.categories || []).map(function (c) { return c.key; })
+      .filter(function (k) { return CATEGORY_MAP[k]; });
+    if (!keys.length) return '';
+    var n = {};
+    keys.forEach(function (k) { n[k] = 0; });
+    articles.forEach(function (a) {
+      if (n[a.category] !== undefined) n[a.category] += 1;
+    });
+    var min = Math.min.apply(null, keys.map(function (k) { return n[k]; }));
+    var pool = keys.filter(function (k) { return n[k] === min; });
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
   function findProducts() {
     var keys = shopKeys();
     if (!keys.rakuten && !keys.yahoo) {
@@ -2119,9 +2136,11 @@
       toast('先に「接続」タブでAPIのIDを登録してください', 'err');
       return;
     }
-    var cat = $('fd-cat').value;
+    var cat = pickCategory();
     var conf = CATEGORY_MAP[cat];
-    if (!conf) { toast('このカテゴリーの対応表がありません', 'err'); return; }
+    if (!conf) { toast('探せるカテゴリーの対応表がありません', 'err'); return; }
+    var label = (site.categories || []).filter(function (c) { return c.key === cat; })[0];
+    if ($('fd-catName')) $('fd-catName').textContent = (label && label.label) || cat;
 
     var hits = Number($('fd-count').value || 30);
     var minRev = Number($('fd-minrev').value || 0);
@@ -2362,14 +2381,7 @@
   }
 
   function wireFind() {
-    var sel = $('fd-cat');
-    if (!sel) return;
-    /* サイトのカテゴリーのうち、対応表があるものだけを並べる */
-    sel.innerHTML = (site.categories || []).filter(function (c) {
-      return CATEGORY_MAP[c.key];
-    }).map(function (c) {
-      return '<option value="' + c.key + '">' + c.label + '</option>';
-    }).join('');
+    if (!$('btnFind')) return;
 
     var keys = shopKeys();
     if ($('k-rakuten')) $('k-rakuten').value = keys.rakuten || '';
