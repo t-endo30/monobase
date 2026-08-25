@@ -3,10 +3,8 @@
 .github
 .gitignore
 .DS_Store
-.nojekyll
 .assetsignore
 wrangler.jsonc
-CNAME
 build.py
 README.md
 package.json

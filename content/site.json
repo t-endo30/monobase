@@ -404,12 +404,10 @@
   },
   "images": {
     "_note": "画像生成の設定。APIキーはここに書かない（公開リポジトリのため）。ローカルは環境変数 GEMINI_API_KEY、GitHub Actions は Secrets を使う。",
-    "model": "gemini-3.1-flash-image",
-    "aspect": "16:9"
+    "model": "gemini-3.1-flash-image"
   },
   "hosting": {
-    "_note": "配信先の設定。build.py が wrangler.jsonc と .assetsignore を書き出す。",
-    "provider": "cloudflare-workers-assets",
+    "_note": "配信先は Cloudflare Workers（静的アセット）。build.py が wrangler.jsonc と .assetsignore を書き出す。GitHub Pages へ戻す場合は clean_urls を false にする。",
     "clean_urls": true,
     "worker_name": "monobase",
     "compatibility_date": "2026-08-24"

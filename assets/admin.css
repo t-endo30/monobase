@@ -359,3 +359,38 @@ textarea{resize:vertical;line-height:1.75;}
   object-fit:cover;
   display:block;
 }
+
+/* ============================================================
+   スマホでの記事一覧
+   ------------------------------------------------------------
+   横1列のままだと、サムネイルと操作ボタンに幅を取られて
+   タイトルが1文字ずつ折り返してしまう。狭い画面では
+   「サムネイル＋見出し」を上、操作ボタンを下に分けて置く。
+   ============================================================ */
+@media (max-width:700px){
+  .list li{
+    flex-wrap:wrap;
+    align-items:flex-start;
+    row-gap:10px;
+  }
+  /* サムネイルと本文で1行ぶんを使い切る */
+  .list .thumb,
+  .list .ico{align-self:flex-start;}
+  .list .meta{
+    flex:1 1 0;
+    min-width:0;
+  }
+  .list .ttl{
+    white-space:normal;      /* 幅が足りるので、途中で切らずに折り返す */
+    overflow:visible;
+    line-height:1.5;
+  }
+  .list .sub{display:block;line-height:1.7;margin-top:3px;}
+  /* 操作ボタンは次の行へ回して、右に寄せる */
+  .list .acts{
+    flex:1 0 100%;
+    justify-content:flex-end;
+    border-top:1px solid var(--a-border);
+    padding-top:10px;
+  }
+}

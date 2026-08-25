@@ -1454,7 +1454,7 @@ def main():
     write("search.json", json.dumps(idx, ensure_ascii=False, separators=(",", ":")))
     written.append("search.json")
 
-    # sitemap / robots / CNAME / .nojekyll
+    # sitemap / robots / Cloudflare 用の設定ファイル
     def mod(a):
         return a.get("updated") or a.get("date") or ""
 
@@ -1496,7 +1496,6 @@ def main():
           "Disallow: /admin\n"
           f"\nSitemap: {BASE_URL}/sitemap.xml\n")
     written.append("robots.txt")
-    write("CNAME", SITE["domain"] + "\n"); written.append("CNAME")
 
     # ---- Cloudflare Pages 用の設定ファイル -------------------------------
 
@@ -1543,10 +1542,8 @@ def main():
         ".github",
         ".gitignore",
         ".DS_Store",
-        ".nojekyll",
         ".assetsignore",
         "wrangler.jsonc",
-        "CNAME",
         "build.py",
         "README.md",
         "package.json",
@@ -1587,7 +1584,6 @@ def main():
         "",
     ]))
     written.append("_headers")
-    write(".nojekyll", "")
 
     print(f"\n✅ ビルド完了：{len(written)} ファイル（アイキャッチ自動生成 {made} 枚）")
     print(f"   公開記事 {len(PUBLISHED)} 本 / 下書き {len(ARTICLES)-len(PUBLISHED)} 本")

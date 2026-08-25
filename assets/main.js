@@ -953,7 +953,7 @@
   /* 押せるもの：面積が大きいほど縮み方は控えめにする */
   pressable('.btn-amazon', .97);
   pressable('.card', .985);
-  pressable('.feat-card, .today-card, .cat-tile', .985);
+  pressable('.feat-card, .today-card', .985);
   pressable('.card-link, .btn-sub, .searchbox button, .chip', .94);
   pressable('.tab-bar a, .tab-bar button', .93);
   pressable('.feat-arrow, .to-top, .nav-toggle', .88);
@@ -996,7 +996,7 @@
   var hoverable = window.matchMedia && window.matchMedia('(hover:hover)').matches;
   if (hoverable) {
     Array.prototype.forEach.call(
-      document.querySelectorAll('.card, .feat-card, .today-card, .cat-tile'),
+      document.querySelectorAll('.card, .feat-card, .today-card'),
       function (el) {
         M.hover(el, function () {
           M.animate(el, { y: -3 }, spring);
