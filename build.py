@@ -1281,9 +1281,10 @@ POLICY = [
 ]
 
 
-def policy_details(p):
+def policy_details(p=""):
     """見出しバナーの中に畳んでおく「このサイトの読み方」。
-       押したときだけ開く。JavaScriptなしでも動く details を使う。"""
+       押したときだけ開く。JavaScriptなしでも動く details を使う。
+       運営者情報への導線はヘッダー・フッターにあるので、ここには置かない。"""
     items = ""
     for num, head, text in POLICY:
         items += ('            <div class="policy-item">\n'
@@ -1300,8 +1301,6 @@ def policy_details(p):
             '良い点だけでなく「合わない場面」まで整理しています。</p>\n'
             '          <div class="policy">\n' + items +
             '          </div>\n'
-            f'          <div class="cta-wrap"><a class="btn-sub" href="{p}about.html">'
-            '運営者情報を見る</a></div>\n'
             '        </details>\n')
 
 

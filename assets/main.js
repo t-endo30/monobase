@@ -833,27 +833,38 @@
   }
   /* カテゴリー名自体に「・」が入るものがあるため、区切りは「／」にする */
   var pick = names.slice(0, 3).join('／');
-  el.textContent = pick
+  var full = pick
     ? '現在（' + pick + '）など ' + nCat + ' カテゴリーで ' + nPub + ' 記事公開中'
     : '現在 ' + nCat + ' カテゴリーで ' + nPub + ' 記事公開中';
+  /* 幅が足りないときの短い言い方。2行に折り返すより、
+     短くして1行に収めたほうが見出しの下が締まる。 */
+  var brief = nCat + ' カテゴリー・' + nPub + ' 記事を公開中';
 
-  /* 右に余白があるなら1行で見せる。入らないときだけ折り返す。 */
+  /* 1行に収める。長いほうが入らなければ短いほうに切り替える。 */
   function fitCount() {
     if (!el.clientWidth) return;
     el.style.whiteSpace = 'nowrap';
-    el.style.fontSize = '';
     var base = parseFloat(getComputedStyle(el).fontSize) || 13;
-    var size = base;
-    /* 少し詰めれば1行に入る場合だけ縮める。読めない大きさにはしない。 */
-    while (size > base - 2 && size > 11.5 && el.scrollWidth > el.clientWidth + 1) {
-      size -= 0.25;
-      el.style.fontSize = size + 'px';
+
+    function tryText(t) {
+      el.textContent = t;
+      el.style.fontSize = '';
+      if (el.scrollWidth <= el.clientWidth + 1) return true;
+      /* 少し詰めれば入る場合だけ縮める。読めない大きさにはしない。 */
+      var size = base;
+      while (size > base - 2 && size > 11.5 && el.scrollWidth > el.clientWidth + 1) {
+        size -= 0.25;
+        el.style.fontSize = size + 'px';
+      }
+      return el.scrollWidth <= el.clientWidth + 1;
     }
-    if (el.scrollWidth > el.clientWidth + 1) {
-      el.style.fontSize = '';        /* 入らないときは元の大きさで折り返す */
-      el.style.whiteSpace = '';
-    }
+
+    if (tryText(full)) return;
+    if (tryText(brief)) return;
+    el.style.fontSize = '';        /* どちらも入らないときは折り返す */
+    el.style.whiteSpace = '';
   }
+
   if ('ResizeObserver' in window) new ResizeObserver(fitCount).observe(el);
   else window.addEventListener('resize', fitCount);
   requestAnimationFrame(fitCount);

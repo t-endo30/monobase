@@ -4965,3 +4965,26 @@ body{
   .searchbox input[type="search"]{padding:0 13px;}
   .searchbox button{padding:0 16px;}
 }
+
+/* 「本日のお勧めのモノ」：中の文字は画面幅にかかわらず中央寄せ */
+.today-box{text-align:center;}
+.today-heading,
+.today-cat,
+.today-title{text-align:center;}
+.today-card{justify-content:center;}
+
+/* ============================================================
+   見出しタイル：高さを詰める
+   ------------------------------------------------------------
+   トップの一等地なので、記事の一覧が1枚でも多く画面に入るよう、
+   余白と行間を削る。中身（見出し・記事数・読み方）は減らさない。
+   ============================================================ */
+.hero-tile{
+  gap:clamp(6px,1.6vw,10px);
+  padding:clamp(11px,2.6vw,18px) clamp(13px,3.2vw,22px);
+  margin-bottom:clamp(12px,2.6vw,18px);
+}
+.hero-tile h1{line-height:1.45;}
+.hero-tile .hero-count{margin-top:3px;}
+.hero-policy{margin-top:2px;}
+.hero-policy summary{padding:6px 13px;font-size:12px;}
