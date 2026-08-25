@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=272a1180">
+<link rel="stylesheet" href="./assets/admin.css?v=ff4150aa">
 </head>
 <body>
 
@@ -190,6 +190,23 @@
         <div>
           <label for="f-yahoo">Yahoo!ショッピングの商品ページURL<span class="opt">空ならボタンを出しません</span></label>
           <input type="url" id="f-yahoo" placeholder="https://store.shopping.yahoo.co.jp/…">
+        </div>
+      </div>
+      <div class="row c2">
+        <div>
+          <label for="f-ctapos">記事の途中に置くボタンの位置<span class="opt">上部（目次の下）と下部（まとめ）は固定</span></label>
+          <select id="f-ctapos">
+            <option value="spec">スペック表の下（既定）</option>
+            <option value="section:1">1つめの見出しの後</option>
+            <option value="section:2">2つめの見出しの後</option>
+            <option value="section:3">3つめの見出しの後</option>
+            <option value="section:4">4つめの見出しの後</option>
+            <option value="voices">「気になる点と、その対策」の後</option>
+            <option value="none">途中には置かない</option>
+          </select>
+        </div>
+        <div class="note" style="align-self:end;">
+          商品画像つきのリンクカードは、この3か所とは別枠で本文の後半に自動で入ります。アイキャッチ画像を設定している記事にだけ出ます。
         </div>
       </div>
       <div class="note">
@@ -701,6 +718,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=272a1180"></script>
+<script src="./assets/admin.js?v=ff4150aa"></script>
 </body>
 </html>

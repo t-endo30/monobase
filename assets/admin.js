@@ -553,6 +553,7 @@
     $('f-amazon').value = a.amazon_url || '';
     $('f-rakuten').value = a.rakuten_url || '';
     $('f-yahoo').value = a.yahoo_url || '';
+    $('f-ctapos').value = a.cta_position || 'spec';
     $('f-asin').value = a.asin || '';
     $('f-cta').value = a.cta_label || '';
     $('f-verdict').value = a.verdict_title || '';
@@ -615,6 +616,9 @@
     var yh = $('f-yahoo').value.trim();
     if (rk) a.rakuten_url = rk; else delete a.rakuten_url;
     if (yh) a.yahoo_url = yh; else delete a.yahoo_url;
+    /* 中間ボタンの位置。既定（spec）のときは項目を持たせない */
+    var cp = $('f-ctapos').value;
+    if (cp && cp !== 'spec') a.cta_position = cp; else delete a.cta_position;
     a.asin = $('f-asin').value.trim().toUpperCase();
     a.cta_label = $('f-cta').value.trim() || 'Amazonで価格を見る';
     a.verdict_title = $('f-verdict').value.trim();

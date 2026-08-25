@@ -598,6 +598,10 @@ def moshimo_url(shop, target):
     """もしもアフィリエイト経由のリンクを組み立てる。
        IDが登録されていないショップは、そのまま商品ページへ送る。
        もしもの形式：af.moshimo.com/af/c/click?a_id=…&url=<商品URL>"""
+    if shop == "amazon":
+        # Amazon だけは Amazon アソシエイトの直リンクを使う。
+        # もしも経由にすると、こちらのタグでの成果にならない。
+        return target
     ids = MSM.get(shop) or {}
     if not all(ids.get(k) for k in ("a_id", "p_id", "pc_id", "pl_id")):
         return target
@@ -621,17 +625,47 @@ def shop_links(a):
     return out
 
 
-CTA_MAX = 3          # 1記事あたりの販売リンクの最大数
-_cta_used = [0]      # 記事ごとに render_article() で 0 に戻す
+# 1記事に置くボタン列は3か所まで。
+#   上部（目次の下）と下部（まとめ）は位置を固定。
+#   中間の1か所だけ、記事ごとに置き場所を選べる（cta_position）。
+# 商品画像つきのリンクカードはこの3か所には数えない。
+_cta_mid_used = [False]   # 中間を出したか。render_article() で戻す
+
+
+def cta_mid_at(a):
+    """中間ボタンの置き場所。記事の cta_position で指定する。
+         "spec"      … スペック表の下（既定）
+         "section:N" … N番目の見出しの直後
+         "voices"    … 「気になる点と、その対策」の直後
+         "none"      … 中間は置かない
+       指定が読めないときは既定に倒す。"""
+    v = str(a.get("cta_position") or "spec").strip()
+    if v.startswith("section:"):
+        n = v.split(":", 1)[1].strip()
+        return ("section", int(n)) if n.isdigit() else ("spec", 0)
+    if v in ("spec", "voices", "none"):
+        return (v, 0)
+    return ("spec", 0)
+
+
+def shop_buttons_mid(a, where, idx=0, note=""):
+    """中間の置き場所に来たときだけボタンを出す。1記事につき1回まで。"""
+    if _cta_mid_used[0]:
+        return ""
+    want, wi = cta_mid_at(a)
+    if want != where or (where == "section" and wi != idx):
+        return ""
+    out = shop_buttons(a, note)
+    if out:
+        _cta_mid_used[0] = True
+    return out
 
 
 def shop_buttons(a, note=""):
-    """販売先のボタンを並べる。1つしか無ければ1つだけ出す。
-       1記事に出す回数は CTA_MAX 個まで。多すぎると読み味を損なうため。"""
+    """販売先のボタンを並べる。1つしか無ければ1つだけ出す。"""
     links = shop_links(a)
-    if not links or _cta_used[0] >= CTA_MAX:
+    if not links:
         return ""
-    _cta_used[0] += 1
     btns = ""
     for shop, label, href in links:
         btns += (f'          <a class="btn-shop is-{shop}" href="{e(href)}" '
@@ -640,6 +674,37 @@ def shop_buttons(a, note=""):
     n = f" is-n{min(len(links), 3)}"
     return (f'        <div class="shop-cta{n}">\n{btns}        </div>\n'
             + (f'        <p class="cta-note">{e(note)}</p>\n' if note else ""))
+
+
+def product_card(a, p):
+    """商品画像つきのリンクカード。写真・商品名・販売先ボタンをまとめる。
+       本文中のボタン3か所とは別枠なので、数には数えない。
+       画像が無い記事では出さない（枠だけ残ると間が抜けるため）。"""
+    img = a.get("thumb") or a.get("eyecatch") or ""
+    links = shop_links(a)
+    if not img or not links:
+        return ""
+    # 商品名。無ければ記事タイトルの「｜」より前を使う（後半は補足なので落とす）
+    name = a.get("product_name") or a.get("title", "").split("｜")[0].strip()
+    first = links[0][2]
+    btns = ""
+    for shop, label, href in links:
+        btns += (f'            <a class="btn-shop is-{shop}" href="{e(href)}" '
+                 f'target="_blank" rel="nofollow sponsored noopener">'
+                 f'{icon("cart", "btn-icon")}<span>{e(label)}</span></a>\n')
+    note = a.get("image_ai") and '<span class="pc-ai">イメージ（AI生成）</span>' or ""
+    return f'''        <div class="prod-card">
+          <a class="prod-thumb" href="{e(first)}" target="_blank" rel="nofollow sponsored noopener">
+            <img src="{p}{e(img)}" alt="{e(name)}" loading="lazy" decoding="async" width="800" height="450">
+          </a>
+          <div class="prod-body">
+            <p class="prod-name">{e(name)}</p>{note}
+            <div class="prod-links is-n{min(len(links), 3)}">
+{btns}            </div>
+            <p class="prod-note">価格・在庫は変動します。最新情報はリンク先でご確認ください。</p>
+          </div>
+        </div>
+'''
 
 
 def cta(url, label, note=""):
@@ -667,7 +732,7 @@ def paras(v, cls=""):
 
 
 def render_article(a):
-    _cta_used[0] = 0
+    _cta_mid_used[0] = False
     p = "../"
     slug = a["slug"]
     cat = a["category"]
@@ -850,7 +915,7 @@ def render_article(a):
           </div>
 ''')
         add(paras(sp.get("read")))
-        add(shop_buttons(a, "セール対象になっている場合があります"))
+        add(shop_buttons_mid(a, "spec", note="セール対象になっている場合があります"))
 
     # ライターの地の文。見出し＋段落の自由記述で、表では伝わらない
     # 判断の根拠や使いどころを書く。
@@ -863,6 +928,8 @@ def render_article(a):
             <p>{sec["aside"]}</p>
           </div>
 ''')
+        add(shop_buttons_mid(a, "section", i,
+                             "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
 
     # 口コミ・対策
     if a.get("voices"):
@@ -884,6 +951,8 @@ def render_article(a):
           </div>
 ''')
         add(paras(a.get("voices_after")))
+        add(shop_buttons_mid(a, "voices",
+                             "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
 
     # 6. 運営者の実体験コラム
     if a.get("personal_note"):
@@ -893,8 +962,8 @@ def render_article(a):
           </div>
 ''')
 
-    # 7. Amazonボタン
-    add(shop_buttons(a, "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
+    # 7. 商品画像つきのリンクカード（ボタン3か所には数えない）
+    add(product_card(a, p))
 
     # 8. 次に困りそうなこと・併売の提案（回遊導線）
     np_ = a.get("next_problem", {})
@@ -923,7 +992,7 @@ def render_article(a):
         add(f'''          <h2 id="sec-conclusion">{a.get("conclusion_title","まとめ")}</h2>
 ''')
         add(paras(a["conclusion"]))
-        add(shop_buttons(a))
+        add(shop_buttons(a, "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
         add(f'''        <div class="cta-wrap" style="margin-top:-10px;">
           <a class="btn-sub" href="{p}category-{cat}.html">同じカテゴリーの記事を見る</a>
         </div>
