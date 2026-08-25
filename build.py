@@ -1456,14 +1456,22 @@ def build_search():
           <button type="button" id="searchClear">クリア</button>
         </form>
 
-        <div class="chip-group">
-          <span class="chip-label">カテゴリー</span>
+        <div class="chip-group is-open" id="catGroup">
+          <button type="button" class="chip-toggle" aria-expanded="true" aria-controls="catChips">
+            <span class="chip-label">カテゴリー</span>
+            <span class="chip-picked" hidden></span>
+            <span class="chip-caret" aria-hidden="true"></span>
+          </button>
           <div class="chips" id="catChips">
 {catchips}          </div>
         </div>
 
-        <div class="chip-group">
-          <span class="chip-label">タグ</span>
+        <div class="chip-group is-open" id="tagGroup">
+          <button type="button" class="chip-toggle" aria-expanded="true" aria-controls="tagChips">
+            <span class="chip-label">タグ</span>
+            <span class="chip-picked" hidden></span>
+            <span class="chip-caret" aria-hidden="true"></span>
+          </button>
           <div class="chips" id="tagChips">
 {chips}          </div>
         </div>

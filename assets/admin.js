@@ -678,7 +678,10 @@
     var dup = articles.filter(function (x) { return x.slug === a.slug && x !== a; });
     if (dup.length) return 'このスラッグは既に使われています：' + a.slug;
     if (a.asin && !/^[A-Z0-9]{10}$/.test(a.asin)) return 'ASINは10桁の英数字で入力してください。';
-    if (a.published && !a.asin && !a.amazon_url) return '公開する記事にはASINかリンクのどちらかが必要です。';
+    /* 販売先は3モールのどれか1つでよい。楽天やYahoo!だけで買える商品もある
+       （build.py の shop_links と同じ判定にそろえる） */
+    if (a.published && !a.asin && !a.amazon_url && !a.rakuten_url && !a.yahoo_url)
+      return '公開する記事には、販売先のリンク（ASIN・Amazon・楽天・Yahoo!のどれか1つ）が必要です。';
     if (a.published && !a.excerpt) return '公開する記事にはカード用の抜粋が必要です。';
     if (a.published && !a.description) return '公開する記事にはメタディスクリプションが必要です。';
     return null;

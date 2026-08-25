@@ -13,6 +13,8 @@
   var status  = document.getElementById('searchStatus');
   var catBox  = document.getElementById('catChips');
   var tagBox  = document.getElementById('tagChips');
+  var catGrp  = document.getElementById('catGroup');
+  var tagGrp  = document.getElementById('tagGroup');
   if (!input || !results) return;
 
   var DATA = [];
@@ -107,6 +109,43 @@
     window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
   }
 
+  /* ---- カテゴリー・タグの開閉 ----
+     タグは数が多いので、検索したら畳んで結果を前に出す。
+     何を選んでいるかは、畳んでいるあいだ見出しの横に件数で出す。 */
+  function setOpen(grp, open) {
+    if (!grp) return;
+    grp.classList.toggle('is-open', open);
+    var btn = grp.querySelector('.chip-toggle');
+    if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  function updatePicked(grp, list) {
+    if (!grp) return;
+    var el = grp.querySelector('.chip-picked');
+    if (!el) return;
+    el.textContent = list.length ? list.length + '件選択中' : '';
+    el.hidden = list.length === 0;
+  }
+
+  function bindToggle(grp) {
+    if (!grp) return;
+    var btn = grp.querySelector('.chip-toggle');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      setOpen(grp, !grp.classList.contains('is-open'));
+    });
+  }
+  bindToggle(catGrp);
+  bindToggle(tagGrp);
+
+  /* 検索の条件に応じて畳む。
+     ・キーワードで検索した   → カテゴリーもタグも畳む
+     ・カテゴリーで絞り込んだ → タグだけ畳む */
+  function collapseForSearch() {
+    if (input.value.trim()) { setOpen(catGrp, false); setOpen(tagGrp, false); }
+    else if (activeCats.length) { setOpen(tagGrp, false); }
+  }
+
   function render() {
     var q = norm(input.value);
     var terms = q ? q.split(' ').filter(Boolean) : [];
@@ -131,6 +170,9 @@
 
     /* 条件を入れていないうちは、記事を並べない。
        検索の画面に全記事が出ていると、一覧との違いが分からなくなるため。 */
+    updatePicked(catGrp, activeCats);
+    updatePicked(tagGrp, activeTags);
+
     if (!cond.length) {
       results.innerHTML = '';
       empty.hidden = true;
@@ -139,6 +181,8 @@
       return;
     }
 
+    updatePicked(catGrp, activeCats);
+    updatePicked(tagGrp, activeTags);
     results.innerHTML = hits.map(function (r) { return cardHtml(r.it, terms); }).join('');
     empty.hidden = hits.length > 0;
     status.textContent = cond.join(' / ') + ' の検索結果：' + hits.length + '件';
@@ -162,6 +206,7 @@
       if (i === -1) { list.push(val); btn.classList.add('is-active'); }
       else { list.splice(i, 1); btn.classList.remove('is-active'); }
       render();
+      collapseForSearch();
       scrollToResults();
     });
   }
@@ -185,6 +230,7 @@
     ev.preventDefault();
     clearTimeout(timer);
     render();
+    collapseForSearch();
     input.blur();
     scrollToResults();
   });
@@ -198,6 +244,8 @@
         c.classList.remove('is-active');
       });
       render();
+      setOpen(catGrp, true);
+      setOpen(tagGrp, true);
       input.focus();
     });
   }
@@ -218,7 +266,7 @@
         if (btn) { btn.classList.add('is-active'); activeTags.push(t); }
       });
       render();
-      if (location.search) scrollToResults();
+      if (location.search) { collapseForSearch(); scrollToResults(); }
     })
     .catch(function () {
       status.textContent = '検索インデックスを読み込めませんでした。ページを再読み込みしてください。';
