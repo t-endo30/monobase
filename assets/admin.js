@@ -596,7 +596,11 @@
     var a = editing;
     a.title = $('f-title').value.trim();
     a.list_title = $('f-listTitle').value.trim() || a.title;
-    a.slug = ($('f-slug').value.trim() || slugify(a.title));
+    /* 空欄なら商品名から作る。日本語だけのタイトルでも
+       時刻の数字が並んだURLにならないよう draftSlug に任せる。 */
+    var taken = {};
+    articles.forEach(function (x) { if (x !== a && x.slug) taken[x.slug] = true; });
+    a.slug = ($('f-slug').value.trim() || draftSlug(a.title, a.category, taken));
     a.category = $('f-category').value;
     a.sub = $('f-sub').value;
     a.kind = $('f-kind').value;
@@ -1748,6 +1752,34 @@
     $('btnBackTop').addEventListener('click', function () { showPanel('p-articles'); });
   }
 
+  /* エディタから、その記事1本ぶんの本文を作る */
+  if ($('btnGenText')) {
+    $('btnGenText').addEventListener('click', function () {
+      if (!editing) { toast('先に記事を開いてください', 'err'); return; }
+      /* 画面の入力を記事へ書き戻してから送る。
+         そうしないと、いま直したタイトルが反映されない。 */
+      collect();
+      var btn = $('btnGenText');
+      var label = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '作成中…';
+      generateArticle(editing).then(function (warns) {
+        openEditor(editing);          /* 生成結果を画面へ流し込む */
+        if (warns.length) {
+          toast('できましたが、確認してください：' + warns.join(' / '), 'err');
+          warns.forEach(function (w) { log('  △ ' + w, 'err'); });
+        } else {
+          toast('本文を作りました。内容を読んでから保存してください');
+        }
+      }).catch(function (err) {
+        toast(err.message, 'err');
+      }).then(function () {
+        btn.disabled = false;
+        btn.textContent = label;
+      });
+    });
+  }
+
   /* 編集画面の上下で同じ操作ができるようにする（長い記事で下まで行かなくて済む） */
   [['btnApplyTop', 'btnApply'],
    ['btnPreviewTop', 'btnPreview'],
@@ -2162,14 +2194,36 @@
     });
 
     renderList();
-    showPanel('p-articles');
-    var msg = picks.length + '件の下書きを作りました。'
-      + '説明文と抜粋は仮の文章なので、本文とあわせて書き換えてください';
-    if (jpOnly) {
-      msg += '（' + jpOnly + '件はURLに使える英数字が商品名に無かったため、'
-           + 'スラッグを仮のものにしています）';
+
+    var made = articles.slice(0, picks.length);
+    var withBody = $('fd-withbody') && $('fd-withbody').checked;
+
+    if (!withBody) {
+      showPanel('p-articles');
+      var msg = picks.length + '件の下書きを作りました。'
+        + '説明文と抜粋は仮の文章なので、本文とあわせて書き換えてください';
+      if (jpOnly) {
+        msg += '（' + jpOnly + '件はURLに使える英数字が商品名に無かったため、'
+             + 'スラッグを仮のものにしています）';
+      }
+      toast(msg);
+      return;
     }
-    toast(msg);
+
+    /* 本文まで作る。1件ずつ順に投げるので時間がかかる。
+       途中経過を出さないと、止まっているのか進んでいるのか分からない。 */
+    $('btnMakeDrafts').disabled = true;
+    $('fd-state').textContent = '本文を作成中…';
+    generateMany(made, function (i, total, a) {
+      $('fd-state').textContent = '本文を作成中… ' + i + '/' + total;
+      toast('（' + i + '/' + total + '）' + (a.title || '').slice(0, 24) + ' を作成中');
+    }).then(function (results) {
+      $('fd-state').textContent = '完了';
+      $('btnMakeDrafts').disabled = false;
+      renderList();
+      showPanel('p-articles');
+      reportGenerated(results);
+    });
   }
 
   function wireFind() {
@@ -2260,6 +2314,235 @@
     Promise.all(jobs).then(function () {
       $('k-state').textContent = msgs.join(' / ');
       toast(msgs.join(' / '), /OK/.test(msgs.join('')) ? 'ok' : 'err');
+    });
+  }
+
+
+  /* ============================================================
+     記事作成プロンプトで本文を作る
+     ------------------------------------------------------------
+     docs/article-prompt.md をそのまま送り、商品の情報と
+     articles.json の形をあとに付ける。プロンプトを2か所で管理すると
+     必ず食い違うので、原本はリポジトリの1ファイルだけにしておく。
+
+     出来上がった本文は、そのまま信じずここで検査する。
+     禁止表現と文字数は tools/check_text.py と
+     tools/check_articles.py が公開時に見ているものと同じ基準。
+     先に弾いておかないと、書き上げてから公開できないと分かる。
+     ============================================================ */
+  var GM_TEXT_API = 'https://generativelanguage.googleapis.com/v1beta/models/';
+  var promptCache = null;
+
+  /* 景品表示法・薬機法・アソシエイト規約のリスクになる断定表現。
+     tools/check_text.py の NG と同じ内容にしておく。 */
+  var NG_WORDS = ['絶対', '必ず', '確実に', '保証します', '間違いなく', '100%',
+                  '誰でも', '永久に', '完治', '業界No.1', '日本一'];
+  var MIN_CHARS = 6000, MAX_CHARS = 8300;
+
+  function loadPrompt() {
+    if (promptCache) return Promise.resolve(promptCache);
+    if (!cfg.token) {
+      return Promise.reject(new Error(
+        '記事作成プロンプトを読むためにGitHubの接続が要ります。接続タブで設定してください。'));
+    }
+    return getFile('docs/article-prompt.md').then(function (res) {
+      if (!res) throw new Error('docs/article-prompt.md が見つかりません');
+      promptCache = b64decode(res.content);
+      return promptCache;
+    });
+  }
+
+  /* 生成させたい形。articles.json の項目名と揃える。
+     ここに無い項目は触らせない（slug や published を書き換えられると困る）。 */
+  function articleShape() {
+    return [
+      '{',
+      '  "lead": ["段落", "段落"],',
+      '  "verdict_title": "結論：…",',
+      '  "summary": [{"title":"見出し","text":"本文"}],',
+      '  "rating": {"score": 4.2, "breakdown": "評価の内訳を1文で"},',
+      '  "highlights": {"intro":"", "items":[{"title":"","text":""}]},',
+      '  "not_for": {"intro":"", "items":[{"title":"","text":""}]},',
+      '  "scenes": [{"title":"場面","text":"説明"}],',
+      '  "pros": ["良い点"], "cons": ["注意点"],',
+      '  "spec": {"intro":"", "headers":["項目","本機","比較A","比較B"],',
+      '           "rows":[["行名","値","値","値"]], "read":"表の読み方"},',
+      '  "sections": [{"heading":"見出し","paras":["段落"],',
+      '                "aside":"補足","aside_label":"レビューを読み込んで見えたこと"}],',
+      '  "voices_intro": "",',
+      '  "voices": [{"heading":"","who":"","stars":4,"text":"","negative":false,',
+      '              "fix_title":"","fix":""}],',
+      '  "voices_after": "",',
+      '  "personal_note": "",',
+      '  "next_problem": {"intro":"", "items":[{"title":"","text":""}]},',
+      '  "conclusion_title": "まとめ", "conclusion": ["段落"],',
+      '  "description": "メタディスクリプション（120字以内）",',
+      '  "excerpt": "カード用の抜粋（60字以内）",',
+      '  "list_title": "一覧用の短いタイトル（30字以内）",',
+      '  "title": "記事タイトル",',
+      '  "tags": ["タグ"],',
+      '  "sub": "サブカテゴリーのkey（分からなければ空文字）"',
+      '}'
+    ].join('\n');
+  }
+
+  function articleRequest(a, prompt) {
+    var cat = ((site.categories || []).filter(function (c) {
+      return c.key === a.category;
+    })[0]) || {};
+    var subs = (cat.sub || []).map(function (x) {
+      return x.key + '（' + x.label + '）';
+    }).join('、') || 'なし';
+
+    var shops = [];
+    if (a.asin || a.amazon_url) shops.push('Amazon');
+    if (a.rakuten_url) shops.push('楽天市場');
+    if (a.yahoo_url) shops.push('Yahoo!ショッピング');
+
+    return [
+      prompt,
+      '',
+      '---------------- ここから今回の商品 ----------------',
+      '商品名：' + (a.title || ''),
+      'カテゴリー：' + (cat.label || a.category),
+      '選べるサブカテゴリーのkey：' + subs,
+      'JANコード：' + (a.jan || '不明'),
+      '買えるモール：' + (shops.join('、') || '不明'),
+      '',
+      '---------------- 出力の決まり ----------------',
+      '・JSONだけを返す。前置きも、```などの囲みも付けない。',
+      '・次の形に従う。項目を増やさない、減らさない。',
+      articleShape(),
+      '・本文の合計は ' + MIN_CHARS + '〜' + (MAX_CHARS - 300) + ' 文字。',
+      '・HTMLは <strong> と <em> だけ。それ以外のタグは書かない。',
+      '・「' + NG_WORDS.join('」「') + '」は使わない。',
+      '・実際に使った体験として書かない。レビューと仕様から読み取れることだけを書く。',
+      '・next_problem の項目にリンクURLを入れない。',
+      '・価格は書かない。変動するため。'
+    ].join('\n');
+  }
+
+  function gmText(key, model, text) {
+    return fetch(GM_TEXT_API + encodeURIComponent(model) + ':generateContent', {
+      method: 'POST',
+      headers: { 'x-goog-api-key': key, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ role: 'user', parts: [{ text: text }] }],
+        generationConfig: { responseMimeType: 'application/json',
+                            temperature: 0.8, maxOutputTokens: 32768 }
+      })
+    }).then(function (r) {
+      return r.json().then(function (j) {
+        if (!r.ok) throw new Error((j.error && j.error.message) || ('HTTP ' + r.status));
+        return j;
+      });
+    }).then(function (j) {
+      var parts = (((j.candidates || [])[0] || {}).content || {}).parts || [];
+      var out = parts.map(function (p) { return p.text || ''; }).join('');
+      if (!out) throw new Error('応答が空でした。モデルを変えて試してください');
+      /* responseMimeType を指定してもまれに ``` で囲んでくる */
+      out = out.replace(/^\s*```(?:json)?\s*/, '').replace(/\s*```\s*$/, '');
+      try {
+        return JSON.parse(out);
+      } catch (e) {
+        throw new Error('返ってきた内容がJSONとして読めませんでした');
+      }
+    });
+  }
+
+  /* 本文の文字数。入れ子をたどって文字列だけ数える。
+     tools/check_articles.py の body_chars と同じ考え方。 */
+  function bodyChars(v) {
+    if (typeof v === 'string') return v.replace(/<[^>]+>/g, '').length;
+    if (Array.isArray(v)) {
+      return v.reduce(function (n, x) { return n + bodyChars(x); }, 0);
+    }
+    if (v && typeof v === 'object') {
+      return Object.keys(v).reduce(function (n, k) {
+        return n + bodyChars(v[k]);
+      }, 0);
+    }
+    return 0;
+  }
+
+  function auditArticle(a) {
+    var warns = [];
+    var blob = JSON.stringify(a);
+    NG_WORDS.forEach(function (w) {
+      if (blob.indexOf(w) >= 0) warns.push('禁止表現「' + w + '」');
+    });
+    /* <strong> と <em> 以外のタグは、そのまま文字として出てしまう */
+    var tags = blob.match(/<\/?([a-z]+)[^>]*>/gi) || [];
+    tags.forEach(function (t) {
+      if (!/^<\/?(strong|em)\b/i.test(t)) warns.push('使えないタグ ' + t);
+    });
+    var n = bodyChars(a);
+    if (n < MIN_CHARS) warns.push('本文が ' + n.toLocaleString() + ' 字（下限 ' + MIN_CHARS.toLocaleString() + '）');
+    if (n > MAX_CHARS) warns.push('本文が ' + n.toLocaleString() + ' 字（上限 ' + MAX_CHARS.toLocaleString() + '）');
+    /* 重複は1回だけ知らせる */
+    return warns.filter(function (w, i) { return warns.indexOf(w) === i; });
+  }
+
+  /* 生成結果を記事へ移す。slug・published・販売先URLなど、
+     こちらで決めた項目は上書きさせない。 */
+  var GEN_FIELDS = ['lead', 'verdict_title', 'summary', 'rating', 'highlights',
+                    'not_for', 'scenes', 'pros', 'cons', 'spec', 'sections',
+                    'voices_intro', 'voices', 'voices_after', 'personal_note',
+                    'next_problem', 'conclusion_title', 'conclusion',
+                    'description', 'excerpt', 'list_title', 'title', 'tags', 'sub'];
+
+  function applyGenerated(a, gen) {
+    GEN_FIELDS.forEach(function (k) {
+      if (gen[k] !== undefined && gen[k] !== null && gen[k] !== '') a[k] = gen[k];
+    });
+    /* リンク切れ検査で止まるので、勝手に付いたリンクは落とす */
+    ((a.next_problem || {}).items || []).forEach(function (it) {
+      delete it.link_url; delete it.link_label;
+    });
+    a.updated = today();
+    return a;
+  }
+
+  function generateArticle(a) {
+    var key = '';
+    try { key = localStorage.getItem(GM_KEY) || ''; } catch (e) {}
+    if (!key) return Promise.reject(new Error('画像タブでGemini APIキーを登録してください'));
+    var model = ($('gmTextModel') && $('gmTextModel').value) || 'gemini-2.5-pro';
+    return loadPrompt().then(function (prompt) {
+      return gmText(key, model, articleRequest(a, prompt));
+    }).then(function (gen) {
+      applyGenerated(a, gen);
+      return auditArticle(a);
+    });
+  }
+
+  /* 本文がまだ無い下書きを、順番に埋める。
+     まとめて投げると、どれで失敗したか分からなくなるので1件ずつ。 */
+  function generateMany(list, onEach) {
+    var results = [];
+    return list.reduce(function (chain, a, i) {
+      return chain.then(function () {
+        if (onEach) onEach(i + 1, list.length, a);
+        return generateArticle(a)
+          .then(function (warns) { results.push({ a: a, warns: warns }); })
+          .catch(function (err) { results.push({ a: a, error: err.message }); });
+      });
+    }, Promise.resolve()).then(function () { return results; });
+  }
+
+  function reportGenerated(results) {
+    var ng = results.filter(function (r) { return r.error; });
+    var warned = results.filter(function (r) { return !r.error && r.warns.length; });
+    var ok = results.length - ng.length - warned.length;
+    var msg = '本文を作りました：問題なし ' + ok + '件';
+    if (warned.length) msg += ' / 要確認 ' + warned.length + '件';
+    if (ng.length) msg += ' / 失敗 ' + ng.length + '件';
+    toast(msg, ng.length ? 'err' : 'ok');
+    results.forEach(function (r) {
+      var name = r.a.list_title || r.a.title || r.a.slug;
+      if (r.error) log('  ✗ ' + name + '：' + r.error, 'err');
+      else if (r.warns.length) log('  △ ' + name + '：' + r.warns.join(' / '), 'err');
+      else log('  ✓ ' + name, 'ok');
     });
   }
 

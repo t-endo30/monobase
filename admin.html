@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=dfca1772">
+<link rel="stylesheet" href="./assets/admin.css?v=7f7b6ecf">
 </head>
 <body>
 
@@ -66,8 +66,16 @@
       <div class="edit-actions">
         <button class="btn btn-ghost" id="btnBackTop">← 記事一覧へ</button>
         <button class="btn btn-primary" id="btnApplyTop">この記事を保存</button>
+        <button class="btn" id="btnGenText">プロンプトで本文を作る</button>
         <button class="btn" id="btnPreviewTop">プレビュー</button>
         <button class="btn btn-danger" id="btnDeleteTop">削除</button>
+      </div>
+      <div class="note" id="genNote">
+        <b>「プロンプトで本文を作る」</b>は、<code>docs/article-prompt.md</code> をそのまま送って本文一式を作ります。
+        リード・良い点・注意点・場面・スペック表・口コミと対策・まとめ・メタ情報・タグ・サブカテゴリーが埋まります。
+        <b>アイキャッチ画像だけは別で、下の「画像」から作ってください。</b><br>
+        できあがったら禁止表現・文字数・使えないタグを自動で検査し、引っかかった点を知らせます。
+        <b>そのまま公開せず、必ず内容を読んでから保存してください。</b>
       </div>
       <p class="hint">入力はブラウザ内に保持されます。<b>サイトに反映するには、記事一覧に戻って「変更をまとめて公開」</b>を押してください。何本でも一度に公開でき、ビルドは1回で済みます。</p>
 
@@ -444,6 +452,19 @@
         </div>
       </div>
 
+      <div class="row c2">
+        <div>
+          <label for="gmTextModel">本文を作るモデル<span class="opt">記事エディタの「プロンプトで本文を作る」で使います</span></label>
+          <select id="gmTextModel">
+            <option value="gemini-2.5-pro">gemini-2.5-pro（長文向き・推奨）</option>
+            <option value="gemini-2.5-flash">gemini-2.5-flash（速い・無料枠あり）</option>
+          </select>
+        </div>
+        <div class="note" style="align-self:end;">
+          6,000〜8,000字を一度に書かせるため、速さより安定を優先して pro を既定にしています。
+        </div>
+      </div>
+
       <label for="gmPrompt">送信するプロンプト<span class="opt">編集できます</span></label>
       <textarea id="gmPrompt" rows="7"></textarea>
 
@@ -550,6 +571,10 @@
       <h2>見つかった候補<span class="pill" id="fd-count-badge">0件</span></h2>
       <p class="hint">記事にするものにチェックを入れて、下のボタンを押してください。<b>下書きとして作成され、公開はされません。</b>本文は空のまま作られるので、記事作成プロンプトで書いた内容を貼り付けて仕上げます。</p>
       <div id="fd-list" class="find-list"></div>
+      <div class="check">
+        <input type="checkbox" id="fd-withbody">
+        <label for="fd-withbody"><b>本文もプロンプトで作る</b>（1件あたり1〜2分かかります）</label>
+      </div>
       <div class="btn-bar">
         <button class="btn btn-primary" id="btnMakeDrafts">選んだ商品で下書きを作る</button>
         <button class="btn" id="btnFindAll">すべて選択</button>
@@ -824,6 +849,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=dfca1772"></script>
+<script src="./assets/admin.js?v=7f7b6ecf"></script>
 </body>
 </html>
