@@ -1509,27 +1509,64 @@
     'feature/compare': ['three unbranded consumer gadgets lined up in a row', 'a clean light grey studio surface']
   };
 
+  /* 画像生成に送る指示文。
+     文面は運営者が決めたものをそのまま使う。末尾にだけ、
+     その記事の被写体と、毎回変える撮影条件を足している。
+     被写体を書かないと商品と無関係な写真になり、
+     撮影条件を固定すると似た絵ばかり出てくるため。 */
+  var GM_VARY = {
+    room: ['朝の光が入る北向きの部屋', '午後の日差しが差し込むリビング',
+           '曇り空の柔らかい光が回る書斎', '窓際に観葉植物がある落ち着いた部屋',
+           '木の家具でまとめた静かな寝室', '白い壁のシンプルな作業部屋'],
+    angle: ['やや上からの俯瞰', '目線の高さからの斜め前方', '低い位置からの水平',
+            '真横に近い角度', '斜め後方からの引き'],
+    light: ['左手の窓からの自然光', '右手からの柔らかい間接光',
+            '正面やや上からの拡散光', '窓を背にした逆光ぎみの光']
+  };
+
+  function pickOne(list) {
+    return list[Math.floor(Math.random() * list.length)];
+  }
+
   function gmPromptFor(a) {
     var s = GM_SUBJECT[(a.category || '') + '/' + (a.sub || '')] ||
             ['a single unbranded consumer product', 'a clean light grey studio surface'];
-    return 'A photograph of ' + s[0] + ', placed on ' + s[1] + '. ' +
-      'The product fills about 70 percent of the frame, positioned slightly off-centre ' +
-      'following the rule of thirds, seen from a natural eye-level three-quarter angle. ' +
-      'Only a partial human hand may appear at the edge of the frame, and only if it helps ' +
-      'show scale; never show a face or a full body. ' +
-      'Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, ' +
-      'shallow depth of field, background softly blurred so the product stays sharp. ' +
-      'Lit by soft diffused daylight from a large window on the left, a subtle fill from the ' +
-      'right, gentle natural shadows. ' +
-      'Photorealistic, natural material texture — visible plastic grain, brushed metal, woven ' +
-      'fabric and wood grain, realistic specular highlights and soft reflections, accurate ' +
-      'white balance, fine surface detail, no digital smoothing. ' +
-      'The product is generic and unbranded with no logos or lettering of any kind. ' +
-      'Landscape orientation, 16:9. ' +
-      'Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching ' +
-      'or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, readable text, ' +
-      'watermarks, full human figures or faces, distorted or extra fingers, warped straight ' +
-      'edges, duplicated objects, floating or physically impossible arrangements, cluttered background.';
+    return [
+      '以下の条件・テイストに厳格に従って毎回新しい単独の画像を1枚作成してください。',
+      '',
+      '1. スタイルと質感（絶対条件）',
+      '',
+      'イラストや3D CG、絵画調ではなく、一眼レフカメラで撮影したような**完全にリアルな実写写真（Photorealistic）**とすること。',
+      '',
+      '過度なレタッチやテカテカしたAI感（ツルツルした肌や不自然な光沢）を排除し、自然な素材の質感（木目、布の繊維、光の反射など）を再現すること。',
+      '',
+      '2. 被写体と構成',
+      '',
+      '人は一切登場させないこと（人物なし・物体のみ）。',
+      '',
+      '存在しない架空の要素や奇抜なデザインは避け、現実にある実物のみを描写すること。',
+      '',
+      '背景は自然で落ち着いた室内や背景とし、主題となる物に自然にスポットが当たる構図にすること。',
+      '',
+      '3. 前の画像からの独立（最重要）',
+      '',
+      '直前の会話や過去に生成した画像（部屋の背景、家具、色合いなど）との連続性・引き継ぎ（一貫性）は完全に断ち切ること。',
+      '',
+      '過去の画像を参考・参照せず、毎回新しいシチュエーション・新しい背景・新しい角度で一から生成すること。',
+      '',
+      '4. 今回の被写体（この記事のために追記）',
+      '',
+      '撮影する物：' + s[0],
+      '置かれている場所の目安：' + s[1],
+      'ロゴや読める文字は入れないこと。ブランドの分からない一般的な製品として描くこと。',
+      '横長（16:9）で出力すること。',
+      '',
+      '5. 今回だけの撮影条件（3の指示にしたがい、毎回変える）',
+      '',
+      '場所：' + pickOne(GM_VARY.room),
+      '角度：' + pickOne(GM_VARY.angle),
+      '光：' + pickOne(GM_VARY.light)
+    ].join('\n');
   }
 
   function fillGmArticles() {
@@ -1764,6 +1801,12 @@
       btn.disabled = true;
       btn.textContent = '作成中…';
       generateArticle(editing).then(function (warns) {
+        if (editing.thumb) return warns;
+        /* アイキャッチが無い記事は、あわせて画像も用意する */
+        btn.textContent = '画像を作成中…';
+        return ensureEyecatch(editing).then(function () { return warns; })
+          .catch(function (err) { return warns.concat(['画像なし：' + err.message]); });
+      }).then(function (warns) {
         openEditor(editing);          /* 生成結果を画面へ流し込む */
         if (warns.length) {
           toast('できましたが、確認してください：' + warns.join(' / '), 'err');
@@ -2214,10 +2257,11 @@
        途中経過を出さないと、止まっているのか進んでいるのか分からない。 */
     $('btnMakeDrafts').disabled = true;
     $('fd-state').textContent = '本文を作成中…';
+    var withImage = $('fd-withimage') && $('fd-withimage').checked;
     generateMany(made, function (i, total, a) {
       $('fd-state').textContent = '本文を作成中… ' + i + '/' + total;
       toast('（' + i + '/' + total + '）' + (a.title || '').slice(0, 24) + ' を作成中');
-    }).then(function (results) {
+    }, withImage).then(function (results) {
       $('fd-state').textContent = '完了';
       $('btnMakeDrafts').disabled = false;
       renderList();
@@ -2503,11 +2547,28 @@
     return a;
   }
 
+  /* アイキャッチを用意する。
+     楽天・Yahoo!のAPIは商品画像のURLを返すが、モールの商品画像は
+     出品者・メーカーに権利があり、当サイトに転載してよいものではない。
+     そのため商品写真は使わず、運営者が決めたプロンプトで作った
+     イメージ画像を置き、記事側に「イメージ（AI生成）」と明示する。 */
+  function ensureEyecatch(a) {
+    if (a.thumb) return Promise.resolve(null);       /* すでにある */
+    var key = '';
+    try { key = localStorage.getItem(GM_KEY) || ''; } catch (e) {}
+    if (!key) return Promise.reject(new Error('Gemini APIキーが未登録のため画像を作れません'));
+    if (!cfg.token) return Promise.reject(new Error('GitHub未接続のため画像を保存できません'));
+    var model = ($('gmModel') && $('gmModel').value) || 'gemini-2.5-flash-image';
+    return genImage(a, key, model).then(function (img) {
+      return saveImage(a, img);                       /* thumb と image_ai を立てる */
+    });
+  }
+
   function generateArticle(a) {
     var key = '';
     try { key = localStorage.getItem(GM_KEY) || ''; } catch (e) {}
     if (!key) return Promise.reject(new Error('画像タブでGemini APIキーを登録してください'));
-    var model = ($('gmTextModel') && $('gmTextModel').value) || 'gemini-2.5-pro';
+    var model = ($('gmTextModel') && $('gmTextModel').value) || 'gemini-2.5-flash';
     return loadPrompt().then(function (prompt) {
       return gmText(key, model, articleRequest(a, prompt));
     }).then(function (gen) {
@@ -2518,13 +2579,22 @@
 
   /* 本文がまだ無い下書きを、順番に埋める。
      まとめて投げると、どれで失敗したか分からなくなるので1件ずつ。 */
-  function generateMany(list, onEach) {
+  function generateMany(list, onEach, withImage) {
     var results = [];
     return list.reduce(function (chain, a, i) {
       return chain.then(function () {
         if (onEach) onEach(i + 1, list.length, a);
         return generateArticle(a)
-          .then(function (warns) { results.push({ a: a, warns: warns }); })
+          .then(function (warns) {
+            /* 本文ができたら画像も用意する。画像で失敗しても
+               本文は残したいので、ここで受け止めて注意として扱う。 */
+            if (!withImage) { results.push({ a: a, warns: warns }); return; }
+            return ensureEyecatch(a).then(function () {
+              results.push({ a: a, warns: warns });
+            }).catch(function (err) {
+              results.push({ a: a, warns: warns.concat(['画像なし：' + err.message]) });
+            });
+          })
           .catch(function (err) { results.push({ a: a, error: err.message }); });
       });
     }, Promise.resolve()).then(function () { return results; });
