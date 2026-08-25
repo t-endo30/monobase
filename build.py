@@ -438,7 +438,8 @@ def footer(p, sticky_url=None):
 </html>
 '''
 
-def main_block(body, p, current="", current_sub="", sidebar=False, hero_slot=""):
+def main_block(body, p, current="", current_sub="", sidebar=False, hero_slot="",
+               side_search_on=True):
     """本文の器。一覧ページではPC幅のときだけ左にカテゴリー一覧を置く。
        スマホでは幅が足りないので出さず、ハンバーガーメニュー側に集約する。"""
     if not sidebar:
@@ -448,8 +449,10 @@ def main_block(body, p, current="", current_sub="", sidebar=False, hero_slot="")
     # 3カラムのときは「本日のお勧めのモノ」を左、検索を右に置く。
     # 2カラムに縮んだときは右列が消えるので、検索は左に残す。
     # 両方を書き出し、どちらを見せるかはCSSの幅で切り替える。
-    search_l = (side_search(p, "only-2col") if FEAT.get("search") else "")
-    search_r = (side_search(p, "only-3col") if FEAT.get("search") else "")
+    # 検索ページ自身には出さない。同じ画面に検索窓が2つ並んでも迷うだけ。
+    want = FEAT.get("search") and side_search_on
+    search_l = (side_search(p, "only-2col") if want else "")
+    search_r = (side_search(p, "only-3col") if want else "")
     return ('\n<main id="top" class="layout has-side">\n'
             '  <div class="container layout-grid">\n'
             + hero_slot +
@@ -468,10 +471,11 @@ def main_block(body, p, current="", current_sub="", sidebar=False, hero_slot="")
             '  </div>\n</main>\n\n')
 
 
-def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class="", crumbs=None, current_sub="", sidebar=False, band="", hero_slot=""):
+def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class="", crumbs=None, current_sub="", sidebar=False, band="", hero_slot="", side_search_on=True):
     return (head(title, desc, current, p, canonical, extra_head, body_class)
             + header(current, p, crumbs, current_sub, band)
-            + main_block(body, p, current, current_sub, sidebar, hero_slot)
+            + main_block(body, p, current, current_sub, sidebar, hero_slot,
+                         side_search_on)
             + footer(p, sticky_url).replace("</body>", extra_js + "</body>"))
 
 # ============================================================ 部品
@@ -1076,7 +1080,7 @@ def hero(mark, h1, lead, count=None):
       </div>
 '''
 
-SEARCH_HINT = "例：加湿器、モニターアーム、腰痛"
+SEARCH_HINT = "例：加湿器、腰痛"
 
 
 def side_search(p, cls=""):
@@ -1091,14 +1095,14 @@ def side_search(p, cls=""):
 
 SEARCH_TILE = '''        <div class="search-tile">
           <form class="searchbox" action="./search.html" method="get" role="search">
-            <input type="search" name="q" placeholder="例：加湿器、モニターアーム、腰痛" aria-label="サイト内検索">
+            <input type="search" name="q" placeholder="例：加湿器、腰痛" aria-label="サイト内検索">
             <button type="submit">検索</button>
           </form>
         </div>
 '''
 
 SEARCH_BOX = '''      <form class="searchbox" action="./search.html" method="get" role="search">
-        <input type="search" name="q" placeholder="キーワードで記事を探す（例：加湿器、腰痛）" aria-label="サイト内検索">
+        <input type="search" name="q" placeholder="キーワードで記事を探す" aria-label="サイト内検索">
         <button type="submit">検索</button>
       </form>
 '''
@@ -1452,7 +1456,7 @@ def build_search():
     body = f'''{hero(icon("search", "page-icon"), "サイト内検索", "キーワードやタグから記事を探せます。すべてブラウザ内で動作するため、入力内容が送信されることはありません。")}
       <div class="search-panel">
         <form class="searchbox" role="search" onsubmit="return false;">
-          <input type="search" id="searchInput" placeholder="キーワードを入力（例：加湿器、腰痛、イヤホン）" aria-label="サイト内検索" autocomplete="off">
+          <input type="search" id="searchInput" placeholder="キーワードを入力" aria-label="サイト内検索" autocomplete="off">
           <button type="button" id="searchClear">クリア</button>
         </form>
 
@@ -1487,7 +1491,7 @@ def build_search():
     return page(f"サイト内検索 - {NAME}", f"{NAME}のサイト内検索。キーワードとタグで記事を絞り込めます。",
                 "search", p, BASE_URL + "/search.html", body,
                 extra_js=f'<script src="./assets/search.js?v={ASSET_V}"></script>\n',
-                body_class="is-listing", sidebar=True,
+                body_class="is-listing", sidebar=True, side_search_on=False,
                 crumbs=[("ホーム", f"{p}index.html"), ("サイト内検索", None)])
 
 # ============================================================ Worker

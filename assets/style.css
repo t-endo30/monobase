@@ -4911,14 +4911,15 @@ body{
   padding:2px 9px;
 }
 .chip-caret{
+  /* 開いているとき ▲、畳んでいるとき ▼ */
   margin-left:auto;
   width:9px;height:9px;
   border-right:2px solid var(--text-sub);
   border-bottom:2px solid var(--text-sub);
-  transform:rotate(45deg) translate(-2px,-2px);
+  transform:rotate(-135deg) translate(-3px,-3px);
   transition:transform .2s var(--ease);
 }
-.chip-group:not(.is-open) .chip-caret{transform:rotate(-135deg) translate(-3px,-3px);}
+.chip-group:not(.is-open) .chip-caret{transform:rotate(45deg) translate(-2px,-2px);}
 .chip-group:not(.is-open) .chips{display:none;}
 @media (min-width:900px){
   /* 見出しの幅を固定していた指定を、開閉ボタンでは打ち消す */
@@ -4954,4 +4955,13 @@ body{
   /* 画面の端ぎりぎりに置かない。丸い角の外へ出ないようにする */
   padding-left:max(0px,env(safe-area-inset-left));
   padding-right:max(0px,env(safe-area-inset-right));
+}
+
+/* プレースホルダーが枠に収まらないときは、切りっぱなしにせず「…」にする */
+.searchbox input[type="search"]{text-overflow:ellipsis;}
+.searchbox input[type="search"]::placeholder{text-overflow:ellipsis;}
+@media (max-width:400px){
+  /* 幅の狭い端末では、入力欄に文字数を回す */
+  .searchbox input[type="search"]{padding:0 13px;}
+  .searchbox button{padding:0 16px;}
 }

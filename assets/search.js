@@ -138,12 +138,19 @@
   bindToggle(catGrp);
   bindToggle(tagGrp);
 
-  /* 検索の条件に応じて畳む。
+  /* 検索の条件に応じて畳む。押したほうは開いたまま残す。
      ・キーワードで検索した   → カテゴリーもタグも畳む
-     ・カテゴリーで絞り込んだ → タグだけ畳む */
-  function collapseForSearch() {
-    if (input.value.trim()) { setOpen(catGrp, false); setOpen(tagGrp, false); }
-    else if (activeCats.length) { setOpen(tagGrp, false); }
+     ・カテゴリーで絞り込んだ → タグだけ畳む
+     ・タグで絞り込んだ       → カテゴリーだけ畳む
+     from には、いま操作したほうの要素を渡す。 */
+  function collapseForSearch(from) {
+    if (input.value.trim()) { setOpen(catGrp, false); setOpen(tagGrp, false); return; }
+    if (from === catGrp && activeCats.length) { setOpen(tagGrp, false); }
+    if (from === tagGrp && activeTags.length) { setOpen(catGrp, false); }
+    if (!from) {   /* URLの条件で開いたときは、選ばれていないほうを畳む */
+      if (activeCats.length && !activeTags.length) setOpen(tagGrp, false);
+      if (activeTags.length && !activeCats.length) setOpen(catGrp, false);
+    }
   }
 
   function render() {
@@ -196,7 +203,7 @@
     history.replaceState(null, '', qs ? '?' + qs : location.pathname);
   }
 
-  function bindChips(box, list, key) {
+  function bindChips(box, list, key, grp) {
     if (!box) return;
     box.addEventListener('click', function (ev) {
       var btn = ev.target.closest('.chip');
@@ -206,12 +213,12 @@
       if (i === -1) { list.push(val); btn.classList.add('is-active'); }
       else { list.splice(i, 1); btn.classList.remove('is-active'); }
       render();
-      collapseForSearch();
+      collapseForSearch(grp);
       scrollToResults();
     });
   }
-  bindChips(catBox, activeCats, 'data-cat');
-  bindChips(tagBox, activeTags, 'data-tag');
+  bindChips(catBox, activeCats, 'data-cat', catGrp);
+  bindChips(tagBox, activeTags, 'data-tag', tagGrp);
 
   /* ---- 入力（デバウンス） ---- */
   var timer = null;
