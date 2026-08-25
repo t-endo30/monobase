@@ -1203,6 +1203,7 @@
     $('s-adsSide').value = sl.side || '';
     var au = site.automation || {};
     $('s-autoOn').checked = au.enabled !== false;
+    syncAutoState();
     $('s-autoRuns').value = String(au.runs_per_week || 1);
     $('s-autoCount').value = String(au.articles_per_run || 5);
     $('s-autoPublish').checked = au.auto_publish !== false;
@@ -1220,6 +1221,18 @@
   $('s-contact').addEventListener('change', function () {
     $('contactWrap').classList.toggle('hidden', !this.checked);
   });
+
+  /* 自動作成が動いているかどうかは、見出しの横にはっきり出す。
+     「オフにしたつもりで動いていた」を防ぐため。 */
+  function syncAutoState() {
+    var el = $('s-autoState');
+    if (!el) return;
+    var on = $('s-autoOn').checked;
+    el.textContent = on ? '有効' : '停止中';
+    el.style.background = on ? 'var(--a-ok)' : 'var(--a-bad)';
+    el.style.color = '#fff';
+  }
+  if ($('s-autoOn')) $('s-autoOn').addEventListener('change', syncAutoState);
 
   function collectSettings() {
     site.site_name = $('s-name').value.trim();

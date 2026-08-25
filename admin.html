@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=aa36bda2">
+<link rel="stylesheet" href="./assets/admin.css?v=35f534d0">
 </head>
 <body>
 
@@ -721,9 +721,9 @@
       <div class="note">置き場所は「メリット・デメリットの直後」「関連記事の下」「PCサイドの最下部」の3か所です。<b>購入ボタンの近くには置きません</b>（どちらを押したのか分からなくなり、規約上もリスクになるため）。<br>
         <code>ads.txt</code> と所有確認のメタタグは、パブリッシャーIDを入れておけば自動で出力されます。</div>
 
-      <h2 style="margin-top:26px;">記事の自動作成</h2>
-      <p class="hint">毎朝5時にGitHub Actionsが動きます。ここで決めた回数の日だけ、候補集め→本文→レビュー→公開まで進みます。</p>
-      <div class="check"><input type="checkbox" id="s-autoOn"><label for="s-autoOn">自動作成を有効にする</label></div>
+      <h2 style="margin-top:26px;">記事の自動作成<span class="pill" id="s-autoState">—</span></h2>
+      <p class="hint">毎朝5時にGitHub Actionsが動きます。ここで決めた回数の日だけ、候補集め→本文→レビュー→公開まで進みます。<b>オフのあいだは、手動で動かしても記事は作られません。</b></p>
+      <div class="check"><input type="checkbox" id="s-autoOn"><label for="s-autoOn"><b>自動作成を有効にする</b></label></div>
       <div class="row c2">
         <div>
           <label for="s-autoRuns">週に何回まわすか</label>
@@ -943,6 +943,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=aa36bda2"></script>
+<script src="./assets/admin.js?v=35f534d0"></script>
 </body>
 </html>

@@ -42,7 +42,7 @@ def run_days(n):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--force", action="store_true",
-                    help="曜日の判定を飛ばして必ず実行にする")
+                    help="曜日の判定を飛ばす（自動作成が「停止中」なら、それでも実行しない）")
     ap.add_argument("--date", default="", help="判定する日付（YYYY-MM-DD／試験用）")
     args = ap.parse_args()
 
@@ -56,14 +56,19 @@ def main():
 
     today = date.fromisoformat(args.date) if args.date else date.today()
     days = run_days(n)
-    run = args.force or (enabled and today.weekday() in days)
+    # enabled は最後の元栓。手動で叩いたとき（--force）も、ここが切れていれば動かさない。
+    # 管理画面でオフにしたつもりが裏で動いていた、という状態を作らないため。
+    run = enabled and (args.force or today.weekday() in days)
 
     names = "月火水木金土日"
     print(f"週 {n} 回（{'・'.join(names[d] for d in days)}）/ 1回 {count} 本 / "
           f"公開まで自動：{'はい' if auto_publish else 'いいえ'} / "
           f"自動実行：{'有効' if enabled else '停止中'}")
-    print(f"今日は {names[today.weekday()]}曜日 → "
-          + ("実行します" if run else "実行しません"))
+    if not enabled:
+        print("自動作成は管理画面で停止中です → 実行しません")
+    else:
+        print(f"今日は {names[today.weekday()]}曜日 → "
+              + ("実行します" if run else "実行しません"))
 
     out = os.environ.get("GITHUB_OUTPUT")
     if out:
