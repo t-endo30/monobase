@@ -621,11 +621,17 @@ def shop_links(a):
     return out
 
 
+CTA_MAX = 3          # 1記事あたりの販売リンクの最大数
+_cta_used = [0]      # 記事ごとに render_article() で 0 に戻す
+
+
 def shop_buttons(a, note=""):
-    """販売先のボタンを並べる。1つしか無ければ1つだけ出す。"""
+    """販売先のボタンを並べる。1つしか無ければ1つだけ出す。
+       1記事に出す回数は CTA_MAX 個まで。多すぎると読み味を損なうため。"""
     links = shop_links(a)
-    if not links:
+    if not links or _cta_used[0] >= CTA_MAX:
         return ""
+    _cta_used[0] += 1
     btns = ""
     for shop, label, href in links:
         btns += (f'          <a class="btn-shop is-{shop}" href="{e(href)}" '
@@ -661,6 +667,7 @@ def paras(v, cls=""):
 
 
 def render_article(a):
+    _cta_used[0] = 0
     p = "../"
     slug = a["slug"]
     cat = a["category"]
