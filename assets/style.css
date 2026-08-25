@@ -4580,21 +4580,33 @@ body.is-article .layout > .container{
    欠けて「見切れ」に見えていた。枠に余白を持たせて、
    カード自体の角丸と影が見えるようにする。
    ============================================================ */
+/* 送りの動きは .feat-track を動かして作るので、切り取りは
+   その親（.feat-carousel）で行う必要がある。ここを visible に
+   すると隣のスライドがはみ出す。 */
 .feat-carousel{
-  overflow:visible;
-  border-radius:0;
-}
-.feat-carousel.is-ready .feat-track{
   overflow:hidden;
   border-radius:var(--radius);
-  padding:0;
+  border:1px solid var(--border);
+  background:var(--surface);
+}
+/* 上が切れて見えたのは、他のタイルにある装飾線がここだけ
+   無かったため。同じ線を枠の上辺に引いてそろえる。 */
+.feat-carousel::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:3px;
+  z-index:4;
+  background:linear-gradient(90deg,var(--amazon) 0%,#F5C07A 46%,var(--border) 100%);
+  pointer-events:none;
 }
 .feat-slide .feat-card{
-  border-radius:var(--radius);
+  border-radius:0;
   box-shadow:none;
-  border:1px solid var(--border);
+  border:0;
 }
-.feat-banner{border-radius:calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;}
+.feat-banner{border-radius:0;}
+.feat-label{top:14px;}
 
 
 /* ============================================================
@@ -4670,31 +4682,30 @@ body.is-article .layout > .container{
 }
 
 /* ============================================================
-   背景：ドットと十字の方眼
+   背景：三角形のモザイク
    ------------------------------------------------------------
-   画像ファイルではなく、CSSのグラデーションで描く。
-   ・画像だと拡大時にぼやけるが、これは何倍でも輪郭が保たれる
-   ・読み込むファイルが増えないので、表示が遅くならない
-   ・サイトのアイコンがドット絵なので、模様も点で揃える
-   細かい点（16px間隔）と、太い十字（96px間隔）を重ねている。
+   画像ファイルではなくCSSで描く。画像だと拡大でぼやけるが、
+   これは何倍でも輪郭が保たれ、読み込むファイルも増えない。
+   三角形は、正三角形を4枚のグラデーションで組み合わせて作る。
+   模様が主張しないよう、1辺は48pxに抑えて濃さも薄くしている。
    ============================================================ */
 body{
   background-color:var(--bg);
   background-image:
-    /* 太い十字：横棒 */
-    linear-gradient(90deg, rgba(20,20,22,.055) 0 7px, transparent 7px),
-    /* 太い十字：縦棒 */
-    linear-gradient(180deg, rgba(20,20,22,.055) 0 7px, transparent 7px),
-    /* 細かい点 */
-    radial-gradient(rgba(20,20,22,.055) 1px, transparent 1.1px);
-  background-size:
-    96px 96px,
-    96px 96px,
-    16px 16px;
+    linear-gradient(150deg, rgba(20,20,22,.030) 25%, transparent 25.4%),
+    linear-gradient(210deg, rgba(20,20,22,.030) 25%, transparent 25.4%),
+    linear-gradient(150deg, rgba(20,20,22,.045) 25%, transparent 25.4%),
+    linear-gradient(210deg, rgba(20,20,22,.045) 25%, transparent 25.4%),
+    linear-gradient( 30deg, rgba(20,20,22,.022) 25%, transparent 25.4%),
+    linear-gradient(330deg, rgba(20,20,22,.022) 25%, transparent 25.4%);
+  background-size:48px 84px;
   background-position:
-    44px 41px,
-    41px 44px,
-    0 0;
+    0    0,
+    0    0,
+    24px 42px,
+    24px 42px,
+    0    0,
+    0    0;
   background-attachment:fixed;   /* 最奥に敷いたまま動かさない */
 }
 /* 中身の面は背景を持たせて、模様が透けないようにする */
@@ -4708,10 +4719,10 @@ body{
 .site-footer{background-color:var(--navy);}
 
 @media (prefers-reduced-motion:reduce){
-  /* 端末によっては固定背景が重いので、その場合は流す */
   body{background-attachment:scroll;}
 }
 @media (max-width:899px){
   /* スマホは固定背景の描画コストが高いので、通常のスクロールにする */
   body{background-attachment:scroll;}
 }
+
