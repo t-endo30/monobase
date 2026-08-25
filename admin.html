@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=f1b3b574">
+<link rel="stylesheet" href="./assets/admin.css?v=ddb9bae4">
 </head>
 <body>
 
@@ -744,14 +744,16 @@
       <p class="hint">「商品を探す」で使います。<b>入力内容はこのブラウザ内（localStorage）にのみ保存され、リポジトリには入りません。</b>どちらも無料で取得できます。片方だけの登録でも動きます。</p>
       <div class="row c2">
         <div>
-          <label for="k-rakuten">楽天ウェブサービス アプリID<span class="opt">applicationId</span></label>
-          <input type="password" id="k-rakuten" placeholder="1234567890123456789">
+          <label for="k-rakuten">楽天 アプリケーションID<span class="opt">applicationId・UUID形式</span></label>
+          <input type="password" id="k-rakuten" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
         </div>
         <div>
-          <label for="k-yahoo">Yahoo!デベロッパー Client ID<span class="opt">appid</span></label>
-          <input type="password" id="k-yahoo" placeholder="dj00aiZpPS...">
+          <label for="k-rakutenKey">楽天 アクセスキー<span class="opt">accessKey・pk_ で始まる</span></label>
+          <input type="password" id="k-rakutenKey" placeholder="pk_...">
         </div>
       </div>
+      <label for="k-yahoo">Yahoo!デベロッパー Client ID<span class="opt">appid</span></label>
+      <input type="password" id="k-yahoo" placeholder="dj00aiZpPS...">
       <div class="btn-bar">
         <button class="btn btn-primary" id="btnSaveKeys">保存する</button>
         <button class="btn" id="btnTestKeys">つながるか試す</button>
@@ -759,7 +761,10 @@
       </div>
       <div class="note">
         取得先：<br>
-        楽天 → <b>楽天ウェブサービス</b> <code>webservice.rakuten.co.jp</code> でアプリを新規登録するとアプリIDが出ます。<br>
+        楽天 → <b>楽天ウェブサービス</b> <code>webservice.rakuten.co.jp</code> でアプリを登録すると、
+        <b>アプリケーションID</b>（ハイフン区切りのUUID）と<b>アクセスキー</b>（<code>pk_</code> で始まる）が出ます。
+        <b>2026年2月のAPI刷新で、この2つが揃わないと認証を通りません。</b>
+        アフィリエイトIDは楽天直アフィリエイト用で、当サイトはもしも経由のため使いません。<br>
         Yahoo! → <b>Yahoo!デベロッパーネットワーク</b> <code>e.developer.yahoo.co.jp/register</code> でアプリケーションIDを発行します。<br><br>
         <b>Yahoo!のAPIはブラウザから直接呼べない</b>ため、このサイトの <code>/api/yahoo</code> を経由します。
         この入口は Cloudflare Access を通ったリクエストしか受け付けません。
@@ -819,6 +824,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=f1b3b574"></script>
+<script src="./assets/admin.js?v=ddb9bae4"></script>
 </body>
 </html>

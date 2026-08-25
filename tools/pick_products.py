@@ -20,7 +20,8 @@ Amazon は PA-API の利用にアソシエイト承認と直近の売上が要�
 承認されるまでは楽天とYahoo!だけで探します。承認後は
 AMAZON_ACCESS_KEY 等を渡せば、同じJANでAmazon側も照合します。
 
-  $ export RAKUTEN_APP_ID=...            # 楽天ウェブサービスのアプリID
+  $ export RAKUTEN_APP_ID=...            # 楽天のアプリケーションID（UUID）
+  $ export RAKUTEN_ACCESS_KEY=pk_...     # 楽天のアクセスキー
   $ export YAHOO_CLIENT_ID=...           # Yahoo!デベロッパーのClient ID
   $ python3 tools/pick_products.py                 # 全カテゴリーから探す
   $ python3 tools/pick_products.py --category pc   # カテゴリーを絞る
@@ -33,7 +34,10 @@ import urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-RAKUTEN_API = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601"
+# 楽天は2026年2月にAPIを刷新した。旧 app.rakuten.co.jp は停止済みで、
+# 認証は applicationId と accessKey の2点が要る。
+RAKUTEN_API = ("https://openapi.rakuten.co.jp/ichibams/api/IchibaItem"
+               "/Search/20260701")
 YAHOO_API = "https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch"
 
 TIMEOUT = 15
@@ -73,10 +77,11 @@ def get_json(url, headers=None):
             return json.load(r)
     except urllib.error.HTTPError as ex:
         body = ex.read().decode("utf-8", "replace")[:300]
-        # 楽天は理由を error_description で返す。そのまま見せないと直せない。
+        # 楽天は理由を返してくれる。刷新の前後で入れ物が変わったので両方拾う。
         try:
             j = json.loads(body)
-            body = j.get("error_description") or j.get("error") or body
+            body = ((j.get("errors") or {}).get("errorMessage")
+                    or j.get("error_description") or j.get("error") or body)
         except Exception:                                 # noqa: BLE001
             pass
         raise RuntimeError(f"HTTP {ex.code}: {body}") from ex
@@ -84,12 +89,21 @@ def get_json(url, headers=None):
 
 # ----------------------------------------------------------- 楽天市場
 
-def rakuten_search(app_id, genre=None, keyword=None, jan=None, hits=30,
-                   sort="-reviewCount"):
-    """楽天商品検索API。JANを渡すときは keyword に入れる（専用の欄がない）。"""
+def _rakuten_image(it):
+    first = (it.get("mediumImageUrls") or it.get("smallImageUrls") or [None])[0]
+    if not first:
+        return ""
+    return first if isinstance(first, str) else (first.get("imageUrl") or "")
+
+
+def rakuten_search(app_id, access_key=None, genre=None, keyword=None, jan=None,
+                   hits=30, sort="-reviewCount"):
+    """楽天商品検索API。JANを渡すときは keyword に入れる（専用の欄がない）。
+       アクセスキーはURLに載せず、accessKey ヘッダで送る。"""
     q = {
         "applicationId": app_id,
         "format": "json",
+        "formatVersion": 2,
         "hits": hits,
         "sort": sort,
         "imageFlag": 1,          # 画像のある商品だけ
@@ -100,10 +114,12 @@ def rakuten_search(app_id, genre=None, keyword=None, jan=None, hits=30,
     kw = jan or keyword
     if kw:
         q["keyword"] = kw
-    data = get_json(RAKUTEN_API + "?" + urllib.parse.urlencode(q))
+    head = {"accessKey": access_key} if access_key else None
+    data = get_json(RAKUTEN_API + "?" + urllib.parse.urlencode(q), head)
     out = []
-    for w in data.get("Items", []):
-        it = w.get("Item", w)
+    # 刷新で items（小文字・平たい配列）になったが、古い形も受けておく。
+    for w in (data.get("items") or data.get("Items") or []):
+        it = w.get("Item") or w.get("item") or w
         # 送料込みで比べる。postageFlag は 0=送料込み 1=送料別。
         price = int(it.get("itemPrice") or 0)
         out.append({
@@ -115,7 +131,8 @@ def rakuten_search(app_id, genre=None, keyword=None, jan=None, hits=30,
             "reviews": int(it.get("reviewCount") or 0),
             "rating": float(it.get("reviewAverage") or 0),
             "shop_name": it.get("shopName", ""),
-            "image": ((it.get("mediumImageUrls") or [{}])[0] or {}).get("imageUrl", ""),
+            # formatVersion=2 は文字列の配列、旧形式は {imageUrl} の配列
+            "image": _rakuten_image(it),
         })
     return out
 
@@ -192,7 +209,8 @@ def known_products(arts):
     return jans, asins
 
 
-def build_candidates(rakuten_id, yahoo_id, categories, limit, per_category):
+def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
+                     limit, per_category):
     arts = json.load(io.open(os.path.join(ROOT, "content", "articles.json"),
                              encoding="utf-8"))
     seen_jan, _ = known_products(arts)
@@ -208,14 +226,15 @@ def build_candidates(rakuten_id, yahoo_id, categories, limit, per_category):
         found = []
         if rakuten_id:
             try:
-                found = rakuten_search(rakuten_id, genre=conf["rakuten_genre"],
+                found = rakuten_search(rakuten_id, rakuten_key,
+                                       genre=conf["rakuten_genre"],
                                        hits=per_category)
             except Exception as ex:                       # noqa: BLE001
                 # ジャンルは改編される。弾かれたらキーワードで探し直す。
                 if "genre" in str(ex).lower():
                     time.sleep(PAUSE)
                     try:
-                        found = rakuten_search(rakuten_id,
+                        found = rakuten_search(rakuten_id, rakuten_key,
                                                keyword=conf["words"][0],
                                                hits=per_category)
                     except Exception as ex2:              # noqa: BLE001
@@ -261,7 +280,8 @@ def build_candidates(rakuten_id, yahoo_id, categories, limit, per_category):
                     time.sleep(PAUSE)
                 if e["shop"] != "rakuten" and rakuten_id:
                     try:
-                        alt = rakuten_search(rakuten_id, jan=jan, hits=20,
+                        alt = rakuten_search(rakuten_id, rakuten_key,
+                                             jan=jan, hits=20,
                                              sort="+itemPrice")
                         best = pick_cheapest(alt)
                         if best:
@@ -304,6 +324,11 @@ def main():
     args = ap.parse_args()
 
     rakuten_id = os.environ.get("RAKUTEN_APP_ID", "").strip()
+    rakuten_key = os.environ.get("RAKUTEN_ACCESS_KEY", "").strip()
+    if rakuten_id and not rakuten_key:
+        print("::warning::RAKUTEN_ACCESS_KEY が未設定です。"
+              "2026年2月の刷新後、楽天はアクセスキーが無いと認証を通りません。",
+              file=sys.stderr)
     yahoo_id = os.environ.get("YAHOO_CLIENT_ID", "").strip()
     if not rakuten_id and not yahoo_id:
         print("RAKUTEN_APP_ID か YAHOO_CLIENT_ID のどちらかを設定してください。",
@@ -317,7 +342,7 @@ def main():
           f"（楽天={'あり' if rakuten_id else 'なし'} / "
           f"Yahoo!={'あり' if yahoo_id else 'なし'}）")
 
-    cands = build_candidates(rakuten_id, yahoo_id, cats,
+    cands = build_candidates(rakuten_id, rakuten_key, yahoo_id, cats,
                              args.limit, args.per_category)
 
     path = os.path.join(ROOT, args.out)

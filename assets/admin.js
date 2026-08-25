@@ -1770,7 +1770,11 @@
      選別の考え方は tools/pick_products.py と揃えてある。
      ============================================================ */
   var FIND_KEYS = 'monobase.shopkeys';
-  var RAKUTEN_API = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601';
+  /* 楽天は2026年2月にAPIを刷新した。旧 app.rakuten.co.jp は停止済みで、
+     認証も applicationId だけでは通らず、アクセスキーとの2点が要る。
+     アクセスキーはURLに載せず、accessKey ヘッダで送る。 */
+  var RAKUTEN_API =
+    'https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260701';
   var YAHOO_PROXY = '/api/yahoo';
 
   /* サイトのカテゴリーと、楽天のジャンルID／Yahoo!の検索語の対応。
@@ -1836,9 +1840,15 @@
     return pool[0];
   }
 
-  function rakutenSearch(appId, opts) {
+  function rakutenImage(it) {
+    var first = (it.mediumImageUrls || it.smallImageUrls || [])[0];
+    if (!first) return '';
+    return typeof first === 'string' ? first : (first.imageUrl || '');
+  }
+
+  function rakutenSearch(appId, opts, accessKey) {
     var q = new URLSearchParams({
-      applicationId: appId, format: 'json',
+      applicationId: appId, format: 'json', formatVersion: '2',
       hits: String(opts.hits || 30), sort: opts.sort || '-reviewCount',
       imageFlag: '1', availability: '1'
     });
@@ -1846,17 +1856,23 @@
     if (opts.jan || opts.keyword) q.set('keyword', opts.jan || opts.keyword);
     /* アフィリエイトIDは渡さない。渡すと商品URLが楽天直アフィリエイトの
        ものに変わり、もしも経由の成果として計上されなくなる。 */
-    return fetch(RAKUTEN_API + '?' + q.toString())
+    return fetch(RAKUTEN_API + '?' + q.toString(), {
+      headers: accessKey ? { accessKey: accessKey } : {}
+    })
       .then(function (r) {
         return r.json().catch(function () { return {}; }).then(function (j) {
           if (r.ok) return j;
-          /* 楽天は理由を error_description で返す。そのまま見せないと
-             どこが悪いのか分からず、直しようがない。 */
-          var why = j.error_description || j.error || ('HTTP ' + r.status);
-          if (/applicationId/i.test(why)) {
-            why = 'アプリIDが違います（' + why + '）。'
-                + '楽天ウェブサービスの「アプリID/デベロッパーID」欄の数字だけを入れてください。'
-                + 'アフィリエイトIDやアクセスキーではありません。';
+          /* 楽天は理由を返してくれる。刷新の前後で入れ物が変わったので、
+             どちらの形でも拾う。そのまま見せないと直しようがない。 */
+          var er = j.errors || {};
+          var why = er.errorMessage || j.error_description || j.error
+                 || ('HTTP ' + r.status);
+          if (/access\s*key/i.test(why)) {
+            why = 'アクセスキーが違います（' + why + '）。'
+                + '楽天ウェブサービスのアプリ詳細にある pk_ で始まる文字列を入れてください。';
+          } else if (/application/i.test(why)) {
+            why = 'アプリケーションIDが違います（' + why + '）。'
+                + 'ハイフン区切りのUUID形式の値です。アフィリエイトIDではありません。';
           } else if (/genre/i.test(why)) {
             why = 'ジャンルIDが違います（' + why + '）。キーワード検索に切り替えます。';
           }
@@ -1864,8 +1880,11 @@
         });
       })
       .then(function (d) {
-        return (d.Items || []).map(function (w) {
-          var it = w.Item || w;
+        /* 刷新で items（小文字・平たい配列）になったが、
+           古い Items/Item の形で返る経路も残っている。両方を受ける。 */
+        var list = d.items || d.Items || [];
+        return list.map(function (w) {
+          var it = w.Item || w.item || w;
           return {
             shop: 'rakuten',
             name: it.itemName || '',
@@ -1876,7 +1895,8 @@
             reviews: Number(it.reviewCount || 0),
             rating: Number(it.reviewAverage || 0),
             shop_name: it.shopName || '',
-            image: ((it.mediumImageUrls || [])[0] || {}).imageUrl || ''
+            /* formatVersion=2 は文字列の配列、旧形式は {imageUrl} の配列 */
+            image: rakutenImage(it)
           };
         });
       });
@@ -1950,11 +1970,13 @@
        弾かれたらキーワード検索に切り替えて、検索そのものは通す。 */
     var first;
     if (keys.rakuten) {
-      first = rakutenSearch(keys.rakuten, { genre: conf.genre, hits: hits })
+      first = rakutenSearch(keys.rakuten, { genre: conf.genre, hits: hits },
+                            keys.rakutenKey)
         .catch(function (err) {
           if (!/ジャンルID/.test(err.message)) throw err;
           toast('ジャンルIDが使えないため、キーワードで探します');
-          return rakutenSearch(keys.rakuten, { keyword: conf.word, hits: hits });
+          return rakutenSearch(keys.rakuten, { keyword: conf.word, hits: hits },
+                               keys.rakutenKey);
         });
     } else {
       first = yahooSearch(keys.yahoo, { query: conf.word, hits: hits });
@@ -2061,6 +2083,7 @@
 
     var keys = shopKeys();
     if ($('k-rakuten')) $('k-rakuten').value = keys.rakuten || '';
+    if ($('k-rakutenKey')) $('k-rakutenKey').value = keys.rakutenKey || '';
     if ($('k-yahoo')) $('k-yahoo').value = keys.yahoo || '';
     if ($('k-state')) {
       $('k-state').textContent =
@@ -2082,13 +2105,21 @@
         /* 貼り付けたときに紛れ込む空白・改行を落とす。
            楽天のアプリIDは数字だけなので、それ以外が入っていたら知らせる。 */
         var rk = $('k-rakuten').value.replace(/\s/g, '');
+        var rkey = $('k-rakutenKey').value.replace(/\s/g, '');
         var yh = $('k-yahoo').value.replace(/\s/g, '');
-        if (rk && !/^[0-9]{10,}$/.test(rk)) {
-          toast('楽天のアプリIDは数字だけの列です。アフィリエイトIDやアクセスキーではないか確認してください', 'err');
+        /* 楽天のアプリケーションIDはUUID形式、アクセスキーは pk_ で始まる。
+           取り違えが起きやすいので、形が違えば保存はしつつ知らせる。 */
+        if (rk && !/^[0-9a-f-]{30,}$/i.test(rk)) {
+          toast('楽天のアプリケーションIDはハイフン区切りのUUID形式です。アフィリエイトIDと取り違えていないか確認してください', 'err');
+        } else if (rk && rkey && !/^pk_/.test(rkey)) {
+          toast('楽天のアクセスキーは pk_ で始まる文字列です', 'err');
+        } else if (rk && !rkey) {
+          toast('楽天はアプリケーションIDとアクセスキーの両方が必要です', 'err');
         }
         $('k-rakuten').value = rk;
+        $('k-rakutenKey').value = rkey;
         $('k-yahoo').value = yh;
-        saveShopKeys({ rakuten: rk, yahoo: yh });
+        saveShopKeys({ rakuten: rk, rakutenKey: rkey, yahoo: yh });
         wireKeyState();
         toast('APIのIDを保存しました');
       });
@@ -2107,12 +2138,13 @@
   function testKeys() {
     var k = {
       rakuten: $('k-rakuten').value.trim(),
+      rakutenKey: $('k-rakutenKey').value.trim(),
       yahoo: $('k-yahoo').value.trim()
     };
     var msgs = [];
     var jobs = [];
     if (k.rakuten) {
-      jobs.push(rakutenSearch(k.rakuten, { keyword: 'マウス', hits: 1 })
+      jobs.push(rakutenSearch(k.rakuten, { keyword: 'マウス', hits: 1 }, k.rakutenKey)
         .then(function (r) { msgs.push('楽天：OK（' + r.length + '件）'); })
         /* rakutenSearch 側で「楽天：」を付けているので、ここでは足さない */
         .catch(function (e) { msgs.push(e.message); }));

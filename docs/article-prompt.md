@@ -186,7 +186,8 @@
 
 同じことは手元でもできます。
 
-    $ export RAKUTEN_APP_ID=...
+    $ export RAKUTEN_APP_ID=...        # アプリケーションID（UUID形式）
+    $ export RAKUTEN_ACCESS_KEY=pk_... # アクセスキー
     $ export YAHOO_CLIENT_ID=...
     $ python3 tools/pick_products.py --category pc --limit 10
 
