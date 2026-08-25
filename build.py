@@ -12,7 +12,7 @@ Kurashi Pick - 静的サイトジェネレーター
         search.html / about.html / privacy.html / disclaimer.html /
         404.html / search.json / sitemap.xml / robots.txt
 """
-import json, io, os, html, shutil, sys, datetime, hashlib
+import json, io, os, re, html, shutil, sys, datetime, hashlib
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tools'))
 from make_visual import build as make_visual
 
@@ -36,7 +36,8 @@ def _asset_version():
        中身が変わったときだけURLが変わるため、ブラウザに古い
        スタイル・スクリプトが残り続けるのを防ぐ。"""
     h = hashlib.sha1()
-    for f in ("style.css", "main.js", "search.js", "contact.js"):
+    for f in ("style.css", "main.js", "search.js", "contact.js",
+              "admin.css", "admin.js"):
         try:
             h.update(io.open(os.path.join(ROOT, "assets", f), "rb").read())
         except FileNotFoundError:
@@ -299,15 +300,16 @@ def cat_nav_item(c, p, cls=""):
 
 
 def header(current, p, crumbs=None, current_sub="", band=""):
-    # いま見ているカテゴリーは、横並びの先頭（ALLの左）に持ってくる。
+    # いま見ているカテゴリーは、ALL のすぐ右に持ってくる。
     # 一覧は横スクロールするので、右のほうにあると現在地が画面外に出てしまう。
     # 重複させず「移動」させるので、同じリンクが2つ並ぶことはない。
     here = next((c for c in CATS if c["key"] == current), None)
-    nav = cat_nav_item(here, p, "is-current is-here") if here else ""
 
     allcur = ' class="is-current"' if current == "all" else ""
-    nav += (f'      <li><a href="{p}index.html"{allcur}>{icon("all")}'
-            f'<span class="cat-nav-label">ALL</span></a></li>\n')
+    nav = (f'      <li><a href="{p}index.html"{allcur}>{icon("all")}'
+           f'<span class="cat-nav-label">ALL</span></a></li>\n')
+    if here:
+        nav += cat_nav_item(here, p, "is-current is-here")
     for c in CATS:
         if here and c["key"] == here["key"]:
             continue          # 先頭に出したので、ここでは出さない
@@ -1501,6 +1503,17 @@ def main():
     sm += "</urlset>\n"
     write("sitemap.xml", sm); written.append("sitemap.xml")
     # 管理画面は拡張子ありでも無しでも開けるので、両方を止める
+    # 管理画面は build.py が生成しないので、資産のURLだけ版を打ち直す。
+    # これをしないと、直したCSSがブラウザのキャッシュに阻まれて反映されない。
+    apath = os.path.join(ROOT, "admin.html")
+    if os.path.exists(apath):
+        a = io.open(apath, encoding="utf-8").read()
+        a2 = re.sub(r'(\./assets/admin\.(?:css|js))(\?v=[a-f0-9]+)?',
+                    lambda m: f"{m.group(1)}?v={ASSET_V}", a)
+        if a2 != a:
+            io.open(apath, "w", encoding="utf-8").write(a2)
+            print("   admin.html の資産URLを更新しました")
+
     write("robots.txt",
           "User-agent: *\n"
           "Allow: /\n"
@@ -1583,6 +1596,14 @@ def main():
         "# ファイル名に ?v= が付くので、中身が変わればURLも変わる",
         "/assets/*",
         "  Cache-Control: public, max-age=31536000, immutable",
+        "",
+        "# 管理画面の資産は build.py が版を打ち直すので、都度確認させる。",
+        "# ここを長期キャッシュにすると、直しても古い画面が残り続ける。",
+        "/assets/admin.css",
+        "  Cache-Control: public, max-age=0, must-revalidate",
+        "",
+        "/assets/admin.js",
+        "  Cache-Control: public, max-age=0, must-revalidate",
         "",
         "/*.html",
         "  Cache-Control: public, max-age=0, must-revalidate",

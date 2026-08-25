@@ -8,6 +8,14 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# 管理画面の資産は build.py が版を打ち直すので、都度確認させる。
+# ここを長期キャッシュにすると、直しても古い画面が残り続ける。
+/assets/admin.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/admin.js
+  Cache-Control: public, max-age=0, must-revalidate
+
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 

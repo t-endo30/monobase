@@ -929,9 +929,10 @@
   });
 
   /* ---------------------------------------------------- ビルド回数 */
-  /* Cloudflare は月500回までビルドできる。何回使ったかは
-     「ビルドを起こしたコミット数」で数える。
-     画像だけのコミットには [skip ci] が付いていて走らないので、それは除く。 */
+  /* 今月ビルドが走った回数の目安。GitHub のコミット数から数える。
+     画像だけのコミットには [skip ci] が付いていて走らないので、それは除く。
+     数え始めは毎月1日の 00:00（この端末の時刻）。
+     Cloudflare 側の実際の上限と残量は、ダッシュボードで確認する。 */
   function countDeploys() {
     if (!cfg.token) return;
     var since = new Date();
@@ -945,10 +946,11 @@
           return !/\[skip ci\]|\[ci skip\]/i.test(m);
         }).length;
         var chip = $('chipDeploy');
-        $('deployCount').textContent = n + ' / 500';
-        chip.className = 'hchip' + (n >= 450 ? ' is-danger' : n >= 300 ? ' is-warn' : '');
-        chip.title = '今月ビルドが走った回数の目安（上限500回）。'
-                   + '画像だけのコミットは走らないので数えていません。';
+        $('deployCount').textContent = n + ' 回';
+        chip.className = 'hchip' + (n >= 900 ? ' is-danger' : n >= 600 ? ' is-warn' : '');
+        chip.title = '今月ビルドが走った回数の目安（' + n + ' 回）。毎月1日に0へ戻ります。\n'
+                   + '画像だけのコミットはビルドを起こさないので数えていません。\n'
+                   + '実際の残量は Cloudflare ダッシュボードで確認してください。';
       })
       .catch(function () {});
   }

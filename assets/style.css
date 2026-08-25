@@ -3734,6 +3734,7 @@ body,p,li,dd,dt,figcaption,a,span,button,
 }
 .hl-num{
   flex:0 0 auto;
+  margin-top:1px;          /* 見出しの1行目と目線をそろえる */
   width:28px;height:28px;
   display:flex;align-items:center;justify-content:center;
   border-radius:50%;
@@ -3745,7 +3746,9 @@ body,p,li,dd,dt,figcaption,a,span,button,
 }
 .hl-body{min-width:0;}
 .hl-title{
-  margin:0 0 5px;
+  /* 記事本文の h3 に付く上余白（最大46px）を打ち消し、
+     番号アイコンと同じ高さから始める */
+  margin:0 0 5px !important;
   font-size:clamp(14.5px,3.8vw,16.5px);
   font-weight:700;
   line-height:1.55;
@@ -3901,18 +3904,19 @@ body.is-article .layout > .container{
    ------------------------------------------------------------
    横並びは画面幅を超えると横スクロールになるため、右側にある
    カテゴリーを開くと現在地が画面外に出てしまう。開いている
-   カテゴリーだけを ALL の左へ移し、区切り線で切り分ける。
+   カテゴリーだけを ALL のすぐ右へ移し、区切り線で切り分ける。
    ============================================================ */
 .cat-nav-list li:has(> a.is-here){
   position:relative;
-  padding-right:10px;
+  padding-left:12px;
+  margin-left:6px;
   margin-right:6px;
 }
-/* ALL との間に細い区切りを入れて、先頭のひとつだけ別枠だと分かるようにする */
-.cat-nav-list li:has(> a.is-here)::after{
+/* ALL との間に細い区切りを入れて、そのひとつだけ別枠だと分かるようにする */
+.cat-nav-list li:has(> a.is-here)::before{
   content:"";
   position:absolute;
-  right:0;
+  left:0;
   top:50%;
   transform:translateY(-50%);
   width:1px;
