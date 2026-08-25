@@ -1197,6 +1197,7 @@
     var hr = site.hero || {};
     $('s-heroTitle').value = hr.title || '';
     $('s-heroAccent').value = hr.accent || '';
+    $('s-heroTw').checked = !!hr.typewriter;
     var ad = site.ads || {};
     $('s-adsOn').checked = !!ad.enabled;
     $('s-adsClient').value = ad.client || '';
@@ -1323,6 +1324,7 @@
     site.hero = site.hero || {};
     site.hero.title = $('s-heroTitle').value.trim();
     site.hero.accent = $('s-heroAccent').value.trim();
+    site.hero.typewriter = $('s-heroTw').checked;
 
     /* 広告の設定。コードそのものは触らず、出す・出さないと置き場所だけを持つ。 */
     site.ads = site.ads || {};

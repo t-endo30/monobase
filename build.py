@@ -1567,9 +1567,13 @@ def build_index():
     if h1_acc and h1_acc in h1_text:
         h1_html = e(h1_text).replace(
             e(h1_acc), f'<span class="accent">{e(h1_acc)}</span>', 1)
+    # 1文字ずつ出す演出。文字はHTMLに全部入れたままにして、
+    # 見えるかどうかだけを切り替える（検索エンジンにも読み上げにも
+    # 最初から全文が入っている状態を保つ）。
+    tw = ' data-typewriter="1"' if ht.get("typewriter") else ""
     hero_tile = (
         '      <section class="hero-tile">\n'
-        f'        <h1 class="fit-line">{h1_html}</h1>\n'
+        f'        <h1 class="fit-line"{tw}>{h1_html}</h1>\n'
         f'        <p class="hero-count" data-cats=\'{cat_names}\' '
         f'data-n-cat="{n_cat}" data-n-pub="{n_pub}"></p>\n'
         + policy_details(p) +

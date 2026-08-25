@@ -414,7 +414,8 @@
  "hero": {
   "_note": "トップの見出しタイルの文言。accent に入れた語だけ、マーカーを引いた見た目になる（title の中に含まれている語を指定する）。",
   "title": "レビューを読み込んで、不満点までまとめる。",
-  "accent": "不満点まで"
+  "accent": "不満点まで",
+  "typewriter": true
  },
  "ads": {
     "_note": "Google AdSense。enabled を true にすると読み込みタグが入る。コードは書き換えず、置き場所だけこちらで決める（規約）。mode=auto は自動広告、manual は下の slots に入れた広告ユニットIDの位置だけに出す。",

@@ -1280,3 +1280,61 @@
     if (ev.key === 'Escape') close();
   });
 })();
+
+/* ============================================================
+   見出しを1文字ずつ出す
+   ------------------------------------------------------------
+   文字を消して足し直すのではなく、最初から置いてある文字の
+   「見える／見えない」を切り替える。理由は2つ。
+     ・h1 は検索エンジンが読む見出し。中身を空にする時間を作らない
+     ・幅を実測して1行に収める処理があるので、幅は最初から確定させる
+   マーカー（accent）の入れ子は保ったまま、文字だけを包む。
+   ============================================================ */
+(function () {
+  'use strict';
+  var el = document.querySelector('.fit-line[data-typewriter]');
+  if (!el) return;
+
+  var reduce = window.matchMedia
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 文字を1つずつ包む。要素の入れ子はそのまま残す。 */
+  var chars = [];
+  (function wrap(node) {
+    Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+      if (n.nodeType === 3) {
+        var frag = document.createDocumentFragment();
+        n.nodeValue.split('').forEach(function (ch) {
+          var s = document.createElement('span');
+          s.className = 'tw-c';
+          s.textContent = ch;
+          frag.appendChild(s);
+          chars.push(s);
+        });
+        node.replaceChild(frag, n);
+      } else if (n.nodeType === 1) {
+        wrap(n);
+      }
+    });
+  })(el);
+  if (!chars.length) return;
+
+  if (reduce) {                       /* 動きを控える設定なら、すぐ全部出す */
+    chars.forEach(function (s) { s.classList.add('is-on'); });
+    return;
+  }
+
+  var SPEED = 55;                     /* 1文字あたりのミリ秒 */
+  var i = 0, prev = null;
+  (function step() {
+    if (i >= chars.length) {
+      if (prev) prev.classList.remove('is-cur');
+      return;
+    }
+    if (prev) prev.classList.remove('is-cur');
+    chars[i].classList.add('is-on', 'is-cur');
+    prev = chars[i];
+    i++;
+    setTimeout(step, SPEED);
+  })();
+})();

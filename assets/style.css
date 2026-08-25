@@ -5257,3 +5257,24 @@ body.is-policy-open{overflow:hidden;}   /* 背面はスクロールさせない 
 }
 .no-js .hero-policy[open]::before{display:none;}
 .no-js .policy-close{display:none;}
+
+/* ============================================================
+   見出しを1文字ずつ出す演出
+   ------------------------------------------------------------
+   文字はHTMLに全部入れたまま、見えるかどうかだけを切り替える。
+   幅は最初から確定しているので、出るたびに行が動くことがない。
+   カーソルは「いま出た文字」の右の線として描く（場所を取らない）。
+   ============================================================ */
+.tw-c{opacity:0;}
+.tw-c.is-on{opacity:1;}
+.tw-c.is-cur{
+  border-right:2px solid var(--amazon);
+  margin-right:-2px;               /* 線のぶんで文字がずれないように */
+  animation:tw-blink 1s steps(2,jump-none) infinite;
+}
+@keyframes tw-blink{50%{border-right-color:transparent;}}
+/* 動きを控える設定の端末では、最初から全部見せる */
+@media (prefers-reduced-motion:reduce){
+  .tw-c{opacity:1;}
+  .tw-c.is-cur{border-right:none;animation:none;}
+}
