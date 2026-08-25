@@ -4870,3 +4870,11 @@ body{
     min-height:calc(12px * 1.7 * 2);
   }
 }
+
+/* 写真を出さない商品カード（すぐ上にアイキャッチがある記事）。
+   写真の列を作らず、1枚の帯として置く。 */
+.prod-card.is-noimg{
+  grid-template-columns:1fr;
+  margin-top:clamp(-6px,-1vw,0px);
+}
+.prod-card.is-noimg .prod-body{padding:clamp(13px,2.8vw,16px);}

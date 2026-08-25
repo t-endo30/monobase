@@ -86,6 +86,27 @@
       '</article>';
   }
 
+  /* ---- 検索したら、結果の位置まで画面を送る ----
+     入力欄に留まったままだと、スマホではキーボードに隠れて
+     結果が出たのかどうかが分からない。件数の行を画面の上に出す。 */
+  function stickyTop() {
+    var h = 0;
+    ['.site-header', '.tab-bar'].forEach(function (sel) {
+      var el = document.querySelector(sel);
+      if (!el) return;
+      var pos = getComputedStyle(el).position;
+      if (pos === 'sticky' || pos === 'fixed') h += el.offsetHeight;
+    });
+    return h + 12;
+  }
+
+  function scrollToResults() {
+    var target = status || results;
+    if (!target) return;
+    var y = target.getBoundingClientRect().top + window.pageYOffset - stickyTop();
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+
   function render() {
     var q = norm(input.value);
     var terms = q ? q.split(' ').filter(Boolean) : [];
@@ -141,6 +162,7 @@
       if (i === -1) { list.push(val); btn.classList.add('is-active'); }
       else { list.splice(i, 1); btn.classList.remove('is-active'); }
       render();
+      scrollToResults();
     });
   }
   bindChips(catBox, activeCats, 'data-cat');
@@ -151,6 +173,20 @@
   input.addEventListener('input', function () {
     clearTimeout(timer);
     timer = setTimeout(render, 150);
+  });
+
+  /* Enter（スマホの「検索」）で確定。キーボードを閉じてから結果へ送る。
+     入力のたびに動かすと、打っている最中に画面が跳ねてしまう。 */
+  input.form && input.form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+  });
+  input.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Enter') return;
+    ev.preventDefault();
+    clearTimeout(timer);
+    render();
+    input.blur();
+    scrollToResults();
   });
 
   if (clear) {
@@ -182,6 +218,7 @@
         if (btn) { btn.classList.add('is-active'); activeTags.push(t); }
       });
       render();
+      if (location.search) scrollToResults();
     })
     .catch(function () {
       status.textContent = '検索インデックスを読み込めませんでした。ページを再読み込みしてください。';

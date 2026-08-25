@@ -676,10 +676,12 @@ def shop_buttons(a, note=""):
             + (f'        <p class="cta-note">{e(note)}</p>\n' if note else ""))
 
 
-def product_card(a, p, eager=False):
+def product_card(a, p, eager=False, with_img=True):
     """商品画像つきのリンクカード。写真・商品名・販売先ボタンをまとめる。
        本文中のボタン3か所とは別枠なので、数には数えない。
-       画像が無い記事では出さない（枠だけ残ると間が抜けるため）。"""
+
+       with_img=False のときは写真を出さない。すぐ上のアイキャッチと
+       同じ写真が並ぶと、スマホでは同じ画像が2枚重なって見えるため。"""
     links = shop_links(a)
     if not links:
         return ""
@@ -697,10 +699,12 @@ def product_card(a, p, eager=False):
                  f'{icon("cart", "btn-icon")}<span>{e(label)}</span></a>\n')
     lazy = "" if eager else 'loading="lazy" '
     note = a.get("image_ai") and '<span class="pc-ai">イメージ（AI生成）</span>' or ""
-    return f'''        <div class="prod-card">
+    thumb = f'''
           <a class="prod-thumb" href="{e(first)}" target="_blank" rel="nofollow sponsored noopener">
             <img src="{src}" alt="{e(name)}" {lazy}decoding="async" width="800" height="450">
-          </a>
+          </a>''' if with_img else ""
+    cls = "prod-card" if with_img else "prod-card is-noimg"
+    return f'''        <div class="{cls}">{thumb}
           <div class="prod-body">
             <p class="prod-name">{e(name)}</p>{note}
             <div class="prod-links is-n{min(len(links), 3)}">
@@ -771,7 +775,8 @@ def render_article(a):
     # 商品カード（写真つきの購入リンク）は結論の上に置く。
     # 読者が最初に見る位置に、商品そのものと買える場所を出す。
     # 特集（複数商品の比較）は商品を1つに絞れないので、上には置かない。
-    top_card = product_card(a, p, eager=True) if kind_of(a) == "review" else ""
+    top_card = (product_card(a, p, eager=True, with_img=not a.get("thumb"))
+                if kind_of(a) == "review" else "")
 
     # アイキャッチは実写真があるときだけ置く。
     # 自動生成の模様を記事冒頭に大きく出しても情報がなく、結論ボックスを押し下げるだけなので出さない。
