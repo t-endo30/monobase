@@ -2328,6 +2328,21 @@
     }
   }
 
+  /* Claudeのキーを保存する。Geminiのキーと同じ扱い（このブラウザだけ）。 */
+  if ($('btnSaveClKey')) {
+    $('btnSaveClKey').addEventListener('click', function () {
+      var k = $('clKey').value.replace(/\s/g, '');
+      try { localStorage.setItem(CL_KEY, k); } catch (e) {}
+      $('cl-state').textContent = k ? '登録済み' : '未登録';
+      toast(k ? 'ClaudeのAPIキーを保存しました' : 'ClaudeのAPIキーを消しました');
+    });
+    try {
+      var saved = localStorage.getItem(CL_KEY) || '';
+      $('clKey').value = saved;
+      $('cl-state').textContent = saved ? '登録済み' : '未登録';
+    } catch (e) { /* noop */ }
+  }
+
   function wireKeyState() {
     var k = shopKeys();
     if ($('k-state')) $('k-state').textContent = (k.rakuten || k.yahoo) ? '登録済み' : '未登録';
@@ -2375,6 +2390,8 @@
      先に弾いておかないと、書き上げてから公開できないと分かる。
      ============================================================ */
   var GM_TEXT_API = 'https://generativelanguage.googleapis.com/v1beta/models/';
+  var CL_API = 'https://api.anthropic.com/v1/messages';
+  var CL_KEY = 'mb.claudeKey';
   var promptCache = null;
 
   /* 景品表示法・薬機法・アソシエイト規約のリスクになる断定表現。
@@ -2464,6 +2481,47 @@
       '・next_problem の項目にリンクURLを入れない。',
       '・価格は書かない。変動するため。'
     ].join('\n');
+  }
+
+  /* Claude（Anthropic API）で本文を作る。
+     ブラウザから直接呼ぶには anthropic-dangerous-direct-browser-access が要る。
+     この画面は Cloudflare Access の内側で、鍵もこのブラウザにしか無いため、
+     中継を挟まず直接叩いている。 */
+  function clText(key, model, text) {
+    return fetch(CL_API, {
+      method: 'POST',
+      headers: {
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: model,
+        max_tokens: 32000,
+        temperature: 1,
+        system: 'あなたは日本語の商品レビュー記事を書くライターです。'
+              + '指示された形のJSONだけを返し、前置きも囲みも付けません。',
+        messages: [{ role: 'user', content: text }]
+      })
+    }).then(function (r) {
+      return r.json().then(function (j) {
+        if (!r.ok) throw new Error((j.error && j.error.message) || ('HTTP ' + r.status));
+        return j;
+      });
+    }).then(function (j) {
+      var out = (j.content || []).map(function (c) { return c.text || ''; }).join('');
+      if (!out) throw new Error('応答が空でした');
+      out = out.replace(/^\s*```(?:json)?\s*/, '').replace(/\s*```\s*$/, '');
+      /* まれに前後に説明を付けてくるので、最初の { から最後の } まで取る */
+      var i = out.indexOf('{'), k = out.lastIndexOf('}');
+      if (i > 0 || k < out.length - 1) out = out.slice(i, k + 1);
+      try {
+        return JSON.parse(out);
+      } catch (e) {
+        throw new Error('返ってきた内容がJSONとして読めませんでした');
+      }
+    });
   }
 
   function gmText(key, model, text) {
@@ -2565,12 +2623,20 @@
   }
 
   function generateArticle(a) {
-    var key = '';
-    try { key = localStorage.getItem(GM_KEY) || ''; } catch (e) {}
-    if (!key) return Promise.reject(new Error('画像タブでGemini APIキーを登録してください'));
     var model = ($('gmTextModel') && $('gmTextModel').value) || 'gemini-2.5-flash';
+    var useClaude = model.indexOf('claude') === 0;
+    var key = '';
+    try {
+      key = localStorage.getItem(useClaude ? CL_KEY : GM_KEY) || '';
+    } catch (e) {}
+    if (!key) {
+      return Promise.reject(new Error(useClaude
+        ? '画像タブでClaude（Anthropic）のAPIキーを登録してください'
+        : '画像タブでGemini APIキーを登録してください'));
+    }
     return loadPrompt().then(function (prompt) {
-      return gmText(key, model, articleRequest(a, prompt));
+      var req = articleRequest(a, prompt);
+      return useClaude ? clText(key, model, req) : gmText(key, model, req);
     }).then(function (gen) {
       applyGenerated(a, gen);
       return auditArticle(a);
