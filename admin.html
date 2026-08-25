@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=3d08c299">
+<link rel="stylesheet" href="./assets/admin.css?v=2d0e6bca">
 </head>
 <body>
 
@@ -733,7 +733,8 @@
       <p class="hint">ASPで取得した広告リンクを<b>そのまま貼る</b>枠です。コードは書き換えません（規約）。決めるのは置き場所と、どのカテゴリーの記事に出すかだけです。</p>
       <div id="r-promos"></div>
       <button class="btn btn-ghost" id="btnAddPromo" style="min-height:38px;font-size:13px;">＋ 広告を追加</button>
-      <div class="note">「PR」の表示は自動で付きます（ステマ規制の対応）。<br>
+      <div class="note"><b>複数のバナーを入れ替えたいとき</b>は、コードとコードのあいだに <code>---</code> だけの行を入れて、続けて貼ってください。表示のたびに1つが選ばれます。<b>選ばれなかったコードは画像も計測用の画像も読み込まれない</b>ので、表示回数が水増しされません。<br>
+        「PR」の表示は自動で付きます（ステマ規制の対応）。<br>
         <b>記事の下</b>＝関連記事の下に出ます。<b>PCサイド</b>＝ランキングの下に出ます（スマホでは出ません）。<br>
         対象カテゴリーを選ばないと、<b>すべての記事</b>に出ます。記事の内容と関係のない広告は成果が出にくいので、ジャンルを合わせてください。</div>
 
@@ -959,6 +960,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=3d08c299"></script>
+<script src="./assets/admin.js?v=2d0e6bca"></script>
 </body>
 </html>

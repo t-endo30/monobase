@@ -189,6 +189,10 @@ def promo_slot(where, cat="", cls=""):
        配られたコードは書き換えず、そのまま流し込む（規約）。
        決めるのは「どこに出すか」と「どのカテゴリーの記事に出すか」だけ。
 
+       1つの枠に複数のコードを入れておくと、表示のたびに1つを選ぶ。
+       選ばれなかったコードは <template> の中に置いたままなので、
+       画像も計測用の画像も読み込まれない（表示回数が水増しされない）。
+
        cats が空の案件は全記事に出す。記事のカテゴリーが一致した案件だけを
        その記事に出すことで、内容と関係のない広告が並ぶのを避ける。"""
     items = [x for x in (PROMOS.get("items") or [])
@@ -202,9 +206,21 @@ def promo_slot(where, cat="", cls=""):
     out = ""
     for x in items:
         c = f" {cls}" if cls else ""
-        out += (f'        <aside class="promo-slot{c}" aria-label="広告">\n'
+        # 「---」だけの行で区切ると、複数のコードを入れ替えて出せる
+        codes = [t.strip() for t in re.split(r"(?m)^\s*-{3,}\s*$", x["html"])
+                 if t.strip()]
+        if len(codes) == 1:
+            body = f'          <div class="promo-body">{codes[0]}</div>\n'
+        else:
+            tpl = "".join(f'          <template class="promo-item">{t}</template>\n'
+                          for t in codes)
+            body = ('          <div class="promo-body"></div>\n'
+                    + tpl
+                    + f'          <noscript><div class="promo-body">{codes[0]}</div></noscript>\n')
+        rot = ' data-rotate="1"' if len(codes) > 1 else ""
+        out += (f'        <aside class="promo-slot{c}"{rot} aria-label="広告">\n'
                 f'          <span class="ad-label">{label}</span>\n'
-                f'          <div class="promo-body">{x["html"]}</div>\n'
+                + body +
                 f'        </aside>\n')
     return out
 

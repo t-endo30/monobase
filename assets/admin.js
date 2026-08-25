@@ -1262,7 +1262,7 @@
       '</div>' +
       '<label>対象カテゴリー<span class="opt">選ばなければ全記事に出る／Ctrlキーで複数選択</span></label>' +
       '<select class="pm-cats" multiple size="4">' + cats + '</select>' +
-      '<label>広告リンクのコード<span class="opt">ASPからコピーしたまま貼る</span></label>' +
+      '<label>広告リンクのコード<span class="opt">ASPからコピーしたまま貼る／複数入れるときは --- の行で区切る</span></label>' +
       '<textarea class="pm-html" rows="4" placeholder="&lt;a href=&quot;https://px.a8.net/svt/ejp?a8mat=…&quot;&gt;…&lt;/a&gt;"></textarea>' +
       '<div class="btn-bar"><button type="button" class="btn btn-danger pm-rm" style="min-height:34px;font-size:12px;">この広告を削除</button></div>';
     d.querySelector('.pm-name').value = v.name || '';

@@ -1228,3 +1228,22 @@
     }
   }
 })();
+
+/* ============================================================
+   ASPの広告：複数入れてあるときは、表示のたびに1つを選ぶ
+   ------------------------------------------------------------
+   選ばれなかったものは <template> の中に残るので、画像も計測用の
+   画像も読み込まれない。1回の表示につき1件だけが数えられる。
+   コードそのものには一切手を触れず、そのまま差し込む。
+   ============================================================ */
+(function () {
+  'use strict';
+  var slots = document.querySelectorAll('.promo-slot[data-rotate]');
+  Array.prototype.forEach.call(slots, function (slot) {
+    var list = slot.querySelectorAll('template.promo-item');
+    var body = slot.querySelector('.promo-body');
+    if (!list.length || !body) return;
+    var pick = list[Math.floor(Math.random() * list.length)];
+    body.appendChild(pick.content.cloneNode(true));
+  });
+})();
