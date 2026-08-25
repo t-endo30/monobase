@@ -223,20 +223,22 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
             print(f"::warning::カテゴリー {cat} の対応表がありません", file=sys.stderr)
             continue
 
+        # 登録されているモールを両方とも検索して結果を合わせる。
+        # 片方だけを見ると、そのモールにしか無い商品を取りこぼす。
         found = []
         if rakuten_id:
             try:
-                found = rakuten_search(rakuten_id, rakuten_key,
-                                       genre=conf["rakuten_genre"],
-                                       hits=per_category)
+                found += rakuten_search(rakuten_id, rakuten_key,
+                                        genre=conf["rakuten_genre"],
+                                        hits=per_category)
             except Exception as ex:                       # noqa: BLE001
                 # ジャンルは改編される。弾かれたらキーワードで探し直す。
                 if "genre" in str(ex).lower():
                     time.sleep(PAUSE)
                     try:
-                        found = rakuten_search(rakuten_id, rakuten_key,
-                                               keyword=conf["words"][0],
-                                               hits=per_category)
+                        found += rakuten_search(rakuten_id, rakuten_key,
+                                                keyword=conf["words"][0],
+                                                hits=per_category)
                     except Exception as ex2:              # noqa: BLE001
                         print(f"::warning::楽天の検索に失敗（{cat}）: {ex2}",
                               file=sys.stderr)
@@ -244,13 +246,16 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                     print(f"::warning::楽天の検索に失敗（{cat}）: {ex}",
                           file=sys.stderr)
             time.sleep(PAUSE)
-        if not found and yahoo_id:
+        if yahoo_id:
             try:
-                found = yahoo_search(yahoo_id, query=conf["words"][0],
-                                     hits=per_category)
+                found += yahoo_search(yahoo_id, query=conf["words"][0],
+                                      hits=per_category)
             except Exception as ex:                       # noqa: BLE001
                 print(f"::warning::Yahoo!の検索に失敗（{cat}）: {ex}", file=sys.stderr)
             time.sleep(PAUSE)
+
+        # レビューの多い順に混ぜる。モールごとに固まらないようにする。
+        found.sort(key=lambda e: -e["reviews"])
 
         for e in found:
             if e["reviews"] < MIN_REVIEWS or e["rating"] < MIN_RATING:

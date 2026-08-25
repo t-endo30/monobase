@@ -1966,33 +1966,73 @@
     $('fd-state').textContent = '検索中…';
     $('btnFind').disabled = true;
 
-    /* ジャンルIDで絞るほうが精度は高いが、楽天のジャンルは改編される。
-       弾かれたらキーワード検索に切り替えて、検索そのものは通す。 */
-    var first;
+    /* 登録されているモールを両方とも検索して、結果を合わせる。
+       片方だけを見ると、そのモールにしか無い商品を取りこぼす。
+       片方が失敗しても、もう片方の結果は出す。 */
+    var jobs = [];
+    var failed = [];
+
     if (keys.rakuten) {
-      first = rakutenSearch(keys.rakuten, { genre: conf.genre, hits: hits },
-                            keys.rakutenKey)
-        .catch(function (err) {
-          if (!/ジャンルID/.test(err.message)) throw err;
-          toast('ジャンルIDが使えないため、キーワードで探します');
-          return rakutenSearch(keys.rakuten, { keyword: conf.word, hits: hits },
-                               keys.rakutenKey);
-        });
-    } else {
-      first = yahooSearch(keys.yahoo, { query: conf.word, hits: hits });
+      /* ジャンルIDで絞るほうが精度は高いが、楽天のジャンルは改編される。
+         弾かれたらキーワード検索に切り替えて、検索そのものは通す。 */
+      jobs.push(
+        rakutenSearch(keys.rakuten, { genre: conf.genre, hits: hits },
+                      keys.rakutenKey)
+          .catch(function (err) {
+            if (!/ジャンルID/.test(err.message)) throw err;
+            toast('ジャンルIDが使えないため、キーワードで探します');
+            return rakutenSearch(keys.rakuten, { keyword: conf.word, hits: hits },
+                                 keys.rakutenKey);
+          })
+          .catch(function (err) { failed.push(err.message); return []; })
+      );
+    }
+    if (keys.yahoo) {
+      jobs.push(
+        yahooSearch(keys.yahoo, { query: conf.word, hits: hits })
+          .catch(function (err) {
+            failed.push('Yahoo!：' + err.message);
+            return [];
+          })
+      );
     }
 
-    first.then(function (list) {
+    /* レビューの多い順に混ぜる。モールごとに固まらないようにするため、
+       集め終わってからまとめて並べ替える。 */
+    Promise.all(jobs).then(function (lists) {
+      return lists.reduce(function (all, one) { return all.concat(one); }, [])
+        .sort(function (a, b) { return b.reviews - a.reviews; });
+    }).then(function (list) {
       var picked = [];
+      var byKey = {};      /* 同じ商品を1件にまとめるための索引 */
+
       list.forEach(function (e) {
         if (e.reviews < minRev) return;
         if (e.price < pmin || e.price > pmax) return;
         var name = cleanName(e.name);
-        if (known.names[name.slice(0, 20)]) return;
         var jan = (e.jan || '').trim();
         if (jan && known.jans[jan]) return;
+
+        /* 同一性の判断は商品名の頭でそろえる。JANを持つのはYahoo!側だけで、
+           鍵を使い分けると、同じ商品が別々の鍵になって二重に並んでしまう。 */
+        var key = name.slice(0, 20);
+        if (known.names[name.slice(0, 20)] && !byKey[key]) return;
+
+        var hit = byKey[key];
+        if (hit) {
+          /* 同じ商品が両方のモールで見つかった場合。URLを足し合わせて
+             1件にまとめる。別々に並べると同じ商品が二重に出てしまう。 */
+          if (e.shop === 'rakuten' && !hit.rakuten_url) hit.rakuten_url = e.url;
+          if (e.shop === 'yahoo' && !hit.yahoo_url) hit.yahoo_url = e.url;
+          if (!hit.jan && jan) hit.jan = jan;
+          if (e.reviews > hit.reviews) hit.reviews = e.reviews;
+          if (e.price < hit.price) hit.price = e.price;
+          if (!hit.image) hit.image = e.image;
+          return;
+        }
+
         known.names[name.slice(0, 20)] = true;
-        picked.push({
+        var row = {
           name: name, jan: jan, category: cat,
           reviews: e.reviews, rating: e.rating, price: e.price,
           image: e.image,
@@ -2000,13 +2040,17 @@
           yahoo_url: e.shop === 'yahoo' ? e.url : '',
           shop_name: e.shop_name,
           postage_included: e.postage_included
-        });
+        };
+        byKey[key] = row;
+        picked.push(row);
       });
       picked.sort(function (a, b) { return b.reviews - a.reviews; });
       candidates = picked;
       renderCandidates();
       $('fd-state').textContent = picked.length + '件';
-      if (!picked.length) {
+      if (failed.length) {
+        toast(failed.join(' / '), 'err');
+      } else if (!picked.length) {
         toast('条件に合う商品が見つかりませんでした。下限をゆるめてみてください', 'err');
       }
     }).catch(function (err) {
