@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=7af2f3aa">
+<link rel="stylesheet" href="./assets/admin.css?v=0d00587e">
 </head>
 <body>
 
@@ -429,15 +429,18 @@
       <label for="gmKey">Gemini APIキー<span class="opt">画像生成と、Geminiで本文を作るときに使います</span></label>
       <input type="password" id="gmKey" placeholder="AIza...">
 
-      <label for="clKey">Claude（Anthropic）APIキー<span class="opt">本文を claude-… で作るときに使います</span></label>
+      <label for="clKey">Claude（Anthropic）APIキー<span class="opt">この画面から claude-… を使う場合のみ。サブスクなら不要</span></label>
       <input type="password" id="clKey" placeholder="sk-ant-...">
       <div class="btn-bar">
         <button class="btn" id="btnSaveClKey">Claudeのキーを保存</button>
         <span class="pill" id="cl-state">未登録</span>
       </div>
       <div class="note">
-        <code>console.anthropic.com</code> で発行します。<b>このブラウザ（localStorage）にだけ保存され、リポジトリには入りません。</b><br>
-        画像生成は Gemini のまま（Claude は画像を作れません）なので、画像も使う場合は両方のキーが要ります。
+        <code>console.anthropic.com</code> で発行します（従量課金）。<b>このブラウザ（localStorage）にだけ保存され、リポジトリには入りません。</b><br>
+        <b>Claude Pro / Max のサブスクをお使いなら、このキーは登録不要です。</b>
+        代わりに手元で <code>python3 tools/write_article.py --drafts</code> を実行すると、
+        Claude Code のログインをそのまま使って本文を書けます（追加の課金なし）。<br>
+        画像生成は Gemini のまま（Claude は画像を作れません）なので、画像も作る場合は Gemini のキーが要ります。
       </div>
       <div class="note">
         キーは <b>localStorage（この端末のブラウザ内）にのみ保存</b>され、GitHubへは送信されません。共有パソコンでは使わないでください。<br>
@@ -467,15 +470,17 @@
         <div>
           <label for="gmTextModel">本文を作るモデル<span class="opt">記事エディタの「プロンプトで本文を作る」で使います</span></label>
           <select id="gmTextModel">
-            <option value="claude-opus-5">claude-opus-5（今ある記事と同じ・有料）</option>
-            <option value="claude-sonnet-5">claude-sonnet-5（速い・有料）</option>
-            <option value="gemini-2.5-flash">gemini-2.5-flash（無料枠あり）</option>
+            <option value="gemini-2.5-flash">gemini-2.5-flash（無料枠あり・既定）</option>
             <option value="gemini-2.5-pro">gemini-2.5-pro（有料）</option>
+            <option value="claude-opus-5">claude-opus-5（Anthropic APIキーが必要）</option>
+            <option value="claude-sonnet-5">claude-sonnet-5（Anthropic APIキーが必要）</option>
           </select>
         </div>
         <div class="note" style="align-self:end;">
-          <b>今公開している23記事は claude-opus-5 が書いたものです。</b>文体をそろえたい場合はこれを選んでください。<br>
-          Gemini の flash だけが無料枠で使えます。
+          <b>Claude をサブスクの認証で使う場合、この画面からは実行できません。</b>
+          ブラウザから使える認証はAPIキーだけで、サブスクの認証は取り出せないためです。
+          サブスクで書かせるときは、手元で次を実行してください。<br>
+          <code>python3 tools/write_article.py --drafts</code>
         </div>
       </div>
 
@@ -873,6 +878,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=7af2f3aa"></script>
+<script src="./assets/admin.js?v=0d00587e"></script>
 </body>
 </html>

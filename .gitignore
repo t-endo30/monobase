@@ -16,3 +16,4 @@ orders*.json
 # npm のローカルキャッシュ
 .npm-cache/
 node_modules/
+content/_last_generation.txt

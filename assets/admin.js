@@ -2664,7 +2664,7 @@
     } catch (e) {}
     if (!key) {
       return Promise.reject(new Error(useClaude
-        ? '画像タブでClaude（Anthropic）のAPIキーを登録してください'
+        ? 'Claudeを使うにはAnthropicのAPIキーが要ります。サブスクで書かせる場合は、手元で python3 tools/write_article.py --drafts を実行してください'
         : '画像タブでGemini APIキーを登録してください'));
     }
     return loadPrompt().then(function (prompt) {
