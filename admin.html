@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=0322e12d">
+<link rel="stylesheet" href="./assets/admin.css?v=db98d847">
 </head>
 <body>
 
@@ -68,7 +68,7 @@
         <button class="btn" id="btnPreviewTop">プレビュー</button>
         <button class="btn btn-danger" id="btnDeleteTop">削除</button>
       </div>
-      <p class="hint">入力はブラウザ内に保持されます。<b>サイトに反映するには「記事」タブの「GitHubに保存して公開」</b>を押してください。まとめて何本でも一度に公開できます（ビルドは1回で済みます）。</p>
+      <p class="hint">入力はブラウザ内に保持されます。<b>サイトに反映するには、記事一覧に戻って「変更をまとめて公開」</b>を押してください。何本でも一度に公開でき、ビルドは1回で済みます。</p>
 
       <!-- アイキャッチ：記事ごとにここで指定する -->
       <div class="eyecatch-panel">
@@ -85,7 +85,7 @@
           </div>
           <input type="file" id="ecFile" accept="image/*" class="hidden">
           <div class="check"><input type="checkbox" id="f-imageAi"><label for="f-imageAi">AIで作った画像（記事に「イメージ（AI生成）」と表示します）</label></div>
-          <div class="note" id="ecNote">選んだ画像は自動で1200px・WebPに圧縮してからGitHubへ保存します。<br>画像を設定したあとは、<b>「記事」タブの「GitHubに保存して公開」</b>を押すとサイトに反映されます。<br><small>画像のアップロードだけではサイトのビルドは走りません（配信サービスのビルド回数を節約するため）。</small></div>
+          <div class="note" id="ecNote">選んだ画像は自動で1200px・WebPに圧縮してからGitHubへ保存します。<br>画像を設定したあとは、記事を保存し、記事一覧の<b>「変更をまとめて公開」</b>を押すとサイトに反映されます。<br><small>画像のアップロードだけではビルドが走りません（配信側のビルド回数を節約するため）。</small></div>
         </div>
       </div>
 
@@ -389,7 +389,7 @@
           <select id="gmArticle"></select>
         </div>
         <div>
-          <label for="gmModel">モデル<span class="opt">無料枠のあるもの</span></label>
+          <label for="gmModel">モデル<span class="opt">画像生成モデルに無料枠はありません</span></label>
           <select id="gmModel">
             <option value="gemini-2.5-flash-image">gemini-2.5-flash-image</option>
             <option value="gemini-3.1-flash-lite-image">gemini-3.1-flash-lite-image</option>
@@ -410,7 +410,7 @@
         <button class="btn" id="btnUseImage" disabled>この画像を記事に使う（GitHubへ保存）</button>
       </div>
       <div class="note warn">
-        無料枠には1分あたり・1日あたりの回数制限があります。上限に当たったときは時間をおいて試してください。<br>
+        <b>画像生成モデルには無料枠がありません。</b>Google Cloud 側で課金を有効にしないと生成できません（1枚あたり数円）。<br>
         生成画像には「イメージ（AI生成）」の断り書きが記事に入ります。実在の製品写真の代わりにはなりません。
       </div>
     </div>
@@ -446,7 +446,7 @@
       <div class="imgpreview" id="imgPreview"></div>
 
       <div class="note warn">
-        圧縮結果を確認してから「GitHubにアップロード」を押してください。アップロード後に表示されるパスを、記事編集画面の「アイキャッチ画像」欄に貼り付けます。
+        圧縮結果を確認してから「GitHubにアップロード」を押してください。アップロード後に表示されるパスを、記事の編集画面にある「アイキャッチ画像」欄に貼り付けます。ふだんは編集画面から直接アップロードするほうが簡単です。
       </div>
       <div class="btn-bar">
         <button class="btn btn-primary" id="btnUploadImages" disabled>GitHubにアップロード</button>
@@ -685,6 +685,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=0322e12d"></script>
+<script src="./assets/admin.js?v=db98d847"></script>
 </body>
 </html>

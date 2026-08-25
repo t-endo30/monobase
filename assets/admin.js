@@ -693,7 +693,7 @@
     if (err) { toast(err, 'err'); return; }
     if (articles.indexOf(a) === -1) articles.push(a);
     renderList();
-    toast('記事を保存しました。サイトに反映するには「記事」タブで GitHubに保存 を押してください', 'ok');
+    toast('記事を保存しました。記事一覧の「変更をまとめて公開」でサイトに反映されます', 'ok');
     showPanel('p-articles');
     /* 画像がまだ無い記事は、その場でAIに作らせる（キーがあるときだけ） */
     if ($('f-autoImg') && $('f-autoImg').value === 'auto' && !a.thumb) autoImage(a);
@@ -1610,7 +1610,7 @@
     var a = gmBlob.article, img = gmBlob.img;
     $('btnUseImage').disabled = true;
     saveImage(a, img).then(function (path) {
-      toast('画像を保存しました。記事を「GitHubに保存して公開」すると反映されます', 'ok');
+      toast('画像を保存しました。記事を保存して公開すると反映されます', 'ok');
       $('gmResult').textContent = '保存しました：' + path;
       renderList();
     }).catch(function (e) {
@@ -1687,7 +1687,7 @@
         delete editing.image_ai;
         ecPreview();
         note.innerHTML = '保存しました：<code>' + path + '</code><br>' +
-          '<b>「記事」タブの「GitHubに保存して公開」を押すと、サイトに反映されます。</b>';
+          '<b>記事を保存し、記事一覧の「変更をまとめて公開」でサイトに反映されます。</b>';
         toast('アイキャッチを設定しました。記事を保存すると反映されます', 'ok');
       });
     }).catch(function (e) {
@@ -1712,7 +1712,7 @@
         $('f-imageAi').checked = true;
         ecPreview();
         note.innerHTML = '作って保存しました：<code>' + path + '</code><br>' +
-          '<b>「記事」タブの「GitHubに保存して公開」を押すと、サイトに反映されます。</b>';
+          '<b>記事を保存し、記事一覧の「変更をまとめて公開」でサイトに反映されます。</b>';
         toast('アイキャッチを作りました。記事を保存すると反映されます', 'ok');
       })
       .catch(function (e) {

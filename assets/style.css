@@ -4383,3 +4383,154 @@ body.is-article .layout > .container{
 @media (max-width:899px){
   .cta-wrap .btn-sub{min-height:36px;padding:7px 18px;font-size:12.5px;}
 }
+
+/* ============================================================
+   カテゴリー一覧の右端を、切れ方が汚くならないようにする
+   ------------------------------------------------------------
+   横スクロールの端でアイコンだけが半分見えると、点のような
+   ゴミに見える。端を薄く消して、続きがあることを示す。
+   ============================================================ */
+@media (min-width:900px){
+  /* 横並びの内側だけを切り取る（.cat-nav を隠すとサブパネルまで消える）。
+     右端に白いぼかしを重ねて、途中で切れた項目を目立たなくする。 */
+  .cat-nav-list{
+    -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent 100%);
+    mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent 100%);
+    padding-right:44px;
+  }
+  /* 端まで送りきったときは、ぼかしを消す（隠すものが無いため） */
+  .cat-nav-list.is-end{
+    -webkit-mask-image:none;
+    mask-image:none;
+  }
+}
+
+/* ============================================================
+   本文中のドット絵アイコン（絵文字の置き換え）
+   ------------------------------------------------------------
+   絵文字は端末ごとに絵柄が変わり、サイトのトーンとも合わない。
+   ヘッダーのカテゴリーと同じドット絵に統一する。
+   ============================================================ */
+.hd-icon{
+  width:1em;height:1em;
+  flex:0 0 auto;
+  vertical-align:-0.12em;
+  fill:currentColor;
+}
+.btn-icon{
+  width:1.05em;height:1.05em;
+  vertical-align:-0.16em;
+  fill:currentColor;
+}
+.page-icon{
+  width:1em;height:1em;
+  fill:currentColor;
+  display:block;
+}
+.page-hero-icon .page-icon{color:var(--text-sub);}
+.notfor-head .hd-icon,
+.pc-head .hd-icon,
+.fix-title .hd-icon{margin-right:2px;}
+
+/* ============================================================
+   見出しバナー：文字を小さめに、読み方は畳んで置く
+   ============================================================ */
+.hero-tile h1{
+  font-size:clamp(16px,3.6vw,23px);
+  line-height:1.55;
+}
+.hero-policy{
+  margin-top:4px;
+  text-align:left;
+}
+.hero-policy summary{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin:0 auto;
+  padding:7px 15px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--bg-gray);
+  font-size:12.5px;
+  font-weight:700;
+  color:var(--text-sub);
+  cursor:pointer;
+  list-style:none;
+  transition:background-color .18s var(--ease),color .18s var(--ease);
+}
+.hero-policy summary::-webkit-details-marker{display:none;}
+.hero-policy summary:hover{background:var(--border);color:var(--ink);}
+.hero-policy summary .hd-icon{transition:transform .2s var(--ease);}
+.hero-policy[open] summary .hd-icon{transform:rotate(90deg);}
+.hero-tile .hero-policy{display:flex;flex-direction:column;align-items:center;}
+.hero-policy > *:not(summary){width:100%;}
+.hero-policy[open] > *:not(summary){
+  animation:policy-in .22s var(--ease) both;
+}
+@keyframes policy-in{
+  from{opacity:0;transform:translateY(-4px);}
+  to{opacity:1;transform:none;}
+}
+.hero-policy .policy-lead{margin-top:14px;}
+@media (prefers-reduced-motion:reduce){
+  .hero-policy[open] > *:not(summary){animation:none;}
+}
+
+/* ============================================================
+   タイルに装飾の枠を足す
+   ------------------------------------------------------------
+   上辺に細い色の線を引き、角の丸みと影で面を持ち上げる。
+   カテゴリーごとのアクセント色を上辺に使い、
+   どのジャンルの枠かが視線の端で分かるようにする。
+   ============================================================ */
+.hero-tile,
+.today-box,
+.rank-box,
+.side-tile,
+.search-tile,
+.cf-tile,
+.policy-item,
+.card,
+.feat-card,
+.hl-card,
+.fi-card,
+.contact-form,
+.card-surface{
+  position:relative;
+  overflow:hidden;
+}
+.hero-tile::before,
+.today-box::before,
+.rank-box::before,
+.side-nav::before,
+.search-tile::before,
+.card-surface::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg,var(--amazon) 0%,#F5C07A 46%,var(--border) 100%);
+  pointer-events:none;
+}
+/* サイドの検索タイルは細い線だけにして、主張させない */
+.side-search::before{
+  background:linear-gradient(90deg,var(--navy) 0%,var(--border) 70%);
+}
+/* 記事カードは数が多いので、線は入れず角と影だけで見せる */
+.card::before,.cf-tile::before{content:none;}
+
+/* ============================================================
+   CATEGORIES タイル：中身を枠の中央に置く
+   ------------------------------------------------------------
+   文字を中央寄せにするのではなく、行のかたまり自体を
+   枠の中央へ寄せる（アイコンと文字の位置関係は保つ）。
+   ============================================================ */
+.side-nav .cat-tree{display:flex;flex-direction:column;align-items:center;}
+.side-nav .cat-tree .tree-item{width:100%;max-width:264px;}
+.side-nav .cat-tree details > summary{justify-content:flex-start;}
+.side-nav .cat-tree .tree-subs{padding-left:27px;}
+
+/* 検索ページのカテゴリー絞り込みも、ドット絵アイコンにそろえる */
+.chip{display:inline-flex;align-items:center;gap:6px;}
+.chip-icon{width:1em;height:1em;flex:0 0 auto;fill:currentColor;}

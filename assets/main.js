@@ -590,6 +590,15 @@
     });
   });
 
+  /* 右端まで送りきったら、端のぼかしを外す */
+  function edgeMask() {
+    var end = list.scrollLeft + list.clientWidth >= list.scrollWidth - 2;
+    list.classList.toggle('is-end', end);
+  }
+  list.addEventListener('scroll', edgeMask, { passive: true });
+  window.addEventListener('resize', edgeMask);
+  edgeMask();
+
   document.addEventListener('click', function (ev) {
     if (!open) return;
     if (!ev.target.closest) { close(); return; }
@@ -765,7 +774,7 @@
   var el = document.querySelector('.fit-line');
   if (!el) return;
 
-  var MAX = 34, MIN = 12;      /* px。これ以上は小さくしない */
+  var MAX = 24, MIN = 12;      /* px。上限は控えめにして、枠を大きくしすぎない */
   var box = el.parentElement;
   if (!box) return;
 

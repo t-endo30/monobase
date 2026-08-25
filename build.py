@@ -396,7 +396,7 @@ def footer(p, sticky_url=None):
     if sticky_url and FEAT.get("sticky_cta"):
         sticky = f'''<div class="sticky-cta" id="stickyCta">
   <a class="btn-amazon" href="{e(sticky_url)}" target="_blank" rel="nofollow sponsored noopener">
-    <span class="cart">🛒</span>Amazonで商品の詳細を見る
+    <span class="cart">{icon("cart", "btn-icon")}</span>Amazonで商品の詳細を見る
   </a>
 </div>
 
@@ -589,7 +589,7 @@ def cta(url, label, note=""):
     n = f'\n          <p class="cta-note">{e(note)}</p>' if note else ""
     return f'''        <div class="cta-wrap">
           <a class="btn-amazon" href="{e(url)}" target="_blank" rel="nofollow sponsored noopener">
-            <span class="cart">🛒</span>{e(label)}
+            <span class="cart">{icon("cart", "btn-icon")}</span>{e(label)}
           </a>{n}
         </div>
 '''
@@ -717,7 +717,7 @@ def render_article(a):
         items = "".join(f'              <li>{x}</li>\n' for x in nf["items"])
         add(f'''          <h2 id="sec-notfor">この商品を買わないほうがいい人</h2>
           <div class="notfor-box">
-            <div class="notfor-head">⚠ 先に読んでください</div>
+            <div class="notfor-head">{icon("warn", "hd-icon")} 先に読んでください</div>
             <div class="notfor-body">
               <p>{nf.get("intro","")}</p>
               <ul class="notfor-list">
@@ -752,12 +752,12 @@ def render_article(a):
         add(f'''          <h2 id="sec-proscons">メリット・デメリット</h2>
           <div class="proscons">
             <div class="pc-box pc-good">
-              <div class="pc-head">👍 良かった点（メリット）</div>
+              <div class="pc-head">{icon("good", "hd-icon")} 良かった点（メリット）</div>
               <ul>
 {pros}              </ul>
             </div>
             <div class="pc-box pc-bad">
-              <div class="pc-head">👎 気になった点（デメリット）</div>
+              <div class="pc-head">{icon("bad", "hd-icon")} 気になった点（デメリット）</div>
               <ul>
 {cons}              </ul>
             </div>
@@ -823,7 +823,7 @@ def render_article(a):
             {v.get("text","")}
           </div>
           <div class="fix-box">
-            <span class="fix-title">✔ {v.get("fix_title","")}</span>
+            <span class="fix-title">{icon("check", "hd-icon")} {v.get("fix_title","")}</span>
             {v.get("fix","")}
           </div>
 ''')
@@ -910,9 +910,10 @@ def render_article(a):
                         (a.get("list_title") or a["title"], None)])
 
 # ============================================================ 一覧・固定ページ
-def hero(icon, h1, lead, count=None):
-    """ページ見出しの枠。アイコンと見出しは横に並べて1行に収める。"""
-    ic = f'<span class="page-hero-icon" aria-hidden="true">{icon}</span>' if icon else ""
+def hero(mark, h1, lead, count=None):
+    """ページ見出しの枠。アイコンと見出しは横に並べて1行に収める。
+       mark には icon() が返すドット絵のSVGを渡す。"""
+    ic = f'<span class="page-hero-icon" aria-hidden="true">{mark}</span>' if mark else ""
     c = f'\n        <span class="hero-count">全 {count} 記事</span>' if count is not None else ""
     lead_html = f'\n        <p>{e(lead)}</p>' if lead else ""
     return f'''      <div class="page-hero">
@@ -1121,6 +1122,30 @@ POLICY = [
 ]
 
 
+def policy_details(p):
+    """見出しバナーの中に畳んでおく「このサイトの読み方」。
+       押したときだけ開く。JavaScriptなしでも動く details を使う。"""
+    items = ""
+    for num, head, text in POLICY:
+        items += ('            <div class="policy-item">\n'
+                  f'              <span class="policy-num">{num}</span>\n'
+                  '              <div class="policy-body">\n'
+                  f'                <h3>{e(head)}</h3>\n'
+                  f'                <p>{e(text)}</p>\n'
+                  '              </div>\n'
+                  '            </div>\n')
+    return ('        <details class="hero-policy">\n'
+            '          <summary>このサイトの読み方'
+            f'{icon("check", "hd-icon")}</summary>\n'
+            '          <p class="policy-lead">購入者レビューと製品仕様を突き合わせ、'
+            '良い点だけでなく「合わない場面」まで整理しています。</p>\n'
+            '          <div class="policy">\n' + items +
+            '          </div>\n'
+            f'          <div class="cta-wrap"><a class="btn-sub" href="{p}about.html">'
+            '運営者情報を見る</a></div>\n'
+            '        </details>\n')
+
+
 def policy_box(p):
     """このサイトの読み方。何を根拠に書いているかを短く示す。
        広告収益のあるサイトでは、書き方の基準を明示しておくことが
@@ -1160,13 +1185,16 @@ def build_index():
     # 独立したタイルにする（サイトの主張はヘッダーにも出ているため、
     # ここでは見出しと記事数だけに絞って高さを抑える）。
     band = ""
+    # 見出しバナー。「このサイトの読み方」は畳んでおき、押すと開く。
+    # 常に出しておくと縦を取りすぎるが、隠しておくと信頼の材料が伝わらない。
     hero_tile = (
         '      <section class="hero-tile">\n'
         '        <h1 class="fit-line">レビューを読み込んで、'
         '<span class="accent">不満点まで</span>まとめる。</h1>\n'
         f'        <p class="hero-count" data-cats=\'{cat_names}\' '
         f'data-n-cat="{n_cat}" data-n-pub="{n_pub}"></p>\n'
-        + (SEARCH_TILE if FEAT.get("search") else "") +
+        + policy_details(p) +
+        (SEARCH_TILE if FEAT.get("search") else "") +
         '      </section>\n')
     # トップに置く区画。並び順と表示・非表示は content/site.json の
     # layout.top で決める（管理画面からドラッグして入れ替えられる）。
@@ -1198,7 +1226,7 @@ def build_category(c):
     p = "./"
     items = [a for a in PUBLISHED if a["category"] == c["key"]]
     body = ""
-    body += hero(c["icon"], c["label"] + "の記事", c["lead"], len(items))
+    body += hero(icon(c["key"], "page-icon"), c["label"] + "の記事", c["lead"], len(items))
     if FEAT.get("search"):
         body += SEARCH_BOX
     body += f'''      <section class="section-block" style="margin-top:24px;">
@@ -1215,7 +1243,7 @@ def build_subcategory(c, sc):
     p = "./"
     items = [a for a in PUBLISHED
              if a["category"] == c["key"] and a.get("sub") == sc["key"]]
-    body = hero(c["icon"], sc["label"],
+    body = hero(icon(c["key"], "page-icon"), sc["label"],
                 f'{c["label"]}のうち、{sc["label"]}に分類した記事です。', len(items))
     body += f'''      <section class="section-block" style="margin-top:24px;">
 {grid(items, p)}      </section>
@@ -1234,7 +1262,7 @@ def build_new():
     """新着一覧。スマホのタブ「NEW」の行き先。"""
     p = "./"
     items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)[:24]
-    body = hero("🆕", "新着記事", "24時間以内に公開した記事には New が付きます。")
+    body = hero(icon("new", "page-icon"), "新着記事", "24時間以内に公開した記事には New が付きます。")
     body += f'''      <section class="section-block" style="margin-top:24px;">
 {grid(items, p)}      </section>
 '''
@@ -1246,7 +1274,7 @@ def build_new():
 def build_ranking():
     """アクセスランキングのページ。スマホのタブ「RANKING」の行き先。"""
     p = "./"
-    body = hero("🏆", "アクセスランキング",
+    body = hero(icon("rank", "page-icon"), "アクセスランキング",
                 "よく読まれている記事を上位から並べています。", None)
     body += ('      <section class="section-block" style="margin-top:24px;">\n'
              '        <div class="rank-page">\n'
@@ -1263,9 +1291,10 @@ def build_search():
     tags = sorted({t for a in PUBLISHED for t in a.get("tags", [])})
     chips = "".join(f'          <button type="button" class="chip" data-tag="{e(t)}">{e(t)}</button>\n'
                     for t in tags)
-    catchips = "".join(f'          <button type="button" class="chip" data-cat="{c["key"]}">{c["icon"]} {e(c["label"])}</button>\n'
+    catchips = "".join(f'          <button type="button" class="chip" data-cat="{c["key"]}">'
+                       f'{icon(c["key"], "chip-icon")}{e(c["label"])}</button>\n'
                        for c in CATS)
-    body = f'''{hero("🔍", "サイト内検索", "キーワードやタグから記事を探せます。すべてブラウザ内で動作するため、入力内容が送信されることはありません。")}
+    body = f'''{hero(icon("search", "page-icon"), "サイト内検索", "キーワードやタグから記事を探せます。すべてブラウザ内で動作するため、入力内容が送信されることはありません。")}
       <div class="search-panel">
         <form class="searchbox" role="search" onsubmit="return false;">
           <input type="search" id="searchInput" placeholder="キーワードを入力（例：加湿器、腰痛、イヤホン）" aria-label="サイト内検索" autocomplete="off">
@@ -1427,7 +1456,7 @@ def static_pages():
     mnote = SITE.get("maintenance_message") or "ただいまサイトの準備・調整を行っています。"
     bodym = f'''      <div class="page-hero" style="text-align:center;">
         <div class="page-hero-head" style="justify-content:center;">
-          <span class="page-hero-icon" aria-hidden="true">🔧</span><h1>ただいま準備中です</h1>
+          <span class="page-hero-icon" aria-hidden="true">{icon("tool", "page-icon")}</span><h1>ただいま準備中です</h1>
         </div>
         <p>{e(mnote)}</p>
       </div>
@@ -1443,7 +1472,7 @@ def static_pages():
 
     # 404
     body404 = f'''      <div class="page-hero" style="text-align:center;">
-        <span class="page-hero-icon" aria-hidden="true">🔍</span>
+        <span class="page-hero-icon" aria-hidden="true">{icon("search", "page-icon")}</span>
         <h1>ページが見つかりませんでした</h1>
         <p>お探しのページは移動または削除された可能性があります。<br>下記から目的の記事をお探しください。</p>
       </div>
