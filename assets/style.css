@@ -3927,3 +3927,102 @@ body.is-article .layout > .container{
   background:var(--bg-gray);
   border-radius:8px;
 }
+
+/* ============================================================
+   スマホ：新着記事を横に流す
+   ------------------------------------------------------------
+   縦に6枚積むと画面を占領してしまうので、小さめのカードを
+   横並びにして3枚ぶん見せる。4枚目以降は少しはみ出させて、
+   続きがあることが分かるようにする。
+   PCではこれまでどおりの並びなので、CSSだけで切り替える。
+   ============================================================ */
+.rail-hint,
+.rail-more{display:none;}
+
+@media (max-width:899px){
+  .rail{
+    margin:0 calc(var(--pad-x) * -1);   /* 画面の端まで使って、続きを覗かせる */
+    padding:2px var(--pad-x) 10px;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .rail::-webkit-scrollbar{width:0;height:0;display:none;}
+  .rail .card-grid{
+    display:flex;
+    gap:10px;
+    grid-template-columns:none;
+    width:max-content;
+  }
+  /* 3枚ぶんで画面が埋まり、4枚目が少し覗く幅にする */
+  .rail .card{
+    flex:0 0 auto;
+    width:calc((100vw - var(--pad-x) * 2 - 20px) / 3.25);
+    scroll-snap-align:start;
+  }
+  /* スマホのカードは「画像を左・本文を右」の横並びになっている。
+     レールの中では幅が狭いので、画像を上・本文を下の縦積みに戻す。 */
+  .rail .card{
+    display:flex;
+    flex-direction:column;
+    grid-template-columns:none;
+  }
+  .rail .card-thumb{width:100%;aspect-ratio:16/10;}
+  .rail .card-body{padding:9px 10px 11px;}
+  .rail .card-tags{margin-bottom:5px;}
+  .rail .card-title{font-size:13px;line-height:1.5;}
+  .rail .card-desc,
+  .rail .card-link{display:none;}      /* 小さいカードでは見出しだけに絞る */
+
+  .rail-hint{
+    display:block;
+    margin:2px 0 12px;
+    font-size:11.5px;
+    color:var(--text-sub);
+    text-align:center;
+  }
+  .rail-more{display:block;margin-top:4px;}
+}
+
+/* PC・タブレットでは、横スクロールの仕掛けを一切効かせない */
+@media (min-width:900px){
+  .rail{overflow:visible;margin:0;padding:0;}
+}
+
+/* スマホだけに出す区画（PCではサイドに同じものがあるため） */
+.is-mobile-only{display:none;}
+@media (max-width:899px){
+  .is-mobile-only{display:block;}
+  .is-mobile-only .rank-box{margin-bottom:14px;}
+  /* 外に「よく読まれている記事」の見出しがあるので、枠内の英字見出しは出さない */
+  .is-mobile-only .rank-heading{display:none;}
+}
+
+/* ============================================================
+   スマホ：タイルの中身は中央寄せにそろえる
+   ============================================================ */
+@media (max-width:899px){
+  .rank-box,
+  .today-box,
+  .side-tile,
+  .search-tile{text-align:center;}
+  .rank-heading,
+  .rank-note,
+  .today-heading,
+  .side-heading{text-align:center;}
+  .rank-item a{justify-content:center;}
+  .rank-title,
+  .rank-meta,
+  .rank-cat{text-align:center;}
+  .today-card{justify-content:center;}
+  .today-cat,
+  .today-title{text-align:center;}
+  /* 見出しは flex なので、text-align ではなく justify-content で中央へ寄せる */
+  .section-heading{justify-content:center;text-align:center;padding-left:0;}
+  .section-heading::before{display:none;}
+  /* 幅の狭いレールのカードでは、種類バッジまで入らないので出さない */
+  .rail .card-tags .tag-kind,
+  .rail .card-tags .tag:not(.tag-hot){display:none;}
+}

@@ -495,19 +495,27 @@
   /* ---- ランキングを描く ---- */
   var lists = document.querySelectorAll('.rank-list');
   if (!lists.length) return;
-  var top = ranked.slice(0, 10);
-  var html = top.map(function (it, i) {
-    var n = counts[it.slug] || 0;
-    return '<li class="rank-item">' +
-      '<a href="' + it.url + '">' +
-        '<span class="rank-no rank-no-' + (i + 1) + '">' + (i + 1) + '</span>' +
-        '<span class="rank-body">' +
-          '<span class="rank-title">' + it.title + '</span>' +
-          '<span class="rank-meta">' + it.cat + (n ? '　' + n + '回' : '') + '</span>' +
-        '</span>' +
-      '</a></li>';
-  }).join('');
-  Array.prototype.forEach.call(lists, function (el) { el.innerHTML = html; });
+
+  function rows(limit) {
+    return ranked.slice(0, limit).map(function (it, i) {
+      var n = counts[it.slug] || 0;
+      return '<li class="rank-item">' +
+        '<a href="' + it.url + '">' +
+          '<span class="rank-no rank-no-' + (i + 1) + '">' + (i + 1) + '</span>' +
+          '<span class="rank-body">' +
+            '<span class="rank-title">' + it.title + '</span>' +
+            '<span class="rank-meta">' + it.cat + (n ? '　' + n + '回' : '') + '</span>' +
+          '</span>' +
+        '</a></li>';
+    }).join('');
+  }
+
+  /* 枠ごとに出す件数を変えられるようにする（トップは5件、専用ページは10件） */
+  Array.prototype.forEach.call(lists, function (el) {
+    var box = el.closest('.rank-box');
+    var limit = Number(box && box.getAttribute('data-rank-limit')) || 10;
+    el.innerHTML = rows(limit);
+  });
 
   /* 並び順の説明文は出さない（画面を説明で埋めない） */
 })();

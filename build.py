@@ -1024,9 +1024,27 @@ def build_index():
     body = today_panel("is-mobile")
     body += feature_cards(p)
 
+    # 新着。スマホでは横に流す小さめのカード、PCではこれまでどおりの並び。
+    # 中身は同じHTMLで、見せ方だけCSSで切り替える。
     body += f'''      <section class="section-block">
         <h2 class="section-heading">新着記事</h2>
-{grid(latest, p)}      </section>
+        <div class="rail">
+{grid(latest, p)}        </div>
+        <p class="rail-hint">← 横にスワイプでもっと見る →</p>
+        <div class="cta-wrap rail-more">
+          <a class="btn-sub" href="{p}new.html">新着記事をもっと見る</a>
+        </div>
+      </section>
+'''
+
+    # スマホにはPCのようなサイドが無く、ランキングへ行く手立てがタブだけになる。
+    # トップにも上位を出して、読まれている記事から入れるようにする。
+    body += f'''      <section class="section-block is-mobile-only">
+        <h2 class="section-heading">よく読まれている記事</h2>
+{rank_panel(p, 5)}        <div class="cta-wrap">
+          <a class="btn-sub" href="{p}ranking.html">ランキングをすべて見る</a>
+        </div>
+      </section>
 '''
     return page(f"{NAME}｜{TAGLINE}", SITE["description"], "all", p, BASE_URL + "/", body,
                 body_class="is-listing", sidebar=True, band=band)
