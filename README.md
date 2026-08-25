@@ -18,6 +18,8 @@ assets/img/              画像（常に圧縮して置く）
 tools/optimize-images.sh 画像一括圧縮（macOS）
 tools/check_images.py    画像サイズ検査（CIで実行）
 tools/review_article.py  記事レビュー（禁止表現・ダークパターン）
+tools/maintain_articles.py 公開中の記事の見回り（リンク切れ・鮮度）
+tools/schedule_gate.py   自動作成の実行日と本数を決める
 docs/review-rules.md     レビューの判定基準
 .github/workflows/       push すると自動でビルド＆デプロイ
 ```
@@ -70,6 +72,33 @@ python3 tools/review_article.py --new --publish --push   # 公開して push ま
 判定の基準は `docs/review-rules.md` にまとまっています。ルールを足すときはそこに書きます。
 
 週次の `.github/workflows/write.yml` でも、本文を書いた直後にこのレビューが走ります。
+
+### 自動で記事を作る頻度
+
+`content/site.json` の `automation` で決めます（管理画面の「サイト設定」から変更可）。
+
+```
+enabled           自動作成のON/OFF
+runs_per_week     週に何回まわすか（1〜7）
+articles_per_run  1回に何本作るか（1〜10）
+auto_publish      true なら、レビューを通った記事をそのまま公開する
+```
+
+`.github/workflows/write.yml` は**毎日**動き、`tools/schedule_gate.py` が
+この設定を読んで実行日を間引きます（週2回なら月・金、週3回なら月・水・土）。
+`auto_publish` を切ると、下書きはプルリクエストで止まります。
+
+### 公開後の見回り
+
+`.github/workflows/maintain.yml` が毎日 `tools/maintain_articles.py` を回します。
+
+- 販売先が1つでも生きていれば、**切れたリンクだけ外して**公開を続ける
+- 販売先が全部切れたら、**公開を止める**（`published:false`）
+- 最後の更新から1年以上たった記事は、古い記事として報告する
+
+記事が増えても実行時間が伸びないよう、1回に見るのは `--budget` 本（既定40本）だけです。
+「最後に見てから長く経っている順」に選ぶので、毎日まわせば順に一巡します
+（記事1000本・1日40本なら25日で一周）。各記事の `health.checked` に最後に見た日が入ります。
 
 ## 画像
 

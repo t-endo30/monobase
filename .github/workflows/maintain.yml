@@ -1,0 +1,54 @@
+name: Maintain articles
+
+# 公開中の記事を見回り、痛んだものを直す。
+#
+#   ・販売先が1つでも生きている  → 切れたリンクだけ外して公開を続ける
+#   ・販売先が全部切れた          → published:false にして公開を止める
+#   ・長く更新していない記事      → 報告だけする（止めない）
+#
+# 記事が増えても実行時間が伸びないよう、1回に見るのは --budget 本だけ。
+# 「最後に見てから長く経っている順」に選ぶので、毎日まわせば順に一巡する。
+# 記事1000本・1日40本なら25日で一周する計算。増えたら budget を上げる。
+on:
+  schedule:
+    - cron: '30 19 * * *'      # 毎日 4:30 JST（記事作成の前に済ませる）
+  workflow_dispatch:
+    inputs:
+      budget:
+        description: '1回に見る記事の本数'
+        required: false
+        default: '40'
+      apply:
+        description: '見つけた問題を反映して公開する（オフなら報告だけ）'
+        type: boolean
+        required: false
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: maintain-articles
+  cancel-in-progress: false
+
+jobs:
+  maintain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: git の名前を決める
+        run: |
+          git config user.name  "monobase-bot"
+          git config user.email "monobase.site@gmail.com"
+
+      - name: 記事を見回る
+        run: |
+          python3 tools/maintain_articles.py \
+            --budget "${{ inputs.budget || '40' }}" \
+            ${{ (github.event_name == 'schedule' || inputs.apply) && '--apply --push' || '' }}
