@@ -119,11 +119,18 @@
     if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
+  function catLabel(key) {
+    var btn = catBox && catBox.querySelector('[data-cat="' + key + '"]');
+    return btn ? btn.textContent.trim() : key;
+  }
+
   function updatePicked(grp, list) {
     if (!grp) return;
     var el = grp.querySelector('.chip-picked');
     if (!el) return;
-    el.textContent = list.length ? list.length + '件選択中' : '';
+    /* カテゴリーは1つだけなので、件数ではなく名前を出す */
+    el.textContent = !list.length ? ''
+      : (grp === catGrp ? catLabel(list[0]) : list.length + '件選択中');
     el.hidden = list.length === 0;
   }
 
@@ -170,7 +177,7 @@
 
     var cond = [];
     if (terms.length) cond.push('「' + input.value.trim() + '」');
-    if (activeCats.length) cond.push('カテゴリー' + activeCats.length + '件');
+    if (activeCats.length) cond.push('カテゴリー：' + catLabel(activeCats[0]));
     if (activeTags.length) cond.push('タグ：' + activeTags.join('・'));
 
     /* 条件を入れていないうちは、記事を並べない。
@@ -201,22 +208,35 @@
     history.replaceState(null, '', qs ? '?' + qs : location.pathname);
   }
 
-  function bindChips(box, list, key) {
+  /* single を立てた枠は1つしか選べない。記事のカテゴリーは1本につき
+     1つなので、2つ選ぶと結果が必ず0件になってしまう。
+     押し直したものに入れ替え、同じものをもう一度押したら解除する。 */
+  function bindChips(box, list, key, single) {
     if (!box) return;
     box.addEventListener('click', function (ev) {
       var btn = ev.target.closest('.chip');
       if (!btn) return;
       var val = btn.getAttribute(key);
-      var i = list.indexOf(val);
-      if (i === -1) { list.push(val); btn.classList.add('is-active'); }
-      else { list.splice(i, 1); btn.classList.remove('is-active'); }
+      var on = list.indexOf(val) !== -1;
+      if (single) {
+        list.length = 0;
+        Array.prototype.forEach.call(box.querySelectorAll('.chip.is-active'),
+          function (c) { c.classList.remove('is-active'); });
+        if (!on) { list.push(val); btn.classList.add('is-active'); }
+      } else if (on) {
+        list.splice(list.indexOf(val), 1);
+        btn.classList.remove('is-active');
+      } else {
+        list.push(val);
+        btn.classList.add('is-active');
+      }
       render();
       collapseForSearch();
       scrollToResults();
     });
   }
-  bindChips(catBox, activeCats, 'data-cat');
-  bindChips(tagBox, activeTags, 'data-tag');
+  bindChips(catBox, activeCats, 'data-cat', true);
+  bindChips(tagBox, activeTags, 'data-tag', false);
 
   /* ---- 入力（デバウンス） ---- */
   var timer = null;
@@ -262,7 +282,8 @@
       DATA = json;
       var params = new URLSearchParams(location.search);
       if (params.get('q')) input.value = params.get('q');
-      (params.get('cat') || '').split(',').filter(Boolean).forEach(function (c) {
+      /* カテゴリーは1つだけ。古いURLに2つ以上入っていても先頭だけ使う */
+      (params.get('cat') || '').split(',').filter(Boolean).slice(0, 1).forEach(function (c) {
         var btn = catBox && catBox.querySelector('[data-cat="' + c + '"]');
         if (btn) { btn.classList.add('is-active'); activeCats.push(c); }
       });
