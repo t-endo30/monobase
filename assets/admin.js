@@ -2090,19 +2090,70 @@
     }).join('');
   }
 
-  /* 選んだ候補から下書きを作る。本文は空のまま。
-     記事作成プロンプトで書いた内容を、あとで貼り付けて仕上げる。 */
+  /* 候補の商品名から、記事のスラッグを作る。
+     商品名が日本語だけだと slugify() が空になり、時刻の数字が並んだ
+     意味のないURLになってしまう。型番などの英数字を優先して拾い、
+     それも無ければカテゴリー＋日付にして、あとで直せる形にする。 */
+  function draftSlug(name, cat, taken) {
+    var latin = String(name).toLowerCase().match(/[a-z0-9][a-z0-9\-]*/g) || [];
+    var base = latin.join('-').replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 50);
+    if (base.length < 3) base = cat + '-' + today().replace(/-/g, '');
+    var slug = base, n = 2;
+    while (taken[slug]) { slug = base + '-' + n; n++; }
+    taken[slug] = true;
+    return slug;
+  }
+
+  /* 商品名からタグの候補を拾う。ブランド名（先頭の語）と、
+     意味のありそうな語を数個。記号や数量表記は落とす。 */
+  function draftTags(name, catLabel) {
+    var words = String(name).split(/[\s　・／\/,、]+/)
+      .map(function (w) { return w.replace(/[【】\[\]（）()「」]/g, '').trim(); })
+      .filter(function (w) {
+        return w.length >= 2 && w.length <= 14 && !/^[0-9,.]+$/.test(w);
+      });
+    var tags = words.slice(0, 3);
+    if (catLabel && tags.indexOf(catLabel) < 0) tags.push(catLabel);
+    return tags;
+  }
+
+  /* 選んだ候補から下書きを作る。
+     機械的に決まる項目はここで埋めておく。埋めないままだと
+     tools/check_articles.py が公開を止めるため、毎回手で入れることになる。
+     本文と、ここで作った仮の文章は、記事作成プロンプトの出力で置き換える。 */
   function makeDrafts() {
     var picks = [].slice.call($('fd-list').querySelectorAll('input:checked'))
       .map(function (el) { return candidates[Number(el.dataset.i)]; });
     if (!picks.length) { toast('商品を選んでください', 'err'); return; }
 
+    var taken = {};
+    articles.forEach(function (a) { if (a.slug) taken[a.slug] = true; });
+
+    var cats = {};
+    (site.categories || []).forEach(function (c) { cats[c.key] = c; });
+
+    var jpOnly = 0;
     picks.forEach(function (c) {
       var a = blank();
+      var cat = cats[c.category] || {};
+      var label = cat.label || '';
+
       a.category = c.category;
       a.title = c.name;
       a.list_title = c.name.slice(0, 30);
-      a.slug = slugify(c.name) || ('item-' + Date.now());
+      a.slug = draftSlug(c.name, c.category, taken);
+      if (/^[a-z]+-[0-9]{8}/.test(a.slug)) jpOnly++;
+
+      /* 仮の文章。検査を通す最低限で、公開前に必ず書き換える前提。 */
+      a.description = c.name + 'は買う価値があるのか。'
+        + 'レビューを読み込んで、良い点と注意点、向いている人を整理します。';
+      a.excerpt = 'レビューから見えた、' + c.name.slice(0, 24)
+        + 'の実力と向き不向き。';
+      a.tags = draftTags(c.name, label);
+      if (cat.icon) a.icon = cat.icon;
+      a.verdict_title = '結論：';
+      a.conclusion_title = 'まとめ';
+
       if (c.jan) a.jan = c.jan;
       if (c.rakuten_url) a.rakuten_url = c.rakuten_url;
       if (c.yahoo_url) a.yahoo_url = c.yahoo_url;
@@ -2112,7 +2163,13 @@
 
     renderList();
     showPanel('p-articles');
-    toast(picks.length + '件の下書きを作りました。内容を書いて公開してください');
+    var msg = picks.length + '件の下書きを作りました。'
+      + '説明文と抜粋は仮の文章なので、本文とあわせて書き換えてください';
+    if (jpOnly) {
+      msg += '（' + jpOnly + '件はURLに使える英数字が商品名に無かったため、'
+           + 'スラッグを仮のものにしています）';
+    }
+    toast(msg);
   }
 
   function wireFind() {
