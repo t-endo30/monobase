@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=bbc6ac6c">
+<link rel="stylesheet" href="./assets/admin.css?v=3d08c299">
 </head>
 <body>
 
@@ -729,6 +729,14 @@
       <div class="note">置き場所は「メリット・デメリットの直後」「関連記事の下」「PCサイドの最下部」の3か所です。<b>購入ボタンの近くには置きません</b>（どちらを押したのか分からなくなり、規約上もリスクになるため）。<br>
         <code>ads.txt</code> と所有確認のメタタグは、パブリッシャーIDを入れておけば自動で出力されます。</div>
 
+      <h2 style="margin-top:26px;">ASPの広告（A8.net・バリューコマースなど）</h2>
+      <p class="hint">ASPで取得した広告リンクを<b>そのまま貼る</b>枠です。コードは書き換えません（規約）。決めるのは置き場所と、どのカテゴリーの記事に出すかだけです。</p>
+      <div id="r-promos"></div>
+      <button class="btn btn-ghost" id="btnAddPromo" style="min-height:38px;font-size:13px;">＋ 広告を追加</button>
+      <div class="note">「PR」の表示は自動で付きます（ステマ規制の対応）。<br>
+        <b>記事の下</b>＝関連記事の下に出ます。<b>PCサイド</b>＝ランキングの下に出ます（スマホでは出ません）。<br>
+        対象カテゴリーを選ばないと、<b>すべての記事</b>に出ます。記事の内容と関係のない広告は成果が出にくいので、ジャンルを合わせてください。</div>
+
       <h2 style="margin-top:26px;">記事の自動作成<span class="pill" id="s-autoState">—</span></h2>
       <p class="hint">毎朝5時にGitHub Actionsが動きます。ここで決めた回数の日だけ、候補集め→本文→レビュー→公開まで進みます。<b>オフのあいだは、手動で動かしても記事は作られません。</b></p>
       <div class="check"><input type="checkbox" id="s-autoOn"><label for="s-autoOn"><b>自動作成を有効にする</b></label></div>
@@ -951,6 +959,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=bbc6ac6c"></script>
+<script src="./assets/admin.js?v=3d08c299"></script>
 </body>
 </html>

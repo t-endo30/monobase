@@ -5150,3 +5150,30 @@ body{
     font-size:13.5px;
   }
 }
+
+/* ============================================================
+   ASPの広告リンク（A8.net など）を貼る枠
+   ------------------------------------------------------------
+   中身は配られたコードをそのまま置くので、こちらで整えるのは
+   外側の余白と「PR」の表示だけ。画像が枠からはみ出さないようにする。
+   ============================================================ */
+.promo-slot{
+  display:block;
+  margin:clamp(24px,5vw,36px) 0;
+  padding:12px 0 0;
+  border-top:1px dashed var(--border);
+  text-align:center;
+}
+.promo-body{
+  max-width:100%;
+  overflow-x:auto;
+}
+.promo-body img{max-width:100%;height:auto;}
+.promo-body a{word-break:break-all;}
+.promo-slot.is-side{
+  margin:14px 0 0;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+}

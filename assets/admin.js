@@ -1193,6 +1193,7 @@
     $('s-sticky').checked = f.sticky_cta !== false;
     $('s-search').checked = f.search !== false;
     $('s-featureTh').value = String(f.feature_threshold || 5);
+    renderPromos();
     var hr = site.hero || {};
     $('s-heroTitle').value = hr.title || '';
     $('s-heroAccent').value = hr.accent || '';
@@ -1237,6 +1238,67 @@
   }
   if ($('s-autoOn')) $('s-autoOn').addEventListener('change', syncAutoState);
 
+  /* ---- ASPの広告（A8.netなど） ----
+     配られたコードはそのまま持つ。置き場所と対象カテゴリーだけを添える。 */
+  function promoRow(v) {
+    v = v || {};
+    var box = $('r-promos');
+    var d = document.createElement('div');
+    d.className = 'card';
+    d.style.background = '#FBFCFE';
+    var cats = (site.categories || []).map(function (c) {
+      var on = (v.cats || []).indexOf(c.key) !== -1 ? ' selected' : '';
+      return '<option value="' + c.key + '"' + on + '>' + c.label + '</option>';
+    }).join('');
+    d.innerHTML =
+      '<div class="row c2">' +
+      '  <div><label>案件の名前<span class="opt">自分用のメモ</span></label>' +
+      '    <input type="text" class="pm-name" placeholder="家電レンタル○○"></div>' +
+      '  <div><label>出す場所</label><select class="pm-where">' +
+      '    <option value="article_end">記事の下</option>' +
+      '    <option value="side">PCサイド</option>' +
+      '    <option value="none">出さない（下書き）</option>' +
+      '  </select></div>' +
+      '</div>' +
+      '<label>対象カテゴリー<span class="opt">選ばなければ全記事に出る／Ctrlキーで複数選択</span></label>' +
+      '<select class="pm-cats" multiple size="4">' + cats + '</select>' +
+      '<label>広告リンクのコード<span class="opt">ASPからコピーしたまま貼る</span></label>' +
+      '<textarea class="pm-html" rows="4" placeholder="&lt;a href=&quot;https://px.a8.net/svt/ejp?a8mat=…&quot;&gt;…&lt;/a&gt;"></textarea>' +
+      '<div class="btn-bar"><button type="button" class="btn btn-danger pm-rm" style="min-height:34px;font-size:12px;">この広告を削除</button></div>';
+    d.querySelector('.pm-name').value = v.name || '';
+    d.querySelector('.pm-where').value = v.where || 'article_end';
+    d.querySelector('.pm-html').value = v.html || '';
+    d.querySelector('.pm-rm').addEventListener('click', function () { d.remove(); });
+    box.appendChild(d);
+  }
+
+  function renderPromos() {
+    var box = $('r-promos');
+    if (!box) return;
+    box.innerHTML = '';
+    ((site.promos || {}).items || []).forEach(promoRow);
+  }
+
+  function readPromos() {
+    var box = $('r-promos');
+    if (!box) return [];
+    return Array.prototype.map.call(box.querySelectorAll('.card'), function (d) {
+      var html = d.querySelector('.pm-html').value.trim();
+      if (!html) return null;
+      return {
+        name: d.querySelector('.pm-name').value.trim(),
+        where: d.querySelector('.pm-where').value,
+        cats: Array.prototype.filter.call(d.querySelectorAll('.pm-cats option'),
+          function (o) { return o.selected; }).map(function (o) { return o.value; }),
+        html: html
+      };
+    }).filter(Boolean);
+  }
+
+  if ($('btnAddPromo')) {
+    $('btnAddPromo').addEventListener('click', function () { promoRow({}); });
+  }
+
   function collectSettings() {
     site.site_name = $('s-name').value.trim();
     site.tagline = $('s-tagline').value.trim();
@@ -1252,6 +1314,11 @@
     site.features.sticky_cta = $('s-sticky').checked;
     site.features.search = $('s-search').checked;
     site.features.feature_threshold = parseInt($('s-featureTh').value, 10) || 5;
+    /* ASPの広告。配られたコードはそのまま保つ。 */
+    site.promos = site.promos || {};
+    if (!site.promos.label) site.promos.label = 'PR';
+    site.promos.items = readPromos();
+
     /* トップの見出し。accent は title に含まれている語だけ効く。 */
     site.hero = site.hero || {};
     site.hero.title = $('s-heroTitle').value.trim();

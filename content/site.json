@@ -406,7 +406,12 @@
     "_note": "画像生成の設定。APIキーはここに書かない（公開リポジトリのため）。ローカルは環境変数 GEMINI_API_KEY、GitHub Actions は Secrets を使う。",
     "model": "gemini-3.1-flash-image"
   },
-  "hero": {
+  "promos": {
+  "_note": "A8.net・バリューコマース・もしもなどで取得した広告リンクを、そのまま貼る枠。コードは書き換えず、置き場所と対象カテゴリーだけこちらで決める。where は article_end（記事の下）／side（PCサイド）／none（出さない）。cats を空にすると全カテゴリーの記事に出る。",
+  "label": "PR",
+  "items": []
+ },
+ "hero": {
   "_note": "トップの見出しタイルの文言。accent に入れた語だけ、マーカーを引いた見た目になる（title の中に含まれている語を指定する）。",
   "title": "レビューを読み込んで、不満点までまとめる。",
   "accent": "不満点まで"

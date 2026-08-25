@@ -73,6 +73,22 @@ python3 tools/review_article.py --new --publish --push   # 公開して push ま
 
 週次の `.github/workflows/write.yml` でも、本文を書いた直後にこのレビューが走ります。
 
+### ASPの広告（A8.net・バリューコマースなど）
+
+`content/site.json` の `promos` に、ASPで取得した広告リンクを**そのまま**持ちます
+（管理画面の「サイト設定 → ASPの広告」から追加・削除できます）。
+
+```
+label   広告の上に出す表示（既定 "PR"）
+items   [{name, where, cats, html}]
+          where … article_end（記事の下）／side（PCサイド）／none（出さない）
+          cats  … 対象カテゴリーのkey。空なら全記事
+          html  … ASPからコピーしたコードをそのまま
+```
+
+コードは書き換えません。こちらで決めるのは置き場所と対象カテゴリーだけです。
+「PR」の表示は自動で付きます（ステマ規制の対応）。
+
 ### 自動で記事を作る頻度
 
 `content/site.json` の `automation` で決めます（管理画面の「サイト設定」から変更可）。

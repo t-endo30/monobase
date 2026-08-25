@@ -31,6 +31,7 @@ SUB_LABEL = {(c["key"], sc["key"]): sc["label"]
 FEAT     = SITE.get("features", {})
 GA       = SITE.get("analytics", {}).get("ga_measurement_id", "").strip()
 ADS      = SITE.get("ads", {}) or {}
+PROMOS   = SITE.get("promos", {}) or {}
 GSC      = SITE.get("analytics", {}).get("gsc_verification", "").strip()
 def _asset_version():
     """assets の CSS/JS の内容から作る短いハッシュ。
@@ -181,6 +182,31 @@ def ads_head():
     return ('<script async src="https://pagead2.googlesyndication.com/pagead/js/'
             f'adsbygoogle.js?client={e(ADS["client"].strip())}"\n'
             '     crossorigin="anonymous"></script>\n')
+
+
+def promo_slot(where, cat="", cls=""):
+    """ASP（A8.net・バリューコマースなど）で取得した広告リンクを置く枠。
+       配られたコードは書き換えず、そのまま流し込む（規約）。
+       決めるのは「どこに出すか」と「どのカテゴリーの記事に出すか」だけ。
+
+       cats が空の案件は全記事に出す。記事のカテゴリーが一致した案件だけを
+       その記事に出すことで、内容と関係のない広告が並ぶのを避ける。"""
+    items = [x for x in (PROMOS.get("items") or [])
+             if str(x.get("where") or "") == where and (x.get("html") or "").strip()]
+    if cat:
+        items = [x for x in items
+                 if not x.get("cats") or cat in (x.get("cats") or [])]
+    if not items:
+        return ""
+    label = e(str(PROMOS.get("label") or "PR"))
+    out = ""
+    for x in items:
+        c = f" {cls}" if cls else ""
+        out += (f'        <aside class="promo-slot{c}" aria-label="広告">\n'
+                f'          <span class="ad-label">{label}</span>\n'
+                f'          <div class="promo-body">{x["html"]}</div>\n'
+                f'        </aside>\n')
+    return out
 
 
 def ad_slot(name, cls=""):
@@ -578,7 +604,8 @@ def main_block(body, p, current="", current_sub="", sidebar=False, hero_slot="",
             + body +
             '    </div>\n'
             '    <div class="side-rank">\n'
-            + rank_panel(p, 10) + search_r + ad_slot("side", "is-side")
+            + rank_panel(p, 10) + search_r
+            + promo_slot("side", current, "is-side") + ad_slot("side", "is-side")
             + '    </div>\n'
             '  </div>\n</main>\n\n')
 
@@ -1166,6 +1193,7 @@ def render_article(a):
 
     # 広告はページのいちばん下にもう1枠。関連記事より下に置いて、
     # 記事を読み終えた人の目に入る位置にする。
+    add(promo_slot("article_end", cat))
     add(ad_slot("article_end"))
 
     # 構造化データ。検索結果に日付・書き手・画像を出すための材料。
