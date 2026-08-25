@@ -1001,6 +1001,7 @@ def feature_ready():
 
 
 DEFAULT_TOP = [
+    {"key": "hero",       "on": True},
     {"key": "today",      "on": True},
     {"key": "new",        "on": True},
     {"key": "feature",    "on": True},
@@ -1011,6 +1012,7 @@ DEFAULT_TOP = [
 
 # 管理画面に出す名前。ここに無いものは並べ替えの対象にしない。
 TOP_LABEL = {
+    "hero":       "見出しバナー",
     "today":      "本日のお勧めのモノ",
     "new":        "新着記事",
     "feature":    "特集",
@@ -1108,6 +1110,8 @@ def policy_box(p):
                   '          </div>\n')
     return ('      <section class="section-block">\n'
             '        <h2 class="section-heading">このサイトの読み方</h2>\n'
+            '        <p class="policy-lead">購入者レビューと製品仕様を突き合わせ、'
+            '良い点だけでなく「合わない場面」まで整理しています。</p>\n'
             '        <div class="policy">\n' + items +
             '        </div>\n'
             f'        <div class="cta-wrap"><a class="btn-sub" href="{p}about.html">'
@@ -1126,20 +1130,22 @@ def build_index():
         [c["label"] for c in CATS
          if c["key"] != "feature" and any(a["category"] == c["key"] for a in PUBLISHED)],
         ensure_ascii=False), quote=True)
-    # 見出しタイルはヘッダー直下に横長で敷く。お知らせはそのさらに下。
-    band = f'''<div class="hero-band">
-  <div class="container hero-row">
-    <div class="hero">
-      <h1 class="fit-line">レビューを読み込んで、<span class="accent">不満点まで</span>まとめる。</h1>
-      <p>購入者レビューと製品仕様を突き合わせ、良い点だけでなく「合わない場面」まで整理しています。</p>
-      <p class="hero-count" data-cats='{cat_names}' data-n-cat="{n_cat}" data-n-pub="{n_pub}"></p>
-    </div>
-{SEARCH_TILE if FEAT.get("search") else ""}  </div>
-</div>
-'''
+    # ヒーローバナー。ヘッダー直下の帯ではなく、本文の先頭に置く
+    # 独立したタイルにする（サイトの主張はヘッダーにも出ているため、
+    # ここでは見出しと記事数だけに絞って高さを抑える）。
+    band = ""
+    hero_tile = (
+        '      <section class="hero-tile">\n'
+        '        <h1 class="fit-line">レビューを読み込んで、'
+        '<span class="accent">不満点まで</span>まとめる。</h1>\n'
+        f'        <p class="hero-count" data-cats=\'{cat_names}\' '
+        f'data-n-cat="{n_cat}" data-n-pub="{n_pub}"></p>\n'
+        + (SEARCH_TILE if FEAT.get("search") else "") +
+        '      </section>\n')
     # トップに置く区画。並び順と表示・非表示は content/site.json の
     # layout.top で決める（管理画面からドラッグして入れ替えられる）。
     blocks = {
+        "hero":       lambda: hero_tile,
         "today":      lambda: today_panel("is-mobile"),
         "new":        lambda: news_rail(latest, p),
         "feature":    lambda: feature_cards(p),
@@ -1256,7 +1262,7 @@ def build_search():
     return page(f"サイト内検索 - {NAME}", f"{NAME}のサイト内検索。キーワードとタグで記事を絞り込めます。",
                 "search", p, BASE_URL + "/search.html", body,
                 extra_js=f'<script src="./assets/search.js?v={ASSET_V}"></script>\n',
-                sidebar=True,
+                body_class="is-listing", sidebar=True,
                 crumbs=[("ホーム", f"{p}index.html"), ("サイト内検索", None)])
 
 # ============================================================ Worker

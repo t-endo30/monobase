@@ -902,6 +902,139 @@
   $('btnSaveArticles').addEventListener('click', saveArticles);
   $('btnReload').addEventListener('click', loadAll);
 
+  /* ---------------------------------------------------- トップの並び */
+  /* トップページに出す区画の順番と、出す・出さないを決める。
+     つまんで動かす操作のほかに、上下ボタンでも動かせるようにする
+     （タッチ端末やキーボードだけの人でも並べ替えられるように）。 */
+  var TOP_LABEL = {
+    hero:       ['見出しバナー', 'サイトの一言と、公開している記事数'],
+    today:      ['本日のお勧めのモノ', 'よく見ているジャンルから日替わりで1本'],
+    'new':      ['新着記事', 'スマホは横に流すカード、PCは通常の並び'],
+    feature:    ['特集', 'カルーセルで1本ずつ'],
+    ranking:    ['よく読まれている記事', 'スマホでのみ表示（PCは右サイドに出ている）'],
+    categories: ['カテゴリーから探す', '記事のあるカテゴリーを件数つきで'],
+    policy:     ['このサイトの読み方', '記事の書き方の基準'],
+  };
+  var DEFAULT_TOP = ['hero', 'today', 'new', 'feature', 'ranking', 'categories', 'policy'];
+  var layout = [];
+
+  function loadLayout() {
+    var saved = ((site.layout || {}).top) || [];
+    var seen = {};
+    layout = [];
+    saved.forEach(function (it) {
+      if (TOP_LABEL[it.key] && !seen[it.key]) {
+        layout.push({ key: it.key, on: it.on !== false });
+        seen[it.key] = 1;
+      }
+    });
+    DEFAULT_TOP.forEach(function (k) {
+      if (!seen[k]) layout.push({ key: k, on: true });
+    });
+    renderLayout();
+  }
+
+  function renderLayout() {
+    var ul = $('layoutList');
+    if (!ul) return;
+    ul.innerHTML = layout.map(function (it, i) {
+      var L = TOP_LABEL[it.key] || [it.key, ''];
+      return '<li draggable="true" data-key="' + it.key + '"' +
+        (it.on ? '' : ' class="is-off"') + '>' +
+        '<span class="sl-grip" aria-hidden="true">⠿</span>' +
+        '<span class="sl-order">' + (i + 1) + '</span>' +
+        '<span class="sl-name">' + L[0] +
+          '<span class="sl-note">' + L[1] + '</span></span>' +
+        '<span class="sl-move">' +
+          '<button type="button" data-up="' + i + '" title="上へ"' +
+            (i === 0 ? ' disabled' : '') + '>▲</button>' +
+          '<button type="button" data-down="' + i + '" title="下へ"' +
+            (i === layout.length - 1 ? ' disabled' : '') + '>▼</button>' +
+        '</span>' +
+        '<label class="sl-on"><input type="checkbox" data-on="' + i + '"' +
+          (it.on ? ' checked' : '') + '>出す</label>' +
+        '</li>';
+    }).join('');
+  }
+
+  function moveItem(from, to) {
+    if (to < 0 || to >= layout.length) return;
+    var it = layout.splice(from, 1)[0];
+    layout.splice(to, 0, it);
+    renderLayout();
+  }
+
+  (function bindLayout() {
+    var ul = $('layoutList');
+    if (!ul) return;
+
+    ul.addEventListener('click', function (ev) {
+      var b = ev.target.closest('button');
+      if (!b) return;
+      if (b.hasAttribute('data-up')) moveItem(Number(b.getAttribute('data-up')), Number(b.getAttribute('data-up')) - 1);
+      if (b.hasAttribute('data-down')) moveItem(Number(b.getAttribute('data-down')), Number(b.getAttribute('data-down')) + 1);
+    });
+
+    ul.addEventListener('change', function (ev) {
+      var c = ev.target;
+      if (!c.hasAttribute || !c.hasAttribute('data-on')) return;
+      layout[Number(c.getAttribute('data-on'))].on = c.checked;
+      renderLayout();
+    });
+
+    /* つまんで動かす。落とした先の前に差し込む。 */
+    var dragKey = null;
+    ul.addEventListener('dragstart', function (ev) {
+      var li = ev.target.closest('li');
+      if (!li) return;
+      dragKey = li.getAttribute('data-key');
+      li.classList.add('is-dragging');
+      ev.dataTransfer.effectAllowed = 'move';
+      try { ev.dataTransfer.setData('text/plain', dragKey); } catch (e) {}
+    });
+    ul.addEventListener('dragend', function () {
+      dragKey = null;
+      Array.prototype.forEach.call(ul.children, function (x) {
+        x.classList.remove('is-dragging', 'is-over');
+      });
+    });
+    ul.addEventListener('dragover', function (ev) {
+      ev.preventDefault();
+      var li = ev.target.closest('li');
+      Array.prototype.forEach.call(ul.children, function (x) { x.classList.remove('is-over'); });
+      if (li && li.getAttribute('data-key') !== dragKey) li.classList.add('is-over');
+    });
+    ul.addEventListener('drop', function (ev) {
+      ev.preventDefault();
+      var li = ev.target.closest('li');
+      if (!li || !dragKey) return;
+      var to = layout.findIndex(function (x) { return x.key === li.getAttribute('data-key'); });
+      var from = layout.findIndex(function (x) { return x.key === dragKey; });
+      if (from < 0 || to < 0 || from === to) return;
+      moveItem(from, to);
+    });
+  })();
+
+  if ($('btnSaveLayout')) {
+    $('btnSaveLayout').addEventListener('click', function () {
+      if (!layout.filter(function (x) { return x.on; }).length) {
+        toast('すべて非表示にはできません。1つ以上は出してください', 'err');
+        return;
+      }
+      site.layout = site.layout || {};
+      site.layout.top = layout.map(function (x) { return { key: x.key, on: x.on }; });
+      saveSite('トップページの並びを変更（管理画面より）');
+    });
+  }
+  if ($('btnResetLayout')) {
+    $('btnResetLayout').addEventListener('click', function () {
+      if (!confirm('既定の並びに戻します。よろしいですか？')) return;
+      layout = DEFAULT_TOP.map(function (k) { return { key: k, on: true }; });
+      renderLayout();
+      toast('既定の並びに戻しました（保存で確定）');
+    });
+  }
+
   /* ---------------------------------------------------- 公開状態 */
   /* メンテナンス表示の切り替え。ヘッダーのチップにも状態を出す。 */
   function renderMaint() {
@@ -964,6 +1097,7 @@
   /* ---------------------------------------------------- サイト設定 */
   function renderSettings() {
     renderMaint();
+    loadLayout();
     $('s-name').value = site.site_name || '';
     $('s-tagline').value = site.tagline || '';
     $('s-desc').value = site.description || '';

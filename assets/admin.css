@@ -394,3 +394,62 @@ textarea{resize:vertical;line-height:1.75;}
     padding-top:10px;
   }
 }
+
+/* ============================================================
+   並べ替えできる一覧（トップページの区画）
+   ============================================================ */
+.sortlist{list-style:none;margin:0;padding:0;}
+.sortlist li{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  margin-bottom:8px;
+  background:#fff;
+  border:1px solid var(--a-border);
+  border-radius:9px;
+  cursor:grab;
+  user-select:none;
+  transition:box-shadow .15s ease,transform .15s ease,opacity .15s ease;
+}
+.sortlist li:active{cursor:grabbing;}
+.sortlist li.is-dragging{
+  opacity:.45;
+  box-shadow:0 8px 22px rgba(0,0,0,.16);
+}
+.sortlist li.is-over{
+  border-color:#1F2430;
+  box-shadow:0 0 0 3px rgba(31,36,48,.10);
+}
+.sortlist li.is-off{background:#F7F8FA;}
+.sortlist li.is-off .sl-name{color:#9AA0AA;text-decoration:line-through;}
+.sl-grip{
+  flex:0 0 auto;
+  width:20px;
+  color:#B4B9C2;
+  font-size:15px;
+  line-height:1;
+  text-align:center;
+  cursor:grab;
+}
+.sl-order{
+  flex:0 0 auto;
+  width:22px;height:22px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:#1F2430;color:#fff;
+  font-size:11px;font-weight:700;
+}
+.sl-name{flex:1 1 auto;min-width:0;font-size:14px;font-weight:700;color:var(--a-navy);}
+.sl-note{font-size:11.5px;font-weight:400;color:var(--a-sub);display:block;margin-top:2px;}
+.sl-on{flex:0 0 auto;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--a-sub);}
+.sl-on input{width:16px;height:16px;}
+.sl-move{flex:0 0 auto;display:flex;gap:4px;}
+.sl-move button{
+  width:28px;height:28px;
+  border:1px solid var(--a-border);
+  background:#fff;border-radius:7px;
+  cursor:pointer;color:var(--a-navy);font-size:12px;line-height:1;
+}
+.sl-move button:hover{background:var(--a-bg);}
+.sl-move button[disabled]{opacity:.3;cursor:default;}

@@ -414,5 +414,38 @@
   },
   "legal_updated": "2026-08-25",
   "_legal_updated_note": "プライバシーポリシー・免責事項・運営者情報の「最終更新」に出る日付。文面を変えたときだけ手で更新する。",
-  "maintenance_message": "ただいまサイトの準備・調整を行っています。"
+  "maintenance_message": "ただいまサイトの準備・調整を行っています。",
+  "layout": {
+    "_note": "トップページに出す区画の並びと表示。管理画面の「サイト設定 → トップページの並び」から変更できる。",
+    "top": [
+      {
+        "key": "hero",
+        "on": true
+      },
+      {
+        "key": "today",
+        "on": true
+      },
+      {
+        "key": "new",
+        "on": true
+      },
+      {
+        "key": "feature",
+        "on": true
+      },
+      {
+        "key": "ranking",
+        "on": true
+      },
+      {
+        "key": "categories",
+        "on": true
+      },
+      {
+        "key": "policy",
+        "on": true
+      }
+    ]
+  }
 }

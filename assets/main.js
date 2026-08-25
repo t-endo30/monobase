@@ -188,7 +188,7 @@
      ALL / NEW / RANKING を見ているときはその3つの間を移動し、
      カテゴリーのページを見ているときはカテゴリー間を移動する。 */
   var tabs = document.querySelector('.tab-bar');
-  var onTabPage = ['all', 'new', 'ranking'].indexOf(bodyCat) >= 0;
+  var onTabPage = ['all', 'new', 'ranking', 'search'].indexOf(bodyCat) >= 0;
   var narrow = window.matchMedia && window.matchMedia('(max-width:899px)').matches;
   var order = (narrow && tabs && onTabPage)
     ? Array.prototype.slice.call(tabs.querySelectorAll('a'))
@@ -242,7 +242,7 @@
     var hint = document.createElement('p');
     hint.className = 'swipe-hint';
     hint.textContent = (narrow && tabs && onTabPage)
-      ? '← 左右にスワイプで ALL / NEW / RANKING を切り替え →'
+      ? '← 左右にスワイプでタブを切り替え →'
       : '← 左右にスワイプでカテゴリーを切り替え →';
     var box = document.querySelector('main .container');
     if (box && box.firstElementChild) box.insertBefore(hint, box.firstElementChild);

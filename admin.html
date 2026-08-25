@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=668bc6e5">
+<link rel="stylesheet" href="./assets/admin.css?v=5238b2a9">
 </head>
 <body>
 
@@ -472,6 +472,19 @@
       </div>
     </div>
     <div class="card">
+      <h2>トップページの並び</h2>
+      <p class="hint">つまんで上下に動かすと、トップに出す区画の順番を変えられます。チェックを外すと、その区画は出なくなります。</p>
+      <ul class="sortlist" id="layoutList"></ul>
+      <div class="note">
+        スマホとPCで共通の並びです。「よく読まれている記事」はスマホでのみ表示されます（PCは右サイドに出ているため）。
+      </div>
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnSaveLayout">並びを保存して反映</button>
+        <button class="btn btn-ghost" id="btnResetLayout">既定の並びに戻す</button>
+      </div>
+    </div>
+
+    <div class="card">
       <h2>基本設定</h2>
       <p class="hint">ここでの変更は全ページのヘッダー・フッター・メタ情報に反映されます。</p>
       <div class="row c2">
@@ -672,6 +685,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=668bc6e5"></script>
+<script src="./assets/admin.js?v=5238b2a9"></script>
 </body>
 </html>
