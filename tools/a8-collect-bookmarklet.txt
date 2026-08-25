@@ -1,0 +1,16 @@
+A8.net の広告リンクを、ページからまとめてコピーするブックマークレット
+============================================================
+下の1行を、ブックマークのURL欄にそのまま貼り付けてください。
+（作り方は README と、Claudeの手順を参照）
+
+使い方
+  A8の「プログラム管理 → 参加中プログラム → 広告リンク」を開き、
+  このブックマークを押す。「◯件をコピーしました」と出たら、
+  codes.txt に貼り付けて tools/import_a8.py に渡す。
+
+  ・ページを送るたびに押せば、続けて集められます
+  ・コードには一切手を触れません（並べて --- でつなぐだけ）
+  ・広告ブロッカーが動いていても問題なく使えます
+
+------------------------------------------------------------
+javascript:(function(){var seen={},codes=[].map.call(document.querySelectorAll('textarea'),function(t){return (t.value||'').trim();}).filter(function(v){return v&&/px\.a8\.net|a8mat=/.test(v);}).filter(function(v){if(seen[v])return false;seen[v]=1;return true;});if(!codes.length){alert('広告コードが見つかりません。A8の「広告リンク」ページで押してください。');return;}var out=codes.join('\n---\n');function ok(){alert(codes.length+' 件をコピーしました。codes.txt に貼り付けてください。');}function fallback(){var ta=document.createElement('textarea');ta.value=out;ta.style.position='fixed';ta.style.opacity=0;document.body.appendChild(ta);ta.select();var done=false;try{done=document.execCommand('copy');}catch(e){}document.body.removeChild(ta);if(done)ok();else window.prompt('この内容をコピーしてください（⌘C）',out);}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out).then(ok,fallback);}else{fallback();}})();
