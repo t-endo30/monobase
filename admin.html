@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=756af30b">
+<link rel="stylesheet" href="./assets/admin.css?v=7f9c0e21">
 </head>
 <body>
 
@@ -693,6 +693,43 @@
       <div class="check"><input type="checkbox" id="s-sticky"><label for="s-sticky">スマホ下部に追従するアフィリエイトボタンを表示する</label></div>
       <div class="check"><input type="checkbox" id="s-search"><label for="s-search">サイト内検索を有効にする</label></div>
 
+      <h2 style="margin-top:26px;">記事の自動作成</h2>
+      <p class="hint">毎朝5時にGitHub Actionsが動きます。ここで決めた回数の日だけ、候補集め→本文→レビュー→公開まで進みます。</p>
+      <div class="check"><input type="checkbox" id="s-autoOn"><label for="s-autoOn">自動作成を有効にする</label></div>
+      <div class="row c2">
+        <div>
+          <label for="s-autoRuns">週に何回まわすか</label>
+          <select id="s-autoRuns">
+            <option value="1">週1回（月）</option>
+            <option value="2">週2回（月・金）</option>
+            <option value="3">週3回（月・水・土）</option>
+            <option value="4">週4回</option>
+            <option value="5">週5回</option>
+            <option value="6">週6回</option>
+            <option value="7">毎日</option>
+          </select>
+        </div>
+        <div>
+          <label for="s-autoCount">1回に作る本数</label>
+          <select id="s-autoCount">
+            <option value="1">1本</option>
+            <option value="2">2本</option>
+            <option value="3">3本</option>
+            <option value="4">4本</option>
+            <option value="5">5本</option>
+            <option value="6">6本</option>
+            <option value="7">7本</option>
+            <option value="8">8本</option>
+            <option value="9">9本</option>
+            <option value="10">10本</option>
+          </select>
+        </div>
+      </div>
+      <div class="check"><input type="checkbox" id="s-autoPublish"><label for="s-autoPublish"><b>公開まで自動で行う</b>（レビュー基準を満たした記事だけ公開されます）</label></div>
+      <div class="note">公開まで自動にすると、出来上がった記事はそのままサイトに出ます。<b>出したくない記事は、公開後にこの管理画面の「記事」タブで下書きに戻してください。</b><br>
+        レビュー基準は <code>docs/review-rules.md</code>（禁止表現＋ダークパターン）。基準を満たさなかった記事は下書きのまま残ります。<br>
+        オフにすると、下書きはプルリクエストで止まり、公開は手作業になります。</div>
+
       <label for="s-featureTh">特集を作る目安（同じサブカテゴリーの記事数）</label>
       <select id="s-featureTh">
         <option value="5">5本たまったら</option>
@@ -878,6 +915,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=756af30b"></script>
+<script src="./assets/admin.js?v=7f9c0e21"></script>
 </body>
 </html>

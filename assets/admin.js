@@ -1193,6 +1193,11 @@
     $('s-sticky').checked = f.sticky_cta !== false;
     $('s-search').checked = f.search !== false;
     $('s-featureTh').value = String(f.feature_threshold || 5);
+    var au = site.automation || {};
+    $('s-autoOn').checked = au.enabled !== false;
+    $('s-autoRuns').value = String(au.runs_per_week || 1);
+    $('s-autoCount').value = String(au.articles_per_run || 5);
+    $('s-autoPublish').checked = au.auto_publish !== false;
     $('s-imgModel').value = (site.images || {}).model || 'gemini-3.1-flash-image';
     $('s-sales').value = (((site.sales || {}).items) || []).map(function (x) {
       return [x.name, x.start, x.end, x.url || ''].join(' | ');
@@ -1223,6 +1228,13 @@
     site.features.sticky_cta = $('s-sticky').checked;
     site.features.search = $('s-search').checked;
     site.features.feature_threshold = parseInt($('s-featureTh').value, 10) || 5;
+    /* 自動作成の設定。ワークフローは毎日まわり、tools/schedule_gate.py が
+       この値を読んで実行日と本数を決める。 */
+    site.automation = site.automation || {};
+    site.automation.enabled = $('s-autoOn').checked;
+    site.automation.runs_per_week = parseInt($('s-autoRuns').value, 10) || 1;
+    site.automation.articles_per_run = parseInt($('s-autoCount').value, 10) || 5;
+    site.automation.auto_publish = $('s-autoPublish').checked;
     site.images = site.images || {};
     site.images.model = $('s-imgModel').value;
     site.sales = site.sales || {};

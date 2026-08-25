@@ -1,33 +1,42 @@
 name: Write new articles
 
-# 記事の下書きを、週に一度まとめて用意する。
+# 記事を用意して、そのまま公開する。
 #
+#   ⓪ 今日が実行日か判定する                  tools/schedule_gate.py
 #   ① 楽天・Yahoo!から商品の候補を集める      tools/pick_products.py
 #   ② 上位N件を下書きにする                   tools/make_drafts.py
 #   ③ Claude に本文を書かせる                 tools/write_article.py
-#   ④ 書けた記事をレビューして直す             tools/review_article.py
-#   ⑤ 検査してプルリクエストを作る
+#   ④ レビューして直す・公開する               tools/review_article.py
+#   ⑤ 通らなかったものはプルリクエストで残す
+#
+# 頻度（週に何回）と本数（1回に何本）は content/site.json の automation で決める。
+# 管理画面の「サイト設定」から変えられる。ここでは毎日まわし、⓪で間引く。
 #
 # ③は手元で叩くのと同じスクリプトを、同じ `claude` コマンドで動かす。
 # 認証は Claude のサブスク（CLAUDE_CODE_OAUTH_TOKEN）を使うので、
 # APIの従量課金は発生しない。
 #
-# main へ直接コミットしない。下書きとはいえ中身を読まずに入れると、
-# CIが走って Cloudflare のビルドを消費するため、プルリクエストで止める。
-# 公開は、いつもどおり管理画面から手で行う。
+# 公開まで自動で進める（automation.auto_publish）。レビュー基準を満たした
+# 記事だけが published:true になり、そのまま push される。
+# 出したくない記事は、公開後に管理画面で下書きに戻す。
 on:
   schedule:
-    - cron: '0 20 * * 0'      # 毎週月曜 5:00 JST（UTC 日 20:00）
+    - cron: '0 20 * * *'      # 毎日 5:00 JST（UTC 20:00）。実行日かは⓪で判定
   workflow_dispatch:
     inputs:
       count:
-        description: '作る記事の本数'
+        description: '作る記事の本数（空ならサイト設定に従う）'
         required: false
-        default: '5'
+        default: ''
       model:
         description: 'opus / sonnet'
         required: false
         default: 'opus'
+      force:
+        description: '曜日の判定を無視して実行する'
+        type: boolean
+        required: false
+        default: true
 
 permissions:
   contents: write
@@ -40,7 +49,7 @@ concurrency:
 jobs:
   write:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
@@ -48,14 +57,23 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: 今日が実行日か判定する
+        id: gate
+        run: |
+          python3 tools/schedule_gate.py \
+            ${{ (github.event_name == 'workflow_dispatch' && inputs.force) && '--force' || '' }}
+
       - uses: actions/setup-node@v4
+        if: steps.gate.outputs.run == 'true'
         with:
           node-version: '22'
 
       - name: Claude Code を入れる
+        if: steps.gate.outputs.run == 'true'
         run: npm install -g @anthropic-ai/claude-code
 
       - name: 商品の候補を集める
+        if: steps.gate.outputs.run == 'true'
         env:
           RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
           RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
@@ -63,49 +81,71 @@ jobs:
         run: python3 tools/pick_products.py --limit 30
 
       - name: 下書きを作る
-        run: python3 tools/make_drafts.py --take "${{ github.event.inputs.count || 5 }}"
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          python3 tools/make_drafts.py \
+            --take "${{ inputs.count || steps.gate.outputs.count }}"
 
       - name: 本文を書かせる
+        if: steps.gate.outputs.run == 'true'
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: |
           python3 tools/write_article.py --drafts \
-            --model "${{ github.event.inputs.model || 'opus' }}"
+            --model "${{ inputs.model || 'opus' }}"
 
-      - name: 書けた記事をレビューして直す
-        env:
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      - name: git の名前を決める
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name  "monobase-bot"
+          git config user.email "monobase.site@gmail.com"
+
+      # レビューを通ったものは published:true にして push する。
+      # 通らなかったものは下書きのまま残り、次のステップでPRになる。
+      - name: レビューして公開する
+        id: review
+        if: steps.gate.outputs.run == 'true' && steps.gate.outputs.auto_publish == 'true'
+        continue-on-error: true
+        run: |
+          python3 tools/review_article.py --new --publish --push \
+            --model "${{ inputs.model || 'opus' }}"
+
+      - name: レビューして直す（公開はしない）
+        if: steps.gate.outputs.run == 'true' && steps.gate.outputs.auto_publish != 'true'
+        continue-on-error: true
         run: |
           python3 tools/review_article.py --new \
-            --model "${{ github.event.inputs.model || 'opus' }}"
-        continue-on-error: true    # 指摘が残っても、下書きはPRに載せて人が見る
+            --model "${{ inputs.model || 'opus' }}"
 
       - name: サイトを生成して検査する
+        if: steps.gate.outputs.run == 'true'
         run: |
           python3 build.py
           python3 tools/check_articles.py
           python3 tools/check_text.py
           python3 tools/check_images.py
 
-      - name: プルリクエストにする
+      # 公開まで自動にしていないときだけ、下書きをPRにして人に渡す。
+      # 自動公開のときは、通らなかった記事も published:false のまま main に入り、
+      # 管理画面の「下書き」に並ぶ。
+      - name: 下書きをプルリクエストにする
+        if: steps.gate.outputs.run == 'true' && steps.gate.outputs.auto_publish != 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           branch: auto/new-articles
           base: main
-          title: '記事の下書きを追加（自動）'
-          commit-message: '記事の下書きを追加（自動生成） [skip ci]'
+          title: '公開できなかった下書き（自動）'
+          commit-message: '公開できなかった下書き（自動生成） [skip ci]'
           delete-branch: true
           body: |
-            `tools/pick_products.py` → `tools/make_drafts.py` → `tools/write_article.py`
-            → `tools/review_article.py` の順で作った下書きです。
-            レビューは `docs/review-rules.md`（禁止表現＋ダークパターン）で行っています。**すべて `published: false`** です。
+            自動生成のうち、`tools/review_article.py` の基準を満たさなかった記事です。
+            レビュー基準は `docs/review-rules.md`。
 
-            マージ前に確認してください。
+            公開できたものは、すでに `main` に入っています。
 
             - [ ] スペック表の数値をメーカー公式で裏取りした
             - [ ] 商品名・型番が、リンク先の商品と一致している
             - [ ] 楽天・Yahoo!のリンクが商品ページを指している（検索結果ではない）
             - [ ] 文章に不自然なところがない
 
-            アイキャッチ画像は入っていません。マージ後、管理画面の「画像」タブから作ってください。
-            公開も管理画面から行います。
+            アイキャッチ画像は入っていません。管理画面の「画像」タブから作ってください。
