@@ -4,17 +4,10 @@
   X-Frame-Options: SAMEORIGIN
   Permissions-Policy: geolocation=(), microphone=(), camera=()
 
-# ファイル名に ?v= が付くので、中身が変わればURLも変わる
+# URLに ?v= が付くので、中身が変われば別のURLになる。
+# 管理画面の admin.css / admin.js にも build.py が版を打つ。
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
-
-# 管理画面の資産は build.py が版を打ち直すので、都度確認させる。
-# ここを長期キャッシュにすると、直しても古い画面が残り続ける。
-/assets/admin.css
-  Cache-Control: public, max-age=0, must-revalidate
-
-/assets/admin.js
-  Cache-Control: public, max-age=0, must-revalidate
 
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
