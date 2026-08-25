@@ -17,3 +17,4 @@ orders*.json
 .npm-cache/
 node_modules/
 content/_last_generation.txt
+content/candidates.json

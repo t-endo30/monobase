@@ -143,6 +143,32 @@ Gemini の `gemini-2.5-flash` だけが無料枠で使えます。
 内容を読んでから `python3 build.py` → 検査 → コミットの順に進めてください。
 検査の基準（禁止表現・文字数・使えるタグ）は管理画面・CIと同じものが入っています。
 
+### 週に一度、自動でまとめて作る
+
+`.github/workflows/write.yml` が **毎週月曜 5:00 JST** に同じ手順を回します。
+
+    ① tools/pick_products.py   楽天・Yahoo!から候補を集める
+    ② tools/make_drafts.py     上位N件を下書きにする
+    ③ tools/write_article.py   Claude に本文を書かせる
+    ④ 検査してプルリクエストにする
+
+手元で叩くのと**同じスクリプト**を、同じ `claude` コマンドで動かしています。
+認証は Claude のサブスク（`CLAUDE_CODE_OAUTH_TOKEN`）なので、APIの従量課金は発生しません。
+
+**main へ直接コミットしません。**下書きとはいえ中身を読まずに入れると、
+CIが走って Cloudflare のビルドを消費するためです。プルリクエストを読み、
+チェック項目を確認してからマージしてください。**公開は管理画面から手で行います。**
+
+手動で回したいときは、GitHub の Actions タブから "Write new articles" を実行します
+（本数とモデルを指定できます）。手元で同じことをする場合は次のとおりです。
+
+    $ python3 tools/pick_products.py --limit 30
+    $ python3 tools/make_drafts.py --take 5
+    $ python3 tools/write_article.py --drafts
+
+必要な Secret：`CLAUDE_CODE_OAUTH_TOKEN`（`claude setup-token` で発行）、
+`RAKUTEN_APP_ID`、`RAKUTEN_ACCESS_KEY`、`YAHOO_CLIENT_ID`。
+
 送られるのは、このファイル全文＋商品名・カテゴリー・選べるサブカテゴリー・JANコード・
 買えるモール、そして出力するJSONの形です。作られた本文は、その場で次の4点を検査します。
 
