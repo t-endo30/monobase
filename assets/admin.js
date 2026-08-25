@@ -488,7 +488,7 @@
       .filter(function (o) { return o.name; });
   }
 
-  /* 「ここが効く」は {title, text} の並び。編集画面では
+  /* 「この商品の強み」は {title, text} の並び。編集画面では
      「## 見出し」＋続く段落、という同じ書き方で扱う。 */
   function hlToText(list) {
     return (list || []).map(function (it) {

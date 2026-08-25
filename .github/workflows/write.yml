@@ -5,7 +5,8 @@ name: Write new articles
 #   ① 楽天・Yahoo!から商品の候補を集める      tools/pick_products.py
 #   ② 上位N件を下書きにする                   tools/make_drafts.py
 #   ③ Claude に本文を書かせる                 tools/write_article.py
-#   ④ 検査してプルリクエストを作る
+#   ④ 書けた記事をレビューして直す             tools/review_article.py
+#   ⑤ 検査してプルリクエストを作る
 #
 # ③は手元で叩くのと同じスクリプトを、同じ `claude` コマンドで動かす。
 # 認証は Claude のサブスク（CLAUDE_CODE_OAUTH_TOKEN）を使うので、
@@ -71,6 +72,14 @@ jobs:
           python3 tools/write_article.py --drafts \
             --model "${{ github.event.inputs.model || 'opus' }}"
 
+      - name: 書けた記事をレビューして直す
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          python3 tools/review_article.py --new \
+            --model "${{ github.event.inputs.model || 'opus' }}"
+        continue-on-error: true    # 指摘が残っても、下書きはPRに載せて人が見る
+
       - name: サイトを生成して検査する
         run: |
           python3 build.py
@@ -88,7 +97,8 @@ jobs:
           delete-branch: true
           body: |
             `tools/pick_products.py` → `tools/make_drafts.py` → `tools/write_article.py`
-            の順で作った下書きです。**すべて `published: false`** です。
+            → `tools/review_article.py` の順で作った下書きです。
+            レビューは `docs/review-rules.md`（禁止表現＋ダークパターン）で行っています。**すべて `published: false`** です。
 
             マージ前に確認してください。
 

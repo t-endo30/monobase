@@ -3717,13 +3717,18 @@ body,p,li,dd,dt,figcaption,a,span,button,
 .hero-band .hero p{max-width:none;}
 
 /* ============================================================
-   「ここが効く」：良い点を先に、はっきり見せる枠
+   「この商品の強み」：良い点を先に、はっきり見せる枠
    ============================================================ */
 .hl-grid{display:grid;gap:clamp(10px,2.4vw,14px);margin:0 0 clamp(18px,3.4vw,26px);}
 @media (min-width:760px){ .hl-grid{grid-template-columns:1fr;} }
 .hl-card{
-  display:flex;
-  gap:clamp(10px,2.6vw,14px);
+  /* 番号と見出しを1行目に並べ、本文は次の行で左端から始める。
+     本文が番号の幅だけ右に寄ると、左に空白の帯ができて読みにくい。 */
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  column-gap:clamp(10px,2.6vw,14px);
+  row-gap:clamp(7px,1.8vw,10px);
+  align-items:start;
   padding:clamp(13px,3vw,18px);
   border-radius:var(--radius);
   background:linear-gradient(180deg,#FFFBF4 0%,#FFF7EA 100%);
@@ -3742,20 +3747,24 @@ body,p,li,dd,dt,figcaption,a,span,button,
   font-weight:700;
   line-height:1;
 }
-.hl-body{min-width:0;}
+.hl-body{min-width:0;display:contents;}
 .hl-title{
+  grid-column:2;
   /* 記事本文の h3 に付く上余白（最大46px）を打ち消し、
      番号アイコンと同じ高さから始める */
-  margin:0 0 5px !important;
+  margin:0 !important;
   font-size:clamp(14.5px,3.8vw,16.5px);
   font-weight:700;
   line-height:1.55;
   color:var(--ink);
 }
+.hl-card > p,
+.hl-text,
 .hl-body p{
+  grid-column:1 / -1;          /* 番号の下をくぐらせ、左端まで文字を伸ばす */
   margin:0;
   font-size:clamp(13px,3.5vw,14.5px);
-  line-height:1.9;
+  line-height:1.95;
   color:var(--text-sub);
   text-align:justify;
   text-justify:inter-character;
@@ -4796,3 +4805,68 @@ body{
   body{background-attachment:scroll;}
 }
 
+
+/* ============================================================
+   詰まって見えていた文字まわりの調整
+   ------------------------------------------------------------
+   ・本文の段落：行間と段落間をひろげ、項目ごとの区切りを見せる
+   ・注記（※価格・在庫は変動します 等）：小さい文字ほど詰まって
+     読めるので、行間と字間をひろげる
+   ============================================================ */
+.article-body p,
+.prose p{
+  line-height:2.0;
+  letter-spacing:.015em;
+}
+.article-body > p{margin-bottom:1.9em;}
+
+.cta-note,
+.shop-cta + .cta-note,
+.prod-note,
+.notfor-foot,
+.eyecatch-note{
+  line-height:1.95;
+  letter-spacing:.02em;
+}
+.cta-note,
+.shop-cta + .cta-note,
+.prod-note{margin-top:12px;}
+
+/* 結論・買わないほうがいい人：見出しつきの項目を、行で分けて見せる */
+.summary-list li .li-t,
+.notfor-list li .li-t{
+  display:block;
+  margin-bottom:3px;
+  font-weight:700;
+  color:var(--ink);
+}
+.summary-list li .li-b,
+.notfor-list li .li-b{
+  display:block;
+  color:var(--text-sub);
+  line-height:1.95;
+}
+
+/* ============================================================
+   スマホ：新着記事のタイルの高さをそろえる
+   ------------------------------------------------------------
+   見出しと抜粋の行数で高さが変わり、並べたときに段差が出ていた。
+   行数を固定し、カードに下限の高さを与えて頭とお尻をそろえる。
+   ============================================================ */
+@media (max-width:599px){
+  .card-grid{align-items:stretch;}
+  .card:not(.is-lead){min-height:122px;}
+  .card:not(.is-lead) .card-body{
+    justify-content:flex-start;
+    overflow:hidden;
+  }
+  .card:not(.is-lead) .card-title{
+    -webkit-line-clamp:2;         /* 3行だと1行ぶんの段差が出る */
+    min-height:calc(14.5px * 1.5 * 2);
+  }
+  .card:not(.is-lead) .card-desc{
+    flex:0 0 auto;
+    -webkit-line-clamp:2;
+    min-height:calc(12px * 1.7 * 2);
+  }
+}

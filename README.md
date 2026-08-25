@@ -17,6 +17,8 @@ assets/admin.css / .js   管理画面
 assets/img/              画像（常に圧縮して置く）
 tools/optimize-images.sh 画像一括圧縮（macOS）
 tools/check_images.py    画像サイズ検査（CIで実行）
+tools/review_article.py  記事レビュー（禁止表現・ダークパターン）
+docs/review-rules.md     レビューの判定基準
 .github/workflows/       push すると自動でビルド＆デプロイ
 ```
 
@@ -45,6 +47,29 @@ tools/check_images.py    画像サイズ検査（CIで実行）
 python3 build.py
 git add -A && git commit -m "記事を追加" && git push
 ```
+
+### 方法C：Claude に書かせて、レビューまで通す
+
+```bash
+python3 tools/write_article.py --drafts          # 本文を書かせる
+python3 tools/review_article.py --new            # レビューして直す
+python3 tools/review_article.py --new --publish --push   # 公開して push まで
+```
+
+`tools/review_article.py` は、記事ができたあとの最終検査です。
+
+1. **機械検査** … 禁止表現・ダークパターン（煽り／閲覧者数の演出／割引表示など）・
+   使えないHTMLタグ・項目の形の崩れ・分量を、正規表現で拾う
+2. **Claude によるレビュー** … `docs/review-rules.md` を基準として渡し、
+   指摘と修正後の値を返させる。返ってきた値を `content/articles.json` に書き戻す
+3. **やり直し** … 直したあと、もう一度①をかける（`--rounds` 回まで）
+4. **仕上げ** … `build.py` と `tools/check_*.py` を回し、
+   `--publish` なら `published: true`、`--push` ならコミットして push
+
+`--check-only` を付けると機械検査だけを行い、Claude を呼びません（書き換えもしません）。
+判定の基準は `docs/review-rules.md` にまとまっています。ルールを足すときはそこに書きます。
+
+週次の `.github/workflows/write.yml` でも、本文を書いた直後にこのレビューが走ります。
 
 ## 画像
 

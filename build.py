@@ -676,14 +676,17 @@ def shop_buttons(a, note=""):
             + (f'        <p class="cta-note">{e(note)}</p>\n' if note else ""))
 
 
-def product_card(a, p):
+def product_card(a, p, eager=False):
     """商品画像つきのリンクカード。写真・商品名・販売先ボタンをまとめる。
        本文中のボタン3か所とは別枠なので、数には数えない。
        画像が無い記事では出さない（枠だけ残ると間が抜けるため）。"""
-    img = a.get("thumb") or a.get("eyecatch") or ""
     links = shop_links(a)
-    if not img or not links:
+    if not links:
         return ""
+    # 実写真が最優先。無ければカード一覧と同じ自動生成SVGを使う。
+    # 画像が無いという理由だけで購入導線を落とさない。
+    img = a.get("thumb") or a.get("eyecatch") or ""
+    src = (p + e(img)) if img else visual_path(a, p)[0]
     # 商品名。無ければ記事タイトルの「｜」より前を使う（後半は補足なので落とす）
     name = a.get("product_name") or a.get("title", "").split("｜")[0].strip()
     first = links[0][2]
@@ -692,10 +695,11 @@ def product_card(a, p):
         btns += (f'            <a class="btn-shop is-{shop}" href="{e(href)}" '
                  f'target="_blank" rel="nofollow sponsored noopener">'
                  f'{icon("cart", "btn-icon")}<span>{e(label)}</span></a>\n')
+    lazy = "" if eager else 'loading="lazy" '
     note = a.get("image_ai") and '<span class="pc-ai">イメージ（AI生成）</span>' or ""
     return f'''        <div class="prod-card">
           <a class="prod-thumb" href="{e(first)}" target="_blank" rel="nofollow sponsored noopener">
-            <img src="{p}{e(img)}" alt="{e(name)}" loading="lazy" decoding="async" width="800" height="450">
+            <img src="{src}" alt="{e(name)}" {lazy}decoding="async" width="800" height="450">
           </a>
           <div class="prod-body">
             <p class="prod-name">{e(name)}</p>{note}
@@ -721,6 +725,20 @@ def stars(n):
     return "★" * n + "☆" * (5 - n)
 
 # ============================================================ 記事ページ
+def li_html(x):
+    """箇条書きの1項目を組む。ライターは文字列でも
+       {"title": ..., "text": ...} でも返してくるので、両方受ける。
+       辞書のまま文字列に混ぜると、Pythonの辞書表記が
+       そのまま記事に出てしまうため、ここで必ず通す。"""
+    if isinstance(x, dict):
+        t = str(x.get("title") or "").strip()
+        b = str(x.get("text") or x.get("body") or "").strip()
+        if t and b:
+            return f'<b class="li-t">{t}</b><span class="li-b">{b}</span>'
+        return t or b
+    return str(x)
+
+
 def paras(v, cls=""):
     """文字列でも配列でも受け取り、段落に組む。
        ライターの地の文はここを通す。改行だけの段落は捨てる。"""
@@ -750,6 +768,11 @@ def render_article(a):
         <h1 class="article-title">{title_lines(a["title"])}</h1>
 ''')
 
+    # 商品カード（写真つきの購入リンク）は結論の上に置く。
+    # 読者が最初に見る位置に、商品そのものと買える場所を出す。
+    # 特集（複数商品の比較）は商品を1つに絞れないので、上には置かない。
+    top_card = product_card(a, p, eager=True) if kind_of(a) == "review" else ""
+
     # アイキャッチは実写真があるときだけ置く。
     # 自動生成の模様を記事冒頭に大きく出しても情報がなく、結論ボックスを押し下げるだけなので出さない。
     if a.get("thumb"):
@@ -761,12 +784,15 @@ def render_article(a):
           <img src="{p}{e(a["thumb"])}" alt="{e(a["title"])}" width="1200" height="600">{note}
         </figure>
 ''')
-    else:
+    elif not top_card:
+        # 写真も商品カードも無いときだけ、色帯で見出しと本文を分ける
         add('        <div class="article-accent" aria-hidden="true"></div>\n')
+
+    add(top_card)
 
     # 結論ボックス
     if a.get("summary"):
-        items = "".join(f'              <li>{s}</li>\n' for s in a["summary"])
+        items = "".join(f'              <li>{li_html(s)}</li>\n' for s in a["summary"])
         rating = ""
         sc = a.get("rating", {}).get("score") or 0
         if sc:
@@ -787,7 +813,7 @@ def render_article(a):
 
     # 目次
     toc = []
-    if a.get("highlights", {}).get("items"): toc.append(("sec-highlights", "ここが効く"))
+    if a.get("highlights", {}).get("items"): toc.append(("sec-highlights", "この商品の強み"))
     if a.get("not_for", {}).get("items"): toc.append(("sec-notfor", "買わないほうがいい人"))
     if a.get("scenes"):                   toc.append(("sec-scenes", "この商品で変わる生活シーン"))
     if a.get("pros") or a.get("cons"):    toc.append(("sec-proscons", "メリットとデメリット"))
@@ -817,17 +843,15 @@ def render_article(a):
     # 良い点を先に、はっきり見せる枠。
     hl = a.get("highlights", {})
     if hl.get("items"):
-        add(f'''          <h2 id="sec-highlights">{hl.get("heading", "ここが効く")}</h2>
+        add(f'''          <h2 id="sec-highlights">{hl.get("heading", "この商品の強み")}</h2>
 ''')
         add(paras(hl.get("intro")))
         add('          <div class="hl-grid">\n')
         for i, it in enumerate(hl["items"], start=1):
             add(f'''            <div class="hl-card">
               <span class="hl-num">{i}</span>
-              <div class="hl-body">
-                <h3 class="hl-title">{it.get("title","")}</h3>
-                <p>{it.get("text","")}</p>
-              </div>
+              <h3 class="hl-title">{it.get("title","")}</h3>
+              <p class="hl-text">{it.get("text","")}</p>
             </div>
 ''')
         add('          </div>\n')
@@ -836,7 +860,7 @@ def render_article(a):
     # 1. 買わないほうがいい人（最優先のネガティブ訴求）
     nf = a.get("not_for", {})
     if nf.get("items"):
-        items = "".join(f'              <li>{x}</li>\n' for x in nf["items"])
+        items = "".join(f'              <li>{li_html(x)}</li>\n' for x in nf["items"])
         add(f'''          <h2 id="sec-notfor">この商品を買わないほうがいい人</h2>
           <div class="notfor-box">
             <div class="notfor-head">{icon("warn", "hd-icon")} 先に読んでください</div>
@@ -869,8 +893,8 @@ def render_article(a):
 
     # メリット / デメリット
     if a.get("pros") or a.get("cons"):
-        pros = "".join(f'                <li>{p_}</li>\n' for p_ in a.get("pros", []))
-        cons = "".join(f'                <li>{c_}</li>\n' for c_ in a.get("cons", []))
+        pros = "".join(f'                <li>{li_html(p_)}</li>\n' for p_ in a.get("pros", []))
+        cons = "".join(f'                <li>{li_html(c_)}</li>\n' for c_ in a.get("cons", []))
         add(f'''          <h2 id="sec-proscons">メリット・デメリット</h2>
           <div class="proscons">
             <div class="pc-box pc-good">
@@ -962,8 +986,10 @@ def render_article(a):
           </div>
 ''')
 
-    # 7. 商品画像つきのリンクカード（ボタン3か所には数えない）
-    add(product_card(a, p))
+
+    # 特集記事の商品カードは、比較表を読んだあとの本文中に置く
+    if not top_card:
+        add(product_card(a, p))
 
     # 8. 次に困りそうなこと・併売の提案（回遊導線）
     np_ = a.get("next_problem", {})

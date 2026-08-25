@@ -59,7 +59,7 @@
   「絶対に満足できます」のような保証はしない。
 
 【必須の構成要素（以下の順序で記載すること）】
-1. ★【ここが効く】（良い点を先に、強く）
+1. ★【この商品の強み】（良い点を先に、強く）
    - 3項目。それぞれ見出し1行＋本文3〜4行。
    - 「この商品を選ぶ理由」を、生活の場面に落として書く。
    - 記事の中で最も熱量の高い部分にすること。
@@ -202,7 +202,7 @@ CIが走って Cloudflare のビルドを消費するためです。プルリク
 
 | プロンプトの構成要素 | 管理画面のフィールド | JSONキー |
 |---|---|---|
-| 1. ここが効く | 「ここが効く」 | `highlights.heading` / `highlights.intro` / `highlights.items[]` / `highlights.after` |
+| 1. この商品の強み | 「この商品の強み」 | `highlights.heading` / `highlights.intro` / `highlights.items[]` / `highlights.after` |
 | 2. 買わないほうがいい人 | 「買わないほうがいい人」 | `not_for.intro` / `not_for.items` / `not_for.after` |
 | 3. 実際の生活シーン3選 | 「変わる生活シーン」 | `scenes[].title` / `scenes[].text` |
 | 4. メリット・デメリット | 「メリット」「デメリット」 | `pros` / `cons` |
@@ -225,7 +225,7 @@ CIが走って Cloudflare のビルドを消費するためです。プルリク
 | キー | 出る場所 |
 |---|---|
 | `lead` | 記事冒頭。2〜3段落 |
-| `highlights.intro` / `highlights.after` | 「ここが効く」の前後 |
+| `highlights.intro` / `highlights.after` | 「この商品の強み」の前後 |
 | `not_for.after` | 「買わないほうがいい人」の枠のすぐ下 |
 | `scenes_intro` / `scenes_after` | 生活シーンの前後 |
 | `proscons_note` | メリット・デメリットの下。どちらが効くかの評価 |
