@@ -3895,3 +3895,31 @@ body.is-article .layout > .container{
   color:#1E6B43;
   border-color:#C2E2CF;
 }
+
+/* ============================================================
+   PC：いま見ているカテゴリーを先頭に固定して見せる
+   ------------------------------------------------------------
+   横並びは画面幅を超えると横スクロールになるため、右側にある
+   カテゴリーを開くと現在地が画面外に出てしまう。開いている
+   カテゴリーだけを ALL の左へ移し、区切り線で切り分ける。
+   ============================================================ */
+.cat-nav-list li:has(> a.is-here){
+  position:relative;
+  padding-right:10px;
+  margin-right:6px;
+}
+/* ALL との間に細い区切りを入れて、先頭のひとつだけ別枠だと分かるようにする */
+.cat-nav-list li:has(> a.is-here)::after{
+  content:"";
+  position:absolute;
+  right:0;
+  top:50%;
+  transform:translateY(-50%);
+  width:1px;
+  height:18px;
+  background:var(--border);
+}
+.cat-nav-list a.is-here{
+  background:var(--bg-gray);
+  border-radius:8px;
+}

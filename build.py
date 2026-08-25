@@ -292,14 +292,26 @@ def icon(key, cls="cat-icon"):
             f'<use href="#i-{key}"></use></svg>')
 
 
+def cat_nav_item(c, p, cls=""):
+    a = f' class="{cls}"' if cls else ""
+    return (f'      <li><a href="{p}category-{c["key"]}.html"{a}>'
+            f'{icon(c["key"])}<span class="cat-nav-label">{e(c["label"])}</span></a></li>\n')
+
+
 def header(current, p, crumbs=None, current_sub="", band=""):
+    # いま見ているカテゴリーは、横並びの先頭（ALLの左）に持ってくる。
+    # 一覧は横スクロールするので、右のほうにあると現在地が画面外に出てしまう。
+    # 重複させず「移動」させるので、同じリンクが2つ並ぶことはない。
+    here = next((c for c in CATS if c["key"] == current), None)
+    nav = cat_nav_item(here, p, "is-current is-here") if here else ""
+
     allcur = ' class="is-current"' if current == "all" else ""
-    nav = (f'      <li><a href="{p}index.html"{allcur}>{icon("all")}'
-           f'<span class="cat-nav-label">ALL</span></a></li>\n')
+    nav += (f'      <li><a href="{p}index.html"{allcur}>{icon("all")}'
+            f'<span class="cat-nav-label">ALL</span></a></li>\n')
     for c in CATS:
-        cur = ' class="is-current"' if c["key"] == current else ""
-        nav += (f'      <li><a href="{p}category-{c["key"]}.html"{cur}>'
-                f'{icon(c["key"])}<span class="cat-nav-label">{e(c["label"])}</span></a></li>\n')
+        if here and c["key"] == here["key"]:
+            continue          # 先頭に出したので、ここでは出さない
+        nav += cat_nav_item(c, p)
 
     search_link = (f'<li><a href="{p}search.html">検索</a></li>\n        '
                    if FEAT.get("search") else "")
