@@ -551,6 +551,8 @@
     $('f-excerpt').value = a.excerpt || '';
     $('f-tags').value = (a.tags || []).join(', ');
     $('f-amazon').value = a.amazon_url || '';
+    $('f-rakuten').value = a.rakuten_url || '';
+    $('f-yahoo').value = a.yahoo_url || '';
     $('f-asin').value = a.asin || '';
     $('f-cta').value = a.cta_label || '';
     $('f-verdict').value = a.verdict_title || '';
@@ -608,6 +610,11 @@
     a.excerpt = $('f-excerpt').value.trim();
     a.tags = $('f-tags').value.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
     a.amazon_url = $('f-amazon').value.trim();
+    /* 空欄のショップは項目ごと消す（ボタンを出さないため） */
+    var rk = $('f-rakuten').value.trim();
+    var yh = $('f-yahoo').value.trim();
+    if (rk) a.rakuten_url = rk; else delete a.rakuten_url;
+    if (yh) a.yahoo_url = yh; else delete a.yahoo_url;
     a.asin = $('f-asin').value.trim().toUpperCase();
     a.cta_label = $('f-cta').value.trim() || 'Amazonで価格を見る';
     a.verdict_title = $('f-verdict').value.trim();

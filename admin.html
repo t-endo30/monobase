@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=db98d847">
+<link rel="stylesheet" href="./assets/admin.css?v=71281064">
 </head>
 <body>
 
@@ -179,8 +179,24 @@
         <code>https://www.amazon.co.jp/dp/{ASIN}?tag={ID}</code> の形で自動生成されます。
         ID変更時も全記事へ自動反映されるため、記事ごとに貼り直す必要がありません。
       </div>
-      <label for="f-amazon">リンクを直接指定する場合<span class="opt">任意・ASINが空のときだけ使われます</span></label>
-      <input type="url" id="f-amazon" placeholder="https://amzn.to/xxxxxxx">
+      <label for="f-amazon">Amazonのリンクを直接指定する場合<span class="opt">任意・ASINが空のときだけ使われます</span></label>
+      <input type="url" id="f-amazon" placeholder="https://www.amazon.co.jp/dp/B0XXXXXXXX">
+
+      <div class="row c2">
+        <div>
+          <label for="f-rakuten">楽天市場の商品ページURL<span class="opt">空ならボタンを出しません</span></label>
+          <input type="url" id="f-rakuten" placeholder="https://item.rakuten.co.jp/…">
+        </div>
+        <div>
+          <label for="f-yahoo">Yahoo!ショッピングの商品ページURL<span class="opt">空ならボタンを出しません</span></label>
+          <input type="url" id="f-yahoo" placeholder="https://store.shopping.yahoo.co.jp/…">
+        </div>
+      </div>
+      <div class="note">
+        入力したショップのボタンだけが記事に並びます。<b>その商品が売っていないショップは空欄のままにしてください。</b><br>
+        検索結果ページのURLは入れないでください（購入率が大きく下がります）。商品ページのURLだけを貼ります。<br>
+        リンクは <b>もしもアフィリエイト</b> 経由に自動で変換されます（IDは「サイト設定」で管理）。
+      </div>
     </div>
 
     <div class="card">
@@ -685,6 +701,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=db98d847"></script>
+<script src="./assets/admin.js?v=71281064"></script>
 </body>
 </html>

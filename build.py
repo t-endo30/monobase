@@ -12,7 +12,7 @@ Kurashi Pick - 静的サイトジェネレーター
         search.html / about.html / privacy.html / disclaimer.html /
         404.html / search.json / sitemap.xml / robots.txt
 """
-import json, io, os, re, html, shutil, sys, datetime, hashlib
+import json, io, os, re, html, shutil, sys, datetime, hashlib, urllib.parse
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tools'))
 from make_visual import build as make_visual
 
@@ -585,6 +585,57 @@ def grid(items, p):
                 '<a href="' + p + 'index.html">トップページ</a>から他の記事をご覧ください。</p>\n')
     return '      <div class="card-grid">\n' + "\n".join(card(a, p) for a in items) + '      </div>\n'
 
+MSM = SITE.get("moshimo") or {}
+
+SHOPS = [
+    ("amazon",  "Amazon",            "amazon_url"),
+    ("rakuten", "楽天市場",           "rakuten_url"),
+    ("yahoo",   "Yahoo!ショッピング",  "yahoo_url"),
+]
+
+
+def moshimo_url(shop, target):
+    """もしもアフィリエイト経由のリンクを組み立てる。
+       IDが登録されていないショップは、そのまま商品ページへ送る。
+       もしもの形式：af.moshimo.com/af/c/click?a_id=…&url=<商品URL>"""
+    ids = MSM.get(shop) or {}
+    if not all(ids.get(k) for k in ("a_id", "p_id", "pc_id", "pl_id")):
+        return target
+    return ("https://af.moshimo.com/af/c/click"
+            f'?a_id={ids["a_id"]}&p_id={ids["p_id"]}'
+            f'&pc_id={ids["pc_id"]}&pl_id={ids["pl_id"]}'
+            f'&url={urllib.parse.quote(target, safe="")}')
+
+
+def shop_links(a):
+    """記事に入っている販売先を、ショップごとに返す。
+       URLが入っていないショップは返さない（ボタンを出さない）。"""
+    out = []
+    for shop, label, key in SHOPS:
+        target = (a.get(key) or "").strip()
+        if shop == "amazon" and not target and a.get("asin"):
+            target = amazon_link(a)      # ASINからAmazonのURLを作る
+        if not target:
+            continue
+        out.append((shop, label, moshimo_url(shop, target)))
+    return out
+
+
+def shop_buttons(a, note=""):
+    """販売先のボタンを並べる。1つしか無ければ1つだけ出す。"""
+    links = shop_links(a)
+    if not links:
+        return ""
+    btns = ""
+    for shop, label, href in links:
+        btns += (f'          <a class="btn-shop is-{shop}" href="{e(href)}" '
+                 f'target="_blank" rel="nofollow sponsored noopener">'
+                 f'{icon("cart", "btn-icon")}<span>{e(label)}で見る</span></a>\n')
+    n = f" is-n{min(len(links), 3)}"
+    return (f'        <div class="shop-cta{n}">\n{btns}        </div>\n'
+            + (f'        <p class="cta-note">{e(note)}</p>\n' if note else ""))
+
+
 def cta(url, label, note=""):
     n = f'\n          <p class="cta-note">{e(note)}</p>' if note else ""
     return f'''        <div class="cta-wrap">
@@ -686,8 +737,7 @@ def render_article(a):
 ''')
 
     # 購入リンクは目次の下に置く。結論を読んですぐ動ける位置。
-    add(cta(amazon_link(a), a.get("cta_label", "Amazonで価格を見る"),
-            "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
+    add(shop_buttons(a, "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
 
     add('        <div class="article-body">\n')
     add(paras(a.get("lead")))
@@ -793,8 +843,7 @@ def render_article(a):
           </div>
 ''')
         add(paras(sp.get("read")))
-        add(cta(amazon_link(a), a.get("cta_label","Amazonでチェックする"),
-                "タイムセール対象になっている場合があります"))
+        add(shop_buttons(a, "セール対象になっている場合があります"))
 
     # ライターの地の文。見出し＋段落の自由記述で、表では伝わらない
     # 判断の根拠や使いどころを書く。
@@ -838,8 +887,7 @@ def render_article(a):
 ''')
 
     # 7. Amazonボタン
-    add(cta(amazon_link(a), "Amazonで価格と詳細を確認する",
-            "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
+    add(shop_buttons(a, "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
 
     # 8. 次に困りそうなこと・併売の提案（回遊導線）
     np_ = a.get("next_problem", {})
@@ -868,7 +916,7 @@ def render_article(a):
         add(f'''          <h2 id="sec-conclusion">{a.get("conclusion_title","まとめ")}</h2>
 ''')
         add(paras(a["conclusion"]))
-        add(cta(amazon_link(a), "Amazonで購入する"))
+        add(shop_buttons(a))
         add(f'''        <div class="cta-wrap" style="margin-top:-10px;">
           <a class="btn-sub" href="{p}category-{cat}.html">同じカテゴリーの記事を見る</a>
         </div>
@@ -901,7 +949,7 @@ def render_article(a):
 
     return page(f'{a["title"]} - {NAME}', a.get("description") or a.get("excerpt",""),
                 cat, p, url, "".join(b),
-                sticky_url=(amazon_link(a) if (a.get("asin") or a.get("amazon_url")) else None),
+                sticky_url=(shop_links(a)[0][2] if shop_links(a) else None),
                 extra_js=extra_js,
                 # 記事ページはサイドを出さず、本文だけを広く使う
                 sidebar=False, body_class="is-article", current_sub=a.get("sub", ""),
