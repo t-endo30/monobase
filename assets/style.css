@@ -2899,11 +2899,20 @@ body[data-cat="ranking"] .side-rank{display:none;}
   .footer-row-label{min-width:0;font-size:11px;}
 }
 
-/* 1行に収める見出し。文字サイズはJSが実測して決める */
+/* 1行に収める見出し。文字サイズはJSが実測して決める。
+   ただし幅の狭い画面では1行にせず、CSSの大きさのまま折り返す
+   （1行に押し込むと読めない大きさになるため）。 */
 .hero h1.fit-line{
   line-height:1.45;
   margin-bottom:12px;
-  overflow:hidden;
+}
+@media (max-width:599px){
+  .hero-tile h1.fit-line,
+  .hero h1.fit-line{
+    font-size:clamp(17px,4.7vw,21px);
+    line-height:1.5;
+    text-wrap:balance;      /* 2行に分かれるとき、行の長さをそろえる */
+  }
 }
 
 /* フッターの2行（サイト情報・お問い合わせ）は白でしっかり読ませる */

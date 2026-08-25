@@ -74,9 +74,6 @@ def rank_json(p):
     return html.escape(json.dumps(data, ensure_ascii=False), quote=True)
 
 
-SALES_JSON = html.escape(json.dumps(
-    (SITE.get("sales") or {}).get("items", []), ensure_ascii=False), quote=True)
-
 ASSOC_TAG = SITE.get("amazon", {}).get("associate_tag", "").strip()
 CAT_LABEL = {c["key"]: c["label"] for c in CATS}
 CAT_ICON  = {c["key"]: c["icon"]  for c in CATS}
@@ -88,16 +85,40 @@ def e(s):
     return html.escape(str(s), quote=True)
 
 
+def amazon_tagged(url):
+    """AmazonのURLにアソシエイトIDを付ける。
+       商品ページだけでなく、トップやセール会場のURLでも成果は計上されるので、
+       Amazonへ送るリンクは1本残らずここを通す。
+       すでに tag= が入っているものは触らない（手で貼った別IDを壊さない）。"""
+    u = (url or "").strip()
+    if not u or not ASSOC_TAG:
+        return u
+    if "amazon.co.jp" not in u and "amzn.to" not in u:
+        return u
+    if re.search(r"[?&]tag=", u):
+        return u
+    sep = "&" if "?" in u else "?"
+    frag = ""
+    if "#" in u:                       # #以降の前に足す
+        u, frag = u.split("#", 1)
+        frag = "#" + frag
+    return f"{u}{sep}tag={ASSOC_TAG}{frag}"
+
+
+# セール告知のリンクもAmazonへ送るので、アソシエイトIDを付ける
+SALES_JSON = html.escape(json.dumps(
+    [dict(x, url=amazon_tagged(x.get("url", "")))
+     for x in (SITE.get("sales") or {}).get("items", [])],
+    ensure_ascii=False), quote=True)
+
+
 def amazon_link(a):
     """ASIN があればアソシエイトタグ付きリンクを組み立てる。
-       無ければ手入力の amazon_url をそのまま使う。"""
+       無ければ手入力の amazon_url を使う（こちらにもタグを付ける）。"""
     asin = (a.get("asin") or "").strip().upper()
     if asin:
-        url = f"https://www.amazon.co.jp/dp/{asin}"
-        if ASSOC_TAG:
-            url += f"?tag={ASSOC_TAG}"
-        return url
-    return a.get("amazon_url") or "https://www.amazon.co.jp/"
+        return amazon_tagged(f"https://www.amazon.co.jp/dp/{asin}")
+    return amazon_tagged(a.get("amazon_url") or "https://www.amazon.co.jp/")
 
 
 def visual_path(a, p):
@@ -669,8 +690,9 @@ def shop_links(a):
     out = []
     for shop, label, key in SHOPS:
         target = (a.get(key) or "").strip()
-        if shop == "amazon" and not target and a.get("asin"):
-            target = amazon_link(a)      # ASINからAmazonのURLを作る
+        if shop == "amazon":
+            # ASINからURLを作る／手入力のURLにもタグを付ける
+            target = amazon_link(a) if (not target or a.get("asin")) else amazon_tagged(target)
         if not target:
             continue
         out.append((shop, label, moshimo_url(shop, target)))

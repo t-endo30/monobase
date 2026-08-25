@@ -795,6 +795,17 @@
 
   function fit() {
     if (!el.clientWidth) return;           /* まだ表示されていないときは測らない */
+
+    /* 幅の狭い画面では1行に押し込まない。
+       この見出しは21文字あり、375pxの画面に1行で収めると12px台まで
+       小さくする必要がある。読めない大きさの1行より、2行のほうがよい。
+       CSSの指定にまかせるため、JSが付けた指定を消して戻る。 */
+    if (el.clientWidth < 560) {
+      el.style.whiteSpace = '';
+      el.style.fontSize = '';
+      return;
+    }
+
     el.style.whiteSpace = 'nowrap';
     el.style.fontSize = MAX + 'px';
     if (!overflows()) return;
