@@ -184,6 +184,28 @@ def ads_head():
             '     crossorigin="anonymous"></script>\n')
 
 
+# ASPの広告コードの先頭。ここが出てきたら、次の広告の始まりとみなす。
+PROMO_HEADS = re.compile(
+    r'(?=<a[^>]+href="https?://(?:px\.a8\.net|ck\.jp\.ap\.valuecommerce\.com'
+    r'|af\.moshimo\.com|rpx\.a8\.net))', re.I)
+
+
+def split_codes(text):
+    """広告コードのかたまりを、1件ずつに分ける。
+
+       「---」だけの行があればそこで切る。無ければ、ASPのリンクの
+       始まりを見て自動で切る。まとめてコピーしてきたものを、そのまま
+       貼れるようにするため（計測用の1×1画像は、直前のコードに付く）。"""
+    text = (text or "").strip()
+    if not text:
+        return []
+    parts = [t.strip() for t in re.split(r"(?m)^\s*-{3,}\s*$", text) if t.strip()]
+    if len(parts) > 1:
+        return parts
+    auto = [t.strip() for t in PROMO_HEADS.split(text) if t.strip()]
+    return auto or [text]
+
+
 def promo_slot(where, cat="", cls=""):
     """ASP（A8.net・バリューコマースなど）で取得した広告リンクを置く枠。
        配られたコードは書き換えず、そのまま流し込む（規約）。
@@ -206,9 +228,7 @@ def promo_slot(where, cat="", cls=""):
     out = ""
     for x in items:
         c = f" {cls}" if cls else ""
-        # 「---」だけの行で区切ると、複数のコードを入れ替えて出せる
-        codes = [t.strip() for t in re.split(r"(?m)^\s*-{3,}\s*$", x["html"])
-                 if t.strip()]
+        codes = split_codes(x["html"])
         if len(codes) == 1:
             body = f'          <div class="promo-body">{codes[0]}</div>\n'
         else:
