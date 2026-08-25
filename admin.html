@@ -309,31 +309,64 @@
   <section class="panel" id="p-preview">
     <div class="card">
       <h2>サイトプレビュー</h2>
-      <p class="hint">公開中のサイトを読み込み、<b>まだ保存していない編集内容を上から当てて</b>表示します。ビルドを走らせずに見た目を確認できます。</p>
-      <div class="row c3">
-        <div>
+      <p class="hint">
+        公開中のサイトを読み込み、その上に<b>まだ公開していない編集内容を当てて</b>表示します。
+        <b>ビルドは走りません</b>ので、何度見ても回数を消費しません。
+      </p>
+
+      <div class="pv-steps">
+        <span><b>1</b> 見たいページを選ぶ</span>
+        <span><b>2</b> 端末の幅を選ぶ</span>
+        <span><b>3</b> 見た目を確認して、よければ「記事」タブで公開</span>
+      </div>
+
+      <div class="pv-bar">
+        <div class="pv-field">
           <label for="pvPage">ページ</label>
           <select id="pvPage"></select>
         </div>
-        <div>
-          <label for="pvWidth">画面幅</label>
-          <select id="pvWidth">
-            <option value="390">スマホ（390px）</option>
-            <option value="820">タブレット（820px）</option>
-            <option value="1440" selected>PC（1440px）</option>
-          </select>
+        <div class="pv-field pv-devices" role="group" aria-label="画面幅">
+          <label>画面幅</label>
+          <div class="pv-seg">
+            <button type="button" class="pv-dev" data-w="390">スマホ</button>
+            <button type="button" class="pv-dev" data-w="820">タブレット</button>
+            <button type="button" class="pv-dev is-on" data-w="1440">PC</button>
+          </div>
         </div>
-        <div>
+        <div class="pv-field pv-acts">
           <label>&nbsp;</label>
-          <button class="btn" id="btnPvReload" style="width:100%">読み込み直す</button>
+          <div class="pv-seg">
+            <button type="button" class="btn btn-ghost" id="btnPvReload" title="読み込み直す">↻ 更新</button>
+            <a class="btn btn-ghost" id="btnPvOpen" href="#" target="_blank" rel="noopener" title="新しいタブで開く">↗ 別タブ</a>
+          </div>
         </div>
       </div>
+
+      <div class="pv-status" id="pvStatus">読み込んでいます…</div>
+
       <div class="pv-stage" id="pvStage">
         <div class="pv-shrink" id="pvShrink">
           <iframe id="pvFrame" title="サイトプレビュー"></iframe>
         </div>
       </div>
-      <div class="note" id="pvNote">記事カードの見出し・抜粋・アイキャッチ・種類バッジには、未保存の内容が反映されます。本文の細かい組み方はビルド後に確定します。</div>
+
+      <details class="pv-help">
+        <summary>プレビューで分かること・分からないこと</summary>
+        <div class="pv-help-body">
+          <p><b>分かること</b></p>
+          <ul>
+            <li>記事カードの見出し・抜粋・アイキャッチ・種類バッジ（レビュー／特集／選び方）</li>
+            <li>記事ページの大見出し</li>
+            <li>スマホ・タブレット・PC それぞれの幅での崩れ</li>
+          </ul>
+          <p><b>分からないこと</b></p>
+          <ul>
+            <li>本文の中身や目次（ページを組み立てるのは公開時のため）</li>
+            <li>新しく作った記事（まだページが無いので、既存ページの上には出せません）</li>
+          </ul>
+          <p class="pv-help-note">本文の見え方だけを確かめたいときは、「編集」タブの「記事プレビュー」を使ってください。</p>
+        </div>
+      </details>
     </div>
   </section>
 

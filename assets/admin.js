@@ -741,39 +741,39 @@
   });
 
   /* ---------------------------------------------------- サイトプレビュー */
-  /* 公開中のページを枠の中に読み込み、まだ保存していない内容を
+  /* 公開中のページを枠の中に読み込み、まだ公開していない内容を
      上から当てて見せる。ビルドを走らせずに見た目を確かめるための機能。
-     ページの組み方そのものはビルド時に決まるので、ここで直せるのは
+     ページの骨組みは公開時に作られるので、ここで差し替えられるのは
      articles.json 由来の部分（カードの見出し・抜粋・画像・バッジ）だけ。 */
   var pvReady = false;
+  var pvWidth = 1440;
 
-  function pvBase() {
-    return location.pathname.replace(/admin\.html$/, '');
-  }
+  function pvBase() { return location.pathname.replace(/admin(\.html)?$/, ''); }
 
   function pvFillPages() {
     var sel = $('pvPage');
-    var opts = [
-      ['', 'トップページ'],
-      ['new.html', '新着記事'],
-      ['ranking.html', 'アクセスランキング'],
-    ];
+    var opts = [['', 'トップページ'], ['new.html', '新着記事'], ['ranking.html', 'アクセスランキング']];
     (site.categories || []).forEach(function (c) {
       opts.push(['category-' + c.key + '.html', 'カテゴリー：' + c.label]);
     });
-    articles.filter(function (a) { return a.published; }).forEach(function (a) {
-      opts.push(['articles/' + a.slug + '.html', '記事：' + (a.list_title || a.title)]);
-    });
+    articles.filter(function (a) { return a.published; })
+      .sort(function (x, y) { return x.date < y.date ? 1 : -1; })
+      .forEach(function (a) {
+        opts.push(['articles/' + a.slug + '.html', '記事：' + (a.list_title || a.title)]);
+      });
     sel.innerHTML = opts.map(function (o) {
       return '<option value="' + o[0] + '">' + o[1] + '</option>';
     }).join('');
   }
 
-  /* 未保存の内容をカードへ反映する。iframe は同じドメインなので中を触れる。 */
+  var KIND_JA = { review: 'レビュー', roundup: '特集', guide: '選び方' };
+
+  /* 未公開の内容をページへ当てる。iframe は同じドメインなので中を触れる。 */
   function pvPatch(doc) {
     var bySlug = {};
     articles.forEach(function (a) { bySlug[a.slug] = a; });
     var n = 0;
+
     Array.prototype.forEach.call(doc.querySelectorAll('.card[data-slug]'), function (card) {
       var a = bySlug[card.getAttribute('data-slug')];
       if (!a) return;
@@ -785,60 +785,81 @@
       var img = card.querySelector('.card-thumb img');
       if (img && a.thumb) img.src = pvBase() + a.thumb;
       var kind = card.querySelector('.tag-kind');
+      var k = a.kind || (a.category === 'feature' ? 'roundup' : 'review');
       if (kind) {
-        var k = a.kind || (a.category === 'feature' ? 'roundup' : 'review');
-        kind.textContent = k === 'roundup' ? '特集' : 'レビュー';
+        kind.textContent = KIND_JA[k] || 'レビュー';
         kind.className = 'tag tag-kind is-' + k;
       }
     });
-    /* 記事ページを見ているときは、見出しと結論を差し替える */
+
     var slug = (doc.location.pathname.match(/articles\/([^/.]+)/) || [])[1];
     var cur = slug && bySlug[slug];
     if (cur) {
       var h1 = doc.querySelector('.article-title');
-      if (h1) h1.textContent = cur.title || '';
-      n++;
+      if (h1) { h1.textContent = cur.title || ''; n++; }
     }
     return n;
   }
 
+  function pvSay(msg, warn) {
+    var el = $('pvStatus');
+    el.innerHTML = msg;
+    el.className = 'pv-status' + (warn ? ' is-warn' : '');
+  }
+
   function pvLoad() {
     var frame = $('pvFrame');
-    var url = pvBase() + $('pvPage').value + '?pv=' + Date.now();
-    $('pvNote').textContent = '読み込んでいます…';
+    var rel = $('pvPage').value;
+    var url = pvBase() + rel + '?pv=' + Date.now();
+    $('btnPvOpen').href = pvBase() + rel;
+    pvSay('読み込んでいます…');
     frame.onload = function () {
       var doc;
       try { doc = frame.contentDocument; } catch (e) { doc = null; }
-      if (!doc) { $('pvNote').textContent = 'プレビューを読み込めませんでした。'; return; }
+      if (!doc) { pvSay('プレビューを読み込めませんでした。', true); return; }
       var n = pvPatch(doc);
-      $('pvNote').innerHTML =
-        '未保存の内容を <b>' + n + ' か所</b> に当てて表示しています。'
-        + '本文の組み方や目次はビルド後に確定します。';
+      var label = $('pvPage').options[$('pvPage').selectedIndex].textContent;
+      pvSay(n
+        ? '<b>' + label + '</b> を ' + pvWidth + 'px 幅で表示しています。'
+          + '未公開の内容を <b>' + n + ' か所</b> に当てました。'
+        : '<b>' + label + '</b> を ' + pvWidth + 'px 幅で表示しています。'
+          + 'このページに当てる変更はありませんでした。', !n);
     };
+    frame.onerror = function () { pvSay('プレビューを読み込めませんでした。', true); };
     frame.src = url;
   }
 
   function pvResize() {
-    var w = Number($('pvWidth').value) || 1440;
-    var h = w < 500 ? 780 : 760;
+    var w = pvWidth;
+    var h = w < 500 ? 800 : 720;
     var frame = $('pvFrame'), shrink = $('pvShrink'), stage = $('pvStage');
     frame.style.width = w + 'px';
     frame.style.height = h + 'px';
     /* 枠に収まらないぶんだけ縮める。iframe の中の画面幅は w のまま。 */
-    var avail = stage.clientWidth - 28;
+    var avail = stage.clientWidth - 32;
     var scale = Math.min(1, avail / w);
     shrink.style.transform = 'scale(' + scale + ')';
     shrink.style.width = w + 'px';
     shrink.style.height = (h * scale) + 'px';
   }
-  window.addEventListener('resize', function () { if (pvReady) pvResize(); });
 
-  $('pvWidth').addEventListener('change', function () { pvResize(); });
+  Array.prototype.forEach.call(document.querySelectorAll('.pv-dev'), function (b) {
+    b.addEventListener('click', function () {
+      Array.prototype.forEach.call(document.querySelectorAll('.pv-dev'), function (x) {
+        x.classList.toggle('is-on', x === b);
+      });
+      pvWidth = Number(b.getAttribute('data-w')) || 1440;
+      pvResize();
+      pvLoad();
+    });
+  });
   $('pvPage').addEventListener('change', pvLoad);
   $('btnPvReload').addEventListener('click', pvLoad);
+  window.addEventListener('resize', function () { if (pvReady) pvResize(); });
 
   function pvOpen() {
     if (!pvReady) { pvFillPages(); pvResize(); pvReady = true; }
+    pvResize();
     pvLoad();
   }
 

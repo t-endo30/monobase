@@ -282,18 +282,90 @@ body.is-locked{overflow:hidden;}
 /* ============================================================
    サイトプレビュー
    ============================================================ */
-.pv-stage{
-  margin-top:14px;
-  padding:14px;
-  border-radius:12px;
-  background:#E9EAEE;
-  overflow-x:auto;
+.pv-steps{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:14px 0 16px;
 }
+.pv-steps span{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:6px 12px 6px 7px;
+  border-radius:999px;
+  background:#F1F3F7;
+  border:1px solid #E1E4EA;
+  font-size:12px;
+  color:#4A5060;
+}
+.pv-steps b{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:19px;height:19px;
+  border-radius:50%;
+  background:#1F2430;
+  color:#fff;
+  font-size:11px;
+}
+
+.pv-bar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  align-items:flex-end;
+}
+.pv-field{min-width:0;}
+.pv-field > label{
+  display:block;
+  font-size:11.5px;
+  font-weight:700;
+  color:#6B7280;
+  margin-bottom:5px;
+}
+.pv-bar #pvPage{min-width:280px;}
+.pv-field.pv-acts{margin-left:auto;}
+.pv-seg{display:flex;gap:6px;}
+.pv-seg .btn{padding:9px 14px;}
+.pv-dev{
+  padding:9px 16px;
+  font-size:13px;
+  font-weight:700;
+  color:#4A5060;
+  background:#fff;
+  border:1px solid #DDDFE4;
+  border-radius:9px;
+  cursor:pointer;
+}
+.pv-dev:hover{background:#F5F6F9;}
+.pv-dev.is-on{background:#1F2430;border-color:#1F2430;color:#fff;}
+
+.pv-status{
+  margin:14px 0 0;
+  padding:10px 14px;
+  border-radius:9px;
+  background:#EEF4FD;
+  border:1px solid #D3E3F7;
+  font-size:12.5px;
+  line-height:1.8;
+  color:#1B4F86;
+}
+.pv-status.is-warn{background:#FFF6E8;border-color:#F2DDBC;color:#8A5B10;}
+
 /* 枠に入りきらない幅は、縮小して表示する。
    iframe 自体は指定どおりの幅のまま読み込むので、
    サイト側が判定する画面幅は正しい値になる。 */
-.pv-stage{ display:flex; justify-content:center; }
-.pv-shrink{ transform-origin:top center; }
+.pv-stage{
+  margin-top:14px;
+  padding:16px;
+  border-radius:12px;
+  background:#E9EAEE;
+  display:flex;
+  justify-content:center;
+  overflow:hidden;
+}
+.pv-shrink{transform-origin:top center;}
 .pv-stage iframe{
   display:block;
   border:0;
@@ -302,14 +374,20 @@ body.is-locked{overflow:hidden;}
   box-shadow:0 6px 24px rgba(0,0,0,.18);
 }
 
-/* 記事一覧のサムネイル（アイキャッチを設定した記事） */
-.list .thumb{
-  flex:0 0 auto;
-  width:64px;
-  height:36px;
-  border-radius:6px;
-  overflow:hidden;
-  background:#ECECEF;
-  display:block;
+.pv-help{
+  margin-top:14px;
+  border:1px solid var(--a-border,#E1E4EA);
+  border-radius:10px;
+  background:#fff;
 }
-.list .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.pv-help summary{
+  cursor:pointer;
+  padding:11px 14px;
+  font-size:13px;
+  font-weight:700;
+  color:#4A5060;
+}
+.pv-help-body{padding:0 16px 14px;font-size:12.5px;line-height:1.9;color:#5A6070;}
+.pv-help-body p{margin:8px 0 4px;}
+.pv-help-body ul{margin:0;padding-left:1.3em;}
+.pv-help-note{color:#8A8D93;}
