@@ -1247,3 +1247,36 @@
     body.appendChild(pick.content.cloneNode(true));
   });
 })();
+
+/* ============================================================
+   「このサイトの読み方」：ページに重ねて開く
+   ------------------------------------------------------------
+   details のまま使い、開いているあいだだけ画面に重ねる。
+   外側・×・Escape で閉じる。背面はスクロールさせない。
+   ============================================================ */
+(function () {
+  'use strict';
+  var d = document.querySelector('details.hero-policy');
+  if (!d) return;
+  var pop = d.querySelector('.policy-pop');
+
+  function close() { if (d.open) d.open = false; }
+
+  d.addEventListener('toggle', function () {
+    document.body.classList.toggle('is-policy-open', d.open);
+    if (d.open && pop) pop.focus && pop.focus();
+  });
+
+  /* 背面（覆い）を押したら閉じる。板の中を押したときは閉じない。 */
+  document.addEventListener('click', function (ev) {
+    if (!d.open) return;
+    if (ev.target.closest('.policy-close')) { close(); return; }
+    if (ev.target.closest('.policy-pop')) return;
+    if (ev.target.closest('details.hero-policy > summary')) return;
+    close();
+  });
+
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') close();
+  });
+})();

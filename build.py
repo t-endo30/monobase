@@ -1481,7 +1481,7 @@ POLICY = [
     ("02", "「合わない場面」を先に書きます",
      "どんな製品にも向かない環境があります。買ってから気づく条件を、記事の前半ではっきり書くようにしています。"),
     ("03", "広告収益の有無で内容は変えません",
-     "Amazonアソシエイトによる収益がありますが、掲載の可否や評価は独立して判断しています。"),
+     "アソシエイトによる収益を獲得する可能性がありますが、掲載の可否や評価は独立して判断しています。"),
 ]
 
 
@@ -1498,12 +1498,21 @@ def policy_details(p=""):
                   f'                <p>{e(text)}</p>\n'
                   '              </div>\n'
                   '            </div>\n')
+    # 中身は1枚の板にまとめる。開いたときにページへ重ねて出すため
+    # （カテゴリーのメニューと同じ動き）。JSが動かない環境では、
+    # details のまま下に開くので内容は読める。
     return ('        <details class="hero-policy">\n'
             '          <summary>このサイトの読み方'
             f'{icon("check", "hd-icon")}</summary>\n'
-            '          <p class="policy-lead">購入者レビューと製品仕様を突き合わせ、'
+            '          <div class="policy-pop" role="dialog" aria-modal="true" '
+            'aria-label="このサイトの読み方">\n'
+            '            <button type="button" class="policy-close" '
+            'aria-label="閉じる">×</button>\n'
+            '            <p class="policy-title">このサイトの読み方</p>\n'
+            '            <p class="policy-lead">購入者レビューと製品仕様を突き合わせ、'
             '良い点だけでなく「合わない場面」まで整理しています。</p>\n'
-            '          <div class="policy">\n' + items +
+            '            <div class="policy">\n' + items +
+            '            </div>\n'
             '          </div>\n'
             '        </details>\n')
 

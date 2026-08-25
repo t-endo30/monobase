@@ -5177,3 +5177,83 @@ body{
   border-radius:var(--radius);
   background:var(--surface);
 }
+
+/* ============================================================
+   「このサイトの読み方」：ページに重ねて出す
+   ------------------------------------------------------------
+   下に開くと記事の一覧が押し下げられ、読み終わったあとに
+   元の位置へ戻る動きが要る。カテゴリーのメニューと同じく、
+   ページの上に重ねて、外を押せば閉じる形にする。
+   ============================================================ */
+.hero-policy[open]::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:119;
+}
+.hero-policy .policy-pop{
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  z-index:120;
+  width:min(640px,calc(100vw - 28px));
+  max-height:min(78vh,720px);
+  overflow-y:auto;
+  padding:clamp(18px,4vw,26px);
+  border-radius:var(--radius-lg);
+  background:var(--surface);
+  box-shadow:0 24px 60px rgba(0,0,0,.32);
+  text-align:left;
+  animation:policy-pop .18s var(--ease) both;
+}
+@keyframes policy-pop{
+  from{opacity:0;transform:translate(-50%,-48%) scale(.98);}
+  to{opacity:1;transform:translate(-50%,-50%) scale(1);}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-policy .policy-pop{animation:none;}
+}
+.policy-title{
+  margin:0 0 10px;
+  font-size:clamp(15px,4vw,18px);
+  font-weight:700;
+  color:var(--ink);
+  text-align:center;
+}
+.policy-close{
+  position:absolute;
+  top:8px;right:10px;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  border:none;
+  background:none;
+  font-size:22px;
+  line-height:1;
+  color:var(--text-sub);
+  cursor:pointer;
+  border-radius:50%;
+}
+.policy-close:hover{background:var(--bg-gray);color:var(--ink);}
+/* 以前からある「下に開く」ときの動き（transform:none で終わる）が
+   中央寄せの transform を打ち消してしまうので、板のほうを優先させる */
+.hero-policy[open] > .policy-pop{
+  animation:policy-pop .18s var(--ease) both;
+  width:min(640px,calc(100vw - 28px));
+}
+.hero-policy .policy-pop .policy-lead{margin-top:0;text-align:center;}
+body.is-policy-open{overflow:hidden;}   /* 背面はスクロールさせない */
+
+/* JSが動かない環境では、これまでどおり下に開く（重ねない） */
+.no-js .hero-policy .policy-pop{
+  position:static;
+  transform:none;
+  max-height:none;
+  width:100%;
+  box-shadow:none;
+  padding:0;
+  animation:none;
+}
+.no-js .hero-policy[open]::before{display:none;}
+.no-js .policy-close{display:none;}
