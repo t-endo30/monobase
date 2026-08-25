@@ -2907,11 +2907,13 @@ body[data-cat="ranking"] .side-rank{display:none;}
   margin-bottom:12px;
 }
 @media (max-width:599px){
+  /* 1行に収める大きさはJSが実測して決める。
+     ここでは、JSが動かない環境のための見え方だけ決めておく。 */
   .hero-tile h1.fit-line,
   .hero h1.fit-line{
-    font-size:clamp(17px,4.7vw,21px);
+    font-size:clamp(14px,3.9vw,17px);
     line-height:1.5;
-    text-wrap:balance;      /* 2行に分かれるとき、行の長さをそろえる */
+    text-wrap:balance;
   }
 }
 
@@ -5115,5 +5117,36 @@ body{
     padding:6px 14px;
     font-size:13px;
     z-index:2;
+  }
+}
+
+/* ============================================================
+   PCの検索タイル：枠に対して中身が大きかったので少し小さくし、
+   上下の余白を等しくして縦の中央に置く。
+   ============================================================ */
+@media (min-width:900px){
+  .side-search,
+  .hero-tile .search-tile{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:12px 14px;
+  }
+  .side-search .searchbox,
+  .hero-tile .search-tile .searchbox{
+    align-items:center;
+    margin:0;
+  }
+  .side-search .searchbox input[type="search"],
+  .hero-tile .search-tile .searchbox input[type="search"]{
+    min-height:42px;
+    padding:0 14px;
+    font-size:13px;
+  }
+  .side-search .searchbox button,
+  .hero-tile .search-tile .searchbox button{
+    min-height:42px;
+    padding:0 16px;
+    font-size:13.5px;
   }
 }

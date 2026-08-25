@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=c9f7db4c">
+<link rel="stylesheet" href="./assets/admin.css?v=bbc6ac6c">
 </head>
 <body>
 
@@ -694,6 +694,14 @@
       <div class="check"><input type="checkbox" id="s-sticky"><label for="s-sticky">スマホ下部に追従するアフィリエイトボタンを表示する</label></div>
       <div class="check"><input type="checkbox" id="s-search"><label for="s-search">サイト内検索を有効にする</label></div>
 
+      <h2 style="margin-top:26px;">トップの見出し</h2>
+      <p class="hint">トップページのいちばん上に出る一文です。<b>短いほど大きく表示されます</b>（画面幅に収まる大きさへ自動で調整されます）。</p>
+      <label for="s-heroTitle">見出しの文</label>
+      <input type="text" id="s-heroTitle" placeholder="レビューを読み込んで、不満点までまとめる。" maxlength="40">
+      <label for="s-heroAccent">マーカーを引く語<span class="opt">上の文に含まれる語</span></label>
+      <input type="text" id="s-heroAccent" placeholder="不満点まで" maxlength="20">
+      <div class="note">「マーカーを引く語」に入れた部分だけ、黄色い下線を引いた見た目になります。見出しの文に含まれていない語を入れると、マーカーは付きません。空欄でも構いません。</div>
+
       <h2 style="margin-top:26px;">広告（Google AdSense）</h2>
       <p class="hint">Googleが配るコードは書き換えません。ここで決めるのは<b>出す・出さない</b>と<b>置き場所</b>だけです。</p>
       <div class="check"><input type="checkbox" id="s-adsOn"><label for="s-adsOn">広告を表示する</label></div>
@@ -943,6 +951,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=c9f7db4c"></script>
+<script src="./assets/admin.js?v=bbc6ac6c"></script>
 </body>
 </html>

@@ -1485,10 +1485,18 @@ def build_index():
     band = ""
     # 見出しバナー。「このサイトの読み方」は畳んでおき、押すと開く。
     # 常に出しておくと縦を取りすぎるが、隠しておくと信頼の材料が伝わらない。
+    # 見出しの文言は content/site.json（管理画面のサイト設定）で決める。
+    # accent に入れた語だけ、マーカーを引いた見た目にする。
+    ht = (SITE.get("hero") or {})
+    h1_text = ht.get("title") or "レビューを読み込んで、不満点までまとめる。"
+    h1_acc = (ht.get("accent") or "").strip()
+    h1_html = e(h1_text)
+    if h1_acc and h1_acc in h1_text:
+        h1_html = e(h1_text).replace(
+            e(h1_acc), f'<span class="accent">{e(h1_acc)}</span>', 1)
     hero_tile = (
         '      <section class="hero-tile">\n'
-        '        <h1 class="fit-line">レビューを読み込んで、'
-        '<span class="accent">不満点まで</span>まとめる。</h1>\n'
+        f'        <h1 class="fit-line">{h1_html}</h1>\n'
         f'        <p class="hero-count" data-cats=\'{cat_names}\' '
         f'data-n-cat="{n_cat}" data-n-pub="{n_pub}"></p>\n'
         + policy_details(p) +

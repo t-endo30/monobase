@@ -783,7 +783,10 @@
   var el = document.querySelector('.fit-line');
   if (!el) return;
 
-  var MAX = 24, MIN = 12;      /* px。上限は控えめにして、枠を大きくしすぎない */
+  /* px。上限は控えめにして枠を大きくしすぎない。
+     下限は、スマホの幅でもこの見出し（20字前後）が1行に収まる大きさ。
+     ここを下回るときだけ折り返す（文字が切れることはない）。 */
+  var MAX = 24, MIN = 11;
   var box = el.parentElement;
   if (!box) return;
 
@@ -795,16 +798,6 @@
 
   function fit() {
     if (!el.clientWidth) return;           /* まだ表示されていないときは測らない */
-
-    /* 幅の狭い画面では1行に押し込まない。
-       この見出しは21文字あり、375pxの画面に1行で収めると12px台まで
-       小さくする必要がある。読めない大きさの1行より、2行のほうがよい。
-       CSSの指定にまかせるため、JSが付けた指定を消して戻る。 */
-    if (el.clientWidth < 560) {
-      el.style.whiteSpace = '';
-      el.style.fontSize = '';
-      return;
-    }
 
     el.style.whiteSpace = 'nowrap';
     el.style.fontSize = MAX + 'px';
@@ -818,7 +811,12 @@
       size -= 0.5;
       el.style.fontSize = size + 'px';
     }
-    if (overflows()) el.style.whiteSpace = '';   /* 下限でも入らなければ折り返す */
+    if (overflows()) {
+      /* 下限まで縮めても入らないときは、小さいまま折り返さない。
+         読める大きさ（CSS側の指定）に戻したうえで折り返す。 */
+      el.style.whiteSpace = '';
+      el.style.fontSize = '';
+    }
   }
 
   /* 枠の幅が決まったタイミングで測る。読み込み直後やフォント適用前だと

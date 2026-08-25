@@ -1193,6 +1193,9 @@
     $('s-sticky').checked = f.sticky_cta !== false;
     $('s-search').checked = f.search !== false;
     $('s-featureTh').value = String(f.feature_threshold || 5);
+    var hr = site.hero || {};
+    $('s-heroTitle').value = hr.title || '';
+    $('s-heroAccent').value = hr.accent || '';
     var ad = site.ads || {};
     $('s-adsOn').checked = !!ad.enabled;
     $('s-adsClient').value = ad.client || '';
@@ -1249,6 +1252,11 @@
     site.features.sticky_cta = $('s-sticky').checked;
     site.features.search = $('s-search').checked;
     site.features.feature_threshold = parseInt($('s-featureTh').value, 10) || 5;
+    /* トップの見出し。accent は title に含まれている語だけ効く。 */
+    site.hero = site.hero || {};
+    site.hero.title = $('s-heroTitle').value.trim();
+    site.hero.accent = $('s-heroAccent').value.trim();
+
     /* 広告の設定。コードそのものは触らず、出す・出さないと置き場所だけを持つ。 */
     site.ads = site.ads || {};
     site.ads.enabled = $('s-adsOn').checked;
