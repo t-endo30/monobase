@@ -2487,7 +2487,12 @@
      ブラウザから直接呼ぶには anthropic-dangerous-direct-browser-access が要る。
      この画面は Cloudflare Access の内側で、鍵もこのブラウザにしか無いため、
      中継を挟まず直接叩いている。 */
-  function clText(key, model, text) {
+  /* 出力の上限。日本語は1文字あたり1トークン前後なので、
+     8,000字の記事とJSONの記号を入れても16,000で足りる。
+     モデルごとの上限を超えると、その時点で断られてしまう。 */
+  var CL_MAX_TOKENS = 16000;
+
+  function clText(key, model, text, maxTokens) {
     return fetch(CL_API, {
       method: 'POST',
       headers: {
@@ -2498,7 +2503,7 @@
       },
       body: JSON.stringify({
         model: model,
-        max_tokens: 32000,
+        max_tokens: maxTokens || CL_MAX_TOKENS,
         temperature: 1,
         system: 'あなたは日本語の商品レビュー記事を書くライターです。'
               + '指示された形のJSONだけを返し、前置きも囲みも付けません。',
@@ -2506,22 +2511,46 @@
       })
     }).then(function (r) {
       return r.json().then(function (j) {
-        if (!r.ok) throw new Error((j.error && j.error.message) || ('HTTP ' + r.status));
-        return j;
+        if (r.ok) return j;
+        var why = (j.error && j.error.message) || ('HTTP ' + r.status);
+        /* 上限がモデルの許容を超えていた場合だけ、半分にして1度やり直す。
+           モデルごとの上限をこちらで持つと、増えるたびに古くなる。 */
+        if (/max_tokens/i.test(why) && (maxTokens || CL_MAX_TOKENS) > 4000) {
+          log('  上限を下げて再試行します（' + why + '）', 'err');
+          return clText(key, model, text,
+                        Math.floor((maxTokens || CL_MAX_TOKENS) / 2))
+            .then(function (parsed) { return { __parsed: parsed }; });
+        }
+        throw new Error(why);
       });
     }).then(function (j) {
+      if (j.__parsed) return j.__parsed;      /* 再試行ぶんは読み取り済み */
       var out = (j.content || []).map(function (c) { return c.text || ''; }).join('');
       if (!out) throw new Error('応答が空でした');
-      out = out.replace(/^\s*```(?:json)?\s*/, '').replace(/\s*```\s*$/, '');
-      /* まれに前後に説明を付けてくるので、最初の { から最後の } まで取る */
-      var i = out.indexOf('{'), k = out.lastIndexOf('}');
-      if (i > 0 || k < out.length - 1) out = out.slice(i, k + 1);
-      try {
-        return JSON.parse(out);
-      } catch (e) {
-        throw new Error('返ってきた内容がJSONとして読めませんでした');
+      /* 上限に当たって途中で切れた場合。JSONとして読めないのは当然なので、
+         「読めません」ではなく本当の理由を出す。 */
+      if (j.stop_reason === 'max_tokens') {
+        throw new Error('本文が長すぎて途中で切れました（' + out.length.toLocaleString()
+          + '字で打ち切り）。もう一度試すか、モデルを変えてください');
       }
+      return parseGenJson(out);
     });
+  }
+
+  /* 生成結果をJSONとして読む。囲みや前置きが付くことがあるので取り除く。
+     読めなかったときは、返ってきた中身の頭を記録に残す。
+     何が返ってきたか分からないままだと、直しようがない。 */
+  function parseGenJson(out) {
+    out = String(out).replace(/^\s*```(?:json)?\s*/, '').replace(/\s*```\s*$/, '');
+    var i = out.indexOf('{'), k = out.lastIndexOf('}');
+    if (i >= 0 && k > i) out = out.slice(i, k + 1);
+    try {
+      return JSON.parse(out);
+    } catch (e) {
+      log('  返ってきた内容の先頭：' + out.slice(0, 300), 'err');
+      throw new Error('返ってきた内容がJSONとして読めませんでした（'
+        + out.length.toLocaleString() + '字）。「操作の記録」に中身の先頭を出しています');
+    }
   }
 
   function gmText(key, model, text) {
@@ -2542,13 +2571,12 @@
       var parts = (((j.candidates || [])[0] || {}).content || {}).parts || [];
       var out = parts.map(function (p) { return p.text || ''; }).join('');
       if (!out) throw new Error('応答が空でした。モデルを変えて試してください');
-      /* responseMimeType を指定してもまれに ``` で囲んでくる */
-      out = out.replace(/^\s*```(?:json)?\s*/, '').replace(/\s*```\s*$/, '');
-      try {
-        return JSON.parse(out);
-      } catch (e) {
-        throw new Error('返ってきた内容がJSONとして読めませんでした');
+      var fin = (((j.candidates || [])[0] || {}).finishReason) || '';
+      if (fin === 'MAX_TOKENS') {
+        throw new Error('本文が長すぎて途中で切れました（' + out.length.toLocaleString()
+          + '字で打ち切り）。もう一度試すか、モデルを変えてください');
       }
+      return parseGenJson(out);
     });
   }
 
@@ -2574,9 +2602,14 @@
       if (blob.indexOf(w) >= 0) warns.push('禁止表現「' + w + '」');
     });
     /* <strong> と <em> 以外のタグは、そのまま文字として出てしまう */
+    /* 使ってよいのは <strong> <em> と、スペック表の丸印に使う
+       <span class="mark-o"> <span class="mark-x"> だけ。
+       丸印は既存記事の表にも入っているので、除かないと毎回警告が出る。 */
     var tags = blob.match(/<\/?([a-z]+)[^>]*>/gi) || [];
     tags.forEach(function (t) {
-      if (!/^<\/?(strong|em)\b/i.test(t)) warns.push('使えないタグ ' + t);
+      if (/^<\/?(strong|em)\b/i.test(t)) return;
+      if (/^<span class=\\?"mark-[ox]\\?">$/i.test(t) || /^<\/span>$/i.test(t)) return;
+      warns.push('使えないタグ ' + t);
     });
     var n = bodyChars(a);
     if (n < MIN_CHARS) warns.push('本文が ' + n.toLocaleString() + ' 字（下限 ' + MIN_CHARS.toLocaleString() + '）');
@@ -2673,6 +2706,8 @@
     var msg = '本文を作りました：問題なし ' + ok + '件';
     if (warned.length) msg += ' / 要確認 ' + warned.length + '件';
     if (ng.length) msg += ' / 失敗 ' + ng.length + '件';
+    /* 件数だけ出しても直せない。最初の理由をそのまま添える。 */
+    if (ng.length) msg += '｜' + ng[0].error;
     toast(msg, ng.length ? 'err' : 'ok');
     results.forEach(function (r) {
       var name = r.a.list_title || r.a.title || r.a.slug;
