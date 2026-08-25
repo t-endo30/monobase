@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=8ac9a188">
+<link rel="stylesheet" href="./assets/admin.css?v=e0ef03a6">
 </head>
 <body>
 
@@ -29,6 +29,7 @@
     <button class="tab is-active" data-panel="p-articles">記事</button>
     <button class="tab" data-panel="p-preview">プレビュー</button>
     <button class="tab" data-panel="p-images">画像</button>
+    <button class="tab" data-panel="p-find">商品を探す</button>
     <button class="tab" data-panel="p-settings">サイト設定</button>
     <button class="tab" data-panel="p-analytics">解析・SEO</button>
     <button class="tab" data-panel="p-connect">接続</button>
@@ -497,6 +498,70 @@
   </section>
 
   <!-- ============================ サイト設定 ============================ -->
+  <!-- ============================ 商品を探す ============================ -->
+  <section class="panel" id="p-find">
+    <div class="card">
+      <h2>記事にする商品を探す</h2>
+      <p class="hint">
+        楽天市場とYahoo!ショッピングから、<b>レビューが十分に集まっている商品</b>を集めて並べます。
+        すでに記事にした商品（JANコード・ASINが一致するもの）は除きます。
+        <b>ここは候補を出すところまでです。</b>どれを書くかは一覧から選んでください。
+      </p>
+
+      <div class="row c2">
+        <div>
+          <label for="fd-cat">カテゴリー</label>
+          <select id="fd-cat"></select>
+        </div>
+        <div>
+          <label for="fd-count">集める件数<span class="opt">1カテゴリーあたり</span></label>
+          <select id="fd-count">
+            <option value="20">20件</option>
+            <option value="30" selected>30件</option>
+            <option value="50">50件</option>
+          </select>
+        </div>
+      </div>
+      <div class="row c2">
+        <div>
+          <label for="fd-minrev">レビュー件数の下限</label>
+          <input type="number" id="fd-minrev" value="30" min="0" step="10">
+        </div>
+        <div>
+          <label for="fd-price">価格帯<span class="opt">円</span></label>
+          <div class="row c2">
+            <input type="number" id="fd-pmin" value="1500" min="0" step="500">
+            <input type="number" id="fd-pmax" value="120000" min="0" step="1000">
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnFind">商品を探す</button>
+        <span class="pill" id="fd-state">未実行</span>
+      </div>
+      <div class="note" id="fd-nokey" hidden>
+        <b>APIのIDが未登録です。</b>「接続」タブの<b>商品検索API</b>で、楽天のアプリIDとYahoo!のClient IDを登録してください。
+        どちらか一方だけでも動きます。
+      </div>
+    </div>
+
+    <div class="card" id="fd-resultCard" hidden>
+      <h2>見つかった候補<span class="pill" id="fd-count-badge">0件</span></h2>
+      <p class="hint">記事にするものにチェックを入れて、下のボタンを押してください。<b>下書きとして作成され、公開はされません。</b>本文は空のまま作られるので、記事作成プロンプトで書いた内容を貼り付けて仕上げます。</p>
+      <div id="fd-list" class="find-list"></div>
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnMakeDrafts">選んだ商品で下書きを作る</button>
+        <button class="btn" id="btnFindAll">すべて選択</button>
+        <button class="btn" id="btnFindNone">選択を解除</button>
+      </div>
+      <div class="note">
+        下書きには <b>商品名・JANコード・楽天／Yahoo!のURL・カテゴリー</b>が入ります。
+        Amazonは、アソシエイト審査の通過後にASINを追加してください。
+      </div>
+    </div>
+  </section>
+
   <section class="panel" id="p-settings">
     <div class="card" id="maintCard">
       <h2>サイトの公開状態</h2>
@@ -675,6 +740,34 @@
     </div>
 
     <div class="card">
+      <h2>商品検索API</h2>
+      <p class="hint">「商品を探す」で使います。<b>入力内容はこのブラウザ内（localStorage）にのみ保存され、リポジトリには入りません。</b>どちらも無料で取得できます。片方だけの登録でも動きます。</p>
+      <div class="row c2">
+        <div>
+          <label for="k-rakuten">楽天ウェブサービス アプリID<span class="opt">applicationId</span></label>
+          <input type="password" id="k-rakuten" placeholder="1234567890123456789">
+        </div>
+        <div>
+          <label for="k-yahoo">Yahoo!デベロッパー Client ID<span class="opt">appid</span></label>
+          <input type="password" id="k-yahoo" placeholder="dj00aiZpPS...">
+        </div>
+      </div>
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnSaveKeys">保存する</button>
+        <button class="btn" id="btnTestKeys">つながるか試す</button>
+        <span class="pill" id="k-state">未登録</span>
+      </div>
+      <div class="note">
+        取得先：<br>
+        楽天 → <b>楽天ウェブサービス</b> <code>webservice.rakuten.co.jp</code> でアプリを新規登録するとアプリIDが出ます。<br>
+        Yahoo! → <b>Yahoo!デベロッパーネットワーク</b> <code>e.developer.yahoo.co.jp/register</code> でアプリケーションIDを発行します。<br><br>
+        <b>Yahoo!のAPIはブラウザから直接呼べない</b>ため、このサイトの <code>/api/yahoo</code> を経由します。
+        この入口は Cloudflare Access を通ったリクエストしか受け付けません。
+        Zero Trust のアプリケーションで、見張る対象のパスに <code>/api/</code> を追加しておいてください。
+      </div>
+    </div>
+
+    <div class="card">
       <h2>GitHub との接続</h2>
       <p class="hint">この画面から直接コミットするための設定です。入力内容はこのブラウザ内（localStorage）にのみ保存され、外部に送信されるのは GitHub API だけです。</p>
       <div class="row c3">
@@ -726,6 +819,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=8ac9a188"></script>
+<script src="./assets/admin.js?v=e0ef03a6"></script>
 </body>
 </html>

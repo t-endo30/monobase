@@ -1419,7 +1419,14 @@
     t.addEventListener('click', function () { showPanel(t.getAttribute('data-panel')); });
   });
 
-  function renderAll() { renderList(); renderSettings(); }
+  var findWired = false;
+
+  function renderAll() {
+    renderList();
+    renderSettings();
+    /* カテゴリーの一覧は site.json が読めてからでないと作れない */
+    if (!findWired && site && site.categories) { wireFind(); findWired = true; }
+  }
 
   /* ---------------------------------------------------- 離脱ガード */
   window.addEventListener('beforeunload', function (e) {
@@ -1748,6 +1755,349 @@
     var top = $(pair[0]), bottom = $(pair[1]);
     if (top && bottom) top.addEventListener('click', function () { bottom.click(); });
   });
+
+
+  /* ============================================================
+     商品を探す
+     ------------------------------------------------------------
+     楽天市場とYahoo!ショッピングから、レビューが十分に集まっている
+     商品を集めて並べる。「何を書くか」の下ごしらえまでを担当し、
+     どれを書くかは人が選ぶ。APIには「読者の困りごとに答える商品か」
+     が分からないため、そこは自動化しない。
+
+     楽天のAPIはブラウザから直接呼べる（CORSを許している）。
+     Yahoo!のAPIは許していないので、このサイトの /api/yahoo を通す。
+     選別の考え方は tools/pick_products.py と揃えてある。
+     ============================================================ */
+  var FIND_KEYS = 'monobase.shopkeys';
+  var RAKUTEN_API = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601';
+  var YAHOO_PROXY = '/api/yahoo';
+
+  /* サイトのカテゴリーと、楽天のジャンルID／Yahoo!の検索語の対応。
+     tools/pick_products.py の CATEGORY_MAP と同じ内容にしておく。 */
+  var CATEGORY_MAP = {
+    pc:         { genre: 100026, word: 'PC周辺機器' },
+    appliance:  { genre: 562637, word: '生活家電' },
+    furniture:  { genre: 100804, word: 'インテリア 収納' },
+    daily:      { genre: 215783, word: '日用品' },
+    av:         { genre: 211742, word: 'オーディオ' },
+    camera:     { genre: 204040, word: 'カメラ' },
+    smartphone: { genre: 565004, word: 'スマートフォン アクセサリ' },
+    kitchen:    { genre: 100939, word: 'キッチン家電' },
+    health:     { genre: 100938, word: '健康計測' },
+    beauty:     { genre: 100939, word: '美容家電' },
+    pet:        { genre: 101213, word: 'ペット用品' }
+  };
+
+  var candidates = [];
+
+  /* HTMLに差し込む前の逃がし。商品名は外部APIから来るので必ず通す。 */
+  function esc(v) {
+    return String(v == null ? '' : v)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function shopKeys() {
+    try { return JSON.parse(localStorage.getItem(FIND_KEYS) || '{}'); }
+    catch (e) { return {}; }
+  }
+
+  function saveShopKeys(k) {
+    try { localStorage.setItem(FIND_KEYS, JSON.stringify(k)); } catch (e) {}
+  }
+
+  /* 検索用に商品名から飾りを落とす。【送料無料】【ポイント10倍】など。 */
+  function cleanName(s) {
+    return String(s || '')
+      .replace(/[【\[（(][^】\]）)]{0,20}(送料無料|ポイント|クーポン|セール|限定|正規品|あす楽)[^】\]）)]{0,20}[】\]）)]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  /* メーカー公式ストアらしいか。出品終了が起きにくく、保証も付く。 */
+  function isOfficial(e) {
+    return /公式|オフィシャル|official|direct|-shop|store\./i.test(
+      (e.shop_name || '') + ' ' + (e.url || ''));
+  }
+
+  /* 同じ商品の中から1つ選ぶ。公式ストアを優先し、次に送料込みの安さ。
+     価格だけで選ばないのは、最安店舗は入れ替わりが激しく、
+     数週間で出品が消えてリンク切れになりやすいため。 */
+  function pickCheapest(list) {
+    var ok = (list || []).filter(function (e) { return e.price > 0; });
+    if (!ok.length) return null;
+    var official = ok.filter(isOfficial);
+    var pool = official.length ? official : ok;
+    pool.sort(function (a, b) {
+      if (a.postage_included !== b.postage_included) return a.postage_included ? -1 : 1;
+      return a.price - b.price;
+    });
+    return pool[0];
+  }
+
+  function rakutenSearch(appId, opts) {
+    var q = new URLSearchParams({
+      applicationId: appId, format: 'json',
+      hits: String(opts.hits || 30), sort: opts.sort || '-reviewCount',
+      imageFlag: '1', availability: '1'
+    });
+    if (opts.genre) q.set('genreId', String(opts.genre));
+    if (opts.jan || opts.keyword) q.set('keyword', opts.jan || opts.keyword);
+    return fetch(RAKUTEN_API + '?' + q.toString())
+      .then(function (r) {
+        if (!r.ok) throw new Error('楽天API HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (d) {
+        return (d.Items || []).map(function (w) {
+          var it = w.Item || w;
+          return {
+            shop: 'rakuten',
+            name: it.itemName || '',
+            url: it.itemUrl || '',
+            price: Number(it.itemPrice || 0),
+            /* postageFlag は 0=送料込み 1=送料別 */
+            postage_included: Number(it.postageFlag || 0) === 0,
+            reviews: Number(it.reviewCount || 0),
+            rating: Number(it.reviewAverage || 0),
+            shop_name: it.shopName || '',
+            image: ((it.mediumImageUrls || [])[0] || {}).imageUrl || ''
+          };
+        });
+      });
+  }
+
+  function yahooSearch(appId, opts) {
+    var q = new URLSearchParams({
+      appid: appId, results: String(opts.hits || 30),
+      sort: opts.sort || '-review_count', in_stock: 'true'
+    });
+    if (opts.jan) q.set('jan_code', opts.jan);
+    else if (opts.query) q.set('query', opts.query);
+    return fetch(YAHOO_PROXY + '?' + q.toString())
+      .then(function (r) {
+        return r.json().then(function (j) {
+          if (!r.ok) throw new Error(j.error || ('Yahoo!API HTTP ' + r.status));
+          return j;
+        });
+      })
+      .then(function (d) {
+        return (d.hits || []).map(function (it) {
+          var rv = it.review || {}, sh = it.shipping || {};
+          return {
+            shop: 'yahoo',
+            name: it.name || '',
+            url: it.url || '',
+            price: Number(it.price || 0),
+            /* 1=送料無料 2=条件付き送料無料 */
+            postage_included: ['1', '2'].indexOf(String(sh.code || '')) >= 0,
+            reviews: Number(rv.count || 0),
+            rating: Number(rv.rate || 0),
+            shop_name: (it.seller || {}).name || '',
+            jan: (it.janCode || '').trim(),
+            image: (it.image || {}).medium || ''
+          };
+        });
+      });
+  }
+
+  /* すでに記事にした商品。JANとASIN、それに商品名の頭で見分ける。 */
+  function knownProducts() {
+    var jans = {}, names = {};
+    articles.forEach(function (a) {
+      if (a.jan) jans[String(a.jan)] = true;
+      if (a.title) names[cleanName(a.title).slice(0, 20)] = true;
+    });
+    return { jans: jans, names: names };
+  }
+
+  function findProducts() {
+    var keys = shopKeys();
+    if (!keys.rakuten && !keys.yahoo) {
+      $('fd-nokey').hidden = false;
+      toast('先に「接続」タブでAPIのIDを登録してください', 'err');
+      return;
+    }
+    var cat = $('fd-cat').value;
+    var conf = CATEGORY_MAP[cat];
+    if (!conf) { toast('このカテゴリーの対応表がありません', 'err'); return; }
+
+    var hits = Number($('fd-count').value || 30);
+    var minRev = Number($('fd-minrev').value || 0);
+    var pmin = Number($('fd-pmin').value || 0);
+    var pmax = Number($('fd-pmax').value || 999999);
+    var known = knownProducts();
+
+    $('fd-state').textContent = '検索中…';
+    $('btnFind').disabled = true;
+
+    var first = keys.rakuten
+      ? rakutenSearch(keys.rakuten, { genre: conf.genre, hits: hits })
+      : yahooSearch(keys.yahoo, { query: conf.word, hits: hits });
+
+    first.then(function (list) {
+      var picked = [];
+      list.forEach(function (e) {
+        if (e.reviews < minRev) return;
+        if (e.price < pmin || e.price > pmax) return;
+        var name = cleanName(e.name);
+        if (known.names[name.slice(0, 20)]) return;
+        var jan = (e.jan || '').trim();
+        if (jan && known.jans[jan]) return;
+        known.names[name.slice(0, 20)] = true;
+        picked.push({
+          name: name, jan: jan, category: cat,
+          reviews: e.reviews, rating: e.rating, price: e.price,
+          image: e.image,
+          rakuten_url: e.shop === 'rakuten' ? e.url : '',
+          yahoo_url: e.shop === 'yahoo' ? e.url : '',
+          shop_name: e.shop_name,
+          postage_included: e.postage_included
+        });
+      });
+      picked.sort(function (a, b) { return b.reviews - a.reviews; });
+      candidates = picked;
+      renderCandidates();
+      $('fd-state').textContent = picked.length + '件';
+      if (!picked.length) {
+        toast('条件に合う商品が見つかりませんでした。下限をゆるめてみてください', 'err');
+      }
+    }).catch(function (err) {
+      $('fd-state').textContent = '失敗';
+      toast(err.message, 'err');
+    }).then(function () {
+      $('btnFind').disabled = false;
+    });
+  }
+
+  function renderCandidates() {
+    var box = $('fd-list');
+    $('fd-resultCard').hidden = !candidates.length;
+    $('fd-count-badge').textContent = candidates.length + '件';
+    box.innerHTML = candidates.map(function (c, i) {
+      var shops = [];
+      if (c.rakuten_url) shops.push('楽天');
+      if (c.yahoo_url) shops.push('Yahoo!');
+      var img = c.image
+        ? '<img src="' + esc(c.image) + '" alt="" loading="lazy">'
+        : '<span class="find-noimg">画像なし</span>';
+      return '<label class="find-item">' +
+        '<input type="checkbox" data-i="' + i + '">' +
+        '<span class="find-thumb">' + img + '</span>' +
+        '<span class="find-body">' +
+          '<b>' + esc(c.name.slice(0, 70)) + '</b>' +
+          '<span class="find-meta">￥' + c.price.toLocaleString() +
+            '（' + (c.postage_included ? '送料込み' : '送料別') + '）' +
+            ' ・ レビュー' + c.reviews.toLocaleString() + '件' +
+            ' ★' + c.rating.toFixed(1) +
+            ' ・ ' + (shops.join('／') || '—') +
+            (c.jan ? ' ・ JAN ' + esc(c.jan) : ' ・ JANなし') +
+          '</span>' +
+          '<span class="find-shop">' + esc(c.shop_name) + '</span>' +
+        '</span>' +
+      '</label>';
+    }).join('');
+  }
+
+  /* 選んだ候補から下書きを作る。本文は空のまま。
+     記事作成プロンプトで書いた内容を、あとで貼り付けて仕上げる。 */
+  function makeDrafts() {
+    var picks = [].slice.call($('fd-list').querySelectorAll('input:checked'))
+      .map(function (el) { return candidates[Number(el.dataset.i)]; });
+    if (!picks.length) { toast('商品を選んでください', 'err'); return; }
+
+    picks.forEach(function (c) {
+      var a = blank();
+      a.category = c.category;
+      a.title = c.name;
+      a.list_title = c.name.slice(0, 30);
+      a.slug = slugify(c.name) || ('item-' + Date.now());
+      if (c.jan) a.jan = c.jan;
+      if (c.rakuten_url) a.rakuten_url = c.rakuten_url;
+      if (c.yahoo_url) a.yahoo_url = c.yahoo_url;
+      a.published = false;
+      articles.unshift(a);
+    });
+
+    renderList();
+    showPanel('p-articles');
+    toast(picks.length + '件の下書きを作りました。内容を書いて公開してください');
+  }
+
+  function wireFind() {
+    var sel = $('fd-cat');
+    if (!sel) return;
+    /* サイトのカテゴリーのうち、対応表があるものだけを並べる */
+    sel.innerHTML = (site.categories || []).filter(function (c) {
+      return CATEGORY_MAP[c.key];
+    }).map(function (c) {
+      return '<option value="' + c.key + '">' + c.label + '</option>';
+    }).join('');
+
+    var keys = shopKeys();
+    if ($('k-rakuten')) $('k-rakuten').value = keys.rakuten || '';
+    if ($('k-yahoo')) $('k-yahoo').value = keys.yahoo || '';
+    if ($('k-state')) {
+      $('k-state').textContent =
+        (keys.rakuten || keys.yahoo) ? '登録済み' : '未登録';
+    }
+    $('fd-nokey').hidden = !!(keys.rakuten || keys.yahoo);
+
+    $('btnFind').addEventListener('click', findProducts);
+    $('btnMakeDrafts').addEventListener('click', makeDrafts);
+    $('btnFindAll').addEventListener('click', function () {
+      $('fd-list').querySelectorAll('input').forEach(function (el) { el.checked = true; });
+    });
+    $('btnFindNone').addEventListener('click', function () {
+      $('fd-list').querySelectorAll('input').forEach(function (el) { el.checked = false; });
+    });
+
+    if ($('btnSaveKeys')) {
+      $('btnSaveKeys').addEventListener('click', function () {
+        saveShopKeys({
+          rakuten: $('k-rakuten').value.trim(),
+          yahoo: $('k-yahoo').value.trim()
+        });
+        wireKeyState();
+        toast('APIのIDを保存しました');
+      });
+    }
+    if ($('btnTestKeys')) {
+      $('btnTestKeys').addEventListener('click', testKeys);
+    }
+  }
+
+  function wireKeyState() {
+    var k = shopKeys();
+    if ($('k-state')) $('k-state').textContent = (k.rakuten || k.yahoo) ? '登録済み' : '未登録';
+    if ($('fd-nokey')) $('fd-nokey').hidden = !!(k.rakuten || k.yahoo);
+  }
+
+  function testKeys() {
+    var k = {
+      rakuten: $('k-rakuten').value.trim(),
+      yahoo: $('k-yahoo').value.trim()
+    };
+    var msgs = [];
+    var jobs = [];
+    if (k.rakuten) {
+      jobs.push(rakutenSearch(k.rakuten, { keyword: 'マウス', hits: 1 })
+        .then(function (r) { msgs.push('楽天：OK（' + r.length + '件）'); })
+        .catch(function (e) { msgs.push('楽天：' + e.message); }));
+    }
+    if (k.yahoo) {
+      jobs.push(yahooSearch(k.yahoo, { query: 'マウス', hits: 1 })
+        .then(function (r) { msgs.push('Yahoo!：OK（' + r.length + '件）'); })
+        .catch(function (e) { msgs.push('Yahoo!：' + e.message); }));
+    }
+    if (!jobs.length) { toast('どちらかのIDを入力してください', 'err'); return; }
+    $('k-state').textContent = '確認中…';
+    Promise.all(jobs).then(function () {
+      $('k-state').textContent = msgs.join(' / ');
+      toast(msgs.join(' / '), /OK/.test(msgs.join('')) ? 'ok' : 'err');
+    });
+  }
 
   function blobToB64(blob) {
     return new Promise(function (resolve, reject) {
