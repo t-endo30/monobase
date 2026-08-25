@@ -190,10 +190,11 @@ window.mbLockScroll = function (on, cls) {
   var list = document.querySelector('.cat-nav-list');
   if (!list) return;
 
-  /* ---- よく見るカテゴリーを ALL の右隣へ寄せる ----
-     直近に見たものを動かすと、2つのカテゴリーを行き来しただけで
-     並びが入れ替わり続けてしまうため、閲覧回数の多い順にする。
-     並び替えるのは先頭の1つだけで、残りは元の順序のままにしておく。 */
+  /* ---- よく見るカテゴリーの回数だけ数えておく ----
+     以前はここで「よく見るカテゴリーをALLの右隣へ移動」していたが、
+     並びが人によって変わり、行き来するたびに位置が動くので取りやめた。
+     カテゴリーの並びは、サイトで決めた順のまま固定する。
+     数えた回数は「本日のお勧めのモノ」の記事選びで使う。 */
   var COUNT_KEY = 'mb.catCounts';
   var bodyCat = document.body.getAttribute('data-cat') || '';
   var counts = {};
@@ -215,14 +216,6 @@ window.mbLockScroll = function (on, cls) {
   var order = (narrow && tabs && onTabPage)
     ? Array.prototype.slice.call(tabs.querySelectorAll('a'))
     : Array.prototype.slice.call(list.querySelectorAll('a'));
-
-  var top = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; })[0];
-  if (top && counts[top] >= 2) {
-    var li = list.querySelector('a[href*="category-' + top + '.html"]');
-    li = li && li.parentNode;
-    var first = list.querySelector('li');          /* ALL */
-    if (li && first && li !== first) first.insertAdjacentElement('afterend', li);
-  }
 
   if (!document.body.classList.contains('is-listing')) return;
 
@@ -1281,20 +1274,31 @@ window.mbLockScroll = function (on, cls) {
   var d = document.querySelector('details.hero-policy');
   if (!d) return;
   var pop = d.querySelector('.policy-pop');
+  if (!pop) return;
+
+  /* 板と覆いは body 直下へ移す。
+     ページ側にコンテナクエリ（container-type）が効いている要素があると、
+     position:fixed の基準が画面ではなくその要素になり、板が画面の外に
+     出てしまうため。移したあとは、クラスで見せ隠しする。 */
+  var veil = document.createElement('div');
+  veil.className = 'policy-veil';
+  document.body.appendChild(veil);
+  document.body.appendChild(pop);
 
   function close() { if (d.open) d.open = false; }
 
   d.addEventListener('toggle', function () {
+    pop.classList.toggle('is-shown', d.open);
+    veil.classList.toggle('is-shown', d.open);
     window.mbLockScroll(d.open, 'is-policy-open');
-    if (d.open && pop) pop.focus && pop.focus();
   });
 
-  /* 背面（覆い）を押したら閉じる。板の中を押したときは閉じない。 */
   document.addEventListener('click', function (ev) {
     if (!d.open) return;
-    if (ev.target.closest('.policy-close')) { close(); return; }
-    if (ev.target.closest('.policy-pop')) return;
-    if (ev.target.closest('details.hero-policy > summary')) return;
+    var t = ev.target;
+    if (t.closest && t.closest('.policy-close')) { close(); return; }
+    if (t.closest && t.closest('.policy-pop')) return;
+    if (t.closest && t.closest('details.hero-policy > summary')) return;
     close();
   });
 

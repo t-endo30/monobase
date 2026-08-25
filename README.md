@@ -18,6 +18,7 @@ assets/img/              画像（常に圧縮して置く）
 tools/optimize-images.sh 画像一括圧縮（macOS）
 tools/check_images.py    画像サイズ検査（CIで実行）
 tools/review_article.py  記事レビュー（禁止表現・ダークパターン）
+tools/check_layout.py    画面の崩れ検査（Chromeで実際に描画して確認）
 tools/maintain_articles.py 公開中の記事の見回り（リンク切れ・鮮度）
 tools/schedule_gate.py   自動作成の実行日と本数を決める
 docs/review-rules.md     レビューの判定基準
@@ -181,6 +182,26 @@ build.py が自動で書き出します（`ads.txt` はドメイン直下に必�
 - 管理画面の「画像」タブに投げ込めば、自動でリサイズ＋WebP変換されてからアップロードされます
 - 手元で処理する場合：`bash tools/optimize-images.sh 1200`
 - CI で1枚300KBを超える画像があるとビルドが失敗します（`tools/check_images.py`）
+
+## 画面の崩れを見張る
+
+CSSの直しは、直した場所と関係のないところを壊しがちです。
+`tools/check_layout.py` が Chrome を画面なしで動かし、いくつかの幅で
+実際に描画して、守りたい条件を確かめます。
+
+```bash
+python3 -u tools/check_layout.py
+```
+
+- 横にはみ出していないか（375 / 768 / 1024 / 1280 / 1478px）
+- PC（1000px以上）でカテゴリーの横並びが1行に収まっているか
+- カテゴリーの項目が右端で切れていないか
+- ヘッダーのメニューが1行に収まっているか
+- 「このサイトの読み方」を開いたとき、板が画面の中に出るか
+- 記事タイルの高さがそろっているか
+
+**CSSやJSを触ったら、push の前にこれを通してください。**
+Chrome が無い環境では、何もせずに成功として抜けます。
 
 ## ローカルプレビュー
 

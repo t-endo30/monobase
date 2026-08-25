@@ -4400,20 +4400,9 @@ body.is-article .layout > .container{
    横スクロールの端でアイコンだけが半分見えると、点のような
    ゴミに見える。端を薄く消して、続きがあることを示す。
    ============================================================ */
-@media (min-width:900px){
-  /* 横並びの内側だけを切り取る（.cat-nav を隠すとサブパネルまで消える）。
-     右端に白いぼかしを重ねて、途中で切れた項目を目立たなくする。 */
-  .cat-nav-list{
-    -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent 100%);
-    mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent 100%);
-    padding-right:44px;
-  }
-  /* 端まで送りきったときは、ぼかしを消す（隠すものが無いため） */
-  .cat-nav-list.is-end{
-    -webkit-mask-image:none;
-    mask-image:none;
-  }
-}
+/* PCでは横スクロールをやめて折り返す形にしたので、右端のぼかしは要らない。
+   ぼかしのために空けていた右余白（44px）が残っていると、そのぶん
+   横並びが1行に収まらず、最後の項目だけが2行目に落ちていた。 */
 
 /* ============================================================
    本文中のドット絵アイコン（絵文字の置き換え）
@@ -4862,10 +4851,24 @@ body{
   .card-grid{align-items:stretch;}
   .card:not(.is-lead) .card-body{justify-content:flex-start;}
   /* 横並びになって1行に入る文字が増えたので、記事名は3行まで見せる。
-     行数を固定してあるので、3行に満たない記事があっても高さはそろう。 */
+     高さは3行ぶんで固定する。「主題｜補足」形式のタイトルは中で
+     行の高さが変わるため、下限だけだと数pxずれてタイルの高さが揃わない。 */
+  /* サムネイルの高さは、写真そのものの縦横比に引きずられる
+     （縦長の写真だとタイルだけ背が高くなる）。写真は枠いっぱいに
+     敷いて切り取り、タイルの高さは本文側だけで決まるようにする。 */
+  .card:not(.is-lead) .card-thumb{position:relative;overflow:hidden;}
+  .card:not(.is-lead) .card-thumb img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
   .card:not(.is-lead) .card-title{
     -webkit-line-clamp:3;
-    min-height:calc(14px * 1.45 * 3);
+    height:calc(14px * 1.45 * 3);
+    min-height:0;
+    overflow:hidden;
   }
 }
 
@@ -5010,6 +5013,12 @@ body{
   }
   .cat-nav-list a{padding:0 8px;font-size:12.5px;}
   .cat-nav-list a .cat-icon{display:none;}
+}
+/* 1120px を切るとカテゴリーが1行に収まらないので、その手前だけ詰める。
+   （折り返す設定にしてあるので、収まらなければ2行になるだけで壊れない） */
+@media (min-width:900px) and (max-width:1119px){
+  .cat-nav-list{gap:2px;}
+  .cat-nav-list a{padding:0 6px;font-size:12px;}
 }
 }
 
@@ -5185,14 +5194,21 @@ body{
    元の位置へ戻る動きが要る。カテゴリーのメニューと同じく、
    ページの上に重ねて、外を押せば閉じる形にする。
    ============================================================ */
-.hero-policy[open]::before{
-  content:"";
+/* 覆いと板は body 直下へ移してから出す。
+   ページ側に container-type（コンテナクエリ）が効いている要素があると、
+   position:fixed の基準が画面ではなくその要素になり、板が画面の外に
+   飛んでしまうため。JSが動かない環境では details のまま下に開く。 */
+.policy-veil{
+  display:none;
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.45);
   z-index:119;
 }
-.hero-policy .policy-pop{
+.policy-veil.is-shown{display:block;}
+
+body > .policy-pop{
+  display:none;
   position:fixed;
   left:50%;
   top:50%;
@@ -5206,6 +5222,9 @@ body{
   background:var(--surface);
   box-shadow:0 24px 60px rgba(0,0,0,.32);
   text-align:left;
+}
+body > .policy-pop.is-shown{
+  display:block;
   animation:policy-pop .18s var(--ease) both;
 }
 @keyframes policy-pop{
@@ -5213,8 +5232,9 @@ body{
   to{opacity:1;transform:translate(-50%,-50%) scale(1);}
 }
 @media (prefers-reduced-motion:reduce){
-  .hero-policy .policy-pop{animation:none;}
+  body > .policy-pop.is-shown{animation:none;}
 }
+
 .policy-title{
   margin:0 0 10px;
   font-size:clamp(15px,4vw,18px);
@@ -5236,17 +5256,11 @@ body{
   border-radius:50%;
 }
 .policy-close:hover{background:var(--bg-gray);color:var(--ink);}
-/* 以前からある「下に開く」ときの動き（transform:none で終わる）が
-   中央寄せの transform を打ち消してしまうので、板のほうを優先させる */
-.hero-policy[open] > .policy-pop{
-  animation:policy-pop .18s var(--ease) both;
-  width:min(640px,calc(100vw - 28px));
-}
 .hero-policy .policy-pop .policy-lead{margin-top:0;text-align:center;}
 body.is-policy-open{overflow:hidden;}   /* 背面はスクロールさせない */
 
-/* JSが動かない環境では、これまでどおり下に開く（重ねない） */
-.no-js .hero-policy .policy-pop{
+/* JSが動かない環境では、details の中に残るので下に開く（重ねない） */
+details.hero-policy .policy-pop{
   position:static;
   transform:none;
   max-height:none;
@@ -5255,8 +5269,7 @@ body.is-policy-open{overflow:hidden;}   /* 背面はスクロールさせない 
   padding:0;
   animation:none;
 }
-.no-js .hero-policy[open]::before{display:none;}
-.no-js .policy-close{display:none;}
+details.hero-policy .policy-close{display:none;}
 
 /* ============================================================
    見出しを1文字ずつ出す演出
