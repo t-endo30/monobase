@@ -34,7 +34,12 @@ async function proxyYahoo(request, url) {
   // Access は /admin と /api/ を見張る設定にしておくこと。
   // この見出しが無いということは、認証を通っていないということ。
   if (!request.headers.get("Cf-Access-Jwt-Assertion")) {
-    return json({ error: "この入口は管理画面からのみ使えます" }, 403);
+    return json({
+      error:
+        "Cloudflare Access を通っていないため使えません。" +
+        "Zero Trust → Access → アプリケーション → モノベース管理画面 を開き、" +
+        "対象のパスに /api/ を追加してください（/admin だけでは、この入口は保護されません）。",
+    }, 403);
   }
 
   const q = new URLSearchParams();

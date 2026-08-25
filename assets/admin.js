@@ -2114,7 +2114,8 @@
     if (k.rakuten) {
       jobs.push(rakutenSearch(k.rakuten, { keyword: 'マウス', hits: 1 })
         .then(function (r) { msgs.push('楽天：OK（' + r.length + '件）'); })
-        .catch(function (e) { msgs.push('楽天：' + e.message); }));
+        /* rakutenSearch 側で「楽天：」を付けているので、ここでは足さない */
+        .catch(function (e) { msgs.push(e.message); }));
     }
     if (k.yahoo) {
       jobs.push(yahooSearch(k.yahoo, { query: 'マウス', hits: 1 })
