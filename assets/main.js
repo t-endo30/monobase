@@ -1328,7 +1328,9 @@
   var i = 0, prev = null;
   (function step() {
     if (i >= chars.length) {
-      if (prev) prev.classList.remove('is-cur');
+      /* 出し終わったあとも、最後の文字の右で点滅させたままにする。
+         文字として「｜」を足すのではなく線を描いているだけなので、
+         見出しの文言は最後まで元のままになる。 */
       return;
     }
     if (prev) prev.classList.remove('is-cur');

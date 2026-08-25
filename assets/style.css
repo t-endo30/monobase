@@ -5268,7 +5268,7 @@ body.is-policy-open{overflow:hidden;}   /* 背面はスクロールさせない 
 .tw-c{opacity:0;}
 .tw-c.is-on{opacity:1;}
 .tw-c.is-cur{
-  border-right:2px solid var(--amazon);
+  border-right:2px solid var(--ink);
   margin-right:-2px;               /* 線のぶんで文字がずれないように */
   animation:tw-blink 1s steps(2,jump-none) infinite;
 }
