@@ -1,0 +1,12 @@
+{
+  "name": "monobase",
+  "private": true,
+  "description": "モノベース。サイトの中身は build.py が生成し、配信は Cloudflare Workers が行う。",
+  "scripts": {
+    "build": "python3 build.py",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.125.0"
+  }
+}

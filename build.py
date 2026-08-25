@@ -1519,9 +1519,10 @@ def main():
     }
     # Worker は常に置く。管理画面のログイン判定をサーバー側で行うため。
     assets["binding"] = "ASSETS"
-    # 通常時は /admin* だけ Worker を通す（他は静的配信のまま速い）。
-    # メンテナンス中は全ページを差し替えるので、すべて Worker を通す。
-    assets["run_worker_first"] = True if maint else ["/admin", "/admin.html", "/admin/*"]
+    # すべてのリクエストを Worker に通す。
+    # 経路ごとの指定（配列）は Cloudflare 側のバージョンによって
+    # 解釈が変わることがあるため、単純な true にしておく。
+    assets["run_worker_first"] = True
     wrangler = {
         "name": hs.get("worker_name") or SITE["domain"].split(".")[0],
         "compatibility_date": hs.get("compatibility_date", "2026-08-24"),
@@ -1550,6 +1551,8 @@ def main():
         "CNAME",
         "build.py",
         "README.md",
+        "package.json",
+        "package-lock.json",
         "AmazonExport",
         "docs",
         "tools",

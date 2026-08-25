@@ -9,6 +9,8 @@ wrangler.jsonc
 CNAME
 build.py
 README.md
+package.json
+package-lock.json
 AmazonExport
 docs
 tools
