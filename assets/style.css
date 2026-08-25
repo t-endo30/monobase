@@ -772,7 +772,6 @@ table{border-collapse:collapse;}
   .cat-nav-list a{font-size:14px;padding:0 18px;}
   .article-title{font-size:28px;}
   .proscons{grid-template-columns:1fr 1fr;gap:18px;}
-  .card-grid{grid-template-columns:1fr 1fr;}
   .card-surface{padding:32px 28px 40px;}
   .site-footer{padding-bottom:100px;}
 }
@@ -802,7 +801,6 @@ table{border-collapse:collapse;}
   .layout{padding:32px 0 64px;}
   .article-title{font-size:31px;}
   .article-body h2{font-size:22px;}
-  .card-grid{grid-template-columns:repeat(3,1fr);}
   .sticky-cta{display:none;}
   .to-top{bottom:24px;right:24px;}
   .site-footer{padding-bottom:36px;}
@@ -2213,11 +2211,6 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
   }
   .side-nav .side-heading{margin-top:4px;}
   .side-nav .cat-tree .tree-item:last-child{border-bottom:none;}
-  /* サイドがあるぶん、記事カードは2列にする */
-  .layout.has-side .card-grid{grid-template-columns:repeat(2,1fr);}
-}
-@media (min-width:1400px){
-  .layout.has-side .card-grid{grid-template-columns:repeat(3,1fr);}
 }
 
 /* ============================================================
@@ -2543,8 +2536,6 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
     max-height:calc(100vh - 156px);
     overflow-y:auto;
   }
-  /* 3カラムになるぶん、カードは2列に戻す */
-  .layout.has-side .card-grid{grid-template-columns:repeat(2,1fr);}
 }
 /* ランキングページ自体では、右の重複表示を出さない */
 body[data-cat="ranking"] .side-rank{display:none;}
@@ -3032,12 +3023,13 @@ body[data-cat="ranking"] .side-rank{display:none;}
   }
   .side-col::-webkit-scrollbar{display:none;}
   .side-nav{position:static;max-height:none;overflow:visible;}
-  /* サイドの幅を広げる（従来の約1.5倍） */
-  .layout.has-side .layout-grid{grid-template-columns:390px minmax(0,1fr);}
+  /* サイドは中身（カテゴリー一覧・検索・ランキング）が収まる幅で足りる。
+     広げすぎると中央の記事が細くなり、タイルが1列まで落ちてしまう。 */
+  .layout.has-side .layout-grid{grid-template-columns:282px minmax(0,1fr);}
 }
 @media (min-width:1240px){
   /* 左右のサイドは同じ幅にそろえる */
-  .layout.has-side .layout-grid{grid-template-columns:390px minmax(0,1fr) 390px;}
+  .layout.has-side .layout-grid{grid-template-columns:282px minmax(0,1fr) 282px;}
 }
 @media (min-width:1024px) and (max-width:1239px){
   .layout.has-side .container{max-width:1240px;}
@@ -3826,10 +3818,6 @@ body.is-article .layout > .container{
 }
 @media (min-width:1240px){
   body.is-article .layout > .container{max-width:1080px;}
-}
-/* 記事ページの関連記事は、幅が広くなるぶん3列まで並べる */
-@media (min-width:900px){
-  body.is-article .card-grid{grid-template-columns:repeat(3,1fr);}
 }
 
 /* ============================================================
@@ -4998,16 +4986,40 @@ body{
    指で流せないPCでは、折り返して全部見せる。
    ============================================================ */
 @media (min-width:900px){
+  /* 1行に収める。指で流せないPCで折り返すと、ナビが2段になって
+     記事の一覧が下がるため、収まる大きさに詰めて1行に保つ。
+     アイコンは並びの識別に効いていないので、PCでは出さない
+     （スマホのタブバー側では残す）。 */
   .cat-nav-list{
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
     justify-content:center;
-    overflow-x:visible;
-    row-gap:0;
+    overflow-x:auto;
   }
-  /* 1行に収まる可能性を上げるため、PCでは左右の余白を少し詰める */
-  .cat-nav-list a{padding:0 11px;font-size:13px;}
-  .cat-nav-list a .cat-icon{margin-right:4px;}
+  .cat-nav-list a{padding:0 8px;font-size:12.5px;}
+  .cat-nav-list a .cat-icon{display:none;}
+}
 }
 
 /* 「本日のお勧めのモノ」：画像を少し内側に置く（枠の縁にくっつけない） */
 .today-thumb{margin-left:clamp(6px,2.2vw,14px);}
+
+/* ============================================================
+   記事タイルの並び：入る幅に合わせて 1〜3列
+   ------------------------------------------------------------
+   画面の幅ではなく、タイルが置ける「その場の幅」で列数を決める。
+   サイドがある画面では中央が細くなるので、幅で決め打ちすると
+   1枚あたりが極端に細くなっていた（特集タイルの半分以下）。
+   最小幅を下回るなら1列に落とし、広くても3列までにする。
+   ============================================================ */
+.card-grid{
+  --cg-gap:clamp(10px,2.6vw,16px);
+  --cg-min:252px;                 /* これより細くなるなら列を減らす */
+  gap:var(--cg-gap);
+  grid-template-columns:repeat(auto-fill,
+    minmax(max(var(--cg-min), (100% - var(--cg-gap) * 2) / 3), 1fr));
+}
+
+/* とても広い画面では、器も広げて記事タイルを3列まで並べる */
+@media (min-width:1620px){
+  .layout.has-side .container{max-width:1560px;}
+}
