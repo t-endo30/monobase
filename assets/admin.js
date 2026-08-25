@@ -555,6 +555,7 @@
     $('f-yahoo').value = a.yahoo_url || '';
     $('f-ctapos').value = a.cta_position || 'spec';
     $('f-asin').value = a.asin || '';
+    $('f-jan').value = a.jan || '';
     $('f-cta').value = a.cta_label || '';
     $('f-verdict').value = a.verdict_title || '';
     $('f-score').value = (a.rating && a.rating.score) || 0;
@@ -620,6 +621,9 @@
     var cp = $('f-ctapos').value;
     if (cp && cp !== 'spec') a.cta_position = cp; else delete a.cta_position;
     a.asin = $('f-asin').value.trim().toUpperCase();
+    /* JANコード。数字だけ残す（ハイフンや空白を貼られても通す） */
+    var jan = $('f-jan').value.replace(/[^0-9]/g, '');
+    if (jan) a.jan = jan; else delete a.jan;
     a.cta_label = $('f-cta').value.trim() || 'Amazonで価格を見る';
     a.verdict_title = $('f-verdict').value.trim();
     a.summary = readRepeater('r-summary');

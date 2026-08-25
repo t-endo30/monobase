@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=ff4150aa">
+<link rel="stylesheet" href="./assets/admin.css?v=8ac9a188">
 </head>
 <body>
 
@@ -181,6 +181,14 @@
       </div>
       <label for="f-amazon">Amazonのリンクを直接指定する場合<span class="opt">任意・ASINが空のときだけ使われます</span></label>
       <input type="url" id="f-amazon" placeholder="https://www.amazon.co.jp/dp/B0XXXXXXXX">
+
+      <label for="f-jan">JANコード<span class="opt">13桁。3モールで同じ商品を照合するための鍵</span></label>
+      <input type="text" id="f-jan" inputmode="numeric" placeholder="4943765058380">
+      <div class="note">
+        商品パッケージのバーコードの数字、またはメーカー製品ページに載っています。
+        <b>楽天とYahoo!は同じ商品を多数の店舗が出しているため、型番だけでは同一商品と確定できません。</b>
+        JANコードで検索すると、構成が同じ商品ページを確実に特定できます。リンク切れ検査でも使います。
+      </div>
 
       <div class="row c2">
         <div>
@@ -718,6 +726,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=ff4150aa"></script>
+<script src="./assets/admin.js?v=8ac9a188"></script>
 </body>
 </html>

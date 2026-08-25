@@ -1,0 +1,28 @@
+name: Check shop links
+
+# 記事に張った販売先リンク（Amazon / 楽天 / Yahoo!）がまだ生きているかを確かめる。
+# 楽天とYahoo!は店舗が出品をやめると商品ページごと消えるため、定期的に見張る。
+#
+# デプロイのワークフローには入れない。外部サイトへの通信は先方の都合で失敗するので、
+# ビルドを止める理由にすると、こちらに非がなくても公開できなくなる。
+# ここは報告専用。落ちたリンクは Actions のサマリーに警告として出す。
+on:
+  schedule:
+    - cron: '0 21 * * 1'      # 毎週月曜 6:00 JST（UTC 月 21:00）
+  workflow_dispatch:           # 手動実行も可
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 販売先リンクの疎通を確認
+        run: python3 tools/check_links.py

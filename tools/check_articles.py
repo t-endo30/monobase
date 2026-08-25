@@ -16,7 +16,8 @@ MIN_CHARS = 6000    # 本文の文字数の下限（docs/article-prompt.md と�
 MAX_CHARS = 8300    # 上限。長すぎる記事は読み切られない
 
 # 文字数に数えないキー（識別子・URL・分類など、読者が読む文ではない）
-SKIP_KEYS = {"slug", "thumb", "banner", "amazon_url", "asin", "date", "updated",
+SKIP_KEYS = {"slug", "thumb", "banner", "amazon_url", "asin", "jan", "date", "updated",
+             "rakuten_url", "yahoo_url", "cta_position",
              "icon", "category", "sub", "tags", "cta_label", "image_prompt",
              "feature_of", "feature_covers"}
 
@@ -43,6 +44,16 @@ def body_chars(a):
     return len("".join(buf))
 
 
+def jan_ok(code):
+    """JAN（EAN）のチェックディジットを検証する。
+       末尾1桁は残り桁から計算で決まるので、打ち間違いをここで弾ける。"""
+    ds = [int(c) for c in code]
+    body, check = ds[:-1], ds[-1]
+    # 右端から数えて奇数番目を3倍する
+    total = sum(d * (3 if i % 2 == 0 else 1) for i, d in enumerate(reversed(body)))
+    return (10 - total % 10) % 10 == check
+
+
 def main():
     p = os.path.join(ROOT, "content", "articles.json")
     arts = json.load(io.open(p, encoding="utf-8"))
@@ -67,8 +78,23 @@ def main():
             errors.append(f"{slug}: メタディスクリプションが未設定です")
         if not a.get("excerpt"):
             errors.append(f"{slug}: カード用の抜粋が未設定です")
-        if not a.get("asin") and not a.get("amazon_url"):
-            warns.append(f"{slug}: ASIN・リンクのどちらも未設定です")
+        # 販売先。3モールのどれか1つでも入っていれば記事は成立する。
+        shops = [k for k in ("asin", "amazon_url", "rakuten_url", "yahoo_url")
+                 if (a.get(k) or "").strip()]
+        if not shops:
+            warns.append(f"{slug}: 販売先（ASIN・楽天・Yahoo!）がひとつも設定されていません")
+
+        # JANコード。3モールで同じ商品を照合するための鍵。
+        jan = str(a.get("jan") or "").strip()
+        if jan:
+            if not re.fullmatch(r"[0-9]{8}|[0-9]{13}", jan):
+                errors.append(f"{slug}: JANコードが 8桁／13桁の数字ではありません（{jan}）")
+            elif not jan_ok(jan):
+                errors.append(f"{slug}: JANコードのチェックディジットが合いません（{jan}）")
+        elif len(shops) > 1:
+            # 2モール以上に張っている記事は、同一商品である裏づけが要る
+            warns.append(f"{slug}: JANコードが未設定です。"
+                         "複数のショップに張るなら、同じ商品か確かめられるよう入れてください")
         if not a.get("conclusion"):
             warns.append(f"{slug}: まとめが未記入です")
 
