@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=410c02e5">
+<link rel="stylesheet" href="./assets/admin.css?v=e62aa010">
 </head>
 <body>
 
@@ -63,13 +63,15 @@
   <!-- ============================ URLから記事を作る ============================ -->
   <section class="panel" id="p-quickpost">
     <div class="card">
-      <h2>URLから記事を作って、そのまま公開する</h2>
+      <h2>URLから記事を作る（問題が無ければそのまま公開）</h2>
       <p class="hint">
         <b>Amazon・楽天市場・Yahoo!ショッピングの商品ページURL</b>を貼り付けると、
-        商品名を読み取り、本文と画像をAIで作って<b>そのまま公開まで行います</b>。
+        商品名を読み取り、本文と画像をAIで作って<b>問題が無ければそのまま公開します</b>。
         「記事」タブの下書き作成とは違い、<b>途中で内容を確認する画面はありません</b>。
+        禁止表現・文字数などの要確認点が見つかった場合は、<b>公開はせず下書きとして保存</b>します
+        （自動で公開すると、サイト全体のビルドが止まってしまうため）。
         カテゴリーは商品名から自動で推測するため、外れていた場合は
-        公開後に「記事」タブから直してください。
+        「記事」タブから直してください。
       </p>
       <label for="qpUrl">商品ページのURL</label>
       <input type="url" id="qpUrl" placeholder="https://www.amazon.co.jp/dp/B0XXXXXXXX　など">
@@ -1011,6 +1013,6 @@
 
 <div class="toast" id="toast"></div>
 <script src="./assets/vendor/qrcode.min.js"></script>
-<script src="./assets/admin.js?v=410c02e5"></script>
+<script src="./assets/admin.js?v=e62aa010"></script>
 </body>
 </html>

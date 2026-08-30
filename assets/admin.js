@@ -3049,11 +3049,18 @@
     $('qpLog').innerHTML = '';
     qpLog('商品ページを取得しています…');
 
-    var a = null;
+    var a = null, warns = null;
     fetchProductPage(raw).then(function (data) {
       var meta = parseProductMeta(data);
       if (!meta.name) throw new Error('商品名を取得できませんでした（ページの構造が対応していない可能性があります）');
       var name = cleanName(cleanShopTitle(meta.name, shop));
+      /* Amazonがボット判定などで商品ページの代わりに案内ページを返すと、
+         商品名の代わりに「Amazon.co.jp」のようなサイト名だけが取れてしまう。
+         これに気づかず進めると、AIが実在しない商品の記事を書いてしまう。 */
+      if (name.length < 4 || /^(amazon(\.co\.jp)?|楽天市場|yahoo!?ショッピング)$/i.test(name)) {
+        throw new Error('商品名を正しく取得できませんでした（「' + name +
+          '」）。ページ取得がブロックされた可能性があります。時間を置くか、別のURLでお試しください');
+      }
       qpLog('商品名：' + name);
 
       var taken = {};
@@ -3087,21 +3094,31 @@
       articles.unshift(a);
       renderList();
       return generateArticle(a);
-    }).then(function (warns) {
-      if (warns && warns.length) qpLog('要確認：' + warns.join(' / '), 'err');
+    }).then(function (w) {
+      warns = w || [];
+      if (warns.length) qpLog('要確認：' + warns.join(' / '), 'err');
       qpLog('画像を用意しています…');
       return ensureEyecatch(a).catch(function (e) {
-        qpLog('画像は作れませんでした（' + e.message + '）。画像なしで公開します', 'err');
+        qpLog('画像は作れませんでした（' + e.message + '）。画像なしで進めます', 'err');
       });
     }).then(function () {
-      a.published = true;
+      /* 禁止表現・文字数などの要確認点があるまま自動公開すると、
+         CI（tools/check_text.py 等）に引っかかってビルドが止まり、
+         それ以降の全ての変更がサイトに反映されなくなる。
+         要確認点が無いときだけ公開し、あるときは下書きのまま保存する。 */
+      a.published = !warns.length;
       a.updated = today();
       renderList();
       qpLog('GitHubに保存しています…');
       return saveArticles();
     }).then(function () {
-      qpLog('公開しました：' + a.title, 'ok');
-      toast('記事を公開しました。ビルドが終わるとサイトに反映されます', 'ok');
+      if (a.published) {
+        qpLog('公開しました：' + a.title, 'ok');
+        toast('記事を公開しました。ビルドが終わるとサイトに反映されます', 'ok');
+      } else {
+        qpLog('要確認点があるため、下書きのまま保存しました：' + a.title, 'ok');
+        toast('要確認点があるため下書きのまま保存しました。「記事」タブで内容を直してから公開してください', 'err');
+      }
     }).catch(function (e) {
       qpLog('失敗しました：' + e.message, 'err');
       toast(e.message, 'err');
