@@ -919,9 +919,20 @@ def li_html(x):
         t = str(x.get("title") or "").strip()
         b = str(x.get("text") or x.get("body") or "").strip()
         if t and b:
-            return f'<b class="li-t">{t}</b><span class="li-b">{b}</span>'
-        return t or b
-    return str(x)
+            return f'<b class="li-t">{mark(t)}</b><span class="li-b">{mark(b)}</span>'
+        return mark(t or b)
+    return mark(str(x))
+
+
+_MARK_RE = __import__("re").compile(r"==([^=]+)==")
+
+
+def mark(s):
+    """本文中の ==重要語== を蛍光ペン風マーカーに変える。
+       ライターは <strong>/<em> と ==…== だけで強調を指定する。"""
+    if not s:
+        return s
+    return _MARK_RE.sub(r'<mark class="hl">\1</mark>', str(s))
 
 
 def paras(v, cls=""):
@@ -931,7 +942,7 @@ def paras(v, cls=""):
         return ""
     items = v if isinstance(v, list) else [v]
     c = f' class="{cls}"' if cls else ""
-    return "".join(f"          <p{c}>{t}</p>\n" for t in items if str(t).strip())
+    return "".join(f"          <p{c}>{mark(t)}</p>\n" for t in items if str(t).strip())
 
 
 def render_article(a):
@@ -1055,8 +1066,8 @@ def render_article(a):
     if gf.get("items"):
         gitems = "".join(
             f'''              <li>
-                <span class="goodfor-t">{e(x.get("title","")) if isinstance(x, dict) else li_html(x)}</span>
-                {f'<span class="goodfor-d">{x.get("text","")}</span>' if isinstance(x, dict) and x.get("text") else ""}
+                <span class="goodfor-t">{mark(e(x.get("title",""))) if isinstance(x, dict) else li_html(x)}</span>
+                {f'<span class="goodfor-d">{mark(x.get("text",""))}</span>' if isinstance(x, dict) and x.get("text") else ""}
               </li>\n'''
             for x in gf["items"])
         add(f'''          <h2 id="sec-goodfor">こんな人におすすめ</h2>
@@ -1098,8 +1109,8 @@ def render_article(a):
         for i, it in enumerate(hl["items"], start=1):
             add(f'''            <div class="hl-card">
               <span class="hl-num">{i}</span>
-              <h3 class="hl-title">{it.get("title","")}</h3>
-              <p class="hl-text">{it.get("text","")}</p>
+              <h3 class="hl-title">{mark(it.get("title",""))}</h3>
+              <p class="hl-text">{mark(it.get("text",""))}</p>
             </div>
 ''')
         add('          </div>\n')
@@ -1114,8 +1125,8 @@ def render_article(a):
             add(f'''            <div class="scene">
               <span class="scene-num">{i}</span>
               <div class="scene-body">
-                <h3 class="scene-title">{sc.get("title","")}</h3>
-                <p>{sc.get("text","")}</p>
+                <h3 class="scene-title">{mark(sc.get("title",""))}</h3>
+                <p>{mark(sc.get("text",""))}</p>
               </div>
             </div>
 ''')
@@ -1179,12 +1190,24 @@ def render_article(a):
     # ライターの地の文。見出し＋段落の自由記述で、表では伝わらない
     # 判断の根拠や使いどころを書く。
     for i, sec in enumerate(a.get("sections", []), start=1):
-        add(f'          <h2 id="sec-note{i}">{e(sec.get("heading",""))}</h2>\n')
+        add(f'          <h2 id="sec-note{i}">{mark(e(sec.get("heading","")))}</h2>\n')
         add(paras(sec.get("paras")))
+        if sec.get("point"):
+            add(f'''          <div class="callout callout-point">
+            <span class="callout-label">{icon("check", "callout-icon")} ここがポイント</span>
+            <p>{mark(sec["point"])}</p>
+          </div>
+''')
+        if sec.get("warn"):
+            add(f'''          <div class="callout callout-warn">
+            <span class="callout-label">{icon("warn", "callout-icon")} 購入前の注意点</span>
+            <p>{mark(sec["warn"])}</p>
+          </div>
+''')
         if sec.get("aside"):
             add(f'''          <div class="personal-note">
             <span class="pn-label">{e(sec.get("aside_label","レビューを読み込んで見えたこと"))}</span>
-            <p>{sec["aside"]}</p>
+            <p>{mark(sec["aside"])}</p>
           </div>
 ''')
         add(shop_buttons_mid(a, "section", i,

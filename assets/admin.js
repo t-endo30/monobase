@@ -2634,6 +2634,7 @@
       '  "spec": {"intro":"", "headers":["項目","本機","比較A","比較B"],',
       '           "rows":[["行名","値","値","値"]], "read":"表の読み方"},',
       '  "sections": [{"heading":"見出し","paras":["段落"],',
+      '                "point":"青いポイント枠(任意)","warn":"黄色い注意枠(任意)",',
       '                "aside":"補足","aside_label":"レビューを読み込んで見えたこと"}],',
       '  "voices_intro": "",',
       '  "voices": [{"heading":"","who":"","stars":4,"text":"","negative":false,',

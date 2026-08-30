@@ -382,19 +382,17 @@ table{border-collapse:collapse;}
   display:grid;grid-template-columns:1fr;gap:10px;
   margin:4px 16px 0;
 }
-.sgb-box{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:#fff;}
+.sgb-box{border-radius:6px;overflow:hidden;}
 .sgb-head{
-  font-size:12.5px;font-weight:700;letter-spacing:.06em;
-  padding:7px 12px;color:#fff;display:flex;align-items:center;gap:6px;
+  font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  padding:8px 12px 4px;display:flex;align-items:center;gap:6px;
 }
-.sgb-good{border-color:var(--good);}
-.sgb-good .sgb-head{background:var(--good);}
-.sgb-bad{border-color:var(--bad);}
-.sgb-bad .sgb-head{background:var(--bad);}
-.sgb-box ul{list-style:none;margin:0;padding:9px 12px 11px;}
-.sgb-box li{position:relative;padding:4px 0 4px 16px;font-size:13.5px;line-height:1.65;}
-.sgb-good li::before{content:"＋";position:absolute;left:0;top:4px;color:var(--good);font-weight:700;}
-.sgb-bad li::before{content:"−";position:absolute;left:0;top:4px;color:var(--bad);font-weight:700;}
+.sgb-good{background:#E6F4EA;}
+.sgb-good .sgb-head{color:#137333;}
+.sgb-bad{background:#FCE8E6;}
+.sgb-bad .sgb-head{color:#C5221F;}
+.sgb-box ul{list-style:disc;margin:0;padding:2px 12px 11px 28px;}
+.sgb-box li{padding:3px 0;font-size:13.5px;line-height:1.6;}
 .summary-box .shop-cta{margin:16px 16px 0;}
 .summary-box .cta-note{margin:8px 16px 0;font-size:12px;color:var(--text-sub);}
 @media (min-width:560px){.summary-gb{grid-template-columns:1fr 1fr;}}
@@ -1243,6 +1241,37 @@ mark.hit{background:#FFF0CC;color:inherit;padding:0 2px;border-radius:2px;}
   margin:0;
   color:#5C4A28;
 }
+
+/* 記事内の装飾：蛍光ペン風マーカーと、ポイント/注意の補足ボックス */
+mark.hl{
+  background:linear-gradient(transparent 62%, #FDE68A 62%);
+  color:inherit;
+  font-weight:700;
+  padding:0 1px;
+}
+.callout{
+  border-radius:0 8px 8px 0;
+  padding:13px 16px;
+  margin:18px 0;
+  font-size:14px;
+  line-height:1.85;
+}
+.callout p{margin:6px 0 0;}
+.callout-label{
+  display:inline-flex;align-items:center;gap:6px;
+  font-weight:700;font-size:13.5px;letter-spacing:.02em;
+}
+.callout-icon{width:16px;height:16px;flex:0 0 16px;}
+.callout-point{
+  background:#EFF6FF;
+  border-left:4px solid #3B82F6;
+}
+.callout-point .callout-label{color:#1D4ED8;}
+.callout-warn{
+  background:#FFFBEB;
+  border-left:4px solid #F59E0B;
+}
+.callout-warn .callout-label{color:#B45309;}
 
 /* ============================================================
    8. 次に困りそうなこと（回遊導線）
