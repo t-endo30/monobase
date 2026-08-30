@@ -1552,6 +1552,30 @@ mark.hl{
   transition:opacity .6s var(--ease),transform .6s var(--ease);
 }
 
+/* 記事タイルは、画面内に入ったら奥から手前へ出す（Animista: slide-in-fwd-center） */
+.card-grid,.rail{perspective:1400px;}
+.card.reveal{opacity:0;transform:translateZ(-1400px);}
+.card.reveal.is-in{
+  opacity:1;
+  transform:translateZ(0);
+  transition:none;
+  -webkit-animation:slide-in-fwd-center .4s cubic-bezier(.25,.46,.45,.94) both;
+          animation:slide-in-fwd-center .4s cubic-bezier(.25,.46,.45,.94) both;
+}
+@-webkit-keyframes slide-in-fwd-center{
+  0%{-webkit-transform:translateZ(-1400px);transform:translateZ(-1400px);opacity:0;}
+  100%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1;}
+}
+@keyframes slide-in-fwd-center{
+  0%{-webkit-transform:translateZ(-1400px);transform:translateZ(-1400px);opacity:0;}
+  100%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1;}
+}
+@media (prefers-reduced-motion:reduce){
+  .card.reveal,.card.reveal.is-in{
+    opacity:1;transform:none;-webkit-animation:none;animation:none;
+  }
+}
+
 /* ---------- フッター ---------- */
 .site-footer{
   background:linear-gradient(180deg,var(--navy) 0%,var(--navy-dark) 100%);
@@ -2275,6 +2299,45 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
     overflow-y:auto;
     -webkit-overflow-scrolling:touch;
   }
+  /* 開閉のアニメーション（Animista: slide-in-fwd-top / slide-out-top） */
+  .site-header,.tab-bar{perspective:1400px;}
+  .global-nav.is-open,
+  .cat-panel:not([hidden]){
+    -webkit-animation:slide-in-fwd-top .4s cubic-bezier(.25,.46,.45,.94) both;
+            animation:slide-in-fwd-top .4s cubic-bezier(.25,.46,.45,.94) both;
+  }
+  .global-nav.is-closing{
+    display:block;
+    -webkit-animation:slide-out-top .5s cubic-bezier(.55,.085,.68,.53) both;
+            animation:slide-out-top .5s cubic-bezier(.55,.085,.68,.53) both;
+  }
+  .cat-panel.is-closing{
+    display:block !important;
+    -webkit-animation:slide-out-top .5s cubic-bezier(.55,.085,.68,.53) both;
+            animation:slide-out-top .5s cubic-bezier(.55,.085,.68,.53) both;
+  }
+}
+@media (max-width:899px) and (prefers-reduced-motion:reduce){
+  .global-nav.is-open,.cat-panel:not([hidden]),
+  .global-nav.is-closing,.cat-panel.is-closing{
+    -webkit-animation:none;animation:none;
+  }
+}
+@-webkit-keyframes slide-in-fwd-top{
+  0%{-webkit-transform:translateZ(-1400px) translateY(-800px);transform:translateZ(-1400px) translateY(-800px);opacity:0;}
+  100%{-webkit-transform:translateZ(0) translateY(0);transform:translateZ(0) translateY(0);opacity:1;}
+}
+@keyframes slide-in-fwd-top{
+  0%{-webkit-transform:translateZ(-1400px) translateY(-800px);transform:translateZ(-1400px) translateY(-800px);opacity:0;}
+  100%{-webkit-transform:translateZ(0) translateY(0);transform:translateZ(0) translateY(0);opacity:1;}
+}
+@-webkit-keyframes slide-out-top{
+  0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1;}
+  100%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0;}
+}
+@keyframes slide-out-top{
+  0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1;}
+  100%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0;}
 }
 
 /* ============================================================
@@ -5435,11 +5498,12 @@ details.hero-policy .policy-close{display:none;}
    一覧カードのベネフィット表示（星評価＋キャッチ）
    ============================================================ */
 .card-rating{
-  display:inline-flex;
+  display:flex;
   align-items:baseline;
   gap:5px;
   margin:2px 0 4px;
   font-size:12px;
+  min-height:15px;          /* 評価の無いカードとも高さを揃える */
 }
 .cr-stars{
   color:var(--amazon);
@@ -5450,15 +5514,20 @@ details.hero-policy .policy-close{display:none;}
 .cr-score{font-weight:700;color:var(--navy);font-size:12.5px;}
 .card-desc{color:var(--text-sub);}
 
-/* 一覧の記事タイルの画像を枠線で囲む */
-.card-thumb{
-  border:1px solid var(--border);
-  border-radius:10px;
+/* 一覧タイルのサムネイル：少し小さくして、細い枠で囲む */
+.card-grid .card-thumb{
+  margin:8px 8px 0;                /* 周囲に余白 → 画像がひとまわり小さく見える */
+  border:1px solid #E0E1E4;
+  border-radius:9px;
   overflow:hidden;
   background:var(--bg-gray);
-  box-shadow:inset 0 0 0 3px #fff;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
 }
-.card:hover .card-thumb{border-color:#d2d4d8;}
+.card-grid .card:hover .card-thumb{border-color:#CFD1D5;}
+/* 横組み（スマホの一覧・注目記事）は左右の余白を詰める */
+@media (max-width:640px){
+  .card-grid .card:not(.is-lead) .card-thumb{margin:8px;}
+}
 
 /* 本日のお勧めのモノ：星評価とキャッチ */
 .today-rating{
@@ -5500,57 +5569,85 @@ details.hero-policy .policy-close{display:none;}
 }
 
 /* ============================================================
-   新着カルーセル：スクロールできることを見せる／もっと見るボタン
+   新着レール：特集と同じく左右ボタンで送るカルーセル（スマホ）
    ============================================================ */
 .btn-sub.is-quiet{
   background:transparent;
   border-color:var(--border);
   color:var(--text-sub);
 }
-/* 既存の .rail-more は「スマホだけ」だが、こちらは PC でも読み込みボタンを出す */
-.news-rail-block .rail-more{display:block;margin-top:16px;}
-.news-rail-block .rail-more-all{display:block;margin-top:8px;}
+.news-rail-block .rail-more-all{display:block;margin-top:10px;}
 .news-rail-block .rail-more-all .btn-sub{font-size:12.5px;padding:8px 16px;}
-/* さらに読み込みで出てくるカードの入り */
-.news-rail-block .card.is-in{animation:news-in .28s ease both;}
-@keyframes news-in{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+.rail-wrap{position:relative;}
+.rail-arrow{
+  display:none;
+  position:absolute;
+  top:calc(50% - 17px);
+  z-index:4;
+  width:34px;height:34px;
+  border:1px solid var(--border);
+  border-radius:50%;
+  background:rgba(255,255,255,.97);
+  box-shadow:0 2px 8px rgba(0,0,0,.16);
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+  color:var(--navy);
+}
+.rail-arrow[hidden]{display:none !important;}
+.rail-arrow.is-prev{left:-4px;}
+.rail-arrow.is-next{right:-4px;}
+.rail-arrow > span{
+  width:8px;height:8px;
+  border-right:2px solid currentColor;
+  border-bottom:2px solid currentColor;
+}
+.rail-arrow.is-prev > span{transform:rotate(135deg);margin-left:3px;}
+.rail-arrow.is-next > span{transform:rotate(-45deg);margin-right:3px;}
 
 @media (max-width:899px){
-  /* レール自体の横スクロール／スナップは既存の .rail ルールに任せる。
-     ここでは「スクロールできる」ことの合図と、余白だけを足す。 */
-  .news-rail-block .rail{position:relative;}
-  .news-rail-block .rail::after{
-    content:"› スワイプで続きを見る";
-    position:absolute;
-    right:10px;top:-30px;
-    background:var(--navy);
-    color:#fff;
-    font-size:10.5px;
-    font-weight:700;
-    letter-spacing:.03em;
-    padding:3px 10px;
-    border-radius:20px;
-    pointer-events:none;
-    animation:swipe-hint 3s ease-in-out 2 forwards;
+  .rail-arrow{display:flex;}
+  /* カルーセルらしく、1枚がほぼ画面幅・隣が少し覗く。高さは一律固定。 */
+  .news-rail-block .rail{
+    padding:2px 6px 12px;
+    scroll-snap-type:x mandatory;
+    scroll-padding-left:6px;
   }
-  @keyframes swipe-hint{
-    0%,100%{opacity:0;transform:translateX(4px);}
-    20%,75%{opacity:.96;transform:none;}
-  }
-  /* 新着レールのカードは少し大きめにして、星評価・キャッチまで見せる */
+  .news-rail-block .rail .card-grid{gap:10px;}
   .news-rail-block .rail .card{
-    width:calc((100vw - var(--pad-x) * 2 - 20px) / 2.3);
+    flex:0 0 74%;
+    width:74%;
+    max-width:290px;
+    height:212px;               /* 文字数によらず一律 */
+    scroll-snap-align:center;
+    display:block;              /* 内部は素直な縦積み */
+    overflow:hidden;
   }
-  .news-rail-block .rail .card-desc{
-    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
-    overflow:hidden;font-size:11px;line-height:1.55;margin-top:2px;
+  .news-rail-block .rail .card-thumb{
+    aspect-ratio:auto !important;
+    height:116px;
+    margin:8px 8px 0;
   }
-  .news-rail-block .rail .card-rating{margin:1px 0 2px;font-size:11px;}
+  .news-rail-block .rail .card-body{
+    display:block;
+    padding:7px 12px 10px;
+  }
+  .news-rail-block .rail .card-tags{min-height:0;margin-bottom:3px;}
+  .news-rail-block .rail .card-body .card-title{
+    display:block;
+    font-size:12.5px;line-height:1.45;
+    height:calc(1.45em * 2);       /* きっかり2行ぶん、はみ出しは隠す */
+    min-height:0;margin:0;
+    overflow:hidden;
+  }
+  .news-rail-block .rail .card-body .card-title .t-main{display:inline;}
+  .news-rail-block .rail .card-rating{margin:4px 0 0;font-size:11px;min-height:0;}
   .news-rail-block .rail .cr-stars{font-size:11px;}
-  /* もっと見るボタンを少し上げ、特集タイルとの間を開ける */
-  .news-rail-block{margin-bottom:24px;}
-  .news-rail-block .rail-more{margin-top:4px;}
-  .news-rail-block .rail-more-all{margin-top:6px;margin-bottom:2px;}
-  .tb[data-tb="feature"]{margin-top:10px;}
-  .tb[data-tb="feature"] .section-block{padding-top:4px;}
+  .news-rail-block .rail .card-desc{display:none;}
+  .news-rail-block .rail .card-link{display:none;}
+
+  .news-rail-block{margin-bottom:26px;}
+  .news-rail-block .rail-more-all{margin-top:8px;}
+  .tb[data-tb="feature"]{margin-top:14px;}
 }

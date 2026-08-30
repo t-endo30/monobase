@@ -1529,32 +1529,19 @@ def top_layout():
     return out
 
 
-NEWS_RAIL_FIRST = 6      # 最初に見せる本数
-NEWS_RAIL_STEP = 6       # 「さらに読み込む」1回ぶん
-
-
 def news_rail(items, p):
-    """新着。最初は6本、残りは「さらに記事を読み込む」で6本ずつ開く。
-       スマホでは横に流すカルーセル、PCではこれまでどおりの並び。
-       余分ぶんも最初からHTMLに入れておく（クローラー・no-JSでも全部読める）。"""
-    cards = ""
-    for i, a in enumerate(items):
-        h = ' hidden data-more="1"' if i >= NEWS_RAIL_FIRST else ''
-        cards += card(a, p).replace('<article class="card ',
-                                    f'<article{h} class="card ', 1)
-    has_more = len(items) > NEWS_RAIL_FIRST
-    more_btn = ""
-    if has_more:
-        more_btn = (f'        <div class="cta-wrap rail-more">\n'
-                    f'          <button type="button" class="btn-sub" id="newsMore" '
-                    f'data-step="{NEWS_RAIL_STEP}">さらに記事を読み込む</button>\n'
-                    f'        </div>\n')
+    """新着。スマホは特集と同じく左右ボタンで送るカルーセル、
+       PCはこれまでどおりの並び。中身は同じHTMLでCSSだけ切り替える。"""
+    cards = grid(items, p).replace(
+        '<div class="card-grid">', '<div class="card-grid" id="newsGrid">', 1)
     return ('      <section class="section-block news-rail-block">\n'
-            '        <div class="rail">\n'
-            '      <div class="card-grid" id="newsGrid">\n' + cards +
-            '      </div>\n'
+            '        <div class="rail-wrap">\n'
+            '          <button type="button" class="rail-arrow is-prev" aria-label="前の記事へ" hidden><span aria-hidden="true"></span></button>\n'
+            '          <div class="rail">\n'
+            + cards +
+            '          </div>\n'
+            '          <button type="button" class="rail-arrow is-next" aria-label="次の記事へ" hidden><span aria-hidden="true"></span></button>\n'
             '        </div>\n'
-            + more_btn +
             '        <div class="cta-wrap rail-more-all">\n'
             f'          <a class="btn-sub is-quiet" href="{p}new.html">新着記事の一覧へ</a>\n'
             '        </div>\n'
@@ -1669,7 +1656,7 @@ def policy_box(p):
 def build_index():
     p = "./"
     feat = [a for a in PUBLISHED if a.get("featured")][:3]
-    latest = PUBLISHED[:30]
+    latest = PUBLISHED[:8]
     n_pub = len(PUBLISHED)
     n_cat = len([c for c in CATS if any(a["category"] == c["key"] for a in PUBLISHED)])
     # 記事のあるカテゴリー名。表示する3つはページを開くたびにJSが選ぶ。

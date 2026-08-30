@@ -34,8 +34,25 @@ window.mbLockScroll = function (on, cls) {
   veil.hidden = true;
   document.body.appendChild(veil);
 
+  var closeTimer = null;
   function setOpen(open) {
-    nav.classList.toggle('is-open', open);
+    if (open) {
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+      nav.classList.remove('is-closing');
+      nav.classList.add('is-open');
+    } else if (nav.classList.contains('is-open')) {
+      /* 閉じるアニメーションのあいだ DOM に残し、終わったら畳む */
+      if (window.innerWidth < 900) {
+        nav.classList.add('is-closing');
+        var done = function () {
+          nav.classList.remove('is-open', 'is-closing');
+        };
+        nav.addEventListener('animationend', done, { once: true });
+        closeTimer = setTimeout(done, 650);
+      } else {
+        nav.classList.remove('is-open');
+      }
+    }
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
     veil.hidden = !open;
@@ -658,8 +675,21 @@ window.mbLockScroll = function (on, cls) {
   document.body.appendChild(veil);
   veil.addEventListener('click', function () { setOpen(false); });
 
+  var closeTimer = null;
   function setOpen(open) {
-    if (open) panel.removeAttribute('hidden'); else panel.setAttribute('hidden', '');
+    if (open) {
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+      panel.classList.remove('is-closing');
+      panel.removeAttribute('hidden');
+    } else if (!panel.hasAttribute('hidden')) {
+      panel.classList.add('is-closing');
+      var done = function () {
+        panel.classList.remove('is-closing');
+        panel.setAttribute('hidden', '');
+      };
+      panel.addEventListener('animationend', done, { once: true });
+      closeTimer = setTimeout(done, 650);
+    }
     btn.setAttribute('aria-expanded', String(open));
     btn.classList.toggle('is-current', open);
     /* 開いているあいだは現在ページのタブの色を消す。
@@ -669,17 +699,20 @@ window.mbLockScroll = function (on, cls) {
     veil.hidden = !open;
   }
 
+  function isOpen() {
+    return !panel.hasAttribute('hidden') && !panel.classList.contains('is-closing');
+  }
   btn.addEventListener('click', function () {
-    setOpen(panel.hasAttribute('hidden'));
+    setOpen(!isOpen());
   });
   /* メニューの外を押したら閉じる */
   document.addEventListener('click', function (ev) {
-    if (panel.hasAttribute('hidden')) return;
+    if (!isOpen()) return;
     if (panel.contains(ev.target) || btn.contains(ev.target)) return;
     setOpen(false);
   });
   document.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape' && !panel.hasAttribute('hidden')) setOpen(false);
+    if (ev.key === 'Escape' && isOpen()) setOpen(false);
   });
 })();
 
@@ -932,26 +965,41 @@ window.mbLockScroll = function (on, cls) {
 })();
 
 /* ============================================================
-   新着：「さらに記事を読み込む」で6本ずつ開く
+   新着レール：左右ボタンで1枚ずつ送る（特集と同じ操作感）
    ============================================================ */
 (function () {
   'use strict';
-  var btn = document.getElementById('newsMore');
-  var gridEl = document.getElementById('newsGrid');
-  if (!btn || !gridEl) return;
-  var step = parseInt(btn.getAttribute('data-step'), 10) || 6;
+  var wrap = document.querySelector('.news-rail-block .rail-wrap');
+  if (!wrap) return;
+  var rail = wrap.querySelector('.rail');
+  var prev = wrap.querySelector('.rail-arrow.is-prev');
+  var next = wrap.querySelector('.rail-arrow.is-next');
+  if (!rail || !prev || !next) return;
 
-  btn.addEventListener('click', function () {
-    var hidden = gridEl.querySelectorAll('.card[hidden][data-more]');
-    for (var i = 0; i < step && i < hidden.length; i++) {
-      hidden[i].hidden = false;
-      hidden[i].classList.add('is-in');
-    }
-    if (gridEl.querySelectorAll('.card[hidden][data-more]').length === 0) {
-      btn.parentElement.hidden = true;
-    }
+  function cardW() {
+    var c = rail.querySelector('.card');
+    if (!c) return rail.clientWidth * 0.9;
+    var gap = parseFloat(getComputedStyle(c.parentElement).gap) || 10;
+    return c.getBoundingClientRect().width + gap;
+  }
+  function update() {
+    var max = rail.scrollWidth - rail.clientWidth;
+    var overflow = max > 4;
+    prev.hidden = !overflow || rail.scrollLeft <= 2;
+    next.hidden = !overflow || rail.scrollLeft >= max - 2;
+  }
+  prev.addEventListener('click', function () {
+    rail.scrollBy({ left: -cardW(), behavior: 'smooth' });
   });
+  next.addEventListener('click', function () {
+    rail.scrollBy({ left: cardW(), behavior: 'smooth' });
+  });
+  rail.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  if ('ResizeObserver' in window) new ResizeObserver(update).observe(rail);
+  requestAnimationFrame(update);
 })();
+
 
 /* ============================================================
    「今日のモノ」：日替わりで1本だけ出すミニウィジェット
