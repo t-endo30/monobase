@@ -451,6 +451,7 @@
       asin: '', amazon_url: '', cta_label: 'Amazonで価格と詳細を確認する',
       verdict_title: '結論：', summary: [], rating: { score: 0, breakdown: '' },
       lead: '',
+      good_for: { intro: '', items: [] },
       not_for: { intro: '', items: [] },
       scenes: [],
       personal_note: '',
@@ -2431,10 +2432,9 @@
       if (/^[a-z]+-[0-9]{8}/.test(a.slug)) jpOnly++;
 
       /* 仮の文章。検査を通す最低限で、公開前に必ず書き換える前提。 */
-      a.description = c.name + 'は買う価値があるのか。'
-        + 'レビューを読み込んで、良い点と注意点、向いている人を整理します。';
-      a.excerpt = 'レビューから見えた、' + c.name.slice(0, 24)
-        + 'の実力と向き不向き。';
+      a.description = c.name + 'のレビュー。仕様と購入者の評価を突き合わせ、'
+        + '結論・良い点・気になる点・向いている人を整理します。';
+      a.excerpt = c.name.slice(0, 26) + 'の結論と、向き不向きを整理。';
       a.tags = draftTags(c.name, label);
       if (cat.icon) a.icon = cat.icon;
       a.verdict_title = '結論：';
@@ -3200,8 +3200,8 @@
       a.title = name;
       a.list_title = name.slice(0, 30);
       a.slug = draftSlug(name, guess.category, taken);
-      a.description = name + 'は買う価値があるのか。レビューを読み込んで、良い点と注意点、向いている人を整理します。';
-      a.excerpt = 'レビューから見えた、' + name.slice(0, 24) + 'の実力と向き不向き。';
+      a.description = name + 'のレビュー。仕様と購入者の評価を突き合わせ、結論・良い点・気になる点・向いている人を整理します。';
+      a.excerpt = name.slice(0, 26) + 'の結論と、向き不向きを整理。';
       a.tags = draftTags(name, cat.label || '');
       if (cat.icon) a.icon = cat.icon;
       a.verdict_title = '結論：';
