@@ -1873,7 +1873,7 @@
       return;
     }
     toast('画像を作っています…', 'ok');
-    genImage(a, key, ($('gmModel') && $('gmModel').value) || 'gemini-2.5-flash-image')
+    genImage(a, key, ($('gmModel') && $('gmModel').value) || 'gemini-3.1-flash-image')
       .then(function (img) {
         return saveImage(a, img).then(function (path) {
           toast('画像を作って記事に設定しました：' + path, 'ok');
@@ -1950,7 +1950,7 @@
     var note = $('ecNote');
     note.textContent = '生成中…（10〜30秒かかります）';
     $('btnEcGen').disabled = true;
-    genImage(editing, key, ($('gmModel') && $('gmModel').value) || 'gemini-2.5-flash-image')
+    genImage(editing, key, ($('gmModel') && $('gmModel').value) || 'gemini-3.1-flash-image')
       .then(function (img) { return saveImage(editing, img); })
       .then(function (path) {
         $('f-thumb').value = path;
@@ -2843,14 +2843,14 @@
     try { key = localStorage.getItem(GM_KEY) || ''; } catch (e) {}
     if (!key) return Promise.reject(new Error('Gemini APIキーが未登録のため画像を作れません'));
     if (!cfg.token) return Promise.reject(new Error('GitHub未接続のため画像を保存できません'));
-    var model = ($('gmModel') && $('gmModel').value) || 'gemini-2.5-flash-image';
+    var model = ($('gmModel') && $('gmModel').value) || 'gemini-3.1-flash-image';
     return genImage(a, key, model).then(function (img) {
       return saveImage(a, img);                       /* thumb と image_ai を立てる */
     });
   }
 
   function generateArticle(a) {
-    var model = ($('gmTextModel') && $('gmTextModel').value) || 'gemini-2.5-flash';
+    var model = ($('gmTextModel') && $('gmTextModel').value) || 'gemini-3.6-flash';
     var useClaude = model.indexOf('claude') === 0;
     var key = '';
     try {

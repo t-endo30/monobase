@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=4e556470">
+<link rel="stylesheet" href="./assets/admin.css?v=410c02e5">
 </head>
 <body>
 
@@ -483,9 +483,8 @@
         <div>
           <label for="gmModel">モデル<span class="opt">画像生成モデルに無料枠はありません</span></label>
           <select id="gmModel">
-            <option value="gemini-2.5-flash-image">gemini-2.5-flash-image</option>
-            <option value="gemini-3.1-flash-lite-image">gemini-3.1-flash-lite-image</option>
             <option value="gemini-3.1-flash-image">gemini-3.1-flash-image</option>
+            <option value="gemini-3.1-flash-lite-image">gemini-3.1-flash-lite-image</option>
           </select>
         </div>
         <div>
@@ -498,8 +497,7 @@
         <div>
           <label for="gmTextModel">本文を作るモデル<span class="opt">記事エディタの「プロンプトで本文を作る」で使います</span></label>
           <select id="gmTextModel">
-            <option value="gemini-2.5-flash">gemini-2.5-flash（無料枠あり・既定）</option>
-            <option value="gemini-2.5-pro">gemini-2.5-pro（有料）</option>
+            <option value="gemini-3.6-flash">gemini-3.6-flash（無料枠あり・既定）</option>
             <option value="claude-opus-5">claude-opus-5（Anthropic APIキーが必要）</option>
             <option value="claude-sonnet-5">claude-sonnet-5（Anthropic APIキーが必要）</option>
           </select>
@@ -1013,6 +1011,6 @@
 
 <div class="toast" id="toast"></div>
 <script src="./assets/vendor/qrcode.min.js"></script>
-<script src="./assets/admin.js?v=4e556470"></script>
+<script src="./assets/admin.js?v=410c02e5"></script>
 </body>
 </html>
