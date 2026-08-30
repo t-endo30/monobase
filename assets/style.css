@@ -1552,23 +1552,24 @@ mark.hl{
   transition:opacity .6s var(--ease),transform .6s var(--ease);
 }
 
-/* 記事タイルは、画面内に入ったら奥から手前へ出す（Animista: slide-in-fwd-center） */
-.card-grid,.rail{perspective:1400px;}
-.card.reveal{opacity:0;transform:translateZ(-1400px);}
+/* 記事タイルは、画面内に入ったら奥から手前へ出す（Animista: slide-in-fwd-center）。
+   perspective は transform 内に持たせる（コンテナに付けると overflow の
+   クリップや横スクロールの描画が崩れるため）。 */
+.card.reveal{opacity:0;transform:perspective(1400px) translateZ(-1000px);}
 .card.reveal.is-in{
   opacity:1;
-  transform:translateZ(0);
+  transform:perspective(1400px) translateZ(0);
   transition:none;
   -webkit-animation:slide-in-fwd-center .4s cubic-bezier(.25,.46,.45,.94) both;
           animation:slide-in-fwd-center .4s cubic-bezier(.25,.46,.45,.94) both;
 }
 @-webkit-keyframes slide-in-fwd-center{
-  0%{-webkit-transform:translateZ(-1400px);transform:translateZ(-1400px);opacity:0;}
-  100%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1;}
+  0%{-webkit-transform:perspective(1400px) translateZ(-1000px);transform:perspective(1400px) translateZ(-1000px);opacity:0;}
+  100%{-webkit-transform:perspective(1400px) translateZ(0);transform:perspective(1400px) translateZ(0);opacity:1;}
 }
 @keyframes slide-in-fwd-center{
-  0%{-webkit-transform:translateZ(-1400px);transform:translateZ(-1400px);opacity:0;}
-  100%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1;}
+  0%{transform:perspective(1400px) translateZ(-1000px);opacity:0;}
+  100%{transform:perspective(1400px) translateZ(0);opacity:1;}
 }
 @media (prefers-reduced-motion:reduce){
   .card.reveal,.card.reveal.is-in{
@@ -2300,7 +2301,6 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
     -webkit-overflow-scrolling:touch;
   }
   /* 開閉のアニメーション（Animista: slide-in-fwd-top / slide-out-top） */
-  .site-header,.tab-bar{perspective:1400px;}
   .global-nav.is-open,
   .cat-panel:not([hidden]){
     -webkit-animation:slide-in-fwd-top .4s cubic-bezier(.25,.46,.45,.94) both;
@@ -2324,12 +2324,12 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
   }
 }
 @-webkit-keyframes slide-in-fwd-top{
-  0%{-webkit-transform:translateZ(-1400px) translateY(-800px);transform:translateZ(-1400px) translateY(-800px);opacity:0;}
-  100%{-webkit-transform:translateZ(0) translateY(0);transform:translateZ(0) translateY(0);opacity:1;}
+  0%{-webkit-transform:perspective(1400px) translateZ(-1000px) translateY(-800px);transform:perspective(1400px) translateZ(-1000px) translateY(-800px);opacity:0;}
+  100%{-webkit-transform:perspective(1400px) translateZ(0) translateY(0);transform:perspective(1400px) translateZ(0) translateY(0);opacity:1;}
 }
 @keyframes slide-in-fwd-top{
-  0%{-webkit-transform:translateZ(-1400px) translateY(-800px);transform:translateZ(-1400px) translateY(-800px);opacity:0;}
-  100%{-webkit-transform:translateZ(0) translateY(0);transform:translateZ(0) translateY(0);opacity:1;}
+  0%{transform:perspective(1400px) translateZ(-1000px) translateY(-800px);opacity:0;}
+  100%{transform:perspective(1400px) translateZ(0) translateY(0);opacity:1;}
 }
 @-webkit-keyframes slide-out-top{
   0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1;}

@@ -173,12 +173,22 @@ def run_claude(prompt, model, timeout):
 
 
 def parse_json(out):
-    """前置きやコードフェンスが付くことがあるので取り除いてから読む。"""
+    """前置きやコードフェンスが付くことがあるので取り除いてから読む。
+       生成AIは末尾カンマ（ ,} や ,] ）を付けがちなので、それも落とす。"""
     out = re.sub(r"^\s*```(?:json)?\s*", "", out)
     out = re.sub(r"\s*```\s*$", "", out)
     i, k = out.find("{"), out.rfind("}")
     if i >= 0 and k > i:
         out = out[i:k + 1]
+    try:
+        return json.loads(out)
+    except json.JSONDecodeError:
+        # 末尾カンマだけが原因のことが多い。文字列の外側の ,}/,] を除いて再挑戦。
+        fixed = re.sub(r",(\s*[}\]])", r"\1", out)
+        try:
+            return json.loads(fixed)
+        except json.JSONDecodeError:
+            pass
     try:
         return json.loads(out)
     except json.JSONDecodeError as ex:
