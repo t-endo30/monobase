@@ -69,6 +69,7 @@ def rank_json(p):
                    "catKey": a["category"],
                    "thumb": visual_path(a, p)[0],
                    "excerpt": a.get("excerpt", ""),
+                   "score": a.get("rating", {}).get("score") or 0,
                    "date": a.get("date", "")}
                   for a in PUBLISHED],
     }
@@ -377,6 +378,8 @@ def today_panel(cls=""):
             f'        <span class="today-body">\n'
             f'          <span class="today-cat"></span>\n'
             f'          <span class="today-title"></span>\n'
+            f'          <span class="today-rating" hidden></span>\n'
+            f'          <span class="today-catch"></span>\n'
             f'        </span>\n'
             f'      </a>\n'
             f'    </section>\n')
@@ -494,6 +497,19 @@ def cat_nav_item(c, p, cls=""):
             f'      </li>\n')
 
 
+def _header_count_text():
+    """ヘッダーに出す「◯◯など◯カテゴリーで◯記事公開中」。
+       JSが無くても読めるよう、既定の文言をサーバー側で入れておく。"""
+    names = [c["label"] for c in CATS
+             if c["key"] != "feature"
+             and any(a["category"] == c["key"] for a in PUBLISHED)]
+    n_cat = len(names)
+    n_pub = len(PUBLISHED)
+    cats_json = html.escape(json.dumps(names, ensure_ascii=False), quote=True)
+    default = f"{n_cat} カテゴリー・{n_pub} 記事を公開中"
+    return names, n_cat, n_pub, cats_json, default
+
+
 def header(current, p, crumbs=None, current_sub="", band=""):
     # いま見ているカテゴリーは、ALL のすぐ右に持ってくる。
     # 一覧は横スクロールするので、右のほうにあると現在地が画面外に出てしまう。
@@ -518,6 +534,8 @@ def header(current, p, crumbs=None, current_sub="", band=""):
                    if FEAT.get("contact_form") else
                    f'<li><a href="mailto:{e(SITE["email"])}">お問い合わせ</a></li>')
 
+    _cn_names, _cn_ncat, _cn_npub, _cn_json, _cn_default = _header_count_text()
+
     return f'''{ICON_SPRITE}
 <header class="site-header">
   <div class="container header-inner">
@@ -527,7 +545,7 @@ def header(current, p, crumbs=None, current_sub="", band=""):
         <span class="brand-mark" aria-hidden="true"></span>
         <span class="brand-name">{e(NAME)}</span>
       </a>
-      <div class="site-tagline">{e(TAGLINE)}</div>
+      <div class="site-tagline hero-count" data-cats='{_cn_json}' data-n-cat="{_cn_ncat}" data-n-pub="{_cn_npub}">{e(_cn_default)}</div>
     </div>
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="globalNav" aria-label="メニューを開く">
       <span></span><span></span><span></span>
@@ -545,8 +563,10 @@ def header(current, p, crumbs=None, current_sub="", band=""):
 <!-- カテゴリーナビゲーション -->
 <nav class="cat-nav" aria-label="カテゴリー">
   <div class="container">
+    <button type="button" class="cat-nav-arrow is-prev" aria-label="カテゴリーを左へ" hidden><span aria-hidden="true"></span></button>
     <ul class="cat-nav-list">
 {nav}    </ul>
+    <button type="button" class="cat-nav-arrow is-next" aria-label="カテゴリーを右へ" hidden><span aria-hidden="true"></span></button>
   </div>
 </nav>
 
@@ -753,6 +773,7 @@ def card(a, p, lead=False):
           <div class="card-body">
             <div class="card-tags">{tags}{kind_badge(a)}</div>
             <h3 class="card-title"><a class="card-stretch" href="{p}articles/{e(a["slug"])}.html">{title_lines(a.get("list_title") or a["title"])}</a></h3>
+            {card_rating(a)}
             <p class="card-desc">{e(a.get("excerpt",""))}</p>
             <span class="card-link" aria-hidden="true">詳細を見る</span>
           </div>
@@ -908,6 +929,20 @@ def cta(url, label, note=""):
 def stars(n):
     n = int(round(float(n or 0)))
     return "★" * n + "☆" * (5 - n)
+
+
+def card_rating(a):
+    """一覧カード用の小さな星評価。score が無い記事では何も出さない。"""
+    sc = 0
+    try:
+        sc = float(a.get("rating", {}).get("score") or 0)
+    except (TypeError, ValueError):
+        sc = 0
+    if sc <= 0:
+        return ""
+    return (f'<span class="card-rating" aria-label="評価 {sc} / 5">'
+            f'<span class="cr-stars" aria-hidden="true">{stars(sc)}</span>'
+            f'<span class="cr-score">{sc:g}</span></span>')
 
 # ============================================================ 記事ページ
 def li_html(x):
@@ -1492,14 +1527,34 @@ def top_layout():
     return out
 
 
+NEWS_RAIL_FIRST = 6      # 最初に見せる本数
+NEWS_RAIL_STEP = 6       # 「さらに読み込む」1回ぶん
+
+
 def news_rail(items, p):
-    """新着。スマホでは横に流す小さめのカード、PCではこれまでどおりの並び。
-       中身は同じHTMLで、見せ方だけCSSで切り替える。"""
-    return ('      <section class="section-block">\n'
-            '        <div class="rail">\n' + grid(items, p) +
+    """新着。最初は6本、残りは「さらに記事を読み込む」で6本ずつ開く。
+       スマホでは横に流すカルーセル、PCではこれまでどおりの並び。
+       余分ぶんも最初からHTMLに入れておく（クローラー・no-JSでも全部読める）。"""
+    cards = ""
+    for i, a in enumerate(items):
+        h = ' hidden data-more="1"' if i >= NEWS_RAIL_FIRST else ''
+        cards += card(a, p).replace('<article class="card ',
+                                    f'<article{h} class="card ', 1)
+    has_more = len(items) > NEWS_RAIL_FIRST
+    more_btn = ""
+    if has_more:
+        more_btn = (f'        <div class="cta-wrap rail-more">\n'
+                    f'          <button type="button" class="btn-sub" id="newsMore" '
+                    f'data-step="{NEWS_RAIL_STEP}">さらに記事を読み込む</button>\n'
+                    f'        </div>\n')
+    return ('      <section class="section-block news-rail-block">\n'
+            '        <div class="rail">\n'
+            '      <div class="card-grid" id="newsGrid">\n' + cards +
+            '      </div>\n'
             '        </div>\n'
-            '        <div class="cta-wrap rail-more">\n'
-            f'          <a class="btn-sub" href="{p}new.html">新着記事をもっと見る</a>\n'
+            + more_btn +
+            '        <div class="cta-wrap rail-more-all">\n'
+            f'          <a class="btn-sub is-quiet" href="{p}new.html">新着記事の一覧へ</a>\n'
             '        </div>\n'
             '      </section>\n')
 
@@ -1612,7 +1667,7 @@ def policy_box(p):
 def build_index():
     p = "./"
     feat = [a for a in PUBLISHED if a.get("featured")][:3]
-    latest = PUBLISHED[:6]
+    latest = PUBLISHED[:30]
     n_pub = len(PUBLISHED)
     n_cat = len([c for c in CATS if any(a["category"] == c["key"] for a in PUBLISHED)])
     # 記事のあるカテゴリー名。表示する3つはページを開くたびにJSが選ぶ。

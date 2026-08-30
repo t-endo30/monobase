@@ -850,52 +850,104 @@ window.mbLockScroll = function (on, cls) {
    ============================================================ */
 (function () {
   'use strict';
-  /* トップの一文だけが対象。一覧ページの「全 N 記事」は
-     同じクラスを使っているので、データ属性の有無で見分ける。 */
-  var el = document.querySelector('.hero-count[data-n-pub]');
-  if (!el) return;
-  var names = [];
-  try { names = JSON.parse(el.getAttribute('data-cats') || '[]'); } catch (e) { names = []; }
-  var nCat = el.getAttribute('data-n-cat') || '0';
-  var nPub = el.getAttribute('data-n-pub') || '0';
+  /* data 属性つきの .hero-count が対象。ヘッダーのタグライン位置と、
+     トップのヒーロー内の一文の両方に付く（どちらも同じ数字）。
+     一覧ページの「全 N 記事」は data 属性が無いので対象外。 */
+  var els = document.querySelectorAll('.hero-count[data-n-pub]');
+  if (!els.length) return;
 
-  /* 並びを混ぜて先頭3つを使う */
-  for (var i = names.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var t = names[i]; names[i] = names[j]; names[j] = t;
-  }
-  /* カテゴリー名自体に「・」が入るものがあるため、区切りは「／」にする */
-  var pick = names.slice(0, 3).join('／');
-  var full = pick
-    ? '現在（' + pick + '）など ' + nCat + ' カテゴリーで ' + nPub + ' 記事公開中'
-    : '現在 ' + nCat + ' カテゴリーで ' + nPub + ' 記事公開中';
-  /* 幅が足りないときの短い言い方。2行に折り返すより、
-     短くして1行に収めたほうが見出しの下が締まる。 */
-  var brief = nCat + ' カテゴリー・' + nPub + ' 記事を公開中';
+  Array.prototype.forEach.call(els, function (el) {
+    var names = [];
+    try { names = JSON.parse(el.getAttribute('data-cats') || '[]'); } catch (e) { names = []; }
+    var nCat = el.getAttribute('data-n-cat') || '0';
+    var nPub = el.getAttribute('data-n-pub') || '0';
 
-  /* 長い言い方と短い言い方を、置ける幅で選ぶ。
-     以前は文字を実測して縮めていたが、書き換えるたびに
-     ResizeObserver が反応して測り直し、文言と大きさが行き来していた。
-     幅の判定だけにして、決まったら二度と動かさない。 */
-  var WIDE = 560;                  /* この幅より広ければ長いほうを出す */
-  var shown = null;
+    for (var i = names.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = names[i]; names[i] = names[j]; names[j] = t;
+    }
+    var pick = names.slice(0, 3).join('／');
+    var full = pick
+      ? '（' + pick + '）など ' + nCat + ' カテゴリーで ' + nPub + ' 記事公開中'
+      : nCat + ' カテゴリーで ' + nPub + ' 記事公開中';
+    var brief = nCat + ' カテゴリー・' + nPub + ' 記事公開中';
 
-  function fitCount() {
+    var WIDE = 560;
+    var shown = null;
+
+    function fitCount() {
+      var box = el.parentElement || el;
+      var w = box.clientWidth;
+      if (!w) return;
+      var want = w >= WIDE ? 'full' : 'brief';
+      if (want === shown) return;
+      shown = want;
+      el.textContent = want === 'full' ? full : brief;
+    }
+
     var box = el.parentElement || el;
-    var w = box.clientWidth;
-    if (!w) return;
-    var want = w >= WIDE ? 'full' : 'brief';
-    if (want === shown) return;    /* 変わらないときは触らない（暴れの元） */
-    shown = want;
-    el.textContent = want === 'full' ? full : brief;
-  }
+    if ('ResizeObserver' in window) new ResizeObserver(fitCount).observe(box);
+    else window.addEventListener('resize', fitCount);
+    requestAnimationFrame(fitCount);
+  });
+})();
 
-  /* 監視するのは入れ物のほう。文字を書き換える本人を見張ると、
-     自分の変化に自分で反応して止まらなくなる。 */
-  var box = el.parentElement || el;
-  if ('ResizeObserver' in window) new ResizeObserver(fitCount).observe(box);
-  else window.addEventListener('resize', fitCount);
-  requestAnimationFrame(fitCount);
+/* ============================================================
+   カテゴリーナビ：1行固定・左右の矢印で送る
+   ============================================================ */
+(function () {
+  'use strict';
+  var wrap = document.querySelector('.cat-nav .container');
+  if (!wrap) return;
+  var list = wrap.querySelector('.cat-nav-list');
+  var prev = wrap.querySelector('.cat-nav-arrow.is-prev');
+  var next = wrap.querySelector('.cat-nav-arrow.is-next');
+  if (!list || !prev || !next) return;
+
+  function update() {
+    var max = list.scrollWidth - list.clientWidth;
+    var overflow = max > 4;
+    var x = list.scrollLeft;
+    prev.hidden = !overflow || x <= 2;
+    next.hidden = !overflow || x >= max - 2;
+  }
+  function step(dir) {
+    list.scrollBy({ left: dir * Math.max(160, list.clientWidth * 0.7), behavior: 'smooth' });
+  }
+  prev.addEventListener('click', function () { step(-1); });
+  next.addEventListener('click', function () { step(1); });
+  list.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  if ('ResizeObserver' in window) new ResizeObserver(update).observe(list);
+  /* 現在のカテゴリーが画面外なら、見える位置まで寄せておく */
+  var cur = list.querySelector('a.is-current');
+  if (cur) {
+    var off = cur.offsetLeft - list.clientWidth / 2 + cur.offsetWidth / 2;
+    list.scrollLeft = Math.max(0, off);
+  }
+  requestAnimationFrame(update);
+})();
+
+/* ============================================================
+   新着：「さらに記事を読み込む」で6本ずつ開く
+   ============================================================ */
+(function () {
+  'use strict';
+  var btn = document.getElementById('newsMore');
+  var gridEl = document.getElementById('newsGrid');
+  if (!btn || !gridEl) return;
+  var step = parseInt(btn.getAttribute('data-step'), 10) || 6;
+
+  btn.addEventListener('click', function () {
+    var hidden = gridEl.querySelectorAll('.card[hidden][data-more]');
+    for (var i = 0; i < step && i < hidden.length; i++) {
+      hidden[i].hidden = false;
+      hidden[i].classList.add('is-in');
+    }
+    if (gridEl.querySelectorAll('.card[hidden][data-more]').length === 0) {
+      btn.parentElement.hidden = true;
+    }
+  });
 })();
 
 /* ============================================================
@@ -932,6 +984,11 @@ window.mbLockScroll = function (on, cls) {
   var pick = pool[h % pool.length];
   if (!pick) return;
 
+  function starStr(n) {
+    n = Math.round(Number(n) || 0);
+    return '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
+  }
+
   Array.prototype.forEach.call(boxes, function (box) {
     var a = box.querySelector('.today-card');
     var img = box.querySelector('.today-thumb img');
@@ -940,6 +997,20 @@ window.mbLockScroll = function (on, cls) {
     img.alt = pick.title;
     box.querySelector('.today-cat').textContent = pick.cat;
     box.querySelector('.today-title').textContent = pick.title;
+    var rt = box.querySelector('.today-rating');
+    if (rt) {
+      if (pick.score && Number(pick.score) > 0) {
+        rt.textContent = starStr(pick.score);
+        var b = document.createElement('b');
+        b.textContent = (Math.round(Number(pick.score) * 10) / 10);
+        rt.appendChild(b);
+        rt.hidden = false;
+      } else {
+        rt.hidden = true;
+      }
+    }
+    var ct = box.querySelector('.today-catch');
+    if (ct) ct.textContent = pick.excerpt || '';
     box.hidden = false;
   });
 })();
