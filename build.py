@@ -506,7 +506,9 @@ def _header_count_text():
     n_cat = len(names)
     n_pub = len(PUBLISHED)
     cats_json = html.escape(json.dumps(names, ensure_ascii=False), quote=True)
-    default = f"{n_cat} カテゴリー・{n_pub} 記事を公開中"
+    head = "／".join(names[:2])
+    default = (f"{head} など {n_cat} カテゴリー・{n_pub} 記事公開中"
+               if head else f"{n_cat} カテゴリー・{n_pub} 記事公開中")
     return names, n_cat, n_pub, cats_json, default
 
 
@@ -1694,11 +1696,10 @@ def build_index():
     # 見えるかどうかだけを切り替える（検索エンジンにも読み上げにも
     # 最初から全文が入っている状態を保つ）。
     tw = ' data-typewriter="1"' if ht.get("typewriter") else ""
+    # ヘッダー側に同じ一文を出しているので、ヒーロー内では繰り返さない。
     hero_tile = (
         '      <section class="hero-tile">\n'
         f'        <h1 class="fit-line"{tw}>{h1_html}</h1>\n'
-        f'        <p class="hero-count" data-cats=\'{cat_names}\' '
-        f'data-n-cat="{n_cat}" data-n-pub="{n_pub}"></p>\n'
         + policy_details(p) +
         (SEARCH_TILE if FEAT.get("search") else "") +
         '      </section>\n')

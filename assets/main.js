@@ -866,11 +866,14 @@ window.mbLockScroll = function (on, cls) {
       var j = Math.floor(Math.random() * (i + 1));
       var t = names[i]; names[i] = names[j]; names[j] = t;
     }
-    var pick = names.slice(0, 3).join('／');
-    var full = pick
-      ? '（' + pick + '）など ' + nCat + ' カテゴリーで ' + nPub + ' 記事公開中'
-      : nCat + ' カテゴリーで ' + nPub + ' 記事公開中';
-    var brief = nCat + ' カテゴリー・' + nPub + ' 記事公開中';
+    var pick3 = names.slice(0, 3).join('／');
+    var pick2 = names.slice(0, 2).join('／');
+    var full = pick3
+      ? pick3 + '／ など ' + nCat + ' カテゴリー・' + nPub + ' 記事公開中'
+      : nCat + ' カテゴリー・' + nPub + ' 記事公開中';
+    var brief = pick2
+      ? pick2 + '／ など ' + nCat + ' カテゴリー・' + nPub + ' 記事公開中'
+      : nCat + ' カテゴリー・' + nPub + ' 記事公開中';
 
     var WIDE = 560;
     var shown = null;
