@@ -976,7 +976,7 @@ def render_article(a):
 
     add(top_card)
 
-    # 結論ボックス
+    # 結論ボックス（結論ファースト：評価・3行まとめ・GOOD/BAD・購入ボタンを冒頭に凝縮）
     if a.get("summary"):
         items = "".join(f'              <li>{li_html(s)}</li>\n' for s in a["summary"])
         rating = ""
@@ -988,19 +988,41 @@ def render_article(a):
             <span class="rating-label">/ 5.0（{e(a["rating"].get("breakdown",""))}）</span>
           </div>
 '''
+        gb = ""
+        pros3 = [x for x in (a.get("pros") or []) if x][:3]
+        cons3 = [x for x in (a.get("cons") or []) if x][:3]
+        if pros3 and cons3:
+            pl = "".join(f'                <li>{li_html(x)}</li>\n' for x in pros3)
+            cl = "".join(f'                <li>{li_html(x)}</li>\n' for x in cons3)
+            gb = f'''          <div class="summary-gb">
+            <div class="sgb-box sgb-good">
+              <div class="sgb-head">{icon("good", "hd-icon")} GOOD</div>
+              <ul>
+{pl}              </ul>
+            </div>
+            <div class="sgb-box sgb-bad">
+              <div class="sgb-head">{icon("bad", "hd-icon")} BAD</div>
+              <ul>
+{cl}              </ul>
+            </div>
+          </div>
+'''
+        cta = shop_buttons(a, "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。")
         add(f'''        <section class="summary-box">
           <div class="summary-head">{a.get("verdict_title","結論")}</div>
-          <div class="summary-body">
+{rating}          <div class="summary-body">
+            <div class="summary-3lines">3行でわかる結論</div>
             <ul class="summary-list">
 {items}            </ul>
           </div>
-{rating}        </section>
+{gb}{cta}        </section>
 ''')
 
     # 目次
     toc = []
+    if a.get("good_for", {}).get("items"): toc.append(("sec-goodfor", "こんな人におすすめ"))
+    if a.get("not_for", {}).get("items"): toc.append(("sec-notfor", "こんな人にはおすすめしない"))
     if a.get("highlights", {}).get("items"): toc.append(("sec-highlights", "この商品の強み"))
-    if a.get("not_for", {}).get("items"): toc.append(("sec-notfor", "買わないほうがいい人"))
     if a.get("scenes"):                   toc.append(("sec-scenes", "この商品で変わる生活シーン"))
     if a.get("pros") or a.get("cons"):    toc.append(("sec-proscons", "メリットとデメリット"))
     if a.get("products"):                 toc.append(("sec-products", "比較した商品"))
@@ -1020,13 +1042,53 @@ def render_article(a):
         </nav>
 ''')
 
-    # 購入リンクは目次の下に置く。結論を読んですぐ動ける位置。
-    add(shop_buttons(a, "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
+    # 購入リンクは結論ボックス内（冒頭）に移動済み。
+    # 結論ボックスに summary が無い記事のときだけ、ここで補う。
+    if not a.get("summary"):
+        add(shop_buttons(a, "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
 
     add('        <div class="article-body">\n')
     add(paras(a.get("lead")))
 
-    # 良い点を先に、はっきり見せる枠。
+    # 結論の直後に「誰に向くか」を対で置く（結論ファースト）。
+    gf = a.get("good_for", {})
+    if gf.get("items"):
+        gitems = "".join(
+            f'''              <li>
+                <span class="goodfor-t">{e(x.get("title","")) if isinstance(x, dict) else li_html(x)}</span>
+                {f'<span class="goodfor-d">{x.get("text","")}</span>' if isinstance(x, dict) and x.get("text") else ""}
+              </li>\n'''
+            for x in gf["items"])
+        add(f'''          <h2 id="sec-goodfor">こんな人におすすめ</h2>
+          <div class="goodfor-box">
+            <div class="goodfor-head">{icon("good", "hd-icon")} この使い方なら、買って後悔しにくい</div>
+            <div class="goodfor-body">
+              <p>{e(gf.get("intro",""))}</p>
+              <ul class="goodfor-list">
+{gitems}              </ul>
+            </div>
+          </div>
+''')
+        add(paras(gf.get("after")))
+
+    # 「誰に向かないか」。good_for と対にして読ませる。
+    nf = a.get("not_for", {})
+    if nf.get("items"):
+        items = "".join(f'              <li>{li_html(x)}</li>\n' for x in nf["items"])
+        add(f'''          <h2 id="sec-notfor">こんな人にはおすすめしない</h2>
+          <div class="notfor-box">
+            <div class="notfor-head">{icon("warn", "hd-icon")} 先に読んでください</div>
+            <div class="notfor-body">
+              <p>{nf.get("intro","")}</p>
+              <ul class="notfor-list">
+{items}              </ul>
+              <p class="notfor-foot">上のどれかに当てはまる場合、この商品は期待に応えられない可能性が高いです。別の選択肢を検討したほうが満足度は高くなります。</p>
+            </div>
+          </div>
+''')
+        add(paras(nf.get("after")))
+
+    # 良い点を、はっきり見せる枠。
     hl = a.get("highlights", {})
     if hl.get("items"):
         add(f'''          <h2 id="sec-highlights">{hl.get("heading", "この商品の強み")}</h2>
@@ -1042,23 +1104,6 @@ def render_article(a):
 ''')
         add('          </div>\n')
         add(paras(hl.get("after")))
-
-    # 1. 買わないほうがいい人（最優先のネガティブ訴求）
-    nf = a.get("not_for", {})
-    if nf.get("items"):
-        items = "".join(f'              <li>{li_html(x)}</li>\n' for x in nf["items"])
-        add(f'''          <h2 id="sec-notfor">この商品を買わないほうがいい人</h2>
-          <div class="notfor-box">
-            <div class="notfor-head">{icon("warn", "hd-icon")} 先に読んでください</div>
-            <div class="notfor-body">
-              <p>{nf.get("intro","")}</p>
-              <ul class="notfor-list">
-{items}              </ul>
-              <p class="notfor-foot">上のどれかに当てはまる場合、この商品は期待に応えられない可能性が高いです。別の選択肢を検討したほうが満足度は高くなります。</p>
-            </div>
-          </div>
-''')
-        add(paras(nf.get("after")))
 
     # 2. この商品で変わる「実際の生活シーン」
     if a.get("scenes"):

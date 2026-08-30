@@ -2626,6 +2626,7 @@
       '  "verdict_title": "結論：…",',
       '  "summary": [{"title":"見出し","text":"本文"}],',
       '  "rating": {"score": 4.2, "breakdown": "評価の内訳を1文で"},',
+      '  "good_for": {"intro":"", "items":[{"title":"読者像・使い方","text":"なぜ合うか"}]},',
       '  "highlights": {"intro":"", "items":[{"title":"","text":""}]},',
       '  "not_for": {"intro":"", "items":[{"title":"","text":""}]},',
       '  "scenes": [{"title":"場面","text":"説明"}],',
@@ -2824,8 +2825,8 @@
 
   /* 生成結果を記事へ移す。slug・published・販売先URLなど、
      こちらで決めた項目は上書きさせない。 */
-  var GEN_FIELDS = ['lead', 'verdict_title', 'summary', 'rating', 'highlights',
-                    'not_for', 'scenes', 'pros', 'cons', 'spec', 'sections',
+  var GEN_FIELDS = ['lead', 'verdict_title', 'summary', 'rating', 'good_for',
+                    'highlights', 'not_for', 'scenes', 'pros', 'cons', 'spec', 'sections',
                     'voices_intro', 'voices', 'voices_after', 'personal_note',
                     'next_problem', 'conclusion_title', 'conclusion',
                     'description', 'excerpt', 'list_title', 'title', 'tags', 'sub'];
