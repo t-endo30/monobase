@@ -3019,6 +3019,28 @@
     return { category: pickCategory() || (cats[0] || {}).key || '', sub: '' };
   }
 
+  /* 禁止表現・使えないタグを取り除いて、公開できる形に直す。
+     絶対／必ず／確実に…はどれも文中の修飾語なので、そのまま削っても
+     文としては自然に読める。削った跡の記号の重なりだけ整える。
+     配列・オブジェクトを含む記事全体を対象にするため、JSON文字列の
+     まま置換する（値の途中にNGワードやタグが混ざっていても拾える）。 */
+  function autoFixArticle(a) {
+    var json = JSON.stringify(a);
+    NG_WORDS.forEach(function (w) { json = json.split(w).join(''); });
+    json = json.replace(/<\/?([a-z]+)[^>]*>/gi, function (tag, name) {
+      name = name.toLowerCase();
+      if (name === 'strong' || name === 'em') return tag;
+      if (/^<span class=\\?"mark-[ox]\\?">$/i.test(tag) || /^<\/span>$/i.test(tag)) return tag;
+      return '';
+    });
+    json = json
+      .replace(/、、+/g, '、')
+      .replace(/。。+/g, '。')
+      .replace(/、。/g, '。')
+      .replace(/[ 　]{2,}/g, ' ');
+    return JSON.parse(json);
+  }
+
   function qpLog(msg, kind) {
     var box = $('qpLog');
     if (!box) return;
@@ -3096,16 +3118,17 @@
       return generateArticle(a);
     }).then(function (w) {
       warns = w || [];
-      if (warns.length) qpLog('要確認：' + warns.join(' / '), 'err');
-      qpLog('画像を用意しています…');
-      return ensureEyecatch(a).catch(function (e) {
-        qpLog('画像は作れませんでした（' + e.message + '）。画像なしで進めます', 'err');
-      });
-    }).then(function () {
-      /* 禁止表現・文字数などの要確認点があるまま自動公開すると、
-         CI（tools/check_text.py 等）に引っかかってビルドが止まり、
-         それ以降の全ての変更がサイトに反映されなくなる。
-         要確認点が無いときだけ公開し、あるときは下書きのまま保存する。 */
+      if (warns.length) {
+        qpLog('要確認点を取り除いて整えています：' + warns.join(' / '));
+        var idx = articles.indexOf(a);
+        a = autoFixArticle(a);
+        if (idx >= 0) articles[idx] = a;
+        warns = auditArticle(a);
+        if (warns.length) qpLog('取り除いた後も残る要確認点：' + warns.join(' / '), 'err');
+      }
+      /* 禁止表現などが残ったまま自動公開すると、CI（tools/check_text.py 等）
+         に引っかかってビルドが止まり、それ以降の全ての変更がサイトに
+         反映されなくなる。取り除いた後も残るときだけ下書きに留める。 */
       a.published = !warns.length;
       a.updated = today();
       renderList();
