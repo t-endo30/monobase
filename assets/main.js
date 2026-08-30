@@ -136,8 +136,17 @@ window.mbLockScroll = function (on, cls) {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var targets = document.querySelectorAll('.reveal');
 
+  /* アニメが終わったら reveal 関連のクラスを外す。
+     こうしないと animation の fill が transform を保持し続け、
+     :hover のリフトなど、ふだんの動きが効かなくなる。 */
+  function settle(el) {
+    el.classList.remove('reveal', 'is-in');
+    el.style.transitionDelay = '';
+    el.style.animationDelay = '';
+  }
+
   if (reduce || !('IntersectionObserver' in window)) {
-    Array.prototype.forEach.call(targets, function (el) { el.classList.add('is-in'); });
+    Array.prototype.forEach.call(targets, function (el) { settle(el); });
   } else {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
@@ -145,8 +154,11 @@ window.mbLockScroll = function (on, cls) {
         var el = en.target;
         /* 同じ行のカードを少しずつ遅らせて、順に現れるようにする */
         var i = Array.prototype.indexOf.call(el.parentNode.children, el);
-        el.style.transitionDelay = Math.min(i % 3, 2) * 70 + 'ms';
+        el.style.animationDelay = Math.min(i % 3, 2) * 70 + 'ms';
         el.classList.add('is-in');
+        el.addEventListener('animationend', function () { settle(el); }, { once: true });
+        /* animationend が来ない場合の保険 */
+        setTimeout(function () { settle(el); }, 900);
         io.unobserve(el);
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
@@ -161,9 +173,11 @@ window.mbLockScroll = function (on, cls) {
     function sweep() {
       sweeping = false;
       Array.prototype.forEach.call(targets, function (el) {
-        if (el.classList.contains('is-in')) return;
+        if (!el.classList.contains('reveal') || el.classList.contains('is-in')) return;
         if (el.getBoundingClientRect().top < window.innerHeight) {
           el.classList.add('is-in');
+          el.addEventListener('animationend', function () { settle(el); }, { once: true });
+          setTimeout(function () { settle(el); }, 900);
           io.unobserve(el);
         }
       });

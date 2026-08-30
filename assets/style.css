@@ -1553,27 +1553,26 @@ mark.hl{
 }
 
 /* 記事タイルは、画面内に入ったら奥から手前へ出す（Animista: slide-in-fwd-center）。
-   perspective は transform 内に持たせる（コンテナに付けると overflow の
-   クリップや横スクロールの描画が崩れるため）。 */
-.card.reveal{opacity:0;transform:perspective(1400px) translateZ(-1000px);}
+   ・perspective は transform 内に持たせる（コンテナ perspective は overflow の
+     クリップや横スクロールの描画を壊すため）
+   ・アニメが終わったら JS が .reveal / .is-in を外す → :hover などが元どおり動く */
+.card.reveal{opacity:0;transform:none;}
 .card.reveal.is-in{
-  opacity:1;
-  transform:perspective(1400px) translateZ(0);
   transition:none;
   -webkit-animation:slide-in-fwd-center .4s cubic-bezier(.25,.46,.45,.94) both;
           animation:slide-in-fwd-center .4s cubic-bezier(.25,.46,.45,.94) both;
 }
 @-webkit-keyframes slide-in-fwd-center{
-  0%{-webkit-transform:perspective(1400px) translateZ(-1000px);transform:perspective(1400px) translateZ(-1000px);opacity:0;}
+  0%{-webkit-transform:perspective(1400px) translateZ(-800px);transform:perspective(1400px) translateZ(-800px);opacity:0;}
   100%{-webkit-transform:perspective(1400px) translateZ(0);transform:perspective(1400px) translateZ(0);opacity:1;}
 }
 @keyframes slide-in-fwd-center{
-  0%{transform:perspective(1400px) translateZ(-1000px);opacity:0;}
+  0%{transform:perspective(1400px) translateZ(-800px);opacity:0;}
   100%{transform:perspective(1400px) translateZ(0);opacity:1;}
 }
 @media (prefers-reduced-motion:reduce){
   .card.reveal,.card.reveal.is-in{
-    opacity:1;transform:none;-webkit-animation:none;animation:none;
+    opacity:1;-webkit-animation:none;animation:none;
   }
 }
 
@@ -5614,26 +5613,30 @@ details.hero-policy .policy-close{display:none;}
     scroll-snap-type:x mandatory;
     scroll-padding-left:6px;
   }
-  .news-rail-block .rail .card-grid{gap:10px;}
+  .news-rail-block .rail .card-grid{gap:10px;align-items:flex-start !important;}
   .news-rail-block .rail .card{
     flex:0 0 74%;
     width:74%;
     max-width:290px;
-    height:212px;               /* 文字数によらず一律 */
+    height:230px !important;      /* 文字数によらず一律。中身(サムネ108+本文)にぴったり */
+    min-height:0 !important;
+    align-self:flex-start;
     scroll-snap-align:center;
-    display:block;              /* 内部は素直な縦積み */
+    display:block;
     overflow:hidden;
   }
   .news-rail-block .rail .card-thumb{
     aspect-ratio:auto !important;
-    height:116px;
+    display:block;
+    height:108px;
     margin:8px 8px 0;
   }
+  .news-rail-block .rail .card-thumb img{height:100%;width:100%;object-fit:cover;}
   .news-rail-block .rail .card-body{
     display:block;
-    padding:7px 12px 10px;
+    padding:8px 12px 12px;
   }
-  .news-rail-block .rail .card-tags{min-height:0;margin-bottom:3px;}
+  .news-rail-block .rail .card-tags{min-height:0;margin-bottom:4px;}
   .news-rail-block .rail .card-body .card-title{
     display:block;
     font-size:12.5px;line-height:1.45;
@@ -5642,10 +5645,10 @@ details.hero-policy .policy-close{display:none;}
     overflow:hidden;
   }
   .news-rail-block .rail .card-body .card-title .t-main{display:inline;}
-  .news-rail-block .rail .card-rating{margin:4px 0 0;font-size:11px;min-height:0;}
+  .news-rail-block .rail .card-rating{margin:5px 0 0;font-size:11px;min-height:0;}
   .news-rail-block .rail .cr-stars{font-size:11px;}
-  .news-rail-block .rail .card-desc{display:none;}
-  .news-rail-block .rail .card-link{display:none;}
+  .news-rail-block .rail .card-desc{display:none !important;}
+  .news-rail-block .rail .card-link{display:none !important;}
 
   .news-rail-block{margin-bottom:26px;}
   .news-rail-block .rail-more-all{margin-top:8px;}
