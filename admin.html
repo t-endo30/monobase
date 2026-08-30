@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=dbda1ec0">
+<link rel="stylesheet" href="./assets/admin.css?v=777c91a3">
 </head>
 <body>
 
@@ -83,6 +83,9 @@
         <b>ここに商品名を入力しておくと、ページの取得を行わずこの名前で記事を作ります。</b>
         楽天市場・Yahoo!ショッピングは通常どおり自動取得できます（入力すればそちらもこの名前を優先します）。
       </div>
+
+      <label for="qpCategory">ジャンル<span class="opt">「自動判定」のままでも可。指定するとそのジャンルで作成します</span></label>
+      <select id="qpCategory"><option value="">自動判定（商品名から推測）</option></select>
       <div class="note">
         Amazonは商品ページのURL（<code>/dp/</code> など）が必要です。短縮リンク（amzn.to）は使えません。<br>
         本文の生成には「画像」タブで登録した Gemini または Claude のAPIキーが要ります。
@@ -1021,6 +1024,6 @@
 
 <div class="toast" id="toast"></div>
 <script src="./assets/vendor/qrcode.min.js"></script>
-<script src="./assets/admin.js?v=dbda1ec0"></script>
+<script src="./assets/admin.js?v=777c91a3"></script>
 </body>
 </html>

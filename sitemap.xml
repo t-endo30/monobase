@@ -76,6 +76,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://monobase.site/category-travel</loc>
+    <lastmod>2026-08-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/category-feature-guide</loc>
     <lastmod>2026-08-18</lastmod>
     <priority>0.6</priority>
@@ -173,6 +178,11 @@
   <url>
     <loc>https://monobase.site/category-furniture-bed</loc>
     <lastmod>2026-08-24</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/category-travel-luggage</loc>
+    <lastmod>2026-08-30</lastmod>
     <priority>0.6</priority>
   </url>
   <url>

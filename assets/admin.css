@@ -164,6 +164,7 @@ textarea{resize:vertical;line-height:1.75;}
 }
 .logbox .ok{color:#5DD9A0;}
 .logbox .err{color:#FF8B76;}
+.logbox .warn{color:#E8B45E;}
 .logbox .dim{color:#7C8AA0;}
 
 /* ============================================================

@@ -9,7 +9,7 @@
   "founded": "2026",
   "analytics": {
     "ga_measurement_id": "G-YJ85V2J7EK",
-    "gsc_verification": ""
+    "gsc_verification": "XzDLJp48lBwivyxHNORLURzTwXu_-apgDXr5Z-POer8"
   },
   "features": {
     "contact_form": true,
@@ -375,6 +375,34 @@
         {
           "key": "aqua",
           "label": "アクアリウム・小動物"
+        }
+      ]
+    },
+    {
+      "key": "travel",
+      "label": "旅行・トラベル",
+      "icon": "🧳",
+      "lead": "スーツケース・トラベルポーチ・機内グッズなど、移動と滞在を軽くするための道具。荷造りのしやすさと、現地で困らないかという視点で整理します。",
+      "sub": [
+        {
+          "key": "luggage",
+          "label": "スーツケース・バッグ"
+        },
+        {
+          "key": "organize",
+          "label": "パッキング・収納"
+        },
+        {
+          "key": "gadget",
+          "label": "旅行ガジェット・変換器"
+        },
+        {
+          "key": "comfort",
+          "label": "機内・移動の快適グッズ"
+        },
+        {
+          "key": "amenity",
+          "label": "トラベル用トイレタリー"
         }
       ]
     }

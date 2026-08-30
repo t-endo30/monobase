@@ -137,7 +137,10 @@
   }
 
   function getFile(path) {
-    return api('contents/' + path + '?ref=' + encodeURIComponent(cfg.branch), { allow404: true });
+    /* t= はブラウザ／CDNのキャッシュ避け。これが無いと、直前に別端末や
+       GitHub上で更新した内容が古いまま読まれることがある。 */
+    return api('contents/' + path + '?ref=' + encodeURIComponent(cfg.branch)
+               + '&t=' + Date.now(), { allow404: true });
   }
 
   function putFile(path, contentB64, sha, message) {
@@ -1600,6 +1603,7 @@
       t.classList.toggle('is-active', t.getAttribute('data-panel') === id);
     });
     if (id === 'p-preview') pvOpen();
+    if (id === 'p-quickpost' && typeof window.fillQpCategory === 'function') window.fillQpCategory();
   }
   Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (t) {
     t.addEventListener('click', function () { showPanel(t.getAttribute('data-panel')); });
@@ -1612,6 +1616,7 @@
     renderSettings();
     /* カテゴリーの一覧は site.json が読めてからでないと作れない */
     if (!findWired && site && site.categories) { wireFind(); findWired = true; }
+    if (typeof window.fillQpCategory === 'function') window.fillQpCategory();
   }
 
   /* ---------------------------------------------------- 離脱ガード */
@@ -2049,6 +2054,11 @@
     beauty:     { genre: 100939, word: '美容家電' },
     pet:        { genre: 101213, word: 'ペット用品' }
   };
+  /* travel（旅行・トラベル）は CATEGORY_MAP に入れていない。
+     入れると「商品を探す」の自動ローテーションが、記事0本の旅行に
+     張り付いてしまうため。旅行の記事は「URLから記事を作る」や
+     手動で作る。カテゴリー判定は categoryFromContent() が
+     ラベル・サブ名・説明文から拾うので CATEGORY_MAP は不要。 */
 
   var candidates = [];
 
@@ -2975,6 +2985,20 @@
     return out;
   }
 
+  /* タイトルもJSON-LDも取れなかったときの最後の砦。
+     Amazonの商品URLは /商品名-キーワード/dp/ASIN/ の形なので、
+     dp（または gp/product）の手前のスラッグを商品名として復元する。
+     ハイフン区切りでノイズも混じるが、空で失敗するよりは足がかりになる。 */
+  function nameFromUrl(raw) {
+    var path = '';
+    try { path = decodeURIComponent(new URL(raw).pathname); } catch (e) { return ''; }
+    var m = path.match(/\/([^\/]+)\/(?:dp|gp\/product|gp\/aw\/d)\//);
+    if (!m) return '';
+    var s = m[1].replace(/-/g, ' ').replace(/\s{2,}/g, ' ').trim();
+    if (/^b0[0-9a-z]{8}$/i.test(s)) return '';   // スラッグ無しでASINだけの短縮URL
+    return s.length >= 4 ? s : '';
+  }
+
   /* 楽天・Yahoo!のタイトルは「【楽天市場】商品名：店舗名」
      「商品名 : 店舗名 - 通販 - Yahoo!ショッピング」のように店名が
      くっついてくるため、末尾の店名部分を落とす。 */
@@ -3017,6 +3041,54 @@
     });
     if (best) return best;
     return { category: pickCategory() || (cats[0] || {}).key || '', sub: '' };
+  }
+
+  /* 記事の中の文字列をぜんぶつなげる。カテゴリー判定の材料にする。 */
+  function articleText(a) {
+    var acc = [];
+    (function walk(v) {
+      if (typeof v === 'string') { acc.push(v); return; }
+      if (Array.isArray(v)) { v.forEach(walk); return; }
+      if (v && typeof v === 'object') { Object.keys(v).forEach(function (k) { walk(v[k]); }); }
+    })(a);
+    return acc.join(' ');
+  }
+
+  /* 生成された記事の中身と、サイト設定のカテゴリー定義（ラベル・
+     サブカテゴリー名・説明文・キーワード）を突き合わせて、いちばん
+     当てはまるカテゴリーを選ぶ。商品名だけで決めるより外しにくい。
+     手動でジャンルを指定していない「URLから記事を作る」で使う。 */
+  function categoryFromContent(a) {
+    var cats = site.categories || [];
+    var text = articleText(a);
+    var tags = (a.tags || []).join(' ');
+    function count(hay, needle) {
+      if (!needle) return 0;
+      return hay.split(needle).length - 1;
+    }
+    var best = null, bestScore = 0;
+    cats.forEach(function (c) {
+      if (c.key === 'feature') return;   /* 特集は自動では選ばない */
+      var score = 0, sub = '', subScore = 0;
+      var conf = CATEGORY_MAP[c.key];
+      var words = [c.label]
+        .concat(conf ? conf.word.split(/\s+/) : [])
+        .concat(String(c.lead || '').split(/[\s、。・（）()「」]+/).filter(function (w) {
+          return w.length >= 2;
+        }));
+      words.forEach(function (w) {
+        if (!w) return;
+        score += count(text, w);
+        score += count(tags, w) * 3;      /* タグでの一致は重い */
+      });
+      (c.sub || []).forEach(function (s) {
+        var sc = count(text, s.label) + count(tags, s.label) * 3;
+        if (sc > subScore) { subScore = sc; sub = s.key; }
+        score += sc;
+      });
+      if (score > bestScore) { bestScore = score; best = { category: c.key, sub: sub }; }
+    });
+    return best;
   }
 
   /* 禁止表現・使えないタグを取り除いて、公開できる形に直す。
@@ -3072,17 +3144,33 @@
     $('btnQpRun').disabled = true;
     $('qpLog').innerHTML = '';
 
-    var a = null, warns = null;
+    var a = null, warns = null, picked = '';
     var metaPromise;
     if (nameOverride) {
       qpLog('入力された商品名を使います：' + nameOverride);
       metaPromise = Promise.resolve({ name: nameOverride, jan: '' });
     } else {
       qpLog('商品ページを取得しています…');
-      metaPromise = fetchProductPage(raw).then(parseProductMeta);
+      metaPromise = fetchProductPage(raw)
+        .then(parseProductMeta)
+        .catch(function (err) {
+          /* ページ取得自体が弾かれた（Amazonのボット判定など）。
+             URLのスラッグから商品名を復元できれば、それで続行する。 */
+          var fromUrl = nameFromUrl(raw);
+          if (!fromUrl) throw err;
+          qpLog('ページを取得できなかったため、URLから商品名を推定します：' + fromUrl, 'warn');
+          return { name: fromUrl, image: '', price: 0, jan: '' };
+        });
     }
 
     metaPromise.then(function (meta) {
+      if (!meta.name && !nameOverride) {
+        var fromUrl = nameFromUrl(raw);
+        if (fromUrl) {
+          qpLog('商品名が取れなかったため、URLから推定します：' + fromUrl, 'warn');
+          meta.name = fromUrl;
+        }
+      }
       if (!meta.name) throw new Error('商品名を取得できませんでした（ページの構造が対応していない可能性があります）');
       var name = cleanName(nameOverride ? meta.name : cleanShopTitle(meta.name, shop));
       /* Amazonがボット判定などで商品ページの代わりに案内ページを返すと、
@@ -3097,7 +3185,11 @@
 
       var taken = {};
       articles.forEach(function (x) { if (x.slug) taken[x.slug] = true; });
-      var guess = guessCategory(name);
+      picked = (($('qpCategory') && $('qpCategory').value) || '').trim();
+      if (picked && !(site.categories || []).some(function (c) { return c.key === picked; })) picked = '';
+      /* 手動指定があればそれで確定。無ければ本文ができてから
+         categoryFromContent() で判定するので、ここでは仮に置くだけ。 */
+      var guess = picked ? { category: picked, sub: '' } : guessCategory(name);
       var cat = (site.categories || []).filter(function (c) { return c.key === guess.category; })[0] || {};
 
       a = blank();
@@ -3118,9 +3210,11 @@
       if (shop === 'yahoo') a.yahoo_url = raw;
       a.published = false;
 
-      qpLog('カテゴリー：' + (cat.label || guess.category) +
-            (guess.sub ? '（' + guess.sub + '）' : '') +
-            '（自動判定・違っていれば公開後に「記事」タブで直せます）');
+      if (picked) {
+        qpLog('カテゴリー：' + (cat.label || guess.category) + '（手動で指定）');
+      } else {
+        qpLog('カテゴリー：本文ができてから内容に合わせて判定します');
+      }
       qpLog('本文を作成しています…（1〜2分かかります）');
 
       articles.unshift(a);
@@ -3128,6 +3222,24 @@
       return generateArticle(a);
     }).then(function (w) {
       warns = w || [];
+
+      /* 手動指定が無いときは、ここで初めてカテゴリーを決める。
+         商品名ではなく、できあがった本文とタグから判定する。 */
+      if (!picked) {
+        var decided = categoryFromContent(a);
+        if (decided && decided.category) {
+          var dc = (site.categories || []).filter(function (c) {
+            return c.key === decided.category;
+          })[0] || {};
+          a.category = decided.category;
+          a.sub = decided.sub || '';
+          if (dc.icon) a.icon = dc.icon;
+          qpLog('カテゴリー：' + (dc.label || decided.category) +
+                (a.sub ? '（' + a.sub + '）' : '') +
+                '（本文の内容から判定・違っていれば「記事」タブで直せます）');
+        }
+      }
+
       if (warns.length) {
         qpLog('要確認点を取り除いて整えています：' + warns.join(' / '));
         var idx = articles.indexOf(a);
@@ -3161,6 +3273,20 @@
   }
 
   if ($('btnQpRun')) $('btnQpRun').addEventListener('click', runQuickPost);
+
+  /* ジャンルの選択肢を content/site.json から入れる。site.json が
+     読めてから呼ぶ必要があるため renderAll() 経由で実行する。 */
+  function fillQpCategory() {
+    var sel = $('qpCategory');
+    if (!sel || !site || !site.categories) return;
+    var keep = sel.value;
+    sel.innerHTML = '<option value="">自動判定（商品名から推測）</option>' +
+      site.categories.map(function (c) {
+        return '<option value="' + c.key + '">' + (c.icon || '') + ' ' + c.label + '</option>';
+      }).join('');
+    sel.value = keep;
+  }
+  window.fillQpCategory = fillQpCategory;
 
   /* ==================================================== 他の端末へ接続設定を渡す
      GitHubトークン・APIキーは端末のlocalStorageにしか無いため、スマホで
