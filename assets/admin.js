@@ -3067,23 +3067,33 @@
       return;
     }
 
+    var nameOverride = (($('qpName') && $('qpName').value) || '').trim();
+
     $('btnQpRun').disabled = true;
     $('qpLog').innerHTML = '';
-    qpLog('商品ページを取得しています…');
 
     var a = null, warns = null;
-    fetchProductPage(raw).then(function (data) {
-      var meta = parseProductMeta(data);
+    var metaPromise;
+    if (nameOverride) {
+      qpLog('入力された商品名を使います：' + nameOverride);
+      metaPromise = Promise.resolve({ name: nameOverride, jan: '' });
+    } else {
+      qpLog('商品ページを取得しています…');
+      metaPromise = fetchProductPage(raw).then(parseProductMeta);
+    }
+
+    metaPromise.then(function (meta) {
       if (!meta.name) throw new Error('商品名を取得できませんでした（ページの構造が対応していない可能性があります）');
-      var name = cleanName(cleanShopTitle(meta.name, shop));
+      var name = cleanName(nameOverride ? meta.name : cleanShopTitle(meta.name, shop));
       /* Amazonがボット判定などで商品ページの代わりに案内ページを返すと、
          商品名の代わりに「Amazon.co.jp」のようなサイト名だけが取れてしまう。
          これに気づかず進めると、AIが実在しない商品の記事を書いてしまう。 */
-      if (name.length < 4 || /^(amazon(\.co\.jp)?|楽天市場|yahoo!?ショッピング)$/i.test(name)) {
+      if (!nameOverride && (name.length < 4 ||
+          /^(amazon(\.co\.jp)?|楽天市場|yahoo!?ショッピング)$/i.test(name))) {
         throw new Error('商品名を正しく取得できませんでした（「' + name +
-          '」）。ページ取得がブロックされた可能性があります。時間を置くか、別のURLでお試しください');
+          '」）。ページ取得がブロックされた可能性があります。上の「商品名」欄に手入力してからもう一度お試しください');
       }
-      qpLog('商品名：' + name);
+      if (!nameOverride) qpLog('商品名：' + name);
 
       var taken = {};
       articles.forEach(function (x) { if (x.slug) taken[x.slug] = true; });

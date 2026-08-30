@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=8548e6f8">
+<link rel="stylesheet" href="./assets/admin.css?v=dbda1ec0">
 </head>
 <body>
 
@@ -75,6 +75,14 @@
       </p>
       <label for="qpUrl">商品ページのURL</label>
       <input type="url" id="qpUrl" placeholder="https://www.amazon.co.jp/dp/B0XXXXXXXX　など">
+
+      <label for="qpName">商品名<span class="opt">自動で取得できないときだけ入力（任意）</span></label>
+      <input type="text" id="qpName" placeholder="例：ポータブルシャワー 携帯ウォシュレット 2WAY 2.5Lタンク">
+      <div class="note">
+        Amazonはボット判定で商品ページの取得がブロックされやすく、その場合は商品名を取得できずに失敗します。
+        <b>ここに商品名を入力しておくと、ページの取得を行わずこの名前で記事を作ります。</b>
+        楽天市場・Yahoo!ショッピングは通常どおり自動取得できます（入力すればそちらもこの名前を優先します）。
+      </div>
       <div class="note">
         Amazonは商品ページのURL（<code>/dp/</code> など）が必要です。短縮リンク（amzn.to）は使えません。<br>
         本文の生成には「画像」タブで登録した Gemini または Claude のAPIキーが要ります。
@@ -1013,6 +1021,6 @@
 
 <div class="toast" id="toast"></div>
 <script src="./assets/vendor/qrcode.min.js"></script>
-<script src="./assets/admin.js?v=8548e6f8"></script>
+<script src="./assets/admin.js?v=dbda1ec0"></script>
 </body>
 </html>
