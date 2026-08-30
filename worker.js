@@ -106,14 +106,28 @@ class MetaCollector {
 
 class TitleCollector {
   constructor(out) { this.out = out; this.buf = ""; }
-  text(chunk) { this.buf += chunk.text; if (chunk.lastInText) this.out.title = this.buf.trim(); }
+  text(chunk) {
+    this.buf += chunk.text;
+    if (chunk.lastInTextNode) this.out.title = this.buf.trim();
+  }
 }
 
 class JsonLdCollector {
   constructor(out) { this.out = out; this.out.jsonld = []; this.buf = ""; }
   text(chunk) {
     this.buf += chunk.text;
-    if (chunk.lastInText) { this.out.jsonld.push(this.buf); this.buf = ""; }
+    if (chunk.lastInTextNode) { this.out.jsonld.push(this.buf); this.buf = ""; }
+  }
+}
+
+// Amazonのページには og:title も JSON-LD も無く、<title> はSEO用の
+// 長い文字列（ブランド名やキーワードの寄せ集め）なので使えない。
+// 商品名がそのまま入る #productTitle を専用に拾う。
+class ProductTitleCollector {
+  constructor(out) { this.out = out; this.buf = ""; }
+  text(chunk) {
+    this.buf += chunk.text;
+    if (chunk.lastInTextNode) this.out.productTitle = this.buf.trim();
   }
 }
 
@@ -152,11 +166,12 @@ async function proxyFetchProduct(request, url) {
     const rewriter = new HTMLRewriter()
       .on('meta[property], meta[name]', new MetaCollector(out))
       .on('title', new TitleCollector(out))
+      .on('#productTitle', new ProductTitleCollector(out))
       .on('script[type="application/ld+json"]', new JsonLdCollector(out));
     await rewriter.transform(res).arrayBuffer();
 
     return json({
-      title: out.ogTitle || out.title || "",
+      title: out.productTitle || out.ogTitle || out.title || "",
       image: out.ogImage || "",
       price: out.ogPrice || "",
       jsonld: out.jsonld || [],

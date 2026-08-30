@@ -2975,6 +2975,21 @@
     return out;
   }
 
+  /* 楽天・Yahoo!のタイトルは「【楽天市場】商品名：店舗名」
+     「商品名 : 店舗名 - 通販 - Yahoo!ショッピング」のように店名が
+     くっついてくるため、末尾の店名部分を落とす。 */
+  function cleanShopTitle(name, shop) {
+    var s = String(name || '').replace(/^【楽天市場】\s*/, '');
+    if (shop === 'rakuten') {
+      var i = s.lastIndexOf('：');
+      if (i > 0) s = s.slice(0, i);
+    } else if (shop === 'yahoo') {
+      var j = s.indexOf(' : ');
+      if (j > 0) s = s.slice(0, j);
+    }
+    return s.trim();
+  }
+
   function janValid(code) {
     if (!/^\d{8}$|^\d{13}$/.test(code)) return false;
     var ds = code.split('').map(Number);
@@ -3038,7 +3053,7 @@
     fetchProductPage(raw).then(function (data) {
       var meta = parseProductMeta(data);
       if (!meta.name) throw new Error('商品名を取得できませんでした（ページの構造が対応していない可能性があります）');
-      var name = cleanName(meta.name);
+      var name = cleanName(cleanShopTitle(meta.name, shop));
       qpLog('商品名：' + name);
 
       var taken = {};
