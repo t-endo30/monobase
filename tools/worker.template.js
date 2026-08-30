@@ -13,6 +13,12 @@
 //      いないため、ブラウザから直接は呼べない。ここで中継する。
 //      中継先はYahoo!のAPIだけに固定し、Cloudflare Access を通った
 //      リクエストしか受け付けない（誰でも使える踏み台にしないため）。
+//   4. 商品ページの取得（/api/fetch-product）
+//      「URLから記事を作る」タブが使う。Amazon・楽天・Yahoo!の商品ページは
+//      ブラウザから直接fetchするとCORSで弾かれるため、ここで代わりに取得し、
+//      タイトル・画像・価格などのメタ情報だけを抜き出して返す。
+//      対象ドメインを固定し、Cloudflare Access を通ったリクエストしか
+//      受け付けない（誰でも使える踏み台にしないため）。
 
 const MAINTENANCE = __MAINTENANCE__;
 
@@ -70,6 +76,96 @@ async function proxyYahoo(request, url) {
   }
 }
 
+// 商品ページの取得を許すドメイン。ここに無いものは通さない
+// （任意のURLを取得できる踏み台にしないため）。
+const PRODUCT_HOSTS = [
+  "amazon.co.jp", "www.amazon.co.jp",
+  "item.rakuten.co.jp",
+  "store.shopping.yahoo.co.jp",
+];
+
+function hostAllowed(host) {
+  return PRODUCT_HOSTS.some((h) => host === h || host.endsWith("." + h));
+}
+
+// ページ内の meta / title / JSON-LD だけを抜き出す。
+// HTMLRewriter はストリームを流しながら書き換えられるAPIで、
+// ページ全体を文字列に持たずに済む（大きなページでもメモリを圧迫しない）。
+class MetaCollector {
+  constructor(out) { this.out = out; }
+  element(el) {
+    const prop = el.getAttribute("property") || el.getAttribute("name");
+    const content = el.getAttribute("content");
+    if (prop && content) {
+      if (prop === "og:title" || prop === "twitter:title") this.out.ogTitle = this.out.ogTitle || content;
+      if (prop === "og:image" || prop === "twitter:image") this.out.ogImage = this.out.ogImage || content;
+      if (prop === "product:price:amount") this.out.ogPrice = this.out.ogPrice || content;
+    }
+  }
+}
+
+class TitleCollector {
+  constructor(out) { this.out = out; this.buf = ""; }
+  text(chunk) { this.buf += chunk.text; if (chunk.lastInText) this.out.title = this.buf.trim(); }
+}
+
+class JsonLdCollector {
+  constructor(out) { this.out = out; this.out.jsonld = []; this.buf = ""; }
+  text(chunk) {
+    this.buf += chunk.text;
+    if (chunk.lastInText) { this.out.jsonld.push(this.buf); this.buf = ""; }
+  }
+}
+
+async function proxyFetchProduct(request, url) {
+  if (!request.headers.get("Cf-Access-Jwt-Assertion")) {
+    return json({
+      error:
+        "Cloudflare Access を通っていないため使えません。" +
+        "Zero Trust → Access → アプリケーション → モノベース管理画面 を開き、" +
+        "対象のパスに /api/ を追加してください。",
+    }, 403);
+  }
+
+  const target = url.searchParams.get("url") || "";
+  let parsed;
+  try { parsed = new URL(target); } catch (e) {
+    return json({ error: "URLの形が正しくありません" }, 400);
+  }
+  if (!hostAllowed(parsed.hostname)) {
+    return json({ error: "対応していないサイトのURLです（Amazon・楽天市場・Yahoo!ショッピングのみ）" }, 400);
+  }
+
+  try {
+    const res = await fetch(parsed.toString(), {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 " +
+          "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept-Language": "ja-JP,ja;q=0.9",
+      },
+      cf: { cacheTtl: 0 },
+    });
+    if (!res.ok) return json({ error: "商品ページの取得に失敗しました（HTTP " + res.status + "）" }, 502);
+
+    const out = {};
+    const rewriter = new HTMLRewriter()
+      .on('meta[property], meta[name]', new MetaCollector(out))
+      .on('title', new TitleCollector(out))
+      .on('script[type="application/ld+json"]', new JsonLdCollector(out));
+    await rewriter.transform(res).arrayBuffer();
+
+    return json({
+      title: out.ogTitle || out.title || "",
+      image: out.ogImage || "",
+      price: out.ogPrice || "",
+      jsonld: out.jsonld || [],
+    });
+  } catch (e) {
+    return json({ error: "商品ページに接続できません: " + e.message }, 502);
+  }
+}
+
 function json(obj, status) {
   return new Response(JSON.stringify(obj), {
     status: status || 200,
@@ -88,6 +184,11 @@ export default {
     // Yahoo!ショッピングAPIの中継
     if (path === "/api/yahoo") {
       return proxyYahoo(request, url);
+    }
+
+    // 商品ページの取得（URLから記事を作るタブが使う）
+    if (path === "/api/fetch-product") {
+      return proxyFetchProduct(request, url);
     }
 
     // 管理画面の入口は /admin だけにする。

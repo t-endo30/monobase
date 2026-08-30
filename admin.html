@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=24540f40">
+<link rel="stylesheet" href="./assets/admin.css?v=9720889e">
 </head>
 <body>
 
@@ -27,6 +27,7 @@
 <nav class="tabs">
   <div class="wrap">
     <button class="tab is-active" data-panel="p-articles">記事</button>
+    <button class="tab" data-panel="p-quickpost">URLから記事を作る</button>
     <button class="tab" data-panel="p-preview">プレビュー</button>
     <button class="tab" data-panel="p-images">画像</button>
     <button class="tab" data-panel="p-find">商品を探す</button>
@@ -56,6 +57,33 @@
     </div>
     <div class="card">
       <ul class="list" id="articleList"></ul>
+    </div>
+  </section>
+
+  <!-- ============================ URLから記事を作る ============================ -->
+  <section class="panel" id="p-quickpost">
+    <div class="card">
+      <h2>URLから記事を作って、そのまま公開する</h2>
+      <p class="hint">
+        <b>Amazon・楽天市場・Yahoo!ショッピングの商品ページURL</b>を貼り付けると、
+        商品名を読み取り、本文と画像をAIで作って<b>そのまま公開まで行います</b>。
+        「記事」タブの下書き作成とは違い、<b>途中で内容を確認する画面はありません</b>。
+        カテゴリーは商品名から自動で推測するため、外れていた場合は
+        公開後に「記事」タブから直してください。
+      </p>
+      <label for="qpUrl">商品ページのURL</label>
+      <input type="url" id="qpUrl" placeholder="https://www.amazon.co.jp/dp/B0XXXXXXXX　など">
+      <div class="note">
+        Amazonは商品ページのURL（<code>/dp/</code> など）が必要です。短縮リンク（amzn.to）は使えません。<br>
+        本文の生成には「画像」タブで登録した Gemini または Claude のAPIキーが、画像の生成には Gemini のAPIキーが要ります
+        （画像キーが無い場合は、画像なしのまま公開します）。<br>
+        GitHubとの接続（「接続」タブ）もあらかじめ済ませておいてください。
+      </div>
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnQpRun">この商品で記事を作って公開する</button>
+      </div>
+      <label>実行ログ</label>
+      <pre id="qpLog" class="logbox">URLを入力して実行してください。</pre>
     </div>
   </section>
 
@@ -905,7 +933,8 @@
         アフィリエイトIDは楽天直アフィリエイト用で、当サイトはもしも経由のため使いません。<br>
         Yahoo! → <b>Yahoo!デベロッパーネットワーク</b> <code>e.developer.yahoo.co.jp/register</code> でアプリケーションIDを発行します。<br><br>
         <b>Yahoo!のAPIはブラウザから直接呼べない</b>ため、このサイトの <code>/api/yahoo</code> を経由します。
-        この入口は Cloudflare Access を通ったリクエストしか受け付けません。
+        「URLから記事を作る」タブが商品ページを取得する <code>/api/fetch-product</code> も同じ仕組みです。
+        どちらの入口も Cloudflare Access を通ったリクエストしか受け付けません。
         Zero Trust のアプリケーションで、見張る対象のパスに <code>/api/</code> を追加しておいてください。
       </div>
     </div>
@@ -962,6 +991,6 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=24540f40"></script>
+<script src="./assets/admin.js?v=9720889e"></script>
 </body>
 </html>

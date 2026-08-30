@@ -936,12 +936,12 @@
       log('保存できません：GitHubに未接続です', 'err');
       toast('GitHubに未接続です。「接続」タブで設定してください', 'err');
       showPanel('p-connect');
-      return;
+      return Promise.reject(new Error('GitHubに未接続です'));
     }
     var json = JSON.stringify(articles, null, 2) + '\n';
     log('記事を保存します: ' + articles.length + '件 / sha=' + (shaArticles ? shaArticles.slice(0, 7) : 'なし'));
     toast('保存中…');
-    putFile('content/articles.json', b64encode(json), shaArticles,
+    return putFile('content/articles.json', b64encode(json), shaArticles,
             '記事を更新（管理画面より）')
       .then(function (res) {
         shaArticles = res.content.sha;
@@ -951,6 +951,7 @@
       .catch(function (e) {
         log('保存失敗: ' + e.message, 'err');
         toast(e.message, 'err');
+        throw e;
       });
   }
 
@@ -2918,5 +2919,182 @@
       fr.readAsDataURL(blob);
     });
   }
+
+  /* ==================================================== URLから記事を作る
+     商品ページのURLを1つ渡すだけで、下書き作成→本文生成→画像生成→公開
+     までを自動で行う。「記事」タブでの確認をはさまないため、
+     間違った内容がそのまま公開される前提で、失敗はログに残す。 */
+  var PRODUCT_PROXY = '/api/fetch-product';
+
+  function detectShop(url) {
+    var host = '';
+    try { host = new URL(url).hostname; } catch (e) { return null; }
+    if (/(^|\.)amazon\.co\.jp$/.test(host)) return 'amazon';
+    if (/(^|\.)rakuten\.co\.jp$/.test(host)) return 'rakuten';
+    if (/(^|\.)yahoo\.co\.jp$/.test(host)) return 'yahoo';
+    return null;
+  }
+
+  function fetchProductPage(url) {
+    return fetch(PRODUCT_PROXY + '?url=' + encodeURIComponent(url))
+      .then(function (r) {
+        return r.json().then(function (j) {
+          if (!r.ok) throw new Error(j.error || ('商品ページの取得に失敗しました（HTTP ' + r.status + '）'));
+          return j;
+        });
+      });
+  }
+
+  /* JSON-LDはサイトによって @graph に包まれていたり配列だったりするため、
+     Productらしきノードを再帰でたどって拾う。 */
+  function findProductLd(node, out) {
+    if (!node || typeof node !== 'object') return;
+    if (Array.isArray(node)) { node.forEach(function (n) { findProductLd(n, out); }); return; }
+    var type = node['@type'];
+    var isProduct = type === 'Product' || (Array.isArray(type) && type.indexOf('Product') >= 0);
+    if (isProduct) {
+      if (node.name && !out.name) out.name = String(node.name);
+      var image = Array.isArray(node.image) ? node.image[0] : node.image;
+      if (image && !out.image) out.image = String(image);
+      if (node.gtin13 && !out.jan) out.jan = String(node.gtin13);
+      if (node.gtin && !out.jan && /^\d{8}$|^\d{13}$/.test(node.gtin)) out.jan = String(node.gtin);
+      var offers = Array.isArray(node.offers) ? node.offers[0] : node.offers;
+      if (offers && offers.price && !out.price) out.price = Number(offers.price) || 0;
+    }
+    Object.keys(node).forEach(function (k) { findProductLd(node[k], out); });
+  }
+
+  function parseProductMeta(data) {
+    var out = { name: '', image: '', price: 0, jan: '' };
+    (data.jsonld || []).forEach(function (text) {
+      try { findProductLd(JSON.parse(text), out); } catch (e) {}
+    });
+    if (!out.name) out.name = data.title || '';
+    if (!out.image) out.image = data.image || '';
+    if (!out.price && data.price) out.price = Number(data.price) || 0;
+    return out;
+  }
+
+  function janValid(code) {
+    if (!/^\d{8}$|^\d{13}$/.test(code)) return false;
+    var ds = code.split('').map(Number);
+    var check = ds.pop();
+    var total = ds.reverse().reduce(function (sum, d, i) {
+      return sum + d * (i % 2 === 0 ? 3 : 1);
+    }, 0);
+    return (10 - total % 10) % 10 === check;
+  }
+
+  /* 商品名から、当てはまりそうなカテゴリー・サブカテゴリーを推測する。
+     完全な判定はできないので、外れていれば「記事」タブで直せばよい。 */
+  function guessCategory(name) {
+    var cats = site.categories || [];
+    var best = null, bestScore = 0;
+    cats.forEach(function (c) {
+      var score = 0, sub = '';
+      var conf = CATEGORY_MAP[c.key];
+      var words = [c.label].concat(conf ? conf.word.split(/\s+/) : []);
+      words.forEach(function (w) { if (w && name.indexOf(w) >= 0) score += 1; });
+      (c.sub || []).forEach(function (s) {
+        if (s.label && name.indexOf(s.label) >= 0) { score += 2; sub = s.key; }
+      });
+      if (score > bestScore) { bestScore = score; best = { category: c.key, sub: sub }; }
+    });
+    if (best) return best;
+    return { category: pickCategory() || (cats[0] || {}).key || '', sub: '' };
+  }
+
+  function qpLog(msg, kind) {
+    var box = $('qpLog');
+    if (!box) return;
+    var line = document.createElement('div');
+    line.textContent = msg;
+    if (kind) line.className = kind;
+    box.appendChild(line);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function runQuickPost() {
+    var raw = ($('qpUrl').value || '').trim();
+    if (!raw) { toast('商品ページのURLを入力してください', 'err'); return; }
+    if (!cfg.token) { toast('先に「接続」タブでGitHubを設定してください', 'err'); return; }
+
+    var shop = detectShop(raw);
+    if (!shop) {
+      toast('Amazon・楽天市場・Yahoo!ショッピングの商品ページURLに対応しています', 'err');
+      return;
+    }
+    var asin = shop === 'amazon' ? extractAsin(raw) : '';
+    if (shop === 'amazon' && !asin) {
+      toast('AmazonのURLからASINを取り出せませんでした。商品ページのURLを貼り付けてください', 'err');
+      return;
+    }
+
+    $('btnQpRun').disabled = true;
+    $('qpLog').innerHTML = '';
+    qpLog('商品ページを取得しています…');
+
+    var a = null;
+    fetchProductPage(raw).then(function (data) {
+      var meta = parseProductMeta(data);
+      if (!meta.name) throw new Error('商品名を取得できませんでした（ページの構造が対応していない可能性があります）');
+      var name = cleanName(meta.name);
+      qpLog('商品名：' + name);
+
+      var taken = {};
+      articles.forEach(function (x) { if (x.slug) taken[x.slug] = true; });
+      var guess = guessCategory(name);
+      var cat = (site.categories || []).filter(function (c) { return c.key === guess.category; })[0] || {};
+
+      a = blank();
+      a.category = guess.category;
+      a.sub = guess.sub;
+      a.title = name;
+      a.list_title = name.slice(0, 30);
+      a.slug = draftSlug(name, guess.category, taken);
+      a.description = name + 'は買う価値があるのか。レビューを読み込んで、良い点と注意点、向いている人を整理します。';
+      a.excerpt = 'レビューから見えた、' + name.slice(0, 24) + 'の実力と向き不向き。';
+      a.tags = draftTags(name, cat.label || '');
+      if (cat.icon) a.icon = cat.icon;
+      a.verdict_title = '結論：';
+      a.conclusion_title = 'まとめ';
+      if (meta.jan && janValid(meta.jan)) a.jan = meta.jan;
+      if (shop === 'amazon') a.asin = asin;
+      if (shop === 'rakuten') a.rakuten_url = raw;
+      if (shop === 'yahoo') a.yahoo_url = raw;
+      a.published = false;
+
+      qpLog('カテゴリー：' + (cat.label || guess.category) +
+            (guess.sub ? '（' + guess.sub + '）' : '') +
+            '（自動判定・違っていれば公開後に「記事」タブで直せます）');
+      qpLog('本文を作成しています…（1〜2分かかります）');
+
+      articles.unshift(a);
+      renderList();
+      return generateArticle(a);
+    }).then(function (warns) {
+      if (warns && warns.length) qpLog('要確認：' + warns.join(' / '), 'err');
+      qpLog('画像を用意しています…');
+      return ensureEyecatch(a).catch(function (e) {
+        qpLog('画像は作れませんでした（' + e.message + '）。画像なしで公開します', 'err');
+      });
+    }).then(function () {
+      a.published = true;
+      a.updated = today();
+      renderList();
+      qpLog('GitHubに保存しています…');
+      return saveArticles();
+    }).then(function () {
+      qpLog('公開しました：' + a.title, 'ok');
+      toast('記事を公開しました。ビルドが終わるとサイトに反映されます', 'ok');
+    }).catch(function (e) {
+      qpLog('失敗しました：' + e.message, 'err');
+      toast(e.message, 'err');
+    }).then(function () {
+      $('btnQpRun').disabled = false;
+    });
+  }
+
+  if ($('btnQpRun')) $('btnQpRun').addEventListener('click', runQuickPost);
 
 })();
