@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=9720889e">
+<link rel="stylesheet" href="./assets/admin.css?v=ec400d75">
 </head>
 <body>
 
@@ -977,6 +977,27 @@
     </div>
 
     <div class="card">
+      <h2>スマホなど他の端末でも同じ設定で使う</h2>
+      <p class="hint">
+        GitHubトークンやAPIキーは、この端末のブラウザ内（localStorage）にだけ保存されており、
+        別の端末で開いても自動では共有されません。<b>QRコードで渡す</b>と、入力し直さずに済みます。
+      </p>
+      <div class="note warn">
+        QRコードにはトークン・APIキーがそのまま入っています。<b>パスワードと同じ扱い</b>にしてください。
+        画面の写真を撮って共有したり、他人に見せたりしないでください。読み取ったら「隠す」で消してください。
+      </div>
+      <div class="btn-bar">
+        <button class="btn btn-primary" id="btnSyncQr">QRコードを表示</button>
+        <button class="btn btn-ghost" id="btnSyncQrHide">隠す</button>
+      </div>
+      <div id="syncQrBox" hidden style="margin-top:12px;width:220px;"></div>
+      <div class="note">
+        スマホのカメラでこのQRコードを読み取り、出てきたリンクを開いてください。
+        「接続情報を取り込みますか」の確認のあと、この画面がスマホにも表示されます。
+      </div>
+    </div>
+
+    <div class="card">
       <h2>オフラインで使う場合</h2>
       <p class="hint">GitHubに接続せず、編集結果をファイルとして書き出すこともできます。書き出した JSON を <code>content/</code> に置いて <code>python3 build.py</code> を実行してください。</p>
       <div class="btn-bar">
@@ -991,6 +1012,7 @@
 </div>
 
 <div class="toast" id="toast"></div>
-<script src="./assets/admin.js?v=9720889e"></script>
+<script src="./assets/vendor/qrcode.min.js"></script>
+<script src="./assets/admin.js?v=ec400d75"></script>
 </body>
 </html>

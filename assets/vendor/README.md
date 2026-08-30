@@ -20,3 +20,9 @@ JS
 npx esbuild entry.mjs --bundle --format=iife --global-name=Motion --minify \
   --outfile=assets/vendor/motion-mini.min.js
 ```
+
+## qrcode.min.js
+
+- 管理画面の「接続」タブで、接続設定を他の端末（スマホ等）にQRコードで渡すために使う
+- davidshimjs/qrcodejs（`QRCode` というグローバル変数を作る）
+- 約19KB。ライセンス：MIT

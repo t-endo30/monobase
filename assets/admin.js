@@ -3097,4 +3097,65 @@
 
   if ($('btnQpRun')) $('btnQpRun').addEventListener('click', runQuickPost);
 
+  /* ==================================================== 他の端末へ接続設定を渡す
+     GitHubトークン・APIキーは端末のlocalStorageにしか無いため、スマホで
+     開くと空になる。QRコードにこの端末の設定を載せ、読み取った端末の
+     URLハッシュ（#sync=...）から取り込む。サーバーには一切送らない。 */
+  var SYNC_KEYS = [LS, GM_KEY, CL_KEY, FIND_KEYS];
+
+  function buildSyncUrl() {
+    var payload = {};
+    SYNC_KEYS.forEach(function (k) {
+      var v = null;
+      try { v = localStorage.getItem(k); } catch (e) {}
+      if (v) payload[k] = v;
+    });
+    if (!Object.keys(payload).length) return null;
+    var enc = encodeURIComponent(b64encode(JSON.stringify(payload)));
+    return location.origin + location.pathname + '#sync=' + enc;
+  }
+
+  function showSyncQr() {
+    var url = buildSyncUrl();
+    var box = $('syncQrBox');
+    if (!url) { toast('渡せる接続情報がまだありません', 'err'); return; }
+    if (!box || typeof QRCode === 'undefined') {
+      toast('QRコードの部品を読み込めませんでした', 'err');
+      return;
+    }
+    box.innerHTML = '';
+    box.hidden = false;
+    try {
+      new QRCode(box, { text: url, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.L });
+    } catch (e) {
+      toast('QRコードを作れませんでした：' + e.message, 'err');
+    }
+  }
+
+  function hideSyncQr() {
+    var box = $('syncQrBox');
+    if (box) { box.hidden = true; box.innerHTML = ''; }
+  }
+
+  if ($('btnSyncQr')) $('btnSyncQr').addEventListener('click', showSyncQr);
+  if ($('btnSyncQrHide')) $('btnSyncQrHide').addEventListener('click', hideSyncQr);
+
+  /* 読み取った側：ページを開いた時点で #sync= が付いていれば取り込む */
+  (function importSync() {
+    var m = /#sync=([^&]+)/.exec(location.hash);
+    if (!m) return;
+    history.replaceState(null, '', location.pathname + location.search);
+    var payload;
+    try { payload = JSON.parse(b64decode(decodeURIComponent(m[1]))); } catch (e) {
+      toast('接続情報の読み込みに失敗しました', 'err');
+      return;
+    }
+    if (!confirm('読み取った接続情報を、この端末に設定します。よろしいですか？')) return;
+    Object.keys(payload).forEach(function (k) {
+      try { localStorage.setItem(k, payload[k]); } catch (e) {}
+    });
+    toast('接続情報を取り込みました。ページを再読み込みします', 'ok');
+    setTimeout(function () { location.reload(); }, 900);
+  })();
+
 })();
