@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 MIN_BLOCKS = 3      # summary/pros/cons/scenes/voices の合計要素数の下限
 MIN_CHARS = 6000    # 本文の文字数の下限（docs/article-prompt.md と揃える）
-MAX_CHARS = 8300    # 上限。長すぎる記事は読み切られない
+MAX_CHARS = 10500   # 上限。FAQ・情報源明記・比較基準の追記で長くなったぶん広げた
 
 # 文字数に数えないキー（識別子・URL・分類など、読者が読む文ではない）
 SKIP_KEYS = {"slug", "thumb", "banner", "amazon_url", "asin", "jan", "date", "updated",

@@ -1079,6 +1079,7 @@ def render_article(a):
         toc.append((f"sec-note{i}", sec.get("heading", "")))
     if a.get("voices"):                   toc.append(("sec-voice", "共通の不満点と対処法"))
     if a.get("next_problem", {}).get("items"): toc.append(("sec-next", "次に困りそうなこと"))
+    if a.get("faq"):                      toc.append(("sec-faq", "よくある質問"))
     if featured_in(a, p):                 toc.append(("sec-featured-in", "この商品を比較した特集"))
     if a.get("conclusion"):               toc.append(("sec-conclusion", "まとめ"))
     if toc:
@@ -1305,6 +1306,15 @@ def render_article(a):
 ''')
         add('          </div>\n')
 
+    # よくある質問（FAQ）。読者が購入前に迷う点を、仕様と口コミから答える。
+    faq = [q for q in (a.get("faq") or [])
+           if q.get("q") and q.get("a")]
+    if faq:
+        add('          <h2 id="sec-faq">よくある質問</h2>\n')
+        for q in faq:
+            add(f'''          <h3>{mark(e(q["q"]))}</h3>
+{paras(q["a"])}''')
+
     # この商品を扱っている特集への導線
     add(featured_in(a, p))
 
@@ -1365,6 +1375,22 @@ def render_article(a):
     extra_js = ('<script type="application/ld+json">'
                 + json.dumps(ld, ensure_ascii=False) + '</script>\n'
                 + crumb_ld)
+
+    # FAQ の構造化データ。検索結果に質問と回答が出ることがある。
+    faq_items = [q for q in (a.get("faq") or []) if q.get("q") and q.get("a")]
+    if faq_items:
+        def _txt(v):
+            v = " ".join(v) if isinstance(v, list) else str(v)
+            return re.sub(r"<[^>]+>", "", v).strip()
+        faq_ld = {
+            "@context": "https://schema.org", "@type": "FAQPage",
+            "mainEntity": [{
+                "@type": "Question", "name": _txt(q["q"]),
+                "acceptedAnswer": {"@type": "Answer", "text": _txt(q["a"])},
+            } for q in faq_items],
+        }
+        extra_js += ('<script type="application/ld+json">'
+                     + json.dumps(faq_ld, ensure_ascii=False) + '</script>\n')
 
     return page(f'{a["title"]} - {NAME}', a.get("description") or a.get("excerpt",""),
                 cat, p, url, "".join(b),
