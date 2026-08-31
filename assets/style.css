@@ -1552,23 +1552,23 @@ mark.hl{
   transition:opacity .6s var(--ease),transform .6s var(--ease);
 }
 
-/* 記事タイルは、画面内に入ったら奥から手前へ出す（Animista: slide-in-fwd-center）。
-   ・perspective は transform 内に持たせる（コンテナ perspective は overflow の
-     クリップや横スクロールの描画を壊すため）
+/* 記事タイルは、画面内に入ったら下から少し持ち上げて出す。
    ・アニメが終わったら JS が .reveal / .is-in を外す → :hover などが元どおり動く */
-.card.reveal{opacity:0;transform:none;}
+.card.reveal{opacity:0;transform:translateY(14px);}
 .card.reveal.is-in{
   transition:none;
-  -webkit-animation:slide-in-fwd-center .4s cubic-bezier(.25,.46,.45,.94) both;
-          animation:slide-in-fwd-center .4s cubic-bezier(.25,.46,.45,.94) both;
+  -webkit-animation:card-rise .38s cubic-bezier(.25,.46,.45,.94) both;
+          animation:card-rise .38s cubic-bezier(.25,.46,.45,.94) both;
 }
-@-webkit-keyframes slide-in-fwd-center{
-  0%{-webkit-transform:perspective(1400px) translateZ(-800px);transform:perspective(1400px) translateZ(-800px);opacity:0;}
-  100%{-webkit-transform:perspective(1400px) translateZ(0);transform:perspective(1400px) translateZ(0);opacity:1;}
+/* 奥行き（perspective/translateZ）は使わない。モバイルでは重い合成に
+   なり、文字がぼやけたりカクついたりするため、控えめな上下移動にする。 */
+@-webkit-keyframes card-rise{
+  0%{-webkit-transform:translateY(14px);transform:translateY(14px);opacity:0;}
+  100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1;}
 }
-@keyframes slide-in-fwd-center{
-  0%{transform:perspective(1400px) translateZ(-800px);opacity:0;}
-  100%{transform:perspective(1400px) translateZ(0);opacity:1;}
+@keyframes card-rise{
+  0%{transform:translateY(14px);opacity:0;}
+  100%{transform:translateY(0);opacity:1;}
 }
 @media (prefers-reduced-motion:reduce){
   .card.reveal,.card.reveal.is-in{
@@ -1986,9 +1986,11 @@ a,button,.card,.chip{-webkit-tap-highlight-color:rgba(0,0,0,.08);}
 /* スワイプ中に画面を動かす土台。指の動きに追従させるため
    transform を JS 側から直接書き換える。 */
 body.is-listing main.layout{
-  will-change:transform;
   touch-action:pan-y;
 }
+/* スワイプ中だけ合成レイヤーに載せる。常時 will-change を付けると
+   モバイルで文字がぼやけたり、スクロールが重くなる。 */
+body.is-listing main.layout.is-swiping{will-change:transform;}
 
 /* ---- 横スクロールする表：スクロールできることを見せる ---- */
 .table-scroll{position:relative;}
@@ -2299,21 +2301,23 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
     overflow-y:auto;
     -webkit-overflow-scrolling:touch;
   }
-  /* 開閉のアニメーション（Animista: slide-in-fwd-top / slide-out-top） */
+  /* 開閉のアニメーション。以前は画面外 800〜1000px からの飛び込みで、
+     アニメ中に巨大な領域ができてスクロールやオーバースクロールが
+     乱れていた。上から少しだけ滑らせる控えめな動きにする。 */
   .global-nav.is-open,
   .cat-panel:not([hidden]){
-    -webkit-animation:slide-in-fwd-top .4s cubic-bezier(.25,.46,.45,.94) both;
-            animation:slide-in-fwd-top .4s cubic-bezier(.25,.46,.45,.94) both;
+    -webkit-animation:slide-in-fwd-top .26s cubic-bezier(.25,.46,.45,.94) both;
+            animation:slide-in-fwd-top .26s cubic-bezier(.25,.46,.45,.94) both;
   }
   .global-nav.is-closing{
     display:block;
-    -webkit-animation:slide-out-top .5s cubic-bezier(.55,.085,.68,.53) both;
-            animation:slide-out-top .5s cubic-bezier(.55,.085,.68,.53) both;
+    -webkit-animation:slide-out-top .2s cubic-bezier(.55,.085,.68,.53) both;
+            animation:slide-out-top .2s cubic-bezier(.55,.085,.68,.53) both;
   }
   .cat-panel.is-closing{
     display:block !important;
-    -webkit-animation:slide-out-top .5s cubic-bezier(.55,.085,.68,.53) both;
-            animation:slide-out-top .5s cubic-bezier(.55,.085,.68,.53) both;
+    -webkit-animation:slide-out-top .2s cubic-bezier(.55,.085,.68,.53) both;
+            animation:slide-out-top .2s cubic-bezier(.55,.085,.68,.53) both;
   }
 }
 @media (max-width:899px) and (prefers-reduced-motion:reduce){
@@ -2323,20 +2327,20 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
   }
 }
 @-webkit-keyframes slide-in-fwd-top{
-  0%{-webkit-transform:perspective(1400px) translateZ(-1000px) translateY(-800px);transform:perspective(1400px) translateZ(-1000px) translateY(-800px);opacity:0;}
-  100%{-webkit-transform:perspective(1400px) translateZ(0) translateY(0);transform:perspective(1400px) translateZ(0) translateY(0);opacity:1;}
+  0%{-webkit-transform:translateY(-12px);transform:translateY(-12px);opacity:0;}
+  100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1;}
 }
 @keyframes slide-in-fwd-top{
-  0%{transform:perspective(1400px) translateZ(-1000px) translateY(-800px);opacity:0;}
-  100%{transform:perspective(1400px) translateZ(0) translateY(0);opacity:1;}
+  0%{transform:translateY(-12px);opacity:0;}
+  100%{transform:translateY(0);opacity:1;}
 }
 @-webkit-keyframes slide-out-top{
   0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1;}
-  100%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0;}
+  100%{-webkit-transform:translateY(-12px);transform:translateY(-12px);opacity:0;}
 }
 @keyframes slide-out-top{
-  0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1;}
-  100%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0;}
+  0%{transform:translateY(0);opacity:1;}
+  100%{transform:translateY(-12px);opacity:0;}
 }
 
 /* ============================================================

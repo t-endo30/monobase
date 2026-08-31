@@ -169,18 +169,27 @@ window.mbLockScroll = function (on, cls) {
        目次リンクやアンカー付きURLで一気にスクロールすると、
        IntersectionObserver が反応しないまま通り過ぎた要素が
        透明のまま残るため、スクロールのたびに取りこぼしを拾う。 */
+    var pending = Array.prototype.slice.call(targets);
     var sweeping = false;
     function sweep() {
       sweeping = false;
-      Array.prototype.forEach.call(targets, function (el) {
-        if (!el.classList.contains('reveal') || el.classList.contains('is-in')) return;
+      pending = pending.filter(function (el) {
+        if (!el.classList.contains('reveal') || el.classList.contains('is-in')) return false;
         if (el.getBoundingClientRect().top < window.innerHeight) {
           el.classList.add('is-in');
           el.addEventListener('animationend', function () { settle(el); }, { once: true });
           setTimeout(function () { settle(el); }, 900);
           io.unobserve(el);
+          return false;
         }
+        return true;
       });
+      /* 出すものが尽きたら、スクロールのたびの走査をやめる */
+      if (!pending.length) {
+        window.removeEventListener('scroll', queueSweep);
+        window.removeEventListener('hashchange', queueSweep);
+        window.removeEventListener('resize', queueSweep);
+      }
     }
     function queueSweep() {
       if (sweeping) return;
@@ -336,6 +345,7 @@ window.mbLockScroll = function (on, cls) {
     stage.style.transition = animate ? 'transform .22s var(--ease, ease)' : '';
     stage.style.transform = '';
     stage.style.opacity = '';
+    stage.classList.remove('is-swiping');
   }
 
   function edge(dir) {
@@ -353,7 +363,7 @@ window.mbLockScroll = function (on, cls) {
     stage.style.transition = '';
   }, { passive: true });
 
-  document.addEventListener('touchmove', function (ev) {
+  stage.addEventListener('touchmove', function (ev) {
     if (state === 'idle') return;
     var t = ev.touches[0];
     var dx = t.clientX - x0;
@@ -361,7 +371,10 @@ window.mbLockScroll = function (on, cls) {
 
     if (state === 'maybe') {
       if (Math.abs(dy) > LOCK && Math.abs(dy) > Math.abs(dx)) { state = 'idle'; return; }
-      if (Math.abs(dx) > LOCK && Math.abs(dx) > Math.abs(dy) * 1.4) { state = 'drag'; }
+      if (Math.abs(dx) > LOCK && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        state = 'drag';
+        stage.classList.add('is-swiping');
+      }
       else return;
     }
 
@@ -371,6 +384,8 @@ window.mbLockScroll = function (on, cls) {
     stage.style.transform = 'translate3d(' + move.toFixed(1) + 'px,0,0)';
     stage.style.opacity = String(Math.max(0.55, 1 - Math.abs(move) / width()));
   }, { passive: false });
+  /* 開始・終了判定は軽いので document のまま（passive）。移動の監視だけ
+     stage に閉じ込めて、ヘッダーや固定ナビのスクロールを軽くする。 */
 
   function release(ev) {
     if (state !== 'drag') { state = 'idle'; return; }
