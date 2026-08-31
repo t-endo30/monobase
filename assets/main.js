@@ -540,7 +540,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   /* ---- カードに New / Hot を付ける ---- */
   var DAY = 24 * 60 * 60 * 1000;
   function flags(root) {
-    var cards = (root || document).querySelectorAll('.card[data-slug]');
+    var cards = (root || document).querySelectorAll('.card[data-slug],.arow[data-slug]');
     Array.prototype.forEach.call(cards, function (card) {
       var box = card.querySelector('.card-flags');
       if (!box || box.dataset.done) return;
@@ -579,31 +579,39 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     return '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
   }
 
+  /* 掲載日はタイルの右下に「2026.08.31」の形で置く */
+  function dotDate(d) {
+    d = String(d || '').slice(0, 10);
+    return d.length === 10
+      ? '<span class="arow-date">' + esc(d).replace(/-/g, '.') + '</span>' : '';
+  }
+
   function rows(limit) {
     return ranked.slice(0, limit).map(function (it, i) {
       var n = counts[it.slug] || 0;
       var sc = Number(it.score) || 0;
       var rate = sc > 0
-        ? '<span class="rank-rating">' + starStr(sc) +
-          '<b>' + (Math.round(sc * 10) / 10) + '</b></span>'
+        ? '<span class="arow-rating"><span aria-hidden="true">' + starStr(sc) +
+          '</span><b>' + (Math.round(sc * 10) / 10) + '</b></span>'
         : '';
       var catch_ = it.excerpt
-        ? '<span class="rank-catch">' + esc(it.excerpt) + '</span>' : '';
-      /* 順位はサムネイルの角に重ねる。横幅を食わずに済み、
-         写真・見出し・カテゴリーの並びが「本日のお勧め」とそろう。 */
-      return '<li class="rank-item">' +
-        '<a href="' + it.url + '">' +
-          '<span class="rank-thumb">' +
+        ? '<span class="arow-catch">' + esc(it.excerpt) + '</span>' : '';
+      /* 行の形は build.py の article_row() と同じ（.arow…）。
+         こちらは閲覧回数から並べ替えるので JS 側で組み立てるが、
+         クラス名をそろえてあるので見た目は一覧ページと一致する。
+         順位はサムネイルの角に重ねる。横幅を食わずに済む。 */
+      return '<li class="arow rank-item">' +
+        '<a class="arow-link" href="' + it.url + '">' +
+          '<span class="arow-thumb">' +
             '<img src="' + esc(it.thumb) + '" alt="" loading="lazy" decoding="async">' +
-            '<span class="rank-no rank-no-' + (i + 1) + '">' + (i + 1) + '</span>' +
+            '<span class="arow-no arow-no-' + (i + 1) + '">' + (i + 1) + '</span>' +
           '</span>' +
-          '<span class="rank-body">' +
-            '<span class="rank-head">' +
-              '<span class="rank-title">' + esc(it.title) + '</span>' +
+          '<span class="arow-body">' +
+            '<span class="arow-head">' +
+              '<span class="arow-title">' + esc(it.title) + '</span>' +
               '<span class="cat-badge">' + esc(it.cat) + '</span>' +
             '</span>' +
-            rate + catch_ +
-            (n ? '<span class="rank-meta">' + n + '回</span>' : '') +
+            rate + catch_ + dotDate(it.date) +
           '</span>' +
         '</a></li>';
     }).join('');
@@ -1129,51 +1137,63 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     var rest = order.slice(boxes.length ? 1 : 0, (boxes.length ? 1 : 0) + limit);
     if (!rest.length) return;
     var frag = document.createDocumentFragment();
+    /* 行の形は build.py の article_row()／ランキングの行と同じ（.arow…）。
+       3か所とも同じクラスなので、見た目は1か所を直せば全部そろう。 */
     rest.forEach(function (it) {
       var li = document.createElement('li');
-      li.className = 'today-list-item';
+      li.className = 'arow today-list-item';
       var a = document.createElement('a');
-      a.className = 'today-card';
+      a.className = 'arow-link';
       a.href = it.url;
 
       var th = document.createElement('span');
-      th.className = 'today-thumb';
+      th.className = 'arow-thumb';
       var img = document.createElement('img');
       img.src = it.thumb;
-      img.alt = it.title;
+      img.alt = '';
       img.loading = 'lazy';
       img.decoding = 'async';
       th.appendChild(img);
 
       var bd = document.createElement('span');
-      bd.className = 'today-body';
+      bd.className = 'arow-body';
       /* 見出しは左、カテゴリーは右上。空いている右上を使うことで
          見出しに回せる幅が増え、写真も大きくできる。 */
       var head = document.createElement('span');
-      head.className = 'today-head';
+      head.className = 'arow-head';
       var ttl = document.createElement('span');
-      ttl.className = 'today-title';
+      ttl.className = 'arow-title';
       ttl.textContent = it.title;
       var cat = document.createElement('span');
-      cat.className = 'today-cat cat-badge';
+      cat.className = 'cat-badge';
       cat.textContent = it.cat || '';
       head.appendChild(ttl);
       head.appendChild(cat);
       bd.appendChild(head);
       if (it.score && Number(it.score) > 0) {
         var rt = document.createElement('span');
-        rt.className = 'today-rating';
-        rt.textContent = starStr(it.score);
+        rt.className = 'arow-rating';
+        var st = document.createElement('span');
+        st.setAttribute('aria-hidden', 'true');
+        st.textContent = starStr(it.score);
         var b = document.createElement('b');
         b.textContent = (Math.round(Number(it.score) * 10) / 10);
+        rt.appendChild(st);
         rt.appendChild(b);
         bd.appendChild(rt);
       }
       if (it.excerpt) {
         var ct = document.createElement('span');
-        ct.className = 'today-catch';
+        ct.className = 'arow-catch';
         ct.textContent = it.excerpt;
         bd.appendChild(ct);
+      }
+      var dt = String(it.date || '').slice(0, 10);
+      if (dt.length === 10) {
+        var dd = document.createElement('span');
+        dd.className = 'arow-date';
+        dd.textContent = dt.replace(/-/g, '.');
+        bd.appendChild(dd);
       }
 
       a.appendChild(th);
@@ -1352,14 +1372,23 @@ document.addEventListener('touchstart', function () {}, { passive: true });
    CSSのtransitionだけだと、押したときの「戻り」が機械的になる。
    ばね（spring）を使うと、指を離したあとの戻り方が自然になる。
    ・ライブラリは assets/vendor に置いた必要最小限の版（約11KB）
-   ・読み込めていない場合や「動きを減らす」設定のときは、
-     何もしない（CSS側の見た目のまま動く）
+   ・読み込めていない場合は何もしない（CSS側の見た目のまま動く）
+
+   「動きを減らす」設定のときの扱い
+   ------------------------------------------------------------
+   以前はこの区画をまるごと諦めていた。だが、その設定で困るのは
+   「大きく滑る・流れる・繰り返し動く」もので、押したときに数％
+   沈む手応えではない。全部止めると、押せたのかどうかが分からない
+   画面になる（iPhone は「視差効果を減らす」が既定で入っている
+   ことがあり、実機だけ何も動かない、という食い違いが起きていた）。
+   ここでは、手応えだけ残して、移動をともなう演出を止める。
    ============================================================ */
 (function () {
   'use strict';
   var M = window.Motion;
   if (!M || !M.press) return;
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var reduce = !!(window.matchMedia
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   var spring = { type: 'spring', stiffness: 520, damping: 26, mass: .7 };
   var quick = { duration: .18, ease: [.2, .7, .3, 1] };
@@ -1378,11 +1407,15 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   /* 押せるもの：面積が大きいほど縮み方は控えめにする */
   pressable('.btn-amazon', .97);
   pressable('.card', .985);
-  pressable('.feat-card, .today-card', .985);
+  pressable('.feat-card, .today-card, .arow-link, .cf-tile, .sm-links a', .985);
   pressable('.card-link, .btn-sub, .searchbox button, .chip', .94);
+  pressable('.pt-more, .arow-more, .deals-btn, .pt-tab', .97);
   pressable('.tab-bar a, .tab-bar button', .93);
-  pressable('.feat-arrow, .to-top, .nav-toggle', .88);
-  pressable('.rank-item a, .cat-tree .tree-subs a', .985);
+  pressable('.feat-arrow, .to-top, .nav-toggle, .rail-arrow', .88);
+  pressable('.cat-tree .tree-subs a', .985);
+
+  /* ここから下は、移動をともなう演出。「動きを減らす」設定では出さない。 */
+  if (reduce) return;
 
   /* ホバー：アイコンだけ少し持ち上げる（指の端末では起きない） */
   Array.prototype.forEach.call(

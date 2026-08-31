@@ -791,6 +791,70 @@ def card(a, p, lead=False):
         </article>
 '''
 
+def dot_date(iso):
+    """掲載日を「2026.08.31」の形で返す。タイルの右下に小さく置く用。"""
+    t = str(iso or "").strip()
+    return t[:10].replace("-", ".") if len(t) >= 10 else ""
+
+
+def article_row(a, p, no=None):
+    """一覧の1行。トップのタブ（読まれている記事／本日のお勧めのモノ）と
+       同じ形にそろえてある。
+
+         ┌────────┐ 見出し              [カテゴリー]
+         │ 写真   │ ★★★★☆ 4.2
+         │        │ 一言の説明
+         └────────┘                    2026.08.31
+
+       写真は行の高さいっぱいに伸ばす（＝一言の下の線とそろう）。
+       カテゴリーは見出しの右上、日付は右下。どちらもそれまで
+       空いていた場所なので、行の高さは増えない。
+       中身が同じ形なので、assets/main.js が組み立てる
+       ランキングの行とも見た目が一致する。"""
+    sc = 0
+    try:
+        sc = float(a.get("rating", {}).get("score") or 0)
+    except (TypeError, ValueError):
+        sc = 0
+    rating = ("" if sc <= 0 else
+              f'<span class="arow-rating" aria-label="評価 {sc:g} / 5">'
+              f'<span aria-hidden="true">{stars(sc)}</span>'
+              f'<b>{sc:g}</b></span>')
+    catch = (f'<span class="arow-catch">{e(a.get("excerpt",""))}</span>'
+             if a.get("excerpt") else "")
+    d = dot_date(a.get("date"))
+    date = f'<span class="arow-date">{e(d)}</span>' if d else ""
+    rank = (f'<span class="arow-no arow-no-{no}">{no}</span>' if no else "")
+    src, _ = visual_path(a, p)
+    title = a.get("list_title") or a["title"]
+    return (
+        f'          <li class="arow" data-cat="{a["category"]}" '
+        f'data-slug="{e(a["slug"])}" data-date="{e(a.get("date",""))}">\n'
+        f'            <a class="arow-link" href="{p}articles/{e(a["slug"])}.html">\n'
+        f'              <span class="arow-thumb">'
+        f'<img src="{e(src)}" alt="" loading="lazy" decoding="async" '
+        f'width="1200" height="430">'
+        f'<span class="card-flags" aria-hidden="true"></span>{rank}</span>\n'
+        f'              <span class="arow-body">\n'
+        f'                <span class="arow-head">'
+        f'<span class="arow-title">{e(title)}</span>'
+        f'<span class="cat-badge">{e(CAT_LABEL.get(a["category"], ""))}</span></span>\n'
+        f'                {rating}{catch}{date}\n'
+        f'              </span>\n'
+        f'            </a>\n'
+        f'          </li>\n')
+
+
+def article_rows(items, p, numbered=False):
+    """記事の縦並び。トップの新着と、新着一覧ページで使う。"""
+    if not items:
+        return ('      <p class="empty-state">記事は準備中です。'
+                '<a href="' + p + 'index.html">トップページ</a>から他の記事をご覧ください。</p>\n')
+    rows = "".join(article_row(a, p, (i + 1) if numbered else None)
+                   for i, a in enumerate(items))
+    return '        <ol class="arow-list">\n' + rows + '        </ol>\n'
+
+
 def grid(items, p):
     if not items:
         return ('      <p class="empty-state">このカテゴリーの記事は準備中です。'
@@ -1004,6 +1068,163 @@ def official_link(a):
             f'{label} <span aria-hidden="true">↗</span></a>'
             f'<span class="official-ref-note">'
             f'（この記事の仕様は公式の公表値を基にしています）</span></p>\n')
+
+
+# ---- 過去に書いた記事への差し込みリンク ----------------------
+# 本文に、すでに書いてある商品の名前が出てきたら、その記事へ送る。
+# 手で貼り直す運用にすると必ず貼り漏れるので、組み立てのときに入れる。
+
+_NAME_TAIL = re.compile(
+    r"[\s\u3000]*(徹底|正直)?(レビュー|口コミ(分析)?|評価|選び方|比較|"
+    r"買い時カレンダー|ガイド)$")
+# 「加湿器の選び方」→「加湿器の」のように助詞が残ると、文の途中で
+# 切れたリンクになる。末尾の助詞は落とす。
+_NAME_JOSHI = re.compile(r"[のなにをはがでとへも]+$")
+
+
+# 一般名として使ってはいけない語。「口コミ」「上位機」のような
+# どの記事にも出てくる言葉をリンクにすると、本文が青くなるだけで
+# 押す理由が伝わらない。
+_TAIL_STOP = {"口コミ", "上位機", "評判", "本音", "違い", "使い方", "選び方",
+              "電気代", "静音性", "実力", "実際", "感想", "比較", "まとめ",
+              "おすすめ", "分析", "評価", "レビュー", "ガイド"}
+
+
+def product_key(a):
+    """記事が扱っている物の名前。タイトルの「｜」より前から、
+       末尾の「レビュー」「口コミ」などと助詞を落として取り出す。
+       「口コミ評価」のように重なっているときは、無くなるまで落とす。"""
+    t = (a.get("list_title") or a.get("title", "")).split("｜")[0].strip()
+    while True:
+        t2 = _NAME_JOSHI.sub("", _NAME_TAIL.sub("", t).strip()).strip()
+        if t2 == t:
+            return t
+        t = t2
+
+
+def product_keys(a):
+    """その記事に当てる語。商品名そのものと、その末尾の一般名。
+
+       本文は「象印 CK-AX08 蒸気レスケトル」と型番まで書くより、
+       「蒸気レスケトル」と書くほうが多い。商品名だけで待っていると
+       ほとんど当たらないので、末尾の一般名も拾う。
+       英数字を含む語（型番・ブランド）は一般名として使わない。"""
+    k = product_key(a)
+    keys = [k] if k else []
+    tail = k.split()[-1] if k else ""
+    if (tail and tail != k and len(tail) >= 3
+            and tail not in _TAIL_STOP
+            and not re.search(r"[A-Za-z0-9]", tail)):
+        keys.append(tail)
+    return keys
+
+
+def _link_targets(cur_slug, p):
+    """差し込み先の一覧。長い名前から先に当てる（短い名前が
+       長い名前の一部を食ってしまわないようにするため）。"""
+    out = []
+    for x in PUBLISHED:
+        if x["slug"] == cur_slug:
+            continue
+        for k in product_keys(x):
+            # 短すぎる語は、関係のない文にまで当たるので使わない。
+            # 漢字・かなは1文字あたりの情報量が多いので3文字から、
+            # 英字まじりは4文字から拾う。
+            least = 3 if not re.search(r"[A-Za-z0-9]", k) else 4
+            if len(k) < least:
+                continue
+            out.append((k, f'{p}articles/{e(x["slug"])}.html',
+                        x.get("list_title") or x["title"]))
+    out.sort(key=lambda t: -len(t[0]))
+    return out
+
+
+# 差し込むのは、地の文（段落と箇条書き）の中だけ。
+#   ・見出し・表・ボタン・図の説明には入れない
+#   ・すでにリンクの中には入れない（押し先が二重になる）
+#   ・関連記事のタイルや商品名の札など、それ自体が別のリンクに
+#     なっている部品にも入れない（class で見分ける）
+_SKIP_TAGS = ("a", "h1", "h2", "h3", "h4", "h5", "script", "style",
+              "table", "button", "figcaption", "summary")
+_SKIP_CLASS = ("card-", "prod-", "spec", "cta", "next-", "fi-", "tag",
+               "btn", "flag", "badge", "arow", "rank-", "today-", "deal")
+# 地の文が入っているのはここだけ。商品カードや関連記事のタイルは
+# この外にあるか、上の class で弾かれる。
+_BODY_CLASS = "article-body"
+_OK_TEXT_TAGS = ("p", "li")
+_TAG_RE = re.compile(r"<(/?)([a-zA-Z][a-zA-Z0-9]*)([^>]*)>")
+_CLASS_RE = re.compile(r'class="([^"]*)"')
+_VOID = {"br", "img", "hr", "input", "meta", "link", "source", "wbr"}
+
+
+def link_past_articles(html_body, cur_slug, p, limit=5):
+    """本文のHTMLを流し見して、まだリンクになっていない地の文に
+       過去記事の商品名が出てきたら、そこを1回だけリンクにする。
+       同じ記事へは1回まで、1本の記事で {limit} 本まで。"""
+    targets = _link_targets(cur_slug, p)
+    if not targets:
+        return html_body
+    used, made = set(), [0]
+    stack = []          # [(タグ名, 入れてよい場所か, 本文の器か)]
+
+    def linkable():
+        """いま見ている場所が、本文の地の文の中かどうか。
+           ・article-body の中にいる（商品カードや関連記事の外）
+           ・段落か箇条書きの中にいる
+           ・避けたいタグ／部品の中にはいない
+           の3つがそろったときだけ差し込む。"""
+        inside_body = False
+        in_text = False
+        for name, ok, is_body in stack:
+            if not ok:
+                return False
+            if is_body:
+                inside_body = True
+            if name in _OK_TEXT_TAGS:
+                in_text = True
+        return inside_body and in_text
+
+    def link_text(text):
+        for key, url, title in targets:
+            if made[0] >= limit or key in used:
+                continue
+            i = text.find(key)
+            if i < 0:
+                continue
+            used.add(key)
+            made[0] += 1
+            a = (f'<a class="past-link" href="{url}" '
+                 f'title="{e(title)}">{e(key)}</a>')
+            return text[:i] + a + link_text(text[i + len(key):])
+        return text
+
+    out, pos = [], 0
+    for m in _TAG_RE.finditer(html_body):
+        if m.start() > pos:
+            chunk = html_body[pos:m.start()]
+            out.append(link_text(chunk) if linkable() else chunk)
+        name, attrs = m.group(2).lower(), m.group(3)
+        if not m.group(1) and name not in _VOID and not attrs.rstrip().endswith("/"):
+            cm = _CLASS_RE.search(attrs)
+            cls = cm.group(1) if cm else ""
+            # class で弾くのは、本文の器（article-body）に入ってから。
+            # 本文を包んでいる外側の器（card-surface など）まで
+            # 名前で弾くと、中身がまるごと対象外になってしまう。
+            in_body = any(is_body for _, _, is_body in stack)
+            ok = name not in _SKIP_TAGS
+            if ok and in_body and any(w in cls for w in _SKIP_CLASS):
+                ok = False
+            stack.append((name, ok, _BODY_CLASS in cls))
+        elif m.group(1):
+            for i in range(len(stack) - 1, -1, -1):
+                if stack[i][0] == name:
+                    del stack[i:]
+                    break
+        out.append(m.group(0))
+        pos = m.end()
+    tail = html_body[pos:]
+    out.append(link_text(tail) if linkable() else tail)
+    return "".join(out)
 
 
 def render_article(a):
@@ -1422,8 +1643,12 @@ def render_article(a):
         extra_js += ('<script type="application/ld+json">'
                      + json.dumps(faq_ld, ensure_ascii=False) + '</script>\n')
 
+    # 本文が出来上がってから、過去に書いた記事への導線を差し込む。
+    # 組み立ての最後にまとめてやるので、貼り漏れが起きない。
+    body_html = link_past_articles("".join(b), slug, p)
+
     return page(f'{a["title"]} - {NAME}', a.get("description") or a.get("excerpt",""),
-                cat, p, url, "".join(b),
+                cat, p, url, body_html,
                 sticky_url=(shop_links(a)[0][2] if shop_links(a) else None),
                 extra_js=extra_js,
                 # 記事ページはサイドを出さず、本文だけを広く使う
@@ -1585,22 +1810,18 @@ def top_layout():
     return out
 
 
-def news_rail(items, p):
-    """新着。スマホは特集と同じく左右ボタンで送るカルーセル、
-       PCはこれまでどおりの並び。中身は同じHTMLでCSSだけ切り替える。"""
-    cards = grid(items, p).replace(
-        '<div class="card-grid">', '<div class="card-grid" id="newsGrid">', 1)
-    return ('      <section class="section-block news-rail-block">\n'
-            '        <div class="rail-wrap">\n'
-            '          <button type="button" class="rail-arrow is-prev" aria-label="前の記事へ" hidden><span aria-hidden="true"></span></button>\n'
-            '          <div class="rail">\n'
-            + cards +
-            '          </div>\n'
-            '          <button type="button" class="rail-arrow is-next" aria-label="次の記事へ" hidden><span aria-hidden="true"></span></button>\n'
-            '        </div>\n'
-            '        <div class="cta-wrap rail-more-all">\n'
-            f'          <a class="btn-sub is-quiet" href="{p}new.html">新着記事の一覧へ</a>\n'
-            '        </div>\n'
+def news_rail(items, p, limit=10):
+    """トップの新着。横送りのカルーセルをやめて縦に並べる。
+
+       横送りは、画面に1枚しか映らないぶん「何本あるのか」が
+       見えない。縦に並べれば、指を下ろすだけで次が出る。
+       出すのは10件まで。続きは「もっと見る」で新着一覧へ送る。
+       1行の形は article_row()＝トップのタブやランキングと同じ。"""
+    return ('      <section class="section-block news-list-block">\n'
+            + article_rows(items[:limit], p) +
+            '        <a class="arow-more" href="' + p + 'new.html">'
+            + icon("new", "btn-icon") + 'もっと見る'
+            '<span class="arow-more-arrow" aria-hidden="true"></span></a>\n'
             '      </section>\n')
 
 
@@ -1778,7 +1999,7 @@ def policy_box(p):
 def build_index():
     p = "./"
     feat = [a for a in PUBLISHED if a.get("featured")][:3]
-    latest = PUBLISHED[:8]
+    latest = PUBLISHED[:10]
     n_pub = len(PUBLISHED)
     n_cat = len([c for c in CATS if any(a["category"] == c["key"] for a in PUBLISHED)])
     # 記事のあるカテゴリー名。表示する3つはページを開くたびにJSが選ぶ。
@@ -1908,9 +2129,9 @@ def build_new():
     p = "./"
     items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)[:24]
     body = hero(icon("new", "page-icon"), "新着記事", "24時間以内に公開した記事には New が付きます。")
-    body += f'''      <section class="section-block" style="margin-top:24px;">
-{grid(items, p)}      </section>
-'''
+    body += ('      <section class="section-block" style="margin-top:24px;">\n'
+             + article_rows(items, p) +
+             '      </section>\n')
     return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。", "new", p,
                 f"{BASE_URL}/new.html", body, body_class="is-listing", sidebar=True,
                 crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)])

@@ -886,9 +886,32 @@ table{border-collapse:collapse;}
   .to-top{bottom:24px;right:24px;}
   .site-footer{padding-bottom:36px;}
 }
+/* 「動きを減らす」設定のときの扱い
+   ------------------------------------------------------------
+   以前はここで全部止めていた（* に animation:none / transition:none）。
+   だがこの設定で困るのは「大きく滑る・流れる・繰り返し動く」もので、
+   押したときの色の変化や、わずかに沈む手応えではない。全部止めると、
+   押せたのかどうかが分からない画面になる。iPhone は「視差効果を
+   減らす」が入っていることがあり、実機だけ何も動かない——という
+   食い違いは、これが原因だった。
+   ここでは、繰り返しと大きな移動だけを止め、手応えは残す。 */
 @media (prefers-reduced-motion:reduce){
-  *{animation:none !important;transition:none !important;}
   html{scroll-behavior:auto;}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.12s !important;
+    transition-delay:0s !important;
+  }
+  /* 画面外から滑り込む演出はしない。その場に出す。 */
+  .reveal,.reveal.is-in,
+  .card.reveal,.card.reveal.is-in{
+    opacity:1 !important;
+    transform:none !important;
+    animation:none !important;
+  }
+  /* 流れつづける帯など、動くこと自体が中身のものは止める */
+  .notice-marquee p{animation:none !important;}
 }
 
 /* ============================================================
@@ -5860,25 +5883,6 @@ details.hero-policy .policy-close{display:none;}
 }
 
 /* ---- ランキングの行にも、星・数字・一言を出す ---- */
-.rank-rating{
-  display:block;
-  margin-top:3px;
-  color:var(--amazon);
-  font-size:11.5px;
-  letter-spacing:1px;
-  line-height:1.2;
-}
-.rank-rating b{color:var(--navy);font-style:normal;font-size:11.5px;margin-left:4px;}
-.rank-catch{
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-  margin-top:3px;
-  color:var(--text-sub);
-  font-size:11.5px;
-  line-height:1.55;
-}
 
 /* ---- 「すべて見る」を枠の下端としてつなげる ---- */
 .pt-more{
@@ -6018,23 +6022,22 @@ details.hero-policy .policy-close{display:none;}
 .cat-badge{
   flex:0 0 auto;
   align-self:flex-start;
-  max-width:40%;
-  padding:2px 7px;
+  max-width:48%;
+  padding:2px 6px;
   border:1px solid var(--border);
   border-radius:5px;
   background:var(--surface);
   color:var(--text-sub);
-  font-size:10.5px;
+  font-size:10px;
   font-weight:700;
-  line-height:1.6;
+  line-height:1.7;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
 /* 見出しとカテゴリーを1行に並べる器 */
-.rank-head,
-.today-head,
+.arow-head,
 .card-head{
   display:flex;
   align-items:flex-start;
@@ -6042,55 +6045,10 @@ details.hero-policy .policy-close{display:none;}
   gap:8px;
   min-width:0;
 }
-.rank-head .rank-title,
-.today-head .today-title,
+.arow-head .arow-title,
 .card-head .card-title{flex:1 1 auto;min-width:0;}
 .card-head{margin-bottom:9px;}
 .card-head .card-title{margin-bottom:0;}
-
-/* ---- ランキングの行にも写真を出す。順位は角に重ねる ---- */
-.rank-thumb{
-  position:relative;
-  flex:0 0 auto;
-  display:block;
-  width:96px;
-  aspect-ratio:4/3;
-  border:1px solid #E0E1E4;
-  border-radius:9px;
-  overflow:hidden;
-  background:var(--bg-gray);
-  box-shadow:0 1px 3px rgba(0,0,0,.06);
-}
-.rank-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-.rank-thumb .rank-no{
-  position:absolute;
-  top:4px;left:4px;
-  width:19px;height:19px;
-  border-radius:4px;
-  font-size:11px;
-  box-shadow:0 1px 3px rgba(0,0,0,.28);
-}
-.rank-item a{align-items:flex-start;gap:11px;}
-.rank-meta{margin-top:4px;}
-
-/* ---- 「本日のお勧めのモノ」の写真も、同じ大きさ・同じ枠に ---- */
-.today-card{grid-template-columns:96px minmax(0,1fr);gap:11px;align-items:flex-start;}
-.today-thumb{
-  aspect-ratio:4/3;
-  border:1px solid #E0E1E4;
-  border-radius:9px;
-  box-shadow:0 1px 3px rgba(0,0,0,.06);
-}
-.today-list-item .today-card{padding:12px;}
-.today-cat{margin-bottom:0;}
-
-/* タブの中は、写真が大きくなったぶん行を1つ増やせる */
-.pick-tabs .rank-title,
-.pick-tabs .today-title{-webkit-line-clamp:2;}
-
-/* 6件目を半分で切る高さは、写真が大きくなったので取り直す */
-.pick-tabs .rank-list > .rank-item:nth-child(6),
-.pick-tabs .today-list > .today-list-item:nth-child(6){max-height:52px;}
 
 /* ---- ランキング専用ページも、同じ並びに合わせる ---- */
 @media (max-width:899px){
@@ -6159,3 +6117,219 @@ body.is-listing main.layout{
   .card-grid .card .card-link{display:none;}
   .card-grid .card .card-thumb{min-height:96px;}
 }
+
+/* ============================================================
+   記事の1行（.arow）— 一覧はすべてこの形にそろえる
+   ------------------------------------------------------------
+   使う場所は4つ。トップの新着／トップのタブ2枚／新着一覧ページ／
+   ランキングページ。サーバー側（build.py の article_row）と
+   ブラウザ側（assets/main.js）で同じクラスを組み立てているので、
+   見た目はここ1か所を直せば4か所ともそろう。
+
+     ┌────────┐ 見出し              [カテゴリー]
+     │ 写真   │ ★★★★☆ 4.2
+     │        │ 一言の説明
+     └────────┘                    2026.08.31
+
+   写真は行の高さいっぱいに伸ばす（＝一言の下の線とそろう）。
+   カテゴリーは右上、日付は右下。どちらも空いていた場所を使うので、
+   行の高さは増えない。
+   ============================================================ */
+.arow-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+  overflow:hidden;
+}
+.arow{border-top:1px solid var(--border);}
+.arow:first-child{border-top:none;}
+.arow-link{
+  display:flex;
+  align-items:stretch;            /* 写真を行の高さいっぱいに伸ばす */
+  gap:12px;
+  padding:12px;
+  text-decoration:none;
+  color:inherit;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.arow-link:hover{background:var(--bg-gray);text-decoration:none;}
+.arow-link:hover .arow-title{text-decoration:underline;}
+@media (hover:none){
+  .arow-link:active{background:var(--bg-gray);}
+}
+
+/* ---- 写真 ---- */
+.arow-thumb{
+  position:relative;
+  flex:0 0 auto;
+  align-self:stretch;
+  width:clamp(104px,30vw,140px);
+  min-height:84px;
+  border:1px solid #E0E1E4;
+  border-radius:9px;
+  overflow:hidden;
+  background:var(--bg-gray);
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.arow-thumb img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+.arow-link:hover .arow-thumb{border-color:#CFD1D5;}
+
+/* 順位は写真の角に重ねる（横幅を食わない） */
+.arow-no{
+  position:absolute;
+  top:4px;left:4px;
+  z-index:2;
+  width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:4px;
+  background:var(--bg-gray);
+  color:var(--text-sub);
+  font-size:11px;
+  font-weight:700;
+  box-shadow:0 1px 3px rgba(0,0,0,.28);
+}
+.arow-no-1{background:#C9A227;color:#fff;}
+.arow-no-2{background:#9AA0A6;color:#fff;}
+.arow-no-3{background:#A9743C;color:#fff;}
+
+/* New / Hot の札は写真の右上に */
+.arow-thumb .card-flags{top:4px;right:4px;left:auto;}
+
+/* ---- 本文側 ---- */
+.arow-body{
+  display:flex;
+  flex-direction:column;
+  flex:1 1 auto;
+  min-width:0;
+  text-align:left;
+}
+.arow-title{
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  font-size:13.5px;
+  font-weight:700;
+  line-height:1.5;
+  color:var(--ink);
+}
+.arow-rating{
+  display:block;
+  margin-top:4px;
+  color:var(--amazon);
+  font-size:11.5px;
+  letter-spacing:1px;
+  line-height:1.2;
+}
+.arow-rating b{color:var(--navy);font-style:normal;font-size:11.5px;margin-left:4px;}
+.arow-catch{
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  margin-top:4px;
+  color:var(--text-sub);
+  font-size:11.5px;
+  line-height:1.6;
+}
+/* 日付は右下。margin-top:auto で、上に何行あっても必ず行の底に付く */
+.arow-date{
+  align-self:flex-end;
+  margin-top:auto;
+  padding-top:5px;
+  color:var(--text-sub);
+  font-size:10.5px;
+  font-weight:700;
+  letter-spacing:.04em;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---- 「もっと見る」：一覧の板の下端としてつなげる ---- */
+.news-list-block .arow-list{
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
+  border-bottom:none;
+}
+.arow-more{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  padding:13px 14px;
+  border:1px solid var(--border);
+  border-radius:0 0 var(--radius) var(--radius);
+  background:var(--bg-gray);
+  color:var(--ink);
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none !important;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:background .18s var(--ease),transform .12s var(--ease);
+}
+.arow-more:hover{background:var(--border);}
+.arow-more .btn-icon{width:16px;height:16px;flex:0 0 auto;}
+.arow-more-arrow{
+  width:7px;height:7px;
+  border-right:2px solid currentColor;
+  border-bottom:2px solid currentColor;
+  transform:rotate(-45deg);
+  margin-left:1px;
+}
+@media (hover:none){
+  .arow-more:active{background:var(--border);transform:translateY(1px) scale(.99);}
+}
+
+/* ---- タブの中では、板の枠が二重にならないようにする ---- */
+.pick-tabs .rank-box{padding:0;border:none;background:none;}
+.pick-tabs .rank-list,
+.pick-tabs .today-list{
+  border:1px solid var(--border);
+  border-radius:var(--radius) var(--radius) 0 0;
+  border-bottom:none;
+  background:var(--surface);
+  overflow:hidden;
+}
+.pick-tabs .rank-note{display:none;}
+
+/* 6件目は下半分をぼかして切る。写真の高さに合わせて取り直す */
+.pick-tabs .rank-list > .rank-item:nth-child(6),
+.pick-tabs .today-list > .today-list-item:nth-child(6){max-height:60px;}
+
+/* ---- PCでは1行に回せる幅が増えるので、少しゆったりさせる ---- */
+@media (min-width:900px){
+  .arow-link{gap:14px;padding:14px;}
+  .arow-thumb{width:180px;}
+  .arow-title{font-size:15px;}
+  .arow-catch{font-size:12.5px;-webkit-line-clamp:2;}
+}
+
+/* ============================================================
+   過去に書いた記事への差し込みリンク
+   ------------------------------------------------------------
+   本文の地の文に、すでに書いてある商品の名前が出てきたときだけ
+   付く（build.py の link_past_articles）。外部の販売リンクと
+   見分けが付くよう、下線は細く、色は本文寄りにする。
+   ============================================================ */
+.past-link{
+  color:var(--navy);
+  font-weight:700;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:3px;
+  text-decoration-color:rgba(20,20,22,.28);
+}
+.past-link:hover{
+  color:var(--info);
+  text-decoration-color:currentColor;
+}
+@media (hover:none){ .past-link:active{color:var(--info);} }
