@@ -18,6 +18,7 @@ Claude で書くときは、この手元のツールを使う。
 コミットはしない（内容を読んでから、いつもの手順で公開する）。
 """
 import json, io, os, re, sys, time, argparse, subprocess
+import urllib.request, urllib.error
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -72,7 +73,7 @@ def load(path):
     return json.load(io.open(os.path.join(ROOT, path), encoding="utf-8"))
 
 
-def build_prompt(a, site, prompt_md):
+def build_prompt(a, site, prompt_md, fetch_official=True):
     cat = next((c for c in site.get("categories", [])
                 if c.get("key") == a.get("category")), {})
     subs = "、".join(f'{x["key"]}（{x["label"]}）'
@@ -95,6 +96,7 @@ def build_prompt(a, site, prompt_md):
         f'JANコード：{a.get("jan") or "不明"}',
         f'買えるモール：{"、".join(shops) or "不明"}',
         facts_block(a),
+        official_block(a, do_fetch=fetch_official),
         "",
         "---------------- 出力の決まり ----------------",
         "・JSONだけを返す。前置きも、コードフェンスも付けない。",
@@ -164,6 +166,47 @@ def facts_block(a):
             + "\n".join(f"・{f}" for f in facts)
             + "\nここに無い機能を「ある」と書かないでください。"
             "スペック表もこの範囲で作ります。")
+
+
+def fetch_text(url, limit=6000):
+    """メーカー公式ページの本文テキストをざっくり抜く。
+       自動取得なので、数値は「参考」。断定の根拠にはしない。"""
+    try:
+        req = urllib.request.Request(url, headers={
+            "User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                           "AppleWebKit/537.36 (KHTML, like Gecko) "
+                           "Chrome/126.0 Safari/537.36")})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            raw = r.read(2_000_000)
+            enc = r.headers.get_content_charset() or "utf-8"
+        htmltext = raw.decode(enc, "replace")
+    except (urllib.error.URLError, ValueError, TimeoutError, OSError) as ex:
+        print(f"（公式ページを取得できませんでした: {ex}）", end="", flush=True)
+        return ""
+    htmltext = re.sub(r"(?is)<(script|style|noscript|svg|header|footer|nav)[^>]*>.*?</\1>",
+                      " ", htmltext)
+    text = re.sub(r"(?s)<[^>]+>", " ", htmltext)
+    text = re.sub(r"&nbsp;|&#160;", " ", text)
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r"\s*\n\s*", "\n", text).strip()
+    return text[:limit]
+
+
+def official_block(a, do_fetch=True):
+    """メーカー公式ページのURLと、（任意で）自動取得した本文。"""
+    url = (a.get("official_url") or "").strip()
+    if not re.match(r"https?://", url):
+        return ""
+    out = [f"\n【メーカー公式ページ】{url}",
+           "・この製品の一次情報。仕様・スペック表は公式の公表値を優先する。",
+           "・記事にはこのURLを本文へ書かない（サイト側が参照リンクとして表示する）。"]
+    if do_fetch:
+        body = fetch_text(url)
+        if body:
+            out.append("\n― 公式ページから自動抽出（参考。文字化け・古い情報を含むことがある。"
+                       "数値はここだけを根拠に断定せず、facts と突き合わせる）―\n"
+                       + body + "\n― 抽出ここまで ―")
+    return "\n".join(out)
 
 
 SYSTEM = ("あなたは日本語の商品レビュー記事を書くライターです。"
@@ -296,6 +339,8 @@ def main():
                     help="1本あたりの待ち時間（秒）")
     ap.add_argument("--dry-run", action="store_true",
                     help="書き込まず、結果だけ表示する")
+    ap.add_argument("--no-fetch", action="store_true",
+                    help="official_url のページを自動取得しない")
     args = ap.parse_args()
 
     arts = load("content/articles.json")
@@ -325,7 +370,7 @@ def main():
         slug = a.get("slug", "?")
         print(f"[{i}/{len(targets)}] {slug} … ", end="", flush=True)
         t0 = time.time()
-        prompt = build_prompt(a, site, prompt_md)
+        prompt = build_prompt(a, site, prompt_md, fetch_official=not args.no_fetch)
         gen = None
         for attempt in (1, 2):
             try:

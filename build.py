@@ -982,6 +982,21 @@ def paras(v, cls=""):
     return "".join(f"          <p{c}>{mark(t)}</p>\n" for t in items if str(t).strip())
 
 
+def official_link(a):
+    """メーカー公式の製品ページへの参照リンク。
+       販売リンク（アフィリエイト）ではないので sponsored は付けず、
+       nofollow の通常リンクとして出す。仕様の一次情報の出どころを示す。"""
+    url = (a.get("official_url") or "").strip()
+    if not (url.startswith("http://") or url.startswith("https://")):
+        return ""
+    label = e(a.get("official_label") or "メーカー公式サイトで仕様を確認する")
+    return (f'          <p class="official-ref">'
+            f'<a href="{e(url)}" target="_blank" rel="nofollow noopener">'
+            f'{label} <span aria-hidden="true">↗</span></a>'
+            f'<span class="official-ref-note">'
+            f'（この記事の仕様は公式の公表値を基にしています）</span></p>\n')
+
+
 def render_article(a):
     _cta_mid_used[0] = False
     p = "../"
@@ -1075,6 +1090,7 @@ def render_article(a):
     if a.get("pros") or a.get("cons"):    toc.append(("sec-proscons", "メリットとデメリット"))
     if a.get("products"):                 toc.append(("sec-products", "比較した商品"))
     if a.get("spec", {}).get("rows"):     toc.append(("spec", "スペック比較表"))
+    elif official_link(a):                toc.append(("spec", "メーカー公式情報"))
     for i, sec in enumerate(a.get("sections", []), start=1):
         toc.append((f"sec-note{i}", sec.get("heading", "")))
     if a.get("voices"):                   toc.append(("sec-voice", "共通の不満点と対処法"))
@@ -1223,7 +1239,12 @@ def render_article(a):
           </div>
 ''')
         add(paras(sp.get("read")))
+        add(official_link(a))
         add(shop_buttons_mid(a, "spec", note="セール対象になっている場合があります"))
+    elif official_link(a):
+        # 比較表が無い記事でも、公式リンクは出す
+        add('          <h2 id="spec">メーカー公式情報</h2>\n')
+        add(official_link(a))
 
     # ライターの地の文。見出し＋段落の自由記述で、表では伝わらない
     # 判断の根拠や使いどころを書く。

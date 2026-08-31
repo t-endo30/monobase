@@ -155,7 +155,7 @@ def build_prompt(a, rules, hits):
         "・fixed には**直した項目だけ**を入れる。直していない項目は入れない。",
         "・項目の形（配列か辞書か、キー名）は元の記事と同じにする。",
         "・直すところが無ければ findings も fixed も空にする。",
-        f"・本文の合計は {MIN_CHARS}〜{MAX_CHARS - 300} 文字の範囲を保つ。",
+        f"・本文の合計は {MIN_CHARS}〜{MAX_CHARS - 500} 文字の範囲を保つ。",
         "・HTMLは <strong> と <em> だけ。表の丸印は "
         '<span class="mark-o">◎</span> / <span class="mark-x">×</span> のみ可。',
         "・価格は書かない。変動するため。",

@@ -17,7 +17,7 @@ MAX_CHARS = 10500   # 上限。FAQ・情報源明記・比較基準の追記で�
 
 # 文字数に数えないキー（識別子・URL・分類など、読者が読む文ではない）
 SKIP_KEYS = {"slug", "thumb", "banner", "amazon_url", "asin", "jan", "date", "updated",
-             "rakuten_url", "yahoo_url", "cta_position",
+             "rakuten_url", "yahoo_url", "cta_position", "official_url",
              "icon", "category", "sub", "tags", "cta_label", "image_prompt",
              "feature_of", "feature_covers"}
 
@@ -97,6 +97,16 @@ def main():
                          "複数のショップに張るなら、同じ商品か確かめられるよう入れてください")
         if not a.get("conclusion"):
             warns.append(f"{slug}: まとめが未記入です")
+
+        # メーカー公式ページ（任意）。あれば https で、販売モールでないこと。
+        ou = str(a.get("official_url") or "").strip()
+        if ou:
+            if not re.match(r"https?://", ou):
+                errors.append(f"{slug}: official_url が http(s) で始まっていません（{ou}）")
+            elif re.search(r"(amazon\.co\.jp|rakuten\.co\.jp|yahoo\.co\.jp|"
+                           r"amzn\.to|a\.r10\.to)", ou):
+                errors.append(f"{slug}: official_url が販売モールのURLです。"
+                              f"メーカー公式の製品ページを入れてください（{ou}）")
 
         n = body_chars(a)
         if n < MIN_CHARS:

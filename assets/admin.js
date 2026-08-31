@@ -604,6 +604,7 @@
     $('f-ctapos').value = a.cta_position || 'spec';
     $('f-asin').value = a.asin || '';
     $('f-jan').value = a.jan || '';
+    $('f-official').value = a.official_url || '';
     $('f-cta').value = a.cta_label || '';
     $('f-verdict').value = a.verdict_title || '';
     $('f-score').value = (a.rating && a.rating.score) || 0;
@@ -677,6 +678,8 @@
     /* JANコード。数字だけ残す（ハイフンや空白を貼られても通す） */
     var jan = $('f-jan').value.replace(/[^0-9]/g, '');
     if (jan) a.jan = jan; else delete a.jan;
+    var official = $('f-official').value.trim();
+    if (official) a.official_url = official; else delete a.official_url;
     a.cta_label = $('f-cta').value.trim() || 'Amazonで価格を見る';
     a.verdict_title = $('f-verdict').value.trim();
     a.summary = readRepeater('r-summary');
@@ -2602,7 +2605,7 @@
      tools/check_text.py の NG と同じ内容にしておく。 */
   var NG_WORDS = ['絶対', '必ず', '確実に', '保証します', '間違いなく', '100%',
                   '誰でも', '永久に', '完治', '業界No.1', '日本一'];
-  var MIN_CHARS = 6000, MAX_CHARS = 8300;
+  var MIN_CHARS = 6000, MAX_CHARS = 10500;
 
   function loadPrompt() {
     if (promptCache) return Promise.resolve(promptCache);
@@ -2642,6 +2645,7 @@
       '  "voices_after": "",',
       '  "personal_note": "",',
       '  "next_problem": {"intro":"", "items":[{"title":"","text":""}]},',
+      '  "faq": [{"q":"購入前に迷いやすい質問","a":"仕様と口コミから導いた回答（1〜3文）"}],',
       '  "conclusion_title": "まとめ", "conclusion": ["段落"],',
       '  "description": "メタディスクリプション（120字以内）",',
       '  "excerpt": "カード用の抜粋（60字以内）",',
@@ -2666,6 +2670,22 @@
     if (a.rakuten_url) shops.push('楽天市場');
     if (a.yahoo_url) shops.push('Yahoo!ショッピング');
 
+    var facts = a.facts;
+    if (typeof facts === 'string') facts = [facts];
+    var factsBlock = (facts && facts.length)
+      ? '【メーカー公式で確認済みの仕様】\n'
+        + facts.map(function (f) { return '・' + f; }).join('\n')
+        + '\nここに無い機能を「ある」と書かない。スペック表もこの範囲で作る。'
+      : '【仕様について】確かな仕様が渡されていません。数値や機能の有無を断定せず、'
+        + 'レビューから読み取れる範囲で書いてください。';
+
+    var officialBlock = '';
+    if (a.official_url && /^https?:\/\//.test(a.official_url)) {
+      officialBlock = '【メーカー公式ページ】' + a.official_url
+        + '\n・この製品の一次情報。仕様・スペック表は公式の公表値を優先する。'
+        + '\n・記事にはこのURLを本文へ書かない（サイト側が参照リンクとして表示する）。';
+    }
+
     return [
       prompt,
       '',
@@ -2675,15 +2695,35 @@
       '選べるサブカテゴリーのkey：' + subs,
       'JANコード：' + (a.jan || '不明'),
       '買えるモール：' + (shops.join('、') || '不明'),
+      factsBlock,
+      officialBlock,
       '',
       '---------------- 出力の決まり ----------------',
       '・JSONだけを返す。前置きも、```などの囲みも付けない。',
       '・次の形に従う。項目を増やさない、減らさない。',
       articleShape(),
-      '・本文の合計は ' + MIN_CHARS + '〜' + (MAX_CHARS - 300) + ' 文字。',
+      '・本文の合計は ' + MIN_CHARS + '〜' + (MAX_CHARS - 500) + ' 文字。'
+        + 'うち4割以上は表や箇条書きでなく地の文にする。',
       '・HTMLは <strong> と <em> だけ。それ以外のタグは書かない。',
       '・「' + NG_WORDS.join('」「') + '」は使わない。',
-      '・実際に使った体験として書かない。レビューと仕様から読み取れることだけを書く。',
+      '・「〜と考えられます」「〜と言えるでしょう」「〜が期待できます」のような'
+        + 'AIらしい定型のヘッジ表現を連発しない。「事実 → 判断」の順で書く。',
+      '・実際に使った体験として書かない（「実際に使ってみると」等は禁止）。'
+        + '「メーカー仕様から見ると」「購入者レビューでは」「公開情報から判断すると」に置き換える。'
+        + 'タイトル・本文で「実機レビュー」と書かず「口コミ・評判」等と表記する。',
+      '・情報の優先順位は ①メーカー公式サイト・仕様表 → ②Amazon等の販売ページ'
+        + ' → ③購入者レビュー → ④メディア/SNS。一次情報と第三者情報が食い違うときは'
+        + '一次情報を優先し、食い違いも本文に書く。'
+        + '「メーカー公表の事実」「購入者の評価」「モノベースの独自判断」を区別する。',
+      '・メーカー未公表の耐久性・防水性・内部構造などを断定しない。'
+        + '触れるときは「公開情報から判断すると〜と考えられます」と推測だと明記する。',
+      '・口コミの件数や割合を、確認できていないのに書かない。'
+        + '数字がなければ「購入者レビューでは」「一部の口コミでは」とする。',
+      '・spec とその read に、何を基準に比較したか（用途・価格帯・同クラス等）を書く。',
+      '・faq は3〜6問。購入前に迷う具体点を仕様と口コミから答える（各1〜3文）。'
+        + 'まとめの焼き直しにしない。答えられない質問は載せない。',
+      '・conclusion の最後の段落に、使った主要な情報源と「最終確認日：YYYY年MM月DD日」、'
+        + '「価格・在庫は変動するため最新情報はリンク先でご確認ください。」を書く。',
       '・next_problem の項目にリンクURLを入れない。',
       '・価格は書かない。変動するため。'
     ].join('\n');
@@ -2829,7 +2869,7 @@
   var GEN_FIELDS = ['lead', 'verdict_title', 'summary', 'rating', 'good_for',
                     'highlights', 'not_for', 'scenes', 'pros', 'cons', 'spec', 'sections',
                     'voices_intro', 'voices', 'voices_after', 'personal_note',
-                    'next_problem', 'conclusion_title', 'conclusion',
+                    'next_problem', 'faq', 'conclusion_title', 'conclusion',
                     'description', 'excerpt', 'list_title', 'title', 'tags', 'sub'];
 
   function applyGenerated(a, gen) {

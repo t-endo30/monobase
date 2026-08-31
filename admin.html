@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=057dfe2a">
+<link rel="stylesheet" href="./assets/admin.css?v=50c60a2c">
 </head>
 <body>
 
@@ -238,6 +238,14 @@
         商品パッケージのバーコードの数字、またはメーカー製品ページに載っています。
         <b>楽天とYahoo!は同じ商品を多数の店舗が出しているため、型番だけでは同一商品と確定できません。</b>
         JANコードで検索すると、構成が同じ商品ページを確実に特定できます。リンク切れ検査でも使います。
+      </div>
+
+      <label for="f-official">メーカー公式の製品ページURL<span class="opt">任意。販売モール以外の一次情報ページ</span></label>
+      <input type="url" id="f-official" placeholder="https://www.example.co.jp/products/…">
+      <div class="note">
+        入れると、本文生成時に公式ページの内容を参考に渡し、記事のスペック表の下に
+        <b>「メーカー公式サイトで仕様を確認する」参照リンク</b>（nofollow）を表示します。
+        Amazon・楽天・Yahoo!のURLは入れないでください。
       </div>
 
       <div class="row c2">
@@ -1024,6 +1032,6 @@
 
 <div class="toast" id="toast"></div>
 <script src="./assets/vendor/qrcode.min.js"></script>
-<script src="./assets/admin.js?v=057dfe2a"></script>
+<script src="./assets/admin.js?v=50c60a2c"></script>
 </body>
 </html>

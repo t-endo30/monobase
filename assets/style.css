@@ -613,6 +613,20 @@ table{border-collapse:collapse;}
   text-align:right;
 }
 
+/* メーカー公式ページへの参照リンク（販売リンクではない） */
+.official-ref{
+  margin:14px 0 4px;
+  font-size:14px;
+  line-height:1.7;
+}
+.official-ref a{font-weight:700;}
+.official-ref-note{
+  display:block;
+  margin-top:2px;
+  font-size:12px;
+  color:var(--text-sub);
+}
+
 /* ============================================================
    Review / countermeasure
    ============================================================ */
