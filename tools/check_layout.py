@@ -15,7 +15,8 @@ Chrome を画面なしで動かし、いくつかの幅でページを実際に�
 確かめること
   1. 横にはみ出していない（どの幅でも）
   2. PC（1000px以上）でカテゴリーの横並びが1行に収まっている
-  3. カテゴリーの項目が右端で切れていない
+  3. カテゴリーの項目に、たどり着けないものが無い
+     （PCは横スクロール＋矢印で送る作りなので、枠外にあること自体は正常）
   4. ヘッダーのメニューが1行に収まっている（900px以上）
   5. 「このサイトの読み方」を開くと、板が画面の中に出る（スマホ幅）
   6. 記事タイルの高さがそろっている（スマホ幅の一覧）
@@ -50,13 +51,26 @@ window.addEventListener('load', function () { setTimeout(function () {
   if (list) {
     var rows = {}, cut = 0;
     var lr = list.getBoundingClientRect();
+    /* カテゴリーが14個まで増えたので、PCでも1行に全部は収まらない。
+       横スクロールさせて矢印で送る作りにしてある（style.css の
+       「カテゴリー数が増えたため…」の指定）。なので「見えている枠から
+       はみ出しているか」ではなく「たどり着けないか」を見る。
+       送る手立てが無いまま外にある項目だけを、切れているものと数える。 */
+    var canScroll = list.scrollWidth - list.clientWidth > 1;
+    var arrows = document.querySelectorAll('.cat-nav-arrow').length > 0;
+    var reachable = canScroll && arrows;
     Array.prototype.forEach.call(list.children, function (c) {
       var b = c.getBoundingClientRect();
       rows[Math.round(b.top)] = 1;
-      if (b.right > lr.right + 1 || b.left < lr.left - 1) cut++;
+      var outside = b.right > lr.right + 1 || b.left < lr.left - 1;
+      if (outside && !reachable) cut++;
+      /* 送れる作りでも、中身そのものからはみ出していれば本当に切れている */
+      if (reachable && (c.offsetLeft + c.offsetWidth > list.scrollWidth + 1
+                        || c.offsetLeft < -1)) cut++;
     });
     r.navRows = Object.keys(rows).length;
     r.navCut = cut;
+    r.navScroll = canScroll ? 1 : 0;
   }
 
   var nav = document.querySelector('.global-nav ul');
