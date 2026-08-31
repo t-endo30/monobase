@@ -361,6 +361,11 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://monobase.site/sitemap</loc>
+    <lastmod>2026-08-31</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/contact</loc>
     <lastmod>2026-08-31</lastmod>
     <priority>0.3</priority>

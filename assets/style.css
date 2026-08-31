@@ -4256,6 +4256,34 @@ body.is-article .layout > .container{
 /* ============================================================
    カテゴリーから探す（画像つきのタイル）
    ============================================================ */
+/* 横並びのカルーセル。左右のボタン（.rail-arrow）で1枚ずつ送る。
+   ボタンが無くても指でそのまま流せるよう、はみ出しは横スクロール。 */
+.cf-block .rail{
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
+  scroll-padding-left:4px;
+  scrollbar-width:none;
+  padding:2px 4px 10px;
+}
+.cf-block .rail::-webkit-scrollbar{display:none;}
+.cf-row{
+  display:flex;
+  gap:10px;
+  align-items:stretch;
+}
+.cf-row .cf-tile{
+  flex:0 0 46%;
+  max-width:260px;
+  scroll-snap-align:start;
+}
+@media (min-width:600px){ .cf-row .cf-tile{flex-basis:30%;} }
+@media (min-width:1024px){ .cf-row .cf-tile{flex-basis:23%;} }
+.cf-block .rail-arrow{display:flex;}
+.cf-block .rail-arrow[hidden]{display:none !important;}
+
+/* 旧レイアウト（グリッド）の指定は、他のページで使う場合に備えて残す */
 .cf-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
@@ -5770,3 +5798,211 @@ details.hero-policy .policy-close{display:none;}
 .today-list .today-rating{margin-top:3px;}
 /* タブの文字がそのまま見出しなので、枠の中の小見出しは消す */
 .pick-tabs .rank-heading{display:none;}
+
+/* ============================================================
+   読まれている記事／本日のお勧めのモノ（タブ）の中身
+   ------------------------------------------------------------
+   ・6件目は下半分を薄くして、続きがあることを形で示す
+   ・文字は左寄せ（読む順に目を運べるようにする）
+   ・「すべて見る」は枠から離さず、同じ板の下端としてつなげる
+   ============================================================ */
+
+/* ---- 板をひと続きにする ---- */
+.pick-tabs .rank-box,
+.pick-tabs .today-list{
+  margin-bottom:0;
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
+  border-bottom:none;
+  overflow:hidden;
+}
+
+/* ---- 6件目（最後の1件）は下半分をぼかして切る ---- */
+.pick-tabs .rank-list > .rank-item:nth-child(6),
+.pick-tabs .today-list > .today-list-item:nth-child(6){
+  position:relative;
+  overflow:hidden;
+  pointer-events:none;             /* 半分しか見えないものは押させない */
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
+          mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
+}
+/* 1件ぶんのおよそ半分。行の作りが違うので、枠ごとに高さを決める */
+.pick-tabs .rank-list > .rank-item:nth-child(6){max-height:46px;}
+.pick-tabs .today-list > .today-list-item:nth-child(6){max-height:38px;}
+
+/* mask が使えない環境では、白いかぶせで同じ見え方にする */
+@supports not ((-webkit-mask-image:linear-gradient(#000,#000)) or (mask-image:linear-gradient(#000,#000))){
+  .pick-tabs .rank-list > .rank-item:nth-child(6)::after,
+  .pick-tabs .today-list > .today-list-item:nth-child(6)::after{
+    content:"";
+    position:absolute;
+    inset:auto 0 0 0;
+    height:100%;
+    background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
+  }
+}
+
+/* ---- 文字は左寄せ（スマホの中央寄せ指定を、この枠だけ戻す） ---- */
+@media (max-width:899px){
+  .pick-tabs .rank-box,
+  .pick-tabs .today-list,
+  .pick-tabs .rank-note{text-align:left;}
+  .pick-tabs .rank-item a,
+  .pick-tabs .today-card{justify-content:flex-start;}
+  .pick-tabs .rank-title,
+  .pick-tabs .rank-meta,
+  .pick-tabs .rank-cat,
+  .pick-tabs .rank-catch,
+  .pick-tabs .today-cat,
+  .pick-tabs .today-title,
+  .pick-tabs .today-catch{text-align:left;}
+  .pick-tabs .rank-body{align-items:stretch;}
+}
+
+/* ---- ランキングの行にも、星・数字・一言を出す ---- */
+.rank-rating{
+  display:block;
+  margin-top:3px;
+  color:var(--amazon);
+  font-size:11.5px;
+  letter-spacing:1px;
+  line-height:1.2;
+}
+.rank-rating b{color:var(--navy);font-style:normal;font-size:11.5px;margin-left:4px;}
+.rank-catch{
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  margin-top:3px;
+  color:var(--text-sub);
+  font-size:11.5px;
+  line-height:1.55;
+}
+
+/* ---- 「すべて見る」を枠の下端としてつなげる ---- */
+.pt-more{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:12px 14px;
+  border:1px solid var(--border);
+  border-top:1px solid var(--border);
+  border-radius:0 0 var(--radius) var(--radius);
+  background:var(--bg-gray);
+  color:var(--ink);
+  font-size:12.5px;
+  font-weight:700;
+  text-decoration:none !important;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:background .18s var(--ease),transform .12s var(--ease);
+}
+.pt-more:hover{background:var(--border);}
+.pt-more-arrow{
+  width:7px;height:7px;
+  border-right:2px solid currentColor;
+  border-bottom:2px solid currentColor;
+  transform:rotate(-45deg);
+  margin-left:2px;
+}
+@media (hover:none){
+  .pt-more:active{background:var(--border);transform:translateY(1px) scale(.99);}
+}
+
+/* ============================================================
+   サイトマップ（人が読むほう）
+   ============================================================ */
+.sm-block{margin-bottom:26px;}
+.sm-block .section-heading .cat-icon{margin-right:6px;}
+.sm-all{margin:0 0 10px;font-size:12.5px;}
+.sm-links{
+  list-style:none;
+  margin:0;
+  padding:0;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+  overflow:hidden;
+}
+.sm-links li{border-top:1px solid var(--border);}
+.sm-links li:first-child{border-top:none;}
+.sm-links a{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:11px 13px;
+  font-size:13px;
+  line-height:1.5;
+  color:var(--ink);
+  text-decoration:none;
+  cursor:pointer;
+}
+.sm-links a:hover{background:var(--bg-gray);text-decoration:underline;}
+.sm-num{
+  flex:0 0 auto;
+  font-size:10.5px;font-weight:700;
+  color:var(--text-sub);
+  background:var(--bg-gray);
+  border-radius:20px;
+  padding:2px 8px;
+}
+.sm-subs{margin-bottom:10px;}
+@media (hover:none){ .sm-links a:active{background:var(--bg-gray);} }
+
+/* ============================================================
+   iPhone：押したときの動きを効かせる
+   ------------------------------------------------------------
+   iOS Safari は cursor:pointer が付いていない要素に :active を
+   当てないことがある。JS 側で空の touchstart も入れてある。
+   ============================================================ */
+@media (hover:none){
+  .card,
+  .feat-card,
+  .today-card,
+  .cf-tile,
+  .deal,
+  .rank-item a,
+  .next-card,
+  .btn-amazon,
+  .btn-sub,
+  .chip,
+  .tab-bar a,
+  .tab-bar button,
+  .rail-arrow,
+  .nav-toggle,
+  .to-top{cursor:pointer;}
+}
+
+/* ============================================================
+   ブランドマーク：ドット絵の「M」と、その下に沿う開いたダンボール
+   ------------------------------------------------------------
+   16×16 のマス目を、1マス＝1pxの矩形として SVG で組んである
+   （build.py の header() が直接埋め込む）。画像を1枚も足さずに、
+   どの大きさでもドットの角が潰れない。
+   ・線（Mの字）  … --mk-line
+   ・箱の面       … --mk-box
+   ・開いた口     … --mk-in
+   以前の box-shadow で点を並べる作りは、この SVG に置き換えた。
+   ============================================================ */
+.brand-mark{
+  --mk-line:rgba(255,255,255,.94);
+  --mk-box:var(--amazon,#FF9900);
+  --mk-in:var(--amazon-dark,#C25E00);
+  display:block;
+  line-height:0;
+}
+.brand-mark::before{content:none !important;}   /* 旧ドットは出さない */
+.brand-mark svg{display:block;width:100%;height:100%;}
+.site-title:hover .brand-mark{--mk-line:#fff;}
+@media (prefers-reduced-motion:no-preference){
+  .brand-mark{transition:none;}
+}
+
+/* サイトマップはハンバーガーの中だけに置く。
+   PCの横並びは5つ目が入るとブランド名に重なるため、そちらはフッターから。 */
+@media (min-width:900px){
+  .global-nav .sp-only-link{display:none;}
+}

@@ -983,7 +983,6 @@
      （タッチ端末やキーボードだけの人でも並べ替えられるように）。 */
   var TOP_LABEL = {
     hero:       ['見出しバナー', 'サイトの一言と、公開している記事数'],
-    today:      ['本日のお勧めのモノ', 'よく見ているジャンルから日替わりで1本'],
     'new':      ['新着記事', 'スマホは横に流すカード、PCは通常の並び'],
     deals:      ['注目のアイテム', 'レビュー済み商品を横並びで（価格はAmazon API導入後に表示）'],
     feature:    ['特集', 'カルーセルで1本ずつ'],
@@ -991,7 +990,7 @@
     categories: ['カテゴリーから探す', '記事のあるカテゴリーを件数つきで'],
     policy:     ['このサイトの読み方', '記事の書き方の基準'],
   };
-  var DEFAULT_TOP = ['hero', 'today', 'new', 'deals', 'feature', 'ranking', 'categories', 'policy'];
+  var DEFAULT_TOP = ['hero', 'new', 'deals', 'feature', 'ranking', 'categories', 'policy'];
   var layout = [];
 
   function loadLayout() {

@@ -79,7 +79,11 @@ window.addEventListener('load', function () { setTimeout(function () {
   if (nav) {
     var nrows = {};
     Array.prototype.forEach.call(nav.children, function (c) {
-      nrows[Math.round(c.getBoundingClientRect().top)] = 1;
+      var b = c.getBoundingClientRect();
+      /* display:none の項目（幅で出し分けているもの）は、どの行にも
+         乗っていない。数に入れると「2行になった」と誤って言うので飛ばす。 */
+      if (b.width < 1 && b.height < 1) return;
+      nrows[Math.round(b.top)] = 1;
     });
     r.menuRows = Object.keys(nrows).length;
   }

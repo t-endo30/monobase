@@ -437,17 +437,17 @@
     "model": "gemini-3.1-flash-image"
   },
   "promos": {
-  "_note": "A8.net・バリューコマース・もしもなどで取得した広告リンクを、そのまま貼る枠。コードは書き換えず、置き場所と対象カテゴリーだけこちらで決める。where は article_end（記事の下）／side（PCサイド）／none（出さない）。cats を空にすると全カテゴリーの記事に出る。",
-  "label": "PR",
-  "items": []
- },
- "hero": {
-  "_note": "トップの見出しタイルの文言。accent に入れた語だけ、マーカーを引いた見た目になる（title の中に含まれている語を指定する）。",
-  "title": "レビューを読み込んで、不満点までまとめる。",
-  "accent": "不満点まで",
-  "typewriter": true
- },
- "ads": {
+    "_note": "A8.net・バリューコマース・もしもなどで取得した広告リンクを、そのまま貼る枠。コードは書き換えず、置き場所と対象カテゴリーだけこちらで決める。where は article_end（記事の下）／side（PCサイド）／none（出さない）。cats を空にすると全カテゴリーの記事に出る。",
+    "label": "PR",
+    "items": []
+  },
+  "hero": {
+    "_note": "トップの見出しタイルの文言。accent に入れた語だけ、マーカーを引いた見た目になる（title の中に含まれている語を指定する）。",
+    "title": "レビューを読み込んで、不満点までまとめる。",
+    "accent": "不満点まで",
+    "typewriter": true
+  },
+  "ads": {
     "_note": "Google AdSense。enabled を true にすると読み込みタグが入る。コードは書き換えず、置き場所だけこちらで決める（規約）。mode=auto は自動広告、manual は下の slots に入れた広告ユニットIDの位置だけに出す。",
     "enabled": true,
     "client": "ca-pub-4017242913861863",
@@ -480,10 +480,6 @@
     "top": [
       {
         "key": "hero",
-        "on": true
-      },
-      {
-        "key": "today",
         "on": true
       },
       {

@@ -544,7 +544,7 @@ def header(current, p, crumbs=None, current_sub="", band=""):
     <div class="header-side" aria-hidden="true"></div>
     <div class="site-brand">
       <a class="site-title" href="{p}index.html" aria-label="{e(NAME)}">
-        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 16 16" width="100%" height="100%" shape-rendering="crispEdges" aria-hidden="true"><path fill="var(--mk-line,#fff)" d="M1 2h2v1h-2zM13 2h2v1h-2zM1 3h3v1h-3zM12 3h3v1h-3zM1 4h4v1h-4zM11 4h4v1h-4zM1 5h2v1h-2zM4 5h3v1h-3zM9 5h3v1h-3zM13 5h2v1h-2zM1 6h2v1h-2zM5 6h6v1h-6zM13 6h2v1h-2zM1 7h2v1h-2zM6 7h4v1h-4zM13 7h2v1h-2zM1 8h2v1h-2zM7 8h2v1h-2zM13 8h2v1h-2zM1 9h2v1h-2zM13 9h2v1h-2zM1 10h2v1h-2zM13 10h2v1h-2zM1 11h2v1h-2zM13 11h2v1h-2zM1 12h2v1h-2zM13 12h2v1h-2zM1 13h2v1h-2zM13 13h2v1h-2zM1 14h2v1h-2zM13 14h2v1h-2z"/><path fill="var(--mk-box,#FF9900)" d="M4 9h1v1h-1zM11 9h1v1h-1zM4 10h2v1h-2zM10 10h2v1h-2zM5 11h1v1h-1zM10 11h1v1h-1zM5 12h6v1h-6zM5 13h6v1h-6zM5 14h6v1h-6z"/><path fill="var(--mk-in,#C25E00)" d="M6 11h4v1h-4z"/></svg></span>
         <span class="brand-name">{e(NAME)}</span>
       </a>
       <div class="site-tagline hero-count" data-cats='{_cn_json}' data-n-cat="{_cn_ncat}" data-n-pub="{_cn_npub}">{e(_cn_default)}</div>
@@ -555,7 +555,8 @@ def header(current, p, crumbs=None, current_sub="", band=""):
     <nav class="global-nav" id="globalNav" aria-label="メニュー">
       <ul class="nav-links">
         <li><a href="{p}index.html">ホーム</a></li>
-        {search_link}<li><a href="{p}about.html">運営者情報</a></li>
+        {search_link}<li class="sp-only-link"><a href="{p}sitemap.html">サイトマップ</a></li>
+        <li><a href="{p}about.html">運営者情報</a></li>
         {contact_nav}
       </ul>
     </nav>
@@ -606,6 +607,7 @@ def footer(p, sticky_url=None):
           <li><a href="{p}disclaimer.html">免責事項</a></li>
           <li><a href="{p}about.html">運営者情報</a></li>
           <li><a href="{p}search.html">サイト内検索</a></li>
+          <li><a href="{p}sitemap.html">サイトマップ</a></li>
         </ul>
       </div>
       <div class="footer-row">
@@ -1541,7 +1543,6 @@ def feature_ready():
 
 DEFAULT_TOP = [
     {"key": "hero",       "on": True},
-    {"key": "today",      "on": True},
     {"key": "new",        "on": True},
     {"key": "deals",      "on": True},
     {"key": "feature",    "on": True},
@@ -1553,7 +1554,6 @@ DEFAULT_TOP = [
 # 管理画面に出す名前。ここに無いものは並べ替えの対象にしない。
 TOP_LABEL = {
     "hero":       "見出しバナー",
-    "today":      "本日のお勧めのモノ",
     "new":        "新着記事",
     "deals":      "注目のアイテム",
     "feature":    "特集",
@@ -1644,7 +1644,11 @@ def mobile_ranking(p, today_limit=6):
 
        ここは2枚を切り替えて見せる。左が実際に読まれている順、右がその日の
        お勧め。どちらも「次に何を読むか」を出す枠なので、縦に2つ並べるより
-       切り替えたほうがスマホの縦を食わない。中身はどちらも assets/main.js。"""
+       切り替えたほうがスマホの縦を食わない。中身はどちらも assets/main.js。
+
+       件数は6件。6件目は下半分を薄く透過させ（CSS）、続きがあることを
+       枠のかたちだけで示す。「すべて見る」のボタンは枠から離さず、
+       同じ板の下端としてつなげる（押せることは枠線と矢印で示す）。"""
     return ('      <section class="section-block is-mobile-only pick-tabs">\n'
             '        <div class="pt-tabs" role="tablist" aria-label="トップの記事の出し分け">\n'
             '          <button type="button" class="pt-tab is-on" role="tab"'
@@ -1653,16 +1657,14 @@ def mobile_ranking(p, today_limit=6):
             ' id="ptTabToday" aria-controls="ptPanelToday" aria-selected="false" tabindex="-1">本日のお勧めのモノ</button>\n'
             '        </div>\n'
             '        <div class="pt-panel" id="ptPanelRank" role="tabpanel" aria-labelledby="ptTabRank">\n'
-            + rank_panel(p, 5) +
-            '          <div class="cta-wrap">\n'
-            f'            <a class="btn-sub" href="{p}ranking.html">ランキングをすべて見る</a>\n'
-            '          </div>\n'
+            + rank_panel(p, 6) +
+            f'          <a class="pt-more" href="{p}ranking.html">ランキングをすべて見る'
+            '<span class="pt-more-arrow" aria-hidden="true"></span></a>\n'
             '        </div>\n'
             '        <div class="pt-panel" id="ptPanelToday" role="tabpanel" aria-labelledby="ptTabToday" hidden>\n'
             f'          <ol class="today-list" data-today-limit="{today_limit}"></ol>\n'
-            '          <div class="cta-wrap">\n'
-            f'            <a class="btn-sub" href="{p}new.html">レビュー記事をすべて見る</a>\n'
-            '          </div>\n'
+            f'          <a class="pt-more" href="{p}new.html">レビュー記事をすべて見る'
+            '<span class="pt-more-arrow" aria-hidden="true"></span></a>\n'
             '        </div>\n'
             '      </section>\n')
 
@@ -1688,9 +1690,15 @@ def cat_finder(p):
                  f'          </a>\n')
     if not rows:
         return ""
-    return ('      <section class="section-block">\n'
+    return ('      <section class="section-block cf-block">\n'
             '        <h2 class="section-heading">カテゴリーから探す</h2>\n'
-            '        <div class="cf-grid">\n' + rows +
+            '        <div class="rail-wrap">\n'
+            '          <button type="button" class="rail-arrow is-prev" aria-label="前のカテゴリーへ" hidden><span aria-hidden="true"></span></button>\n'
+            '          <div class="rail cf-rail">\n'
+            '            <div class="cf-row">\n' + rows +
+            '            </div>\n'
+            '          </div>\n'
+            '          <button type="button" class="rail-arrow is-next" aria-label="次のカテゴリーへ" hidden><span aria-hidden="true"></span></button>\n'
             '        </div>\n'
             '      </section>\n')
 
@@ -1800,7 +1808,6 @@ def build_index():
     # トップに置く区画。並び順と表示・非表示は content/site.json の
     # layout.top で決める（管理画面からドラッグして入れ替えられる）。
     blocks = {
-        "today":      lambda: today_panel("is-mobile"),
         "new":        lambda: news_rail(latest, p),
         "deals":      lambda: deals_rail(p),
         "feature":    lambda: feature_cards(p),
@@ -1915,6 +1922,62 @@ def build_ranking():
                 f"{NAME}でよく読まれている記事のランキングです。", "ranking", p,
                 f"{BASE_URL}/ranking.html", body, body_class="is-listing", sidebar=True,
                 crumbs=[("ホーム", f"{p}index.html"), ("アクセスランキング", None)])
+
+
+def build_sitemap():
+    """人が読むサイトマップ。ハンバーガーメニューからの行き先。
+       検索エンジン向けの sitemap.xml とは別物で、こちらは
+       「どこに何があるか」を一枚で見渡すための一覧。"""
+    p = "./"
+    body = hero(icon("cats", "page-icon"), "サイトマップ",
+                "サイト内のページを一覧にまとめています。", None)
+
+    # ---- 主要ページ ----
+    main_links = [("ホーム", f"{p}index.html"), ("新着記事", f"{p}new.html"),
+                  ("アクセスランキング", f"{p}ranking.html")]
+    if FEAT.get("search"):
+        main_links.append(("サイト内検索", f"{p}search.html"))
+    main_links += [("運営者情報", f"{p}about.html"),
+                   ("プライバシーポリシー", f"{p}privacy.html"),
+                   ("免責事項", f"{p}disclaimer.html")]
+    if FEAT.get("contact_form"):
+        main_links.append(("お問い合わせ", f"{p}contact.html"))
+    items = "".join(f'          <li><a href="{e(u)}">{e(t)}</a></li>\n'
+                    for t, u in main_links)
+    body += ('      <section class="section-block sm-block">\n'
+             '        <h2 class="section-heading">主要なページ</h2>\n'
+             f'        <ul class="sm-links">\n{items}        </ul>\n'
+             '      </section>\n')
+
+    # ---- カテゴリーと、その中の記事 ----
+    for c in CATS:
+        arts = [a for a in PUBLISHED if a["category"] == c["key"]]
+        if not arts:
+            continue
+        subs = ""
+        for sc in c.get("sub", []):
+            n = len([a for a in arts if a.get("sub") == sc["key"]])
+            if not n:
+                continue
+            subs += (f'          <li><a href="{p}category-{c["key"]}-{sc["key"]}.html">'
+                     f'{e(sc["label"])}<span class="sm-num">{n}</span></a></li>\n')
+        rows = "".join(
+            f'          <li><a href="{p}articles/{e(a["slug"])}.html">'
+            f'{e(a.get("list_title") or a["title"])}</a></li>\n' for a in arts)
+        body += ('      <section class="section-block sm-block">\n'
+                 '        <h2 class="section-heading">'
+                 f'{icon(c["key"])}{e(c["label"])}</h2>\n'
+                 f'        <p class="sm-all"><a href="{p}category-{c["key"]}.html">'
+                 f'{e(c["label"])}の記事をすべて見る（{len(arts)}）</a></p>\n'
+                 + (f'        <ul class="sm-links sm-subs">\n{subs}        </ul>\n' if subs else "")
+                 + f'        <ul class="sm-links sm-arts">\n{rows}        </ul>\n'
+                 '      </section>\n')
+
+    return page(f"サイトマップ - {NAME}",
+                f"{NAME}のサイトマップ。カテゴリーと記事の一覧です。", "", p,
+                f"{BASE_URL}/sitemap.html", body, body_class="is-listing",
+                sidebar=True,
+                crumbs=[("ホーム", f"{p}index.html"), ("サイトマップ", None)])
 
 
 def build_search():
@@ -2300,6 +2363,7 @@ def main():
             print(f"   🗑  {old}（古いカテゴリー）")
     if FEAT.get("search"):
         write("search.html", build_search()); written.append("search.html")
+    write("sitemap.html", build_sitemap()); written.append("sitemap.html")
     for f, c in static_pages():
         write(f, c); written.append(f)
 
@@ -2342,7 +2406,7 @@ def main():
              if any(a["category"] == c["key"] and a.get("sub") == sc["key"]
                     for a in PUBLISHED)]
     urls += [(f'{BASE_URL}/articles/{a["slug"]}.html', "0.9", mod(a)) for a in PUBLISHED]
-    static = ["about.html", "privacy.html", "disclaimer.html"]
+    static = ["about.html", "privacy.html", "disclaimer.html", "sitemap.html"]
     if FEAT.get("contact_form"):
         static.append("contact.html")
     urls += [(f"{BASE_URL}/{f}", "0.3", newest) for f in static]

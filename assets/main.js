@@ -20,6 +20,18 @@ window.mbLockScroll = function (on, cls) {
   }
 };
 
+/* ============================================================
+   iPhone（iOS Safari）で押したときの動きを効かせる
+   ------------------------------------------------------------
+   iOS Safari は :active を、その要素かページのどこかに「触れたことを
+   受け取る人」がいないと当てない。PCのスマホ表示（Chrome の端末
+   エミュレータ）では当たるのに実機の iPhone だけ沈まない、という
+   食い違いはこれが原因。空の touchstart をひとつ置くと当たるようになる。
+   もうひとつ、iOS は body に cursor:pointer が無い要素を「押せるもの」と
+   見なさないことがあるので、CSS 側でも指定してある。
+   ============================================================ */
+document.addEventListener('touchstart', function () {}, { passive: true });
+
 (function () {
   'use strict';
 
@@ -557,15 +569,33 @@ window.mbLockScroll = function (on, cls) {
   var lists = document.querySelectorAll('.rank-list');
   if (!lists.length) return;
 
+  function esc(t) {
+    return String(t == null ? '' : t)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  /* 星は5つぶんの文字を切り出して作る（画像を足さずに済ませる） */
+  function starStr(n) {
+    n = Math.round(Number(n) || 0);
+    return '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
+  }
+
   function rows(limit) {
     return ranked.slice(0, limit).map(function (it, i) {
       var n = counts[it.slug] || 0;
+      var sc = Number(it.score) || 0;
+      var rate = sc > 0
+        ? '<span class="rank-rating">' + starStr(sc) +
+          '<b>' + (Math.round(sc * 10) / 10) + '</b></span>'
+        : '';
+      var catch_ = it.excerpt
+        ? '<span class="rank-catch">' + esc(it.excerpt) + '</span>' : '';
       return '<li class="rank-item">' +
         '<a href="' + it.url + '">' +
           '<span class="rank-no rank-no-' + (i + 1) + '">' + (i + 1) + '</span>' +
           '<span class="rank-body">' +
-            '<span class="rank-title">' + it.title + '</span>' +
-            '<span class="rank-meta">' + it.cat + (n ? '　' + n + '回' : '') + '</span>' +
+            '<span class="rank-title">' + esc(it.title) + '</span>' +
+            rate + catch_ +
+            '<span class="rank-meta">' + esc(it.cat) + (n ? '　' + n + '回' : '') + '</span>' +
           '</span>' +
         '</a></li>';
     }).join('');
@@ -977,35 +1007,39 @@ window.mbLockScroll = function (on, cls) {
    ============================================================ */
 (function () {
   'use strict';
-  var wrap = document.querySelector('.news-rail-block .rail-wrap');
-  if (!wrap) return;
-  var rail = wrap.querySelector('.rail');
-  var prev = wrap.querySelector('.rail-arrow.is-prev');
-  var next = wrap.querySelector('.rail-arrow.is-next');
-  if (!rail || !prev || !next) return;
+  /* 新着とカテゴリー、どちらも同じ形（.rail-wrap）なので一括で受け持つ */
+  var wraps = document.querySelectorAll('.rail-wrap');
+  if (!wraps.length) return;
 
-  function cardW() {
-    var c = rail.querySelector('.card');
-    if (!c) return rail.clientWidth * 0.9;
-    var gap = parseFloat(getComputedStyle(c.parentElement).gap) || 10;
-    return c.getBoundingClientRect().width + gap;
-  }
-  function update() {
-    var max = rail.scrollWidth - rail.clientWidth;
-    var overflow = max > 4;
-    prev.hidden = !overflow || rail.scrollLeft <= 2;
-    next.hidden = !overflow || rail.scrollLeft >= max - 2;
-  }
-  prev.addEventListener('click', function () {
-    rail.scrollBy({ left: -cardW(), behavior: 'smooth' });
+  Array.prototype.forEach.call(wraps, function (wrap) {
+    var rail = wrap.querySelector('.rail');
+    var prev = wrap.querySelector('.rail-arrow.is-prev');
+    var next = wrap.querySelector('.rail-arrow.is-next');
+    if (!rail || !prev || !next) return;
+
+    function cardW() {
+      var c = rail.querySelector('.card, .cf-tile');
+      if (!c) return rail.clientWidth * 0.9;
+      var gap = parseFloat(getComputedStyle(c.parentElement).gap) || 10;
+      return c.getBoundingClientRect().width + gap;
+    }
+    function update() {
+      var max = rail.scrollWidth - rail.clientWidth;
+      var overflow = max > 4;
+      prev.hidden = !overflow || rail.scrollLeft <= 2;
+      next.hidden = !overflow || rail.scrollLeft >= max - 2;
+    }
+    prev.addEventListener('click', function () {
+      rail.scrollBy({ left: -cardW(), behavior: 'smooth' });
+    });
+    next.addEventListener('click', function () {
+      rail.scrollBy({ left: cardW(), behavior: 'smooth' });
+    });
+    rail.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    if ('ResizeObserver' in window) new ResizeObserver(update).observe(rail);
+    requestAnimationFrame(update);
   });
-  next.addEventListener('click', function () {
-    rail.scrollBy({ left: cardW(), behavior: 'smooth' });
-  });
-  rail.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  if ('ResizeObserver' in window) new ResizeObserver(update).observe(rail);
-  requestAnimationFrame(update);
 })();
 
 
@@ -1120,6 +1154,12 @@ window.mbLockScroll = function (on, cls) {
         b.textContent = (Math.round(Number(it.score) * 10) / 10);
         rt.appendChild(b);
         bd.appendChild(rt);
+      }
+      if (it.excerpt) {
+        var ct = document.createElement('span');
+        ct.className = 'today-catch';
+        ct.textContent = it.excerpt;
+        bd.appendChild(ct);
       }
 
       a.appendChild(th);
