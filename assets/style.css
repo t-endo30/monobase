@@ -47,6 +47,8 @@
 
   --font:"Noto Sans JP","Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans","BIZ UDPGothic",Meiryo,sans-serif;
   --ease:cubic-bezier(.2,.7,.3,1);
+  /* ゆっくり効いて、ふわっと止まる「ぬるっと」した曲線 */
+  --ease-nuru:cubic-bezier(.22,1,.36,1);
 }
 
 /* カテゴリー別のアクセント色を、その配下すべてに流す */
@@ -2831,13 +2833,13 @@ body[data-cat="ranking"] .side-rank{display:none;}
     background:#fff;
     border-bottom:1px solid var(--border);
     box-shadow:0 14px 28px rgba(0,0,0,.18);
-    /* 飛び出す動き */
+    /* 上から、ぬるっと広がるように出す */
     transform-origin:top center;
-    animation:cat-pop .18s var(--ease) both;
+    animation:cat-pop .4s var(--ease-nuru) both;
   }
   .site-header.is-shrunk ~ .cat-panel{top:calc(54px + 52px);}
   @keyframes cat-pop{
-    from{opacity:0;transform:translateY(-8px) scaleY(.96);}
+    from{opacity:0;transform:translateY(-14px) scaleY(.94);}
     to{opacity:1;transform:none;}
   }
   @media (prefers-reduced-motion:reduce){
@@ -3067,19 +3069,20 @@ body[data-cat="ranking"] .side-rank{display:none;}
     box-shadow:0 14px 28px rgba(0,0,0,.28);
     /* 閉じている状態。display:none だと transition が効かないので
        visibility で消し、閉じ切ってから不可視にする。 */
+    transform-origin:top center;
     opacity:0;
     visibility:hidden;
-    transform:translateY(-10px);
-    transition:opacity .2s var(--ease),
-               transform .2s var(--ease),
-               visibility 0s linear .2s;
+    transform:translateY(-16px) scaleY(.985);
+    transition:opacity .34s var(--ease-nuru),
+               transform .34s var(--ease-nuru),
+               visibility 0s linear .34s;
   }
   .global-nav.is-open{
     opacity:1;
     visibility:visible;
-    transform:translateY(0);
-    transition:opacity .24s var(--ease),
-               transform .24s var(--ease);
+    transform:translateY(0) scaleY(1);
+    transition:opacity .44s var(--ease-nuru),
+               transform .44s var(--ease-nuru);
   }
   .nav-veil{
     position:fixed;
