@@ -2605,7 +2605,7 @@
      tools/check_text.py の NG と同じ内容にしておく。 */
   var NG_WORDS = ['絶対', '必ず', '確実に', '保証します', '間違いなく', '100%',
                   '誰でも', '永久に', '完治', '業界No.1', '日本一'];
-  var MIN_CHARS = 6000, MAX_CHARS = 10500;
+  var MIN_CHARS = 6000, MAX_CHARS = 12000;
 
   function loadPrompt() {
     if (promptCache) return Promise.resolve(promptCache);

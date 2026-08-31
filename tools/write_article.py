@@ -27,7 +27,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NG_WORDS = ["絶対", "必ず", "確実に", "保証します", "間違いなく", "100%",
             "誰でも", "永久に", "完治", "業界No.1", "日本一"]
 MIN_CHARS = 6000
-MAX_CHARS = 10500   # FAQ・情報源明記・比較基準の追記で長くなったぶん上限を広げた
+MAX_CHARS = 12000   # FAQ・情報源明記・比較基準まで入れると1万字前後になる。余白を持たせる
 
 # 生成に任せる項目。slug や published、販売先URLは触らせない。
 GEN_FIELDS = ["lead", "verdict_title", "summary", "rating", "good_for",
@@ -102,7 +102,9 @@ def build_prompt(a, site, prompt_md, fetch_official=True):
         "・JSONだけを返す。前置きも、コードフェンスも付けない。",
         "・次の形に従う。項目を増やさない、減らさない。",
         SHAPE,
-        f"・本文の合計は {MIN_CHARS}〜{MAX_CHARS - 500} 文字。うち4割以上は"
+        f"・本文の合計は {MIN_CHARS}〜{MAX_CHARS - 500} 文字。"
+        "書くことが十分にある商品では上限側（1万字前後）に寄せてよい。"
+        "薄い内容を水増しして字数を稼がない。うち4割以上は"
         "表や箇条書きではなく地の文（段落）にする。",
         "・HTMLは <strong> と <em> だけ。それ以外のタグは書かない。",
         "　ただしスペック表の丸印だけは "
