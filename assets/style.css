@@ -1399,7 +1399,7 @@ mark.hl{
   -webkit-backdrop-filter:saturate(180%) blur(12px);
   box-shadow:none;
   border-bottom:2px solid var(--amazon,#FF9900);
-  border-radius:0 0 16px 16px;
+  border-radius:16px;
   transition:padding .25s var(--ease),background-color .25s var(--ease);
 }
 .site-header.is-shrunk{box-shadow:0 4px 20px rgba(0,0,0,.18);}
@@ -2711,6 +2711,13 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
     max-height:calc(100vh - 156px);
     overflow-y:auto;
   }
+  /* PCサイドの ACCESS RANKING は幅が狭いので、写真の幅を小さく抑える
+     （既定の .arow-thumb は一覧ページ用の大きさで、サイドに置くと
+     行がふくらんで縦に間延びしてしまうため）。 */
+  .side-rank .arow-thumb{width:64px;min-height:64px;}
+  .side-rank .arow-link{padding:10px 4px;gap:10px;}
+  .side-rank .arow-title{font-size:12.5px;-webkit-line-clamp:2;}
+  .side-rank .arow-catch{display:none;}
 }
 /* ランキングページ自体では、右の重複表示を出さない */
 body[data-cat="ranking"] .side-rank{display:none;}
