@@ -351,6 +351,16 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://monobase.site/editorial-policy</loc>
+    <lastmod>2026-08-31</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/advertising</loc>
+    <lastmod>2026-08-31</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/privacy</loc>
     <lastmod>2026-08-31</lastmod>
     <priority>0.3</priority>

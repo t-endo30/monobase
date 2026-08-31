@@ -483,15 +483,11 @@
         "on": true
       },
       {
-        "key": "new",
-        "on": true
-      },
-      {
-        "key": "deals",
-        "on": true
-      },
-      {
         "key": "feature",
+        "on": true
+      },
+      {
+        "key": "new",
         "on": true
       },
       {
@@ -501,10 +497,6 @@
       {
         "key": "categories",
         "on": true
-      },
-      {
-        "key": "policy",
-        "on": false
       }
     ]
   },

@@ -83,6 +83,47 @@ CAT_ICON  = {c["key"]: c["icon"]  for c in CATS}
 PUBLISHED = sorted([a for a in ARTICLES if a.get("published")],
                    key=lambda a: a.get("date", ""), reverse=True)
 
+# ブランドマーク：ドット絵の「M」と、その下に沿う開いたダンボール箱。
+# 16×16 のマス目を「1マス＝1色」で持つ（(x, y, 幅) のリスト）。
+# ここ1か所を直すだけで、ヘッダーのSVG・favicon・OGP画像の見た目が揃う。
+#   line … Mの字（白）
+#   box  … 箱の面（オレンジ）
+#   in   … 箱の開いた口（濃いオレンジ）
+#   seam … 箱がダンボールだと分かるように入れた、テープの黒いライン
+LOGO_CELLS = {
+    "line": [(1,2,2),(13,2,2),(1,3,3),(12,3,3),(1,4,4),(11,4,4),(1,5,2),(4,5,3),
+             (9,5,3),(13,5,2),(1,6,2),(5,6,6),(13,6,2),(1,7,2),(6,7,4),(13,7,2),
+             (1,8,2),(7,8,2),(13,8,2),(1,9,2),(13,9,2),(1,10,2),(13,10,2),
+             (1,11,2),(13,11,2),(1,12,2),(13,12,2),(1,13,2),(13,13,2),
+             (1,14,2),(13,14,2)],
+    "box":  [(4,9,1),(11,9,1),(4,10,2),(10,10,2),(5,11,1),(10,11,1),
+             (5,12,6),(5,13,6),(5,14,6)],
+    "in":   [(6,11,4)],
+    "seam": [(5,12,6),(7,13,2),(7,14,2)],
+}
+LOGO_COLOR_VAR = {
+    "line": "var(--mk-line,#fff)",
+    "box":  "var(--mk-box,#FF9900)",
+    "in":   "var(--mk-in,#C25E00)",
+    "seam": "var(--mk-seam,#1A1006)",
+}
+
+
+def _logo_path_d(cells):
+    return "".join(f"M{x} {y}h{w}v1h-{w}z" for x, y, w in cells)
+
+
+def logo_svg(size="100%"):
+    """ブランドマークのSVG（16×16グリッド）。header() と favicon/OGP 生成で共用する。"""
+    paths = "".join(
+        f'<path fill="{LOGO_COLOR_VAR[key]}" d="{_logo_path_d(LOGO_CELLS[key])}"/>'
+        for key in ("line", "box", "in", "seam"))
+    return (f'<svg viewBox="0 0 16 16" width="{size}" height="{size}" '
+            f'shape-rendering="crispEdges" aria-hidden="true">{paths}</svg>')
+
+
+LOGO_SVG_INNER = logo_svg()
+
 def e(s):
     return html.escape(str(s), quote=True)
 
@@ -299,7 +340,7 @@ def head(title, desc, current, p, canonical, extra="", body_class="", image="",
     # クロールの予算を記事のほうへ回す。
     norobots = ('<meta name="robots" content="noindex,follow">\n'
                 if noindex else "")
-    oi = og_image(image)
+    oi = og_image(image) or f"{BASE_URL}/assets/img/og-default.jpg"
     ogimg = ""
     if oi:
         ogimg = (f'<meta property="og:image" content="{e(oi)}">\n'
@@ -317,6 +358,9 @@ def head(title, desc, current, p, canonical, extra="", body_class="", image="",
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{e(public_url(canonical))}">
 <link rel="alternate" type="application/rss+xml" title="{e(NAME)}" href="{BASE_URL}/feed.xml">
+<link rel="icon" href="{p}assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{p}assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="{p}assets/img/apple-touch-icon.png">
 {gsc}{norobots}{ads_meta()}<meta property="og:type" content="website">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
@@ -546,7 +590,7 @@ def header(current, p, crumbs=None, current_sub="", band=""):
     <div class="header-side" aria-hidden="true"></div>
     <div class="site-brand">
       <a class="site-title" href="{p}index.html" aria-label="{e(NAME)}">
-        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 16 16" width="100%" height="100%" shape-rendering="crispEdges" aria-hidden="true"><path fill="var(--mk-line,#fff)" d="M1 2h2v1h-2zM13 2h2v1h-2zM1 3h3v1h-3zM12 3h3v1h-3zM1 4h4v1h-4zM11 4h4v1h-4zM1 5h2v1h-2zM4 5h3v1h-3zM9 5h3v1h-3zM13 5h2v1h-2zM1 6h2v1h-2zM5 6h6v1h-6zM13 6h2v1h-2zM1 7h2v1h-2zM6 7h4v1h-4zM13 7h2v1h-2zM1 8h2v1h-2zM7 8h2v1h-2zM13 8h2v1h-2zM1 9h2v1h-2zM13 9h2v1h-2zM1 10h2v1h-2zM13 10h2v1h-2zM1 11h2v1h-2zM13 11h2v1h-2zM1 12h2v1h-2zM13 12h2v1h-2zM1 13h2v1h-2zM13 13h2v1h-2zM1 14h2v1h-2zM13 14h2v1h-2z"/><path fill="var(--mk-box,#FF9900)" d="M4 9h1v1h-1zM11 9h1v1h-1zM4 10h2v1h-2zM10 10h2v1h-2zM5 11h1v1h-1zM10 11h1v1h-1zM5 12h6v1h-6zM5 13h6v1h-6zM5 14h6v1h-6z"/><path fill="var(--mk-in,#C25E00)" d="M6 11h4v1h-4z"/></svg></span>
+        <span class="brand-mark" aria-hidden="true">{LOGO_SVG_INNER}</span>
         <span class="brand-name">{e(NAME)}</span>
       </a>
       <div class="site-tagline hero-count" data-cats='{_cn_json}' data-n-cat="{_cn_ncat}" data-n-pub="{_cn_npub}">{e(_cn_default)}</div>
@@ -559,6 +603,8 @@ def header(current, p, crumbs=None, current_sub="", band=""):
         <li><a href="{p}index.html">ホーム</a></li>
         {search_link}<li class="sp-only-link"><a href="{p}sitemap.html">サイトマップ</a></li>
         <li><a href="{p}about.html">運営者情報</a></li>
+        <li class="sp-only-link"><a href="{p}editorial-policy.html">記事作成方針</a></li>
+        <li class="sp-only-link"><a href="{p}advertising.html">広告掲載について</a></li>
         {contact_nav}
       </ul>
     </nav>
@@ -601,21 +647,29 @@ def footer(p, sticky_url=None):
 '''
     return f'''<footer class="site-footer" id="contact">
   <div class="container">
-    <div class="footer-rows">
-      <div class="footer-row">
-        <span class="footer-row-label">サイト情報</span>
-        <ul class="footer-inline">
-          <li><a href="{p}privacy.html">プライバシーポリシー</a></li>
-          <li><a href="{p}disclaimer.html">免責事項</a></li>
-          <li><a href="{p}about.html">運営者情報</a></li>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <p class="footer-col-heading">サイト</p>
+        <ul class="footer-col-list">
+          <li><a href="{p}index.html">ホーム</a></li>
           <li><a href="{p}search.html">サイト内検索</a></li>
           <li><a href="{p}sitemap.html">サイトマップ</a></li>
         </ul>
       </div>
-      <div class="footer-row">
-        <span class="footer-row-label">お問い合わせ</span>
-        <ul class="footer-inline">
+      <div class="footer-col">
+        <p class="footer-col-heading">サイトについて</p>
+        <ul class="footer-col-list">
+          <li><a href="{p}about.html">運営者情報</a></li>
+          <li><a href="{p}editorial-policy.html">記事作成方針</a></li>
+          <li><a href="{p}advertising.html">広告掲載について</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-heading">お問い合わせ</p>
+        <ul class="footer-col-list">
           <li>{contact_link}</li>
+          <li><a href="{p}privacy.html">プライバシーポリシー</a></li>
+          <li><a href="{p}disclaimer.html">免責事項</a></li>
         </ul>
       </div>
     </div>
@@ -656,7 +710,7 @@ def main_block(body, p, current="", current_sub="", sidebar=False, hero_slot="",
             '  <div class="container layout-grid">\n'
             + hero_slot +
             '    <div class="side-col">\n'
-            + today_panel("is-side") + search_l +
+            + search_l +
             '    <aside class="side-nav side-tile" aria-label="カテゴリー">\n'
             '      <p class="side-heading">CATEGORIES</p>\n'
             + tree +
@@ -1775,23 +1829,19 @@ def feature_ready():
 
 DEFAULT_TOP = [
     {"key": "hero",       "on": True},
-    {"key": "new",        "on": True},
-    {"key": "deals",      "on": True},
     {"key": "feature",    "on": True},
+    {"key": "new",        "on": True},
     {"key": "ranking",    "on": True},
     {"key": "categories", "on": True},
-    {"key": "policy",     "on": True},
 ]
 
 # 管理画面に出す名前。ここに無いものは並べ替えの対象にしない。
 TOP_LABEL = {
     "hero":       "見出しバナー",
-    "new":        "新着記事",
-    "deals":      "注目のアイテム",
     "feature":    "特集",
+    "new":        "新着記事",
     "ranking":    "よく読まれている記事（スマホのみ）",
     "categories": "カテゴリーから探す",
-    "policy":     "このサイトの読み方",
 }
 
 
@@ -1810,63 +1860,24 @@ def top_layout():
     return out
 
 
-def news_rail(items, p, limit=10):
+def news_rail(items, p, limit=4):
     """トップの新着。横送りのカルーセルをやめて縦に並べる。
 
        横送りは、画面に1枚しか映らないぶん「何本あるのか」が
        見えない。縦に並べれば、指を下ろすだけで次が出る。
-       出すのは10件まで。続きは「もっと見る」で新着一覧へ送る。
+       出すのは4件。5件目は下半分を薄く透過させ、続きがあることを
+       枠のかたちだけで示す（CSS）。続きは「もっと見る」で新着一覧へ送る。
        1行の形は article_row()＝トップのタブやランキングと同じ。"""
     return ('      <section class="section-block news-list-block">\n'
-            + article_rows(items[:limit], p) +
+            '        <h2 class="section-heading">新着記事</h2>\n'
+            + article_rows(items[:limit + 1], p) +
             '        <a class="arow-more" href="' + p + 'new.html">'
             + icon("new", "btn-icon") + 'もっと見る'
             '<span class="arow-more-arrow" aria-hidden="true"></span></a>\n'
             '      </section>\n')
 
 
-def deals_rail(p, limit=6):
-    """レビュー済み商品の横並び枠。
-
-       いまは商品名と写真だけを出す。価格・割引率は Amazon の
-       Product Advertising API（審査後に導入）から取った値しか
-       載せられない決まりなので、枠と差し込み口だけ先に用意しておく。
-       API が通ったら data-deals-api に取得先を入れるだけで、
-       .deal-p（価格）と .deal-off（○%OFF）が出るようになる。"""
-    items = [a for a in PUBLISHED if a.get("asin")][:limit]
-    if not items:
-        return ""
-    api = e((SITE.get("features") or {}).get("deals_api") or "")
-    cards = ""
-    for a in items:
-        # 商品名として出したいので、記事タイトル末尾の「レビュー」「口コミ」は落とす
-        name = a.get("product_name") or a.get("title", "").split("｜")[0]
-        name = re.sub(r"[\s　]*(徹底|正直)?(レビュー|口コミ(分析)?|評価|選び方|比較)$", "", name).strip()
-        img = a.get("thumb") or a.get("eyecatch") or ""
-        src = (p + e(img)) if img else visual_path(a, p)[0]
-        cards += (
-            f'            <a class="deal" href="{p}articles/{e(a["slug"])}.html" data-asin="{e(a["asin"])}">\n'
-            f'              <span class="deal-th">'
-            f'<img src="{src}" alt="{e(name)}" loading="lazy" decoding="async" width="800" height="450">'
-            f'<span class="deal-off" hidden></span></span>\n'
-            f'              <span class="deal-n">{e(name)}</span>\n'
-            f'              <span class="deal-p" hidden></span>\n'
-            f'            </a>\n')
-    return ('      <section class="section-block deals-block" data-deals-api="' + api + '">\n'
-            '        <div class="deals-head">\n'
-            '          <span class="deals-tag">PICK UP</span>\n'
-            '          <span class="deals-ttl">レビュー済みの注目アイテム</span>\n'
-            '          <span class="deals-up" hidden><i aria-hidden="true"></i><b></b> 更新</span>\n'
-            '        </div>\n'
-            '        <div class="deals-row">\n'
-            + cards +
-            '        </div>\n'
-            '        <p class="deals-note">価格・在庫は変動します。最新の価格はリンク先の商品ページでご確認ください。</p>\n'
-            f'        <a class="deals-btn" href="{p}new.html">レビュー記事をすべて見る</a>\n'
-            '      </section>\n')
-
-
-def mobile_ranking(p, today_limit=6):
+def mobile_ranking(p, today_limit=5):
     """スマホにはPCのようなサイドが無く、ランキングへ行く手立てがタブだけに
        なる。トップにも上位を出して、読まれている記事から入れるようにする。
 
@@ -1874,9 +1885,9 @@ def mobile_ranking(p, today_limit=6):
        お勧め。どちらも「次に何を読むか」を出す枠なので、縦に2つ並べるより
        切り替えたほうがスマホの縦を食わない。中身はどちらも assets/main.js。
 
-       件数は6件。6件目は下半分を薄く透過させ（CSS）、続きがあることを
-       枠のかたちだけで示す。「すべて見る」のボタンは枠から離さず、
-       同じ板の下端としてつなげる（押せることは枠線と矢印で示す）。"""
+       表示は4件、5件目は下半分を薄く透過させ（CSS）、続きがあることを
+       枠のかたちだけで示す。「すべて見る」のボタンは、注目アイテム枠と
+       同じボタンデザイン（.deals-btn 相当のCSS）にそろえる。"""
     return ('      <section class="section-block is-mobile-only pick-tabs">\n'
             '        <div class="pt-tabs" role="tablist" aria-label="トップの記事の出し分け">\n'
             '          <button type="button" class="pt-tab is-on" role="tab"'
@@ -1885,13 +1896,13 @@ def mobile_ranking(p, today_limit=6):
             ' id="ptTabToday" aria-controls="ptPanelToday" aria-selected="false" tabindex="-1">本日のお勧めのモノ</button>\n'
             '        </div>\n'
             '        <div class="pt-panel" id="ptPanelRank" role="tabpanel" aria-labelledby="ptTabRank">\n'
-            + rank_panel(p, 6) +
+            + rank_panel(p, today_limit) +
             f'          <a class="pt-more" href="{p}ranking.html">ランキングをすべて見る'
             '<span class="pt-more-arrow" aria-hidden="true"></span></a>\n'
             '        </div>\n'
             '        <div class="pt-panel" id="ptPanelToday" role="tabpanel" aria-labelledby="ptTabToday" hidden>\n'
             f'          <ol class="today-list" data-today-limit="{today_limit}"></ol>\n'
-            f'          <a class="pt-more" href="{p}new.html">レビュー記事をすべて見る'
+            f'          <a class="pt-more" href="{p}new.html">お勧め記事をもっと見る'
             '<span class="pt-more-arrow" aria-hidden="true"></span></a>\n'
             '        </div>\n'
             '      </section>\n')
@@ -1940,60 +1951,8 @@ POLICY = [
 ]
 
 
-def policy_details(p=""):
-    """見出しバナーの中に畳んでおく「このサイトの読み方」。
-       押したときだけ開く。JavaScriptなしでも動く details を使う。
-       運営者情報への導線はヘッダー・フッターにあるので、ここには置かない。"""
-    items = ""
-    for num, head, text in POLICY:
-        items += ('            <div class="policy-item">\n'
-                  f'              <span class="policy-num">{num}</span>\n'
-                  '              <div class="policy-body">\n'
-                  f'                <h3>{e(head)}</h3>\n'
-                  f'                <p>{e(text)}</p>\n'
-                  '              </div>\n'
-                  '            </div>\n')
-    # 中身は1枚の板にまとめる。開いたときにページへ重ねて出すため
-    # （カテゴリーのメニューと同じ動き）。JSが動かない環境では、
-    # details のまま下に開くので内容は読める。
-    return ('        <details class="hero-policy">\n'
-            '          <summary>このサイトの読み方'
-            f'{icon("check", "hd-icon")}</summary>\n'
-            '          <div class="policy-pop" role="dialog" aria-modal="true" '
-            'aria-label="このサイトの読み方">\n'
-            '            <button type="button" class="policy-close" '
-            'aria-label="閉じる">×</button>\n'
-            '            <p class="policy-title">このサイトの読み方</p>\n'
-            '            <p class="policy-lead">購入者レビューと製品仕様を突き合わせ、'
-            '良い点だけでなく「合わない場面」まで整理しています。</p>\n'
-            '            <div class="policy">\n' + items +
-            '            </div>\n'
-            '          </div>\n'
-            '        </details>\n')
-
-
-def policy_box(p):
-    """このサイトの読み方。何を根拠に書いているかを短く示す。
-       広告収益のあるサイトでは、書き方の基準を明示しておくことが
-       読者の判断材料になる（検索エンジンの評価でも見られる部分）。"""
-    items = ""
-    for num, head, text in POLICY:
-        items += ('          <div class="policy-item">\n'
-                  f'            <span class="policy-num">{num}</span>\n'
-                  '            <div class="policy-body">\n'
-                  f'              <h3>{e(head)}</h3>\n'
-                  f'              <p>{e(text)}</p>\n'
-                  '            </div>\n'
-                  '          </div>\n')
-    return ('      <section class="section-block">\n'
-            '        <h2 class="section-heading">このサイトの読み方</h2>\n'
-            '        <p class="policy-lead">購入者レビューと製品仕様を突き合わせ、'
-            '良い点だけでなく「合わない場面」まで整理しています。</p>\n'
-            '        <div class="policy">\n' + items +
-            '        </div>\n'
-            f'        <div class="cta-wrap"><a class="btn-sub" href="{p}about.html">'
-            '運営者情報を見る</a></div>\n'
-            '      </section>\n')
+# POLICY の中身（このサイトの読み方）は editorial-policy.html に出す。
+# 組み立ては static_pages() 側で行う（policy_items）。
 
 
 def build_index():
@@ -2015,33 +1974,29 @@ def build_index():
     # 常に出しておくと縦を取りすぎるが、隠しておくと信頼の材料が伝わらない。
     # 見出しの文言は content/site.json（管理画面のサイト設定）で決める。
     # accent に入れた語だけ、マーカーを引いた見た目にする。
-    ht = (SITE.get("hero") or {})
-    h1_text = ht.get("title") or "レビューを読み込んで、不満点までまとめる。"
-    h1_acc = (ht.get("accent") or "").strip()
-    h1_html = e(h1_text)
-    if h1_acc and h1_acc in h1_text:
-        h1_html = e(h1_text).replace(
-            e(h1_acc), f'<span class="accent">{e(h1_acc)}</span>', 1)
-    # 1文字ずつ出す演出。文字はHTMLに全部入れたままにして、
-    # 見えるかどうかだけを切り替える（検索エンジンにも読み上げにも
-    # 最初から全文が入っている状態を保つ）。
-    tw = ' data-typewriter="1"' if ht.get("typewriter") else ""
-    # ヘッダー側に同じ一文を出しているので、ヒーロー内では繰り返さない。
+    # 文字送りの演出はやめ、最初から全文を出す（枠はオレンジの線で囲み、
+    # 背景は下の記事が薄く透けるくらいの不透明度にする＝CSS側の .hero-tile）。
     hero_tile = (
         '      <section class="hero-tile">\n'
-        f'        <h1 class="fit-line"{tw}>{h1_html}</h1>\n'
-        + policy_details(p) +
-        (SEARCH_TILE if FEAT.get("search") else "") +
+        '        <h1 class="fit-line hero-strong">良い点も、不満点も。</h1>\n'
+        '        <p class="hero-strong">買う前に「リアル」が見える商品紹介サイト</p>\n'
+        '        <p class="hero-desc">ネット上の膨大な口コミから独自に分析。<br>'
+        '人それぞれに合う・合わないの基準を整理し記事を作成しています。</p>\n'
+        '        <div class="hero-cta-row">\n'
+        f'          <a class="btn-hero" href="{p}editorial-policy.html">このサイトの活用法'
+        '<span class="btn-hero-arrow" aria-hidden="true">›</span></a>\n'
+        f'          <a class="btn-hero" href="{p}ranking.html">人気の記事を見る'
+        '<span class="btn-hero-arrow" aria-hidden="true">›</span></a>\n'
+        '        </div>\n'
+        + (SEARCH_TILE if FEAT.get("search") else "") +
         '      </section>\n')
     # トップに置く区画。並び順と表示・非表示は content/site.json の
     # layout.top で決める（管理画面からドラッグして入れ替えられる）。
     blocks = {
         "new":        lambda: news_rail(latest, p),
-        "deals":      lambda: deals_rail(p),
         "feature":    lambda: feature_cards(p),
         "ranking":    lambda: mobile_ranking(p),
         "categories": lambda: cat_finder(p),
-        "policy":     lambda: policy_box(p),
     }
     body = ""
     hero_on = True
@@ -2166,6 +2121,8 @@ def build_sitemap():
     if FEAT.get("search"):
         main_links.append(("サイト内検索", f"{p}search.html"))
     main_links += [("運営者情報", f"{p}about.html"),
+                   ("記事作成方針", f"{p}editorial-policy.html"),
+                   ("広告掲載について", f"{p}advertising.html"),
                    ("プライバシーポリシー", f"{p}privacy.html"),
                    ("免責事項", f"{p}disclaimer.html")]
     if FEAT.get("contact_form"):
@@ -2330,7 +2287,43 @@ def static_pages():
 
       <p class="updated">最終更新：{today}</p>'''
 
-    about = f'''      <h2>サイトの方針</h2>
+    about = f'''      <p>{e(NAME)} は、「{e(TAGLINE)}」をコンセプトに、暮らしと作業を快適にするアイテムを紹介するメディアです。何を基準に記事を作っているかは<a href="{p}editorial-policy.html">記事作成方針</a>のページにまとめています。</p>
+
+      <h2>運営者について</h2>
+      <ul>
+        <li>サイト名：{e(NAME)}</li>
+        <li>運営者：{e(SITE["author"])}</li>
+        <li>開設：{e(SITE["founded"])}年</li>
+        <li>扱うジャンル：PC・スマホ周辺機器、生活家電、デスク環境の家具、日用品など</li>
+        <li>連絡先：<a href="mailto:{e(SITE["email"])}">{e(SITE["email"])}</a>（記事の誤り・仕様の指摘も歓迎します）</li>
+      </ul>
+
+      <h2>関連ページ</h2>
+      <ul>
+        <li><a href="{p}editorial-policy.html">記事作成方針</a></li>
+        <li><a href="{p}advertising.html">広告掲載について</a></li>
+        <li><a href="{p}privacy.html">プライバシーポリシー</a></li>
+        <li><a href="{p}disclaimer.html">免責事項</a></li>
+      </ul>
+
+      <p class="updated">最終更新：{today}</p>'''
+
+    policy_items = ""
+    for num, head, text in POLICY:
+        policy_items += ('        <div class="policy-item">\n'
+                          f'          <span class="policy-num">{num}</span>\n'
+                          '          <div class="policy-body">\n'
+                          f'            <h3>{e(head)}</h3>\n'
+                          f'            <p>{e(text)}</p>\n'
+                          '          </div>\n'
+                          '        </div>\n')
+
+    editorial_policy = f'''      <h2>このサイトの読み方</h2>
+      <p>購入者レビューと製品仕様を突き合わせ、良い点だけでなく「合わない場面」まで整理しています。</p>
+      <div class="policy">
+{policy_items}      </div>
+
+      <h2>サイトの方針</h2>
       <p>{e(NAME)} は、「{e(TAGLINE)}」をコンセプトに、暮らしと作業を快適にするアイテムを紹介するメディアです。ガジェットやPC周辺機器から、デスク環境を整える家具、毎日使う生活家電・日用品まで、ジャンルを限定せずに扱っています。</p>
       <p>読んだ人が「買って後悔した」を減らせることを目的にしているため、良い点だけでなく、気になった点や向いていない人についても必ず記載しています。</p>
 
@@ -2350,10 +2343,6 @@ def static_pages():
 
       <p>掲載している内容は購入判断の参考としてご利用いただき、最終的な仕様・価格は必ず販売ページでご確認ください。</p>
 
-      <h2>なぜこのサイトを作ったか</h2>
-      <p>ネット上の商品紹介は、良い点だけを並べたものか、逆に欠点をあげつらうだけのものに偏りがちです。どちらも、実際に買うかどうかを決めるときには役に立ちません。</p>
-      <p>{e(NAME)} は、<strong>「この環境の自分なら効くか」を読者が自分で判断できる材料</strong>をそろえることを目的にしています。だからこそ、良い点は生活の場面まで踏み込んで具体的に書き、注意点は「誰に・どんな環境で当てはまるか」を絞って書きます。</p>
-
       <h2>評価の基準</h2>
       <dl>
         <dt>複数の情報源を突き合わせる</dt>
@@ -2370,20 +2359,32 @@ def static_pages():
         <dd>仕様変更・後継機の登場・価格傾向の変化があれば、記事を追記・修正します。</dd>
       </dl>
 
-      <h2>運営者について</h2>
-      <ul>
-        <li>サイト名：{e(NAME)}</li>
-        <li>運営者：{e(SITE["author"])}</li>
-        <li>開設：{e(SITE["founded"])}年</li>
-        <li>扱うジャンル：PC・スマホ周辺機器、生活家電、デスク環境の家具、日用品など</li>
-        <li>連絡先：<a href="mailto:{e(SITE["email"])}">{e(SITE["email"])}</a>（記事の誤り・仕様の指摘も歓迎します）</li>
-      </ul>
+      <h2>なぜこのサイトを作ったか</h2>
+      <p>ネット上の商品紹介は、良い点だけを並べたものか、逆に欠点をあげつらうだけのものに偏りがちです。どちらも、実際に買うかどうかを決めるときには役に立ちません。</p>
+      <p>{e(NAME)} は、<strong>「この環境の自分なら効くか」を読者が自分で判断できる材料</strong>をそろえることを目的にしています。だからこそ、良い点は生活の場面まで踏み込んで具体的に書き、注意点は「誰に・どんな環境で当てはまるか」を絞って書きます。</p>
 
       <h2>関連ページ</h2>
       <ul>
-        <li><a href="{p}privacy.html">プライバシーポリシー</a></li>
-        <li><a href="{p}disclaimer.html">免責事項</a></li>
+        <li><a href="{p}about.html">運営者情報</a></li>
+        <li><a href="{p}advertising.html">広告掲載について</a></li>
       </ul>
+
+      <p class="updated">最終更新：{today}</p>'''
+
+    advertising = f'''      <h2>広告について</h2>
+      <p>{e(NAME)} は、Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定されたアフィリエイトプログラムである、Amazonアソシエイト・プログラムをはじめとする各種アフィリエイトプログラムに参加しています。記事内の商品リンクを経由して購入いただいた場合、当サイトに紹介料が入ることがあります。</p>
+      <p>広告収益の有無や多寡によって、記事の評価内容・掲載可否を変えることはありません。詳しい評価の考え方は<a href="{p}editorial-policy.html">記事作成方針</a>をご覧ください。</p>
+
+      <h2>レビューのご依頼も受け付けています</h2>
+      <p>メーカー・販売店の方からの掲載・レビューのご依頼を歓迎します。<a href="{p}contact.html">お問い合わせフォーム</a>で「掲載・レビューのご依頼」を選び、次の内容をお知らせください。</p>
+      <ul>
+        <li>製品名と、公式の製品ページのURL</li>
+        <li>訴求したい点と、想定している読者</li>
+        <li>サンプル提供の可否と、貸出の場合は期間</li>
+        <li>希望する公開時期（あれば）</li>
+      </ul>
+      <p>当サイトは<strong>購入者レビューと公表仕様をもとに、合わない場面まで書く方針</strong>です。提供の有無にかかわらず内容は編集しません。良い点だけを書くご依頼はお受けできません。記事化する場合は、提供を受けた旨を明記します。</p>
+      <p>フォームがうまく送れない場合は、<a href="mailto:{e(SITE["email"])}">{e(SITE["email"])}</a> へ直接お送りください。</p>
 
       <p class="updated">最終更新：{today}</p>'''
 
@@ -2393,7 +2394,11 @@ def static_pages():
         ("disclaimer.html", "免責事項",
          f"{NAME}の免責事項。掲載情報の正確性、商品情報、リンク先の内容についての責任範囲を記載しています。", disclaimer),
         ("about.html", "運営者情報",
-         f"{NAME}の運営者情報。サイトの方針、レビューの基準、お問い合わせ先を記載しています。", about),
+         f"{NAME}の運営者情報。運営者・お問い合わせ先を記載しています。", about),
+        ("editorial-policy.html", "記事作成方針",
+         f"{NAME}がどんな基準で記事を作り、商品を評価しているかをまとめています。", editorial_policy),
+        ("advertising.html", "広告掲載について",
+         f"{NAME}の広告・アフィリエイトプログラムについて、およびレビュー・掲載のご依頼について記載しています。", advertising),
     ]:
         body = (                f'      <div class="page-hero"><h1>{e(title)}</h1></div>\n'
                 f'      <div class="prose">\n{content}\n      </div>\n')
@@ -2499,20 +2504,10 @@ def static_pages():
 
         <aside class="contact-side">
           <div class="side-tile">
-            <p class="side-heading">レビューのご依頼も受け付けています</p>
+            <p class="side-heading">広告の掲載について</p>
             <p class="field-hint">メーカー・販売店の方からの掲載・レビューのご依頼を歓迎します。
-            上のフォームで「掲載・レビューのご依頼」を選び、次の内容をお知らせください。</p>
-            <ul class="contact-list">
-              <li>製品名と、公式の製品ページのURL</li>
-              <li>訴求したい点と、想定している読者</li>
-              <li>サンプル提供の可否と、貸出の場合は期間</li>
-              <li>希望する公開時期（あれば）</li>
-            </ul>
-            <p class="field-hint">当サイトは<strong>購入者レビューと公表仕様をもとに、合わない場面まで書く方針</strong>です。
-            提供の有無にかかわらず内容は編集しません。良い点だけを書くご依頼はお受けできません。
-            記事化する場合は、提供を受けた旨を明記します。</p>
-            <p class="contact-mail"><a href="mailto:{e(SITE["email"])}">{e(SITE["email"])}</a></p>
-            <p class="field-hint">フォームがうまく送れない場合は、こちらへ直接お送りください。</p>
+            受け付けている内容や当サイトの方針は、下記のページにまとめています。</p>
+            <p class="cta-wrap"><a class="btn-sub" href="{p}advertising.html">広告掲載について見る</a></p>
           </div>
           <div class="side-tile">
             <p class="side-heading">お答えできないこと</p>
@@ -2634,7 +2629,8 @@ def main():
              if any(a["category"] == c["key"] and a.get("sub") == sc["key"]
                     for a in PUBLISHED)]
     urls += [(f'{BASE_URL}/articles/{a["slug"]}.html', "0.9", mod(a)) for a in PUBLISHED]
-    static = ["about.html", "privacy.html", "disclaimer.html", "sitemap.html"]
+    static = ["about.html", "editorial-policy.html", "advertising.html",
+              "privacy.html", "disclaimer.html", "sitemap.html"]
     if FEAT.get("contact_form"):
         static.append("contact.html")
     urls += [(f"{BASE_URL}/{f}", "0.3", newest) for f in static]

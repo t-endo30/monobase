@@ -52,8 +52,8 @@
      もとの Animista（slide-in/out）と同じ曲線・近い尺にしている。 */
   --ease-open:cubic-bezier(.25,.46,.45,.94);
   --ease-close:cubic-bezier(.55,.085,.68,.53);
-  --menu-open:.42s;
-  --menu-close:.48s;
+  --menu-open:.75s;
+  --menu-close:.85s;
 }
 
 /* カテゴリー別のアクセント色を、その配下すべてに流す */
@@ -124,6 +124,8 @@ table{border-collapse:collapse;}
   color:#C2C4C8;
   line-height:1.4;
   letter-spacing:.02em;
+  margin-top:7px;
+  padding-bottom:2px;
 }
 
 /* Nav toggle (hamburger) */
@@ -1391,11 +1393,13 @@ mark.hl{
 
 /* ---------- ヘッダー：スクロールで引き締まる ---------- */
 .site-header{
-  background:rgba(37,40,45,.92);
+  /* 上へ行くほど少し明るくなるグラデーション。下端はオレンジの線で締める。 */
+  background:linear-gradient(to bottom,rgba(58,62,70,.92),rgba(37,40,45,.92));
   backdrop-filter:saturate(180%) blur(12px);
   -webkit-backdrop-filter:saturate(180%) blur(12px);
   box-shadow:none;
-  border-bottom:1px solid rgba(255,255,255,.08);
+  border-bottom:2px solid var(--amazon,#FF9900);
+  border-radius:0 0 16px 16px;
   transition:padding .25s var(--ease),background-color .25s var(--ease);
 }
 .site-header.is-shrunk{box-shadow:0 4px 20px rgba(0,0,0,.18);}
@@ -3057,32 +3061,31 @@ body[data-cat="ranking"] .side-rank{display:none;}
 }
 
 /* ============================================================
-   フッター：サイト情報とお問い合わせを1行ずつ
+   フッター：ハンバーガーメニューの内容を、最大3列のグリッドで
+   （幅が足りない画面では自然に列数が減り、複数行になる）
    ============================================================ */
-.footer-rows{display:flex;flex-direction:column;gap:10px;}
-.footer-row{
-  display:flex;
-  align-items:baseline;
-  flex-wrap:wrap;
-  gap:4px 14px;
-  padding-bottom:10px;
+.footer-cols{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(140px,1fr));
+  gap:20px 24px;
+  margin-bottom:18px;
+  padding-bottom:16px;
   border-bottom:1px solid rgba(255,255,255,.1);
 }
-.footer-row:last-child{border-bottom:none;}
-.footer-row-label{
-  flex:0 0 auto;
-  min-width:86px;
+@media (max-width:599px){
+  .footer-cols{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;}
+}
+.footer-col-heading{
+  margin:0 0 8px;
   font-size:12px;
   font-weight:700;
   letter-spacing:.08em;
   color:#C2C4C8;
 }
-.footer-rows .footer-inline{gap:6px 16px;}
-.footer-rows .footer-inline a{font-size:13px;}
-@media (max-width:599px){
-  .footer-row{flex-direction:column;gap:6px;}
-  .footer-row-label{min-width:0;font-size:11px;}
-}
+.footer-col-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;}
+.footer-col-list a,.footer-col-list li{color:#FFFFFF;font-size:13px;}
+.footer-col-list a{text-decoration:none;}
+.footer-col-list a:hover{color:var(--amazon);}
 
 /* 1行に収める見出し。文字サイズはJSが実測して決める。
    ただし幅の狭い画面では1行にせず、CSSの大きさのまま折り返す
@@ -4444,11 +4447,54 @@ body.is-article .layout > .container{
   align-items:center;
   padding:clamp(14px,3.4vw,22px) clamp(14px,3.6vw,26px);
   margin-bottom:clamp(16px,3.4vw,24px);
-  border-radius:var(--radius);
-  background:var(--surface);
-  border:1px solid var(--border);
+  border-radius:calc(var(--radius) + 4px);
+  /* 背景の写真が薄く透けるガラスふうの板。オレンジの枠でひとつの
+     カードだと分かるようにする。 */
+  background:rgba(255,255,255,.75);
+  -webkit-backdrop-filter:blur(14px) saturate(1.15);
+  backdrop-filter:blur(14px) saturate(1.15);
+  border:1.5px solid var(--amazon,#FF9900);
   box-shadow:var(--shadow);
   text-align:center;
+}
+.hero-tile .hero-strong{
+  margin:0;
+  font-weight:800;
+  font-size:clamp(17px,4vw,26px);
+  line-height:1.5;
+}
+.hero-tile p.hero-strong{font-size:clamp(15px,3.4vw,20px);}
+.hero-tile .hero-desc{
+  margin:2px 0 0;
+  font-size:clamp(12.5px,3.2vw,14px);
+  line-height:1.7;
+  color:var(--text-sub);
+}
+.hero-cta-row{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:6px;
+}
+.btn-hero{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:11px 20px;
+  border-radius:999px;
+  border:1.5px solid var(--amazon,#FF9900);
+  background:var(--navy);
+  color:#fff;
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none !important;
+  transition:background .18s var(--ease),transform .12s var(--ease);
+}
+.btn-hero:hover{background:var(--navy-light,#3a3f47);}
+.btn-hero-arrow{font-weight:400;}
+@media (hover:none){
+  .btn-hero:active{transform:translateY(1px) scale(.98);}
 }
 @media (min-width:900px){
   /* 見出しの横に検索を置くと、900〜1023pxの幅で記事数の一文が
@@ -4990,33 +5036,30 @@ body.is-article .layout > .container{
 }
 
 /* ============================================================
-   背景：三角形のモザイク
+   背景：デスクまわりの写真
    ------------------------------------------------------------
-   画像ファイルではなくCSSで描く。画像だと拡大でぼやけるが、
-   これは何倍でも輪郭が保たれ、読み込むファイルも増えない。
-   三角形は、正三角形を4枚のグラデーションで組み合わせて作る。
-   模様が主張しないよう、1辺は48pxに抑えて濃さも薄くしている。
+   スマホと横長のPCとで別の写真を敷く（縦横で見せたい構図が違うため）。
+   上に薄い色を重ねて、本文の読みやすさを保つ。
+   ヘッダーやカードなど「すりガラス」にした面から、写真が少し透けて見える。
    ============================================================ */
 body{
   background-color:var(--bg);
   background-image:
-    linear-gradient(150deg, rgba(20,20,22,.030) 25%, transparent 25.4%),
-    linear-gradient(210deg, rgba(20,20,22,.030) 25%, transparent 25.4%),
-    linear-gradient(150deg, rgba(20,20,22,.045) 25%, transparent 25.4%),
-    linear-gradient(210deg, rgba(20,20,22,.045) 25%, transparent 25.4%),
-    linear-gradient( 30deg, rgba(20,20,22,.022) 25%, transparent 25.4%),
-    linear-gradient(330deg, rgba(20,20,22,.022) 25%, transparent 25.4%);
-  background-size:48px 84px;
-  background-position:
-    0    0,
-    0    0,
-    24px 42px,
-    24px 42px,
-    0    0,
-    0    0;
-  background-attachment:fixed;   /* 最奥に敷いたまま動かさない */
+    linear-gradient(rgba(245,245,246,.74),rgba(245,245,246,.74)),
+    url("img/bg-mobile.jpg");
+  background-size:cover;
+  background-position:top center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
 }
-/* 中身の面は背景を持たせて、模様が透けないようにする */
+@media (min-width:900px){
+  body{
+    background-image:
+      linear-gradient(rgba(245,245,246,.74),rgba(245,245,246,.74)),
+      url("img/bg-pc.jpg");
+  }
+}
+/* 中身の面は背景を持たせて、写真が透けないようにする */
 .site-header,
 .cat-nav,
 .tab-bar,
@@ -5840,9 +5883,9 @@ details.hero-policy .policy-close{display:none;}
   overflow:hidden;
 }
 
-/* ---- 6件目（最後の1件）は下半分をぼかして切る ---- */
-.pick-tabs .rank-list > .rank-item:nth-child(6),
-.pick-tabs .today-list > .today-list-item:nth-child(6){
+/* ---- 4件表示・5件目（最後の1件）は下半分をぼかして切る ---- */
+.pick-tabs .rank-list > .rank-item:nth-child(5),
+.pick-tabs .today-list > .today-list-item:nth-child(5){
   position:relative;
   overflow:hidden;
   pointer-events:none;             /* 半分しか見えないものは押させない */
@@ -5850,13 +5893,13 @@ details.hero-policy .policy-close{display:none;}
           mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
 }
 /* 1件ぶんのおよそ半分。行の作りが違うので、枠ごとに高さを決める */
-.pick-tabs .rank-list > .rank-item:nth-child(6){max-height:46px;}
-.pick-tabs .today-list > .today-list-item:nth-child(6){max-height:38px;}
+.pick-tabs .rank-list > .rank-item:nth-child(5){max-height:46px;}
+.pick-tabs .today-list > .today-list-item:nth-child(5){max-height:38px;}
 
 /* mask が使えない環境では、白いかぶせで同じ見え方にする */
 @supports not ((-webkit-mask-image:linear-gradient(#000,#000)) or (mask-image:linear-gradient(#000,#000))){
-  .pick-tabs .rank-list > .rank-item:nth-child(6)::after,
-  .pick-tabs .today-list > .today-list-item:nth-child(6)::after{
+  .pick-tabs .rank-list > .rank-item:nth-child(5)::after,
+  .pick-tabs .today-list > .today-list-item:nth-child(5)::after{
     content:"";
     position:absolute;
     inset:auto 0 0 0;
@@ -5890,10 +5933,10 @@ details.hero-policy .policy-close{display:none;}
   align-items:center;
   justify-content:center;
   gap:6px;
+  margin-top:10px;
   padding:12px 14px;
   border:1px solid var(--border);
-  border-top:1px solid var(--border);
-  border-radius:0 0 var(--radius) var(--radius);
+  border-radius:var(--radius);
   background:var(--bg-gray);
   color:var(--ink);
   font-size:12.5px;
@@ -5989,12 +6032,14 @@ details.hero-policy .policy-close{display:none;}
    ・線（Mの字）  … --mk-line
    ・箱の面       … --mk-box
    ・開いた口     … --mk-in
+   ・箱のテープ（ダンボールだと分かる黒いライン） … --mk-seam
    以前の box-shadow で点を並べる作りは、この SVG に置き換えた。
    ============================================================ */
 .brand-mark{
   --mk-line:rgba(255,255,255,.94);
   --mk-box:var(--amazon,#FF9900);
   --mk-in:var(--amazon-dark,#C25E00);
+  --mk-seam:rgba(26,16,6,.9);
   display:block;
   line-height:0;
 }
@@ -6201,8 +6246,10 @@ body.is-listing main.layout{
 .arow-no-2{background:#9AA0A6;color:#fff;}
 .arow-no-3{background:#A9743C;color:#fff;}
 
-/* New / Hot の札は写真の右上に */
-.arow-thumb .card-flags{top:4px;right:4px;left:auto;}
+/* New / Hot の札は写真の左上に。順位の数字（.arow-no）も左上にあるときは、
+   重ならないようその右へずらす。 */
+.arow-thumb .card-flags{top:4px;left:4px;}
+.arow-thumb:has(.arow-no) .card-flags{left:28px;}
 
 /* ---- 本文側 ---- */
 .arow-body{
@@ -6253,20 +6300,33 @@ body.is-listing main.layout{
   font-variant-numeric:tabular-nums;
 }
 
-/* ---- 「もっと見る」：一覧の板の下端としてつなげる ---- */
-.news-list-block .arow-list{
-  border-bottom-left-radius:0;
-  border-bottom-right-radius:0;
-  border-bottom:none;
+/* ---- 5件目（最後の1件）は下半分をぼかして切る ---- */
+.news-list-block .arow-list > .arow:nth-child(5){
+  position:relative;
+  overflow:hidden;
+  pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
+          mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
+  max-height:46px;
+}
+@supports not ((-webkit-mask-image:linear-gradient(#000,#000)) or (mask-image:linear-gradient(#000,#000))){
+  .news-list-block .arow-list > .arow:nth-child(5)::after{
+    content:"";
+    position:absolute;
+    inset:auto 0 0 0;
+    height:100%;
+    background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
+  }
 }
 .arow-more{
   display:flex;
   align-items:center;
   justify-content:center;
   gap:7px;
+  margin-top:10px;
   padding:13px 14px;
   border:1px solid var(--border);
-  border-radius:0 0 var(--radius) var(--radius);
+  border-radius:var(--radius);
   background:var(--bg-gray);
   color:var(--ink);
   font-size:13px;
@@ -6302,8 +6362,8 @@ body.is-listing main.layout{
 .pick-tabs .rank-note{display:none;}
 
 /* 6件目は下半分をぼかして切る。写真の高さに合わせて取り直す */
-.pick-tabs .rank-list > .rank-item:nth-child(6),
-.pick-tabs .today-list > .today-list-item:nth-child(6){max-height:60px;}
+.pick-tabs .rank-list > .rank-item:nth-child(5),
+.pick-tabs .today-list > .today-list-item:nth-child(5){max-height:60px;}
 
 /* ---- PCでは1行に回せる幅が増えるので、少しゆったりさせる ---- */
 @media (min-width:900px){

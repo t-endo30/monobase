@@ -1247,40 +1247,11 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 })();
 
 /* ============================================================
-   スマホ：画面下に浮かぶ検索
+   スマホ：画面下に浮かぶ検索（廃止）
    ------------------------------------------------------------
-   記事の詳細ページ以外で出す。スクロール中は隠し、
-   指が止まったらふわっと戻す。
+   以前はここで .float-search を組み立てていたが、
+   下部固定の検索欄は廃止した。SEARCH タブから search.html へ。
    ============================================================ */
-(function () {
-  'use strict';
-  if (document.querySelector('article.card-surface')) return;   /* 記事ページには出さない */
-  if (document.getElementById('searchResults')) return;         /* 検索ページにも出さない */
-  var form = document.querySelector('.search-tile .searchbox, .side-search .searchbox');
-  if (!form) return;
-
-  var bar = document.createElement('div');
-  bar.className = 'float-search';
-  bar.innerHTML = form.outerHTML;
-  document.body.appendChild(bar);
-
-  var timer = null;
-  function show() { bar.classList.add('is-visible'); }
-  function hide() { bar.classList.remove('is-visible'); }
-
-  show();
-  window.addEventListener('scroll', function () {
-    hide();
-    clearTimeout(timer);
-    timer = setTimeout(show, 220);      /* 指が止まってから戻す */
-  }, { passive: true });
-
-  /* 入力中は隠さない */
-  var input = bar.querySelector('input');
-  if (input) {
-    input.addEventListener('focus', function () { clearTimeout(timer); show(); });
-  }
-})();
 
 /* ============================================================
    スマホ：下へスクロールしているあいだはタブを隠す

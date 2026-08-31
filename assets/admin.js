@@ -982,15 +982,13 @@
      つまんで動かす操作のほかに、上下ボタンでも動かせるようにする
      （タッチ端末やキーボードだけの人でも並べ替えられるように）。 */
   var TOP_LABEL = {
-    hero:       ['見出しバナー', 'サイトの一言と、公開している記事数'],
-    'new':      ['新着記事', 'スマホは横に流すカード、PCは通常の並び'],
-    deals:      ['注目のアイテム', 'レビュー済み商品を横並びで（価格はAmazon API導入後に表示）'],
+    hero:       ['見出しバナー', '固定文言のガラス風タイル（内容はbuild.pyで固定）'],
     feature:    ['特集', 'カルーセルで1本ずつ'],
-    ranking:    ['よく読まれている記事', 'スマホでのみ表示（PCは右サイドに出ている）'],
+    'new':      ['新着記事', '4件表示、5件目は下半分が見切れる'],
+    ranking:    ['よく読まれている記事／本日のお勧めのモノ', 'スマホでのみ表示（PCは右サイドに出ている）'],
     categories: ['カテゴリーから探す', '記事のあるカテゴリーを件数つきで'],
-    policy:     ['このサイトの読み方', '記事の書き方の基準'],
   };
-  var DEFAULT_TOP = ['hero', 'new', 'deals', 'feature', 'ranking', 'categories', 'policy'];
+  var DEFAULT_TOP = ['hero', 'feature', 'new', 'ranking', 'categories'];
   var layout = [];
 
   function loadLayout() {
@@ -1202,10 +1200,6 @@
     $('s-search').checked = f.search !== false;
     $('s-featureTh').value = String(f.feature_threshold || 5);
     renderPromos();
-    var hr = site.hero || {};
-    $('s-heroTitle').value = hr.title || '';
-    $('s-heroAccent').value = hr.accent || '';
-    $('s-heroTw').checked = !!hr.typewriter;
     var ad = site.ads || {};
     $('s-adsOn').checked = !!ad.enabled;
     $('s-adsClient').value = ad.client || '';
@@ -1327,12 +1321,6 @@
     site.promos = site.promos || {};
     if (!site.promos.label) site.promos.label = 'PR';
     site.promos.items = readPromos();
-
-    /* トップの見出し。accent は title に含まれている語だけ効く。 */
-    site.hero = site.hero || {};
-    site.hero.title = $('s-heroTitle').value.trim();
-    site.hero.accent = $('s-heroAccent').value.trim();
-    site.hero.typewriter = $('s-heroTw').checked;
 
     /* 広告の設定。コードそのものは触らず、出す・出さないと置き場所だけを持つ。 */
     site.ads = site.ads || {};
