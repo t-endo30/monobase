@@ -406,10 +406,14 @@ def main():
         for w in warns:
             print(f"    △ {w}")
 
+        # 1本ごとに保存する。長時間のまとめ書き換えが途中で止まっても
+        # そこまでの成果を失わないため。
+        if not args.dry_run:
+            with io.open(os.path.join(ROOT, "content", "articles.json"),
+                         "w", encoding="utf-8") as f:
+                json.dump(arts, f, ensure_ascii=False, indent=1)
+
     if not args.dry_run and done:
-        with io.open(os.path.join(ROOT, "content", "articles.json"),
-                     "w", encoding="utf-8") as f:
-            json.dump(arts, f, ensure_ascii=False, indent=1)
         print("\ncontent/articles.json を更新しました。")
 
     print(f"\n完了 {done} 本 / 失敗 {failed} 本 / 参考コスト ${cost:.2f}")
