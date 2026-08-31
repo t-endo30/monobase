@@ -1018,7 +1018,8 @@ window.mbLockScroll = function (on, cls) {
 (function () {
   'use strict';
   var boxes = document.querySelectorAll('.today-box');
-  if (!boxes.length) return;
+  var lists = document.querySelectorAll('.today-list');
+  if (!boxes.length && !lists.length) return;
 
   var data = {};
   try { data = JSON.parse(document.body.getAttribute('data-rank') || '{}'); }
@@ -1040,7 +1041,12 @@ window.mbLockScroll = function (on, cls) {
   var seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
   var h = seed;
   for (var i = 0; i < liked.length; i++) h += liked[i].charCodeAt(0) * (i + 7);
-  var pick = pool[h % pool.length];
+  /* 起点だけを日付で決め、そこから順に並べる。1枚だけ出す枠は先頭、
+     一覧で出す枠はその続きを使うので、同じ記事が2か所に出ない。 */
+  var start = h % pool.length;
+  var order = [];
+  for (var j = 0; j < pool.length; j++) order.push(pool[(start + j) % pool.length]);
+  var pick = order[0];
   if (!pick) return;
 
   function starStr(n) {
@@ -1072,6 +1078,98 @@ window.mbLockScroll = function (on, cls) {
     if (ct) ct.textContent = pick.excerpt || '';
     box.hidden = false;
   });
+
+  /* 一覧で出す枠。1枚だけの枠が同じページに出ているときは、
+     そこで使った先頭の1本を飛ばして続きから並べる。 */
+  Array.prototype.forEach.call(lists, function (list) {
+    var limit = Number(list.getAttribute('data-today-limit')) || 5;
+    var rest = order.slice(boxes.length ? 1 : 0, (boxes.length ? 1 : 0) + limit);
+    if (!rest.length) return;
+    var frag = document.createDocumentFragment();
+    rest.forEach(function (it) {
+      var li = document.createElement('li');
+      li.className = 'today-list-item';
+      var a = document.createElement('a');
+      a.className = 'today-card';
+      a.href = it.url;
+
+      var th = document.createElement('span');
+      th.className = 'today-thumb';
+      var img = document.createElement('img');
+      img.src = it.thumb;
+      img.alt = it.title;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      th.appendChild(img);
+
+      var bd = document.createElement('span');
+      bd.className = 'today-body';
+      var cat = document.createElement('span');
+      cat.className = 'today-cat';
+      cat.textContent = it.cat || '';
+      var ttl = document.createElement('span');
+      ttl.className = 'today-title';
+      ttl.textContent = it.title;
+      bd.appendChild(cat);
+      bd.appendChild(ttl);
+      if (it.score && Number(it.score) > 0) {
+        var rt = document.createElement('span');
+        rt.className = 'today-rating';
+        rt.textContent = starStr(it.score);
+        var b = document.createElement('b');
+        b.textContent = (Math.round(Number(it.score) * 10) / 10);
+        rt.appendChild(b);
+        bd.appendChild(rt);
+      }
+
+      a.appendChild(th);
+      a.appendChild(bd);
+      li.appendChild(a);
+      frag.appendChild(li);
+    });
+    list.appendChild(frag);
+  });
+})();
+
+/* ============================================================
+   トップの「読まれている記事 / 本日のお勧めのモノ」の切り替え
+   ------------------------------------------------------------
+   どちらも同じ場所に置いて、押した側だけを見せる。選んだ側は
+   端末に覚えておき、次に来たときも同じ側から始める。
+   ============================================================ */
+(function () {
+  'use strict';
+  var wrap = document.querySelector('.pick-tabs');
+  if (!wrap) return;
+  var tabs = wrap.querySelectorAll('.pt-tab');
+  if (tabs.length < 2) return;
+  var KEY = 'mb.pickTab';
+
+  function show(i, focus) {
+    Array.prototype.forEach.call(tabs, function (t, j) {
+      var on = j === i;
+      t.classList.toggle('is-on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !on;
+    });
+    if (focus) tabs[i].focus();
+    try { localStorage.setItem(KEY, String(i)); } catch (e) {}
+  }
+
+  Array.prototype.forEach.call(tabs, function (t, i) {
+    t.addEventListener('click', function () { show(i); });
+    t.addEventListener('keydown', function (ev) {
+      if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return;
+      ev.preventDefault();
+      show((i + (ev.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length, true);
+    });
+  });
+
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  if (saved !== null && tabs[Number(saved)]) show(Number(saved));
 })();
 
 /* ============================================================
@@ -1495,4 +1593,44 @@ window.mbLockScroll = function (on, cls) {
     i++;
     setTimeout(step, SPEED);
   })();
+})();
+
+/* ------------------------------------------------ 注目のアイテムの価格
+   価格と○%OFFは、Amazon の Product Advertising API から取った値しか
+   出してはいけない（規約）。審査が通るまで data-deals-api は空のままで、
+   そのあいだ この関数は何もしない＝商品名と写真だけが出る。
+
+   審査後は content/site.json の features.deals_api に取得先（例 /api/deals）
+   を入れるだけでよい。取得先は
+     { "B0XXXXXXXX": {"price":"¥8,990","off":"10%OFF"}, ... , "_at":"18:53" }
+   の形を返すこと。24時間以内に取り直した値だけを返す（規約の要件）。 */
+(function () {
+  var box = document.querySelector('.deals-block[data-deals-api]');
+  if (!box) return;
+  var api = box.getAttribute('data-deals-api');
+  if (!api) return;
+
+  var deals = box.querySelectorAll('.deal[data-asin]');
+  if (!deals.length) return;
+  var asins = [];
+  for (var i = 0; i < deals.length; i++) asins.push(deals[i].getAttribute('data-asin'));
+
+  fetch(api + (api.indexOf('?') < 0 ? '?' : '&') + 'asins=' + encodeURIComponent(asins.join(',')),
+        { credentials: 'omit', cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d) return;
+      for (var i = 0; i < deals.length; i++) {
+        var v = d[deals[i].getAttribute('data-asin')];
+        if (!v) continue;
+        var pe = deals[i].querySelector('.deal-p');
+        var oe = deals[i].querySelector('.deal-off');
+        if (pe && v.price) { pe.textContent = v.price; pe.hidden = false; }
+        if (oe && v.off)   { oe.textContent = v.off;   oe.hidden = false; }
+      }
+      /* 「いつ取った値か」を必ず添える。これも規約の要件。 */
+      var up = box.querySelector('.deals-up');
+      if (up && d._at) { up.querySelector('b').textContent = d._at; up.hidden = false; }
+    })
+    .catch(function () {});
 })();

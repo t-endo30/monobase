@@ -1543,6 +1543,7 @@ DEFAULT_TOP = [
     {"key": "hero",       "on": True},
     {"key": "today",      "on": True},
     {"key": "new",        "on": True},
+    {"key": "deals",      "on": True},
     {"key": "feature",    "on": True},
     {"key": "ranking",    "on": True},
     {"key": "categories", "on": True},
@@ -1554,6 +1555,7 @@ TOP_LABEL = {
     "hero":       "見出しバナー",
     "today":      "本日のお勧めのモノ",
     "new":        "新着記事",
+    "deals":      "注目のアイテム",
     "feature":    "特集",
     "ranking":    "よく読まれている記事（スマホのみ）",
     "categories": "カテゴリーから探す",
@@ -1595,14 +1597,72 @@ def news_rail(items, p):
             '      </section>\n')
 
 
-def mobile_ranking(p):
+def deals_rail(p, limit=6):
+    """レビュー済み商品の横並び枠。
+
+       いまは商品名と写真だけを出す。価格・割引率は Amazon の
+       Product Advertising API（審査後に導入）から取った値しか
+       載せられない決まりなので、枠と差し込み口だけ先に用意しておく。
+       API が通ったら data-deals-api に取得先を入れるだけで、
+       .deal-p（価格）と .deal-off（○%OFF）が出るようになる。"""
+    items = [a for a in PUBLISHED if a.get("asin")][:limit]
+    if not items:
+        return ""
+    api = e((SITE.get("features") or {}).get("deals_api") or "")
+    cards = ""
+    for a in items:
+        # 商品名として出したいので、記事タイトル末尾の「レビュー」「口コミ」は落とす
+        name = a.get("product_name") or a.get("title", "").split("｜")[0]
+        name = re.sub(r"[\s　]*(徹底|正直)?(レビュー|口コミ(分析)?|評価|選び方|比較)$", "", name).strip()
+        img = a.get("thumb") or a.get("eyecatch") or ""
+        src = (p + e(img)) if img else visual_path(a, p)[0]
+        cards += (
+            f'            <a class="deal" href="{p}articles/{e(a["slug"])}.html" data-asin="{e(a["asin"])}">\n'
+            f'              <span class="deal-th">'
+            f'<img src="{src}" alt="{e(name)}" loading="lazy" decoding="async" width="800" height="450">'
+            f'<span class="deal-off" hidden></span></span>\n'
+            f'              <span class="deal-n">{e(name)}</span>\n'
+            f'              <span class="deal-p" hidden></span>\n'
+            f'            </a>\n')
+    return ('      <section class="section-block deals-block" data-deals-api="' + api + '">\n'
+            '        <div class="deals-head">\n'
+            '          <span class="deals-tag">PICK UP</span>\n'
+            '          <span class="deals-ttl">レビュー済みの注目アイテム</span>\n'
+            '          <span class="deals-up" hidden><i aria-hidden="true"></i><b></b> 更新</span>\n'
+            '        </div>\n'
+            '        <div class="deals-row">\n'
+            + cards +
+            '        </div>\n'
+            '        <p class="deals-note">価格・在庫は変動します。最新の価格はリンク先の商品ページでご確認ください。</p>\n'
+            f'        <a class="deals-btn" href="{p}new.html">レビュー記事をすべて見る</a>\n'
+            '      </section>\n')
+
+
+def mobile_ranking(p, today_limit=6):
     """スマホにはPCのようなサイドが無く、ランキングへ行く手立てがタブだけに
-       なる。トップにも上位を出して、読まれている記事から入れるようにする。"""
-    return ('      <section class="section-block is-mobile-only">\n'
-            '        <h2 class="section-heading">よく読まれている記事</h2>\n'
+       なる。トップにも上位を出して、読まれている記事から入れるようにする。
+
+       ここは2枚を切り替えて見せる。左が実際に読まれている順、右がその日の
+       お勧め。どちらも「次に何を読むか」を出す枠なので、縦に2つ並べるより
+       切り替えたほうがスマホの縦を食わない。中身はどちらも assets/main.js。"""
+    return ('      <section class="section-block is-mobile-only pick-tabs">\n'
+            '        <div class="pt-tabs" role="tablist" aria-label="トップの記事の出し分け">\n'
+            '          <button type="button" class="pt-tab is-on" role="tab"'
+            ' id="ptTabRank" aria-controls="ptPanelRank" aria-selected="true">読まれている記事</button>\n'
+            '          <button type="button" class="pt-tab" role="tab"'
+            ' id="ptTabToday" aria-controls="ptPanelToday" aria-selected="false" tabindex="-1">本日のお勧めのモノ</button>\n'
+            '        </div>\n'
+            '        <div class="pt-panel" id="ptPanelRank" role="tabpanel" aria-labelledby="ptTabRank">\n'
             + rank_panel(p, 5) +
-            '        <div class="cta-wrap">\n'
-            f'          <a class="btn-sub" href="{p}ranking.html">ランキングをすべて見る</a>\n'
+            '          <div class="cta-wrap">\n'
+            f'            <a class="btn-sub" href="{p}ranking.html">ランキングをすべて見る</a>\n'
+            '          </div>\n'
+            '        </div>\n'
+            '        <div class="pt-panel" id="ptPanelToday" role="tabpanel" aria-labelledby="ptTabToday" hidden>\n'
+            f'          <ol class="today-list" data-today-limit="{today_limit}"></ol>\n'
+            '          <div class="cta-wrap">\n'
+            f'            <a class="btn-sub" href="{p}new.html">レビュー記事をすべて見る</a>\n'
+            '          </div>\n'
             '        </div>\n'
             '      </section>\n')
 
@@ -1742,6 +1802,7 @@ def build_index():
     blocks = {
         "today":      lambda: today_panel("is-mobile"),
         "new":        lambda: news_rail(latest, p),
+        "deals":      lambda: deals_rail(p),
         "feature":    lambda: feature_cards(p),
         "ranking":    lambda: mobile_ranking(p),
         "categories": lambda: cat_finder(p),

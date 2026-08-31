@@ -19,7 +19,9 @@
     "feature_threshold": 5,
     "_contact_note": "contact_form_endpoint が空のあいだは、送信ボタンでメールソフトが開く。Formspree などの窓口URLを入れるとその場で送信できるようになる。",
     "maintenance": false,
-    "_maintenance_note": "true にすると全ページがメンテナンス画面（503）に切り替わる。管理画面と assets/content は通るので、管理画面から戻せる。"
+    "_maintenance_note": "true にすると全ページがメンテナンス画面（503）に切り替わる。管理画面と assets/content は通るので、管理画面から戻せる。",
+    "deals_api": "",
+    "_deals_note": "注目のアイテム枠。Amazon Product Advertising API の審査が通ったら、価格を返す取得先URL（例 /api/deals）をここに入れる。すると価格と○%OFFが出るようになる。空のあいだは商品名と写真だけ。"
   },
   "categories": [
     {
@@ -486,6 +488,10 @@
       },
       {
         "key": "new",
+        "on": true
+      },
+      {
+        "key": "deals",
         "on": true
       },
       {
