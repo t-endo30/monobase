@@ -6006,3 +6006,156 @@ details.hero-policy .policy-close{display:none;}
 @media (min-width:900px){
   .global-nav .sp-only-link{display:none;}
 }
+
+/* ============================================================
+   一覧のタイル：カテゴリーは見出しの右上、写真は大きく枠つき
+   ------------------------------------------------------------
+   見出しの右上は、これまで何も置いていない余白だった。そこに
+   カテゴリーを枠で囲んで置くと、見出しの下に置く行が1つ減り、
+   そのぶんを写真の高さに回せる。トップのタブ・新着一覧・
+   ランキングの3か所で、同じ形にそろえてある。
+   ============================================================ */
+.cat-badge{
+  flex:0 0 auto;
+  align-self:flex-start;
+  max-width:40%;
+  padding:2px 7px;
+  border:1px solid var(--border);
+  border-radius:5px;
+  background:var(--surface);
+  color:var(--text-sub);
+  font-size:10.5px;
+  font-weight:700;
+  line-height:1.6;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* 見出しとカテゴリーを1行に並べる器 */
+.rank-head,
+.today-head,
+.card-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:8px;
+  min-width:0;
+}
+.rank-head .rank-title,
+.today-head .today-title,
+.card-head .card-title{flex:1 1 auto;min-width:0;}
+.card-head{margin-bottom:9px;}
+.card-head .card-title{margin-bottom:0;}
+
+/* ---- ランキングの行にも写真を出す。順位は角に重ねる ---- */
+.rank-thumb{
+  position:relative;
+  flex:0 0 auto;
+  display:block;
+  width:96px;
+  aspect-ratio:4/3;
+  border:1px solid #E0E1E4;
+  border-radius:9px;
+  overflow:hidden;
+  background:var(--bg-gray);
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.rank-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.rank-thumb .rank-no{
+  position:absolute;
+  top:4px;left:4px;
+  width:19px;height:19px;
+  border-radius:4px;
+  font-size:11px;
+  box-shadow:0 1px 3px rgba(0,0,0,.28);
+}
+.rank-item a{align-items:flex-start;gap:11px;}
+.rank-meta{margin-top:4px;}
+
+/* ---- 「本日のお勧めのモノ」の写真も、同じ大きさ・同じ枠に ---- */
+.today-card{grid-template-columns:96px minmax(0,1fr);gap:11px;align-items:flex-start;}
+.today-thumb{
+  aspect-ratio:4/3;
+  border:1px solid #E0E1E4;
+  border-radius:9px;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}
+.today-list-item .today-card{padding:12px;}
+.today-cat{margin-bottom:0;}
+
+/* タブの中は、写真が大きくなったぶん行を1つ増やせる */
+.pick-tabs .rank-title,
+.pick-tabs .today-title{-webkit-line-clamp:2;}
+
+/* 6件目を半分で切る高さは、写真が大きくなったので取り直す */
+.pick-tabs .rank-list > .rank-item:nth-child(6),
+.pick-tabs .today-list > .today-list-item:nth-child(6){max-height:52px;}
+
+/* ---- ランキング専用ページも、同じ並びに合わせる ---- */
+@media (max-width:899px){
+  .rank-page .rank-box,
+  .rank-page .rank-heading,
+  .rank-page .rank-note{text-align:left;}
+  .rank-page .rank-item{justify-content:flex-start;}
+  .rank-page .rank-item a{justify-content:flex-start;text-align:left;}
+  .rank-page .rank-title,
+  .rank-page .rank-cat,
+  .rank-page .rank-meta{text-align:left;}
+}
+.rank-page .rank-box{padding:6px 14px 10px;}
+
+/* ============================================================
+   iPhone：入力欄を押すと拡大され、そのまま戻せなくなる件
+   ------------------------------------------------------------
+   原因は2つ重なっていた。
+     1. 入力欄の文字が16pxより小さいと、iOS は焦点が当たった時点で
+        勝手に画面を拡大する（こちらから頼んでいなくても起きる）
+     2. 一覧ページの本体に touch-action:pan-y を付けていた。
+        これは縦の指送りだけを許す指定なので、つまむ操作（pinch）が
+        本体の上では効かない。＝拡大されたあと縮められない
+   1 は入力欄を16pxにして拡大そのものを起こさせない。
+   2 は pinch-zoom を明示的に足して、横スワイプの仕掛けは
+   そのままに、つまんで縮める操作だけを通す。
+   ============================================================ */
+body.is-listing main.layout{
+  touch-action:pan-y pinch-zoom;
+}
+/* 焦点が当たったときに拡大されない大きさ。見た目の小ささを保ちたい
+   ところでも、16px を下回らせない（下回った瞬間に拡大が起きる）。 */
+.searchbox input[type="search"],
+.side-search .searchbox input[type="search"],
+.hero-tile .search-tile .searchbox input[type="search"],
+.float-search .searchbox input[type="search"],
+.contact-form input,
+.contact-form textarea,
+.contact-form select{
+  font-size:16px;
+}
+
+/* ============================================================
+   スマホの記事タイルを、トップのタブの並びと同じ見え方にそろえる
+   ------------------------------------------------------------
+   「読まれている記事」の行は〈写真・見出し・右上にカテゴリー・
+   星・一言〉の5点で出来ている。新着やカテゴリーの一覧のタイルも
+   同じ5点にする。抜粋を消して「詳細を見る」を置いていたのを、
+   逆にする——押せる場所はタイル全体なので、ボタンは無くても
+   行き先は変わらず、そのぶんを一言に回せる。
+   ============================================================ */
+@media (max-width:599px){
+  .card-grid .card .card-desc{
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    margin:4px 0 0;
+    font-size:11.5px;
+    line-height:1.55;
+    color:var(--text-sub);
+    min-height:calc(1.55em * 2);     /* 行数をそろえて、タイルの高さを保つ */
+  }
+  /* レールのカードは1枚の高さを固定しているので、こちらは対象外 */
+  .news-rail-block .rail .card .card-desc{display:none !important;}
+  .card-grid .card .card-link{display:none;}
+  .card-grid .card .card-thumb{min-height:96px;}
+}

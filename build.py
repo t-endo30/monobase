@@ -376,8 +376,10 @@ def today_panel(cls=""):
             f'      <a class="today-card" href="#">\n'
             f'        <span class="today-thumb"><img src="" alt="" width="1200" height="600"></span>\n'
             f'        <span class="today-body">\n'
-            f'          <span class="today-cat"></span>\n'
-            f'          <span class="today-title"></span>\n'
+            f'          <span class="today-head">\n'
+            f'            <span class="today-title"></span>\n'
+            f'            <span class="today-cat cat-badge"></span>\n'
+            f'          </span>\n'
             f'          <span class="today-rating" hidden></span>\n'
             f'          <span class="today-catch"></span>\n'
             f'        </span>\n'
@@ -769,14 +771,19 @@ def featured_in(a, p):
 
 
 def card(a, p, lead=False):
-    tags = f'<span class="tag tag-hot">{e(CAT_LABEL.get(a["category"], ""))}</span>'
-    tags += "".join(f'<span class="tag">{e(t)}</span>' for t in a.get("tags", [])[:1])
+    """一覧の記事タイル。カテゴリー名はタグの行ではなく、見出しの右上に
+       枠で囲んで置く（トップのタブの中の並びと同じ見え方にそろえる）。
+       タグの行には、記事のタグと種類バッジだけが残る。"""
+    tags = "".join(f'<span class="tag">{e(t)}</span>' for t in a.get("tags", [])[:1])
     cls = "card is-lead" if lead else "card"
     return f'''        <article class="{cls} reveal" data-cat="{a["category"]}" data-slug="{e(a["slug"])}" data-date="{e(a.get("date",""))}">
           <div class="card-thumb is-auto"><span class="card-flags" aria-hidden="true"></span>{thumb(a, p)}</div>
           <div class="card-body">
             <div class="card-tags">{tags}{kind_badge(a)}</div>
-            <h3 class="card-title"><a class="card-stretch" href="{p}articles/{e(a["slug"])}.html">{title_lines(a.get("list_title") or a["title"])}</a></h3>
+            <div class="card-head">
+              <h3 class="card-title"><a class="card-stretch" href="{p}articles/{e(a["slug"])}.html">{title_lines(a.get("list_title") or a["title"])}</a></h3>
+              <span class="cat-badge">{e(CAT_LABEL.get(a["category"], ""))}</span>
+            </div>
             {card_rating(a)}
             <p class="card-desc">{e(a.get("excerpt",""))}</p>
             <span class="card-link" aria-hidden="true">詳細を見る</span>

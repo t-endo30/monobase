@@ -589,13 +589,21 @@ document.addEventListener('touchstart', function () {}, { passive: true });
         : '';
       var catch_ = it.excerpt
         ? '<span class="rank-catch">' + esc(it.excerpt) + '</span>' : '';
+      /* 順位はサムネイルの角に重ねる。横幅を食わずに済み、
+         写真・見出し・カテゴリーの並びが「本日のお勧め」とそろう。 */
       return '<li class="rank-item">' +
         '<a href="' + it.url + '">' +
-          '<span class="rank-no rank-no-' + (i + 1) + '">' + (i + 1) + '</span>' +
+          '<span class="rank-thumb">' +
+            '<img src="' + esc(it.thumb) + '" alt="" loading="lazy" decoding="async">' +
+            '<span class="rank-no rank-no-' + (i + 1) + '">' + (i + 1) + '</span>' +
+          '</span>' +
           '<span class="rank-body">' +
-            '<span class="rank-title">' + esc(it.title) + '</span>' +
+            '<span class="rank-head">' +
+              '<span class="rank-title">' + esc(it.title) + '</span>' +
+              '<span class="cat-badge">' + esc(it.cat) + '</span>' +
+            '</span>' +
             rate + catch_ +
-            '<span class="rank-meta">' + esc(it.cat) + (n ? '　' + n + '回' : '') + '</span>' +
+            (n ? '<span class="rank-meta">' + n + '回</span>' : '') +
           '</span>' +
         '</a></li>';
     }).join('');
@@ -1094,7 +1102,8 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     a.href = pick.url;
     img.src = pick.thumb;
     img.alt = pick.title;
-    box.querySelector('.today-cat').textContent = pick.cat;
+    var bc = box.querySelector('.today-cat');
+    if (bc) bc.textContent = pick.cat;
     box.querySelector('.today-title').textContent = pick.title;
     var rt = box.querySelector('.today-rating');
     if (rt) {
@@ -1138,14 +1147,19 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 
       var bd = document.createElement('span');
       bd.className = 'today-body';
-      var cat = document.createElement('span');
-      cat.className = 'today-cat';
-      cat.textContent = it.cat || '';
+      /* 見出しは左、カテゴリーは右上。空いている右上を使うことで
+         見出しに回せる幅が増え、写真も大きくできる。 */
+      var head = document.createElement('span');
+      head.className = 'today-head';
       var ttl = document.createElement('span');
       ttl.className = 'today-title';
       ttl.textContent = it.title;
-      bd.appendChild(cat);
-      bd.appendChild(ttl);
+      var cat = document.createElement('span');
+      cat.className = 'today-cat cat-badge';
+      cat.textContent = it.cat || '';
+      head.appendChild(ttl);
+      head.appendChild(cat);
+      bd.appendChild(head);
       if (it.score && Number(it.score) > 0) {
         var rt = document.createElement('span');
         rt.className = 'today-rating';
