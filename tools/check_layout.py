@@ -64,9 +64,11 @@ window.addEventListener('load', function () { setTimeout(function () {
       rows[Math.round(b.top)] = 1;
       var outside = b.right > lr.right + 1 || b.left < lr.left - 1;
       if (outside && !reachable) cut++;
-      /* 送れる作りでも、中身そのものからはみ出していれば本当に切れている */
-      if (reachable && (c.offsetLeft + c.offsetWidth > list.scrollWidth + 1
-                        || c.offsetLeft < -1)) cut++;
+      /* 送れる作りでも、中身そのものからはみ出していれば本当に切れている。
+         offsetLeft は位置指定のある .cat-nav .container からの距離なので、
+         その左padding のぶんだけずれる。ここは一覧そのものを原点にして測る。 */
+      var x = b.left - lr.left + list.scrollLeft;
+      if (reachable && (x + b.width > list.scrollWidth + 1 || x < -1)) cut++;
     });
     r.navRows = Object.keys(rows).length;
     r.navCut = cut;
