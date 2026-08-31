@@ -18,3 +18,7 @@ orders*.json
 node_modules/
 content/_last_generation.txt
 content/candidates.json
+
+# 画面の崩れを検査する道具（tools/check_layout.py）が実行のたびに作る一時ページ。
+# 検査対象と同じ階層に置く必要があるので、リポジトリの中に生まれる。
+_layout_check.html
