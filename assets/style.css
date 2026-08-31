@@ -47,8 +47,13 @@
 
   --font:"Noto Sans JP","Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans","BIZ UDPGothic",Meiryo,sans-serif;
   --ease:cubic-bezier(.2,.7,.3,1);
-  /* ゆっくり効いて、ふわっと止まる「ぬるっと」した曲線 */
-  --ease-nuru:cubic-bezier(.22,1,.36,1);
+  /* メニューの開閉用。開くときは終わりでふわっと減速（ease-out）、
+     閉じるときは滑り出してから加速して消える（ease-in）。
+     もとの Animista（slide-in/out）と同じ曲線・近い尺にしている。 */
+  --ease-open:cubic-bezier(.25,.46,.45,.94);
+  --ease-close:cubic-bezier(.55,.085,.68,.53);
+  --menu-open:.42s;
+  --menu-close:.48s;
 }
 
 /* カテゴリー別のアクセント色を、その配下すべてに流す */
@@ -2304,13 +2309,15 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
     -webkit-overflow-scrolling:touch;
   }
 }
-/* 開閉の動きは各メニュー本体で定義する（global-nav は visibility+
-   transform の transition、cat-panel は cat-pop アニメ）。以前はここで
-   複数の animation を重ねており、fill:both と animationend の取り合いで
-   iOS で閉じ動作がカクついたり止まって見えたりしていた。 */
+/* 開閉の動きは各メニュー本体（.global-nav / .cat-panel / それぞれの
+   覆い）で visibility+opacity+transform の transition として定義する。
+   以前はここで複数の animation を重ねており、fill:both と animationend
+   の取り合いで iOS で閉じ動作がカクついたり止まって見えたりしていた。 */
 @media (max-width:899px) and (prefers-reduced-motion:reduce){
-  .global-nav,.global-nav.is-open{transition:none;}
-  .cat-panel{animation:none;}
+  .global-nav,.global-nav.is-open,
+  .cat-panel,.cat-panel.is-open,
+  .nav-veil,.nav-veil.is-on,
+  .cat-veil,.cat-veil.is-on{transition:none;}
 }
 
 /* ============================================================
@@ -2833,18 +2840,23 @@ body[data-cat="ranking"] .side-rank{display:none;}
     background:#fff;
     border-bottom:1px solid var(--border);
     box-shadow:0 14px 28px rgba(0,0,0,.18);
-    /* 上から、ぬるっと広がるように出す */
-    transform-origin:top center;
-    animation:cat-pop .4s var(--ease-nuru) both;
+    /* 上から、ゆっくりフェードしながら降りてくる。
+       閉じ切ってから visibility:hidden にして操作を止める。 */
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-14px);
+    transition:opacity var(--menu-close) var(--ease-close),
+               transform var(--menu-close) var(--ease-close),
+               visibility 0s linear var(--menu-close);
+  }
+  .cat-panel.is-open{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+    transition:opacity var(--menu-open) var(--ease-open),
+               transform var(--menu-open) var(--ease-open);
   }
   .site-header.is-shrunk ~ .cat-panel{top:calc(54px + 52px);}
-  @keyframes cat-pop{
-    from{opacity:0;transform:translateY(-14px) scaleY(.94);}
-    to{opacity:1;transform:none;}
-  }
-  @media (prefers-reduced-motion:reduce){
-    .cat-panel{animation:none;}
-  }
   /* 背面の覆い。押すと閉じる */
   .cat-veil{
     position:fixed;
@@ -2852,6 +2864,15 @@ body[data-cat="ranking"] .side-rank{display:none;}
     top:calc(64px + 52px);
     background:rgba(0,0,0,.35);
     z-index:96;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity var(--menu-close) var(--ease-close),
+               visibility 0s linear var(--menu-close);
+  }
+  .cat-veil.is-on{
+    opacity:1;
+    visibility:visible;
+    transition:opacity var(--menu-open) var(--ease-open);
   }
   .site-header.is-shrunk ~ .cat-veil{top:calc(54px + 52px);}
   body.is-cat-open{overflow:hidden;}   /* 背面はスクロールさせない */
@@ -3069,20 +3090,19 @@ body[data-cat="ranking"] .side-rank{display:none;}
     box-shadow:0 14px 28px rgba(0,0,0,.28);
     /* 閉じている状態。display:none だと transition が効かないので
        visibility で消し、閉じ切ってから不可視にする。 */
-    transform-origin:top center;
     opacity:0;
     visibility:hidden;
-    transform:translateY(-16px) scaleY(.985);
-    transition:opacity .34s var(--ease-nuru),
-               transform .34s var(--ease-nuru),
-               visibility 0s linear .34s;
+    transform:translateY(-14px);
+    transition:opacity var(--menu-close) var(--ease-close),
+               transform var(--menu-close) var(--ease-close),
+               visibility 0s linear var(--menu-close);
   }
   .global-nav.is-open{
     opacity:1;
     visibility:visible;
-    transform:translateY(0) scaleY(1);
-    transition:opacity .44s var(--ease-nuru),
-               transform .44s var(--ease-nuru);
+    transform:translateY(0);
+    transition:opacity var(--menu-open) var(--ease-open),
+               transform var(--menu-open) var(--ease-open);
   }
   .nav-veil{
     position:fixed;
@@ -3090,6 +3110,16 @@ body[data-cat="ranking"] .side-rank{display:none;}
     top:64px;
     background:rgba(0,0,0,.35);
     z-index:98;
+    /* メニューと一緒にゆっくり暗く／明るくする */
+    opacity:0;
+    visibility:hidden;
+    transition:opacity var(--menu-close) var(--ease-close),
+               visibility 0s linear var(--menu-close);
+  }
+  .nav-veil.is-on{
+    opacity:1;
+    visibility:visible;
+    transition:opacity var(--menu-open) var(--ease-open);
   }
   .nav-veil[hidden]{display:none;}
 }

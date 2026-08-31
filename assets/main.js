@@ -28,21 +28,22 @@ window.mbLockScroll = function (on, cls) {
   var nav = document.getElementById('globalNav');
   if (!toggle || !nav) return;
 
-  /* 背面の覆い。押すと閉じる（メニューは画面に被せて出す） */
+  /* 背面の覆い。押すと閉じる（メニューは画面に被せて出す）。
+     表示・非表示は CSS の transition（opacity/visibility）に任せるので
+     hidden 属性は使わず .is-on の付け外しだけで切り替える。 */
   var veil = document.createElement('div');
   veil.className = 'nav-veil';
-  veil.hidden = true;
   document.body.appendChild(veil);
 
   function setOpen(open) {
-    /* 開閉は .is-open の付け外しだけ。閉じる動きは CSS 側の
+    /* 開閉は class の付け外しだけ。開き／閉じの動きは CSS 側の
        transition（visibility+transform+opacity）に任せる。
        以前の is-closing + animationend 方式は iOS で取りこぼして
        メニューが開いたまま残ることがあった。 */
     nav.classList.toggle('is-open', open);
+    veil.classList.toggle('is-on', open);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
-    veil.hidden = !open;
   }
   veil.addEventListener('click', function () { setOpen(false); });
   document.addEventListener('keydown', function (e) {
@@ -687,26 +688,27 @@ window.mbLockScroll = function (on, cls) {
      受け取れず、外側を押しても閉じられないため。 */
   var veil = document.createElement('div');
   veil.className = 'cat-veil';
-  veil.hidden = true;
   document.body.appendChild(veil);
   veil.addEventListener('click', function () { setOpen(false); });
 
+  /* hidden 属性は使わず、開閉は class ＋ CSS の transition に任せる。
+     初期状態（HTML の hidden）は一度だけ外す。閉じているあいだは
+     CSS 側で visibility:hidden になり操作もされない。 */
+  panel.removeAttribute('hidden');
+
   function setOpen(open) {
-    /* 開くときは cat-pop アニメで飛び出す。閉じるときは即座に畳む
-       （閉じアニメの取りこぼしでパネルが残るのを防ぐ）。 */
-    if (open) panel.removeAttribute('hidden');
-    else panel.setAttribute('hidden', '');
+    panel.classList.toggle('is-open', open);
+    veil.classList.toggle('is-on', open);
     btn.setAttribute('aria-expanded', String(open));
     btn.classList.toggle('is-current', open);
     /* 開いているあいだは現在ページのタブの色を消す。
        選択されている印が2か所に出ると、どちらが今の状態か分からなくなる。 */
     if (bar) bar.classList.toggle('is-panel-open', open);
     window.mbLockScroll(open, 'is-cat-open');
-    veil.hidden = !open;
   }
 
   function isOpen() {
-    return !panel.hasAttribute('hidden');
+    return panel.classList.contains('is-open');
   }
   btn.addEventListener('click', function () {
     setOpen(!isOpen());
