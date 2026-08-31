@@ -2301,46 +2301,14 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
     overflow-y:auto;
     -webkit-overflow-scrolling:touch;
   }
-  /* 開閉のアニメーション。以前は画面外 800〜1000px からの飛び込みで、
-     アニメ中に巨大な領域ができてスクロールやオーバースクロールが
-     乱れていた。上から少しだけ滑らせる控えめな動きにする。 */
-  .global-nav.is-open,
-  .cat-panel:not([hidden]){
-    -webkit-animation:slide-in-fwd-top .26s cubic-bezier(.25,.46,.45,.94) both;
-            animation:slide-in-fwd-top .26s cubic-bezier(.25,.46,.45,.94) both;
-  }
-  .global-nav.is-closing{
-    display:block;
-    -webkit-animation:slide-out-top .2s cubic-bezier(.55,.085,.68,.53) both;
-            animation:slide-out-top .2s cubic-bezier(.55,.085,.68,.53) both;
-  }
-  .cat-panel.is-closing{
-    display:block !important;
-    -webkit-animation:slide-out-top .2s cubic-bezier(.55,.085,.68,.53) both;
-            animation:slide-out-top .2s cubic-bezier(.55,.085,.68,.53) both;
-  }
 }
+/* 開閉の動きは各メニュー本体で定義する（global-nav は visibility+
+   transform の transition、cat-panel は cat-pop アニメ）。以前はここで
+   複数の animation を重ねており、fill:both と animationend の取り合いで
+   iOS で閉じ動作がカクついたり止まって見えたりしていた。 */
 @media (max-width:899px) and (prefers-reduced-motion:reduce){
-  .global-nav.is-open,.cat-panel:not([hidden]),
-  .global-nav.is-closing,.cat-panel.is-closing{
-    -webkit-animation:none;animation:none;
-  }
-}
-@-webkit-keyframes slide-in-fwd-top{
-  0%{-webkit-transform:translateY(-12px);transform:translateY(-12px);opacity:0;}
-  100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1;}
-}
-@keyframes slide-in-fwd-top{
-  0%{transform:translateY(-12px);opacity:0;}
-  100%{transform:translateY(0);opacity:1;}
-}
-@-webkit-keyframes slide-out-top{
-  0%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1;}
-  100%{-webkit-transform:translateY(-12px);transform:translateY(-12px);opacity:0;}
-}
-@keyframes slide-out-top{
-  0%{transform:translateY(0);opacity:1;}
-  100%{transform:translateY(-12px);opacity:0;}
+  .global-nav,.global-nav.is-open{transition:none;}
+  .cat-panel{animation:none;}
 }
 
 /* ============================================================
@@ -3085,6 +3053,7 @@ body[data-cat="ranking"] .side-rank{display:none;}
    ============================================================ */
 @media (max-width:899px){
   .global-nav{
+    display:block;                 /* 表示・非表示は visibility で切り替える */
     position:fixed;
     left:0;right:0;
     top:64px;
@@ -3096,9 +3065,22 @@ body[data-cat="ranking"] .side-rank{display:none;}
     background:var(--navy);
     border-top:1px solid rgba(255,255,255,.15);
     box-shadow:0 14px 28px rgba(0,0,0,.28);
-    animation:cat-pop .18s var(--ease) both;
+    /* 閉じている状態。display:none だと transition が効かないので
+       visibility で消し、閉じ切ってから不可視にする。 */
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-10px);
+    transition:opacity .2s var(--ease),
+               transform .2s var(--ease),
+               visibility 0s linear .2s;
   }
-  .global-nav:not(.is-open){display:none;}
+  .global-nav.is-open{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+    transition:opacity .24s var(--ease),
+               transform .24s var(--ease);
+  }
   .nav-veil{
     position:fixed;
     inset:0;

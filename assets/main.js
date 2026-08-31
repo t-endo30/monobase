@@ -34,25 +34,12 @@ window.mbLockScroll = function (on, cls) {
   veil.hidden = true;
   document.body.appendChild(veil);
 
-  var closeTimer = null;
   function setOpen(open) {
-    if (open) {
-      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
-      nav.classList.remove('is-closing');
-      nav.classList.add('is-open');
-    } else if (nav.classList.contains('is-open')) {
-      /* 閉じるアニメーションのあいだ DOM に残し、終わったら畳む */
-      if (window.innerWidth < 900) {
-        nav.classList.add('is-closing');
-        var done = function () {
-          nav.classList.remove('is-open', 'is-closing');
-        };
-        nav.addEventListener('animationend', done, { once: true });
-        closeTimer = setTimeout(done, 650);
-      } else {
-        nav.classList.remove('is-open');
-      }
-    }
+    /* 開閉は .is-open の付け外しだけ。閉じる動きは CSS 側の
+       transition（visibility+transform+opacity）に任せる。
+       以前の is-closing + animationend 方式は iOS で取りこぼして
+       メニューが開いたまま残ることがあった。 */
+    nav.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
     veil.hidden = !open;
@@ -704,21 +691,11 @@ window.mbLockScroll = function (on, cls) {
   document.body.appendChild(veil);
   veil.addEventListener('click', function () { setOpen(false); });
 
-  var closeTimer = null;
   function setOpen(open) {
-    if (open) {
-      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
-      panel.classList.remove('is-closing');
-      panel.removeAttribute('hidden');
-    } else if (!panel.hasAttribute('hidden')) {
-      panel.classList.add('is-closing');
-      var done = function () {
-        panel.classList.remove('is-closing');
-        panel.setAttribute('hidden', '');
-      };
-      panel.addEventListener('animationend', done, { once: true });
-      closeTimer = setTimeout(done, 650);
-    }
+    /* 開くときは cat-pop アニメで飛び出す。閉じるときは即座に畳む
+       （閉じアニメの取りこぼしでパネルが残るのを防ぐ）。 */
+    if (open) panel.removeAttribute('hidden');
+    else panel.setAttribute('hidden', '');
     btn.setAttribute('aria-expanded', String(open));
     btn.classList.toggle('is-current', open);
     /* 開いているあいだは現在ページのタブの色を消す。
@@ -729,7 +706,7 @@ window.mbLockScroll = function (on, cls) {
   }
 
   function isOpen() {
-    return !panel.hasAttribute('hidden') && !panel.classList.contains('is-closing');
+    return !panel.hasAttribute('hidden');
   }
   btn.addEventListener('click', function () {
     setOpen(!isOpen());
