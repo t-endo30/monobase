@@ -865,8 +865,10 @@ def article_row(a, p, no=None, badge_on_thumb=False):
        日付は右下。どちらもそれまで空いていた場所なので、行の高さは
        増えない。中身が同じ形なので、assets/main.js が組み立てる
        ランキングの行とも見た目が一致する。
-       badge_on_thumb … 新着一覧ページで使う。カテゴリーの札を写真の
-       上に乗せ、見出しはタイトルだけに絞る。"""
+       badge_on_thumb … True なら新着一覧ページと同じく、カテゴリーの札を
+       常に写真の上に乗せる。"mobile" ならスマホ幅のときだけ写真の上、
+       PC幅では今までどおり見出しの横（両方をマークアップに入れておき、
+       CSSの画面幅で出し分ける）。"""
     sc = 0
     try:
         sc = float(a.get("rating", {}).get("score") or 0)
@@ -883,9 +885,16 @@ def article_row(a, p, no=None, badge_on_thumb=False):
     rank = (f'<span class="arow-no arow-no-{no}">{no}</span>' if no else "")
     src, _ = visual_path(a, p)
     title = a.get("list_title") or a["title"]
-    cat_badge = f'<span class="cat-badge">{e(CAT_LABEL.get(a["category"], ""))}</span>'
-    thumb_badge = cat_badge if badge_on_thumb else ""
-    head_badge = "" if badge_on_thumb else cat_badge
+    cat_label = e(CAT_LABEL.get(a["category"], ""))
+    if badge_on_thumb == "mobile":
+        thumb_badge = f'<span class="cat-badge is-thumb-badge">{cat_label}</span>'
+        head_badge = f'<span class="cat-badge is-head-badge">{cat_label}</span>'
+    elif badge_on_thumb:
+        thumb_badge = f'<span class="cat-badge">{cat_label}</span>'
+        head_badge = ""
+    else:
+        thumb_badge = ""
+        head_badge = f'<span class="cat-badge">{cat_label}</span>'
     return (
         f'          <li class="arow" data-cat="{a["category"]}" '
         f'data-slug="{e(a["slug"])}" data-date="{e(a.get("date",""))}">\n'
@@ -1641,6 +1650,22 @@ def render_article(a):
 
     add('        </div>\n      </article>\n')
 
+    # シェアボタン。外部からの流入（SNS経由の訪問・被リンク）を増やすため、
+    # 読み終えた人がそのまま共有できる導線を記事の直後に置く。
+    # クエリの値は urllib.parse.quote でURLエンコードしてから、
+    # HTML属性として安全な形に e() で escape する（&の連結はここで足す）。
+    _share_text = urllib.parse.quote(a.get("list_title") or a["title"], safe="")
+    _share_url_q = urllib.parse.quote(public_url(url), safe="")
+    share_url_plain = e(public_url(url))
+    add(f'''      <div class="share-row" aria-label="この記事をシェアする">
+        <span class="share-label">この記事をシェア</span>
+        <a class="share-btn is-x" href="{e(f"https://twitter.com/intent/tweet?text={_share_text}&url={_share_url_q}")}" target="_blank" rel="noopener" aria-label="Xでシェア">X</a>
+        <a class="share-btn is-line" href="{e(f"https://social-plugins.line.me/lineit/share?url={_share_url_q}")}" target="_blank" rel="noopener" aria-label="LINEでシェア">LINE</a>
+        <a class="share-btn is-hatena" href="{e(f"https://b.hatena.ne.jp/entry/panel/?url={_share_url_q}")}" target="_blank" rel="noopener" aria-label="はてなブックマークに追加">B!</a>
+        <button type="button" class="share-btn is-copy" data-copy-url="{share_url_plain}">リンクをコピー</button>
+      </div>
+''')
+
     # 関連記事
     rel = [x for x in PUBLISHED if x["slug"] != slug and x["category"] == cat]
     rel += [x for x in PUBLISHED if x["slug"] != slug and x["category"] != cat]
@@ -1676,6 +1701,33 @@ def render_article(a):
     if a.get("tags"):
         ld["keywords"] = "、".join(a["tags"])
 
+    # レビュー記事の評価点。検索結果に★の評点を出すための材料。
+    # 実際に自分たちで採点した1件ぶんの評価なので Review（AggregateRating
+    # ではない）で出す。他社のレビューを寄せ集めたように見せないため。
+    review_ld = None
+    score = 0
+    try:
+        score = float((a.get("rating") or {}).get("score") or 0)
+    except (TypeError, ValueError):
+        score = 0
+    if kind_of(a) == "review" and score > 0:
+        product_name = a.get("product_name") or a.get("title", "").split("｜")[0]
+        # 記事タイトル末尾の「レビュー」「口コミ」等は、商品名ではないので落とす
+        product_name = re.sub(
+            r"[\s　]*(徹底|正直)?(レビュー|口コミ(分析)?|評価|選び方|比較)$",
+            "", product_name).strip()
+        review_ld = {
+            "@context": "https://schema.org", "@type": "Review",
+            "itemReviewed": {"@type": "Product", "name": product_name},
+            "reviewRating": {"@type": "Rating", "ratingValue": score,
+                             "bestRating": "5", "worstRating": "1"},
+            "author": {"@type": "Person", "name": SITE["author"]},
+            "publisher": {"@type": "Organization", "name": NAME},
+            "datePublished": a["date"],
+        }
+        if oi:
+            review_ld["itemReviewed"]["image"] = oi
+
     # パンくずの構造化データ。検索結果に「ホーム › 家電 › 記事名」と出る。
     crumb_ld = breadcrumb_ld([
         ("ホーム", f"{BASE_URL}/"),
@@ -1685,6 +1737,9 @@ def render_article(a):
     extra_js = ('<script type="application/ld+json">'
                 + json.dumps(ld, ensure_ascii=False) + '</script>\n'
                 + crumb_ld)
+    if review_ld:
+        extra_js += ('<script type="application/ld+json">'
+                     + json.dumps(review_ld, ensure_ascii=False) + '</script>\n')
 
     # FAQ の構造化データ。検索結果に質問と回答が出ることがある。
     faq_items = [q for q in (a.get("faq") or []) if q.get("q") and q.get("a")]
@@ -1876,7 +1931,7 @@ def news_rail(items, p, limit=4):
     return ('      <section class="section-block news-list-block">\n'
             '        <div class="tile-card">\n'
             '          <p class="tile-card-head">新着記事</p>\n'
-            + article_rows(items[:limit + 1], p) +
+            + article_rows(items[:limit + 1], p, badge_on_thumb="mobile") +
             '        </div>\n'
             '        <a class="arow-more" href="' + p + 'new.html">'
             + icon("new", "btn-icon") + 'もっと見る'
@@ -1902,6 +1957,7 @@ def mobile_ranking(p, today_limit=5):
             '          <button type="button" class="pt-tab" role="tab"'
             ' id="ptTabToday" aria-controls="ptPanelToday" aria-selected="false" tabindex="-1">本日のお勧めのモノ</button>\n'
             '        </div>\n'
+            '        <div class="pt-stage">\n'
             '        <div class="pt-panel" id="ptPanelRank" role="tabpanel" aria-labelledby="ptTabRank">\n'
             + rank_panel(p, today_limit) +
             f'          <a class="pt-more" href="{p}ranking.html">ランキングをすべて見る'
@@ -1911,6 +1967,7 @@ def mobile_ranking(p, today_limit=5):
             f'          <ol class="today-list" data-today-limit="{today_limit}"></ol>\n'
             f'          <a class="pt-more" href="{p}new.html">お勧め記事をもっと見る'
             '<span class="pt-more-arrow" aria-hidden="true"></span></a>\n'
+            '        </div>\n'
             '        </div>\n'
             '      </section>\n')
 
@@ -2414,8 +2471,9 @@ def static_pages():
     ]:
         body = (                f'      <div class="page-hero"><h1>{e(title)}</h1></div>\n'
                 f'      <div class="prose">\n{content}\n      </div>\n')
+        bcls = "is-editorial-policy" if fname == "editorial-policy.html" else ""
         out.append((fname, page(f"{title} - {NAME}", desc, "", p,
-                                f"{BASE_URL}/{fname}", body,
+                                f"{BASE_URL}/{fname}", body, body_class=bcls,
                                 crumbs=[("ホーム", f"{p}index.html"), (title, None)])))
 
     # メンテナンス画面（features.maintenance が true のときだけ表示される）

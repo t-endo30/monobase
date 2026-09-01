@@ -202,12 +202,16 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     sweep();
   }
 
-  /* ---- ヘッダーの引き締め ---- */
+  /* ---- ヘッダーの引き締め ----
+     スマホはタブバーの位置がヘッダーの高さに連動しており、
+     スクロールのたびに大きさが変わると画面がガクつく／指の位置が
+     ずれる原因になるため、この演出はPC幅（900px以上）だけにする。 */
   var header = document.querySelector('.site-header');
   if (!header) return;
   var ticking = false;
   function onScroll() {
-    header.classList.toggle('is-shrunk', (window.pageYOffset || 0) > 80);
+    var isDesktop = window.matchMedia && window.matchMedia('(min-width:900px)').matches;
+    header.classList.toggle('is-shrunk', isDesktop && (window.pageYOffset || 0) > 80);
     ticking = false;
   }
   window.addEventListener('scroll', function () {
@@ -1224,6 +1228,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   if (!wrap) return;
   var tabs = wrap.querySelectorAll('.pt-tab');
   if (tabs.length < 2) return;
+  var stage = wrap.querySelector('.pt-stage');
   var KEY = 'mb.pickTab';
   var reduceMotion = window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1234,7 +1239,9 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 
   /* 切り替えはフェード＋スライドで、指でめくったような動きにする。
      板の高さがパネルごとに違うので、消えるほうを一瞬だけ画面に残し、
-     入れ替わったところで隠す（レイアウトが一気に飛ばないように）。 */
+     入れ替わったところで隠す（レイアウトが一気に飛ばないように）。
+     さらに .pt-stage の高さも今の高さ→次の高さへアニメーションさせ、
+     切り替え中に下の内容ごと一気に動いて「背景がブレて」見えるのを防ぐ。 */
   function show(i, focus) {
     i = Math.max(0, Math.min(tabs.length - 1, i));
     var from = current;
@@ -1257,6 +1264,10 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       return;
     }
     var dir = i > from ? 1 : -1;
+
+    /* 現在の高さで固定してから動かし始める */
+    if (stage) stage.style.height = stage.getBoundingClientRect().height + 'px';
+
     curPanel.classList.add('is-leaving');
     curPanel.style.setProperty('--pt-slide', (dir * -18) + 'px');
     window.setTimeout(function () {
@@ -1268,11 +1279,16 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       nextPanel.classList.add('is-entering');
       /* 開始位置（右/左にずれた状態）を反映させてから、0へ戻して動かす */
       requestAnimationFrame(function () {
+        if (stage) stage.style.height = nextPanel.getBoundingClientRect().height + 'px';
         requestAnimationFrame(function () {
           nextPanel.classList.remove('is-entering');
           nextPanel.style.removeProperty('--pt-slide');
         });
       });
+      /* 高さの遷移が終わったら固定を外し、以後の内容変化に自然について行けるようにする */
+      window.setTimeout(function () {
+        if (stage) stage.style.height = '';
+      }, 220);
     }, 170);
   }
 
@@ -1444,7 +1460,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   pressable('.card', .985);
   pressable('.feat-card, .today-card, .arow-link, .cf-tile, .sm-links a', .985);
   pressable('.card-link, .btn-sub, .searchbox button, .chip', .94);
-  pressable('.pt-more, .arow-more, .deals-btn, .pt-tab', .97);
+  pressable('.pt-more, .arow-more, .deals-btn, .pt-tab, .share-btn', .97);
   pressable('.tab-bar a, .tab-bar button', .93);
   pressable('.feat-arrow, .to-top, .nav-toggle, .rail-arrow', .88);
   pressable('.cat-tree .tree-subs a', .985);
@@ -1755,4 +1771,35 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       if (up && d._at) { up.querySelector('b').textContent = d._at; up.hidden = false; }
     })
     .catch(function () {});
+})();
+
+/* ============================================================
+   記事末尾のシェアボタン：「リンクをコピー」
+   ------------------------------------------------------------
+   クリップボードにページURLをコピーし、一瞬だけボタンの文字で
+   結果を知らせる。対応していない環境（古いSafari等）では
+   ボタンごと消す（押しても何も起きないボタンを残さないため）。
+   ============================================================ */
+(function () {
+  'use strict';
+  var btns = document.querySelectorAll('.share-btn.is-copy');
+  if (!btns.length) return;
+  if (!navigator.clipboard || !navigator.clipboard.writeText) {
+    Array.prototype.forEach.call(btns, function (b) { b.hidden = true; });
+    return;
+  }
+  Array.prototype.forEach.call(btns, function (btn) {
+    var label = btn.textContent;
+    btn.addEventListener('click', function () {
+      var url = btn.getAttribute('data-copy-url') || location.href;
+      navigator.clipboard.writeText(url).then(function () {
+        btn.textContent = 'コピーしました';
+        btn.classList.add('is-copied');
+        window.setTimeout(function () {
+          btn.textContent = label;
+          btn.classList.remove('is-copied');
+        }, 1800);
+      }).catch(function () {});
+    });
+  });
 })();

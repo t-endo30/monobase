@@ -986,6 +986,35 @@ table{border-collapse:collapse;}
 .prose dt{font-weight:700;color:var(--navy);margin-top:14px;}
 .prose dd{margin:4px 0 0;padding-left:1em;border-left:2px solid var(--border);}
 
+/* ============================================================
+   記事作成方針ページ：タイトルと各項目を中央寄せにする
+   ============================================================ */
+.is-editorial-policy .page-hero{text-align:center;}
+.is-editorial-policy .prose{text-align:center;}
+.is-editorial-policy .prose h2{text-align:center;}
+.is-editorial-policy .prose h3{
+  border-left:none;
+  padding-left:0;
+  text-align:center;
+}
+.is-editorial-policy .prose dt{margin-left:auto;margin-right:auto;}
+.is-editorial-policy .prose dd{
+  display:inline-block;
+  text-align:left;
+  border-left:none;
+  padding-left:0;
+}
+.is-editorial-policy .prose ul{
+  display:inline-block;
+  text-align:left;
+  padding-left:1.3em;
+}
+.is-editorial-policy .policy-item{
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
 /* Pagination */
 .pagination{
   display:flex;
@@ -5891,6 +5920,12 @@ details.hero-policy .policy-close{display:none;}
 .pt-tab.is-on{background:var(--ink);color:#fff;box-shadow:var(--shadow-xs);}
 .pt-tab:focus-visible{outline:2px solid var(--info);outline-offset:2px;}
 .pt-panel[hidden]{display:none;}
+/* タブの切り替え中だけ、板の高さを固定値にしてなめらかに変化させる
+   （assets/main.js が高さを都度セットし、終わったら外す） */
+.pt-stage{overflow:hidden;transition:height .22s var(--ease);}
+@media (prefers-reduced-motion:reduce){
+  .pt-stage{transition:none;}
+}
 /* タブの切り替え：消える／出てくる側をフェード＋スライドさせる
    （assets/main.js が is-leaving / is-entering を付け外しする） */
 .pt-panel{
@@ -6148,6 +6183,13 @@ details.hero-policy .policy-close{display:none;}
   max-width:calc(100% - 8px);
   background:rgba(255,255,255,.92);
   box-shadow:0 1px 3px rgba(0,0,0,.16);
+}
+/* トップページの新着記事：スマホ幅だけ写真の上、PC幅は見出し側
+   （article_row() が両方をマークアップに出し、ここで出し分ける） */
+.is-head-badge{display:none;}
+@media (min-width:900px){
+  .is-thumb-badge{display:none;}
+  .is-head-badge{display:inline;}
 }
 
 /* 見出しとカテゴリーを1行に並べる器 */
@@ -6488,3 +6530,55 @@ body.is-listing main.layout{
   text-decoration-color:currentColor;
 }
 @media (hover:none){ .past-link:active{color:var(--info);} }
+
+/* ============================================================
+   記事末尾のシェアボタン
+   ------------------------------------------------------------
+   外部からの流入（SNS経由の訪問・被リンク）を増やすための導線。
+   アイコン画像は使わず、色でブランドを示す小さな文字ボタンにする。
+   ============================================================ */
+.share-row{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+  margin:22px 0 0;
+  padding:14px 16px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+}
+.share-label{
+  flex:0 0 auto;
+  margin-right:2px;
+  font-size:12.5px;
+  font-weight:700;
+  color:var(--text-sub);
+}
+.share-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:44px;
+  height:36px;
+  padding:0 14px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:var(--bg-gray);
+  color:var(--ink);
+  font-family:inherit;
+  font-size:12.5px;
+  font-weight:700;
+  text-decoration:none !important;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease);
+}
+.share-btn.is-x:hover{background:#000;color:#fff;border-color:#000;}
+.share-btn.is-line:hover{background:#06C755;color:#fff;border-color:#06C755;}
+.share-btn.is-hatena:hover{background:#00A4DE;color:#fff;border-color:#00A4DE;}
+.share-btn.is-copy{padding:0 16px;}
+.share-btn.is-copy.is-copied{background:var(--good);color:#fff;border-color:var(--good);}
+@media (hover:none){
+  .share-btn:active{transform:scale(.96);}
+}
