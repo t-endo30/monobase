@@ -624,15 +624,11 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   }
 
   /* 枠ごとに出す件数を変えられるようにする（トップは5件、専用ページは10件）。
-     カテゴリーの札は、写真をある程度大きく出せる枠（PCサイド／
-     ランキングページ本体）だけ写真の上に乗せる。幅が狭い「読まれている
-     記事」タブは、今までどおり見出し側に置く。 */
+     カテゴリーの札は、新着記事など他の一覧と同じく常に写真の右上に乗せる。 */
   Array.prototype.forEach.call(lists, function (el) {
     var box = el.closest('.rank-box');
     var limit = Number(box && box.getAttribute('data-rank-limit')) || 10;
-    var badgeOnThumb = !!el.closest('.side-rank') ||
-      document.body.getAttribute('data-cat') === 'ranking';
-    el.innerHTML = rows(limit, badgeOnThumb);
+    el.innerHTML = rows(limit, true);
   });
 
   /* 並び順の説明文は出さない（画面を説明で埋めない） */
@@ -1165,21 +1161,20 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       img.loading = 'lazy';
       img.decoding = 'async';
       th.appendChild(img);
+      /* カテゴリーの札は、新着記事など他の一覧と同じく写真の右上に乗せる */
+      var cat = document.createElement('span');
+      cat.className = 'cat-badge';
+      cat.textContent = it.cat || '';
+      th.appendChild(cat);
 
       var bd = document.createElement('span');
       bd.className = 'arow-body';
-      /* 見出しは左、カテゴリーは右上。空いている右上を使うことで
-         見出しに回せる幅が増え、写真も大きくできる。 */
       var head = document.createElement('span');
       head.className = 'arow-head';
       var ttl = document.createElement('span');
       ttl.className = 'arow-title';
       ttl.textContent = it.title;
-      var cat = document.createElement('span');
-      cat.className = 'cat-badge';
-      cat.textContent = it.cat || '';
       head.appendChild(ttl);
-      head.appendChild(cat);
       bd.appendChild(head);
       if (it.score && Number(it.score) > 0) {
         var rt = document.createElement('span');

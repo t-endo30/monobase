@@ -1530,14 +1530,17 @@ mark.hl{
   background:var(--surface);
   overflow:hidden;
 }
+/* ACCESS RANKING・CATEGORIES と同じ見出しデザインにそろえる */
 .tile-card-head{
   margin:0;
-  padding:13px 16px;
+  padding:10px 12px;
+  background:linear-gradient(180deg,var(--bg-gray) 0%,var(--surface) 100%);
   border-bottom:1px solid var(--border);
-  background:var(--bg-gray);
-  font-size:15px;
-  font-weight:800;
-  letter-spacing:.02em;
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:.1em;
+  color:var(--text-sub);
+  text-align:center;
 }
 .tile-card > .arow-list{border:none;border-radius:0;background:transparent;}
 .tile-card > .rail-wrap{padding:12px 4px 4px;}
@@ -1545,8 +1548,8 @@ mark.hl{
 .rank-box > .arow-list{border:none;border-radius:0;background:transparent;}
 
 @media (max-width:899px){
-  /* スマホ：見出しは中央にそろえる */
-  .tile-card-head{text-align:center;}
+  /* スマホ：「新着記事」「カテゴリーから探す」の見出し下にオレンジの線を入れる */
+  .tile-card-head{box-shadow:inset 0 -2px 0 var(--amazon,#FF9900);}
   /* 「もっと見る」はタイルから離さず、板の下端としてつなげる */
   .news-list-block .tile-card{margin-bottom:0;}
   .news-list-block .arow-more{
@@ -6043,14 +6046,14 @@ details.hero-policy .policy-close{display:none;}
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:6px;
+  gap:7px;
   margin-top:10px;
-  padding:12px 14px;
+  padding:13px 14px;
   border:1px solid var(--border);
   border-radius:var(--radius);
   background:var(--bg-gray);
   color:var(--ink);
-  font-size:12.5px;
+  font-size:13px;
   font-weight:700;
   text-decoration:none !important;
   cursor:pointer;
@@ -6063,7 +6066,7 @@ details.hero-policy .policy-close{display:none;}
   border-right:2px solid currentColor;
   border-bottom:2px solid currentColor;
   transform:rotate(-45deg);
-  margin-left:2px;
+  margin-left:1px;
 }
 @media (hover:none){
   .pt-more:active{background:var(--border);transform:translateY(1px) scale(.99);}

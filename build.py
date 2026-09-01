@@ -1936,7 +1936,7 @@ def news_rail(items, p, limit=4):
        1行の形は article_row()＝トップのタブやランキングと同じ。"""
     return ('      <section class="section-block news-list-block">\n'
             '        <div class="tile-card">\n'
-            '          <p class="tile-card-head">新着記事</p>\n'
+            '          <p class="tile-card-head">NEW ARTICLES</p>\n'
             + article_rows(items[:limit + 1], p, badge_on_thumb="mobile") +
             '        </div>\n'
             '        <a class="arow-more" href="' + p + 'new.html">'
