@@ -720,7 +720,7 @@ def main_block(body, p, current="", current_sub="", sidebar=False, hero_slot="",
             + body +
             '    </div>\n'
             '    <div class="side-rank">\n'
-            + rank_panel(p, 10) + search_r
+            + search_r + rank_panel(p, 10)
             + promo_slot("side", current, "is-side") + ad_slot("side", "is-side")
             + '    </div>\n'
             '  </div>\n</main>\n\n')
@@ -2471,7 +2471,9 @@ def static_pages():
     ]:
         body = (                f'      <div class="page-hero"><h1>{e(title)}</h1></div>\n'
                 f'      <div class="prose">\n{content}\n      </div>\n')
-        bcls = "is-editorial-policy" if fname == "editorial-policy.html" else ""
+        bcls = ("is-centered-static"
+                if fname in ("editorial-policy.html", "about.html", "advertising.html")
+                else "")
         out.append((fname, page(f"{title} - {NAME}", desc, "", p,
                                 f"{BASE_URL}/{fname}", body, body_class=bcls,
                                 crumbs=[("ホーム", f"{p}index.html"), (title, None)])))

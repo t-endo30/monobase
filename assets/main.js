@@ -590,12 +590,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       ? '<span class="arow-date">' + esc(d).replace(/-/g, '.') + '</span>' : '';
   }
 
-  /* ランキングページ本体（/ranking.html）だけ、カテゴリーの札を
-     見出しではなく写真の右上に乗せる。PCサイドや「読まれている記事」
-     タブは幅が狭いので、そちらは今まで通り見出し側に置く。 */
-  var badgeOnThumb = document.body.getAttribute('data-cat') === 'ranking';
-
-  function rows(limit) {
+  function rows(limit, badgeOnThumb) {
     return ranked.slice(0, limit).map(function (it, i) {
       var n = counts[it.slug] || 0;
       var sc = Number(it.score) || 0;
@@ -628,11 +623,16 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     }).join('');
   }
 
-  /* 枠ごとに出す件数を変えられるようにする（トップは5件、専用ページは10件） */
+  /* 枠ごとに出す件数を変えられるようにする（トップは5件、専用ページは10件）。
+     カテゴリーの札は、写真をある程度大きく出せる枠（PCサイド／
+     ランキングページ本体）だけ写真の上に乗せる。幅が狭い「読まれている
+     記事」タブは、今までどおり見出し側に置く。 */
   Array.prototype.forEach.call(lists, function (el) {
     var box = el.closest('.rank-box');
     var limit = Number(box && box.getAttribute('data-rank-limit')) || 10;
-    el.innerHTML = rows(limit);
+    var badgeOnThumb = !!el.closest('.side-rank') ||
+      document.body.getAttribute('data-cat') === 'ranking';
+    el.innerHTML = rows(limit, badgeOnThumb);
   });
 
   /* 並び順の説明文は出さない（画面を説明で埋めない） */

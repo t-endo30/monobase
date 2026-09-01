@@ -987,33 +987,37 @@ table{border-collapse:collapse;}
 .prose dd{margin:4px 0 0;padding-left:1em;border-left:2px solid var(--border);}
 
 /* ============================================================
-   記事作成方針ページ：タイトルと各項目を中央寄せにする
+   記事作成方針・広告掲載について・運営者情報ページ：
+   タイトルと各項目を中央寄せにする
    ============================================================ */
-.is-editorial-policy .page-hero{text-align:center;}
-.is-editorial-policy .prose{text-align:center;}
-.is-editorial-policy .prose h2{text-align:center;}
-.is-editorial-policy .prose h3{
+.is-centered-static .page-hero{text-align:center;}
+.is-centered-static .prose{text-align:center;}
+.is-centered-static .prose p{text-align:center;}
+.is-centered-static .prose h2{text-align:center;}
+.is-centered-static .prose h3{
   border-left:none;
   padding-left:0;
   text-align:center;
 }
-.is-editorial-policy .prose dt{margin-left:auto;margin-right:auto;}
-.is-editorial-policy .prose dd{
+.is-centered-static .prose dt{margin-left:auto;margin-right:auto;}
+.is-centered-static .prose dd{
   display:inline-block;
   text-align:left;
   border-left:none;
   padding-left:0;
 }
-.is-editorial-policy .prose ul{
+.is-centered-static .prose ul{
   display:inline-block;
   text-align:left;
   padding-left:1.3em;
 }
-.is-editorial-policy .policy-item{
+.is-centered-static .prose li{text-align:left;}
+.is-centered-static .policy-item{
   flex-direction:column;
   align-items:center;
   text-align:center;
 }
+.is-centered-static .policy-body p{text-align:center;}
 
 /* Pagination */
 .pagination{
@@ -2763,13 +2767,14 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
 /* --- PC：左にカテゴリー、右にランキング --- */
 .side-rank{display:none;}
 @media (min-width:1024px){
-  .layout.has-side .layout-grid{grid-template-columns:272px minmax(0,1fr);}
+  .layout.has-side .layout-grid{grid-template-columns:290px minmax(0,1fr);}
   .side-rank{display:none;}
 }
 @media (min-width:1240px){
   .layout.has-side .layout-grid{
-    /* 左右のサイドは同じ幅にそろえる */
-    grid-template-columns:262px minmax(0,1fr) 262px;
+    /* 左右のサイドは同じ幅にそろえる。写真をスマホに近い大きさで
+       出せるよう、以前より少し広くしてある。 */
+    grid-template-columns:290px minmax(0,1fr) 300px;
   }
   .side-rank{
     display:block;
@@ -2778,13 +2783,18 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
     max-height:calc(100vh - 156px);
     overflow-y:auto;
   }
-  /* PCサイドの ACCESS RANKING は幅が狭いので、写真の幅を小さく抑える
-     （既定の .arow-thumb は一覧ページ用の大きさで、サイドに置くと
-     行がふくらんで縦に間延びしてしまうため）。 */
-  .side-rank .arow-thumb{width:64px;min-height:64px;}
-  .side-rank .arow-link{padding:10px 4px;gap:10px;}
-  .side-rank .arow-title{font-size:12.5px;-webkit-line-clamp:2;}
+  /* PCサイドの ACCESS RANKING。カテゴリーの札は写真の右上に乗せ
+     （main.js 側で切り替え）、写真もスマホと近い大きさにする。 */
+  .side-rank .arow-thumb{width:100px;min-height:84px;}
+  .side-rank .arow-link{padding:10px 8px;gap:10px;}
+  .side-rank .arow-title{font-size:13px;-webkit-line-clamp:2;}
   .side-rank .arow-catch{display:none;}
+  /* 写真の幅が狭いので、乗せる札は小さめの文字にして右端に収める */
+  .side-rank .arow-thumb .cat-badge{
+    max-width:64%;
+    padding:1px 4px;
+    font-size:8.5px;
+  }
 }
 /* ランキングページ自体では、右の重複表示を出さない */
 body[data-cat="ranking"] .side-rank{display:none;}
@@ -4733,6 +4743,9 @@ body.is-article .layout > .container{
   .site-brand .site-tagline{text-align:center;}
   .global-nav{flex:1 1 0;min-width:0;display:flex;justify-content:flex-end;}
   .global-nav .nav-links{justify-content:flex-end;}
+  /* ヘッダーだけは本文より広い幅まで使い、メニューを画面の右端近くに
+     寄せる（本文は今までどおり --maxw の幅に収める）。 */
+  .site-header .container{max-width:1400px;}
 }
 
 /* ============================================================
