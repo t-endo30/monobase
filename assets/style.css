@@ -5945,6 +5945,9 @@ details.hero-policy .policy-close{display:none;}
    （assets/main.js が高さを都度セットし、終わったら外す） */
 .pt-stage{
   overflow:hidden;
+  /* 板の四隅を丸める。ここを角のままにすると、下端の「もっと見る」の
+     丸みが切り取られて角ばって見える（新着記事の枠と形が揃わない）。 */
+  border-radius:var(--radius);
   transition:height .22s var(--ease);
   /* 切り替え中、消えていくパネルの下に敷く色。これが無いと背景の写真が
      一瞬透けて見えてしまう（「背景がブレる」ように見える原因）。 */
@@ -6631,7 +6634,7 @@ body.is-listing main.layout{
 .rank-box,
 .side-nav.side-tile,
 .side-search,
-.pick-tabs,
+.pt-stage,
 .today-list,
 .hero-tile{
   box-shadow:0 10px 28px rgba(20,20,22,.14),0 2px 6px rgba(20,20,22,.08);
