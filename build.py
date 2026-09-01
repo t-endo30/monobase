@@ -695,7 +695,8 @@ def footer(p, sticky_url=None):
     </div>
 
     <p class="assoc-note">
-      当サイトは、Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定されたアフィリエイトプログラムである、Amazonアソシエイト・プログラムの参加者です。<br>
+      当サイトは、Amazon・楽天市場・Yahoo!ショッピング等のアフィリエイトプログラムに参加しています。<br>
+      Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定されたアフィリエイトプログラムである、Amazonアソシエイト・プログラムの参加者です。<br>
       Amazon、Amazon.co.jp およびそれらのロゴは Amazon.com, Inc. またはその関連会社の商標です。
     </p>
 
@@ -909,15 +910,17 @@ def article_row(a, p, no=None, badge_on_thumb=False):
     src, _ = visual_path(a, p)
     title = a.get("list_title") or a["title"]
     cat_label = e(CAT_LABEL.get(a["category"], ""))
-    if badge_on_thumb == "mobile":
-        thumb_badge = f'<span class="cat-badge is-thumb-badge">{cat_label}</span>'
-        head_badge = f'<span class="cat-badge is-head-badge">{cat_label}</span>'
-    elif badge_on_thumb:
+    # カテゴリーの札の置き場所。
+    #   badge_on_thumb=True … 写真の右上に乗せる（PCサイドの細い列だけ）
+    #   それ以外          … PC幅は見出しの右、スマホ幅は日付の左（＝写真寄り）。
+    #                        両方をマークアップに出し、CSSの画面幅で出し分ける。
+    if badge_on_thumb:
         thumb_badge = f'<span class="cat-badge">{cat_label}</span>'
-        head_badge = ""
+        head_badge = foot_badge = ""
     else:
         thumb_badge = ""
-        head_badge = f'<span class="cat-badge">{cat_label}</span>'
+        head_badge = f'<span class="cat-badge is-head-badge">{cat_label}</span>'
+        foot_badge = f'<span class="cat-badge is-foot-badge">{cat_label}</span>'
     return (
         f'          <li class="arow" data-cat="{a["category"]}" '
         f'data-slug="{e(a["slug"])}" data-date="{e(a.get("date",""))}">\n'
@@ -930,7 +933,8 @@ def article_row(a, p, no=None, badge_on_thumb=False):
         f'                <span class="arow-head">'
         f'<span class="arow-title">{e(title)}</span>'
         f'{head_badge}</span>\n'
-        f'                {rating}{catch}{date}\n'
+        f'                {rating}{catch}'
+        f'<span class="arow-foot">{foot_badge}{date}</span>\n'
         f'              </span>\n'
         f'            </a>\n'
         f'          </li>\n')
@@ -1954,7 +1958,7 @@ def news_rail(items, p, limit=4):
     return ('      <section class="section-block news-list-block">\n'
             '        <div class="tile-card">\n'
             '          <p class="tile-card-head">LATEST ARTICLES</p>\n'
-            + article_rows(items[:limit + 1], p, badge_on_thumb="mobile") +
+            + article_rows(items[:limit + 1], p) +
             '        </div>\n'
             '        <a class="arow-more" href="' + p + 'new.html">'
             'もっと見る'
@@ -2176,7 +2180,7 @@ def build_new():
     body += ('      <section class="section-block" style="margin-top:24px;">\n'
              '        <div class="rank-box">\n'
              '          <p class="rank-heading">LATEST ARTICLES</p>\n'
-             + article_rows(items, p, badge_on_thumb=True) +
+             + article_rows(items, p) +
              '        </div>\n'
              '      </section>\n')
     return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。", "new", p,

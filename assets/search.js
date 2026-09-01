@@ -104,9 +104,14 @@
           '<span class="arow-body">' +
             '<span class="arow-head">' +
               '<span class="arow-title">' + highlight(item.title, terms) + '</span>' +
-              '<span class="cat-badge">' + esc(item.catLabel) + '</span>' +
+              '<span class="cat-badge is-head-badge">' + esc(item.catLabel) + '</span>' +
             '</span>' +
-            rate + catch_ + date +
+            rate + catch_ +
+            /* 札は他の一覧と同じ出し分け（PCは見出しの右、スマホは日付の左） */
+            '<span class="arow-foot">' +
+              '<span class="cat-badge is-foot-badge">' + esc(item.catLabel) + '</span>' +
+              date +
+            '</span>' +
           '</span>' +
         '</a>' +
       '</li>';

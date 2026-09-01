@@ -2702,7 +2702,7 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
   color:#fff;
   box-shadow:0 1px 3px rgba(0,0,0,.2);
 }
-.flag-new{background:var(--good);}
+.flag-new{background:var(--amazon);}
 .flag-hot{background:var(--bad);}
 @media (max-width:599px){
   .card-flags{top:6px;left:6px;}
@@ -6218,6 +6218,7 @@ details.hero-policy .policy-close{display:none;}
 .is-head-badge{display:none;}
 @media (min-width:900px){
   .is-thumb-badge{display:none;}
+  .is-foot-badge{display:none;}
   .is-head-badge{display:inline;}
 }
 
@@ -6428,11 +6429,19 @@ body.is-listing main.layout{
   font-size:11.5px;
   line-height:1.6;
 }
-/* 日付は右下。margin-top:auto で、上に何行あっても必ず行の底に付く */
-.arow-date{
-  align-self:flex-end;
+/* 行の底の1行。左にカテゴリーの札（＝写真寄り）、右に日付を置く。
+   margin-top:auto で、上に何行あっても必ず行の底に付く */
+.arow-foot{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
   margin-top:auto;
   padding-top:5px;
+}
+.arow-foot .cat-badge{max-width:60%;}
+.arow-date{
+  margin-left:auto;
   color:var(--text-sub);
   font-size:10.5px;
   font-weight:700;
@@ -6523,7 +6532,7 @@ body.is-listing main.layout{
 .pick-tabs .today-list{border-bottom:none;}
 .pick-tabs .pt-more{
   margin-top:0;
-  border-top:none;
+  border-top:1px solid var(--border);
   border-radius:0 0 var(--radius) var(--radius);
 }
 

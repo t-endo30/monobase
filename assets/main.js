@@ -602,7 +602,11 @@ document.addEventListener('touchstart', function () {}, { passive: true });
         : '';
       var catch_ = it.excerpt
         ? '<span class="arow-catch">' + esc(it.excerpt) + '</span>' : '';
+      /* 札は build.py の article_row() と同じ出し分け。写真に乗せる枠
+         （PCサイドの細い列）だけ thumb、それ以外は見出しの右／日付の左。 */
       var catBadge = '<span class="cat-badge">' + esc(it.cat) + '</span>';
+      var headBadge = '<span class="cat-badge is-head-badge">' + esc(it.cat) + '</span>';
+      var footBadge = '<span class="cat-badge is-foot-badge">' + esc(it.cat) + '</span>';
       /* 行の形は build.py の article_row() と同じ（.arow…）。
          こちらは閲覧回数から並べ替えるので JS 側で組み立てるが、
          クラス名をそろえてあるので見た目は一覧ページと一致する。
@@ -617,20 +621,24 @@ document.addEventListener('touchstart', function () {}, { passive: true });
           '<span class="arow-body">' +
             '<span class="arow-head">' +
               '<span class="arow-title">' + esc(it.title) + '</span>' +
-              (badgeOnThumb ? '' : catBadge) +
+              (badgeOnThumb ? '' : headBadge) +
             '</span>' +
-            rate + catch_ + dotDate(it.date) +
+            rate + catch_ +
+            '<span class="arow-foot">' +
+              (badgeOnThumb ? '' : footBadge) + dotDate(it.date) +
+            '</span>' +
           '</span>' +
         '</a></li>';
     }).join('');
   }
 
   /* 枠ごとに出す件数を変えられるようにする（トップは5件、専用ページは10件）。
-     カテゴリーの札は、新着記事など他の一覧と同じく常に写真の右上に乗せる。 */
+     札は、写真が小さいPCサイドの細い列だけ写真に乗せる。それ以外は
+     新着記事など他の一覧と同じ（PCは見出しの右、スマホは日付の左）。 */
   Array.prototype.forEach.call(lists, function (el) {
     var box = el.closest('.rank-box');
     var limit = Number(box && box.getAttribute('data-rank-limit')) || 10;
-    el.innerHTML = rows(limit, true);
+    el.innerHTML = rows(limit, !!el.closest('.side-rank'));
   });
 
   /* 並び順の説明文は出さない（画面を説明で埋めない） */
@@ -1163,20 +1171,20 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       img.loading = 'lazy';
       img.decoding = 'async';
       th.appendChild(img);
-      /* カテゴリーの札は、新着記事など他の一覧と同じく写真の右上に乗せる */
-      var cat = document.createElement('span');
-      cat.className = 'cat-badge';
-      cat.textContent = it.cat || '';
-      th.appendChild(cat);
 
       var bd = document.createElement('span');
       bd.className = 'arow-body';
+      /* 札は他の一覧と同じ出し分け（PCは見出しの右、スマホは日付の左） */
       var head = document.createElement('span');
       head.className = 'arow-head';
       var ttl = document.createElement('span');
       ttl.className = 'arow-title';
       ttl.textContent = it.title;
+      var cat = document.createElement('span');
+      cat.className = 'cat-badge is-head-badge';
+      cat.textContent = it.cat || '';
       head.appendChild(ttl);
+      head.appendChild(cat);
       bd.appendChild(head);
       if (it.score && Number(it.score) > 0) {
         var rt = document.createElement('span');
@@ -1196,13 +1204,20 @@ document.addEventListener('touchstart', function () {}, { passive: true });
         ct.textContent = it.excerpt;
         bd.appendChild(ct);
       }
+      var foot = document.createElement('span');
+      foot.className = 'arow-foot';
+      var fcat = document.createElement('span');
+      fcat.className = 'cat-badge is-foot-badge';
+      fcat.textContent = it.cat || '';
+      foot.appendChild(fcat);
       var dt = String(it.date || '').slice(0, 10);
       if (dt.length === 10) {
         var dd = document.createElement('span');
         dd.className = 'arow-date';
         dd.textContent = dt.replace(/-/g, '.');
-        bd.appendChild(dd);
+        foot.appendChild(dd);
       }
+      bd.appendChild(foot);
 
       a.appendChild(th);
       a.appendChild(bd);
