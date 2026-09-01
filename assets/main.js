@@ -541,8 +541,10 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     if ((counts[it.slug] || 0) > 0) hot[it.slug] = true;
   });
 
-  /* ---- カードに New / Hot を付ける ---- */
-  var DAY = 24 * 60 * 60 * 1000;
+  /* ---- カードに New / Hot を付ける ----
+     公開から3日以内を「新着」とする。24時間だと、公開した翌日には
+     もう札が消えてしまい、新着記事の枠に1つも札が出ない日が続く。 */
+  var NEW_SPAN = 3 * 24 * 60 * 60 * 1000;
   function flags(root) {
     var cards = (root || document).querySelectorAll('.card[data-slug],.arow[data-slug]');
     Array.prototype.forEach.call(cards, function (card) {
@@ -552,7 +554,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       var d = card.getAttribute('data-date');
       if (d) {
         var t = new Date(d + 'T00:00:00').getTime();
-        if (!isNaN(t) && Date.now() - t < DAY) {
+        if (!isNaN(t) && Date.now() - t < NEW_SPAN) {
           box.insertAdjacentHTML('beforeend', '<span class="flag flag-new">New</span>');
         }
       }

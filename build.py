@@ -448,6 +448,20 @@ def rank_panel(p, limit=10):
             f'    </section>\n')
 
 
+def latest_panel(p, limit=5):
+    """PCサイドの「新着記事」の枠。ランキングのページでは、右に同じ
+       ランキングをもう一度出しても手がかりにならないので、
+       代わりに新しい記事を出して次の行き先にする。
+       見た目は ACCESS RANKING と同じ rank-box にそろえる。"""
+    items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)[:limit]
+    if not items:
+        return ""
+    return ('    <section class="rank-box">\n'
+            '      <p class="rank-heading">LATEST ARTICLES</p>\n'
+            + article_rows(items, p, badge_on_thumb=True) +
+            '    </section>\n')
+
+
 def tab_bar(p, current="", current_sub=""):
     """スマホ用の固定タブ。横スクロールさせず4つに絞る。
        CATEGORIES はページ遷移せず、その場でカテゴリー一覧を開く。"""
@@ -726,7 +740,10 @@ def main_block(body, p, current="", current_sub="", sidebar=False, hero_slot="",
             + body +
             '    </div>\n'
             '    <div class="side-rank">\n'
-            + search_r + rank_panel(p, 10)
+            + search_r
+            # ランキングのページで右にもランキングを出しても意味が薄いので、
+            # そこだけ新着記事に差し替える。
+            + (latest_panel(p, 5) if current == "ranking" else rank_panel(p, 10))
             + promo_slot("side", current, "is-side") + ad_slot("side", "is-side")
             + '    </div>\n'
             '  </div>\n</main>\n\n')
@@ -1936,7 +1953,7 @@ def news_rail(items, p, limit=4):
        1行の形は article_row()＝トップのタブやランキングと同じ。"""
     return ('      <section class="section-block news-list-block">\n'
             '        <div class="tile-card">\n'
-            '          <p class="tile-card-head">NEW ARTICLES</p>\n'
+            '          <p class="tile-card-head">LATEST ARTICLES</p>\n'
             + article_rows(items[:limit + 1], p, badge_on_thumb="mobile") +
             '        </div>\n'
             '        <a class="arow-more" href="' + p + 'new.html">'
@@ -2155,7 +2172,7 @@ def build_new():
     """新着一覧。スマホのタブ「NEW」の行き先。"""
     p = "./"
     items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)[:24]
-    body = hero(icon("new", "page-icon"), "新着記事", "24時間以内に公開した記事には New が付きます。")
+    body = hero(icon("new", "page-icon"), "新着記事", "公開から3日以内の記事には New が付きます。")
     body += ('      <section class="section-block" style="margin-top:24px;">\n'
              '        <div class="rank-box">\n'
              '          <p class="rank-heading">LATEST ARTICLES</p>\n'

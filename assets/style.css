@@ -2765,7 +2765,6 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
 }
 .rank-meta{display:block;margin-top:3px;font-size:11px;color:var(--text-sub);}
 .rank-note{margin:8px 0 0;font-size:11px;line-height:1.6;color:var(--text-sub);}
-.rank-page .rank-box{max-width:640px;}
 
 /* --- PC：左にカテゴリー、右にランキング --- */
 .side-rank{display:none;}
@@ -2799,8 +2798,8 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
     font-size:8.5px;
   }
 }
-/* ランキングページ自体では、右の重複表示を出さない */
-body[data-cat="ranking"] .side-rank{display:none;}
+/* ランキングページの右側は、ランキングの重複ではなく新着記事を出す
+   （main_block() が中身を差し替える）ので、隠さずそのまま見せる */
 
 /* ============================================================
    スマホの固定タブ（ALL / NEW / CATEGORIES / RANKING）
@@ -3332,7 +3331,9 @@ body[data-cat="ranking"] .side-rank{display:none;}
     scrollbar-width:none;
   }
   .side-col::-webkit-scrollbar{display:none;}
-  .side-nav{position:static;max-height:none;overflow:visible;}
+  /* 送りは .side-col が受け持つ。ただし上辺のオレンジの線（::before）を
+     この枠の上端に置くため、位置の基準としては relative にしておく。 */
+  .side-nav{position:relative;max-height:none;overflow:visible;}
   /* サイドは中身（カテゴリー一覧・検索・ランキング）が収まる幅で足りる。
      広げすぎると中央の記事が細くなり、タイルが1列まで落ちてしまう。 */
   .layout.has-side .layout-grid{grid-template-columns:282px minmax(0,1fr);}
@@ -4860,6 +4861,7 @@ body.is-article .layout > .container{
 .today-box,
 .rank-box,
 .side-tile,
+.tile-card,
 .search-tile,
 .cf-tile,
 .policy-item,
@@ -4876,6 +4878,7 @@ body.is-article .layout > .container{
 .today-box::before,
 .rank-box::before,
 .side-nav::before,
+.tile-card::before,
 .search-tile::before,
 .card-surface::before{
   content:"";
@@ -4883,6 +4886,8 @@ body.is-article .layout > .container{
   top:0;left:0;right:0;
   height:3px;
   background:linear-gradient(90deg,var(--amazon) 0%,#F5C07A 46%,var(--border) 100%);
+  /* 枠を切り取らない（overflow:visible の）タイルでも角からはみ出さない */
+  border-radius:var(--radius) var(--radius) 0 0;
   pointer-events:none;
 }
 /* サイドの検索タイルは細い線だけにして、主張させない */
