@@ -1787,7 +1787,9 @@ mark.hl{
 .site-title:hover .brand-mark::before{background:#fff;}
 
 .brand-name{
-  font-family:"DotGothic16","Noto Sans JP",monospace;
+  /* ドット絵フォント。書体まるごとを読むと @font-face が123個に増えるので、
+     build.py 側で「サイト名に使う文字だけ」を頼んでいる（約1KB）。 */
+  font-family:"DotGothic16",var(--font);
   font-size:23px;
   font-weight:400;
   letter-spacing:.14em;

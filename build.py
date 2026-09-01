@@ -375,11 +375,37 @@ def head(title, desc, current, p, canonical, extra="", body_class="", image="",
 {ogimg}<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
-<link rel="stylesheet" href="{p}assets/style.css?v={ASSET_V}">
+{FONT_LINKS}<link rel="stylesheet" href="{p}assets/style.css?v={ASSET_V}">
 {extra}{ga}{ads_head()}</head>
 <body data-cat="{current}"{bodycls} data-rank='{rank_data}'>
 '''
+
+# 日本語のWebフォントは、1つの太さが約120個のサブセットに分かれる。
+# 太さを増やすほど @font-face の数が増え、その CSS を読み終わるまで
+# 画面が出ない（レンダリング遮断）。そこで、
+#   ・使う太さを 400 と 700 だけに絞る（900/500 は数か所しか使っていない）
+#   ・media="print" で読み、読み終わってから all に変える
+#     → 先に端末標準の日本語書体（ヒラギノ／BIZ UD／Meiryo）で表示され、
+#       あとから Noto Sans JP に差し替わる。待たされない。
+FONT_CSS_URL = ("https://fonts.googleapis.com/css2"
+                "?family=Noto+Sans+JP:wght@400;700&display=swap")
+
+# ヘッダーのサイト名だけに使うドット絵フォント。
+# 書体まるごとだと @font-face が123個に増えるが、text= で
+# 使う文字だけを頼めば @font-face 1個・フォント本体も約1KBで済む。
+# ここはサイト名の文字数ぶんしか要らないので、その形にする。
+DOT_FONT_CSS_URL = ("https://fonts.googleapis.com/css2?family=DotGothic16"
+                    "&text=" + urllib.parse.quote("".join(sorted(set(NAME))))
+                    + "&display=swap")
+
+FONT_LINKS = (
+    f'<link rel="preload" as="style" href="{FONT_CSS_URL}">\n'
+    f'<link rel="stylesheet" href="{FONT_CSS_URL}" media="print" '
+    f'onload="this.media=\'all\';this.onload=null">\n'
+    f'<noscript><link rel="stylesheet" href="{FONT_CSS_URL}"></noscript>\n'
+    f'<link rel="stylesheet" href="{DOT_FONT_CSS_URL}" media="print" '
+    f'onload="this.media=\'all\';this.onload=null">\n')
+
 
 def cat_tree(p, current="", current_sub="", idp="nav"):
     """カテゴリーとサブカテゴリーの一覧（PCの左サイド／スマホのメニューで共用）。

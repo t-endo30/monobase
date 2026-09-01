@@ -1826,3 +1826,73 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   });
 })();
 
+
+/* ============================================================
+   タブの行き先を、あらかじめ取り寄せておく
+   ------------------------------------------------------------
+   下のタブ（ALL / NEW / RANKING / SEARCH）は普通のページ遷移なので、
+   押してから読み込みが始まる。手が空いている間に先に取り寄せておけば、
+   押したときには手元にある状態にできる。
+
+   ・画面が出そろって、ブラウザが暇になってから始める（描画の邪魔をしない）
+   ・タブが出ている幅（スマホ）のときだけ
+   ・通信を節約する設定や、遅い回線のときは何もしない
+   ・prefetch に対応していないブラウザ（Safari など）は fetch で代用する
+     ※どちらも「取り寄せるだけ」で、そのページのJSや広告は動かない
+   ============================================================ */
+(function () {
+  'use strict';
+  var bar = document.querySelector('.tab-bar');
+  if (!bar) return;
+  /* タブが出ていない（PC幅）なら、先読みしても使われない */
+  if (getComputedStyle(bar).display === 'none') return;
+
+  var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  if (conn) {
+    if (conn.saveData) return;                       /* 通信節約モード */
+    if (/(^|-)2g$/.test(conn.effectiveType || '')) return;  /* 遅い回線 */
+  }
+
+  var here = location.pathname.replace(/\/$/, '/index.html');
+  var urls = [];
+  Array.prototype.forEach.call(bar.querySelectorAll('a[href]'), function (a) {
+    var u = new URL(a.getAttribute('href'), location.href);
+    if (u.origin !== location.origin) return;
+    if (u.pathname.replace(/\/$/, '/index.html') === here) return;  /* 今いるページ */
+    if (urls.indexOf(u.href) < 0) urls.push(u.href);
+  });
+  if (!urls.length) return;
+
+  var canPrefetch = false;
+  try {
+    canPrefetch = document.createElement('link').relList.supports('prefetch');
+  } catch (e) { canPrefetch = false; }
+
+  function warm(url) {
+    if (canPrefetch) {
+      var l = document.createElement('link');
+      l.rel = 'prefetch';
+      l.href = url;
+      document.head.appendChild(l);
+    } else {
+      /* Safari は prefetch に対応しないので、取り寄せてキャッシュに載せる */
+      fetch(url, { credentials: 'same-origin', mode: 'same-origin' })
+        .catch(function () {});
+    }
+  }
+
+  /* 1本ずつ、間を空けて取り寄せる（まとめて投げると本命の通信を圧迫する） */
+  function next() {
+    var url = urls.shift();
+    if (!url) return;
+    warm(url);
+    setTimeout(next, 400);
+  }
+
+  var start = function () { setTimeout(next, 600); };
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(start, { timeout: 3000 });
+  } else {
+    setTimeout(start, 1200);
+  }
+})();
