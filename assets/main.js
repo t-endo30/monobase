@@ -586,6 +586,11 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       ? '<span class="arow-date">' + esc(d).replace(/-/g, '.') + '</span>' : '';
   }
 
+  /* ランキングページ本体（/ranking.html）だけ、カテゴリーの札を
+     見出しではなく写真の右上に乗せる。PCサイドや「読まれている記事」
+     タブは幅が狭いので、そちらは今まで通り見出し側に置く。 */
+  var badgeOnThumb = document.body.getAttribute('data-cat') === 'ranking';
+
   function rows(limit) {
     return ranked.slice(0, limit).map(function (it, i) {
       var n = counts[it.slug] || 0;
@@ -596,6 +601,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
         : '';
       var catch_ = it.excerpt
         ? '<span class="arow-catch">' + esc(it.excerpt) + '</span>' : '';
+      var catBadge = '<span class="cat-badge">' + esc(it.cat) + '</span>';
       /* 行の形は build.py の article_row() と同じ（.arow…）。
          こちらは閲覧回数から並べ替えるので JS 側で組み立てるが、
          クラス名をそろえてあるので見た目は一覧ページと一致する。
@@ -605,11 +611,12 @@ document.addEventListener('touchstart', function () {}, { passive: true });
           '<span class="arow-thumb">' +
             '<img src="' + esc(it.thumb) + '" alt="" loading="lazy" decoding="async">' +
             '<span class="arow-no arow-no-' + (i + 1) + '">' + (i + 1) + '</span>' +
+            (badgeOnThumb ? catBadge : '') +
           '</span>' +
           '<span class="arow-body">' +
             '<span class="arow-head">' +
               '<span class="arow-title">' + esc(it.title) + '</span>' +
-              '<span class="cat-badge">' + esc(it.cat) + '</span>' +
+              (badgeOnThumb ? '' : catBadge) +
             '</span>' +
             rate + catch_ + dotDate(it.date) +
           '</span>' +

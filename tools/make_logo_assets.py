@@ -93,10 +93,10 @@ def make_og_default(path):
         "/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc",
         "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
     ]
-    name_font = font(jp_bold, 64)
-    tag_font = font(jp_bold, 30)
+    name_font = font(jp_bold, 46)
+    tag_font = font(jp_bold, 21)
 
-    scale = 18
+    scale = 16
     logo_w = 16 * scale
     name = B.NAME
     tag = B.TAGLINE
@@ -105,7 +105,7 @@ def make_og_default(path):
     tag_bbox = d.textbbox((0, 0), tag, font=tag_font)
     tag_h = tag_bbox[3] - tag_bbox[1]
 
-    gap_logo_name, gap_name_tag = 40, 22
+    gap_logo_name, gap_name_tag = 26, 12
     block_h = logo_w + gap_logo_name + name_h + gap_name_tag + tag_h
     oy = (H - block_h) // 2
     ox = (W - logo_w) // 2

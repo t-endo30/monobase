@@ -851,20 +851,22 @@ def dot_date(iso):
     return t[:10].replace("-", ".") if len(t) >= 10 else ""
 
 
-def article_row(a, p, no=None):
+def article_row(a, p, no=None, badge_on_thumb=False):
     """一覧の1行。トップのタブ（読まれている記事／本日のお勧めのモノ）と
        同じ形にそろえてある。
 
-         ┌────────┐ 見出し              [カテゴリー]
-         │ 写真   │ ★★★★☆ 4.2
-         │        │ 一言の説明
+         ┌────────┐ 見出し
+         │[カテゴリ│ ★★★★☆ 4.2
+         │  ]写真  │ 一言の説明
          └────────┘                    2026.08.31
 
        写真は行の高さいっぱいに伸ばす（＝一言の下の線とそろう）。
-       カテゴリーは見出しの右上、日付は右下。どちらもそれまで
-       空いていた場所なので、行の高さは増えない。
-       中身が同じ形なので、assets/main.js が組み立てる
-       ランキングの行とも見た目が一致する。"""
+       カテゴリーは見出しの右上（badge_on_thumb のときは写真の右上）、
+       日付は右下。どちらもそれまで空いていた場所なので、行の高さは
+       増えない。中身が同じ形なので、assets/main.js が組み立てる
+       ランキングの行とも見た目が一致する。
+       badge_on_thumb … 新着一覧ページで使う。カテゴリーの札を写真の
+       上に乗せ、見出しはタイトルだけに絞る。"""
     sc = 0
     try:
         sc = float(a.get("rating", {}).get("score") or 0)
@@ -881,6 +883,9 @@ def article_row(a, p, no=None):
     rank = (f'<span class="arow-no arow-no-{no}">{no}</span>' if no else "")
     src, _ = visual_path(a, p)
     title = a.get("list_title") or a["title"]
+    cat_badge = f'<span class="cat-badge">{e(CAT_LABEL.get(a["category"], ""))}</span>'
+    thumb_badge = cat_badge if badge_on_thumb else ""
+    head_badge = "" if badge_on_thumb else cat_badge
     return (
         f'          <li class="arow" data-cat="{a["category"]}" '
         f'data-slug="{e(a["slug"])}" data-date="{e(a.get("date",""))}">\n'
@@ -888,23 +893,23 @@ def article_row(a, p, no=None):
         f'              <span class="arow-thumb">'
         f'<img src="{e(src)}" alt="" loading="lazy" decoding="async" '
         f'width="1200" height="430">'
-        f'<span class="card-flags" aria-hidden="true"></span>{rank}</span>\n'
+        f'<span class="card-flags" aria-hidden="true"></span>{rank}{thumb_badge}</span>\n'
         f'              <span class="arow-body">\n'
         f'                <span class="arow-head">'
         f'<span class="arow-title">{e(title)}</span>'
-        f'<span class="cat-badge">{e(CAT_LABEL.get(a["category"], ""))}</span></span>\n'
+        f'{head_badge}</span>\n'
         f'                {rating}{catch}{date}\n'
         f'              </span>\n'
         f'            </a>\n'
         f'          </li>\n')
 
 
-def article_rows(items, p, numbered=False):
+def article_rows(items, p, numbered=False, badge_on_thumb=False):
     """記事の縦並び。トップの新着と、新着一覧ページで使う。"""
     if not items:
         return ('      <p class="empty-state">記事は準備中です。'
                 '<a href="' + p + 'index.html">トップページ</a>から他の記事をご覧ください。</p>\n')
-    rows = "".join(article_row(a, p, (i + 1) if numbered else None)
+    rows = "".join(article_row(a, p, (i + 1) if numbered else None, badge_on_thumb)
                    for i, a in enumerate(items))
     return '        <ol class="arow-list">\n' + rows + '        </ol>\n'
 
@@ -1869,8 +1874,10 @@ def news_rail(items, p, limit=4):
        枠のかたちだけで示す（CSS）。続きは「もっと見る」で新着一覧へ送る。
        1行の形は article_row()＝トップのタブやランキングと同じ。"""
     return ('      <section class="section-block news-list-block">\n'
-            '        <h2 class="section-heading">新着記事</h2>\n'
+            '        <div class="tile-card">\n'
+            '          <p class="tile-card-head">新着記事</p>\n'
             + article_rows(items[:limit + 1], p) +
+            '        </div>\n'
             '        <a class="arow-more" href="' + p + 'new.html">'
             + icon("new", "btn-icon") + 'もっと見る'
             '<span class="arow-more-arrow" aria-hidden="true"></span></a>\n'
@@ -1930,14 +1937,16 @@ def cat_finder(p):
     if not rows:
         return ""
     return ('      <section class="section-block cf-block">\n'
-            '        <h2 class="section-heading">カテゴリーから探す</h2>\n'
-            '        <div class="rail-wrap">\n'
-            '          <button type="button" class="rail-arrow is-prev" aria-label="前のカテゴリーへ" hidden><span aria-hidden="true"></span></button>\n'
-            '          <div class="rail cf-rail">\n'
-            '            <div class="cf-row">\n' + rows +
+            '        <div class="tile-card">\n'
+            '          <p class="tile-card-head">カテゴリーから探す</p>\n'
+            '          <div class="rail-wrap">\n'
+            '            <button type="button" class="rail-arrow is-prev" aria-label="前のカテゴリーへ" hidden><span aria-hidden="true"></span></button>\n'
+            '            <div class="rail cf-rail">\n'
+            '              <div class="cf-row">\n' + rows +
+            '              </div>\n'
             '            </div>\n'
+            '            <button type="button" class="rail-arrow is-next" aria-label="次のカテゴリーへ" hidden><span aria-hidden="true"></span></button>\n'
             '          </div>\n'
-            '          <button type="button" class="rail-arrow is-next" aria-label="次のカテゴリーへ" hidden><span aria-hidden="true"></span></button>\n'
             '        </div>\n'
             '      </section>\n')
 
@@ -2085,7 +2094,10 @@ def build_new():
     items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)[:24]
     body = hero(icon("new", "page-icon"), "新着記事", "24時間以内に公開した記事には New が付きます。")
     body += ('      <section class="section-block" style="margin-top:24px;">\n'
-             + article_rows(items, p) +
+             '        <div class="rank-box">\n'
+             '          <p class="rank-heading">LATEST ARTICLES</p>\n'
+             + article_rows(items, p, badge_on_thumb=True) +
+             '        </div>\n'
              '      </section>\n')
     return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。", "new", p,
                 f"{BASE_URL}/new.html", body, body_class="is-listing", sidebar=True,

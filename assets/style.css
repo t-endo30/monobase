@@ -1485,6 +1485,32 @@ mark.hl{
   background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 45%,#fff));
 }
 
+/* ============================================================
+   タイルカード：見出しを本体とひと続きの板にする
+   ------------------------------------------------------------
+   トップの「新着記事」「カテゴリーから探す」で使う。見出しは
+   板の上端にそろえ、本体側は自前の枠を持たせない（is-flush）。
+   ============================================================ */
+.tile-card{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+  overflow:hidden;
+}
+.tile-card-head{
+  margin:0;
+  padding:13px 16px;
+  border-bottom:1px solid var(--border);
+  background:var(--bg-gray);
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+.tile-card > .arow-list{border:none;border-radius:0;background:transparent;}
+.tile-card > .rail-wrap{padding:12px 4px 4px;}
+/* 新着一覧ページ：ACCESS RANKING と同じ rank-box に一覧を収める */
+.rank-box > .arow-list{border:none;border-radius:0;background:transparent;}
+
 /* ---------- カード：主役 ---------- */
 .card-grid{gap:18px;}
 .card{
@@ -6088,6 +6114,18 @@ details.hero-policy .policy-close{display:none;}
   text-overflow:ellipsis;
 }
 
+/* 新着一覧ページ：カテゴリーの札を見出しではなく写真の右上に乗せる
+   （New/Hot の札・順位の数字は左上なので、右上を使う） */
+.arow-thumb .cat-badge{
+  position:absolute;
+  top:4px;right:4px;
+  z-index:2;
+  margin:0;
+  max-width:calc(100% - 8px);
+  background:rgba(255,255,255,.92);
+  box-shadow:0 1px 3px rgba(0,0,0,.16);
+}
+
 /* 見出しとカテゴリーを1行に並べる器 */
 .arow-head,
 .card-head{
@@ -6367,6 +6405,23 @@ body.is-listing main.layout{
   overflow:hidden;
 }
 .pick-tabs .rank-note{display:none;}
+
+/* ---- タブ自体を、その下の板の上端としてくっつける（見出しとタイルの一体化） ---- */
+.pt-tabs{
+  gap:0;
+  margin:0;
+  padding:0;
+  max-width:none;
+  border:1px solid var(--border);
+  border-bottom:none;
+  border-radius:var(--radius) var(--radius) 0 0;
+  background:var(--bg-gray);
+  overflow:hidden;
+}
+.pt-tab{border-radius:0;padding:12px 6px;}
+.pt-tab.is-on{background:var(--surface);color:var(--ink);box-shadow:inset 0 -2px 0 var(--amazon,#FF9900);}
+.pick-tabs .rank-list,
+.pick-tabs .today-list{border-top:none;border-bottom:1px solid var(--border);border-radius:0;}
 
 /* 6件目は下半分をぼかして切る。写真の高さに合わせて取り直す */
 .pick-tabs .rank-list > .rank-item:nth-child(5),
