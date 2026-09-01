@@ -633,7 +633,11 @@ def header(current, p, crumbs=None, current_sub="", band=""):
     return f'''{ICON_SPRITE}
 <header class="site-header">
   <div class="container header-inner">
-    <div class="header-side" aria-hidden="true">{box_only_svg("100%", "currentColor")}</div>
+    <div class="header-side" aria-hidden="true">
+      <span class="header-deco-item is-a">{box_only_svg("100%")}</span>
+      <span class="header-deco-item is-b">{sparkle_svg("100%")}</span>
+      <span class="header-deco-item is-c">{icon("search", "header-deco-icon")}</span>
+    </div>
     <div class="site-brand">
       <a class="site-title" href="{p}index.html" aria-label="{e(NAME)}">
         <span class="brand-mark" aria-hidden="true">{LOGO_SVG_INNER}</span>
@@ -2068,18 +2072,14 @@ POLICY = [
 
 
 def hero_deco(side):
-    """ヒーローバナー左右の余白に置く、ダンボール箱・きらめき・虫めがねの飾り。
-       箱＝紹介する商品、きらめき＝評価、虫めがねの記事の記事＝分析、という
-       サイトの中身を軽く匂わせる程度に留める（幅の広い画面だけに出す）。"""
-    # 実際の大きさはCSS側（画面幅ごとに .hero-deco-item の width/height を
-    # 変える）で決める。ここではSVGを枠いっぱいに描くだけにしておく。
-    if side == "left":
-        items = (f'<span class="hero-deco-item is-a">{box_only_svg("100%")}</span>'
-                  f'<span class="hero-deco-item is-b">{sparkle_svg("100%")}</span>')
-    else:
-        items = (f'<span class="hero-deco-item is-a">{icon("search", "hero-deco-icon")}</span>'
-                  f'<span class="hero-deco-item is-b">{sparkle_svg("100%")}</span>')
-    return f'      <div class="hero-deco is-{side}" aria-hidden="true">{items}</div>\n'
+    """ヒーロー見出しタイルの左右に置く、丸いバッジの飾り。
+       箱＝紹介する商品、虫めがね＝分析、きらめき＝評価、という
+       サイトの中身を軽く匂わせる程度に留める（タイルの中に収める）。"""
+    main_icon = box_only_svg("100%") if side == "left" else icon("search", "hero-deco-icon")
+    return (f'      <div class="hero-deco is-{side}" aria-hidden="true">\n'
+            f'        <span class="hero-deco-main">{main_icon}</span>\n'
+            f'        <span class="hero-deco-spark">{sparkle_svg("100%")}</span>\n'
+            f'      </div>\n')
 
 
 def build_index():
@@ -2105,6 +2105,7 @@ def build_index():
     # 背景は下の記事が薄く透けるくらいの不透明度にする＝CSS側の .hero-tile）。
     hero_tile = (
         '      <section class="hero-tile">\n'
+        + hero_deco("left") +
         '        <h1 class="fit-line hero-strong">良い点も、不満点も。</h1>\n'
         '        <p class="hero-strong">買う前に「リアル」が見える商品紹介サイト</p>\n'
         '        <p class="hero-desc">ネット上の膨大な口コミから独自に分析。<br>'
@@ -2116,6 +2117,7 @@ def build_index():
         '<span class="btn-hero-arrow" aria-hidden="true">›</span></a>\n'
         '        </div>\n'
         + (SEARCH_TILE if FEAT.get("search") else "") +
+        hero_deco("right") +
         '      </section>\n')
     # トップに置く区画。並び順と表示・非表示は content/site.json の
     # layout.top で決める（管理画面からドラッグして入れ替えられる）。
@@ -2135,8 +2137,7 @@ def build_index():
         if make and item.get("on", True):
             # PCで並び替えられるよう、区画ごとに印を付けておく
             body += f'<div class="tb" data-tb="{item["key"]}">\n' + make() + '</div>\n'
-    hero_slot = ('    <div class="hero-slot">\n' + hero_deco("left") + hero_tile
-                 + hero_deco("right") + '    </div>\n'
+    hero_slot = ('    <div class="hero-slot">\n' + hero_tile + '    </div>\n'
                  if hero_on else "")
     # サイトそのものの構造化データ。検索結果にサイト名と検索窓を出す材料。
     site_ld = [

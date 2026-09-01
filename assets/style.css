@@ -2140,15 +2140,32 @@ body.is-listing main.layout.is-swiping{will-change:transform;}
   row-gap:0;
 }
 .header-side{grid-area:side;min-width:0;}
-.header-side svg{display:none;}
+.header-deco-item{display:none;}
 @media (min-width:900px){
-  /* ヘッダーの空いた左側に、ロゴのダンボール部分だけをうっすら飾りとして置く */
-  .header-side{display:flex;align-items:center;}
-  .header-side svg{
-    display:block;
-    width:30px;height:30px;
-    color:rgba(255,255,255,.24);
+  /* ヘッダーの空いた左側に、丸いバッジのアイコンを小さく並べる。
+     ロゴに寄せて、左端ではなくブランド名の近くに置く。 */
+  .header-side{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:10px;
+    padding-right:clamp(12px,3vw,32px);
   }
+  .header-deco-item{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:rgba(255,255,255,.1);
+  }
+  .header-deco-item.is-b{
+    width:22px;height:22px;
+    background:rgba(255,153,0,.85);
+  }
+  .header-deco-item svg,.header-deco-icon{display:block;width:16px;height:16px;color:#fff;}
+  .header-deco-item.is-b svg{width:12px;height:12px;}
 }
 .site-brand{
   grid-area:brand;
@@ -4718,52 +4735,57 @@ body.is-article .layout > .container{
    ============================================================ */
 .hero-slot{grid-column:1 / -1;position:relative;}
 /* ============================================================
-   ヒーローバナー左右の飾り
+   ヒーロー見出しタイル左右の飾り（丸いバッジ）
    ------------------------------------------------------------
-   本文の幅（--maxw）の外側、写真の背景がそのまま見えている余白に、
-   箱・きらめき・虫めがねをうっすら置く。その余白があるだけの幅の
-   広い画面だけに出す（狭い画面では本文と重なってしまうため）。
+   タイルの内側、見出し文の両脇に置く。ページ全体の余白ではなく
+   タイル自身の左右に置くので、幅の狭い画面以外は常に出る。
    ============================================================ */
-.hero-deco{display:none;}
-/* トップページは幅の広い画面で本文の枠自体が1400pxまで広がるため
-   （.layout.has-side .container）、飾りが収まる余白が生まれるのは
-   ビューポートがそれをさらに超えたときだけになる。 */
-@media (min-width:1560px){
-  .hero-deco{
-    display:block;
-    position:absolute;
-    top:50%;
-    width:48px;
-    height:92px;
-    transform:translateY(-50%);
-    pointer-events:none;
-  }
-  .hero-deco.is-left{right:calc(100% + 16px);}
-  .hero-deco.is-right{left:calc(100% + 16px);}
-  .hero-deco-item{
-    position:absolute;
-    display:block;
-    width:26px;
-    height:26px;
-    color:rgba(37,40,45,.32);
-  }
-  .hero-deco-item.is-b{width:16px;height:16px;color:rgba(255,153,0,.55);}
-  .hero-deco.is-left .is-a{top:4px;left:4px;transform:rotate(-6deg);}
-  .hero-deco.is-left .is-b{top:56px;left:26px;transform:rotate(10deg);}
-  .hero-deco.is-right .is-a{top:10px;right:4px;transform:rotate(5deg);}
-  .hero-deco.is-right .is-b{top:60px;right:28px;transform:rotate(-10deg);}
-  .hero-deco-icon,.hero-deco-item svg{display:block;width:100%;height:100%;}
+.hero-tile{position:relative;}
+.hero-deco{
+  display:none;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  pointer-events:none;
 }
-@media (min-width:1800px){
-  .hero-deco{width:80px;height:110px;}
-  .hero-deco.is-left{right:calc(100% + 40px);}
-  .hero-deco.is-right{left:calc(100% + 40px);}
-  .hero-deco-item{width:30px;height:30px;}
-  .hero-deco-item.is-b{width:18px;height:18px;}
-  .hero-deco.is-left .is-a{top:6px;left:8px;}
-  .hero-deco.is-left .is-b{top:70px;left:36px;}
-  .hero-deco.is-right .is-a{top:14px;right:10px;}
-  .hero-deco.is-right .is-b{top:76px;right:38px;}
+.hero-deco.is-left{left:clamp(10px,3vw,28px);}
+.hero-deco.is-right{right:clamp(10px,3vw,28px);}
+.hero-deco-main{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:var(--navy);
+  box-shadow:var(--shadow);
+}
+.hero-deco-main svg,.hero-deco-icon{display:block;width:26px;height:26px;color:#fff;}
+.hero-deco-spark{
+  position:absolute;
+  bottom:-4px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:var(--amazon,#FF9900);
+  box-shadow:var(--shadow);
+}
+.hero-deco-spark svg{display:block;width:13px;height:13px;color:#fff;}
+.hero-deco.is-left .hero-deco-spark{right:-4px;}
+.hero-deco.is-right .hero-deco-spark{left:-4px;}
+@media (min-width:700px){
+  .hero-deco{display:block;}
+}
+@media (min-width:900px){
+  .hero-deco.is-left{left:clamp(16px,4vw,56px);}
+  .hero-deco.is-right{right:clamp(16px,4vw,56px);}
+  .hero-deco-main{width:64px;height:64px;}
+  .hero-deco-main svg,.hero-deco-icon{width:32px;height:32px;}
+  .hero-deco-spark{width:26px;height:26px;}
+  .hero-deco-spark svg{width:15px;height:15px;}
 }
 
 @media (min-width:1024px){
@@ -6699,26 +6721,6 @@ body.is-listing main.layout{
   letter-spacing:.1em;
   color:var(--text-sub);
   text-align:center;
-}
-
-/* ============================================================
-   PCトップ：CATEGORIES／特集／検索の高さをそろえたときの中身の収め方
-   （高さの数値自体は assets/main.js が算出してインラインで入れる）
-   ============================================================ */
-@media (min-width:1240px){
-  .layout-main > .tb[data-tb="feature"]{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    overflow:hidden;
-  }
-  .side-rank > .side-search{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    box-sizing:border-box;
-  }
-  .side-col > .side-nav{box-sizing:border-box;}
 }
 
 /* スマホのアクセスランキングページ：「ACCESS RANKING」の見出しだけは
