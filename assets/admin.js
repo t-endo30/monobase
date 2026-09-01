@@ -2205,9 +2205,23 @@
     return { jans: jans, names: names };
   }
 
-  /* 探すカテゴリーは押すたびにこちらで選ぶ。選ぶ人の好みに寄ると
-     同じジャンルばかり増えるため、記事が少ないカテゴリーを優先し、
-     同数のものからは無作為に選ぶ。 */
+  /* カテゴリーの選択欄を組み立てる。CATEGORY_MAP にあるものだけを
+     並べる（対応表が無いカテゴリーは検索できないため）。 */
+  function fillFindCategorySelect() {
+    var sel = $('fd-catSelect');
+    if (!sel) return;
+    (site.categories || []).forEach(function (c) {
+      if (!CATEGORY_MAP[c.key]) return;
+      var opt = document.createElement('option');
+      opt.value = c.key;
+      opt.textContent = c.label;
+      sel.appendChild(opt);
+    });
+  }
+
+  /* 探すカテゴリーは「自動」のときだけこちらで選ぶ。選ぶ人の好みに
+     寄ると同じジャンルばかり増えるため、記事が少ないカテゴリーを
+     優先し、同数のものからは無作為に選ぶ。 */
   function pickCategory() {
     var keys = (site.categories || []).map(function (c) { return c.key; })
       .filter(function (k) { return CATEGORY_MAP[k]; });
@@ -2229,11 +2243,13 @@
       toast('先に「接続」タブでAPIのIDを登録してください', 'err');
       return;
     }
-    var cat = pickCategory();
+    var chosen = $('fd-catSelect') ? $('fd-catSelect').value : '';
+    var cat = chosen || pickCategory();
     var conf = CATEGORY_MAP[cat];
     if (!conf) { toast('探せるカテゴリーの対応表がありません', 'err'); return; }
-    var label = (site.categories || []).filter(function (c) { return c.key === cat; })[0];
-    if ($('fd-catName')) $('fd-catName').textContent = (label && label.label) || cat;
+    /* 「自動」で選んだときは、今回どれが選ばれたかを欄に反映する
+       （手動で戻せるよう、選択肢自体は「自動」のまま残す）。 */
+    if (!chosen && $('fd-catSelect')) $('fd-catSelect').value = cat;
 
     var hits = Number($('fd-count').value || 30);
     var minRev = Number($('fd-minrev').value || 0);
@@ -2474,6 +2490,8 @@
 
   function wireFind() {
     if (!$('btnFind')) return;
+
+    fillFindCategorySelect();
 
     var keys = shopKeys();
     if ($('k-rakuten')) $('k-rakuten').value = keys.rakuten || '';

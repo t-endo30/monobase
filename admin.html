@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=fe006849">
+<link rel="stylesheet" href="./assets/admin.css?v=31582b71">
 </head>
 <body>
 
@@ -592,14 +592,16 @@
       <p class="hint">
         楽天市場とYahoo!ショッピングから、<b>レビューが十分に集まっている商品</b>を集めて並べます。
         すでに記事にした商品（JANコード・ASINが一致するもの）は除きます。
-        カテゴリーは<b>押すたびに自動で選ばれます</b>（記事の少ないカテゴリーが優先されます）。
+        カテゴリーは指定できます。「自動」のままなら、押すたびに記事の少ないカテゴリーが優先して選ばれます。
         <b>ここは候補を出すところまでです。</b>どれを書くかは一覧から選んでください。
       </p>
 
       <div class="row c2">
         <div>
-          <label>探すカテゴリー</label>
-          <div class="pill" id="fd-catName" style="min-height:38px;display:flex;align-items:center;">押すたびに自動で選びます</div>
+          <label for="fd-catSelect">探すカテゴリー</label>
+          <select id="fd-catSelect">
+            <option value="">自動（記事の少ないカテゴリー優先）</option>
+          </select>
         </div>
         <div>
           <label for="fd-count">集める件数<span class="opt">1カテゴリーあたり</span></label>
@@ -1023,6 +1025,6 @@
 
 <div class="toast" id="toast"></div>
 <script src="./assets/vendor/qrcode.min.js"></script>
-<script src="./assets/admin.js?v=fe006849"></script>
+<script src="./assets/admin.js?v=31582b71"></script>
 </body>
 </html>
