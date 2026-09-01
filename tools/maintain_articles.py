@@ -51,8 +51,26 @@ def load(path):
     return json.load(io.open(os.path.join(ROOT, path), encoding="utf-8"))
 
 
+# 各店のトップページなど、特定の商品を指していないURL。
+# 「選び方」「セールカレンダー」のような読み物記事は、商品ではなく
+# ここへリンクしていることがある。これは販売先ではないので、
+# 生き死にの判定には使わない（つないでも買う相手がいない＝当然）。
+GENERIC_PATHS = ("", "/")
+
+
+def is_generic_shop_url(url):
+    """商品ページではなく、店のトップページ等を指していないか。"""
+    try:
+        from urllib.parse import urlsplit
+        parts = urlsplit(url.strip())
+        return parts.path in GENERIC_PATHS and not parts.query
+    except Exception:                                # noqa: BLE001
+        return False
+
+
 def shop_urls(a):
-    """記事が持っている販売先を (キー, 店名, URL) で返す。"""
+    """記事が持っている販売先を (キー, 店名, URL) で返す。
+       店のトップページのような汎用リンクは、販売先として数えない。"""
     out = []
     asin = (a.get("asin") or "").strip().upper()
     if asin:
@@ -63,7 +81,7 @@ def shop_urls(a):
         u = (a.get(key) or "").strip()
         if u:
             out.append((key, label, u))
-    return out
+    return [(k, l, u) for k, l, u in out if not is_generic_shop_url(u)]
 
 
 def days_since(iso):
@@ -108,6 +126,10 @@ def main():
                     help="1回に見る記事の本数（既定40）")
     ap.add_argument("--slug", action="append", default=[],
                     help="この記事だけ見る（何度でも指定できる）")
+    ap.add_argument("--strikes", type=int, default=3,
+                    help="販売先が全滅していても、続けてこの回数落ちるまでは"
+                         "公開を止めない（既定3。通販サイトの一時的な"
+                         "アクセス拒否で記事が消えるのを防ぐ）")
     ap.add_argument("--stale-days", type=int, default=STALE_DAYS,
                     help="これ以上更新していない記事を古いとみなす日数")
     ap.add_argument("--apply", action="store_true",
@@ -146,7 +168,7 @@ def main():
             dead.setdefault(slug, []).append((key, label, url, code))
 
     today = date.today().isoformat()
-    dropped, stopped, stale = [], [], []
+    dropped, stopped, stale, warned = [], [], [], []
 
     for a in targets:
         slug = a["slug"]
@@ -156,12 +178,21 @@ def main():
         h["checked"] = today
 
         if bad and alive <= 0:
-            # 買える場所が1つも無い。記事として成立しないので公開を止める。
-            stopped.append((slug, [b[1] for b in bad]))
-            h["stopped_reason"] = "販売先のリンクがすべて切れています"
+            # 買える場所が1つも無い。ただし1回の失敗で止めてはいけない。
+            # 通販サイトは自動アクセスを一時的にはじくことがあり、
+            # 実際には生きているのに落ちたように見えることがある。
+            # 続けて STRIKES 回落ちたときだけ、公開を止める。
+            n = int(h.get("dead_strikes") or 0) + 1
             h["dead"] = [b[2] for b in bad]
             if args.apply:
-                a["published"] = False
+                h["dead_strikes"] = n
+            if n >= args.strikes:
+                stopped.append((slug, [b[1] for b in bad]))
+                h["stopped_reason"] = "販売先のリンクがすべて切れています"
+                if args.apply:
+                    a["published"] = False
+            else:
+                warned.append((slug, [b[1] for b in bad], n, args.strikes))
         elif bad:
             # 生きている販売先が残っている。切れたボタンだけ外す。
             dropped.append((slug, [b[1] for b in bad]))
@@ -175,6 +206,7 @@ def main():
         else:
             h.pop("dead", None)
             h.pop("stopped_reason", None)
+            h.pop("dead_strikes", None)
 
         old = days_since(a.get("updated") or a.get("date"))
         if old >= args.stale_days:
@@ -186,6 +218,10 @@ def main():
     for slug, shops in dropped:
         print(f"::warning::{slug}: {'・'.join(shops)} のリンクが切れています"
               "（そのボタンだけ外します。記事は公開のまま）")
+    for slug, shops, n, need in warned:
+        print(f"::warning::{slug}: 販売先がすべて落ちています"
+              f"（{'・'.join(shops)}）。{n}/{need} 回目なので、"
+              "様子を見て公開のままにします")
     for slug, shops in stopped:
         print(f"::warning::{slug}: 販売先がすべて切れています"
               f"（{'・'.join(shops)}）。公開を止めます")
@@ -193,7 +229,8 @@ def main():
         print(f"::notice::{slug}: 最後の更新から {old} 日。内容の見直しどきです")
 
     print(f"\n所要 {dt:.1f} 秒 / 確認 {len(targets)} 本 / "
-          f"リンクを外す {len(dropped)} 本 / 公開停止 {len(stopped)} 本 / "
+          f"リンクを外す {len(dropped)} 本 / 様子見 {len(warned)} 本 / "
+          f"公開停止 {len(stopped)} 本 / "
           f"古い記事 {len(stale)} 本")
 
     if not args.apply:
