@@ -48,6 +48,18 @@ jobs:
         run: python3 tools/feature_plan.py
         continue-on-error: true
 
+      # 本日公開した記事があれば X（旧Twitter）に投稿する。
+      # Secrets が未設定のフォーク等では自動でスキップされる。
+      # X側の障害・レート制限でCI全体を止めないよう続行扱いにする。
+      - name: Post new articles to X
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: python3 tools/post_to_x.py
+        continue-on-error: true
+
       # 生成物にズレがあれば、ここで作り直してコミットする。
       # 管理画面は articles.json と画像だけを push するため、
       # この工程がないと Cloudflare Pages が古いHTMLを配り続ける。

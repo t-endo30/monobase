@@ -6662,3 +6662,9 @@ body.is-listing main.layout{
   }
   .side-col > .side-nav{box-sizing:border-box;}
 }
+
+/* スマホのアクセスランキングページ：「ACCESS RANKING」の見出しだけは
+   中央寄せにする（一覧の行自体は読みやすさのため左寄せのまま） */
+@media (max-width:899px){
+  .rank-page .rank-heading{text-align:center;}
+}
