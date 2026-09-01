@@ -1225,18 +1225,55 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   var tabs = wrap.querySelectorAll('.pt-tab');
   if (tabs.length < 2) return;
   var KEY = 'mb.pickTab';
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var current = 0;
+  Array.prototype.forEach.call(tabs, function (t, j) {
+    if (t.classList.contains('is-on')) current = j;
+  });
 
+  /* 切り替えはフェード＋スライドで、指でめくったような動きにする。
+     板の高さがパネルごとに違うので、消えるほうを一瞬だけ画面に残し、
+     入れ替わったところで隠す（レイアウトが一気に飛ばないように）。 */
   function show(i, focus) {
+    i = Math.max(0, Math.min(tabs.length - 1, i));
+    var from = current;
     Array.prototype.forEach.call(tabs, function (t, j) {
       var on = j === i;
       t.classList.toggle('is-on', on);
       t.setAttribute('aria-selected', on ? 'true' : 'false');
       t.tabIndex = on ? 0 : -1;
-      var panel = document.getElementById(t.getAttribute('aria-controls'));
-      if (panel) panel.hidden = !on;
     });
+    var curPanel = document.getElementById(tabs[from].getAttribute('aria-controls'));
+    var nextPanel = document.getElementById(tabs[i].getAttribute('aria-controls'));
+    current = i;
     if (focus) tabs[i].focus();
     try { localStorage.setItem(KEY, String(i)); } catch (e) {}
+    if (!nextPanel || nextPanel === curPanel) return;
+    if (i === from) { nextPanel.hidden = false; return; }
+    if (reduceMotion || !curPanel) {
+      if (curPanel) curPanel.hidden = true;
+      nextPanel.hidden = false;
+      return;
+    }
+    var dir = i > from ? 1 : -1;
+    curPanel.classList.add('is-leaving');
+    curPanel.style.setProperty('--pt-slide', (dir * -18) + 'px');
+    window.setTimeout(function () {
+      curPanel.hidden = true;
+      curPanel.classList.remove('is-leaving');
+      curPanel.style.removeProperty('--pt-slide');
+      nextPanel.style.setProperty('--pt-slide', (dir * 18) + 'px');
+      nextPanel.hidden = false;
+      nextPanel.classList.add('is-entering');
+      /* 開始位置（右/左にずれた状態）を反映させてから、0へ戻して動かす */
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          nextPanel.classList.remove('is-entering');
+          nextPanel.style.removeProperty('--pt-slide');
+        });
+      });
+    }, 170);
   }
 
   Array.prototype.forEach.call(tabs, function (t, i) {
@@ -1247,6 +1284,26 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       show((i + (ev.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length, true);
     });
   });
+
+  /* 指でパネルを左右にはらうと、隣のタブへ切り替わる */
+  (function () {
+    var sx = 0, sy = 0, tracking = false;
+    var THRESH = 40;
+    wrap.addEventListener('touchstart', function (ev) {
+      if (ev.touches.length !== 1) return;
+      sx = ev.touches[0].clientX;
+      sy = ev.touches[0].clientY;
+      tracking = true;
+    }, { passive: true });
+    wrap.addEventListener('touchend', function (ev) {
+      if (!tracking) return;
+      tracking = false;
+      var t = ev.changedTouches[0];
+      var dx = t.clientX - sx, dy = t.clientY - sy;
+      if (Math.abs(dx) < THRESH || Math.abs(dx) < Math.abs(dy) * 1.4) return;
+      show(current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  })();
 
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) {}
