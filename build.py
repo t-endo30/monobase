@@ -32,6 +32,7 @@ FEAT     = SITE.get("features", {})
 GA       = SITE.get("analytics", {}).get("ga_measurement_id", "").strip()
 ADS      = SITE.get("ads", {}) or {}
 PROMOS   = SITE.get("promos", {}) or {}
+SOCIAL   = SITE.get("social", {}) or {}
 GSC      = SITE.get("analytics", {}).get("gsc_verification", "").strip()
 def _asset_version():
     """assets の CSS/JS の内容から作る短いハッシュ。
@@ -128,6 +129,32 @@ def logo_svg(size="100%"):
 
 
 LOGO_SVG_INNER = logo_svg()
+
+
+def box_only_svg(size="100%", color="currentColor"):
+    """ロゴから「M」を抜いた、ダンボール箱だけの絵。
+       ヘッダーの余白やヒーロー横の飾りなど、ブランドマークほど主張
+       させたくない場所で使う（単色・currentColorで馴染ませる）。"""
+    x0, x1 = 4, 11   # 箱がある列の範囲（外側の輪郭ぶんも含む）
+    y0, y1 = 9, 14
+    paths = "".join(
+        f'<path d="{_logo_path_d(LOGO_CELLS[key])}"/>'
+        for key in ("box", "in", "seam", "outline"))
+    return (f'<svg viewBox="{x0} {y0} {x1 - x0 + 1} {y1 - y0 + 1}" '
+            f'width="{size}" height="{size}" fill="{color}" '
+            f'shape-rendering="crispEdges" aria-hidden="true">{paths}</svg>')
+
+
+# きらめき（レビューの評価・おすすめを表す、四方に伸びる十字のきらめき）
+SPARKLE_CELLS = [(4,1,1),(4,2,1),(4,3,1),
+                 (1,4,3),(5,4,3),
+                 (4,5,1),(4,6,1),(4,7,1)]
+
+
+def sparkle_svg(size="100%", color="currentColor"):
+    return (f'<svg viewBox="0 0 9 9" width="{size}" height="{size}" fill="{color}" '
+            f'shape-rendering="crispEdges" aria-hidden="true">'
+            f'<path d="{_logo_path_d(SPARKLE_CELLS)}"/></svg>')
 
 def e(s):
     return html.escape(str(s), quote=True)
@@ -521,6 +548,20 @@ def icon(key, cls="cat-icon"):
             f'<use href="#i-{key}"></use></svg>')
 
 
+def social_links(cls=""):
+    """SNSへの導線（丸いアイコンボタン）。ハンバーガーメニューの最下部と
+       フッター上部の両方で使う。content/site.json の social に何も
+       入っていなければ、何も出さない。"""
+    x_url = (SOCIAL.get("x") or "").strip()
+    if not x_url:
+        return ""
+    return (f'    <div class="social-row {cls}">\n'
+            f'      <p class="social-heading">メディア</p>\n'
+            f'      <a class="social-icon is-x" href="{e(x_url)}" target="_blank" '
+            f'rel="noopener" aria-label="{e(NAME)}のX（旧Twitter）">X</a>\n'
+            f'    </div>\n')
+
+
 def cat_nav_item(c, p, cls=""):
     """PCのカテゴリー一覧の1件。サブカテゴリーがあるものは、
        押すとその場で開くパネルを一緒に持たせる（画面は移動しない）。
@@ -592,7 +633,7 @@ def header(current, p, crumbs=None, current_sub="", band=""):
     return f'''{ICON_SPRITE}
 <header class="site-header">
   <div class="container header-inner">
-    <div class="header-side" aria-hidden="true"></div>
+    <div class="header-side" aria-hidden="true">{box_only_svg("100%", "currentColor")}</div>
     <div class="site-brand">
       <a class="site-title" href="{p}index.html" aria-label="{e(NAME)}">
         <span class="brand-mark" aria-hidden="true">{LOGO_SVG_INNER}</span>
@@ -612,7 +653,7 @@ def header(current, p, crumbs=None, current_sub="", band=""):
         <li class="sp-only-link"><a href="{p}advertising.html">広告掲載について</a></li>
         {contact_nav}
       </ul>
-    </nav>
+{social_links("sp-only-link")}    </nav>
   </div>
 </header>
 
@@ -652,7 +693,7 @@ def footer(p, sticky_url=None):
 '''
     return f'''<footer class="site-footer" id="contact">
   <div class="container">
-    <div class="footer-cols">
+{social_links()}    <div class="footer-cols">
       <div class="footer-col">
         <p class="footer-col-heading">サイト</p>
         <ul class="footer-col-list">
@@ -2026,6 +2067,21 @@ POLICY = [
 # 組み立ては static_pages() 側で行う（policy_items）。
 
 
+def hero_deco(side):
+    """ヒーローバナー左右の余白に置く、ダンボール箱・きらめき・虫めがねの飾り。
+       箱＝紹介する商品、きらめき＝評価、虫めがねの記事の記事＝分析、という
+       サイトの中身を軽く匂わせる程度に留める（幅の広い画面だけに出す）。"""
+    # 実際の大きさはCSS側（画面幅ごとに .hero-deco-item の width/height を
+    # 変える）で決める。ここではSVGを枠いっぱいに描くだけにしておく。
+    if side == "left":
+        items = (f'<span class="hero-deco-item is-a">{box_only_svg("100%")}</span>'
+                  f'<span class="hero-deco-item is-b">{sparkle_svg("100%")}</span>')
+    else:
+        items = (f'<span class="hero-deco-item is-a">{icon("search", "hero-deco-icon")}</span>'
+                  f'<span class="hero-deco-item is-b">{sparkle_svg("100%")}</span>')
+    return f'      <div class="hero-deco is-{side}" aria-hidden="true">{items}</div>\n'
+
+
 def build_index():
     p = "./"
     feat = [a for a in PUBLISHED if a.get("featured")][:3]
@@ -2079,7 +2135,8 @@ def build_index():
         if make and item.get("on", True):
             # PCで並び替えられるよう、区画ごとに印を付けておく
             body += f'<div class="tb" data-tb="{item["key"]}">\n' + make() + '</div>\n'
-    hero_slot = ('    <div class="hero-slot">\n' + hero_tile + '    </div>\n'
+    hero_slot = ('    <div class="hero-slot">\n' + hero_deco("left") + hero_tile
+                 + hero_deco("right") + '    </div>\n'
                  if hero_on else "")
     # サイトそのものの構造化データ。検索結果にサイト名と検索窓を出す材料。
     site_ld = [

@@ -81,14 +81,21 @@ def post_tweet(text, api_key, api_secret, access_token, access_secret):
         return json.load(res)
 
 
+DISCLOSURE = "#PR"  # アフィリエイトリンクを含む記事への投稿だと分かるようにする
+
+
 def build_text(a, base_url):
-    """280字（Xの上限）に収まるよう、タイトル・一言・URLを組み立てる。
-       日本語も1文字=1カウントなので、単純に文字数で切ればよい。"""
+    """280字（Xの上限）に収まるよう、タイトル・一言・URL・開示表記を組み立てる。
+       日本語も1文字=1カウントなので、単純に文字数で切ればよい。
+       #PR は、リンク先の記事にアフィリエイトリンクを含むことを示す開示。
+       投稿そのものにはAmazonの商品リンクを直接貼らない（自サイトの記事
+       ページだけを貼る）方針とあわせて、規約・ステマ規制の両方に配慮する。"""
     title = a.get("list_title") or a["title"]
     url = f"{base_url}/articles/{a['slug']}.html"
     excerpt = a.get("excerpt", "")
-    # URLと改行ぶんを引いた残りに、タイトル→一言の順で詰める
-    budget = 280 - len(url) - 2
+    # URL・開示表記・改行ぶんを引いた残りに、タイトル→一言の順で詰める
+    tail = f"\n{url}\n{DISCLOSURE}"
+    budget = 280 - len(tail)
     body = title
     if excerpt:
         candidate = f"{title}\n{excerpt}"
@@ -100,7 +107,7 @@ def build_text(a, base_url):
                 body = f"{title}\n{excerpt[:keep - 1]}…"
     if len(body) > budget:
         body = body[:max(0, budget - 1)] + "…"
-    return f"{body}\n{url}"
+    return f"{body}{tail}"
 
 
 def main():

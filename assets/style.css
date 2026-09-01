@@ -2140,6 +2140,16 @@ body.is-listing main.layout.is-swiping{will-change:transform;}
   row-gap:0;
 }
 .header-side{grid-area:side;min-width:0;}
+.header-side svg{display:none;}
+@media (min-width:900px){
+  /* ヘッダーの空いた左側に、ロゴのダンボール部分だけをうっすら飾りとして置く */
+  .header-side{display:flex;align-items:center;}
+  .header-side svg{
+    display:block;
+    width:30px;height:30px;
+    color:rgba(255,255,255,.24);
+  }
+}
 .site-brand{
   grid-area:brand;
   justify-self:center;
@@ -4706,7 +4716,55 @@ body.is-article .layout > .container{
    ・特集を新着記事より上に出す（順番はCSSのorderで入れ替える）
    ・「カテゴリーから探す」は左サイドのCATEGORIESと重複するので出さない
    ============================================================ */
-.hero-slot{grid-column:1 / -1;}
+.hero-slot{grid-column:1 / -1;position:relative;}
+/* ============================================================
+   ヒーローバナー左右の飾り
+   ------------------------------------------------------------
+   本文の幅（--maxw）の外側、写真の背景がそのまま見えている余白に、
+   箱・きらめき・虫めがねをうっすら置く。その余白があるだけの幅の
+   広い画面だけに出す（狭い画面では本文と重なってしまうため）。
+   ============================================================ */
+.hero-deco{display:none;}
+/* トップページは幅の広い画面で本文の枠自体が1400pxまで広がるため
+   （.layout.has-side .container）、飾りが収まる余白が生まれるのは
+   ビューポートがそれをさらに超えたときだけになる。 */
+@media (min-width:1560px){
+  .hero-deco{
+    display:block;
+    position:absolute;
+    top:50%;
+    width:48px;
+    height:92px;
+    transform:translateY(-50%);
+    pointer-events:none;
+  }
+  .hero-deco.is-left{right:calc(100% + 16px);}
+  .hero-deco.is-right{left:calc(100% + 16px);}
+  .hero-deco-item{
+    position:absolute;
+    display:block;
+    width:26px;
+    height:26px;
+    color:rgba(37,40,45,.32);
+  }
+  .hero-deco-item.is-b{width:16px;height:16px;color:rgba(255,153,0,.55);}
+  .hero-deco.is-left .is-a{top:4px;left:4px;transform:rotate(-6deg);}
+  .hero-deco.is-left .is-b{top:56px;left:26px;transform:rotate(10deg);}
+  .hero-deco.is-right .is-a{top:10px;right:4px;transform:rotate(5deg);}
+  .hero-deco.is-right .is-b{top:60px;right:28px;transform:rotate(-10deg);}
+  .hero-deco-icon,.hero-deco-item svg{display:block;width:100%;height:100%;}
+}
+@media (min-width:1800px){
+  .hero-deco{width:80px;height:110px;}
+  .hero-deco.is-left{right:calc(100% + 40px);}
+  .hero-deco.is-right{left:calc(100% + 40px);}
+  .hero-deco-item{width:30px;height:30px;}
+  .hero-deco-item.is-b{width:18px;height:18px;}
+  .hero-deco.is-left .is-a{top:6px;left:8px;}
+  .hero-deco.is-left .is-b{top:70px;left:36px;}
+  .hero-deco.is-right .is-a{top:14px;right:10px;}
+  .hero-deco.is-right .is-b{top:76px;right:38px;}
+}
 
 @media (min-width:1024px){
   /* 区画の順番をPCだけ差し替えられるよう、縦に積むflexにする */
@@ -6668,3 +6726,45 @@ body.is-listing main.layout{
 @media (max-width:899px){
   .rank-page .rank-heading{text-align:center;}
 }
+
+/* ============================================================
+   メディア欄（SNSへの導線）
+   ------------------------------------------------------------
+   フッター上部・ハンバーガーメニュー最下部の両方で使う。
+   どちらも背景が濃い色（var(--navy)）なので、同じ配色で済む。
+   ============================================================ */
+.social-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+  padding-bottom:16px;
+  border-bottom:1px solid rgba(255,255,255,.14);
+}
+.social-heading{
+  margin:0;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.1em;
+  color:#9DA1A8;
+}
+.social-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  font-size:15px;
+  font-weight:800;
+  text-decoration:none !important;
+  transition:background .18s var(--ease),transform .12s var(--ease);
+}
+.social-icon:hover{background:var(--amazon,#FF9900);}
+@media (hover:none){
+  .social-icon:active{transform:scale(.94);}
+}
+/* ハンバーガー内は、上のリンク一覧との間を少しあける */
+.global-nav .social-row{margin-top:14px;margin-bottom:4px;}
