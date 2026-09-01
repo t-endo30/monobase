@@ -86,7 +86,8 @@
   function cardHtml(item, terms) {
     var sc = Number(item.score) || 0;
     var rate = sc > 0
-      ? '<span class="arow-rating"><span aria-hidden="true">' + starStr(sc) +
+      ? '<span class="arow-rating"><span class="rate-own">当サイト独自評価</span>' +
+        '<span aria-hidden="true">' + starStr(sc) +
         '</span><b>' + (Math.round(sc * 10) / 10) + '</b></span>'
       : '';
     var catch_ = item.excerpt

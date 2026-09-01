@@ -899,7 +899,8 @@ def article_row(a, p, no=None, badge_on_thumb=False):
     except (TypeError, ValueError):
         sc = 0
     rating = ("" if sc <= 0 else
-              f'<span class="arow-rating" aria-label="評価 {sc:g} / 5">'
+              f'<span class="arow-rating" aria-label="当サイト独自評価 {sc:g} / 5">'
+              f'<span class="rate-own">{OWN_RATING_LABEL}</span>'
               f'<span aria-hidden="true">{stars(sc)}</span>'
               f'<b>{sc:g}</b></span>')
     catch = (f'<span class="arow-catch">{e(a.get("excerpt",""))}</span>'
@@ -1096,6 +1097,11 @@ def cta(url, label, note=""):
         </div>
 '''
 
+# 星の評価は、購入者レビューの平均ではなく、こちらで採点したもの。
+# どこの評価なのかが分かるよう、星の左にこの札を必ず添える。
+OWN_RATING_LABEL = "当サイト独自評価"
+
+
 def stars(n):
     n = int(round(float(n or 0)))
     return "★" * n + "☆" * (5 - n)
@@ -1110,7 +1116,8 @@ def card_rating(a):
         sc = 0
     if sc <= 0:
         return ""
-    return (f'<span class="card-rating" aria-label="評価 {sc} / 5">'
+    return (f'<span class="card-rating" aria-label="当サイト独自評価 {sc} / 5">'
+            f'<span class="rate-own">{OWN_RATING_LABEL}</span>'
             f'<span class="cr-stars" aria-hidden="true">{stars(sc)}</span>'
             f'<span class="cr-score">{sc:g}</span></span>')
 
@@ -1371,6 +1378,7 @@ def render_article(a):
         sc = a.get("rating", {}).get("score") or 0
         if sc:
             rating = f'''          <div class="rating-row">
+            <span class="rate-own">{OWN_RATING_LABEL}</span>
             <span class="stars">{stars(sc)}</span>
             <span class="rating-score">{sc}</span>
             <span class="rating-label">/ 5.0（{e(a["rating"].get("breakdown",""))}）</span>

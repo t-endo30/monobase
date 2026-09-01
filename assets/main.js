@@ -597,7 +597,8 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       var n = counts[it.slug] || 0;
       var sc = Number(it.score) || 0;
       var rate = sc > 0
-        ? '<span class="arow-rating"><span aria-hidden="true">' + starStr(sc) +
+        ? '<span class="arow-rating"><span class="rate-own">当サイト独自評価</span>' +
+          '<span aria-hidden="true">' + starStr(sc) +
           '</span><b>' + (Math.round(sc * 10) / 10) + '</b></span>'
         : '';
       var catch_ = it.excerpt
@@ -1133,7 +1134,12 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     var rt = box.querySelector('.today-rating');
     if (rt) {
       if (pick.score && Number(pick.score) > 0) {
-        rt.textContent = starStr(pick.score);
+        rt.textContent = '';
+        var own = document.createElement('span');
+        own.className = 'rate-own';
+        own.textContent = '当サイト独自評価';
+        rt.appendChild(own);
+        rt.appendChild(document.createTextNode(starStr(pick.score)));
         var b = document.createElement('b');
         b.textContent = (Math.round(Number(pick.score) * 10) / 10);
         rt.appendChild(b);
@@ -1189,6 +1195,10 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       if (it.score && Number(it.score) > 0) {
         var rt = document.createElement('span');
         rt.className = 'arow-rating';
+        var own = document.createElement('span');
+        own.className = 'rate-own';
+        own.textContent = '当サイト独自評価';
+        rt.appendChild(own);
         var st = document.createElement('span');
         st.setAttribute('aria-hidden', 'true');
         st.textContent = starStr(it.score);
