@@ -17,7 +17,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-feature</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -79,16 +79,6 @@
     <loc>https://monobase.site/category-travel</loc>
     <lastmod>2026-08-31</lastmod>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-feature-guide</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-feature-season</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-appliance-aircon</loc>
@@ -246,11 +236,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://monobase.site/articles/amazon-sale-calendar</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://monobase.site/articles/ergotron-lx-monitor-arm-review</loc>
     <lastmod>2026-08-31</lastmod>
     <priority>0.9</priority>
@@ -347,11 +332,6 @@
   </url>
   <url>
     <loc>https://monobase.site/articles/koala-pillow-review</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/articles/humidifier-buying-guide</loc>
     <lastmod>2026-08-31</lastmod>
     <priority>0.9</priority>
   </url>
