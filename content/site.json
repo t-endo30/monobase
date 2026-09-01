@@ -13,7 +13,7 @@
   },
   "features": {
     "contact_form": true,
-    "contact_form_endpoint": "",
+    "contact_form_endpoint": "https://formspree.io/f/xbgjgnyp",
     "sticky_cta": true,
     "search": true,
     "feature_threshold": 5,
