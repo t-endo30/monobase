@@ -2140,33 +2140,6 @@ body.is-listing main.layout.is-swiping{will-change:transform;}
   row-gap:0;
 }
 .header-side{grid-area:side;min-width:0;}
-.header-deco-item{display:none;}
-@media (min-width:900px){
-  /* ヘッダーの空いた左側に、丸いバッジのアイコンを小さく並べる。
-     ロゴに寄せて、左端ではなくブランド名の近くに置く。 */
-  .header-side{
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-    gap:10px;
-    padding-right:clamp(12px,3vw,32px);
-  }
-  .header-deco-item{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:30px;
-    height:30px;
-    border-radius:50%;
-    background:rgba(255,255,255,.1);
-  }
-  .header-deco-item.is-b{
-    width:22px;height:22px;
-    background:rgba(255,153,0,.85);
-  }
-  .header-deco-item svg,.header-deco-icon{display:block;width:16px;height:16px;color:#fff;}
-  .header-deco-item.is-b svg{width:12px;height:12px;}
-}
 .site-brand{
   grid-area:brand;
   justify-self:center;
@@ -4733,60 +4706,7 @@ body.is-article .layout > .container{
    ・特集を新着記事より上に出す（順番はCSSのorderで入れ替える）
    ・「カテゴリーから探す」は左サイドのCATEGORIESと重複するので出さない
    ============================================================ */
-.hero-slot{grid-column:1 / -1;position:relative;}
-/* ============================================================
-   ヒーロー見出しタイル左右の飾り（丸いバッジ）
-   ------------------------------------------------------------
-   タイルの内側、見出し文の両脇に置く。ページ全体の余白ではなく
-   タイル自身の左右に置くので、幅の狭い画面以外は常に出る。
-   ============================================================ */
-.hero-tile{position:relative;}
-.hero-deco{
-  display:none;
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  pointer-events:none;
-}
-.hero-deco.is-left{left:clamp(10px,3vw,28px);}
-.hero-deco.is-right{right:clamp(10px,3vw,28px);}
-.hero-deco-main{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  background:var(--navy);
-  box-shadow:var(--shadow);
-}
-.hero-deco-main svg,.hero-deco-icon{display:block;width:26px;height:26px;color:#fff;}
-.hero-deco-spark{
-  position:absolute;
-  bottom:-4px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:22px;
-  height:22px;
-  border-radius:50%;
-  background:var(--amazon,#FF9900);
-  box-shadow:var(--shadow);
-}
-.hero-deco-spark svg{display:block;width:13px;height:13px;color:#fff;}
-.hero-deco.is-left .hero-deco-spark{right:-4px;}
-.hero-deco.is-right .hero-deco-spark{left:-4px;}
-@media (min-width:700px){
-  .hero-deco{display:block;}
-}
-@media (min-width:900px){
-  .hero-deco.is-left{left:clamp(16px,4vw,56px);}
-  .hero-deco.is-right{right:clamp(16px,4vw,56px);}
-  .hero-deco-main{width:64px;height:64px;}
-  .hero-deco-main svg,.hero-deco-icon{width:32px;height:32px;}
-  .hero-deco-spark{width:26px;height:26px;}
-  .hero-deco-spark svg{width:15px;height:15px;}
-}
+.hero-slot{grid-column:1 / -1;}
 
 @media (min-width:1024px){
   /* 区画の順番をPCだけ差し替えられるよう、縦に積むflexにする */
@@ -6770,3 +6690,10 @@ body.is-listing main.layout{
 }
 /* ハンバーガー内は、上のリンク一覧との間を少しあける */
 .global-nav .social-row{margin-top:14px;margin-bottom:4px;}
+/* .global-nav a の共通スタイル（display:block・罫線など）が
+   丸いアイコンを崩してしまうので、ここで打ち消す */
+.global-nav .social-icon{
+  display:inline-flex;
+  padding:0;
+  border-bottom:none;
+}

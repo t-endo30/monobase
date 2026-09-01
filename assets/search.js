@@ -70,22 +70,46 @@
     return out;
   }
 
+  /* 星は5つぶんの文字を切り出して作る（build.py の stars() と同じ考え方） */
+  function starStr(n) {
+    n = Math.round(Number(n) || 0);
+    return '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
+  }
+
+  function dotDate(d) {
+    d = String(d || '').slice(0, 10);
+    return d.length === 10 ? esc(d).replace(/-/g, '.') : '';
+  }
+
+  /* 行の形は build.py の article_row() と同じ（.arow…）にそろえてある。
+     一覧・ランキングと見た目が一致し、記事タイルの実装がひとつで済む。 */
   function cardHtml(item, terms) {
-    var thumb = '<img src="./' + esc(item.thumb) + '" alt="" loading="lazy" width="1200" height="430">';
-    var tags = item.tags.slice(0, 2).map(function (t) {
-      return '<span class="tag">' + esc(t) + '</span>';
-    }).join('');
-    tags += '<span class="tag tag-hot">' + esc(item.catLabel) + '</span>';
+    var sc = Number(item.score) || 0;
+    var rate = sc > 0
+      ? '<span class="arow-rating"><span aria-hidden="true">' + starStr(sc) +
+        '</span><b>' + (Math.round(sc * 10) / 10) + '</b></span>'
+      : '';
+    var catch_ = item.excerpt
+      ? '<span class="arow-catch">' + highlight(item.excerpt, terms) + '</span>' : '';
+    var date = dotDate(item.date);
+    date = date ? '<span class="arow-date">' + date + '</span>' : '';
     return '' +
-      '<article class="card" data-slug="' + esc(item.slug || '') + '" data-date="' + esc(item.date || '') + '">' +
-        '<div class="card-thumb is-auto"><span class="card-flags" aria-hidden="true"></span>' + thumb + '</div>' +
-        '<div class="card-body">' +
-          '<div class="card-tags">' + tags + '</div>' +
-          '<h3 class="card-title"><a class="card-stretch" href="./' + esc(item.url) + '">' + highlight(item.title, terms) + '</a></h3>' +
-          '<p class="card-desc">' + highlight(item.excerpt, terms) + '</p>' +
-          '<span class="card-link" aria-hidden="true">詳細を見る</span>' +
-        '</div>' +
-      '</article>';
+      '<li class="arow" data-cat="' + esc(item.cat || '') + '" data-slug="' + esc(item.slug || '') +
+      '" data-date="' + esc(item.date || '') + '">' +
+        '<a class="arow-link" href="./' + esc(item.url) + '">' +
+          '<span class="arow-thumb">' +
+            '<img src="./' + esc(item.thumb) + '" alt="" loading="lazy" decoding="async" width="1200" height="430">' +
+            '<span class="card-flags" aria-hidden="true"></span>' +
+          '</span>' +
+          '<span class="arow-body">' +
+            '<span class="arow-head">' +
+              '<span class="arow-title">' + highlight(item.title, terms) + '</span>' +
+              '<span class="cat-badge">' + esc(item.catLabel) + '</span>' +
+            '</span>' +
+            rate + catch_ + date +
+          '</span>' +
+        '</a>' +
+      '</li>';
   }
 
   /* ---- 検索したら、結果の位置まで画面を送る ----

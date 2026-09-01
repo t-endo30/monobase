@@ -131,31 +131,6 @@ def logo_svg(size="100%"):
 LOGO_SVG_INNER = logo_svg()
 
 
-def box_only_svg(size="100%", color="currentColor"):
-    """ロゴから「M」を抜いた、ダンボール箱だけの絵。
-       ヘッダーの余白やヒーロー横の飾りなど、ブランドマークほど主張
-       させたくない場所で使う（単色・currentColorで馴染ませる）。"""
-    x0, x1 = 4, 11   # 箱がある列の範囲（外側の輪郭ぶんも含む）
-    y0, y1 = 9, 14
-    paths = "".join(
-        f'<path d="{_logo_path_d(LOGO_CELLS[key])}"/>'
-        for key in ("box", "in", "seam", "outline"))
-    return (f'<svg viewBox="{x0} {y0} {x1 - x0 + 1} {y1 - y0 + 1}" '
-            f'width="{size}" height="{size}" fill="{color}" '
-            f'shape-rendering="crispEdges" aria-hidden="true">{paths}</svg>')
-
-
-# きらめき（レビューの評価・おすすめを表す、四方に伸びる十字のきらめき）
-SPARKLE_CELLS = [(4,1,1),(4,2,1),(4,3,1),
-                 (1,4,3),(5,4,3),
-                 (4,5,1),(4,6,1),(4,7,1)]
-
-
-def sparkle_svg(size="100%", color="currentColor"):
-    return (f'<svg viewBox="0 0 9 9" width="{size}" height="{size}" fill="{color}" '
-            f'shape-rendering="crispEdges" aria-hidden="true">'
-            f'<path d="{_logo_path_d(SPARKLE_CELLS)}"/></svg>')
-
 def e(s):
     return html.escape(str(s), quote=True)
 
@@ -555,10 +530,13 @@ def social_links(cls=""):
     x_url = (SOCIAL.get("x") or "").strip()
     if not x_url:
         return ""
+    x_svg = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">'
+             '<path fill="currentColor" d="M18.9 2H22l-7.6 8.7L23.3 22h-7l-5.5-7.2L4.5 22H1.4'
+             'l8.1-9.3L1 2h7.2l5 6.6L18.9 2zm-1.2 18h1.7L7.4 4H5.5l12.2 16z"/></svg>')
     return (f'    <div class="social-row {cls}">\n'
             f'      <p class="social-heading">メディア</p>\n'
             f'      <a class="social-icon is-x" href="{e(x_url)}" target="_blank" '
-            f'rel="noopener" aria-label="{e(NAME)}のX（旧Twitter）">X</a>\n'
+            f'rel="noopener" aria-label="{e(NAME)}のX（旧Twitter）">{x_svg}</a>\n'
             f'    </div>\n')
 
 
@@ -633,11 +611,7 @@ def header(current, p, crumbs=None, current_sub="", band=""):
     return f'''{ICON_SPRITE}
 <header class="site-header">
   <div class="container header-inner">
-    <div class="header-side" aria-hidden="true">
-      <span class="header-deco-item is-a">{box_only_svg("100%")}</span>
-      <span class="header-deco-item is-b">{sparkle_svg("100%")}</span>
-      <span class="header-deco-item is-c">{icon("search", "header-deco-icon")}</span>
-    </div>
+    <div class="header-side" aria-hidden="true"></div>
     <div class="site-brand">
       <a class="site-title" href="{p}index.html" aria-label="{e(NAME)}">
         <span class="brand-mark" aria-hidden="true">{LOGO_SVG_INNER}</span>
@@ -1984,7 +1958,7 @@ def news_rail(items, p, limit=4):
             + article_rows(items[:limit + 1], p, badge_on_thumb="mobile") +
             '        </div>\n'
             '        <a class="arow-more" href="' + p + 'new.html">'
-            + icon("new", "btn-icon") + 'もっと見る'
+            'もっと見る'
             '<span class="arow-more-arrow" aria-hidden="true"></span></a>\n'
             '      </section>\n')
 
@@ -2071,17 +2045,6 @@ POLICY = [
 # 組み立ては static_pages() 側で行う（policy_items）。
 
 
-def hero_deco(side):
-    """ヒーロー見出しタイルの左右に置く、丸いバッジの飾り。
-       箱＝紹介する商品、虫めがね＝分析、きらめき＝評価、という
-       サイトの中身を軽く匂わせる程度に留める（タイルの中に収める）。"""
-    main_icon = box_only_svg("100%") if side == "left" else icon("search", "hero-deco-icon")
-    return (f'      <div class="hero-deco is-{side}" aria-hidden="true">\n'
-            f'        <span class="hero-deco-main">{main_icon}</span>\n'
-            f'        <span class="hero-deco-spark">{sparkle_svg("100%")}</span>\n'
-            f'      </div>\n')
-
-
 def build_index():
     p = "./"
     feat = [a for a in PUBLISHED if a.get("featured")][:3]
@@ -2105,7 +2068,6 @@ def build_index():
     # 背景は下の記事が薄く透けるくらいの不透明度にする＝CSS側の .hero-tile）。
     hero_tile = (
         '      <section class="hero-tile">\n'
-        + hero_deco("left") +
         '        <h1 class="fit-line hero-strong">良い点も、不満点も。</h1>\n'
         '        <p class="hero-strong">買う前に「リアル」が見える商品紹介サイト</p>\n'
         '        <p class="hero-desc">ネット上の膨大な口コミから独自に分析。<br>'
@@ -2117,7 +2079,6 @@ def build_index():
         '<span class="btn-hero-arrow" aria-hidden="true">›</span></a>\n'
         '        </div>\n'
         + (SEARCH_TILE if FEAT.get("search") else "") +
-        hero_deco("right") +
         '      </section>\n')
     # トップに置く区画。並び順と表示・非表示は content/site.json の
     # layout.top で決める（管理画面からドラッグして入れ替えられる）。
@@ -2170,9 +2131,9 @@ def build_category(c):
     body += hero(icon(c["key"], "page-icon"), c["label"] + "の記事", c["lead"], len(items))
     if FEAT.get("search"):
         body += SEARCH_BOX
-    body += f'''      <section class="section-block" style="margin-top:24px;">
-{grid(items, p)}      </section>
-'''
+    body += ('      <section class="section-block" style="margin-top:24px;">\n'
+             + article_rows(items, p) +
+             '      </section>\n')
     return page(f'{c["label"]}の記事一覧 - {NAME}',
                 c["lead"][:110], c["key"], p,
                 f'{BASE_URL}/category-{c["key"]}.html', body,
@@ -2190,9 +2151,9 @@ def build_subcategory(c, sc):
              if a["category"] == c["key"] and a.get("sub") == sc["key"]]
     body = hero(icon(c["key"], "page-icon"), sc["label"],
                 f'{c["label"]}のうち、{sc["label"]}に分類した記事です。', len(items))
-    body += f'''      <section class="section-block" style="margin-top:24px;">
-{grid(items, p)}      </section>
-'''
+    body += ('      <section class="section-block" style="margin-top:24px;">\n'
+             + article_rows(items, p) +
+             '      </section>\n')
     return page(f'{sc["label"]}の記事一覧 - {NAME}',
                 f'{NAME}の{sc["label"]}に関する記事一覧です。購入者レビューと仕様をもとに整理しています。',
                 c["key"], p,
@@ -2336,7 +2297,7 @@ def build_search():
       </div>
 
       <section class="section-block" style="margin-top:20px;">
-        <div class="card-grid" id="searchResults"></div>
+        <ol class="arow-list" id="searchResults"></ol>
         <p class="empty-state" id="searchEmpty" hidden>該当する記事が見つかりませんでした。キーワードを短くするか、タグの選択を解除してみてください。</p>
       </section>
 '''
@@ -2736,6 +2697,7 @@ def main():
             "icon": a.get("icon", "📦"),
             "thumb": a.get("thumb") or f'assets/img/auto/{a["slug"]}.svg',
             "tags": a.get("tags", []), "date": a["date"],
+            "score": a.get("rating", {}).get("score") or 0,
             "url": f'articles/{a["slug"]}.html'} for a in PUBLISHED]
     write("search.json", json.dumps(idx, ensure_ascii=False, separators=(",", ":")))
     written.append("search.json")
