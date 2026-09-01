@@ -30,6 +30,7 @@ COLORS = {
     "box":  (255, 153, 0, 255),
     "in":   (194, 94, 0, 255),
     "seam": (26, 16, 6, 230),
+    "outline": (255, 255, 255, 240),
 }
 NAVY = (37, 40, 45, 255)
 
@@ -38,7 +39,7 @@ IMG_DIR = os.path.join(ROOT, "assets", "img")
 
 def draw_logo(draw, ox, oy, scale):
     """16×16のセル定義を、原点(ox,oy)・1マス=scale px で描く。"""
-    for key in ("line", "box", "in", "seam"):
+    for key in ("line", "box", "in", "seam", "outline"):
         for x, y, w in B.LOGO_CELLS[key]:
             draw.rectangle(
                 [ox + x * scale, oy + y * scale,
@@ -67,7 +68,7 @@ def make_favicon_svg(path):
     paths = "".join(
         f'<path fill="rgba({COLORS[k][0]},{COLORS[k][1]},{COLORS[k][2]},{COLORS[k][3]/255:.2f})" '
         f'd="{B._logo_path_d(B.LOGO_CELLS[k])}"/>'
-        for k in ("line", "box", "in", "seam"))
+        for k in ("line", "box", "in", "seam", "outline"))
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">'
            f'<rect x="0" y="0" width="20" height="20" rx="4.4" '
            f'fill="rgb({NAVY[0]},{NAVY[1]},{NAVY[2]})"/>'

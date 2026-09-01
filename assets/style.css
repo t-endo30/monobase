@@ -4745,7 +4745,7 @@ body.is-article .layout > .container{
   .global-nav .nav-links{justify-content:flex-end;}
   /* ヘッダーだけは本文より広い幅まで使い、メニューを画面の右端近くに
      寄せる（本文は今までどおり --maxw の幅に収める）。 */
-  .site-header .container{max-width:1400px;}
+  .site-header .container{max-width:none;padding:0 32px;}
 }
 
 /* ============================================================
@@ -5935,7 +5935,13 @@ details.hero-policy .policy-close{display:none;}
 .pt-panel[hidden]{display:none;}
 /* タブの切り替え中だけ、板の高さを固定値にしてなめらかに変化させる
    （assets/main.js が高さを都度セットし、終わったら外す） */
-.pt-stage{overflow:hidden;transition:height .22s var(--ease);}
+.pt-stage{
+  overflow:hidden;
+  transition:height .22s var(--ease);
+  /* 切り替え中、消えていくパネルの下に敷く色。これが無いと背景の写真が
+     一瞬透けて見えてしまう（「背景がブレる」ように見える原因）。 */
+  background:var(--surface);
+}
 @media (prefers-reduced-motion:reduce){
   .pt-stage{transition:none;}
 }
@@ -6138,6 +6144,7 @@ details.hero-policy .policy-close{display:none;}
    ・箱の面       … --mk-box
    ・開いた口     … --mk-in
    ・箱のテープ（ダンボールだと分かる黒いライン） … --mk-seam
+   ・箱の輪郭線（独立した箱だと分かる白い縁） … --mk-outline
    以前の box-shadow で点を並べる作りは、この SVG に置き換えた。
    ============================================================ */
 .brand-mark{
@@ -6145,6 +6152,7 @@ details.hero-policy .policy-close{display:none;}
   --mk-box:var(--amazon,#FF9900);
   --mk-in:var(--amazon-dark,#C25E00);
   --mk-seam:rgba(26,16,6,.9);
+  --mk-outline:rgba(255,255,255,.94);
   display:block;
   line-height:0;
 }
@@ -6594,4 +6602,63 @@ body.is-listing main.layout{
 .share-btn.is-copy.is-copied{background:var(--good);color:#fff;border-color:var(--good);}
 @media (hover:none){
   .share-btn:active{transform:scale(.96);}
+}
+
+/* ============================================================
+   タイルに立体感を出す
+   ------------------------------------------------------------
+   背景に写真を敷いたことで、白いタイルが背景と同化しやすくなった。
+   影を強めにして、タイルが手前に浮いているように見せる。
+   ============================================================ */
+.tile-card,
+.rank-box,
+.side-nav.side-tile,
+.side-search,
+.pick-tabs,
+.today-list,
+.hero-tile{
+  box-shadow:0 10px 28px rgba(20,20,22,.14),0 2px 6px rgba(20,20,22,.08);
+}
+.arow-list{box-shadow:0 10px 28px rgba(20,20,22,.14),0 2px 6px rgba(20,20,22,.08);}
+
+/* ============================================================
+   CATEGORIES と ACCESS RANKING の見出しデザインをそろえる
+   ------------------------------------------------------------
+   （.rank-heading / .side-heading / .today-heading は既に共通の
+   見出しバーを使っているが、ここで確実に上書きして食い違いを防ぐ）
+   ============================================================ */
+.rank-heading,
+.today-heading,
+.side-heading{
+  display:block;
+  margin:-1px -1px 12px;
+  padding:10px 12px;
+  background:linear-gradient(180deg,var(--bg-gray) 0%,var(--surface) 100%);
+  border-bottom:1px solid var(--border);
+  border-radius:calc(var(--radius) - 2px) calc(var(--radius) - 2px) 0 0;
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:.1em;
+  color:var(--text-sub);
+  text-align:center;
+}
+
+/* ============================================================
+   PCトップ：CATEGORIES／特集／検索の高さをそろえたときの中身の収め方
+   （高さの数値自体は assets/main.js が算出してインラインで入れる）
+   ============================================================ */
+@media (min-width:1240px){
+  .layout-main > .tb[data-tb="feature"]{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .side-rank > .side-search{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    box-sizing:border-box;
+  }
+  .side-col > .side-nav{box-sizing:border-box;}
 }

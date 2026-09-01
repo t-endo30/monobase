@@ -100,12 +100,17 @@ LOGO_CELLS = {
              (5,12,6),(5,13,6),(5,14,6)],
     "in":   [(6,11,4)],
     "seam": [(5,12,6),(7,13,2),(7,14,2)],
+    # 箱の一番外側の輪郭線。ここがあることで、直下の「M」と地続きの塊では
+    # なく、独立した箱だとひと目で分かるようにする。
+    "outline": [(4,11,1),(11,11,1),(4,12,1),(11,12,1),
+                (4,13,1),(11,13,1),(4,14,1),(11,14,1)],
 }
 LOGO_COLOR_VAR = {
     "line": "var(--mk-line,#fff)",
     "box":  "var(--mk-box,#FF9900)",
     "in":   "var(--mk-in,#C25E00)",
     "seam": "var(--mk-seam,#1A1006)",
+    "outline": "var(--mk-outline,#fff)",
 }
 
 
@@ -117,7 +122,7 @@ def logo_svg(size="100%"):
     """ブランドマークのSVG（16×16グリッド）。header() と favicon/OGP 生成で共用する。"""
     paths = "".join(
         f'<path fill="{LOGO_COLOR_VAR[key]}" d="{_logo_path_d(LOGO_CELLS[key])}"/>'
-        for key in ("line", "box", "in", "seam"))
+        for key in ("line", "box", "in", "seam", "outline"))
     return (f'<svg viewBox="0 0 16 16" width="{size}" height="{size}" '
             f'shape-rendering="crispEdges" aria-hidden="true">{paths}</svg>')
 
