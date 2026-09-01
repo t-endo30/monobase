@@ -113,12 +113,29 @@ def build_text(a, base_url):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true", help="投稿せず、内容だけ表示する")
+    ap.add_argument("--test", action="store_true",
+                    help="articles.json を見ず、接続確認用の投稿を1件だけ行う")
     args = ap.parse_args()
 
     creds = {k: os.environ.get(k, "").strip() for k in ENV_KEYS}
     if not args.dry_run and not all(creds.values()):
         missing = [k for k, v in creds.items() if not v]
         print(f"::warning::X投稿用の環境変数が未設定のため、投稿をスキップします: {', '.join(missing)}")
+        return 0
+
+    if args.test:
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        text = f"【接続確認】モノベースの自動投稿テストです（{now}）。この投稿は削除して構いません。"
+        print(text)
+        if args.dry_run:
+            return 0
+        try:
+            res = post_tweet(text, creds["X_API_KEY"], creds["X_API_SECRET"],
+                             creds["X_ACCESS_TOKEN"], creds["X_ACCESS_TOKEN_SECRET"])
+            print(f"→ 投稿に成功しました: {res}")
+        except Exception as e:
+            print(f"::error::テスト投稿に失敗しました: {e}")
+            return 1
         return 0
 
     site = json.load(io.open(S_PATH, encoding="utf-8"))

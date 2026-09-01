@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      test_x_post:
+        description: "記事を公開せず、X投稿の接続確認だけ行う"
+        type: boolean
+        default: false
 
 # 配信は Cloudflare Pages が担当する（GitHubのリポジトリを直接見ている）。
 # Cloudflare は「コミットされているHTML」をそのまま配るため、
@@ -57,7 +62,7 @@ jobs:
           X_API_SECRET: ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-        run: python3 tools/post_to_x.py
+        run: python3 tools/post_to_x.py ${{ inputs.test_x_post && '--test' || '' }}
         continue-on-error: true
 
       # 生成物にズレがあれば、ここで作り直してコミットする。
