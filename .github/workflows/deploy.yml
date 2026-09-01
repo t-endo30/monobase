@@ -4,11 +4,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      test_x_post:
-        description: "記事を公開せず、X投稿の接続確認だけ行う"
-        type: boolean
-        default: false
 
 # 配信は Cloudflare Pages が担当する（GitHubのリポジトリを直接見ている）。
 # Cloudflare は「コミットされているHTML」をそのまま配るため、
@@ -51,18 +46,6 @@ jobs:
       # （記事の追加は止めたくないので、失敗にはしない）
       - name: Check feature opportunities
         run: python3 tools/feature_plan.py
-        continue-on-error: true
-
-      # 本日公開した記事があれば X（旧Twitter）に投稿する。
-      # Secrets が未設定のフォーク等では自動でスキップされる。
-      # X側の障害・レート制限でCI全体を止めないよう続行扱いにする。
-      - name: Post new articles to X
-        env:
-          X_API_KEY: ${{ secrets.X_API_KEY }}
-          X_API_SECRET: ${{ secrets.X_API_SECRET }}
-          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-        run: python3 tools/post_to_x.py ${{ inputs.test_x_post && '--test' || '' }}
         continue-on-error: true
 
       # 生成物にズレがあれば、ここで作り直してコミットする。

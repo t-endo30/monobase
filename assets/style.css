@@ -6144,7 +6144,7 @@ details.hero-policy .policy-close{display:none;}
    ・箱の面       … --mk-box
    ・開いた口     … --mk-in
    ・箱のテープ（ダンボールだと分かる黒いライン） … --mk-seam
-   ・箱の輪郭線（独立した箱だと分かる白い縁） … --mk-outline
+   ・箱の輪郭線（独立した箱だと分かる灰色の縁） … --mk-outline
    以前の box-shadow で点を並べる作りは、この SVG に置き換えた。
    ============================================================ */
 .brand-mark{
@@ -6152,7 +6152,7 @@ details.hero-policy .policy-close{display:none;}
   --mk-box:var(--amazon,#FF9900);
   --mk-in:var(--amazon-dark,#C25E00);
   --mk-seam:rgba(26,16,6,.9);
-  --mk-outline:rgba(255,255,255,.94);
+  --mk-outline:#9AA0A6;
   display:block;
   line-height:0;
 }
@@ -6649,51 +6649,3 @@ body.is-listing main.layout{
   .rank-page .rank-heading{text-align:center;}
 }
 
-/* ============================================================
-   メディア欄（SNSへの導線）
-   ------------------------------------------------------------
-   フッター上部・ハンバーガーメニュー最下部の両方で使う。
-   どちらも背景が濃い色（var(--navy)）なので、同じ配色で済む。
-   ============================================================ */
-.social-row{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:18px;
-  padding-bottom:16px;
-  border-bottom:1px solid rgba(255,255,255,.14);
-}
-.social-heading{
-  margin:0;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.1em;
-  color:#9DA1A8;
-}
-.social-icon{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  background:rgba(255,255,255,.12);
-  color:#fff;
-  font-size:15px;
-  font-weight:800;
-  text-decoration:none !important;
-  transition:background .18s var(--ease),transform .12s var(--ease);
-}
-.social-icon:hover{background:var(--amazon,#FF9900);}
-@media (hover:none){
-  .social-icon:active{transform:scale(.94);}
-}
-/* ハンバーガー内は、上のリンク一覧との間を少しあける */
-.global-nav .social-row{margin-top:14px;margin-bottom:4px;}
-/* .global-nav a の共通スタイル（display:block・罫線など）が
-   丸いアイコンを崩してしまうので、ここで打ち消す */
-.global-nav .social-icon{
-  display:inline-flex;
-  padding:0;
-  border-bottom:none;
-}

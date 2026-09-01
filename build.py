@@ -32,7 +32,6 @@ FEAT     = SITE.get("features", {})
 GA       = SITE.get("analytics", {}).get("ga_measurement_id", "").strip()
 ADS      = SITE.get("ads", {}) or {}
 PROMOS   = SITE.get("promos", {}) or {}
-SOCIAL   = SITE.get("social", {}) or {}
 GSC      = SITE.get("analytics", {}).get("gsc_verification", "").strip()
 def _asset_version():
     """assets の CSS/JS の内容から作る短いハッシュ。
@@ -111,7 +110,7 @@ LOGO_COLOR_VAR = {
     "box":  "var(--mk-box,#FF9900)",
     "in":   "var(--mk-in,#C25E00)",
     "seam": "var(--mk-seam,#1A1006)",
-    "outline": "var(--mk-outline,#fff)",
+    "outline": "var(--mk-outline,#9AA0A6)",
 }
 
 
@@ -523,23 +522,6 @@ def icon(key, cls="cat-icon"):
             f'<use href="#i-{key}"></use></svg>')
 
 
-def social_links(cls=""):
-    """SNSへの導線（丸いアイコンボタン）。ハンバーガーメニューの最下部と
-       フッター上部の両方で使う。content/site.json の social に何も
-       入っていなければ、何も出さない。"""
-    x_url = (SOCIAL.get("x") or "").strip()
-    if not x_url:
-        return ""
-    x_svg = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">'
-             '<path fill="currentColor" d="M18.9 2H22l-7.6 8.7L23.3 22h-7l-5.5-7.2L4.5 22H1.4'
-             'l8.1-9.3L1 2h7.2l5 6.6L18.9 2zm-1.2 18h1.7L7.4 4H5.5l12.2 16z"/></svg>')
-    return (f'    <div class="social-row {cls}">\n'
-            f'      <p class="social-heading">メディア</p>\n'
-            f'      <a class="social-icon is-x" href="{e(x_url)}" target="_blank" '
-            f'rel="noopener" aria-label="{e(NAME)}のX（旧Twitter）">{x_svg}</a>\n'
-            f'    </div>\n')
-
-
 def cat_nav_item(c, p, cls=""):
     """PCのカテゴリー一覧の1件。サブカテゴリーがあるものは、
        押すとその場で開くパネルを一緒に持たせる（画面は移動しない）。
@@ -631,7 +613,7 @@ def header(current, p, crumbs=None, current_sub="", band=""):
         <li class="sp-only-link"><a href="{p}advertising.html">広告掲載について</a></li>
         {contact_nav}
       </ul>
-{social_links("sp-only-link")}    </nav>
+    </nav>
   </div>
 </header>
 
@@ -671,7 +653,7 @@ def footer(p, sticky_url=None):
 '''
     return f'''<footer class="site-footer" id="contact">
   <div class="container">
-{social_links()}    <div class="footer-cols">
+    <div class="footer-cols">
       <div class="footer-col">
         <p class="footer-col-heading">サイト</p>
         <ul class="footer-col-list">
