@@ -78,8 +78,32 @@ SHAPE = '''{
 }'''
 
 
+ARTICLES = "content/articles.json"
+
+
 def load(path):
     return json.load(io.open(os.path.join(ROOT, path), encoding="utf-8"))
+
+
+def save_article(a):
+    """書き上げた1本だけを articles.json へ書き戻す。
+
+       起動時に読んだ配列をそのまま書き戻すと、実行中に別の場所
+       （管理画面・手作業・別のツール）が同じファイルへ入れた変更を
+       消してしまう。実際、生成中に足した official_url と facts が
+       生成の完了時に消えた。だから保存のたびに読み直し、
+       対象の記事だけを差し替える。"""
+    path = os.path.join(ROOT, ARTICLES)
+    latest = json.load(io.open(path, encoding="utf-8"))
+    slug = a.get("slug")
+    for i, x in enumerate(latest):
+        if x.get("slug") == slug:
+            latest[i] = a
+            break
+    else:
+        latest.append(a)
+    with io.open(path, "w", encoding="utf-8") as f:
+        json.dump(latest, f, ensure_ascii=False, indent=1)
 
 
 # 記事タイプごとに「使ってよい枠」。docs/article-prompt.md の【1.】と同じ内容を、
@@ -571,6 +595,19 @@ def apply_generated(a, gen, keep_updated=False):
         for k in ("rating", "spec"):
             a.pop(k, None)
 
+    # 記事タイプで使わない枠も、前の版の値が残ることがある。
+    # 選び方の記事に「この商品の強み」「生活シーン」が残っていた。
+    # 生成AIが正しく省いても、上書きしかしないと消えないため落とす。
+    allowed = {x.strip() for x in KIND_FRAMES[kind_of(a)][1].replace("/", " ").split()}
+    for k in ("rating", "highlights", "scenes", "voices", "good_for", "not_for",
+              "spec", "pros", "cons"):
+        if k in allowed or (kind_of(a) == "review" and k == "scenes"):
+            continue
+        a.pop(k, None)
+        # 枠に付く前後の地の文も、見出しごと消えるので一緒に落とす
+        for extra in (f"{k}_intro", f"{k}_after", f"{k}_note"):
+            a.pop(extra, None)
+
     # リンク切れ検査で止まるので、作り話のリンクは落とす
     for it in (a.get("next_problem") or {}).get("items", []):
         it.pop("link_url", None)
@@ -678,6 +715,12 @@ def main():
         slug = a.get("slug", "?")
         print(f"[{i}/{len(targets)}] {slug} … ", end="", flush=True)
         t0 = time.time()
+        # 直前に読み直す。前の1本を書いている間に足された
+        # official_url や facts を、取りこぼさずプロンプトへ渡すため。
+        fresh = next((x for x in load(ARTICLES) if x.get("slug") == slug), None)
+        if fresh is not None:
+            a.clear()
+            a.update(fresh)
         prompt = build_prompt(a, site, prompt_md, fetch_official=not args.no_fetch)
         gen = None
         for attempt in (1, 2):
@@ -716,9 +759,7 @@ def main():
         # 1本ごとに保存する。長時間のまとめ書き換えが途中で止まっても
         # そこまでの成果を失わないため。
         if not args.dry_run:
-            with io.open(os.path.join(ROOT, "content", "articles.json"),
-                         "w", encoding="utf-8") as f:
-                json.dump(arts, f, ensure_ascii=False, indent=1)
+            save_article(a)
 
     if not args.dry_run and done:
         print("\ncontent/articles.json を更新しました。")
