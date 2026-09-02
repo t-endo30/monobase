@@ -6526,21 +6526,43 @@ body.is-listing main.layout{
   font-variant-numeric:tabular-nums;
 }
 
-/* ---- 5件目（最後の1件）は下半分をぼかして切る ---- */
-/* mask は使わず白グラデーションで統一（理由は上のタブ側と同じ） */
-.news-list-block .arow-list > .arow:nth-child(5){
-  position:relative;
-  overflow:hidden;
-  border-radius:var(--radius);
-  pointer-events:none;
-  max-height:46px;
+/* ---- 最後の1件は下半分をぼかして切る ---- */
+/* mask は使わず白グラデーションで統一（理由は上のタブ側と同じ）。
+   何件目が「最後」かは画面幅で変わる。マークアップは11件ぶん出して
+   あり、スマホは4件＋5件目をぼかす、PCは10件＋11件目をぼかす。 */
+@media (max-width:899px){
+  .news-list-block .arow-list > .arow:nth-child(5){
+    position:relative;
+    overflow:hidden;
+    border-radius:var(--radius);
+    pointer-events:none;
+    max-height:46px;
+  }
+  .news-list-block .arow-list > .arow:nth-child(5)::after{
+    content:"";
+    position:absolute;
+    inset:auto 0 0 0;
+    height:100%;
+    background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
+  }
+  /* 6件目から先は、スマホでは縦に長くなりすぎるので出さない */
+  .news-list-block .arow-list > .arow:nth-child(n+6){display:none;}
 }
-.news-list-block .arow-list > .arow:nth-child(5)::after{
-  content:"";
-  position:absolute;
-  inset:auto 0 0 0;
-  height:100%;
-  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
+@media (min-width:900px){
+  .news-list-block .arow-list > .arow:nth-child(11){
+    position:relative;
+    overflow:hidden;
+    border-radius:var(--radius);
+    pointer-events:none;
+    max-height:46px;
+  }
+  .news-list-block .arow-list > .arow:nth-child(11)::after{
+    content:"";
+    position:absolute;
+    inset:auto 0 0 0;
+    height:100%;
+    background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
+  }
 }
 /* 間隔は空けず、上の記事タイルの続きとして下端にくっつける。
    角は外側（下側）だけ丸める（.pt-more と同じ形にそろえてある） */
@@ -6883,4 +6905,21 @@ body.is-listing main.layout{
   /* ヘッダーに重ねている細い横縞。ぼかしと同じく、貼り付いた面を
      毎フレーム塗り直す負担になるので、スマホでは出さない。 */
   .site-header::after{content:none;}
+}
+
+
+/* ============================================================
+   PCサイドの CATEGORIES：見出しを他のタイルと同じ形にする
+   ------------------------------------------------------------
+   ACCESS RANKING などは、見出しの帯が枠の端まで伸びていて、その
+   上端に線が乗っている。CATEGORIES だけ帯が内側に浮いていたので、
+   線と帯のあいだに白い隙間ができていた。枠の余白を外し、帯を
+   端まで伸ばして、上端の線と続けて見せる。
+   ============================================================ */
+@media (min-width:1024px){
+  .side-nav.side-tile{padding:0;}
+  /* 帯は端まで伸ばしつつ、上端の線（枠の背景として描いている3px）
+     が隠れないよう、そのぶんだけ下げる。 */
+  .side-nav .side-heading{margin:3px 0 0;}
+  .side-nav .cat-tree{padding:6px 16px 8px;}
 }

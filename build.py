@@ -1981,13 +1981,15 @@ def top_layout():
     return out
 
 
-def news_rail(items, p, limit=4):
+def news_rail(items, p, limit=10):
     """トップの新着。横送りのカルーセルをやめて縦に並べる。
 
        横送りは、画面に1枚しか映らないぶん「何本あるのか」が
        見えない。縦に並べれば、指を下ろすだけで次が出る。
-       出すのは4件。5件目は下半分を薄く透過させ、続きがあることを
-       枠のかたちだけで示す（CSS）。続きは「もっと見る」で新着一覧へ送る。
+       出すのは、PCが10件・スマホが4件（スマホは縦に長くなりすぎる
+       ため、5件目から先はCSSで隠す）。最後の1件は下半分を薄く
+       透過させ、続きがあることを枠のかたちだけで示す（CSS）。
+       続きは「もっと見る」で新着一覧へ送る。
        1行の形は article_row()＝トップのタブやランキングと同じ。"""
     return ('      <section class="section-block news-list-block">\n'
             '        <div class="tile-card">\n'
@@ -2087,7 +2089,7 @@ POLICY = [
 def build_index():
     p = "./"
     feat = [a for a in PUBLISHED if a.get("featured")][:3]
-    latest = PUBLISHED[:10]
+    latest = PUBLISHED[:11]
     n_pub = len(PUBLISHED)
     n_cat = len([c for c in CATS if any(a["category"] == c["key"] for a in PUBLISHED)])
     # 記事のあるカテゴリー名。表示する3つはページを開くたびにJSが選ぶ。

@@ -143,6 +143,26 @@
                + '&t=' + Date.now(), { allow404: true });
   }
 
+  /* ---- ファイルの中身を取り出す ----
+     GitHubの contents API は、1MBを超えるファイルだと中身を返さない
+     （encoding:"none" / content:"" で返ってくる）。そのまま JSON.parse
+     すると「Unexpected end of JSON input」になる。中身が空のときは
+     Git の blob API から取り直す（こちらは大きいファイルも返る）。 */
+  function fileText(res) {
+    if (!res) return Promise.resolve('');
+    if (res.content && res.encoding !== 'none') {
+      return Promise.resolve(b64decode(res.content));
+    }
+    if (!res.sha) return Promise.resolve('');
+    log('  → 1MBを超えているので blob から取り直します');
+    return api('git/blobs/' + res.sha).then(function (b) {
+      if (!b || !b.content) {
+        throw new Error('ファイルが大きすぎて読み取れませんでした（' + (res.path || '') + '）');
+      }
+      return b64decode(b.content);
+    });
+  }
+
   function putFile(path, contentB64, sha, message) {
     var body = { message: message, content: contentB64, branch: cfg.branch };
     if (sha) body.sha = sha;
@@ -175,8 +195,13 @@
     return Promise.all([getFile('content/articles.json'), getFile('content/site.json')])
       .then(function (res) {
         if (!res[0] || !res[1]) throw new Error('content/ 内のJSONが見つかりません。リポジトリ名とブランチを確認してください。');
-        articles = JSON.parse(b64decode(res[0].content)); shaArticles = res[0].sha;
-        site     = JSON.parse(b64decode(res[1].content)); shaSite     = res[1].sha;
+        shaArticles = res[0].sha;
+        shaSite     = res[1].sha;
+        return Promise.all([fileText(res[0]), fileText(res[1])]);
+      })
+      .then(function (txt) {
+        articles = JSON.parse(txt[0]);
+        site     = JSON.parse(txt[1]);
         setConn('on', cfg.owner + '/' + cfg.repo + ' @' + cfg.branch);
         renderAll();
         toast('読み込みました', 'ok');
@@ -1631,7 +1656,8 @@
     box.textContent = '読み込み中…';
     getFile('content/ranking.json').then(function (res) {
       if (!res || res.status === 404) { box.textContent = 'まだ ranking.json がありません。'; return; }
-      var data = JSON.parse(decodeURIComponent(escape(atob(res.content.replace(/\n/g, '')))));
+      return fileText(res).then(function (txt) {
+      var data = JSON.parse(txt);
       var views = data.views || {};
       var keys = Object.keys(views).sort(function (a, b) { return views[b] - views[a]; });
       if (!keys.length) {
@@ -1649,6 +1675,7 @@
         keys.slice(0, 20).map(function (k) {
           return '<li>' + (titles[k] || k) + ' — <b>' + views[k] + '</b></li>';
         }).join('') + '</ol>';
+      });
     }).catch(function (e) { box.textContent = '読み込めませんでした：' + e.message; });
   }
   $('btnLoadRanking').addEventListener('click', loadRanking);
@@ -2731,8 +2758,10 @@
     }
     return getFile('docs/article-prompt.md').then(function (res) {
       if (!res) throw new Error('docs/article-prompt.md が見つかりません');
-      promptCache = b64decode(res.content);
-      return promptCache;
+      return fileText(res).then(function (txt) {
+        promptCache = txt;
+        return promptCache;
+      });
     });
   }
 
