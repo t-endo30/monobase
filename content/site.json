@@ -462,7 +462,7 @@
   "automation": {
     "_note": "記事を自動で作る頻度と本数。ワークフローは毎日まわし、tools/schedule_gate.py がこの設定で間引く。enabled が false のあいだは何も作らない。",
     "enabled": true,
-    "runs_per_week": 4,
+    "runs_per_week": 5,
     "articles_per_run": 2,
     "auto_publish": true
   },

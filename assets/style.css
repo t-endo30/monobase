@@ -1553,8 +1553,10 @@ mark.hl{
 /* 新着一覧ページ：ACCESS RANKING と同じ rank-box に一覧を収める */
 .rank-box > .arow-list{border:none;border-radius:0;background:transparent;}
 
-/* オレンジの線は枠の上端（::before）の1本だけにする。見出しの
-   下にも入れると、1つの枠に2本出て、どこが枠の始まりか分からなくなる。 */
+@media (max-width:899px){
+  /* スマホ：「新着記事」「カテゴリーから探す」の見出し下にオレンジの線を入れる */
+  .tile-card-head{box-shadow:inset 0 -2px 0 var(--amazon,#FF9900);}
+}
 
 /* ---------- カード：主役 ---------- */
 .card-grid{gap:18px;}
