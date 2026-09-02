@@ -271,7 +271,10 @@
     "a": "販売ページの出品者名と輸入元表記、日本語の成分表示ラベルの有無が手がかりになります。表記が見当たらない出品は、判断材料が一つ欠けている状態です。"
    }
   ],
-  "kind": "review"
+  "kind": "review",
+  "health": {
+   "checked": "2026-09-02"
+  }
  },
  {
   "slug": "chromelite-ultracush-s",
@@ -602,7 +605,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   }
  },
  {
@@ -934,7 +937,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   }
  },
  {
@@ -1218,7 +1221,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "official_url": "https://creerina.co.jp/items/airycurlmascara/",
   "facts": [
@@ -1560,7 +1563,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "official_url": "https://creerina.co.jp/items/powderyliquideyebrow/",
   "facts": [
@@ -1925,7 +1928,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   }
  },
  {
@@ -2232,7 +2235,7 @@
    "厚さ約11.5mm"
   ],
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "モノベースが公開情報から判断する限り、621 MagGo が力を発揮するのは次のような使い方です。",
@@ -2617,7 +2620,7 @@
    "質量・内なべの素材・保温／予約機能の詳細は、確認できた公式情報の範囲では未確認"
   ],
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "メーカー仕様と購入者レビューを踏まえると、KPC-MA4 が効くのは次のような家庭です。",
@@ -3001,7 +3004,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "モノベースは、次のような条件が当てはまる人に向くと評価します。",
@@ -3286,7 +3289,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のような条件に当てはまる人なら、コンセント式のLED投光器は目的を果たしやすい選択です。",
@@ -3482,7 +3485,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "「どの方式が向くか」は、部屋と生活のパターンで決まります。次のどれかに当てはまるなら、対応する方式から探すと失敗しにくくなります。",
@@ -3794,7 +3797,7 @@
   },
   "kind": "roundup",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "こんな人には、年間カレンダーを一枚持っておく価値があります",
@@ -4123,7 +4126,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/synnex/e1r00wv.html",
   "jan": "0698833073829",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のどれかに当てはまるなら、このアームは目的を果たします。",
@@ -4475,7 +4478,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のいずれかに当てはまるなら、この製品で目的を達成できます。",
@@ -4819,7 +4822,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のいずれかに当てはまるなら、導入後の変化がはっきり感じられる層です。",
@@ -5171,7 +5174,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/logicool/4943765058380.html",
   "jan": "4943765058380",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のような環境・使い方の人には、この構成が素直に効きます。",
@@ -5539,7 +5542,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "シグニチャーエディションを選ぶ意味がはっきり出るのは、次のような読者です。",
@@ -5891,7 +5894,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/switchbot/w3202100.html",
   "jan": "0850046603174",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のような状況にある人には、導入した効果がはっきり出ます。",
@@ -6234,7 +6237,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のいずれかに当てはまるなら、買い替えの効果を感じやすい層です。",
@@ -6589,7 +6592,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "導光板タイプが持ち味を発揮するのは、次のような部屋と使い方です。",
@@ -6948,7 +6951,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/e-alamode/27-3910.html",
   "jan": "4903208044882",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "この製品が力を発揮するのは、床面積のほうが天井高より貴重な部屋です。",
@@ -7323,7 +7326,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のどれかに当てはまるなら、買い替えの費用に見合うだけの変化があります。",
@@ -7682,7 +7685,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "モノベースでは、34インチウルトラワイドが向くのは次のような人だと評価します。",
@@ -8041,7 +8044,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/dji-store/6941565991430.html",
   "jan": "6941565991430",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のいずれかに当てはまるなら、この機種は目的を達成できる道具になります。",
@@ -8393,7 +8396,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のどれかに当てはまるなら、この製品で目的を達成できると評価します。",
@@ -8673,7 +8676,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のような使い方・環境なら、この構成で目的を達成しやすいとモノベースは評価します。",
@@ -9095,7 +9098,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のいずれかに当てはまるなら、この構成が持つ強みがそのまま効きます。",
@@ -9423,7 +9426,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のどれかに当てはまるなら、足元にひとつ置くだけで座っている時間の質が変わります。",
@@ -9769,7 +9772,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のどれかに当てはまるなら、デスクサイドラックは机の使い勝手をはっきり変えます。",
@@ -10130,7 +10133,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "スチーム式は「万人向けの加湿器」ではありません。次のような条件に当てはまる人にとっては、他方式より満足度が高くなります。",
@@ -10484,7 +10487,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のどれかに当てはまるなら、玄関ベンチは家具の中でも投資効率の高い部類です。",
@@ -10832,7 +10835,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   },
   "good_for": {
    "intro": "次のどれかに当てはまるなら、コアラピローは検討する価値があります。",
@@ -11217,7 +11220,7 @@
   "updated": "2026-09-01",
   "kind": "review",
   "health": {
-   "checked": "2026-09-01"
+   "checked": "2026-09-02"
   }
  }
 ]
