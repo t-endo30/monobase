@@ -31,7 +31,7 @@ from write_article import (GEN_FIELDS, NG_WORDS, MIN_CHARS, MAX_CHARS,
                            MIN_CHARS_UNBACKED,
                            FAKE_EXPERIENCE, FAKE_REVIEW_NUM, AMAZON_MISLEAD,
                            VAGUE_RIVAL, CARE_CLAIM, AI_PHRASE, AI_PHRASE_LIMIT,
-                           NEGATION)
+                           NEGATION, save_article)
 
 # ---------------------------------------------------------------- 機械検査
 # 断定・保証の表現。tools/check_text.py と同じ基準。
@@ -263,7 +263,7 @@ def build_prompt(a, rules, hits):
     ])
 
 
-def apply_fixed(a, fixed):
+def apply_fixed(a, fixed, keep_updated=False):
     """返ってきた修正を書き戻す。触らせない項目は弾く。"""
     changed = []
     for k, v in (fixed or {}).items():
@@ -273,7 +273,9 @@ def apply_fixed(a, fixed):
             continue
         a[k] = v
         changed.append(k)
-    if changed:
+    # 既存記事の手直しでは、更新日を動かさないことがある。
+    # 日付が動くと sitemap と feed の並びが、中身の刷新とは別の理由で変わる。
+    if changed and not keep_updated:
         a["updated"] = time.strftime("%Y-%m-%d")
     return changed
 
@@ -331,6 +333,8 @@ def main():
     ap.add_argument("--push", action="store_true",
                     help="コミットして push まで行う（--publish と併用）")
     ap.add_argument("--dry-run", action="store_true", help="書き込まない")
+    ap.add_argument("--keep-updated", action="store_true",
+                    help="更新日（updated）を元のまま動かさない。既存記事の手直し用")
     args = ap.parse_args()
 
     arts = load("content/articles.json")
@@ -386,7 +390,7 @@ def main():
             if args.dry_run:
                 break
 
-            changed = apply_fixed(a, res.get("fixed"))
+            changed = apply_fixed(a, res.get("fixed"), args.keep_updated)
             if not changed:
                 print("    ✓ 直すところはありませんでした" if r == 1
                       else "    ✓ これ以上の修正はありません")
@@ -429,9 +433,10 @@ def main():
                 print("    → published: true")
 
     if not args.dry_run and not args.check_only:
-        with io.open(os.path.join(ROOT, "content", "articles.json"),
-                     "w", encoding="utf-8") as f:
-            json.dump(arts, f, ensure_ascii=False, indent=1)
+        # 丸ごと書き戻すと、実行中に別の場所が入れた変更を消す。
+        # write_article.py と同じく、対象の記事だけを差し替える。
+        for a in targets:
+            save_article(a)
         print("\ncontent/articles.json を更新しました。")
 
     print(f"\n合格 {len(ok)} 本 / 要確認 {len(ng)} 本"
