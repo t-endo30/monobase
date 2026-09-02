@@ -4887,6 +4887,7 @@ body.is-article .layout > .container{
 .rank-box,
 .side-tile,
 .tile-card,
+.pt-tabs-frame,
 .search-tile,
 .cf-tile,
 .policy-item,
@@ -4904,6 +4905,7 @@ body.is-article .layout > .container{
 .rank-box::before,
 .side-nav::before,
 .tile-card::before,
+.pt-tabs-frame::before,
 .search-tile::before,
 .card-surface::before{
   content:"";
@@ -5935,10 +5937,19 @@ details.hero-policy .policy-close{display:none;}
    同じ場所を2枚で切り替える。押していない側は hidden なので、
    スマホの縦を1枚ぶんしか使わない。 */
 .pick-tabs{margin-bottom:22px;}
+/* タブ切り替え自体（ピル）は、新着記事などの見出し枠と同じ
+   「角丸・枠線・上端のオレンジのライン」で囲む */
+.pt-tabs-frame{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+  padding:10px;
+  margin-bottom:14px;
+}
 .pt-tabs{
   display:flex;
   gap:2px;
-  margin:0 auto 14px;
+  margin:0 auto;
   padding:3px;
   max-width:360px;
   border-radius:999px;
@@ -6660,6 +6671,7 @@ body.is-listing main.layout{
    ============================================================ */
 .tile-card,
 .rank-box,
+.pt-tabs-frame,
 .side-nav.side-tile,
 .side-search,
 .hero-tile{
