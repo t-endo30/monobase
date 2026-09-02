@@ -227,16 +227,13 @@ def find_structure(a):
         hits.append((level, label, where, what, why))
 
     # ---- 公式情報の裏づけ ------------------------------------------------
+    # 公式サイトを持たない商品もあり、管理画面から手で入れる運用も取らない。
+    # だから「公式情報が無いこと」自体は問題にしない。
+    # 問題なのは、**裏づけが無いのに rating や spec を出している** ほう。
     facts = a.get("facts") or []
     if isinstance(facts, str):
         facts = [facts]
-    if kind == "review":
-        if not (a.get("official_url") or "").strip():
-            add("HIGH", "公式情報不足", "official_url", "未設定",
-                "メーカー公式の製品ページが無い。仕様の一次情報を確認できない")
-        if not facts:
-            add("HIGH", "公式情報不足", "facts", "未設定",
-                "公式で裏を取った仕様が記事データに無い。生成時に推測が混ざる")
+    backed = bool(facts) or bool((a.get("official_url") or "").strip())
 
     # ---- 情報源と最終確認日 ----------------------------------------------
     concl = a.get("conclusion")
@@ -279,9 +276,17 @@ def find_structure(a):
             add("HIGH", "評価根拠不足", "rating.breakdown",
                 f"score {score} / 内訳 {len(bd)}字",
                 "何を評価し何を減点したのかを1文で書く。書けないなら数値を出さない")
-        if not facts and kind == "review":
-            add("HIGH", "評価根拠不足", "rating.score", f"{score}",
-                "公式で裏を取った仕様が無いまま 0.1 刻みの点数を出している")
+        if not backed:
+            add("HIGH", "裏づけのない rating", "rating.score", f"{score}",
+                "公式仕様も official_url も無いまま点数を出している。"
+                "rating はキーごと省くのが正しい")
+
+    # 裏づけが無いのに比較表を出している。数値の出どころが無い。
+    if (a.get("spec") or {}).get("rows") and not backed:
+        add("HIGH", "裏づけのない spec", "spec",
+            f"{len((a['spec'])['rows'])}行",
+            "公式仕様も official_url も無いまま比較表を出している。"
+            "spec はキーごと省くのが正しい")
 
     # ---- 記事タイプに合わない見出し --------------------------------------
     if kind in ("roundup", "guide", "sale", "howto"):
@@ -318,9 +323,6 @@ def find_structure(a):
             add("MEDIUM", "比較基準の欠落", "spec",
                 "比較の基準が書かれていない",
                 "何を基準に並べたのか（用途・価格帯・同クラス）を intro か read に書く")
-    elif kind in ("review", "roundup"):
-        add("MEDIUM", "比較なし", "spec", "比較表なし",
-            "比較できる実在商品が無いなら無理に作らなくてよい。判断の記録として")
 
     # ---- 内部リンク -------------------------------------------------------
     links = [it for it in (a.get("next_problem") or {}).get("items", [])
@@ -342,10 +344,13 @@ def find_structure(a):
             add("LOW", "SEO", "title", f"{len(t)}字", "35字を超えると検索結果で切れる")
 
     # ---- 分量 -------------------------------------------------------------
+    # rating・spec を省いたぶん短くなるのは正しい振る舞いなので、
+    # 裏づけの無い記事では下限を下げる。水増しを促さないため。
     n = len(text)
+    floor = 6000 if backed else 5000
     if a.get("published"):
-        if n < 6000:
-            add("MEDIUM", "分量", "本文", f"{n:,}字", "下限 6,000字")
+        if n < floor:
+            add("MEDIUM", "分量", "本文", f"{n:,}字", f"下限 {floor:,}字")
         elif n > 12000:
             add("LOW", "分量", "本文", f"{n:,}字", "上限 12,000字")
 

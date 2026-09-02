@@ -28,6 +28,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from write_article import (GEN_FIELDS, NG_WORDS, MIN_CHARS, MAX_CHARS,
                            run_claude, parse_json, body_chars, load,
                            kind_of, KIND_FRAMES, PUBLISH_SCORE,
+                           MIN_CHARS_UNBACKED,
                            FAKE_EXPERIENCE, FAKE_REVIEW_NUM, AMAZON_MISLEAD,
                            VAGUE_RIVAL, CARE_CLAIM, AI_PHRASE, AI_PHRASE_LIMIT,
                            NEGATION)
@@ -157,6 +158,20 @@ def scan(a):
             hits.append(("評価の根拠不足", "rating.breakdown",
                          f"内訳が {len(bd)}字。何を評価し何を減点したかを書く"))
 
+    # 裏づけが無いのに rating / spec を出していないか。
+    # 公式情報が無いこと自体は問題ではない。無いのに数字を出すのが問題。
+    facts = a.get("facts") or []
+    if isinstance(facts, str):
+        facts = [facts]
+    backed = bool(facts) or bool((a.get("official_url") or "").strip())
+    if not backed:
+        if rating.get("score"):
+            hits.append(("裏づけのない rating", "rating",
+                         "公式仕様も official_url も無い。キーごと省く"))
+        if (a.get("spec") or {}).get("rows"):
+            hits.append(("裏づけのない spec", "spec",
+                         "公式仕様も official_url も無い。キーごと省く"))
+
     # まとめの情報源と最終確認日
     concl = a.get("conclusion")
     concl = "".join(concl) if isinstance(concl, list) else (concl or "")
@@ -166,8 +181,10 @@ def scan(a):
 
     # 分量。tools/check_articles.py と同じ数え方にそろえる。
     n = body_chars({k: v for k, v in a.items() if k not in SKIP})
-    if n < MIN_CHARS:
-        hits.append(("分量", "本文", f"{n:,}字（下限 {MIN_CHARS:,}）"))
+    # rating・spec を省いたぶん短くなるのは正しい。裏づけの無い記事は下限を下げる。
+    floor = MIN_CHARS if backed else MIN_CHARS_UNBACKED
+    if n < floor:
+        hits.append(("分量", "本文", f"{n:,}字（下限 {floor:,}）"))
     if n > MAX_CHARS:
         hits.append(("分量", "本文", f"{n:,}字（上限 {MAX_CHARS:,}）"))
 
@@ -234,7 +251,12 @@ def build_prompt(a, rules, hits):
         "（架空情報・架空レビュー・架空体験・未確認スペック・誤った商品情報・"
         "医療的効果の断定・Amazonとの関係を誤認させる表現・根拠のない評価・"
         "商品名を入れ替えれば他の記事にも使える文章）があれば書く。",
-        f"・本文の合計は {MIN_CHARS}〜{MAX_CHARS - 500} 文字の範囲を保つ。",
+        f"・本文の合計は {MIN_CHARS}〜{MAX_CHARS - 500} 文字の範囲を保つ。"
+        f"ただし公式仕様が確認できず rating と spec を省いている記事は、"
+        f"{MIN_CHARS_UNBACKED} 文字まで短くてよい。水増しで伸ばさない。",
+        "・公式仕様（facts）も official_url も無いことは、それ自体では問題ではない。"
+        "公式サイトを持たない商品もある。減点せず、rating と spec が"
+        "キーごと省かれているかだけを確かめる。省かれていなければ、その2つを削る。",
         "・HTMLは <strong> と <em> だけ。表の丸印は "
         '<span class="mark-o">◎</span> / <span class="mark-x">×</span> のみ可。',
         "・価格は書かない。変動するため。",

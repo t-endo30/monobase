@@ -2749,6 +2749,9 @@
   var NG_WORDS = ['絶対', '必ず', '確実に', '保証します', '間違いなく', '100%',
                   '誰でも', '永久に', '完治', '業界No.1', '日本一'];
   var MIN_CHARS = 6000, MAX_CHARS = 12000;
+  /* 公式仕様（facts）も official_url も無い記事は rating と spec をキーごと省く。
+     省いたぶん短くなるのは正しい振る舞いなので、下限を下げて水増しを促さない。 */
+  var MIN_CHARS_UNBACKED = 5000;
 
   function loadPrompt() {
     if (promptCache) return Promise.resolve(promptCache);
@@ -2882,8 +2885,24 @@
       ? '【メーカー公式で確認済みの仕様】\n'
         + facts.map(function (f) { return '・' + f; }).join('\n')
         + '\nここに無い機能を「ある」と書かない。スペック表もこの範囲で作る。'
-      : '【仕様について】確かな仕様が渡されていません。数値や機能の有無を断定せず、'
-        + 'レビューから読み取れる範囲で書いてください。';
+      /* 公式仕様が無いこと自体は異常ではない。公式サイトを持たない商品もあり、
+         管理画面から手で入れる運用も取らない。だから「書けない」ではなく
+         「rating と spec を省いて書く」を正しい動きとして指示する。
+         tools/write_article.py の facts_block と同じ内容にそろえてある。 */
+      : '【仕様について】メーカー公式で裏を取った仕様は渡されていません。'
+        + 'これは異常ではなく、通常の状態です。次のとおりに書いてください。\n'
+        + '・rating を出さない（キーごと省く）\n'
+        + '・spec（比較表）を出さない（キーごと省く）\n'
+        + '・数値・機能の有無を断定しない\n'
+        + '・そのうえで、記事は書き上げる\n'
+        + '公式仕様が無くても書けることを書きます。購入者レビューから読み取れる傾向と'
+        + '評価が分かれる理由、購入前に確認しておくべきこと、向く用途と向かない用途、'
+        + '販売ページで自分の目で確かめるべき項目（サイズ・付属品・保証・対応機種など）。'
+        + '読者には「仕様は販売ページで確認してください」と促します。\n'
+        + '公式仕様が無いことを self_check の減点理由にしないでください。'
+        + '確認できないものを省き、data_gaps に挙げ、書けることを書けていれば、'
+        + 'source_reliability は下げなくて構いません。'
+        + '逆に、確認できていないのに rating や spec を出したら大きく減点します。';
 
     var officialBlock = '';
     if (a.official_url && /^https?:\/\//.test(a.official_url)) {
@@ -2910,6 +2929,8 @@
       '・次の形に従う。項目を増やさない、減らさない。',
       articleShape(),
       '・本文の合計は ' + MIN_CHARS + '〜' + (MAX_CHARS - 500) + ' 文字。'
+        + 'ただし公式仕様が確認できず rating と spec を省いた記事は、'
+        + MIN_CHARS_UNBACKED + ' 文字まで短くてよい。'
         + 'うち4割以上は表や箇条書きでなく地の文にする。',
       '・HTMLは <strong> と <em> だけ。それ以外のタグは書かない。',
       '・「' + NG_WORDS.join('」「') + '」は使わない。',
@@ -2935,9 +2956,11 @@
       '・価格は書かない。変動するため。',
       '・比較対象は実在する商品にする。「一般的な商品」「同クラス製品」'
         + '「平均的なモデル」のような実在しない相手と比べない。'
-        + '実在の比較対象を挙げられないなら spec を出さない。',
+        + '実在の比較対象を挙げられないなら spec を出さない。'
+        + '比較表が無い記事は、それで完成。埋めるために架空の比較対象を作らない。',
       '・rating は商品ジャンルに合う評価軸で採点し、何を評価し何を減点したかを'
-        + 'breakdown に書く。公式仕様を確認できていない商品では rating を出さない。',
+        + 'breakdown に書く。公式仕様を確認できていない商品では rating を出さない。'
+        + 'rating が無い記事は、それで完成。無理に点数をひねり出さない。',
       '・pros / cons は商品固有の内容にする。「高性能」「使いやすい」「高い」のような'
         + 'どの商品にも書ける言葉を書かない。「仕様・事実 → 読者への影響」まで書く。',
       '・good_for / not_for は、どんな人・用途・環境・予算・重視点まで書く。'
@@ -3163,8 +3186,20 @@
       if (/^<span class=\\?"mark-[ox]\\?">$/i.test(t) || /^<\/span>$/i.test(t)) return;
       warns.push('使えないタグ ' + t);
     });
+    /* 裏づけが無いのに rating / spec を出していないか。
+       公式情報が無いこと自体は問題ではない。無いのに数字を出すのが問題。 */
+    var backed = !!(a.facts && a.facts.length) || !!(a.official_url || '').trim();
+    if (!backed) {
+      if (a.rating && a.rating.score) {
+        warns.push('公式仕様の裏づけが無いのに rating がある（キーごと省くのが正しい）');
+      }
+      if (a.spec && a.spec.rows && a.spec.rows.length) {
+        warns.push('公式仕様の裏づけが無いのに spec がある（キーごと省くのが正しい）');
+      }
+    }
     var n = bodyChars(a);
-    if (n < MIN_CHARS) warns.push('本文が ' + n.toLocaleString() + ' 字（下限 ' + MIN_CHARS.toLocaleString() + '）');
+    var floor = backed ? MIN_CHARS : MIN_CHARS_UNBACKED;
+    if (n < floor) warns.push('本文が ' + n.toLocaleString() + ' 字（下限 ' + floor.toLocaleString() + '）。水増しで埋めない');
     if (n > MAX_CHARS) warns.push('本文が ' + n.toLocaleString() + ' 字（上限 ' + MAX_CHARS.toLocaleString() + '）');
     /* 重複は1回だけ知らせる */
     return warns.filter(function (w, i) { return warns.indexOf(w) === i; });
@@ -3182,6 +3217,15 @@
     GEN_FIELDS.forEach(function (k) {
       if (gen[k] !== undefined && gen[k] !== null && gen[k] !== '') a[k] = gen[k];
     });
+    /* 書き直しでは、上書きだけでは足りない。
+       公式仕様の裏づけが無い記事で生成AIが rating と spec を正しく省いても、
+       前の版の値が残り、根拠のない点数と比較表が生き続ける。
+       裏づけが無いなら、この2つはキーごと落とす。
+       tools/write_article.py の apply_generated と同じ扱い。 */
+    if (!((a.facts && a.facts.length) || (a.official_url || '').trim())) {
+      delete a.rating;
+      delete a.spec;
+    }
     /* リンク切れ検査で止まるので、勝手に付いたリンクは落とす */
     ((a.next_problem || {}).items || []).forEach(function (it) {
       delete it.link_url; delete it.link_label;

@@ -13,6 +13,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 MIN_BLOCKS = 3      # summary/pros/cons/scenes/voices の合計要素数の下限
 MIN_CHARS = 6000    # 本文の文字数の下限（docs/article-prompt.md と揃える）
+# 公式仕様（facts）も official_url も無い記事は、rating と spec をキーごと省く。
+# 省いたぶん短くなるのは正しい振る舞いなので、下限を下げて水増しを促さない。
+MIN_CHARS_UNBACKED = 5000
 MAX_CHARS = 12000   # 上限。FAQ・情報源明記・比較基準まで入れると1万字前後になる
 
 # 文字数に数えないキー（識別子・URL・分類など、読者が読む文ではない）
@@ -109,9 +112,11 @@ def main():
                               f"メーカー公式の製品ページを入れてください（{ou}）")
 
         n = body_chars(a)
-        if n < MIN_CHARS:
-            warns.append(f"{slug}: 本文が {n:,} 文字です（下限 {MIN_CHARS:,} 文字）。"
-                         "表だけでなく、地の文を足してください")
+        backed = bool(a.get("facts")) or bool((a.get("official_url") or "").strip())
+        floor = MIN_CHARS if backed else MIN_CHARS_UNBACKED
+        if n < floor:
+            warns.append(f"{slug}: 本文が {n:,} 文字です（下限 {floor:,} 文字）。"
+                         "水増しはせず、書けることが残っているかを確かめてください")
         elif n > MAX_CHARS:
             warns.append(f"{slug}: 本文が {n:,} 文字あります（上限 {MAX_CHARS:,} 文字）")
 

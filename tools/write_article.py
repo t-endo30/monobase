@@ -27,6 +27,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NG_WORDS = ["絶対", "必ず", "確実に", "保証します", "間違いなく", "100%",
             "誰でも", "永久に", "完治", "業界No.1", "日本一"]
 MIN_CHARS = 6000
+# 公式仕様も official_url も無い記事は、rating と spec をキーごと省くぶん短くなる。
+# それは正しい振る舞いなので、下限を下げて水増しを促さない。
+MIN_CHARS_UNBACKED = 5000
 MAX_CHARS = 12000   # FAQ・情報源明記・比較基準まで入れると1万字前後になる。余白を持たせる
 
 # 生成に任せる項目。slug や published、販売先URLは触らせない。
@@ -172,6 +175,8 @@ def build_prompt(a, site, prompt_md, fetch_official=True):
         "・次の形に従う。項目を増やさない、減らさない。",
         SHAPE,
         f"・本文の合計は {MIN_CHARS}〜{MAX_CHARS - 500} 文字。"
+        f"ただし公式仕様が確認できず rating と spec を省いた記事は、"
+        f"{MIN_CHARS_UNBACKED} 文字まで短くてよい。"
         "書くことが十分にある商品では上限側（1万字前後）に寄せてよい。"
         "薄い内容を水増しして字数を稼がない。うち4割以上は"
         "表や箇条書きではなく地の文（段落）にする。",
@@ -210,10 +215,12 @@ def build_prompt(a, site, prompt_md, fetch_official=True):
         "・価格は書かない。変動するため。",
         "・比較対象は実在する商品にする。「一般的な商品」「同クラス製品」"
         "「平均的なモデル」のような実在しない相手と比べない。"
-        "実在の比較対象を挙げられないなら spec を出さない。",
+        "実在の比較対象を挙げられないなら spec を出さない。"
+        "比較表が無い記事は、それで完成。埋めるために架空の比較対象を作らない。",
         "・rating は、商品ジャンルに合う評価軸で採点し、何を評価し何を減点したかを"
         "breakdown に書く。公式仕様を確認できていない商品では rating を出さない"
-        "（0.1刻みの数字だけが独り歩きするため）。",
+        "（0.1刻みの数字だけが独り歩きするため）。"
+        "rating が無い記事は、それで完成。無理に点数をひねり出さない。",
         "・pros / cons は商品固有の内容にする。「高性能」「使いやすい」「高い」"
         "のような、どの商品にも書ける言葉を書かない。"
         "「仕様・事実 → 読者への影響」まで書く。",
@@ -266,13 +273,29 @@ def build_prompt(a, site, prompt_md, fetch_official=True):
 def facts_block(a):
     """メーカー公式で裏を取った仕様を渡す。
        ここを渡さないと、無い機能を「ある」と書いてしまう。
-       実際、温度調節のない電気ケトルに温度調節の節が付いた。"""
+       実際、温度調節のない電気ケトルに温度調節の節が付いた。
+
+       公式仕様が無いこと自体は異常ではない。公式サイトを持たない商品もあるし、
+       管理画面から手で入れる運用も取らない。だから「書けない」ではなく
+       「rating と spec を省いて書く」を正しい動きとして指示する。"""
     facts = a.get("facts") or []
     if isinstance(facts, str):
         facts = [facts]
     if not facts:
-        return ("\n【仕様について】確かな仕様が渡されていません。"
-                "数値や機能の有無を断定せず、レビューから読み取れる範囲で書いてください。")
+        return ("\n【仕様について】メーカー公式で裏を取った仕様は渡されていません。"
+                "これは異常ではなく、通常の状態です。次のとおりに書いてください。\n"
+                "・rating を出さない（キーごと省く）\n"
+                "・spec（比較表）を出さない（キーごと省く）\n"
+                "・数値・機能の有無を断定しない\n"
+                "・そのうえで、記事は書き上げる\n"
+                "公式仕様が無くても書けることを書きます。購入者レビューから読み取れる傾向と"
+                "評価が分かれる理由、購入前に確認しておくべきこと、向く用途と向かない用途、"
+                "販売ページで自分の目で確かめるべき項目（サイズ・付属品・保証・対応機種など）。"
+                "読者には「仕様は販売ページで確認してください」と促します。\n"
+                "公式仕様が無いことを self_check の減点理由にしないでください。"
+                "確認できないものを省き、data_gaps に挙げ、書けることを書けていれば、"
+                "source_reliability は下げなくて構いません。"
+                "逆に、確認できていないのに rating や spec を出したら大きく減点します。")
     return ("\n【メーカー公式で確認済みの仕様】\n"
             + "\n".join(f"・{f}" for f in facts)
             + "\nここに無い機能を「ある」と書かないでください。"
@@ -476,6 +499,20 @@ def audit(a):
     if n_ai > AI_PHRASE_LIMIT:
         warns.append(f"AIらしい定型表現が {n_ai} 回（上限 {AI_PHRASE_LIMIT}）")
 
+    # 裏づけが無いのに rating / spec を出していないか。
+    # 公式情報が無いこと自体は問題ではない。無いのに数字を出すのが問題。
+    facts = a.get("facts") or []
+    if isinstance(facts, str):
+        facts = [facts]
+    backed = bool(facts) or bool((a.get("official_url") or "").strip())
+    if not backed:
+        if (a.get("rating") or {}).get("score"):
+            warns.append("公式仕様の裏づけが無いのに rating がある"
+                         "（キーごと省くのが正しい）")
+        if (a.get("spec") or {}).get("rows"):
+            warns.append("公式仕様の裏づけが無いのに spec がある"
+                         "（キーごと省くのが正しい）")
+
     # 記事タイプに合わない枠を使っていないか
     kind = kind_of(a)
     allowed = {x.strip() for x in KIND_FRAMES[kind][1].replace("/", " ").split()}
@@ -495,11 +532,12 @@ def audit(a):
             continue
         warns.append(f"使えないタグ {t}")
     n = body_chars({k: a[k] for k in GEN_FIELDS if k in a})
-    if n < MIN_CHARS:
-        # 確認できない項目を省いた結果、短くなることがある。
-        # そのときに足すのは字数ではなく、公式仕様と口コミの調査。
-        warns.append(f"本文が {n:,} 字（下限 {MIN_CHARS:,}）"
-                     "。水増しで埋めず、公式仕様・口コミを調べて判断材料を足す")
+    # rating・spec を省いたぶん短くなるのは正しい振る舞い。
+    # 水増しを促さないよう、裏づけの無い記事では下限を下げる。
+    floor = MIN_CHARS if backed else MIN_CHARS_UNBACKED
+    if n < floor:
+        warns.append(f"本文が {n:,} 字（下限 {floor:,}）"
+                     "。水増しで埋めない。書けることが尽きているなら短いままでよい")
     if n > MAX_CHARS:
         warns.append(f"本文が {n:,} 字（上限 {MAX_CHARS:,}）")
     # 同じ指摘は1回だけ
@@ -511,6 +549,19 @@ def apply_generated(a, gen):
         v = gen.get(k)
         if v not in (None, "", [], {}):
             a[k] = v
+
+    # 書き直しでは、上書きだけでは足りない。
+    # 公式仕様の裏づけが無い記事で生成AIが rating と spec を正しく省いても、
+    # 前の版の値が残ってしまい、根拠のない点数と比較表が生き続ける。
+    # 裏づけが無いなら、この2つはキーごと落とす。
+    facts = a.get("facts") or []
+    if isinstance(facts, str):
+        facts = [facts]
+    if not (facts or (a.get("official_url") or "").strip()):
+        for k in ("rating", "spec"):
+            if k in a:
+                a.pop(k)
+
     # リンク切れ検査で止まるので、作り話のリンクは落とす
     for it in (a.get("next_problem") or {}).get("items", []):
         it.pop("link_url", None)
