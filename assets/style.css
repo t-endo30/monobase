@@ -6081,17 +6081,18 @@ details.hero-policy .policy-close{display:none;}
 
 /* ---- ランキングの行にも、星・数字・一言を出す ---- */
 
-/* ---- 「すべて見る」を枠の下端としてつなげる ---- */
-/* 上の記事タイルと同じ見た目（白地・角丸・影）にそろえ、
-   一覧の続きの1枚として自然に見えるようにする */
+/* ---- 「すべて見る」を、記事タイルの続きとして下端にくっつける ---- */
+/* 新着記事の「もっと見る」（.arow-more）と同じ考え方：間を空けず、
+   上の記事タイルと同じ白地の続きに見せる。角は外側（下側）だけ
+   丸め、タイルと接する上側は角ばったままにして継ぎ目をそろえる。 */
 .pt-more{
   display:flex;
   align-items:center;
   justify-content:center;
   gap:7px;
-  margin-top:10px;
+  margin-top:0;
   padding:13px 14px;
-  border-radius:var(--radius);
+  border-radius:0 0 var(--radius) var(--radius);
   background:var(--surface);
   box-shadow:var(--shadow);
   color:var(--ink);
