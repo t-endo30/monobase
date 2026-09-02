@@ -6027,11 +6027,15 @@ details.hero-policy .policy-close{display:none;}
    ------------------------------------------------------------
    ・5件目は下半分を薄くして、続きがあることを形で示す
    ・文字は左寄せ（読む順に目を運べるようにする）
-   ・「すべて見る」は他の記事タイルと同じ見た目にして、一覧の
-     続きの1枚として自然に見えるようにする（.pt-more側で指定）
+   ・「すべて見る」は間隔を空けず、記事タイルの続きの下端として
+     くっつける（.pt-more側で指定）
    ============================================================ */
 
 /* ---- 4件表示・5件目（最後の1件）は下半分をぼかして切る ---- */
+/* mask-image + border-radius + overflow:hidden を同じ要素に重ねると、
+   一部のSafariで角丸が反映されず下端が角ばって見える不具合がある
+   ため、mask は使わず「白へのグラデーションをかぶせる」方式に統一する
+   （以前は非対応環境向けの代替だったものを、常用に切り替えた）。 */
 .pick-tabs .rank-list > .rank-item:nth-child(5),
 .pick-tabs .today-list > .today-list-item:nth-child(5){
   position:relative;
@@ -6041,23 +6045,18 @@ details.hero-policy .policy-close{display:none;}
      あるせいで見えず、下端だけ角ばって見えてしまう。 */
   border-radius:var(--radius);
   pointer-events:none;             /* 半分しか見えないものは押させない */
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
-          mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
 }
 /* 1件ぶんのおよそ半分。行の作りが違うので、枠ごとに高さを決める */
 .pick-tabs .rank-list > .rank-item:nth-child(5){max-height:46px;}
 .pick-tabs .today-list > .today-list-item:nth-child(5){max-height:38px;}
 
-/* mask が使えない環境では、白いかぶせで同じ見え方にする */
-@supports not ((-webkit-mask-image:linear-gradient(#000,#000)) or (mask-image:linear-gradient(#000,#000))){
-  .pick-tabs .rank-list > .rank-item:nth-child(5)::after,
-  .pick-tabs .today-list > .today-list-item:nth-child(5)::after{
-    content:"";
-    position:absolute;
-    inset:auto 0 0 0;
-    height:100%;
-    background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
-  }
+.pick-tabs .rank-list > .rank-item:nth-child(5)::after,
+.pick-tabs .today-list > .today-list-item:nth-child(5)::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0 0;
+  height:100%;
+  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
 }
 
 /* ---- 文字は左寄せ（スマホの中央寄せ指定を、この枠だけ戻す） ---- */
@@ -6079,17 +6078,18 @@ details.hero-policy .policy-close{display:none;}
 
 /* ---- ランキングの行にも、星・数字・一言を出す ---- */
 
-/* ---- 「すべて見る」も記事タイルと同じ見た目にする ---- */
-/* 上の記事タイルと同じ白地・角丸・影にして、一覧の続きの1枚として
-   自然に見えるようにする（.arow-more と同じ形にそろえてある） */
+/* ---- 「すべて見る」を、記事タイルの続きとして下端にくっつける ---- */
+/* 間隔は空けず、上の記事タイルと同じ白地の続きに見せる。角は
+   外側（下側）だけ丸め、タイルと接する上側は角ばったままにして
+   継ぎ目をそろえる（.arow-more と同じ形にそろえてある） */
 .pt-more{
   display:flex;
   align-items:center;
   justify-content:center;
   gap:7px;
-  margin-top:10px;
+  margin-top:0;
   padding:13px 14px;
-  border-radius:var(--radius);
+  border-radius:0 0 var(--radius) var(--radius);
   background:var(--surface);
   box-shadow:var(--shadow);
   color:var(--ink);
@@ -6521,34 +6521,31 @@ body.is-listing main.layout{
 }
 
 /* ---- 5件目（最後の1件）は下半分をぼかして切る ---- */
+/* mask は使わず白グラデーションで統一（理由は上のタブ側と同じ） */
 .news-list-block .arow-list > .arow:nth-child(5){
   position:relative;
   overflow:hidden;
   border-radius:var(--radius);
   pointer-events:none;
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
-          mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
   max-height:46px;
 }
-@supports not ((-webkit-mask-image:linear-gradient(#000,#000)) or (mask-image:linear-gradient(#000,#000))){
-  .news-list-block .arow-list > .arow:nth-child(5)::after{
-    content:"";
-    position:absolute;
-    inset:auto 0 0 0;
-    height:100%;
-    background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
-  }
+.news-list-block .arow-list > .arow:nth-child(5)::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0 0;
+  height:100%;
+  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
 }
-/* 上の記事タイルと同じ白地・角丸・影にして、一覧の続きの1枚として
-   自然に見えるようにする（.pt-more と同じ形にそろえてある） */
+/* 間隔は空けず、上の記事タイルの続きとして下端にくっつける。
+   角は外側（下側）だけ丸める（.pt-more と同じ形にそろえてある） */
 .arow-more{
   display:flex;
   align-items:center;
   justify-content:center;
   gap:7px;
-  margin-top:10px;
+  margin-top:0;
   padding:13px 14px;
-  border-radius:var(--radius);
+  border-radius:0 0 var(--radius) var(--radius);
   background:var(--surface);
   box-shadow:var(--shadow);
   color:var(--ink);
