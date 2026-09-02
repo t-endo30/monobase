@@ -6909,6 +6909,14 @@ body.is-listing main.layout{
   .site-header::after{content:none;}
 }
 
+/* タブの板は、中身のレイアウトを外と切り離す。板の高さが変わる
+   あいだ、中の一覧まで組み直さずに済む（動きは今までと同じ）。 */
+.pt-stage{contain:layout paint;}
+/* 動いているあいだだけ合成レイヤーに載せる。常時付けると、
+   使っていない間もメモリと描画を取られる。 */
+.pt-panel.is-leaving,
+.pt-panel.is-entering{will-change:opacity,transform;}
+
 
 /* ============================================================
    PCサイドの CATEGORIES：見出しを他のタイルと同じ形にする
