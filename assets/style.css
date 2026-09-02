@@ -1549,12 +1549,12 @@ mark.hl{
 
 @media (max-width:899px){
   /* スマホ：「新着記事」「カテゴリーから探す」の見出し下にオレンジの線を入れる */
-  .tile-card-head{box-shadow:inset 0 -2px 0 var(--amazon,#FF9900);}
+  .tile-card-head{box-shadow:inset 0 2px 0 var(--amazon,#FF9900);}
   /* 「もっと見る」はタイルから離さず、板の下端としてつなげる */
   .news-list-block .tile-card{margin-bottom:0;}
   .news-list-block .arow-more{
     margin-top:0;
-    border-top:none;
+    border-top:1px solid var(--border);
     border-radius:0 0 var(--radius) var(--radius);
   }
 }
@@ -5397,7 +5397,6 @@ body{
   .cat-nav-list{gap:2px;}
   .cat-nav-list a{padding:0 6px;font-size:12px;}
 }
-}
 
 /* 「本日のお勧めのモノ」：画像を少し内側に置く（枠の縁にくっつけない） */
 .today-thumb{margin-left:clamp(6px,2.2vw,14px);}
@@ -6568,6 +6567,9 @@ body.is-listing main.layout{
 /* ---- 「もっと見る」もタイルから離さず、板の下端としてつなげる ---- */
 .pick-tabs .rank-list,
 .pick-tabs .today-list{border-bottom:none;}
+.pick-tabs .pt-tabs{margin-bottom:0;}
+.pick-tabs .pt-stage{border-radius:0 0 var(--radius) var(--radius);}
+.pick-tabs .pt-panel{border-radius:inherit;overflow:hidden;}
 .pick-tabs .pt-more{
   margin-top:0;
   border-top:1px solid var(--border);
