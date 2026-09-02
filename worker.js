@@ -13,7 +13,10 @@
 //      いないため、ブラウザから直接は呼べない。ここで中継する。
 //      中継先はYahoo!のAPIだけに固定し、Cloudflare Access を通った
 //      リクエストしか受け付けない（誰でも使える踏み台にしないため）。
-//   4. 商品ページの取得（/api/fetch-product）
+//   4. Amazon商品検索APIの中継（/api/amazon）
+//      PA-API v5 は CORS を許しておらず、AWS SigV4 の署名も要る。
+//      ここで署名して中継する。鍵は管理画面から都度送られてくる。
+//   5. 商品ページの取得（/api/fetch-product）
 //      「URLから記事を作る」タブが使う。Amazon・楽天・Yahoo!の商品ページは
 //      ブラウザから直接fetchするとCORSで弾かれるため、ここで代わりに取得し、
 //      タイトル・画像・価格などのメタ情報だけを抜き出して返す。
@@ -181,6 +184,149 @@ async function proxyFetchProduct(request, url) {
   }
 }
 
+// ============================================================
+// Amazon 商品検索APIの中継（/api/amazon）
+// ------------------------------------------------------------
+// Amazon の Product Advertising API (PA-API v5) は、
+//   ・ブラウザからは CORS で呼べない
+//   ・リクエストに AWS SigV4 の署名が要る（秘密鍵を使う）
+// ため、ここで中継して署名する。鍵は管理画面のブラウザから
+// 都度送られてくる（サーバーには保存しない）。楽天・Yahoo! と
+// 同じく、Cloudflare Access を通ったリクエストしか受け付けない。
+//
+// PA-API はレビュー件数・評価を返さない（v5で廃止された）。
+// 「レビューが十分か」の判断は楽天・Yahoo! 側の数字で行い、
+// Amazon の結果は主に ASIN と商品リンクを補うために使う。
+// ============================================================
+const AMAZON_HOST = "webservices.amazon.co.jp";
+const AMAZON_PATH = "/paapi5/searchitems";
+const AMAZON_REGION = "us-west-2";
+const AMAZON_SERVICE = "ProductAdvertisingAPI";
+const AMAZON_TARGET =
+  "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems";
+
+function hex(buf) {
+  return [...new Uint8Array(buf)]
+    .map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function sha256Hex(text) {
+  const data = new TextEncoder().encode(text);
+  return hex(await crypto.subtle.digest("SHA-256", data));
+}
+
+async function hmac(key, text) {
+  const k = await crypto.subtle.importKey(
+    "raw", key, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  return crypto.subtle.sign("HMAC", k, new TextEncoder().encode(text));
+}
+
+// AWS SigV4。署名鍵は 日付→リージョン→サービス→aws4_request の順に
+// HMAC を重ねて作る（AWSの決めた手順そのまま）。
+async function signV4(secretKey, stamp, region, service, stringToSign) {
+  let key = new TextEncoder().encode("AWS4" + secretKey);
+  for (const part of [stamp, region, service, "aws4_request"]) {
+    key = new Uint8Array(await hmac(key, part));
+  }
+  return hex(await hmac(key, stringToSign));
+}
+
+async function proxyAmazon(request) {
+  if (!request.headers.get("Cf-Access-Jwt-Assertion")) {
+    return json({
+      error:
+        "Cloudflare Access を通っていないため使えません。" +
+        "Zero Trust → Access → アプリケーション → モノベース管理画面 を開き、" +
+        "対象のパスに /api/ を追加してください。",
+    }, 403);
+  }
+  if (request.method !== "POST") {
+    return json({ error: "POSTで呼んでください" }, 405);
+  }
+
+  let req;
+  try { req = await request.json(); } catch (e) {
+    return json({ error: "リクエストの形が正しくありません" }, 400);
+  }
+  const accessKey = String(req.accessKey || "").trim();
+  const secretKey = String(req.secretKey || "").trim();
+  const partnerTag = String(req.partnerTag || "").trim();
+  if (!accessKey || !secretKey || !partnerTag) {
+    return json({
+      error: "Amazonのアクセスキー・シークレットキー・アソシエイトタグが揃っていません",
+    }, 400);
+  }
+
+  const body = {
+    Keywords: String(req.keywords || ""),
+    ItemCount: Math.min(10, Math.max(1, Number(req.itemCount) || 10)),
+    PartnerTag: partnerTag,
+    PartnerType: "Associates",
+    Marketplace: "www.amazon.co.jp",
+    Resources: [
+      "ItemInfo.Title",
+      "ItemInfo.ByLineInfo",
+      "ItemInfo.ExternalIds",
+      "Images.Primary.Medium",
+      "Offers.Listings.Price",
+      "Offers.Listings.DeliveryInfo.IsAmazonFulfilled",
+    ],
+  };
+  if (req.searchIndex) body.SearchIndex = String(req.searchIndex);
+  if (Number(req.itemPage) > 1) body.ItemPage = Math.min(10, Number(req.itemPage));
+  if (Number(req.minPrice) > 0) body.MinPrice = Math.round(Number(req.minPrice)) * 100;
+  if (Number(req.maxPrice) > 0) body.MaxPrice = Math.round(Number(req.maxPrice)) * 100;
+
+  const payload = JSON.stringify(body);
+  const now = new Date();
+  const amzDate = now.toISOString().replace(/[:-]|\.\d{3}/g, "");  // 20260902T120000Z
+  const stamp = amzDate.slice(0, 8);
+
+  const headers = {
+    "content-encoding": "amz-1.0",
+    "content-type": "application/json; charset=utf-8",
+    host: AMAZON_HOST,
+    "x-amz-date": amzDate,
+    "x-amz-target": AMAZON_TARGET,
+  };
+  const signedHeaders = Object.keys(headers).sort().join(";");
+  const canonicalHeaders =
+    Object.keys(headers).sort().map((k) => k + ":" + headers[k] + "\n").join("");
+  const canonicalRequest = [
+    "POST", AMAZON_PATH, "", canonicalHeaders, signedHeaders,
+    await sha256Hex(payload),
+  ].join("\n");
+  const scope = [stamp, AMAZON_REGION, AMAZON_SERVICE, "aws4_request"].join("/");
+  const stringToSign = [
+    "AWS4-HMAC-SHA256", amzDate, scope, await sha256Hex(canonicalRequest),
+  ].join("\n");
+  const signature =
+    await signV4(secretKey, stamp, AMAZON_REGION, AMAZON_SERVICE, stringToSign);
+
+  try {
+    const res = await fetch("https://" + AMAZON_HOST + AMAZON_PATH, {
+      method: "POST",
+      headers: {
+        ...headers,
+        Authorization:
+          "AWS4-HMAC-SHA256 Credential=" + accessKey + "/" + scope +
+          ", SignedHeaders=" + signedHeaders + ", Signature=" + signature,
+      },
+      body: payload,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      // PA-API は Errors[].Message に理由を書いてくる。そのまま見せないと直せない。
+      const why = (data.Errors && data.Errors[0] && data.Errors[0].Message)
+        || data.message || ("HTTP " + res.status);
+      return json({ error: "Amazon：" + why }, 502);
+    }
+    return json(data);
+  } catch (e) {
+    return json({ error: "AmazonのAPIに接続できません: " + e.message }, 502);
+  }
+}
+
 function json(obj, status) {
   return new Response(JSON.stringify(obj), {
     status: status || 200,
@@ -199,6 +345,11 @@ export default {
     // Yahoo!ショッピングAPIの中継
     if (path === "/api/yahoo") {
       return proxyYahoo(request, url);
+    }
+
+    // Amazon 商品検索APIの中継
+    if (path === "/api/amazon") {
+      return proxyAmazon(request);
     }
 
     // 商品ページの取得（URLから記事を作るタブが使う）

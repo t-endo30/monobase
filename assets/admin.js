@@ -2030,21 +2030,26 @@
   var RAKUTEN_API =
     'https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260701';
   var YAHOO_PROXY = '/api/yahoo';
+  /* Amazon（PA-API v5）もブラウザからは呼べず、AWSの署名が要るので
+     このサイトの /api/amazon を通す（署名は worker.js が行う）。 */
+  var AMAZON_PROXY = '/api/amazon';
 
   /* サイトのカテゴリーと、楽天のジャンルID／Yahoo!の検索語の対応。
      tools/pick_products.py の CATEGORY_MAP と同じ内容にしておく。 */
+  /* index は Amazon の SearchIndex（検索する売り場）。
+     指定しないと本や食品まで混ざるので、カテゴリーごとに固定する。 */
   var CATEGORY_MAP = {
-    pc:         { genre: 100026, word: 'PC周辺機器' },
-    appliance:  { genre: 562637, word: '生活家電' },
-    furniture:  { genre: 100804, word: 'インテリア 収納' },
-    daily:      { genre: 215783, word: '日用品' },
-    av:         { genre: 211742, word: 'オーディオ' },
-    camera:     { genre: 204040, word: 'カメラ' },
-    smartphone: { genre: 565004, word: 'スマートフォン アクセサリ' },
-    kitchen:    { genre: 100939, word: 'キッチン家電' },
-    health:     { genre: 100938, word: '健康計測' },
-    beauty:     { genre: 100939, word: '美容家電' },
-    pet:        { genre: 101213, word: 'ペット用品' }
+    pc:         { genre: 100026, word: 'PC周辺機器', index: 'Computers' },
+    appliance:  { genre: 562637, word: '生活家電', index: 'Appliances' },
+    furniture:  { genre: 100804, word: 'インテリア 収納', index: 'Furniture' },
+    daily:      { genre: 215783, word: '日用品', index: 'HealthPersonalCare' },
+    av:         { genre: 211742, word: 'オーディオ', index: 'Electronics' },
+    camera:     { genre: 204040, word: 'カメラ', index: 'Electronics' },
+    smartphone: { genre: 565004, word: 'スマートフォン アクセサリ', index: 'Electronics' },
+    kitchen:    { genre: 100939, word: 'キッチン家電', index: 'KitchenAndHousewares' },
+    health:     { genre: 100938, word: '健康計測', index: 'HealthPersonalCare' },
+    beauty:     { genre: 100939, word: '美容家電', index: 'Beauty' },
+    pet:        { genre: 101213, word: 'ペット用品', index: 'PetSupplies' }
   };
   /* travel（旅行・トラベル）は CATEGORY_MAP に入れていない。
      入れると「商品を探す」の自動ローテーションが、記事0本の旅行に
@@ -2161,6 +2166,61 @@
       });
   }
 
+  /* Amazon（PA-API v5）で探す。/api/amazon が署名して中継する。
+     PA-API はレビュー件数・評価を返さない（v5で廃止された）ので、
+     件数は 0、評価も 0 で返す。「レビューが十分か」の判定は楽天・
+     Yahoo! の数字で行い、Amazon の結果は主に ASIN と商品リンクを
+     補うために使う（下限で切り落とさないよう findProducts 側で除外する）。
+     1回に返せるのは10件までなので、必要なぶんだけページを繰る。 */
+  function amazonSearch(keys, opts) {
+    var want = Math.max(1, Number(opts.hits) || 10);
+    var pages = Math.min(5, Math.ceil(want / 10));
+    var all = [];
+
+    function page(n) {
+      return fetch(AMAZON_PROXY, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          accessKey: keys.azAccess, secretKey: keys.azSecret,
+          partnerTag: keys.azTag,
+          keywords: opts.keyword || '', searchIndex: opts.index || '',
+          itemCount: 10, itemPage: n,
+          minPrice: opts.pmin || 0, maxPrice: opts.pmax || 0
+        })
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          if (!r.ok) throw new Error(j.error || ('Amazon：HTTP ' + r.status));
+          return j;
+        });
+      }).then(function (d) {
+        var items = (d.SearchResult && d.SearchResult.Items) || [];
+        items.forEach(function (it) {
+          var info = it.ItemInfo || {};
+          var listing = ((it.Offers || {}).Listings || [])[0] || {};
+          var price = ((listing.Price || {}).Amount) || 0;
+          all.push({
+            shop: 'amazon',
+            name: ((info.Title || {}).DisplayValue) || '',
+            url: it.DetailPageURL || '',
+            asin: it.ASIN || '',
+            price: Number(price),
+            /* Amazonの配送は出品者ごとに変わる。Amazon発送なら実質送料込み。 */
+            postage_included: !!((listing.DeliveryInfo || {}).IsAmazonFulfilled),
+            reviews: 0,
+            rating: 0,
+            shop_name: (((info.ByLineInfo || {}).Manufacturer || {}).DisplayValue) || 'Amazon',
+            jan: ((((info.ExternalIds || {}).EANs || {}).DisplayValues) || [])[0] || '',
+            image: (((it.Images || {}).Primary || {}).Medium || {}).URL || ''
+          });
+        });
+        if (n < pages && items.length) return page(n + 1);
+        return all;
+      });
+    }
+    return page(1);
+  }
+
   function yahooSearch(appId, opts) {
     var q = new URLSearchParams({
       appid: appId, results: String(opts.hits || 30),
@@ -2197,12 +2257,13 @@
 
   /* すでに記事にした商品。JANとASIN、それに商品名の頭で見分ける。 */
   function knownProducts() {
-    var jans = {}, names = {};
+    var jans = {}, names = {}, asins = {};
     articles.forEach(function (a) {
       if (a.jan) jans[String(a.jan)] = true;
+      if (a.asin) asins[String(a.asin).toUpperCase()] = true;
       if (a.title) names[cleanName(a.title).slice(0, 20)] = true;
     });
-    return { jans: jans, names: names };
+    return { jans: jans, names: names, asins: asins };
   }
 
   /* カテゴリーの選択欄を組み立てる。CATEGORY_MAP にあるものだけを
@@ -2238,7 +2299,8 @@
 
   function findProducts() {
     var keys = shopKeys();
-    if (!keys.rakuten && !keys.yahoo) {
+    var hasAmazon = !!(keys.azAccess && keys.azSecret && keys.azTag);
+    if (!keys.rakuten && !keys.yahoo && !hasAmazon) {
       $('fd-nokey').hidden = false;
       toast('先に「接続」タブでAPIのIDを登録してください', 'err');
       return;
@@ -2290,6 +2352,14 @@
           })
       );
     }
+    if (hasAmazon) {
+      jobs.push(
+        amazonSearch(keys, {
+          keyword: conf.word, index: conf.index, hits: hits,
+          pmin: pmin, pmax: pmax
+        }).catch(function (err) { failed.push(err.message); return []; })
+      );
+    }
 
     /* レビューの多い順に混ぜる。モールごとに固まらないようにするため、
        集め終わってからまとめて並べ替える。 */
@@ -2301,11 +2371,14 @@
       var byKey = {};      /* 同じ商品を1件にまとめるための索引 */
 
       list.forEach(function (e) {
-        if (e.reviews < minRev) return;
+        /* Amazon はレビュー件数を返さないので、下限では切らない。
+           切ると Amazon の結果が毎回すべて消え、ASINも拾えなくなる。 */
+        if (e.shop !== 'amazon' && e.reviews < minRev) return;
         if (e.price < pmin || e.price > pmax) return;
         var name = cleanName(e.name);
         var jan = (e.jan || '').trim();
         if (jan && known.jans[jan]) return;
+        if (e.asin && known.asins[String(e.asin).toUpperCase()]) return;
 
         /* 同一性の判断は商品名の頭でそろえる。JANを持つのはYahoo!側だけで、
            鍵を使い分けると、同じ商品が別々の鍵になって二重に並んでしまう。 */
@@ -2318,6 +2391,8 @@
              1件にまとめる。別々に並べると同じ商品が二重に出てしまう。 */
           if (e.shop === 'rakuten' && !hit.rakuten_url) hit.rakuten_url = e.url;
           if (e.shop === 'yahoo' && !hit.yahoo_url) hit.yahoo_url = e.url;
+          if (e.shop === 'amazon' && !hit.amazon_url) hit.amazon_url = e.url;
+          if (e.shop === 'amazon' && !hit.asin) hit.asin = e.asin || '';
           if (!hit.jan && jan) hit.jan = jan;
           if (e.reviews > hit.reviews) hit.reviews = e.reviews;
           if (e.price < hit.price) hit.price = e.price;
@@ -2332,6 +2407,8 @@
           image: e.image,
           rakuten_url: e.shop === 'rakuten' ? e.url : '',
           yahoo_url: e.shop === 'yahoo' ? e.url : '',
+          amazon_url: e.shop === 'amazon' ? e.url : '',
+          asin: e.shop === 'amazon' ? (e.asin || '') : '',
           shop_name: e.shop_name,
           postage_included: e.postage_included
         };
@@ -2361,6 +2438,7 @@
     $('fd-count-badge').textContent = candidates.length + '件';
     box.innerHTML = candidates.map(function (c, i) {
       var shops = [];
+      if (c.amazon_url || c.asin) shops.push('Amazon');
       if (c.rakuten_url) shops.push('楽天');
       if (c.yahoo_url) shops.push('Yahoo!');
       var img = c.image
@@ -2373,10 +2451,12 @@
           '<b>' + esc(c.name.slice(0, 70)) + '</b>' +
           '<span class="find-meta">￥' + c.price.toLocaleString() +
             '（' + (c.postage_included ? '送料込み' : '送料別') + '）' +
-            ' ・ レビュー' + c.reviews.toLocaleString() + '件' +
-            ' ★' + c.rating.toFixed(1) +
+            (c.reviews
+              ? ' ・ レビュー' + c.reviews.toLocaleString() + '件 ★' + c.rating.toFixed(1)
+              : ' ・ レビュー数不明') +
             ' ・ ' + (shops.join('／') || '—') +
             (c.jan ? ' ・ JAN ' + esc(c.jan) : ' ・ JANなし') +
+          (c.asin ? ' ・ ASIN ' + esc(c.asin) : '') +
           '</span>' +
           '<span class="find-shop">' + esc(c.shop_name) + '</span>' +
         '</span>' +
@@ -2448,6 +2528,8 @@
       a.conclusion_title = 'まとめ';
 
       if (c.jan) a.jan = c.jan;
+      if (c.asin) a.asin = c.asin;
+      if (c.amazon_url) a.amazon_url = c.amazon_url;
       if (c.rakuten_url) a.rakuten_url = c.rakuten_url;
       if (c.yahoo_url) a.yahoo_url = c.yahoo_url;
       a.published = false;
@@ -2497,11 +2579,13 @@
     if ($('k-rakuten')) $('k-rakuten').value = keys.rakuten || '';
     if ($('k-rakutenKey')) $('k-rakutenKey').value = keys.rakutenKey || '';
     if ($('k-yahoo')) $('k-yahoo').value = keys.yahoo || '';
-    if ($('k-state')) {
-      $('k-state').textContent =
-        (keys.rakuten || keys.yahoo) ? '登録済み' : '未登録';
+    if ($('k-azAccess')) $('k-azAccess').value = keys.azAccess || '';
+    if ($('k-azSecret')) $('k-azSecret').value = keys.azSecret || '';
+    if ($('k-azTag')) {
+      $('k-azTag').value =
+        keys.azTag || ((site.amazon || {}).associate_tag || '');
     }
-    $('fd-nokey').hidden = !!(keys.rakuten || keys.yahoo);
+    wireKeyState();
 
     $('btnFind').addEventListener('click', findProducts);
     $('btnMakeDrafts').addEventListener('click', makeDrafts);
@@ -2528,10 +2612,21 @@
         } else if (rk && !rkey) {
           toast('楽天はアプリケーションIDとアクセスキーの両方が必要です', 'err');
         }
+        var aza = $('k-azAccess') ? $('k-azAccess').value.replace(/\s/g, '') : '';
+        var azs = $('k-azSecret') ? $('k-azSecret').value.replace(/\s/g, '') : '';
+        var azt = $('k-azTag') ? $('k-azTag').value.replace(/\s/g, '') : '';
+        /* Amazonは3つ揃って初めて使える。1つでも欠けると署名が通らない。 */
+        if ((aza || azs || azt) && !(aza && azs && azt)) {
+          toast('Amazonはアクセスキー・シークレットキー・アソシエイトタグの3つが必要です', 'err');
+        }
         $('k-rakuten').value = rk;
         $('k-rakutenKey').value = rkey;
         $('k-yahoo').value = yh;
-        saveShopKeys({ rakuten: rk, rakutenKey: rkey, yahoo: yh });
+        if ($('k-azAccess')) $('k-azAccess').value = aza;
+        if ($('k-azSecret')) $('k-azSecret').value = azs;
+        if ($('k-azTag')) $('k-azTag').value = azt;
+        saveShopKeys({ rakuten: rk, rakutenKey: rkey, yahoo: yh,
+                       azAccess: aza, azSecret: azs, azTag: azt });
         wireKeyState();
         toast('APIのIDを保存しました');
       });
@@ -2558,15 +2653,24 @@
 
   function wireKeyState() {
     var k = shopKeys();
-    if ($('k-state')) $('k-state').textContent = (k.rakuten || k.yahoo) ? '登録済み' : '未登録';
-    if ($('fd-nokey')) $('fd-nokey').hidden = !!(k.rakuten || k.yahoo);
+    var names = [];
+    if (k.rakuten) names.push('楽天');
+    if (k.yahoo) names.push('Yahoo!');
+    if (k.azAccess && k.azSecret && k.azTag) names.push('Amazon');
+    if ($('k-state')) {
+      $('k-state').textContent = names.length ? names.join('／') + ' 登録済み' : '未登録';
+    }
+    if ($('fd-nokey')) $('fd-nokey').hidden = !!names.length;
   }
 
   function testKeys() {
     var k = {
       rakuten: $('k-rakuten').value.trim(),
       rakutenKey: $('k-rakutenKey').value.trim(),
-      yahoo: $('k-yahoo').value.trim()
+      yahoo: $('k-yahoo').value.trim(),
+      azAccess: $('k-azAccess') ? $('k-azAccess').value.trim() : '',
+      azSecret: $('k-azSecret') ? $('k-azSecret').value.trim() : '',
+      azTag: $('k-azTag') ? $('k-azTag').value.trim() : ''
     };
     var msgs = [];
     var jobs = [];
@@ -2581,7 +2685,13 @@
         .then(function (r) { msgs.push('Yahoo!：OK（' + r.length + '件）'); })
         .catch(function (e) { msgs.push('Yahoo!：' + e.message); }));
     }
-    if (!jobs.length) { toast('どちらかのIDを入力してください', 'err'); return; }
+    if (k.azAccess && k.azSecret && k.azTag) {
+      jobs.push(amazonSearch(k, { keyword: 'マウス', index: 'Computers', hits: 1 })
+        .then(function (r) { msgs.push('Amazon：OK（' + r.length + '件）'); })
+        /* amazonSearch 側で「Amazon：」を付けているので、ここでは足さない */
+        .catch(function (e) { msgs.push(e.message); }));
+    }
+    if (!jobs.length) { toast('いずれかのIDを入力してください', 'err'); return; }
     $('k-state').textContent = '確認中…';
     Promise.all(jobs).then(function () {
       $('k-state').textContent = msgs.join(' / ');

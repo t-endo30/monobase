@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=6713ec5c">
+<link rel="stylesheet" href="./assets/admin.css?v=6df1b0e0">
 </head>
 <body>
 
@@ -590,7 +590,8 @@
     <div class="card">
       <h2>記事にする商品を探す</h2>
       <p class="hint">
-        楽天市場とYahoo!ショッピングから、<b>レビューが十分に集まっている商品</b>を集めて並べます。
+        Amazon・楽天市場・Yahoo!ショッピングから、<b>レビューが十分に集まっている商品</b>を集めて並べます。
+        AmazonのAPIはレビュー件数を返さないため、Amazonの結果だけはレビュー件数の下限を掛けずに出し、ASINを拾います。
         すでに記事にした商品（JANコード・ASINが一致するもの）は除きます。
         カテゴリーは指定できます。「自動」のままなら、押すたびに記事の少ないカテゴリーが優先して選ばれます。
         <b>ここは候補を出すところまでです。</b>どれを書くかは一覧から選んでください。
@@ -631,8 +632,8 @@
         <span class="pill" id="fd-state">未実行</span>
       </div>
       <div class="note" id="fd-nokey" hidden>
-        <b>APIのIDが未登録です。</b>「接続」タブの<b>商品検索API</b>で、楽天のアプリIDとYahoo!のClient IDを登録してください。
-        どちらか一方だけでも動きます。
+        <b>APIのIDが未登録です。</b>「接続」タブの<b>商品検索API</b>で、楽天のアプリID・Yahoo!のClient ID・AmazonのPA-APIキーのいずれかを登録してください。
+        1つだけでも動きます。
       </div>
     </div>
 
@@ -919,7 +920,7 @@
 
     <div class="card">
       <h2>商品検索API</h2>
-      <p class="hint">「商品を探す」で使います。<b>入力内容はこのブラウザ内（localStorage）にのみ保存され、リポジトリには入りません。</b>どちらも無料で取得できます。片方だけの登録でも動きます。</p>
+      <p class="hint">「商品を探す」で使います。<b>入力内容はこのブラウザ内（localStorage）にのみ保存され、リポジトリには入りません。</b>楽天・Yahoo!は無料で取得できます。登録したモールだけで動くので、一部だけの登録でもかまいません。</p>
       <div class="row c2">
         <div>
           <label for="k-rakuten">楽天 アプリケーションID<span class="opt">applicationId・UUID形式</span></label>
@@ -932,6 +933,18 @@
       </div>
       <label for="k-yahoo">Yahoo!デベロッパー Client ID<span class="opt">appid</span></label>
       <input type="password" id="k-yahoo" placeholder="dj00aiZpPS...">
+      <div class="row c2">
+        <div>
+          <label for="k-azAccess">Amazon アクセスキー<span class="opt">PA-API・AKIA… で始まる</span></label>
+          <input type="password" id="k-azAccess" placeholder="AKIA...">
+        </div>
+        <div>
+          <label for="k-azSecret">Amazon シークレットキー<span class="opt">PA-API</span></label>
+          <input type="password" id="k-azSecret" placeholder="＊＊＊＊＊＊＊＊">
+        </div>
+      </div>
+      <label for="k-azTag">Amazon アソシエイトタグ<span class="opt">PartnerTag・xxxxx-22</span></label>
+      <input type="text" id="k-azTag" placeholder="monobase30-22">
       <div class="btn-bar">
         <button class="btn btn-primary" id="btnSaveKeys">保存する</button>
         <button class="btn" id="btnTestKeys">つながるか試す</button>
@@ -943,7 +956,12 @@
         <b>アプリケーションID</b>（ハイフン区切りのUUID）と<b>アクセスキー</b>（<code>pk_</code> で始まる）が出ます。
         <b>2026年2月のAPI刷新で、この2つが揃わないと認証を通りません。</b>
         アフィリエイトIDは楽天直アフィリエイト用で、当サイトはもしも経由のため使いません。<br>
-        Yahoo! → <b>Yahoo!デベロッパーネットワーク</b> <code>e.developer.yahoo.co.jp/register</code> でアプリケーションIDを発行します。<br><br>
+        Yahoo! → <b>Yahoo!デベロッパーネットワーク</b> <code>e.developer.yahoo.co.jp/register</code> でアプリケーションIDを発行します。<br>
+        Amazon → <b>Amazonアソシエイト</b> の管理画面 → <b>ツール → Product Advertising API</b> から
+        認証キー（アクセスキーとシークレットキー）を発行します。シークレットキーは発行時にしか表示されません。
+        アソシエイトタグは <code>-22</code> で終わるトラッキングIDです。
+        <b>PA-APIは、直近180日に3件以上の売上がないと使えなくなります。</b>
+        止まっているあいだは楽天・Yahoo!だけで探せます。<br><br>
         <b>Yahoo!のAPIはブラウザから直接呼べない</b>ため、このサイトの <code>/api/yahoo</code> を経由します。
         「URLから記事を作る」タブが商品ページを取得する <code>/api/fetch-product</code> も同じ仕組みです。
         どちらの入口も Cloudflare Access を通ったリクエストしか受け付けません。
@@ -1025,6 +1043,6 @@
 
 <div class="toast" id="toast"></div>
 <script src="./assets/vendor/qrcode.min.js"></script>
-<script src="./assets/admin.js?v=6713ec5c"></script>
+<script src="./assets/admin.js?v=6df1b0e0"></script>
 </body>
 </html>
