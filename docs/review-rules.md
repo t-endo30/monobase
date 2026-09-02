@@ -101,6 +101,9 @@
   （公式仕様が無く `rating` と `spec` を省いた記事は **5,000字** まで短くてよい）
 - HTMLは `<strong>` `<em>` のみ。表の丸印だけ
   `<span class="mark-o">◎</span>` / `<span class="mark-x">×</span>` を使ってよい
+- **`==この語==` はこのサイトの記法。装飾タグではないので消さない。**
+  テンプレートが黄色い蛍光ペンに変換する。1段落に1か所までという制限はあるが、
+  記法そのものは正しい。多すぎるときだけ減らす
 - `summary` / `not_for.items` / `highlights.items` / `next_problem.items` は
   `{"title": ..., "text": ...}` の形。文字列を直接入れない
 - `next_problem` の項目に、実在しないリンクURLを入れない
