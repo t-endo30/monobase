@@ -214,6 +214,7 @@ SYSTEM = ("あなたは日本語の商品記事の校閲者です。"
 OUT_SHAPE = '''{
   "findings": [{"where": "どの項目か", "rule": "違反したルール", "problem": "何が問題か"}],
   "fixed": { "直した項目だけを、記事JSONと同じキー・同じ形で入れる" },
+  "removed": ["削除すべき項目のキー名。裏づけの無い spec や rating など。無ければ空配列"],
   "score": {"fact_accuracy": 0, "source_reliability": 0, "original_analysis": 0,
             "editorial_quality": 0, "template_avoidance": 0,
             "purchase_helpfulness": 0, "legal_safety": 0,
@@ -244,6 +245,9 @@ def build_prompt(a, rules, hits):
         "・次の形に従う。",
         OUT_SHAPE,
         "・fixed には**直した項目だけ**を入れる。直していない項目は入れない。",
+        "・項目をまるごと削るべきときは、fixed に空の値を入れるのではなく "
+        "removed にキー名を並べる（fixed で空にしても消えない）。"
+        "裏づけの無い spec や rating を落とすときはこちらを使う。",
         "・項目の形（配列か辞書か、キー名）は元の記事と同じにする。",
         "・直すところが無ければ findings も fixed も空にする。",
         "・score は**直したあとの記事**に対する採点。甘く付けない。",
@@ -265,9 +269,17 @@ def build_prompt(a, rules, hits):
     ])
 
 
-def apply_fixed(a, fixed, keep_updated=False):
-    """返ってきた修正を書き戻す。触らせない項目は弾く。"""
+def apply_fixed(a, fixed, keep_updated=False, removed=None):
+    """返ってきた修正を書き戻す。触らせない項目は弾く。
+
+       fixed は上書きしかできない。「この項目はまるごと消すべき」という
+       判断（裏づけの無い比較表など）は removed で受け取る。
+       空の値を fixed に入れても消えないので、指摘だけが残ってしまう。"""
     changed = []
+    for k in (removed or []):
+        if k in GEN_FIELDS and k in a:
+            a.pop(k)
+            changed.append(f"{k}（削除）")
     for k, v in (fixed or {}).items():
         if k not in GEN_FIELDS:
             continue
@@ -392,7 +404,8 @@ def main():
             if args.dry_run:
                 break
 
-            changed = apply_fixed(a, res.get("fixed"), args.keep_updated)
+            changed = apply_fixed(a, res.get("fixed"), args.keep_updated,
+                                  res.get("removed"))
             if not changed:
                 print("    ✓ 直すところはありませんでした" if r == 1
                       else "    ✓ これ以上の修正はありません")
