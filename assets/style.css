@@ -639,7 +639,7 @@ table{border-collapse:collapse;}
   border-radius:var(--radius-sm);
   padding:14px 16px;
   margin-bottom:14px;
-  font-size:14.5px;
+  font-size:clamp(14.5px,3.7vw,16px);
   box-shadow:var(--shadow);
 }
 .voice .voice-name{
@@ -657,7 +657,7 @@ table{border-collapse:collapse;}
   border-radius:var(--radius-sm);
   padding:14px 16px;
   margin:0 0 24px;
-  font-size:14.5px;
+  font-size:clamp(14.5px,3.7vw,16px);
 }
 .fix-box .fix-title{
   font-weight:700;
@@ -1288,7 +1288,7 @@ mark.hit{background:#FFF0CC;color:inherit;padding:0 2px;border-radius:2px;}
   line-height:1.55;
   color:var(--navy);
 }
-.scene-body p{font-size:14.5px;margin:0;line-height:1.85;}
+.scene-body p{font-size:clamp(14.5px,3.7vw,16px);margin:0;line-height:1.85;}
 
 /* ============================================================
    6. 運営者の実体験コラム枠
@@ -1315,7 +1315,7 @@ mark.hit{background:#FFF0CC;color:inherit;padding:0 2px;border-radius:2px;}
   padding:3px 14px;
 }
 .personal-note p{
-  font-size:14.5px;
+  font-size:clamp(14.5px,3.7vw,16px);
   line-height:1.9;
   margin:0;
   color:#5C4A28;
@@ -2231,6 +2231,23 @@ body{font-size:clamp(15px,3.9vw,16.5px);}
 .card-grid{gap:clamp(10px,2.6vw,16px);}
 .card-body{padding:clamp(11px,3vw,14px) clamp(12px,3.4vw,16px) clamp(12px,3.4vw,16px);}
 .card-surface{padding:clamp(18px,4.6vw,32px) clamp(14px,4vw,28px) clamp(28px,6vw,40px);}
+
+/* ============================================================
+   スマホ：記事本文のタイルを画面幅いっぱいに広げる
+   ------------------------------------------------------------
+   .card-surface は .container の左右余白（--pad-x）の内側に
+   さらに自分の padding を持つため、狭い画面では文章の実質幅が
+   かなり狭くなる。記事ページ（body.is-article）に限り、外側の
+   余白ぶんだけ左右にはみ出させて画面端まで届かせる。内側の
+   padding はそのまま残すので、文字は端から離れて読みやすい。
+   ============================================================ */
+@media (max-width:599px){
+  body.is-article .card-surface{
+    margin-left:calc(var(--pad-x) * -1);
+    margin-right:calc(var(--pad-x) * -1);
+    border-radius:0;
+  }
+}
 
 /* --- 押せる要素は狭い画面でも指で押せる大きさを保つ --- */
 .card-link{min-height:clamp(40px,11vw,48px);font-size:clamp(13px,3.5vw,14px);}
@@ -4068,9 +4085,12 @@ body,p,li,dd,dt,figcaption,a,span,button,
 .hl-body p{
   grid-column:1 / -1;          /* 番号の下をくぐらせ、左端まで文字を伸ばす */
   margin:0;
-  font-size:clamp(13px,3.5vw,14.5px);
+  /* 本文の <p> と同じサイズ・色にそろえる。以前は本文より一回り小さく
+     補足色（--text-sub）だったため、記事の核心である「強み」が
+     周辺情報に見えてしまっていた。 */
+  font-size:clamp(15px,3.9vw,16.5px);
   line-height:1.95;
-  color:var(--text-sub);
+  color:var(--text);
   text-align:justify;
   text-justify:inter-character;
 }
