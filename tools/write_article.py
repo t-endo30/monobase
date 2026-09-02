@@ -65,12 +65,80 @@ SHAPE = '''{
   "list_title": "一覧用の短いタイトル（22字以内・メーカー名＋商品名を含める）",
   "title": "記事タイトル（全角30字前後・末尾に「 - モノベース」は付けない）",
   "tags": ["タグ"],
-  "sub": "サブカテゴリーのkey（分からなければ空文字）"
+  "sub": "サブカテゴリーのkey（分からなければ空文字）",
+  "data_gaps": ["確認できなかったこと。無ければ空配列"],
+  "self_check": {"fact_accuracy": 0, "source_reliability": 0,
+                 "original_analysis": 0, "editorial_quality": 0,
+                 "template_avoidance": 0, "purchase_helpfulness": 0,
+                 "legal_safety": 0, "amazon_compliance": 0,
+                 "total": 0, "notes": "低い項目の理由を1〜2文"}
 }'''
 
 
 def load(path):
     return json.load(io.open(os.path.join(ROOT, path), encoding="utf-8"))
+
+
+# 記事タイプごとに「使ってよい枠」。docs/article-prompt.md の【1.】と同じ内容を、
+# その記事ぶんだけ抜き出して渡す。全部の型を毎回読ませるより取り違えが減る。
+KIND_FRAMES = {
+    "review": ("単一商品レビュー",
+               "summary / rating / good_for / not_for / highlights / pros / cons / "
+               "spec / sections / voices / faq / conclusion",
+               "scenes は「想定される利用場面」として書ける場合だけ。書けないなら出さない。"),
+    "roundup": ("商品比較・ランキング特集",
+                "summary / good_for / not_for / spec / sections / faq / conclusion",
+                "highlights・scenes は使わない（単一商品レビュー用の枠のため）。"),
+    "guide": ("商品の選び方・商品解説",
+              "summary / good_for / not_for / spec / sections / faq / conclusion",
+              "rating・highlights・scenes・voices は使わない。"),
+    "sale": ("セール情報",
+             "summary / sections / faq / conclusion",
+             "rating・highlights・scenes・good_for・not_for・voices・pros/cons は使わない。"
+             "中身は「開催時期／セールの特徴／狙い目のカテゴリー／値下げされやすい商品の傾向／"
+             "買うタイミング／注意点／価格を見るときの見方」にする。"
+             "商品レビュー用の見出しを持ち込まない。"),
+    "howto": ("ハウツー",
+              "summary / sections / faq / conclusion",
+              "rating・highlights・scenes・voices は使わない。"),
+}
+
+# 美容・ヘルスケアは表現の risk が別格なので、そのカテゴリーのときだけ追加で渡す。
+CARE_NOTE = {
+    "beauty": (
+        "・この記事は美容・コスメです。効果の断定を書かない"
+        "（シミを改善する／ニキビを治す／肌を再生する／肌の内部まで浸透する／"
+        "毛穴が消える／シワが改善する／老化を防ぐ／メイク崩れを防ぐ）。"
+        "使用感・テクスチャ・香り・保湿感・べたつき・成分表示・使用方法を中心にする。"
+        "メーカーの説明は「メーカーは〇〇を特徴として説明しています」と出どころを明示する。"),
+    "health": (
+        "・この記事はヘルスケアです。「病気を診断できる」「治療できる」「予防できる」"
+        "と書かない。測定値は「健康管理の参考値」として扱い、"
+        "医療行為・診断と誤認される書き方をしない。"),
+}
+
+
+def kind_of(a):
+    """記事の種類。build.py の kind_of と同じ判定にそろえる。"""
+    k = a.get("kind")
+    if k in KIND_FRAMES:
+        return k
+    return "roundup" if a.get("category") == "feature" else "review"
+
+
+def kind_block(a):
+    kind = kind_of(a)
+    label, frames, note = KIND_FRAMES[kind]
+    out = ["\n【この記事の種類】" + f"{kind}（{label}）",
+           "・使ってよい枠：" + frames,
+           "・" + note,
+           "・ここに挙がっていないキーは出力しない。空で出すと空の見出しができる。",
+           "・挙がっている枠でも、書くことが無ければ出さない。枠を埋めるために"
+           "内容を作らない（テンプレートの量産になる）。"]
+    care = CARE_NOTE.get(a.get("category"))
+    if care:
+        out.append(care)
+    return "\n".join(out)
 
 
 def build_prompt(a, site, prompt_md, fetch_official=True):
@@ -95,6 +163,7 @@ def build_prompt(a, site, prompt_md, fetch_official=True):
         f"選べるサブカテゴリーのkey：{subs}",
         f'JANコード：{a.get("jan") or "不明"}',
         f'買えるモール：{"、".join(shops) or "不明"}',
+        kind_block(a),
         facts_block(a),
         official_block(a, do_fetch=fetch_official),
         "",
@@ -139,6 +208,31 @@ def build_prompt(a, site, prompt_md, fetch_official=True):
         "各回答は1〜3文。答えられない質問は載せない。",
         "・next_problem の項目にリンクURLを入れない。",
         "・価格は書かない。変動するため。",
+        "・比較対象は実在する商品にする。「一般的な商品」「同クラス製品」"
+        "「平均的なモデル」のような実在しない相手と比べない。"
+        "実在の比較対象を挙げられないなら spec を出さない。",
+        "・rating は、商品ジャンルに合う評価軸で採点し、何を評価し何を減点したかを"
+        "breakdown に書く。公式仕様を確認できていない商品では rating を出さない"
+        "（0.1刻みの数字だけが独り歩きするため）。",
+        "・pros / cons は商品固有の内容にする。「高性能」「使いやすい」「高い」"
+        "のような、どの商品にも書ける言葉を書かない。"
+        "「仕様・事実 → 読者への影響」まで書く。",
+        "・good_for / not_for は、どんな人・用途・環境・予算・重視点かまで書く。"
+        "おすすめしない側は理由も書く。",
+        "・scenes は「実際の生活シーン」として書かない。架空の人物・体験談を作らない。"
+        "「想定される利用場面」「この環境でメリットが出やすい」として書く。",
+        "・口コミは、何が評価されているかだけでなく、"
+        "なぜ評価が分かれるのかを仕様と結びつけて書く。"
+        "口コミを取得できていないなら voices ごと出さない。",
+        "・各記事に最低1つ、このサイトだから書ける分析を入れる"
+        "（口コミと公式仕様の食い違い／評価が分かれる理由／"
+        "スペックから分かる用途上の制約／購入前に見落としやすい点）。"
+        "ただし独自性を作るために事実を作らない。",
+        "・Amazon公式・Amazonの推薦や提携だと誤認させる書き方をしない。"
+        "アソシエイトの開示文はサイト側が全ページに出しているので本文に重ねて書かない。",
+        "・確認できないことは data_gaps に列挙する。本文で推測で埋めない。"
+        "書けない枠はキーごと省く。",
+        "・書き終えたら self_check を自分で採点する。甘く付けない。",
         "",
         "---------------- タイトルの付け方（title）----------------",
         "・全角30字前後。検索結果で末尾が切れるため35字を超えない。",
@@ -151,6 +245,21 @@ def build_prompt(a, site, prompt_md, fetch_official=True):
         "・良い例：「MX Master 3s レビュー｜静音化で変わった点と合う人」",
         "・良い例：「DCモーター扇風機の電気代と静音性｜買い替えの目安」",
         "・悪い例：「ロジクール MX MASTER 3s は静音化で何が変わったか」",
+        "",
+        # 長いプロンプトでは、途中の禁止事項ほど守られなくなる。
+        # 実際、統合後の試し書きで「必ず」「絶対」「使ってみた」が混入した。
+        # いちばん後ろにもう一度置いて、書き終える直前に読ませる。
+        "---------------- 書き出す前に、もう一度確認する ----------------",
+        "次の3つは、ほかのどの指示よりも優先して守る。",
+        "1. 「" + "」「".join(NG_WORDS) + "」を、どの項目にも1回も書かない。"
+        "　「必ず確認してください」も不可。「事前に確認してください」と書く。",
+        "2. 実機を使ったと読める書き方をしない。"
+        "「使ってみた」「使ってみると」「実際に感じた」「実測した（自分が測った意味で）」"
+        "「装着してみた」「開封した」は書かない。"
+        "　読者への助言としての「購入前に実測してください」は書いてよい。",
+        "3. 実在しない比較対象（「一般的な製品」「同クラス製品」「平均的なモデル」）"
+        "と比べない。実在の商品名を挙げられないなら、比較そのものを書かない。",
+        "書き終えたら、この3点で出力を読み返してから返すこと。",
     ])
 
 
@@ -288,10 +397,94 @@ def body_chars(v):
     return 0
 
 
+# 実機を使ったと読める言い回し。読者への助言（「購入前に実測してください」）とは
+# 区別したいので、書き手が自分で確かめたと読める形だけを集める。
+FAKE_EXPERIENCE = re.compile(
+    r"実際に使って(?:み|感じ|分かっ|わかっ)|使ってみ(?:た|ると|たら)|"
+    r"(?:私|筆者|編集部)(?:が|は)[^。]{0,8}?(?:使っ|試し|触っ|装着し|測っ)|"
+    r"使用して(?:分かっ|わかっ|感じ)|実際に感じ(?:た|られ)|"
+    r"実測(?:した|して[みま]|の結果)|撮影して確認|装着してみ|"
+    r"手に?とってみ|試してみたところ|開封(?:した|してみ)|実機レビュー")
+
+# 確認できない口コミの件数・割合・平均星
+FAKE_REVIEW_NUM = re.compile(
+    r"\d+\s*件(?:の|を)?(?:レビュー|口コミ|評価)|"
+    r"(?:レビュー|口コミ|評価)(?:を)?\s*\d+\s*件|"
+    r"\d+\s*人(?:の|が)(?:購入者|レビュー|口コミ)|"
+    r"(?:平均|口コミ|レビュー)(?:評価|星)[^。]{0,6}?\d\.\d|星\s*\d\.\d")
+
+# Amazon との関係を誤認させる書き方
+AMAZON_MISLEAD = re.compile(
+    r"Amazon(?:の)?公式(?:サイト|ストア|見解|推奨)|Amazonが(?:推薦|認定|保証|おすすめ)|"
+    r"Amazon(?:から)?(?:認定|推薦|公認)|Amazonと(?:の)?(?:提携|パートナー)")
+
+# 実在しない比較対象
+VAGUE_RIVAL = re.compile(
+    r"一般的な(?:商品|製品|モデル|美容液|クリーム)|同クラス(?:の)?(?:製品|商品)|"
+    r"平均的な(?:商品|製品|モデル)|標準的な(?:商品|製品|モデル)")
+
+# 薬機法のリスクになる断定（美容・ヘルスケア）
+CARE_CLAIM = re.compile(
+    r"シミが(?:消え|なくな)|シワが(?:消え|なくな|改善)|毛穴が(?:消え|なくな)|"
+    r"ニキビが治|肌が再生|老化を防|アンチエイジング効果|"
+    r"肌の(?:内側|奥|内部)(?:まで|から)(?:浸透|届|作用)|"
+    r"病気を(?:治|予防|発見)|診断でき|美白|痩せ(?:る|られ|ます)")
+
+# AI が量産する定型のヘッジ表現。1〜2回は自然な範囲なので回数で見る。
+AI_PHRASE = re.compile(
+    r"と言えるでしょう|と言えます|と考えられます|が期待できます|"
+    r"最大の魅力(?:です|は)|総合的に判断すると|非常に(?:優れ|魅力的|便利)|"
+    r"大きな(?:ポイント|メリット)です|バランスの取れた|ということが分かります")
+AI_PHRASE_LIMIT = 6      # 1万字の記事での上限。これを超えたら書き直させる
+
+# 打ち消し・仮定・疑問の文脈は拾わない
+NEGATION = re.compile(
+    r"[^。]{0,30}?(?:ませ[んぬ]|ないでください|わけでは|とは限|ような|"
+    r"か[？?]|かどうか|ものではあり|と(?:は)?書き)")
+
+
+def _find(pat, text):
+    """打ち消し文脈をのぞいた一致だけを返す。"""
+    out = []
+    for m in pat.finditer(text):
+        if NEGATION.match(text[m.end():m.end() + 40]):
+            continue
+        out.append(m.group(0))
+    return out
+
+
 def audit(a):
     """管理画面と同じ検査。書き上げてから公開できないと分かるのを防ぐ。"""
     warns = []
     blob = json.dumps(a, ensure_ascii=False)
+    # 読者が読む文だけを、タグを外して1本につなぐ
+    body = {k: v for k, v in a.items() if k in GEN_FIELDS}
+    text = re.sub(r"<[^>]+>", "", json.dumps(body, ensure_ascii=False))
+
+    for label, pat in (("実体験の捏造", FAKE_EXPERIENCE),
+                       ("確認できない口コミ数値", FAKE_REVIEW_NUM),
+                       ("Amazonとの関係の誤認", AMAZON_MISLEAD),
+                       ("実在しない比較対象", VAGUE_RIVAL)):
+        for w in dict.fromkeys(_find(pat, text)):
+            warns.append(f"{label}「{w}」")
+
+    if a.get("category") in ("beauty", "health"):
+        for w in dict.fromkeys(_find(CARE_CLAIM, text)):
+            warns.append(f"効果の断定（薬機法）「{w}」")
+
+    n_ai = len(_find(AI_PHRASE, text))
+    if n_ai > AI_PHRASE_LIMIT:
+        warns.append(f"AIらしい定型表現が {n_ai} 回（上限 {AI_PHRASE_LIMIT}）")
+
+    # 記事タイプに合わない枠を使っていないか
+    kind = kind_of(a)
+    allowed = {x.strip() for x in KIND_FRAMES[kind][1].replace("/", " ").split()}
+    for key in ("rating", "highlights", "scenes", "voices", "good_for", "not_for"):
+        v = a.get(key)
+        has = bool(v.get("items")) if isinstance(v, dict) else bool(v)
+        if has and key not in allowed and not (kind == "review" and key == "scenes"):
+            warns.append(f"{kind} 記事に {key} が入っている（この型では使わない枠）")
+
     for w in NG_WORDS:
         if w in blob:
             warns.append(f"禁止表現「{w}」")
@@ -303,7 +496,10 @@ def audit(a):
         warns.append(f"使えないタグ {t}")
     n = body_chars({k: a[k] for k in GEN_FIELDS if k in a})
     if n < MIN_CHARS:
-        warns.append(f"本文が {n:,} 字（下限 {MIN_CHARS:,}）")
+        # 確認できない項目を省いた結果、短くなることがある。
+        # そのときに足すのは字数ではなく、公式仕様と口コミの調査。
+        warns.append(f"本文が {n:,} 字（下限 {MIN_CHARS:,}）"
+                     "。水増しで埋めず、公式仕様・口コミを調べて判断材料を足す")
     if n > MAX_CHARS:
         warns.append(f"本文が {n:,} 字（上限 {MAX_CHARS:,}）")
     # 同じ指摘は1回だけ
@@ -321,6 +517,45 @@ def apply_generated(a, gen):
         it.pop("link_label", None)
     a["updated"] = time.strftime("%Y-%m-%d")
     return a
+
+
+# 自己採点の8項目。docs/article-prompt.md の【自己申告】と同じ並び。
+SELF_CHECK_KEYS = [
+    ("fact_accuracy", "事実の正確性"),
+    ("source_reliability", "情報源の信頼性"),
+    ("original_analysis", "独自分析"),
+    ("editorial_quality", "編集品質"),
+    ("template_avoidance", "テンプレート量産感の少なさ"),
+    ("purchase_helpfulness", "購入判断への有用性"),
+    ("legal_safety", "法令・表現上の安全性"),
+    ("amazon_compliance", "Amazon関連ルールへの配慮"),
+]
+PUBLISH_SCORE = 85      # 総合これ未満は公開しない（人が読んで直す）
+
+
+def report_self_check(gen):
+    """生成AIの自己申告を表示する。articles.json には保存しない
+       （記事の中身ではなく、編集部が読むための申し送りのため）。"""
+    gaps = gen.get("data_gaps") or []
+    if isinstance(gaps, str):
+        gaps = [gaps]
+    for g in gaps:
+        print(f"    ? 確認できていない：{g}")
+
+    sc = gen.get("self_check") or {}
+    if not sc:
+        print("    △ self_check が返っていません（自己採点なし）")
+        return
+    low = [f"{ja} {sc.get(k)}" for k, ja in SELF_CHECK_KEYS
+           if isinstance(sc.get(k), (int, float)) and sc[k] < PUBLISH_SCORE]
+    total = sc.get("total")
+    mark = "✓" if isinstance(total, (int, float)) and total >= PUBLISH_SCORE else "△"
+    print(f"    {mark} 自己採点 総合 {total}"
+          + (f"（{PUBLISH_SCORE}点未満は公開しない）" if mark == "△" else ""))
+    if low:
+        print("      低い項目：" + "、".join(low))
+    if sc.get("notes"):
+        print(f"      {sc['notes']}")
 
 
 def is_empty(a):
@@ -403,6 +638,7 @@ def main():
 
         done += 1
         print(f"完了（{time.time() - t0:.0f}秒 / {body_chars(gen):,}字）")
+        report_self_check(gen)
         for w in warns:
             print(f"    △ {w}")
 

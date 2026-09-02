@@ -2797,9 +2797,70 @@
       '  "list_title": "一覧用の短いタイトル（30字以内）",',
       '  "title": "記事タイトル",',
       '  "tags": ["タグ"],',
-      '  "sub": "サブカテゴリーのkey（分からなければ空文字）"',
+      '  "sub": "サブカテゴリーのkey（分からなければ空文字）",',
+      '  "data_gaps": ["確認できなかったこと。無ければ空配列"],',
+      '  "self_check": {"fact_accuracy": 0, "source_reliability": 0,',
+      '                 "original_analysis": 0, "editorial_quality": 0,',
+      '                 "template_avoidance": 0, "purchase_helpfulness": 0,',
+      '                 "legal_safety": 0, "amazon_compliance": 0,',
+      '                 "total": 0, "notes": "低い項目の理由を1〜2文"}',
       '}'
     ].join('\n');
+  }
+
+  /* 記事タイプごとに「使ってよい枠」。
+     tools/write_article.py の KIND_FRAMES と同じ内容にしておく。
+     2か所で持つのは避けたいが、こちらはブラウザから動くため
+     Python を読めない。食い違ったら docs/article-prompt.md が原本。 */
+  var KIND_FRAMES = {
+    review: ['単一商品レビュー',
+      'summary / rating / good_for / not_for / highlights / pros / cons / '
+      + 'spec / sections / voices / faq / conclusion',
+      'scenes は「想定される利用場面」として書ける場合だけ。書けないなら出さない。'],
+    roundup: ['商品比較・ランキング特集',
+      'summary / good_for / not_for / spec / sections / faq / conclusion',
+      'highlights・scenes は使わない（単一商品レビュー用の枠のため）。'],
+    guide: ['商品の選び方・商品解説',
+      'summary / good_for / not_for / spec / sections / faq / conclusion',
+      'rating・highlights・scenes・voices は使わない。'],
+    sale: ['セール情報',
+      'summary / sections / faq / conclusion',
+      'rating・highlights・scenes・good_for・not_for・voices・pros/cons は使わない。'
+      + '中身は「開催時期／セールの特徴／狙い目のカテゴリー／値下げされやすい商品の傾向／'
+      + '買うタイミング／注意点／価格を見るときの見方」にする。'
+      + '商品レビュー用の見出しを持ち込まない。'],
+    howto: ['ハウツー', 'summary / sections / faq / conclusion',
+      'rating・highlights・scenes・voices は使わない。']
+  };
+
+  /* 美容・ヘルスケアは表現のリスクが別格なので、そのカテゴリーだけ追加で渡す */
+  var CARE_NOTE = {
+    beauty: '・この記事は美容・コスメです。効果の断定を書かない'
+      + '（シミを改善する／ニキビを治す／肌を再生する／肌の内部まで浸透する／'
+      + '毛穴が消える／シワが改善する／老化を防ぐ／メイク崩れを防ぐ）。'
+      + '使用感・テクスチャ・香り・保湿感・べたつき・成分表示・使用方法を中心にする。'
+      + 'メーカーの説明は「メーカーは〇〇を特徴として説明しています」と出どころを明示する。',
+    health: '・この記事はヘルスケアです。「病気を診断できる」「治療できる」「予防できる」'
+      + 'と書かない。測定値は「健康管理の参考値」として扱い、'
+      + '医療行為・診断と誤認される書き方をしない。'
+  };
+
+  function kindOf(a) {
+    var k = a.kind;
+    if (KIND_FRAMES[k]) return k;
+    return a.category === 'feature' ? 'roundup' : 'review';
+  }
+
+  function kindBlock(a) {
+    var k = kindOf(a), f = KIND_FRAMES[k];
+    var out = ['【この記事の種類】' + k + '（' + f[0] + '）',
+               '・使ってよい枠：' + f[1],
+               '・' + f[2],
+               '・ここに挙がっていないキーは出力しない。空で出すと空の見出しができる。',
+               '・挙がっている枠でも、書くことが無ければ出さない。'
+               + '枠を埋めるために内容を作らない（テンプレートの量産になる）。'];
+    if (CARE_NOTE[a.category]) out.push(CARE_NOTE[a.category]);
+    return out.join('\n');
   }
 
   function articleRequest(a, prompt) {
@@ -2840,6 +2901,7 @@
       '選べるサブカテゴリーのkey：' + subs,
       'JANコード：' + (a.jan || '不明'),
       '買えるモール：' + (shops.join('、') || '不明'),
+      kindBlock(a),
       factsBlock,
       officialBlock,
       '',
@@ -2870,7 +2932,43 @@
       '・conclusion の最後の段落に、使った主要な情報源と「最終確認日：YYYY年MM月DD日」、'
         + '「価格・在庫は変動するため最新情報はリンク先でご確認ください。」を書く。',
       '・next_problem の項目にリンクURLを入れない。',
-      '・価格は書かない。変動するため。'
+      '・価格は書かない。変動するため。',
+      '・比較対象は実在する商品にする。「一般的な商品」「同クラス製品」'
+        + '「平均的なモデル」のような実在しない相手と比べない。'
+        + '実在の比較対象を挙げられないなら spec を出さない。',
+      '・rating は商品ジャンルに合う評価軸で採点し、何を評価し何を減点したかを'
+        + 'breakdown に書く。公式仕様を確認できていない商品では rating を出さない。',
+      '・pros / cons は商品固有の内容にする。「高性能」「使いやすい」「高い」のような'
+        + 'どの商品にも書ける言葉を書かない。「仕様・事実 → 読者への影響」まで書く。',
+      '・good_for / not_for は、どんな人・用途・環境・予算・重視点まで書く。'
+        + 'おすすめしない側は理由も書く。',
+      '・scenes は「実際の生活シーン」として書かない。架空の人物・体験談を作らない。'
+        + '「想定される利用場面」「この環境でメリットが出やすい」として書く。',
+      '・口コミは、何が評価されているかだけでなく、なぜ評価が分かれるのかを'
+        + '仕様と結びつけて書く。口コミを取得できていないなら voices ごと出さない。',
+      '・各記事に最低1つ、このサイトだから書ける分析を入れる（口コミと公式仕様の'
+        + '食い違い／評価が分かれる理由／スペックから分かる用途上の制約／'
+        + '購入前に見落としやすい点）。ただし独自性を作るために事実を作らない。',
+      '・Amazon公式・Amazonの推薦や提携だと誤認させる書き方をしない。'
+        + 'アソシエイトの開示文はサイト側が全ページに出しているので本文に重ねて書かない。',
+      '・確認できないことは data_gaps に列挙する。本文で推測で埋めない。'
+        + '書けない枠はキーごと省く。',
+      '・書き終えたら self_check を自分で採点する。甘く付けない。',
+      '',
+      /* 長いプロンプトでは、途中の禁止事項ほど守られなくなる。
+         いちばん後ろにもう一度置いて、書き終える直前に読ませる。
+         tools/write_article.py の末尾と同じ内容にそろえてある。 */
+      '---------------- 書き出す前に、もう一度確認する ----------------',
+      '次の3つは、ほかのどの指示よりも優先して守る。',
+      '1. 「' + NG_WORDS.join('」「') + '」を、どの項目にも1回も書かない。'
+        + '「必ず確認してください」も不可。「事前に確認してください」と書く。',
+      '2. 実機を使ったと読める書き方をしない。「使ってみた」「使ってみると」'
+        + '「実際に感じた」「実測した（自分が測った意味で）」「装着してみた」'
+        + '「開封した」は書かない。'
+        + '読者への助言としての「購入前に実測してください」は書いてよい。',
+      '3. 実在しない比較対象（「一般的な製品」「同クラス製品」「平均的なモデル」）'
+        + 'と比べない。実在の商品名を挙げられないなら、比較そのものを書かない。',
+      '書き終えたら、この3点で出力を読み返してから返すこと。'
     ].join('\n');
   }
 
@@ -2986,9 +3084,72 @@
     return 0;
   }
 
+  /* 統合した品質ルールの機械検査。
+     tools/write_article.py の audit() と同じ正規表現にそろえてある。 */
+  var FAKE_EXPERIENCE = /実際に使って(?:み|感じ|分かっ|わかっ)|使ってみ(?:た|ると|たら)|(?:私|筆者|編集部)(?:が|は)[^。]{0,8}?(?:使っ|試し|触っ|装着し|測っ)|使用して(?:分かっ|わかっ|感じ)|実際に感じ(?:た|られ)|実測(?:した|して[みま]|の結果)|撮影して確認|装着してみ|手に?とってみ|試してみたところ|開封(?:した|してみ)|実機レビュー/g;
+  var FAKE_REVIEW_NUM = /\d+\s*件(?:の|を)?(?:レビュー|口コミ|評価)|(?:レビュー|口コミ|評価)(?:を)?\s*\d+\s*件|\d+\s*人(?:の|が)(?:購入者|レビュー|口コミ)|(?:平均|口コミ|レビュー)(?:評価|星)[^。]{0,6}?\d\.\d|星\s*\d\.\d/g;
+  var AMAZON_MISLEAD = /Amazon(?:の)?公式(?:サイト|ストア|見解|推奨)|Amazonが(?:推薦|認定|保証|おすすめ)|Amazon(?:から)?(?:認定|推薦|公認)|Amazonと(?:の)?(?:提携|パートナー)/g;
+  var VAGUE_RIVAL = /一般的な(?:商品|製品|モデル|美容液|クリーム)|同クラス(?:の)?(?:製品|商品)|平均的な(?:商品|製品|モデル)|標準的な(?:商品|製品|モデル)/g;
+  var CARE_CLAIM = /シミが(?:消え|なくな)|シワが(?:消え|なくな|改善)|毛穴が(?:消え|なくな)|ニキビが治|肌が再生|老化を防|アンチエイジング効果|肌の(?:内側|奥|内部)(?:まで|から)(?:浸透|届|作用)|病気を(?:治|予防|発見)|診断でき|美白|痩せ(?:る|られ|ます)/g;
+  var AI_PHRASE = /と言えるでしょう|と言えます|と考えられます|が期待できます|最大の魅力(?:です|は)|総合的に判断すると|非常に(?:優れ|魅力的|便利)|大きな(?:ポイント|メリット)です|バランスの取れた|ということが分かります/g;
+  var AI_PHRASE_LIMIT = 6;
+  /* 打ち消し・仮定・疑問の文脈は拾わない。
+     「実測したわけではありません」「購入前に実測してください」「治りますか？」は問題ない。 */
+  var NEGATION = /^[^。]{0,30}?(?:ませ[んぬ]|ないでください|わけでは|とは限|ような|か[？?]|かどうか|ものではあり|と(?:は)?書き)/;
+  var PUBLISH_SCORE = 85;
+
+  /* 打ち消し文脈をのぞいた一致だけを返す */
+  function findHits(re, text) {
+    var out = [], m;
+    re.lastIndex = 0;
+    while ((m = re.exec(text)) !== null) {
+      if (!NEGATION.test(text.slice(m.index + m[0].length,
+                                    m.index + m[0].length + 40))) out.push(m[0]);
+      if (m.index === re.lastIndex) re.lastIndex++;   /* 空一致で止まらないように */
+    }
+    return out;
+  }
+
   function auditArticle(a) {
     var warns = [];
     var blob = JSON.stringify(a);
+    /* 読者が読む文だけを、タグを外して1本につなぐ */
+    var text = JSON.stringify(GEN_FIELDS.reduce(function (o, k) {
+      if (a[k] !== undefined) o[k] = a[k];
+      return o;
+    }, {})).replace(/<[^>]+>/g, '');
+
+    [['実体験の捏造', FAKE_EXPERIENCE],
+     ['確認できない口コミ数値', FAKE_REVIEW_NUM],
+     ['Amazonとの関係の誤認', AMAZON_MISLEAD],
+     ['実在しない比較対象', VAGUE_RIVAL]].forEach(function (pair) {
+      findHits(pair[1], text).forEach(function (w) {
+        warns.push(pair[0] + '「' + w + '」');
+      });
+    });
+    if (a.category === 'beauty' || a.category === 'health') {
+      findHits(CARE_CLAIM, text).forEach(function (w) {
+        warns.push('効果の断定（薬機法）「' + w + '」');
+      });
+    }
+    var nAi = findHits(AI_PHRASE, text).length;
+    if (nAi > AI_PHRASE_LIMIT) {
+      warns.push('AIらしい定型表現が ' + nAi + ' 回（上限 ' + AI_PHRASE_LIMIT + '）');
+    }
+
+    /* 記事タイプに合わない枠を使っていないか */
+    var kind = kindOf(a);
+    var allowed = KIND_FRAMES[kind][1].split(/[\s/]+/);
+    ['rating', 'highlights', 'scenes', 'voices', 'good_for', 'not_for']
+      .forEach(function (key) {
+        var v = a[key];
+        var has = (v && typeof v === 'object' && !Array.isArray(v))
+          ? !!(v.items && v.items.length) : !!(v && v.length);
+        if (!has || allowed.indexOf(key) >= 0) return;
+        if (kind === 'review' && key === 'scenes') return;
+        warns.push(kind + ' 記事に ' + key + ' が入っている（この型では使わない枠）');
+      });
+
     NG_WORDS.forEach(function (w) {
       if (blob.indexOf(w) >= 0) warns.push('禁止表現「' + w + '」');
     });
@@ -3046,6 +3207,23 @@
     });
   }
 
+  /* 生成AIの自己申告（確認できなかったこと・自己採点）を、
+     既存の警告欄にそのまま出す。記事には保存しない（applyGenerated が弾く）。 */
+  function selfCheckWarns(gen) {
+    var out = [];
+    var gaps = gen.data_gaps || [];
+    if (typeof gaps === 'string') gaps = [gaps];
+    gaps.forEach(function (g) { out.push('確認できていない：' + g); });
+
+    var sc = gen.self_check;
+    if (!sc) { out.push('self_check が返っていません（自己採点なし）'); return out; }
+    if (typeof sc.total === 'number' && sc.total < PUBLISH_SCORE) {
+      out.push('自己採点 総合 ' + sc.total + '（' + PUBLISH_SCORE
+               + '点未満は公開しない）' + (sc.notes ? '：' + sc.notes : ''));
+    }
+    return out;
+  }
+
   function generateArticle(a) {
     var model = ($('gmTextModel') && $('gmTextModel').value) || 'gemini-3.6-flash';
     var useClaude = model.indexOf('claude') === 0;
@@ -3063,7 +3241,7 @@
       return useClaude ? clText(key, model, req) : gmText(key, model, req);
     }).then(function (gen) {
       applyGenerated(a, gen);
-      return auditArticle(a);
+      return auditArticle(a).concat(selfCheckWarns(gen));
     });
   }
 

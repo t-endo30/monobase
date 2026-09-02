@@ -17,7 +17,8 @@ assets/admin.css / .js   管理画面
 assets/img/              画像（常に圧縮して置く）
 tools/optimize-images.sh 画像一括圧縮（macOS）
 tools/check_images.py    画像サイズ検査（CIで実行）
-tools/review_article.py  記事レビュー（禁止表現・ダークパターン）
+tools/review_article.py  記事レビュー（禁止表現・ダークパターン・事実の扱い）
+tools/audit_articles.py  公開済み記事の品質点検（読むだけ。書き換えない）
 tools/check_layout.py    画面の崩れ検査（Chromeで実際に描画して確認）
 tools/maintain_articles.py 公開中の記事の見回り（リンク切れ・鮮度）
 tools/schedule_gate.py   自動作成の実行日と本数を決める
@@ -73,6 +74,31 @@ python3 tools/review_article.py --new --publish --push   # 公開して push ま
 判定の基準は `docs/review-rules.md` にまとまっています。ルールを足すときはそこに書きます。
 
 週次の `.github/workflows/write.yml` でも、本文を書いた直後にこのレビューが走ります。
+
+### 公開済み記事を点検する
+
+`tools/review_article.py` が「これから公開する記事を直す」道具なのに対し、
+`tools/audit_articles.py` は **すでに公開している記事を見渡すだけ** の道具です。
+記事を書き換えず、URL・slug・リンク・画像にも一切触れません。
+
+```bash
+python3 tools/audit_articles.py                 # 公開中の記事すべて
+python3 tools/audit_articles.py --min high      # HIGH 以上だけ
+python3 tools/audit_articles.py --slug mx-master-3s-review
+python3 tools/audit_articles.py --json out.json # 結果を書き出す
+```
+
+指摘は4段階に分かれます。**CRITICAL と HIGH から先に直します。**
+
+| 深刻度 | 中身 |
+|---|---|
+| CRITICAL | 誤情報・架空情報・架空レビュー・架空体験・重大な表現リスク |
+| HIGH | 公式仕様不足・AIテンプレート感・独自性不足・美容/健康表現・評価の根拠不足 |
+| MEDIUM | 内部リンク・比較・FAQ・SEO |
+| LOW | 軽微な文章表現・重複・文体 |
+
+直すときは既存の構成（キーの並び）を保ったまま、本文の値だけを書き換えます。
+記事の削除・URL変更・slug変更・Amazonリンクの削除は行いません。
 
 ### ASPの広告（A8.net・バリューコマースなど）
 

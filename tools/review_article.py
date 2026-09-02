@@ -26,7 +26,11 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # 本文の生成・修正に任せる項目。slug・published・販売先URLは触らせない。
 from write_article import (GEN_FIELDS, NG_WORDS, MIN_CHARS, MAX_CHARS,
-                           run_claude, parse_json, body_chars, load)
+                           run_claude, parse_json, body_chars, load,
+                           kind_of, KIND_FRAMES, PUBLISH_SCORE,
+                           FAKE_EXPERIENCE, FAKE_REVIEW_NUM, AMAZON_MISLEAD,
+                           VAGUE_RIVAL, CARE_CLAIM, AI_PHRASE, AI_PHRASE_LIMIT,
+                           NEGATION)
 
 # ---------------------------------------------------------------- 機械検査
 # 断定・保証の表現。tools/check_text.py と同じ基準。
@@ -108,6 +112,58 @@ def scan(a):
                 hits.append(("形の崩れ", f"{key}[{i}]",
                              '文字列か {"title":…, "text":…} にする'))
 
+    # ---- 2026-09-03 に統合した品質ルール --------------------------------
+    # 打ち消し・疑問の文脈は拾わない（「実測したわけではありません」
+    # 「購入前に実測してください」「治りますか？」は問題ない）。
+    def find(pat, plain_text):
+        for m in pat.finditer(plain_text):
+            if NEGATION.match(plain_text[m.end():m.end() + 40]):
+                continue
+            yield m.group(0)
+
+    ai_hits = 0
+    for path, s_ in texts({k: v for k, v in a.items() if k not in SKIP}):
+        pl = ANY_TAG.sub("", s_)
+        for label, pat in (("実体験の捏造", FAKE_EXPERIENCE),
+                           ("確認できない口コミ数値", FAKE_REVIEW_NUM),
+                           ("Amazonとの関係の誤認", AMAZON_MISLEAD),
+                           ("実在しない比較対象", VAGUE_RIVAL)):
+            for w in find(pat, pl):
+                hits.append((label, path, f"「{w}」"))
+        if a.get("category") in ("beauty", "health"):
+            for w in find(CARE_CLAIM, pl):
+                hits.append(("効果の断定（薬機法）", path, f"「{w}」"))
+        ai_hits += len(list(find(AI_PHRASE, pl)))
+
+    if ai_hits > AI_PHRASE_LIMIT:
+        hits.append(("AIらしい定型表現", "本文全体",
+                     f"{ai_hits}回（上限 {AI_PHRASE_LIMIT}）"))
+
+    # 記事タイプに合わない枠。セール記事にレビュー用の見出しを入れない等。
+    kind = kind_of(a)
+    allowed = {x.strip() for x in KIND_FRAMES[kind][1].replace("/", " ").split()}
+    for key in ("rating", "highlights", "scenes", "voices", "good_for", "not_for"):
+        v = a.get(key)
+        has = bool(v.get("items")) if isinstance(v, dict) else bool(v)
+        if has and key not in allowed and not (kind == "review" and key == "scenes"):
+            hits.append(("記事タイプに合わない枠", key,
+                         f"{kind} 記事では使わない枠"))
+
+    # 評価の根拠。数字だけが独り歩きしないよう、内訳を必ず書かせる。
+    rating = a.get("rating") or {}
+    if rating.get("score"):
+        bd = ANY_TAG.sub("", str(rating.get("breakdown") or ""))
+        if len(bd) < 20:
+            hits.append(("評価の根拠不足", "rating.breakdown",
+                         f"内訳が {len(bd)}字。何を評価し何を減点したかを書く"))
+
+    # まとめの情報源と最終確認日
+    concl = a.get("conclusion")
+    concl = "".join(concl) if isinstance(concl, list) else (concl or "")
+    if concl and "最終確認日" not in ANY_TAG.sub("", concl):
+        hits.append(("情報源の明示不足", "conclusion",
+                     "最終確認日（YYYY年MM月DD日）が無い"))
+
     # 分量。tools/check_articles.py と同じ数え方にそろえる。
     n = body_chars({k: v for k, v in a.items() if k not in SKIP})
     if n < MIN_CHARS:
@@ -119,6 +175,19 @@ def scan(a):
     return list(dict.fromkeys(hits))
 
 
+# 採点の項目。docs/review-rules.md の「6. 採点と公開基準」と同じ並び。
+SCORE_KEYS = [
+    ("fact_accuracy", "事実の正確性"),
+    ("source_reliability", "情報源の信頼性"),
+    ("original_analysis", "独自分析"),
+    ("editorial_quality", "編集品質"),
+    ("template_avoidance", "テンプレート量産感の少なさ"),
+    ("purchase_helpfulness", "購入判断への有用性"),
+    ("legal_safety", "法令・表現上の安全性"),
+    ("amazon_compliance", "Amazon関連ルールへの配慮"),
+]
+
+
 # ---------------------------------------------------------------- Claude
 SYSTEM = ("あなたは日本語の商品記事の校閲者です。"
           "返事はJSONオブジェクトそのものだけにしてください。"
@@ -127,7 +196,12 @@ SYSTEM = ("あなたは日本語の商品記事の校閲者です。"
 
 OUT_SHAPE = '''{
   "findings": [{"where": "どの項目か", "rule": "違反したルール", "problem": "何が問題か"}],
-  "fixed": { "直した項目だけを、記事JSONと同じキー・同じ形で入れる" }
+  "fixed": { "直した項目だけを、記事JSONと同じキー・同じ形で入れる" },
+  "score": {"fact_accuracy": 0, "source_reliability": 0, "original_analysis": 0,
+            "editorial_quality": 0, "template_avoidance": 0,
+            "purchase_helpfulness": 0, "legal_safety": 0,
+            "amazon_compliance": 0, "total": 0, "notes": "低い項目の理由を1〜2文"},
+  "blockers": ["85点以上でも公開できない理由があれば書く。無ければ空配列"]
 }'''
 
 
@@ -155,6 +229,11 @@ def build_prompt(a, rules, hits):
         "・fixed には**直した項目だけ**を入れる。直していない項目は入れない。",
         "・項目の形（配列か辞書か、キー名）は元の記事と同じにする。",
         "・直すところが無ければ findings も fixed も空にする。",
+        "・score は**直したあとの記事**に対する採点。甘く付けない。",
+        f"・blockers には、総合 {PUBLISH_SCORE} 点以上でも公開できない理由"
+        "（架空情報・架空レビュー・架空体験・未確認スペック・誤った商品情報・"
+        "医療的効果の断定・Amazonとの関係を誤認させる表現・根拠のない評価・"
+        "商品名を入れ替えれば他の記事にも使える文章）があれば書く。",
         f"・本文の合計は {MIN_CHARS}〜{MAX_CHARS - 500} 文字の範囲を保つ。",
         "・HTMLは <strong> と <em> だけ。表の丸印は "
         '<span class="mark-o">◎</span> / <span class="mark-x">×</span> のみ可。',
@@ -257,6 +336,7 @@ def main():
     for i, a in enumerate(targets, 1):
         slug = a.get("slug", "?")
         print(f"[{i}/{len(targets)}] {slug}")
+        score, blockers = {}, []
         hits = scan(a)
         for k, p, d in hits:
             print(f"    △ [{k}] {p}：{d}")
@@ -280,6 +360,7 @@ def main():
             for f in res.get("findings") or []:
                 print(f"    ● {f.get('where','')}：{f.get('problem','')}"
                       f"（{f.get('rule','')}）")
+            score, blockers = res.get("score") or {}, res.get("blockers") or []
             if args.dry_run:
                 break
 
@@ -297,10 +378,27 @@ def main():
                 print("    △ 指摘が残ったまま上限に達しました")
 
         hits = scan(a)
-        if hits:
+        # 機械検査が通っても、採点と公開不可の理由が残っていれば公開しない。
+        total = score.get("total") if isinstance(score, dict) else None
+        if isinstance(total, (int, float)):
+            low = [f"{k} {score[k]}" for k, _ in SCORE_KEYS
+                   if isinstance(score.get(k), (int, float))
+                   and score[k] < PUBLISH_SCORE]
+            print(f"    ◇ 採点 総合 {total}"
+                  + ("（低い項目：" + "、".join(low) + "）" if low else ""))
+            if score.get("notes"):
+                print(f"      {score['notes']}")
+        for b in blockers:
+            print(f"    ✗ 公開できない理由：{b}")
+
+        under = isinstance(total, (int, float)) and total < PUBLISH_SCORE
+
+        if hits or blockers or under:
             ng.append(slug)
             for k, p, d in hits:
                 print(f"    ✗ 残った指摘 [{k}] {p}：{d}")
+            if under:
+                print(f"    ✗ 総合 {total} 点。{PUBLISH_SCORE} 点未満は公開しません")
         else:
             ok.append(slug)
             print("    ✓ 基準を満たしました")
