@@ -5982,7 +5982,7 @@ details.hero-policy .policy-close{display:none;}
      一瞬透けて見えてしまう（「背景がブレる」ように見える原因）。
      板自体はもう見せる箱ではない（中の記事が個別タイルになった）ので
      角は丸めない。 */
-  background:var(--surface);
+  background:transparent;
 }
 @media (prefers-reduced-motion:reduce){
   .pt-stage{transition:none;}
@@ -6618,6 +6618,25 @@ body.is-listing main.layout{
     border-bottom-right-radius:0;
   }
   .news-list-block .arow-more{margin-top:0;}
+}
+
+
+/* ============================================================
+   iPhone（iOS Safari）で、タブ切り替え中だけ角が四角くなる件
+   ------------------------------------------------------------
+   WebKit には「祖先が transform 中のあいだ、子の
+   border-radius + overflow:hidden の切り取りが効かなくなる」
+   不具合がある。タブの切り替えは .pt-panel を translateX で
+   動かすので、その最中だけタイルと写真の角が立ってしまう。
+   PCの開発者ツールのレスポンシブ表示は Blink（Chrome）なので
+   この不具合が出ず、実機でだけ再現する。
+   角丸と同じ形のマスクを重ねて、切り取りを確実に効かせる。
+   ============================================================ */
+.arow-link,
+.arow-thumb,
+.today-thumb{
+  -webkit-mask-image:-webkit-radial-gradient(#fff,#000);
+          mask-image:radial-gradient(#fff,#000);
 }
 
 /* ---- PCでは1行に回せる幅が増えるので、少しゆったりさせる ---- */
