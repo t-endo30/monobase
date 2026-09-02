@@ -443,8 +443,11 @@ AMAZON_MISLEAD = re.compile(
 
 # 実在しない比較対象
 VAGUE_RIVAL = re.compile(
-    r"一般的な(?:商品|製品|モデル|美容液|クリーム)|同クラス(?:の)?(?:製品|商品)|"
-    r"平均的な(?:商品|製品|モデル)|標準的な(?:商品|製品|モデル)")
+    r"一般的な(?:商品|製品|モデル|美容液|クリーム|タイプ|もの)|"
+    r"同クラス(?:の)?(?:製品|商品)|平均的な(?:商品|製品|モデル)|"
+    r"標準的な(?:商品|製品|モデル)|"
+    # 比較表の見出しに出る「〜タイプ（一般）」「〜（一般的なもの）」
+    r"[（(]一般(?:的)?[）)]|一般タイプ|他社(?:の)?一般")
 
 # 薬機法のリスクになる断定（美容・ヘルスケア）
 CARE_CLAIM = re.compile(
@@ -544,29 +547,44 @@ def audit(a):
     return list(dict.fromkeys(warns))
 
 
-def apply_generated(a, gen):
+def apply_generated(a, gen, keep_updated=False):
+    before = a.get("updated")
     for k in GEN_FIELDS:
         v = gen.get(k)
         if v not in (None, "", [], {}):
             a[k] = v
 
     # 書き直しでは、上書きだけでは足りない。
-    # 公式仕様の裏づけが無い記事で生成AIが rating と spec を正しく省いても、
-    # 前の版の値が残ってしまい、根拠のない点数と比較表が生き続ける。
-    # 裏づけが無いなら、この2つはキーごと落とす。
+    # 生成AIが rating と spec を「根拠が無いので出さない」と判断して省いても、
+    # 上書きしかしないと前の版の値が残り、根拠のない点数と比較表が生き続ける。
+    # 実際、書き直した記事に「（一般）」を比較対象にした古い表が残っていた。
+    # 省かれた＝出さないという判断なので、こちらでも落とす。
+    for k in ("rating", "spec"):
+        if gen.get(k) in (None, "", [], {}) and k in a:
+            a.pop(k)
+
+    # 公式仕様の裏づけが無いなら、生成AIが出していても落とす。
     facts = a.get("facts") or []
     if isinstance(facts, str):
         facts = [facts]
     if not (facts or (a.get("official_url") or "").strip()):
         for k in ("rating", "spec"):
-            if k in a:
-                a.pop(k)
+            a.pop(k, None)
 
     # リンク切れ検査で止まるので、作り話のリンクは落とす
     for it in (a.get("next_problem") or {}).get("items", []):
         it.pop("link_url", None)
         it.pop("link_label", None)
-    a["updated"] = time.strftime("%Y-%m-%d")
+    if keep_updated:
+        # 既存記事の書き直しでは、更新日を動かさないことがある。
+        # 日付が動くと sitemap と feed の並びが変わり、
+        # 中身の刷新とは別の理由で全記事が「更新された」ように見えるため。
+        if before is None:
+            a.pop("updated", None)
+        else:
+            a["updated"] = before
+    else:
+        a["updated"] = time.strftime("%Y-%m-%d")
     return a
 
 
@@ -629,6 +647,8 @@ def main():
                     help="書き込まず、結果だけ表示する")
     ap.add_argument("--no-fetch", action="store_true",
                     help="official_url のページを自動取得しない")
+    ap.add_argument("--keep-updated", action="store_true",
+                    help="更新日（updated）を元のまま動かさない。既存記事の書き直し用")
     args = ap.parse_args()
 
     arts = load("content/articles.json")
@@ -681,10 +701,10 @@ def main():
 
         if args.dry_run:
             tmp = dict(a)
-            apply_generated(tmp, gen)
+            apply_generated(tmp, gen, keep_updated=args.keep_updated)
             warns = audit(tmp)
         else:
-            apply_generated(a, gen)
+            apply_generated(a, gen, keep_updated=args.keep_updated)
             warns = audit(a)
 
         done += 1
