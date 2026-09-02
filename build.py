@@ -620,10 +620,8 @@ def header(current, p, crumbs=None, current_sub="", band=""):
             continue          # 先頭に出したので、ここでは出さない
         nav += cat_nav_item(c, p)
 
-    # ハンバーガー内の検索は出さない。スマホには SEARCH タブがあり、
-    # PCではヘッダーの右側に同じリンクが並ぶため。
-    search_link = (f'<li class="pc-only-link"><a href="{p}search.html">検索</a></li>\n        '
-                   if FEAT.get("search") else "")
+    # ヘッダーのメニューに検索は出さない。スマホには SEARCH タブが、
+    # PCにはヒーローと右側に検索窓があるため。
     contact_nav = (f'<li><a href="{p}contact.html">お問い合わせ</a></li>'
                    if FEAT.get("contact_form") else
                    f'<li><a href="mailto:{e(SITE["email"])}">お問い合わせ</a></li>')
@@ -647,10 +645,10 @@ def header(current, p, crumbs=None, current_sub="", band=""):
     <nav class="global-nav" id="globalNav" aria-label="メニュー">
       <ul class="nav-links">
         <li><a href="{p}index.html">ホーム</a></li>
-        {search_link}<li class="sp-only-link"><a href="{p}sitemap.html">サイトマップ</a></li>
+        <li class="sp-only-link"><a href="{p}sitemap.html">サイトマップ</a></li>
         <li><a href="{p}about.html">運営者情報</a></li>
-        <li class="sp-only-link"><a href="{p}editorial-policy.html">記事作成方針</a></li>
-        <li class="sp-only-link"><a href="{p}advertising.html">広告掲載について</a></li>
+        <li><a href="{p}editorial-policy.html">記事作成方針</a></li>
+        <li><a href="{p}advertising.html">広告掲載について</a></li>
         {contact_nav}
       </ul>
     </nav>

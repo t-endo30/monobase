@@ -771,6 +771,7 @@ table{border-collapse:collapse;}
   font-size:13.5px;
 }
 .assoc-note{
+  text-align:center;
   background:rgba(255,255,255,.06);
   border-left:3px solid var(--amazon);
   border-radius:4px;
@@ -2160,6 +2161,9 @@ body.is-listing main.layout.is-swiping{will-change:transform;}
   /* メニューは右カラムへ。中央のタイトルは画面中央に残る */
   .global-nav{grid-area:nav;justify-self:end;}
   .header-inner{grid-template-areas:"side brand nav";}
+  /* 項目が5つあるので、1つあたりを少し詰める */
+  .global-nav .nav-links{gap:2px;}
+  .global-nav .nav-links a{padding:10px 9px;font-size:13px;}
 }
 
 /* ============================================================
@@ -3181,16 +3185,8 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
   padding-bottom:16px;
   border-bottom:1px solid rgba(255,255,255,.1);
 }
-@media (max-width:599px){
-  .footer-cols{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;}
-  /* スマホでは横に並ぶ列が細いので、文字は中央にそろえる */
-  .footer-col{text-align:center;}
-  /* 3列目は2列並びのときに1つだけ次の行に落ちるので、
-     行いっぱいに広げて中央に置く（左に寄って見えるのを防ぐ） */
-  .footer-col:last-child{grid-column:1 / -1;}
-  .footer-col-list{align-items:center;}
-  .assoc-note{text-align:center;}
-}
+/* フッターの文字は、PC・スマホとも中央にそろえる */
+.footer-col{text-align:center;}
 .footer-col-heading{
   margin:0 0 8px;
   font-size:12px;
@@ -3198,10 +3194,23 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
   letter-spacing:.08em;
   color:#C2C4C8;
 }
-.footer-col-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;}
+.footer-col-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:7px;}
 .footer-col-list a,.footer-col-list li{color:#FFFFFF;font-size:13px;}
 .footer-col-list a{text-decoration:none;}
 .footer-col-list a:hover{color:var(--amazon);}
+@media (max-width:599px){
+  /* スマホでも「サイト／サイトについて／お問い合わせ」の3列を保つ。
+     列が細くなるぶん、文字を小さくして折り返しを減らす。 */
+  .footer-cols{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 8px;}
+  .footer-col-heading{font-size:10.5px;letter-spacing:.04em;}
+  .footer-col-list{gap:8px;}
+  /* 一番長い項目は「お問い合わせフォーム」の10字。3列に割った1列の
+     幅に10字が収まる大きさにして、折り返さないようにする。 */
+  .footer-col-list a,.footer-col-list li{
+    font-size:min(11px, calc((100vw - 62px) / 30));
+    line-height:1.4;
+  }
+}
 
 /* 1行に収める見出し。文字サイズはJSが実測して決める。
    ただし幅の狭い画面では1行にせず、CSSの大きさのまま折り返す
@@ -4798,11 +4807,24 @@ body.is-article .layout > .container{
   .site-brand{flex:0 0 auto;text-align:center;align-items:center;}
   .site-brand .site-title{justify-content:center;}
   .site-brand .site-tagline{text-align:center;}
-  .global-nav{flex:1 1 0;min-width:0;display:flex;justify-content:flex-end;}
+  /* メニューは縮めない。縮めると中の項目が箱からはみ出して、
+     中央のタイトルに重なってしまう。足りないぶんはタイトル側
+     （長いサブタイトル）が折り返して吸収する。 */
+  .global-nav{flex:0 0 auto;display:flex;justify-content:flex-end;}
   .global-nav .nav-links{justify-content:flex-end;}
+  .site-brand{flex:0 1 auto;min-width:0;}
   /* ヘッダーだけは本文より広い幅まで使い、メニューを画面の右端近くに
      寄せる（本文は今までどおり --maxw の幅に収める）。 */
   .site-header .container{max-width:none;padding:0 32px;}
+}
+
+/* 1400px 未満では、5項目のメニューと中央のタイトルが近づきすぎるので、
+   左右に同じ余白を置く「中央寄せ」をやめ、タイトルを左端に寄せる。 */
+@media (min-width:900px) and (max-width:1399px){
+  .header-inner .header-side{display:none;}
+  .site-brand{text-align:left;align-items:flex-start;}
+  .site-brand .site-title{justify-content:flex-start;}
+  .site-brand .site-tagline{text-align:left;}
 }
 
 /* ============================================================
@@ -6472,6 +6494,9 @@ body.is-listing main.layout{
   -webkit-line-clamp:2;
   -webkit-box-orient:vertical;
   overflow:hidden;
+  /* 見出しが1行の記事と2行の記事でタイルの高さが変わらないよう、
+     つねに2行ぶん（1.5em × 2）の場所を空けておく */
+  min-height:3em;
   font-size:13.5px;
   font-weight:700;
   line-height:1.5;
