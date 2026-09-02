@@ -5982,7 +5982,7 @@ details.hero-policy .policy-close{display:none;}
      一瞬透けて見えてしまう（「背景がブレる」ように見える原因）。
      板自体はもう見せる箱ではない（中の記事が個別タイルになった）ので
      角は丸めない。 */
-  background:transparent;
+  background:var(--surface);
 }
 @media (prefers-reduced-motion:reduce){
   .pt-stage{transition:none;}
@@ -6600,7 +6600,15 @@ body.is-listing main.layout{
   border-bottom-left-radius:0;
   border-bottom-right-radius:0;
 }
-.pick-tabs .pt-panel{padding-top:0;}
+/* 白い板（.pt-stage）の幅を、タブの枠・記事タイルとそろえる。
+   左右の余白は .pt-panel ではなく板の外側（margin）に持たせる。
+   板の内側に余白があると、板だけがタイルより広くなり、外へ
+   はみ出した枠に見えてしまう。 */
+.pick-tabs .pt-stage{
+  margin:0 6px;
+  border-radius:0 0 var(--radius) var(--radius);
+}
+.pick-tabs .pt-panel{padding:0;}
 /* つなぎ目に丸みが残ると段差に見えるので、最初のタイルの上側は角のまま */
 .pick-tabs .rank-list > .rank-item:first-child .arow-link,
 .pick-tabs .today-list > .today-list-item:first-child .today-card{
