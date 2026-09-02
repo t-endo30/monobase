@@ -639,7 +639,7 @@ table{border-collapse:collapse;}
   border-radius:var(--radius-sm);
   padding:14px 16px;
   margin-bottom:14px;
-  font-size:14.5px;
+  font-size:clamp(14.5px,3.7vw,16px);
   box-shadow:var(--shadow);
 }
 .voice .voice-name{
@@ -657,7 +657,7 @@ table{border-collapse:collapse;}
   border-radius:var(--radius-sm);
   padding:14px 16px;
   margin:0 0 24px;
-  font-size:14.5px;
+  font-size:clamp(14.5px,3.7vw,16px);
 }
 .fix-box .fix-title{
   font-weight:700;
@@ -1288,7 +1288,7 @@ mark.hit{background:#FFF0CC;color:inherit;padding:0 2px;border-radius:2px;}
   line-height:1.55;
   color:var(--navy);
 }
-.scene-body p{font-size:14.5px;margin:0;line-height:1.85;}
+.scene-body p{font-size:clamp(14.5px,3.7vw,16px);margin:0;line-height:1.85;}
 
 /* ============================================================
    6. 運営者の実体験コラム枠
@@ -1315,7 +1315,7 @@ mark.hit{background:#FFF0CC;color:inherit;padding:0 2px;border-radius:2px;}
   padding:3px 14px;
 }
 .personal-note p{
-  font-size:14.5px;
+  font-size:clamp(14.5px,3.7vw,16px);
   line-height:1.9;
   margin:0;
   color:#5C4A28;
@@ -1542,22 +1542,16 @@ mark.hl{
   color:var(--text-sub);
   text-align:center;
 }
-.tile-card > .arow-list{border:none;border-radius:0;background:transparent;}
+/* タイル化した記事の影が .tile-card の overflow:hidden で
+   切れないよう、上に少し余白を入れる（左右まで空けると下の
+   「もっと見る」と幅がそろわなくなるので、そこは詰めたまま） */
+.tile-card > .arow-list{border:none;border-radius:0;background:transparent;padding:6px 0 0;}
 .tile-card > .rail-wrap{padding:12px 4px 4px;}
 /* 新着一覧ページ：ACCESS RANKING と同じ rank-box に一覧を収める */
 .rank-box > .arow-list{border:none;border-radius:0;background:transparent;}
 
-@media (max-width:899px){
-  /* スマホ：「新着記事」「カテゴリーから探す」の見出し下にオレンジの線を入れる */
-  .tile-card-head{box-shadow:inset 0 2px 0 var(--amazon,#FF9900);}
-  /* 「もっと見る」はタイルから離さず、板の下端としてつなげる */
-  .news-list-block .tile-card{margin-bottom:0;}
-  .news-list-block .arow-more{
-    margin-top:0;
-    border-top:1px solid var(--border);
-    border-radius:0 0 var(--radius) var(--radius);
-  }
-}
+/* オレンジの線は枠の上端（::before）の1本だけにする。見出しの
+   下にも入れると、1つの枠に2本出て、どこが枠の始まりか分からなくなる。 */
 
 /* ---------- カード：主役 ---------- */
 .card-grid{gap:18px;}
@@ -2232,6 +2226,23 @@ body{font-size:clamp(15px,3.9vw,16.5px);}
 .card-body{padding:clamp(11px,3vw,14px) clamp(12px,3.4vw,16px) clamp(12px,3.4vw,16px);}
 .card-surface{padding:clamp(18px,4.6vw,32px) clamp(14px,4vw,28px) clamp(28px,6vw,40px);}
 
+/* ============================================================
+   スマホ：記事本文のタイルを画面幅いっぱいに広げる
+   ------------------------------------------------------------
+   .card-surface は .container の左右余白（--pad-x）の内側に
+   さらに自分の padding を持つため、狭い画面では文章の実質幅が
+   かなり狭くなる。記事ページ（body.is-article）に限り、外側の
+   余白ぶんだけ左右にはみ出させて画面端まで届かせる。内側の
+   padding はそのまま残すので、文字は端から離れて読みやすい。
+   ============================================================ */
+@media (max-width:599px){
+  body.is-article .card-surface{
+    margin-left:calc(var(--pad-x) * -1);
+    margin-right:calc(var(--pad-x) * -1);
+    border-radius:0;
+  }
+}
+
 /* --- 押せる要素は狭い画面でも指で押せる大きさを保つ --- */
 .card-link{min-height:clamp(40px,11vw,48px);font-size:clamp(13px,3.5vw,14px);}
 .btn-amazon{font-size:clamp(14px,4vw,17px);}
@@ -2720,6 +2731,11 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
   border-radius:var(--radius);
   padding:14px 14px 10px;
 }
+/* スマホでは左右の余白を切り詰め、中の記事タイルを画面幅いっぱい
+   近くまで広げる（タブ内の一覧・カテゴリー一覧と同じ実質幅にそろえる）。 */
+@media (max-width:899px){
+  .rank-box{padding-left:6px;padding-right:6px;}
+}
 .rank-heading{
   margin:0 0 8px;
   font-size:12px;
@@ -2727,18 +2743,18 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
   letter-spacing:.16em;
   color:var(--text-sub);
 }
-.rank-list{list-style:none;margin:0;padding:0;counter-reset:rank;}
-.rank-item{border-top:1px solid var(--border);}
-.rank-item:first-child{border-top:none;}
-.rank-item a{
+.rank-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+  counter-reset:rank;
   display:flex;
-  align-items:flex-start;
+  flex-direction:column;
   gap:10px;
-  padding:10px 2px;
-  text-decoration:none;
-  color:inherit;
 }
-.rank-item a:hover .rank-title{text-decoration:underline;}
+/* .rank-item の中身は今は .arow-link（.arow と共通の行部品）なので、
+   ここでは重ねて上書きしない。以前はここが本文側の見た目を
+   決めていて、.arow-link と食い違いが出る原因になっていた。 */
 .rank-no{
   flex:0 0 auto;
   width:22px;height:22px;
@@ -4068,9 +4084,12 @@ body,p,li,dd,dt,figcaption,a,span,button,
 .hl-body p{
   grid-column:1 / -1;          /* 番号の下をくぐらせ、左端まで文字を伸ばす */
   margin:0;
-  font-size:clamp(13px,3.5vw,14.5px);
+  /* 本文の <p> と同じサイズ・色にそろえる。以前は本文より一回り小さく
+     補足色（--text-sub）だったため、記事の核心である「強み」が
+     周辺情報に見えてしまっていた。 */
+  font-size:clamp(15px,3.9vw,16.5px);
   line-height:1.95;
-  color:var(--text-sub);
+  color:var(--text);
   text-align:justify;
   text-justify:inter-character;
 }
@@ -4864,6 +4883,7 @@ body.is-article .layout > .container{
 .rank-box,
 .side-tile,
 .tile-card,
+.pt-tabs-frame,
 .search-tile,
 .cf-tile,
 .policy-item,
@@ -4881,6 +4901,7 @@ body.is-article .layout > .container{
 .rank-box::before,
 .side-nav::before,
 .tile-card::before,
+.pt-tabs-frame::before,
 .search-tile::before,
 .card-surface::before{
   content:"";
@@ -5397,6 +5418,7 @@ body{
   .cat-nav-list{gap:2px;}
   .cat-nav-list a{padding:0 6px;font-size:12px;}
 }
+}
 
 /* 「本日のお勧めのモノ」：画像を少し内側に置く（枠の縁にくっつけない） */
 .today-thumb{margin-left:clamp(6px,2.2vw,14px);}
@@ -5911,10 +5933,19 @@ details.hero-policy .policy-close{display:none;}
    同じ場所を2枚で切り替える。押していない側は hidden なので、
    スマホの縦を1枚ぶんしか使わない。 */
 .pick-tabs{margin-bottom:22px;}
+/* タブ切り替え自体（ピル）は、新着記事などの見出し枠と同じ
+   「角丸・枠線・上端のオレンジのライン」で囲む */
+.pt-tabs-frame{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+  padding:10px;
+  margin-bottom:14px;
+}
 .pt-tabs{
   display:flex;
   gap:2px;
-  margin:0 auto 14px;
+  margin:0 auto;
   padding:3px;
   max-width:360px;
   border-radius:999px;
@@ -5946,12 +5977,11 @@ details.hero-policy .policy-close{display:none;}
    （assets/main.js が高さを都度セットし、終わったら外す） */
 .pt-stage{
   overflow:hidden;
-  /* 板の四隅を丸める。ここを角のままにすると、下端の「もっと見る」の
-     丸みが切り取られて角ばって見える（新着記事の枠と形が揃わない）。 */
-  border-radius:var(--radius);
   transition:height .22s var(--ease);
   /* 切り替え中、消えていくパネルの下に敷く色。これが無いと背景の写真が
-     一瞬透けて見えてしまう（「背景がブレる」ように見える原因）。 */
+     一瞬透けて見えてしまう（「背景がブレる」ように見える原因）。
+     板自体はもう見せる箱ではない（中の記事が個別タイルになった）ので
+     角は丸めない。 */
   background:var(--surface);
 }
 @media (prefers-reduced-motion:reduce){
@@ -5960,6 +5990,10 @@ details.hero-policy .policy-close{display:none;}
 /* タブの切り替え：消える／出てくる側をフェード＋スライドさせる
    （assets/main.js が is-leaving / is-entering を付け外しする） */
 .pt-panel{
+  /* タイルの影が .pt-stage の overflow:hidden で切れてしまわないよう、
+     少し余白を持たせる（JSはこの要素の高さを測って .pt-stage に
+     セットするので、余白込みの実測値がそのまま使える）。 */
+  padding:6px;
   opacity:1;
   transform:translateX(0);
   transition:opacity .2s var(--ease),transform .2s var(--ease);
@@ -5976,12 +6010,10 @@ details.hero-policy .policy-close{display:none;}
   list-style:none;
   margin:0;
   padding:0;
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  background:var(--surface);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
-.today-list-item{border-top:1px solid var(--border);}
-.today-list-item:first-child{border-top:none;}
 .today-list-item .today-card{padding:11px 12px;}
 .today-list-item .today-title{-webkit-line-clamp:2;}
 .today-list .today-rating{margin-top:3px;}
@@ -5991,44 +6023,38 @@ details.hero-policy .policy-close{display:none;}
 /* ============================================================
    読まれている記事／本日のお勧めのモノ（タブ）の中身
    ------------------------------------------------------------
-   ・6件目は下半分を薄くして、続きがあることを形で示す
+   ・5件目は下半分を薄くして、続きがあることを形で示す
    ・文字は左寄せ（読む順に目を運べるようにする）
-   ・「すべて見る」は枠から離さず、同じ板の下端としてつなげる
+   ・「すべて見る」は間隔を空けず、記事タイルの続きの下端として
+     くっつける（.pt-more側で指定）
    ============================================================ */
 
-/* ---- 板をひと続きにする ---- */
-.pick-tabs .rank-box,
-.pick-tabs .today-list{
-  margin-bottom:0;
-  border-bottom-left-radius:0;
-  border-bottom-right-radius:0;
-  border-bottom:none;
-  overflow:hidden;
-}
-
 /* ---- 4件表示・5件目（最後の1件）は下半分をぼかして切る ---- */
+/* mask-image + border-radius + overflow:hidden を同じ要素に重ねると、
+   一部のSafariで角丸が反映されず下端が角ばって見える不具合がある
+   ため、mask は使わず「白へのグラデーションをかぶせる」方式に統一する
+   （以前は非対応環境向けの代替だったものを、常用に切り替えた）。 */
 .pick-tabs .rank-list > .rank-item:nth-child(5),
 .pick-tabs .today-list > .today-list-item:nth-child(5){
   position:relative;
   overflow:hidden;
+  /* 上の記事タイルと同じ丸みで切る。ここを角のままにすると、
+     本来タイルの下端にあるはずの丸みが、切り取り位置より下に
+     あるせいで見えず、下端だけ角ばって見えてしまう。 */
+  border-radius:var(--radius);
   pointer-events:none;             /* 半分しか見えないものは押させない */
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
-          mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
 }
 /* 1件ぶんのおよそ半分。行の作りが違うので、枠ごとに高さを決める */
 .pick-tabs .rank-list > .rank-item:nth-child(5){max-height:46px;}
 .pick-tabs .today-list > .today-list-item:nth-child(5){max-height:38px;}
 
-/* mask が使えない環境では、白いかぶせで同じ見え方にする */
-@supports not ((-webkit-mask-image:linear-gradient(#000,#000)) or (mask-image:linear-gradient(#000,#000))){
-  .pick-tabs .rank-list > .rank-item:nth-child(5)::after,
-  .pick-tabs .today-list > .today-list-item:nth-child(5)::after{
-    content:"";
-    position:absolute;
-    inset:auto 0 0 0;
-    height:100%;
-    background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
-  }
+.pick-tabs .rank-list > .rank-item:nth-child(5)::after,
+.pick-tabs .today-list > .today-list-item:nth-child(5)::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0 0;
+  height:100%;
+  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
 }
 
 /* ---- 文字は左寄せ（スマホの中央寄せ指定を、この枠だけ戻す） ---- */
@@ -6050,17 +6076,20 @@ details.hero-policy .policy-close{display:none;}
 
 /* ---- ランキングの行にも、星・数字・一言を出す ---- */
 
-/* ---- 「すべて見る」を枠の下端としてつなげる ---- */
+/* ---- 「すべて見る」を、記事タイルの続きとして下端にくっつける ---- */
+/* 間隔は空けず、上の記事タイルと同じ白地の続きに見せる。角は
+   外側（下側）だけ丸め、タイルと接する上側は角ばったままにして
+   継ぎ目をそろえる（.arow-more と同じ形にそろえてある） */
 .pt-more{
   display:flex;
   align-items:center;
   justify-content:center;
   gap:7px;
-  margin-top:10px;
+  margin-top:0;
   padding:13px 14px;
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  background:var(--bg-gray);
+  border-radius:0 0 var(--radius) var(--radius);
+  background:var(--surface);
+  box-shadow:var(--shadow);
   color:var(--ink);
   font-size:13px;
   font-weight:700;
@@ -6069,7 +6098,7 @@ details.hero-policy .policy-close{display:none;}
   -webkit-tap-highlight-color:transparent;
   transition:background .18s var(--ease),transform .12s var(--ease);
 }
-.pt-more:hover{background:var(--border);}
+.pt-more:hover{background:var(--bg-gray);}
 .pt-more-arrow{
   width:7px;height:7px;
   border-right:2px solid currentColor;
@@ -6251,7 +6280,7 @@ details.hero-policy .policy-close{display:none;}
   .rank-page .rank-cat,
   .rank-page .rank-meta{text-align:left;}
 }
-.rank-page .rank-box{padding:6px 14px 10px;}
+.rank-page .rank-box{padding:6px 6px 10px;}
 
 /* ============================================================
    iPhone：入力欄を押すと拡大され、そのまま戻せなくなる件
@@ -6325,22 +6354,25 @@ body.is-listing main.layout{
    カテゴリーは右上、日付は右下。どちらも空いていた場所を使うので、
    行の高さは増えない。
    ============================================================ */
+/* 一覧は枠でひとつに囲うのではなく、1件＝1枚のタイルにして
+   すこし間隔を空ける（区切り線より、記事ごとの境目がはっきりする）。 */
 .arow-list{
   list-style:none;
   margin:0;
   padding:0;
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  background:var(--surface);
-  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
-.arow{border-top:1px solid var(--border);}
-.arow:first-child{border-top:none;}
 .arow-link{
   display:flex;
   align-items:stretch;            /* 写真を行の高さいっぱいに伸ばす */
   gap:12px;
   padding:12px;
+  border-radius:var(--radius);
+  background:var(--surface);
+  box-shadow:var(--shadow);
+  overflow:hidden;
   text-decoration:none;
   color:inherit;
   cursor:pointer;
@@ -6487,33 +6519,33 @@ body.is-listing main.layout{
 }
 
 /* ---- 5件目（最後の1件）は下半分をぼかして切る ---- */
+/* mask は使わず白グラデーションで統一（理由は上のタブ側と同じ） */
 .news-list-block .arow-list > .arow:nth-child(5){
   position:relative;
   overflow:hidden;
+  border-radius:var(--radius);
   pointer-events:none;
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
-          mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.35) 62%,rgba(0,0,0,0) 100%);
   max-height:46px;
 }
-@supports not ((-webkit-mask-image:linear-gradient(#000,#000)) or (mask-image:linear-gradient(#000,#000))){
-  .news-list-block .arow-list > .arow:nth-child(5)::after{
-    content:"";
-    position:absolute;
-    inset:auto 0 0 0;
-    height:100%;
-    background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
-  }
+.news-list-block .arow-list > .arow:nth-child(5)::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0 0;
+  height:100%;
+  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);
 }
+/* 間隔は空けず、上の記事タイルの続きとして下端にくっつける。
+   角は外側（下側）だけ丸める（.pt-more と同じ形にそろえてある） */
 .arow-more{
   display:flex;
   align-items:center;
   justify-content:center;
   gap:7px;
-  margin-top:10px;
+  margin-top:0;
   padding:13px 14px;
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  background:var(--bg-gray);
+  border-radius:0 0 var(--radius) var(--radius);
+  background:var(--surface);
+  box-shadow:var(--shadow);
   color:var(--ink);
   font-size:13px;
   font-weight:700;
@@ -6522,7 +6554,7 @@ body.is-listing main.layout{
   -webkit-tap-highlight-color:transparent;
   transition:background .18s var(--ease),transform .12s var(--ease);
 }
-.arow-more:hover{background:var(--border);}
+.arow-more:hover{background:var(--bg-gray);}
 .arow-more .btn-icon{width:16px;height:16px;flex:0 0 auto;}
 .arow-more-arrow{
   width:7px;height:7px;
@@ -6535,50 +6567,58 @@ body.is-listing main.layout{
   .arow-more:active{background:var(--border);transform:translateY(1px) scale(.99);}
 }
 
-/* ---- タブの中では、板の枠が二重にならないようにする ---- */
-.pick-tabs .rank-box{padding:0;border:none;background:none;}
-.pick-tabs .rank-list,
-.pick-tabs .today-list{
-  border:1px solid var(--border);
-  border-radius:var(--radius) var(--radius) 0 0;
-  border-bottom:none;
-  background:var(--surface);
-  overflow:hidden;
-}
-.pick-tabs .rank-note{display:none;}
-
-/* ---- タブ自体を、その下の板の上端としてくっつける（見出しとタイルの一体化） ---- */
-.pt-tabs{
-  gap:0;
-  margin:0;
+/* ---- タブの中の板は、個別タイルの一覧を出すだけの土台にする ---- */
+/* タブの中の .rank-box は記事タイルを並べるだけの透明な土台にする。
+   タイル一覧側でオレンジの上端ラインを出すため、.rank-box が
+   タイルカードとして持っている枠・角丸・影・上端ラインは全部消す
+   （残すと一番上の記事タイルの上に、もう1本線が出てしまう）。 */
+.pick-tabs .rank-box{
   padding:0;
-  max-width:none;
-  border:1px solid var(--border);
-  border-bottom:none;
-  border-radius:var(--radius) var(--radius) 0 0;
-  background:var(--bg-gray);
-  overflow:hidden;
+  border:none;
+  background:none;
+  border-radius:0;
+  box-shadow:none;
+  overflow:visible;
 }
-.pt-tab{border-radius:0;padding:12px 6px;}
-.pt-tab.is-on{background:var(--surface);color:var(--ink);box-shadow:inset 0 -2px 0 var(--amazon,#FF9900);}
-.pick-tabs .rank-list,
-.pick-tabs .today-list{border-top:none;border-bottom:1px solid var(--border);border-radius:0;}
-
-/* ---- 「もっと見る」もタイルから離さず、板の下端としてつなげる ---- */
-.pick-tabs .rank-list,
-.pick-tabs .today-list{border-bottom:none;}
-.pick-tabs .pt-tabs{margin-bottom:0;}
-.pick-tabs .pt-stage{border-radius:0 0 var(--radius) var(--radius);}
-.pick-tabs .pt-panel{border-radius:inherit;overflow:hidden;}
-.pick-tabs .pt-more{
-  margin-top:0;
-  border-top:1px solid var(--border);
-  border-radius:0 0 var(--radius) var(--radius);
-}
+.pick-tabs .rank-box::before{content:none;}
+.pick-tabs .rank-note{display:none;}
 
 /* 6件目は下半分をぼかして切る。写真の高さに合わせて取り直す */
 .pick-tabs .rank-list > .rank-item:nth-child(5),
 .pick-tabs .today-list > .today-list-item:nth-child(5){max-height:60px;}
+
+/* ============================================================
+   タブと、下に続く記事タイルを1枚の板としてつなげる
+   ------------------------------------------------------------
+   タブの枠だけが宙に浮いた札に見えていたので、下端の枠線と丸みを
+   落として、最初の記事タイルの上端に直接のせる。左右は .pt-panel の
+   余白（6px）に合わせ、タイルと同じ幅にそろえる。
+   ============================================================ */
+.pt-tabs-frame{
+  margin:0 6px;
+  border-bottom:none;
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
+}
+.pick-tabs .pt-panel{padding-top:0;}
+/* つなぎ目に丸みが残ると段差に見えるので、最初のタイルの上側は角のまま */
+.pick-tabs .rank-list > .rank-item:first-child .arow-link,
+.pick-tabs .today-list > .today-list-item:first-child .today-card{
+  border-top-left-radius:0;
+  border-top-right-radius:0;
+}
+
+/* 新着の「もっと見る」も、お勧め側（.pt-more）と同じく、最後の
+   タイルの続きとしてつなげる。枠の下端の線と丸みが残っていると、
+   そこで板が切れて、ボタンだけ別物に見える。 */
+@media (max-width:899px){
+  .news-list-block .tile-card{
+    border-bottom:none;
+    border-bottom-left-radius:0;
+    border-bottom-right-radius:0;
+  }
+  .news-list-block .arow-more{margin-top:0;}
+}
 
 /* ---- PCでは1行に回せる幅が増えるので、少しゆったりさせる ---- */
 @media (min-width:900px){
@@ -6669,14 +6709,12 @@ body.is-listing main.layout{
    ============================================================ */
 .tile-card,
 .rank-box,
+.pt-tabs-frame,
 .side-nav.side-tile,
 .side-search,
-.pt-stage,
-.today-list,
 .hero-tile{
   box-shadow:0 10px 28px rgba(20,20,22,.14),0 2px 6px rgba(20,20,22,.08);
 }
-.arow-list{box-shadow:0 10px 28px rgba(20,20,22,.14),0 2px 6px rgba(20,20,22,.08);}
 
 /* ============================================================
    CATEGORIES と ACCESS RANKING の見出しデザインをそろえる

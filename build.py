@@ -2012,11 +2012,13 @@ def mobile_ranking(p, today_limit=5):
        枠のかたちだけで示す。「すべて見る」のボタンは、注目アイテム枠と
        同じボタンデザイン（.deals-btn 相当のCSS）にそろえる。"""
     return ('      <section class="section-block is-mobile-only pick-tabs">\n'
+            '        <div class="pt-tabs-frame">\n'
             '        <div class="pt-tabs" role="tablist" aria-label="トップの記事の出し分け">\n'
             '          <button type="button" class="pt-tab is-on" role="tab"'
             ' id="ptTabRank" aria-controls="ptPanelRank" aria-selected="true">読まれている記事</button>\n'
             '          <button type="button" class="pt-tab" role="tab"'
             ' id="ptTabToday" aria-controls="ptPanelToday" aria-selected="false" tabindex="-1">本日のお勧めのモノ</button>\n'
+            '        </div>\n'
             '        </div>\n'
             '        <div class="pt-stage">\n'
             '        <div class="pt-panel" id="ptPanelRank" role="tabpanel" aria-labelledby="ptTabRank">\n'
