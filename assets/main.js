@@ -1288,7 +1288,11 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     var dir = i > from ? 1 : -1;
 
     /* 現在の高さで固定してから動かし始める */
-    if (stage) stage.style.height = stage.getBoundingClientRect().height + 'px';
+    if (stage) {
+      stage.style.height = stage.getBoundingClientRect().height + 'px';
+      /* 動いているあいだだけ地を敷く（背景写真が透けるのを防ぐ） */
+      stage.classList.add('is-anim');
+    }
 
     curPanel.classList.add('is-leaving');
     curPanel.style.setProperty('--pt-slide', (dir * -18) + 'px');
@@ -1309,7 +1313,10 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       });
       /* 高さの遷移が終わったら固定を外し、以後の内容変化に自然について行けるようにする */
       window.setTimeout(function () {
-        if (stage) stage.style.height = '';
+        if (stage) {
+          stage.style.height = '';
+          stage.classList.remove('is-anim');
+        }
       }, 220);
     }, 200);
   }

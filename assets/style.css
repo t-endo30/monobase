@@ -4573,9 +4573,15 @@ body.is-article .layout > .container{
   line-height:1.5;
 }
 .hero-tile p.hero-strong{font-size:clamp(15px,3.4vw,20px);}
+/* 2行（<br> で切ってある2文）が、どの画面幅でも折り返さずに
+   ちょうど2行で収まるようにする。長いほうの文は31字なので、
+   1字＝1em の日本語では 31em が入る大きさが上限になる。
+   62px は左右の余白（--pad-x と .hero-tile の padding）のぶん。
+   字間を 0 にしているのは、この31emの計算をずらさないため。 */
 .hero-tile .hero-desc{
   margin:2px 0 0;
-  font-size:clamp(12.5px,3.2vw,14px);
+  font-size:min(14px, calc((100vw - 62px) / 31));
+  letter-spacing:0;
   line-height:1.7;
   color:var(--text-sub);
 }
@@ -5982,8 +5988,14 @@ details.hero-policy .policy-close{display:none;}
      一瞬透けて見えてしまう（「背景がブレる」ように見える原因）。
      板自体はもう見せる箱ではない（中の記事が個別タイルになった）ので
      角は丸めない。 */
-  background:var(--surface);
+  background:transparent;
 }
+/* 白い地を常に敷くと、タイルとタイルのあいだの隙間まで白く埋まり、
+   1枚ずつ離して並べたタイルが、ひと続きの一覧に戻って見えてしまう。
+   地が要るのは「切り替えの最中に背景写真が透ける」のを防ぐときだけ
+   なので、動いているあいだだけ敷く（assets/main.js が is-anim を付ける）。
+   色もタイルの白とは変えて、動作中もタイルの角が見えるようにする。 */
+.pt-stage.is-anim{background:var(--bg-gray);}
 @media (prefers-reduced-motion:reduce){
   .pt-stage{transition:none;}
 }
@@ -6604,11 +6616,9 @@ body.is-listing main.layout{
    左右の余白は .pt-panel ではなく板の外側（margin）に持たせる。
    板の内側に余白があると、板だけがタイルより広くなり、外へ
    はみ出した枠に見えてしまう。 */
-.pick-tabs .pt-stage{
-  margin:0 6px;
-  border-radius:0 0 var(--radius) var(--radius);
-}
-.pick-tabs .pt-panel{padding:0;}
+/* 左右の余白はタイル側（.pt-panel）に持たせ、タブの枠と同じ 6px に
+   そろえる。板そのものは地を持たないので、はみ出して見えることはない。 */
+.pick-tabs .pt-panel{padding:0 6px 6px;}
 /* つなぎ目に丸みが残ると段差に見えるので、最初のタイルの上側は角のまま */
 .pick-tabs .rank-list > .rank-item:first-child .arow-link,
 .pick-tabs .today-list > .today-list-item:first-child .today-card{
