@@ -3183,6 +3183,13 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
 }
 @media (max-width:599px){
   .footer-cols{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;}
+  /* スマホでは横に並ぶ列が細いので、文字は中央にそろえる */
+  .footer-col{text-align:center;}
+  /* 3列目は2列並びのときに1つだけ次の行に落ちるので、
+     行いっぱいに広げて中央に置く（左に寄って見えるのを防ぐ） */
+  .footer-col:last-child{grid-column:1 / -1;}
+  .footer-col-list{align-items:center;}
+  .assoc-note{text-align:center;}
 }
 .footer-col-heading{
   margin:0 0 8px;
@@ -4581,11 +4588,14 @@ body.is-article .layout > .container{
 /* 2行（<br> で切ってある2文）が、どの画面幅でも折り返さずに
    ちょうど2行で収まるようにする。長いほうの文は31字なので、
    1字＝1em の日本語では 31em が入る大きさが上限になる。
-   62px は左右の余白（--pad-x と .hero-tile の padding）のぶん。
-   字間を 0 にしているのは、この31emの計算をずらさないため。 */
+   72px は左右の余白（--pad-x と .hero-tile の padding と枠線）のぶん。
+   割る数を 32.6（31字＋約5%）にしているのは、端末ごとの書体で
+   1字が 1em より少し広くなることがあり、ぴったり31emだと
+   スマホで3行に折り返してしまうため。字間を 0 にしているのは、
+   この計算をずらさないため。 */
 .hero-tile .hero-desc{
   margin:2px 0 0;
-  font-size:min(14px, calc((100vw - 62px) / 31));
+  font-size:min(13.5px, calc((100vw - 72px) / 32.6));
   letter-spacing:0;
   line-height:1.7;
   color:var(--text-sub);
@@ -4615,6 +4625,17 @@ body.is-article .layout > .container{
 .btn-hero-arrow{font-weight:400;}
 @media (hover:none){
   .btn-hero:active{transform:translateY(1px) scale(.98);}
+}
+/* スマホでは、下にある「読まれている記事／本日のお勧めのモノ」の
+   タブと同じ大きさ（文字12.5px・高さ34.25px）にそろえる。
+   上下の余白と枠線を合わせて、タブと同じ 34.25px の高さになる。 */
+@media (max-width:899px){
+  .btn-hero{
+    padding:8px 18px;
+    font-size:12.5px;
+    line-height:1.3;
+    letter-spacing:.01em;
+  }
 }
 @media (min-width:900px){
   /* 見出しの横に検索を置くと、900〜1023pxの幅で記事数の一文が
