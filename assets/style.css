@@ -2733,6 +2733,11 @@ h1,h2,h3,.card-title,.article-title,.section-heading{text-wrap:balance;}
   border-radius:var(--radius);
   padding:14px 14px 10px;
 }
+/* スマホでは左右の余白を切り詰め、中の記事タイルを画面幅いっぱい
+   近くまで広げる（タブ内の一覧・カテゴリー一覧と同じ実質幅にそろえる）。 */
+@media (max-width:899px){
+  .rank-box{padding-left:6px;padding-right:6px;}
+}
 .rank-heading{
   margin:0 0 8px;
   font-size:12px;
@@ -6277,7 +6282,7 @@ details.hero-policy .policy-close{display:none;}
   .rank-page .rank-cat,
   .rank-page .rank-meta{text-align:left;}
 }
-.rank-page .rank-box{padding:6px 14px 10px;}
+.rank-page .rank-box{padding:6px 6px 10px;}
 
 /* ============================================================
    iPhone：入力欄を押すと拡大され、そのまま戻せなくなる件
