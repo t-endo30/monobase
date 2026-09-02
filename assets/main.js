@@ -1290,6 +1290,17 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     /* 現在の高さで固定してから動かし始める */
     if (stage) stage.style.height = stage.getBoundingClientRect().height + 'px';
 
+    /* 切り替えている間だけ、角丸を確実に切り取るマスクを効かせる
+       （CSS: .pt-stage.is-switching …）。常時付けておくと一覧の
+       1行ずつが合成レイヤーになり、iPhone実機でスクロールが重い。 */
+    if (stage) {
+      stage.classList.add('is-switching');
+      window.clearTimeout(stage._switchTimer);
+      stage._switchTimer = window.setTimeout(function () {
+        stage.classList.remove('is-switching');
+      }, 700);
+    }
+
     curPanel.classList.add('is-leaving');
     curPanel.style.setProperty('--pt-slide', (dir * -18) + 'px');
     window.setTimeout(function () {

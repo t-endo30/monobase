@@ -474,12 +474,15 @@ table{border-collapse:collapse;}
   width:60%;height:100%;
   background:linear-gradient(120deg,transparent,rgba(255,255,255,.45),transparent);
   transform:skewX(-20deg);
+  /* left を動かすとフレームごとにレイアウトが起きる。transform なら
+     合成だけで済むので、スマホでも滑らかに流れる。 */
   animation:shine 3.4s ease-in-out infinite;
+  will-change:transform;
 }
 @keyframes shine{
-  0%{left:-80%;}
-  45%{left:130%;}
-  100%{left:130%;}
+  0%{transform:translateX(0) skewX(-20deg);}
+  45%{transform:translateX(350%) skewX(-20deg);}
+  100%{transform:translateX(350%) skewX(-20deg);}
 }
 .btn-amazon:hover{
   background:var(--amazon-dark);
@@ -5424,7 +5427,6 @@ body{
   .cat-nav-list{gap:2px;}
   .cat-nav-list a{padding:0 6px;font-size:12px;}
 }
-}
 
 /* 「本日のお勧めのモノ」：画像を少し内側に置く（枠の縁にくっつけない） */
 .today-thumb{margin-left:clamp(6px,2.2vw,14px);}
@@ -6650,9 +6652,13 @@ body.is-listing main.layout{
    この不具合が出ず、実機でだけ再現する。
    角丸と同じ形のマスクを重ねて、切り取りを確実に効かせる。
    ============================================================ */
-.arow-link,
-.arow-thumb,
-.today-thumb{
+/* このマスクは1枚1枚が合成レイヤーになり、常に付けておくと一覧の
+   スクロールが重くなる（iPhone実機で顕著）。角が四角くなるのは
+   タブを切り替えている最中だけなので、その間だけ付ける
+   （assets/main.js が .pt-stage に is-switching を付け外しする）。 */
+.pt-stage.is-switching .arow-link,
+.pt-stage.is-switching .arow-thumb,
+.pt-stage.is-switching .today-thumb{
   -webkit-mask-image:-webkit-radial-gradient(#fff,#000);
           mask-image:radial-gradient(#fff,#000);
 }
@@ -6783,7 +6789,7 @@ body.is-listing main.layout{
 
 
 /* ============================================================
-   スマホ：見出しの下に余白を置き、一覧は1件＝1枚のタイルにする
+   一覧は「枠の中に、記事ごとのタイル」を並べる形にする
    ------------------------------------------------------------
    これまでは白い枠の中に白いタイルを並べていたので、タイルの
    角丸も間隔も見えず、1本の長い表のように見えていた。
@@ -6792,43 +6798,89 @@ body.is-listing main.layout{
      ・見出しの帯と最初のタイルのあいだに余白を入れる
        （「読まれている記事／本日のお勧めのモノ」と同じ間の取り方）
    直す先は見出しのある一覧すべて。トップの LATEST ARTICLES／
-   トップのタブ2枚／新着一覧ページ／ランキングページ。
-   カテゴリーの一覧はもともと背景の上に直接タイルを並べていて、
-   すでにタイルとして見えているのでそのまま。
+   トップのタブ2枚／新着一覧ページ／ランキングページ／PCサイドの
+   ACCESS RANKING・LATEST ARTICLES。スマホもPCも同じ形にそろえる。
+   カテゴリーや検索の一覧はもともと背景の上に直接タイルを並べて
+   いて、すでにタイルとして見えているのでそのまま。
+   ============================================================ */
+/* 枠の中は「見出しの帯」と「土台」で埋めるので、枠自身は余白を
+   持たない。角の丸みからはみ出さないよう、ここで切り取る。 */
+.rank-box{padding:0;overflow:hidden;}
+.rank-box > .rank-heading{margin:0;}
+.rank-box > .rank-note{margin:0;padding:10px 12px 12px;}
+/* 中身が入らないときは、土台の下に白い帯だけが残らないようにする */
+.rank-box > .rank-note:empty{padding:0;}
+
+/* ---- タイルを並べる土台 ---- */
+.news-list-block .tile-card > .arow-list,
+.rank-box > .arow-list,
+.rank-box > .rank-list,
+.pick-tabs .pt-panel > .rank-list,
+.pick-tabs .pt-panel > .today-list{
+  padding:12px 8px;              /* 上の12pxが「見出しの下の余白」 */
+  background:var(--bg-gray);
+}
+/* タブの中は土台側で余白を持つので、板の余白は0にする
+   （タイルの影は土台の8pxの内側に収まる） */
+.pick-tabs .pt-panel{padding:0;}
+
+/* ---- 1件＝1枚のタイル ---- */
+.rank-box .arow-link,
+.tile-card .arow-link,
+.pick-tabs .arow-link{
+  border:1px solid var(--border);
+}
+/* タブの下端と最初のタイルをつないでいた指定を戻す。
+   土台ができたので、4角とも丸めてよい。 */
+.pick-tabs .rank-list > .rank-item:first-child .arow-link,
+.pick-tabs .today-list > .today-list-item:first-child .arow-link{
+  border-top-left-radius:var(--radius);
+  border-top-right-radius:var(--radius);
+}
+
+/* ============================================================
+   PCサイドの CATEGORIES にも、他のタイルと同じ上端の線を引く
+   ------------------------------------------------------------
+   ほかのタイル（ACCESS RANKING など）は ::before で上端に線を
+   引いているが、CATEGORIES の枠だけは中身が縦に長く、枠の中が
+   スクロールするため、この線が出ていなかった。枠そのものの
+   背景として上端に3pxだけ描けば、中身に関係なく必ず出る。
+   ============================================================ */
+.side-nav.side-tile{
+  background-color:var(--surface);
+  background-image:linear-gradient(90deg,var(--amazon) 0%,#F5C07A 46%,var(--border) 100%);
+  background-repeat:no-repeat;
+  background-size:100% 3px;
+  background-position:top left;
+}
+
+
+/* ============================================================
+   iPhone実機での「かくつき」を減らす
+   ------------------------------------------------------------
+   iOS Safari は backdrop-filter（すりガラス）が特に重い。
+   貼り付いたヘッダーに掛かっていると、指で送るあいだ毎フレーム
+   背景をぼかし直すことになり、スクロールもタブの切り替えも
+   引っかかる。スマホでは、見た目がほぼ変わらない範囲で
+   すりガラスをやめ、色は不透明で置き換える。
+   （PCでは今までどおり、すりガラスのまま）
    ============================================================ */
 @media (max-width:899px){
-  /* 枠の中は「見出しの帯」と「土台」で埋めるので、枠自身は余白を
-     持たない。角の丸みからはみ出さないよう、ここで切り取る。 */
-  .rank-box{padding:0;overflow:hidden;}
-  .rank-box > .rank-heading{margin:0;}
-  .rank-box > .rank-note{margin:0;padding:10px 12px 12px;}
-  /* 中身が入らないときは、土台の下に白い帯だけが残らないようにする */
-  .rank-box > .rank-note:empty{padding:0;}
-
-  /* ---- タイルを並べる土台 ---- */
-  .news-list-block .tile-card > .arow-list,
-  .rank-box > .arow-list,
-  .rank-box > .rank-list,
-  .pick-tabs .pt-panel > .rank-list,
-  .pick-tabs .pt-panel > .today-list{
-    padding:12px 8px;              /* 上の12pxが「見出しの下の余白」 */
-    background:var(--bg-gray);
+  .site-header{
+    background:linear-gradient(to bottom,#3A3E46,#25282D);
+    -webkit-backdrop-filter:none;
+            backdrop-filter:none;
   }
-  /* タブの中は土台側で余白を持つので、板の余白は0にする
-     （タイルの影は土台の8pxの内側に収まる） */
-  .pick-tabs .pt-panel{padding:0;}
-
-  /* ---- 1件＝1枚のタイル ---- */
-  .rank-box .arow-link,
-  .tile-card .arow-link,
-  .pick-tabs .arow-link{
-    border:1px solid var(--border);
+  .hero-tile{
+    background:rgba(255,255,255,.94);
+    -webkit-backdrop-filter:none;
+            backdrop-filter:none;
   }
-  /* タブの下端と最初のタイルをつないでいた指定を戻す。
-     土台ができたので、4角とも丸めてよい。 */
-  .pick-tabs .rank-list > .rank-item:first-child .arow-link,
-  .pick-tabs .today-list > .today-list-item:first-child .arow-link{
-    border-top-left-radius:var(--radius);
-    border-top-right-radius:var(--radius);
+  .feat-banner .feat-label{
+    -webkit-backdrop-filter:none;
+            backdrop-filter:none;
   }
+  /* ヘッダーに重ねている細い横縞。ぼかしと同じく、貼り付いた面を
+     毎フレーム塗り直す負担になるので、スマホでは出さない。 */
+  .site-header::after{content:none;}
 }
