@@ -817,7 +817,7 @@
       '<!doctype html><html lang="ja"><head><meta charset="utf-8">' +
       '<meta name="viewport" content="width=device-width,initial-scale=1">' +
       '<title>プレビュー</title><link rel="stylesheet" href="' + location.origin +
-        location.pathname.replace(/admin\.html$/, '') + 'assets/style.css"></head><body>' +
+        location.pathname.replace(/admin\.html$/, '') + 'assets/style-v2.css"></head><body>' +
       '<main class="layout"><div class="container"><article class="card-surface">' +
       '<h1 class="article-title">' + (a.title || '(無題)') + '</h1>' +
       '<section class="summary-box"><div class="summary-head">' + (a.verdict_title || '結論') + '</div>' +

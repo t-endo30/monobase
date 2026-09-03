@@ -10,7 +10,8 @@ content/site.json        サイト設定（サイト名・ドメイン・GA/GSC�
 content/articles.json    記事データ（これが唯一の原稿。HTMLは手で触らない）
 build.py                 ジェネレーター。JSON → 全HTML を生成
 admin.html               管理画面（記事の追加・編集・削除、画像圧縮、設定）
-assets/style.css         サイト共通CSS
+assets/style-v2.css      サイト共通CSS
+assets/style.css         旧CSS（どこからも読まれない。移設元の控え）
 assets/main.js           サイト共通JS（ナビ・追従CTA）
 assets/search.js         サイト内検索
 assets/admin.css / .js   管理画面
