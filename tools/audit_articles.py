@@ -185,8 +185,10 @@ def body_text(a):
 
 
 def kind_of(a):
-    """記事の種類。build.py の kind_of と同じ判定にそろえる。"""
-    k = a.get("kind")
+    """記事の種類。tools/write_article.py の kind_of と同じ判定にそろえる。
+       `article_type` は、管理画面の選択肢に無い種類（sale・howto）を
+       指定するための上書き。管理画面が触らないので保存しても消えない。"""
+    k = a.get("article_type") or a.get("kind")
     if k in ("review", "roundup", "guide", "sale", "howto"):
         return k
     return "roundup" if a.get("category") == "feature" else "review"

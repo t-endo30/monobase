@@ -146,8 +146,16 @@ CARE_NOTE = {
 
 
 def kind_of(a):
-    """記事の種類。build.py の kind_of と同じ判定にそろえる。"""
-    k = a.get("kind")
+    """記事の種類。build.py の kind_of と同じ判定にそろえる。
+
+       `article_type` は、記事の実態が `kind` では表せないときの上書き。
+       管理画面の種類の選択肢は レビュー／特集／選び方 の3つで、
+       セール記事・ハウツーを選べない。そこに sale と書いても、
+       次に管理画面で保存した時点で消える。
+       一方 `article_type` は管理画面が触らないので残る。
+       build.py はこのキーを見ないので、記事の見た目（種類バッジ）は
+       `kind` のまま変わらない。変えるのは本文の作り方だけ。"""
+    k = a.get("article_type") or a.get("kind")
     if k in KIND_FRAMES:
         return k
     return "roundup" if a.get("category") == "feature" else "review"

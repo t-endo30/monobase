@@ -2848,8 +2848,13 @@
       + '医療行為・診断と誤認される書き方をしない。'
   };
 
+  /* 記事の種類。article_type は、種類の選択肢（レビュー／特集／選び方）では
+     表せない記事のための上書き。セール記事・ハウツーがこれにあたる。
+     この画面は article_type を触らないので、保存しても消えない。
+     サイト側（build.py）もこのキーを見ないため、種類バッジの見た目は変わらない。
+     変わるのは本文の作り方だけ。tools/write_article.py の kind_of と同じ判定。 */
   function kindOf(a) {
-    var k = a.kind;
+    var k = a.article_type || a.kind;
     if (KIND_FRAMES[k]) return k;
     return a.category === 'feature' ? 'roundup' : 'review';
   }
