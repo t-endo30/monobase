@@ -856,8 +856,8 @@ def share_fab(a, url):
   </summary>
   <a class="fab-item" href="{e(f"https://twitter.com/intent/tweet?text={text}&url={u}")}"
      target="_blank" rel="noopener" aria-label="Xでシェア">{IC_X}</a>
-  <a class="fab-item" href="{e(f"https://social-plugins.line.me/lineit/share?url={u}")}"
-     target="_blank" rel="noopener" aria-label="LINEでシェア">{IC_LINE}</a>
+  <a class="fab-item is-line" href="{e(f"https://line.me/R/share?text={text}%0D%0A{u}")}"
+     target="_blank" rel="noopener" aria-label="LINEでシェア"><span class="ic-sq">{IC_LINE}</span></a>
   <button type="button" class="fab-item is-copy" data-copy-url="{plain}"
           aria-label="リンクをコピー">{IC_LINK}</button>
 </details>
@@ -920,6 +920,35 @@ def v2_sec_more(href, label="VIEW ALL"):
     return f'      <div class="sec-more"><a href="{e(href)}">{label}</a></div>\n'
 
 
+def v2_appeal(a):
+    """タイルに出す一言。記事の中の「良い点」の1つ目から作る。
+       説明文（excerpt）は「〜を整理。」「〜を分析。」の形が揃いやすく、
+       一覧に並べると同じ文が繰り返されているように見えるため、
+       その商品ならではの中身が書いてある pros を先に使う。"""
+    src = ""
+    pros = a.get("pros") or []
+    if pros:
+        src = str(pros[0]).strip()
+    if not src:
+        src = str(a.get("excerpt", "")).strip()
+    src = re.sub(r"<[^>]+>", "", src).replace("==", "")
+    # 文の切れ目で終える。1文目が短すぎるときは次の文まで足す
+    # （「重量1.45kg（メーカー公表）。」だけでは何が良いのか伝わらない）
+    out = ""
+    for part in re.findall(r"[^。．]*[。．]?", src):
+        if not part:
+            continue
+        if out and len(out) + len(part) > 56:
+            break
+        out += part
+        if len(out) >= 24 and out.endswith(("。", "．")):
+            break
+    src = out or src
+    if len(src) > 56:
+        src = src[:55].rstrip("、。・ ") + "…"
+    return src
+
+
 def v2_card(a, p):
     """一覧の記事タイル。カテゴリーは写真の右上に重ね、見出しの下には
        その記事の一言（excerpt）を置く。"""
@@ -933,7 +962,7 @@ def v2_card(a, p):
             f'<span class="card-cat">{e(cat)}</span></span>'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
             f'<span class="card-title">{e(title)}</span>'
-            f'<span class="card-note">{e(a.get("excerpt",""))}</span></a>')
+            f'<span class="card-note">{e(v2_appeal(a))}</span></a>')
 
 
 def v2_row(a, p, numbered=None):
@@ -948,7 +977,7 @@ def v2_row(a, p, numbered=None):
             f'<span class="row-body">'
             f'<span class="row-cat">{e(cat)}</span>'
             f'<h3>{e(a["title"])}</h3>'
-            f'<p>{e(a.get("excerpt",""))}</p>'
+            f'<p>{e(v2_appeal(a))}</p>'
             f'<span class="meta">{e(a.get("date",""))}</span></span></a>')
 
 
@@ -977,11 +1006,10 @@ def v2_cat_grid(p, cls=""):
               for c in CATS}
     cells = "".join(
         f'<a class="cat-cell" href="{p}category-{c["key"]}.html">'
-        f'<span class="cat-body"><span class="n">{i+1:02d}</span>'
-        f'<span class="l">{e(c["label"])}</span>'
+        f'<span class="cat-body"><span class="l">{e(c["label"])}</span>'
         f'<span class="c">{counts[c["key"]]} 記事</span></span>'
         f'<span class="cat-thumb">{v2_cat_image(c, p)}</span></a>'
-        for i, c in enumerate(CATS))
+        for c in CATS)
     return f'      <div class="cat-grid{" " + cls if cls else ""}">{cells}</div>\n'
 
 
@@ -2370,7 +2398,7 @@ def build_index():
     pool = [{
         "u": f'{p}articles/{a["slug"]}.html',
         "t": a.get("list_title") or a["title"],
-        "x": a.get("excerpt", ""),
+        "x": v2_appeal(a),
         "c": CAT_LABEL.get(a.get("category", ""), ""),
         "k": a.get("category", ""),
         "s": a["slug"],
@@ -2528,10 +2556,10 @@ def build_new():
     """新着一覧。トップの NEW からの行き先。"""
     p = "./"
     items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)
-    body = v2_page_head("記事一覧",
+    body = v2_page_head("新着記事",
                         lead="公開の新しい順に並べています。", count=len(items))
     body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
-    return page(f"記事一覧 - {NAME}", f"{NAME}の記事一覧です。新しい順に並べています。", "new", p,
+    return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。新しい順に並べています。", "new", p,
                 f"{BASE_URL}/new.html", body, body_class="is-listing",
                 crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)])
 

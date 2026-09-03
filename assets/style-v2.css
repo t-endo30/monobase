@@ -353,11 +353,16 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .cat-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
 .cat-cell:hover .cat-thumb img{transform:scale(1.04);}
 /* 見出しを先に読ませ、写真はその下に添える */
+.cat-cell{position:relative;}
 .cat-body{display:flex;flex-direction:column;gap:6px;padding:16px 18px 14px;}
 .cat-thumb{margin-top:auto;}
 .cat-cell .n{font-family:var(--font-en);font-size:10.5px;letter-spacing:.14em;color:var(--muted-2);}
-.cat-cell .l{font-size:15px;font-weight:800;letter-spacing:.02em;}
-.cat-cell .c{font-size:11.5px;color:var(--muted);margin-top:auto;}
+.cat-cell .l{font-size:15px;font-weight:800;letter-spacing:.02em;padding-right:52px;}
+/* 記事数はタイルの右上。見出しの下に置くと、名前より先に数が目に入る */
+.cat-cell .c{
+  position:absolute;top:14px;right:16px;
+  font-family:var(--font-en);font-size:10.5px;letter-spacing:.06em;color:var(--muted-2);
+}
 
 /* =========================================================================
    ページ見出し（下層ページ）
@@ -806,7 +811,11 @@ body.has-sticky-cta .fab{bottom:96px;}
   animation:hero-typing 1.6s steps(10) .3s forwards,
             hero-caret .75s step-end .3s 7 forwards;
 }
-@keyframes hero-typing{ from{width:0;} to{width:100%;} }
+/* 幅の伸ばし先は文字数ぶんの em で書く。見出しは全角10文字なので
+   10em でちょうど文末に届く（max-width が実際の幅で止める）。
+   ここを 100% にすると、iOS Safari では親（display:contents の
+   グリッド項目）に対する割合が解けず、アニメーションごと動かない */
+@keyframes hero-typing{ from{width:0;} to{width:10em;} }
 /* 打ち終わって数秒でカーソルは消す。点滅が残り続けると、
    読んでいるあいだずっと視界の端で動くことになる */
 @keyframes hero-caret{
@@ -950,9 +959,8 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* カテゴリーは2列。3列にすると1枠が狭すぎて、写真も名前も読めない */
   .cat-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
   .cat-body{padding:11px 12px 9px;gap:3px;}
-  .cat-cell .n{font-size:9.5px;}
-  .cat-cell .l{font-size:13px;}
-  .cat-cell .c{font-size:10.5px;}
+  .cat-cell .l{font-size:13px;padding-right:44px;}
+  .cat-cell .c{top:11px;right:12px;font-size:10px;}
   /* カテゴリーは途中で切らずに全部出す。分野の一覧は、
      どこまであるのかが一目で分かることのほうが大事 */
 
@@ -972,8 +980,11 @@ body.has-sticky-cta .fab{bottom:96px;}
   .row-item .thumb{aspect-ratio:4/3;}
   .row-item h3{font-size:13px;line-height:1.6;margin-bottom:3px;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-  /* 説明文はスマホでは落とす。見出しと日付だけで選べる */
-  .row-item p{display:none;}
+  /* 一言はスマホでも出す。どんな商品かが一覧のまま分かるようにする */
+  .row-item p{
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+    font-size:11.5px;line-height:1.7;margin-top:3px;
+  }
   .row-item .meta{margin-top:2px;font-size:10px;}
 
   .page-head{padding:22px 0 18px;}
@@ -1017,6 +1028,46 @@ body.has-sticky-cta .fab{bottom:96px;}
 /* 動きを減らす設定を尊重する */
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;}
+}
+
+/* =========================================================================
+   移設した部品が使う色と形（旧 style.css の :root から引き継ぐ）
+   ------------------------------------------------------------------------
+   記事本文の部品は旧CSSから移してきたが、その中で使っている変数は
+   旧 :root にあり、移設の対象から外れていた（クラスを含まない指定は
+   持ってこない規則にしていたため）。値が無いまま var() を書くと、
+   その指定は丸ごと捨てられる。枠・背景・丸い番号が消えて、余白と
+   字下げだけが残って見えていたのはこれが理由。
+
+   値は新デザインの色に合わせ直す。良い／悪いの緑と赤だけは、
+   意味が色そのものに乗っているので残す。
+   ========================================================================= */
+:root{
+  --navy:var(--ink);
+  --navy-light:var(--ink-2);
+  --text:var(--ink-2);
+  --text-sub:var(--muted);
+  --border:var(--line);
+  --border-strong:var(--line-2);
+  --surface:var(--bg-2);
+  --surface-2:var(--bg);
+  --bg-gray:var(--bg-3);
+  --accent:var(--ink);
+  --amazon-dark:#e07e00;
+
+  /* 良い点・悪い点・補足は、意味が色に乗っているので色を残す */
+  --good:#12916a;  --good-bg:#e9f7f1;
+  --bad:#c8442c;   --bad-bg:#fdf0ec;
+  --info:#3f4650;  --info-bg:#eeeff1;
+
+  /* 形。新デザインは角を立てるので、丸めはごく浅くする */
+  --radius:3px;
+  --radius-sm:2px;
+  --shadow-xs:0 1px 2px rgba(0,0,0,.04);
+  --shadow-sm:0 1px 3px rgba(0,0,0,.05);
+  --shadow:0 1px 3px rgba(0,0,0,.05);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.10);
+  --ease:cubic-bezier(.2,.7,.3,1);
 }
 
 /* =========================================================================
@@ -2428,3 +2479,49 @@ p,li,.card-desc{text-wrap:pretty;}
 .rank-box{max-width:880px;margin:0 auto;}
 .rank-list{border-top:1px solid var(--line);}
 .rank-note{margin-top:16px;font-size:11.5px;color:var(--muted-2);text-align:center;}
+
+/* ---- 枠の中の見出しと段落は、地の文の間隔をそのまま持ち込まない ----
+   .article-body h3 / p に付けた大きな余白が、カードの中の見出しにも
+   当たっていた。番号の丸と見出しの高さがそろわず、枠の下も無駄に
+   空いて、字下げのように見えていた。 */
+.article-body .scene-title,
+.article-body .hl-title,
+.article-body .voice-title,
+.article-body .next-title,
+.article-body .fix-title,
+.article-body .goodfor-t,
+.article-body .pc-col h3{margin-top:0;}
+.scene-title{margin:0 0 8px;}
+.scene{padding:16px 18px;align-items:flex-start;}
+.scene-num{width:30px;height:30px;font-size:14px;}
+.scene-body > p:last-child{margin-bottom:0;}
+.article-body .scenes p:last-child,
+.article-body .hl-card p:last-child,
+.article-body .voice-body p:last-child{margin-bottom:0;}
+
+/* ---- 本文の中のリンク ----
+   土台で a{color:inherit;text-decoration:none} にしているため、
+   記事本文に差し込まれたリンク（過去記事・出典・公式サイト）が
+   ただの文字と同じ見た目になり、そこにリンクがあると分からなかった。 */
+.article-body a:not([class]),
+.article-body p > a:not([class]),
+.prose a:not([class]){
+  text-decoration:underline;text-underline-offset:3px;
+  text-decoration-color:var(--line-2);
+  transition:text-decoration-color .18s ease;
+}
+.article-body a:not([class]):hover,
+.prose a:not([class]):hover{text-decoration-color:var(--ink);}
+
+/* 固定ページの区切り見出しも、ページの見出しに合わせて中央に置く */
+.static-wrap h2{text-align:center;}
+.static-wrap h2 + p{margin-top:4px;}
+
+/* LINE のしるしは、丸いボタンの中で角を丸めた四角に収める */
+.fab-item .ic-sq{
+  display:grid;place-items:center;width:30px;height:30px;
+  border-radius:8px;background:var(--ink);color:var(--bg-2);
+}
+.fab-item .ic-sq svg{width:19px;height:19px;}
+.fab-item.is-line:hover .ic-sq,
+.fab-item.is-line:focus-visible .ic-sq{background:#06c755;}
