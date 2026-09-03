@@ -3,7 +3,8 @@
 """ヒーローの箱写真を、紙面に置ける形に整える。
 
     python3 tools/prep_hero_image.py [元画像] [出力先]
-    （既定: assets/img/hero-box-src.jpg -> assets/img/hero-box.jpg）
+    （既定: tools/hero-box-src.jpg -> assets/img/hero-box.jpg）
+    元画像は assets/ に置かない。配信に乗るうえ、画像の重さの検査に引っかかるため。
 
 やっていること:
 
@@ -24,7 +25,7 @@ import sys
 import numpy as np
 from PIL import Image, ImageFilter
 
-SRC = sys.argv[1] if len(sys.argv) > 1 else "assets/img/hero-box-src.jpg"
+SRC = sys.argv[1] if len(sys.argv) > 1 else "tools/hero-box-src.jpg"
 DST = sys.argv[2] if len(sys.argv) > 2 else "assets/img/hero-box.jpg"
 
 BORDER = 60      # 地色を測る縁の幅

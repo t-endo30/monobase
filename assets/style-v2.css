@@ -420,7 +420,7 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
 /* =========================================================================
    静的ページの本文
    ========================================================================= */
-.static-wrap{padding:56px 0 96px;max-width:820px;}
+.static-wrap{padding:56px 0 96px;max-width:820px;margin:0 auto;}
 .static-wrap h2{font-size:20px;font-weight:900;margin:48px 0 18px;padding-bottom:12px;border-bottom:1px solid var(--ink);}
 .static-wrap h2:first-child{margin-top:0;}
 .static-wrap p{margin-bottom:20px;font-size:14.5px;line-height:2.05;}
@@ -717,7 +717,9 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
   }
   .card-thumb{grid-row:1 / span 3;aspect-ratio:4/3;}
   .card-date{margin:0 0 3px;font-size:10px;}
-  .card-title{font-size:13px;line-height:1.6;-webkit-line-clamp:2;}
+  /* 見出しは2行ぶんの高さで固定する。1行の記事と2行の記事が混ざると
+     行の高さがそろわず、一覧が階段状に見えるため */
+  .card-title{font-size:13px;line-height:1.6;-webkit-line-clamp:2;height:2.4em;}
   .card-cat{margin-top:4px;font-size:10px;}
   .card-cat::before{width:10px;}
 
@@ -802,3 +804,1400 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;}
 }
+
+/* =========================================================================
+   記事本文の部品（現行 style.css から移設）
+   ------------------------------------------------------------------------
+   商品表・購入リンク・広告枠・提携枠・追従ボタンなど、収益や商品情報に
+   関わる部分は、組み方を変えずに見た目だけこちらへ持ってきた。
+   マークアップを作り直すと、どこが壊れたか気づけないまま公開されるため。
+
+   移設の規則：
+   - 上の新デザインが同じ名前を持つもの（.card / .toc など）は持ってこない。
+     記事末尾の関連記事は、トップと同じ新デザインのカードで出る
+   - 要素そのものへの指定（p, h2, ul …）も持ってこない。土台は上に従う
+   ========================================================================= */
+/* ============================================================
+   Notice bar (advertising disclosure)
+   ============================================================ */
+.site-notice{background:#EFEFF1;
+  border-bottom:1px solid var(--border);
+  font-size:12.5px;
+  line-height:1.7;
+  color:var(--text-sub);
+  padding:10px 0;}
+.site-notice p{margin:0;}
+.site-notice .notice-label{display:inline-block;
+  background:var(--navy);
+  color:#fff;
+  font-size:11px;
+  font-weight:700;
+  border-radius:4px;
+  padding:1px 8px;
+  margin-right:6px;
+  letter-spacing:.05em;
+  vertical-align:1px;}
+.card-surface{background:#fff;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:20px 16px 28px;}
+.article-meta{display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+  margin-bottom:12px;}
+.badge{display:inline-block;
+  font-size:11.5px;
+  font-weight:700;
+  border-radius:4px;
+  padding:3px 10px;
+  letter-spacing:.03em;}
+.badge-cat{background:var(--navy);color:#fff;}
+.article-date{font-size:12px;color:var(--text-sub);}
+.article-title{font-size:24px;
+  line-height:1.45;
+  margin:0 0 16px;
+  padding-bottom:14px;
+  border-bottom:3px solid var(--navy);}
+/* Eyecatch */
+.eyecatch{position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:linear-gradient(135deg,#EFEFF1 0%,#E3E3E6 100%);
+  border-radius:var(--radius);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:24px;
+  border:1px solid var(--border);}
+/* Headings inside article */
+.article-body h2{font-size:20px;
+  margin:40px 0 18px;
+  padding:12px 14px;
+  background:var(--navy);
+  color:#fff;
+  border-radius:var(--radius-sm);
+  letter-spacing:.03em;}
+.article-body > h3{font-size:17.5px;
+  margin:30px 0 14px;
+  padding-left:13px;
+  border-left:5px solid var(--accent);}
+.article-body h4{font-size:15.5px;margin:22px 0 10px;}
+/* Summary box (first view) */
+.summary-box{background:var(--bg-gray);
+  border:2px solid var(--navy);
+  border-radius:var(--radius);
+  padding:0 0 20px;
+  margin-bottom:28px;
+  overflow:hidden;}
+.summary-box .summary-head{background:var(--navy);
+  color:#fff;
+  font-size:15.5px;
+  font-weight:700;
+  padding:10px 16px;
+  letter-spacing:.06em;}
+.summary-box .summary-body{padding:16px 16px 0;}
+.summary-list{list-style:none;padding:0;margin:0 0 16px;}
+.summary-list li{position:relative;
+  padding:9px 0 9px 30px;
+  border-bottom:1px dashed var(--border);
+  font-size:15px;
+  line-height:1.75;}
+.summary-list li:last-child{border-bottom:none;}
+.summary-list li::before{content:"✓";
+  position:absolute;
+  left:2px;
+  top:9px;
+  width:20px;height:20px;
+  background:var(--good);
+  color:#fff;
+  font-size:12px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;}
+.rating-row{display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:6px 12px;
+  padding:12px 16px;
+  margin:0 16px 4px;
+  background:#fff;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--border);}
+.stars{color:var(--amazon);font-size:19px;letter-spacing:2px;line-height:1;}
+.rating-score{font-size:19px;font-weight:700;color:var(--navy);}
+.rating-label{font-size:12.5px;color:var(--text-sub);}
+.summary-box .rating-row{margin-top:14px;}
+/* 結論ボックス内：3行まとめの見出し・GOOD/BAD要約・購入ボタン */
+.summary-3lines{font-size:12px;font-weight:700;letter-spacing:.08em;
+  color:var(--text-sub);margin-bottom:4px;}
+.summary-gb{display:grid;grid-template-columns:1fr;gap:10px;
+  margin:4px 16px 0;}
+.sgb-box{border-radius:6px;overflow:hidden;}
+.sgb-head{font-size:12.5px;font-weight:700;letter-spacing:.04em;
+  padding:8px 12px 4px;display:flex;align-items:center;gap:6px;}
+.sgb-good{background:#E6F4EA;}
+.sgb-good .sgb-head{color:#137333;}
+.sgb-bad{background:#FCE8E6;}
+.sgb-bad .sgb-head{color:#C5221F;}
+.sgb-box ul{list-style:disc;margin:0;padding:2px 12px 11px 28px;}
+.sgb-box li{padding:3px 0;font-size:13.5px;line-height:1.6;}
+.summary-box .shop-cta{margin:16px 16px 0;}
+.summary-box .cta-note{margin:8px 16px 0;font-size:12px;color:var(--text-sub);}
+@media (min-width:560px){
+  .summary-gb{grid-template-columns:1fr 1fr;}
+}
+/* こんな人におすすめ（not_for の緑版） */
+.goodfor-box{border:2px solid var(--good);
+  border-radius:var(--radius);
+  overflow:hidden;
+  margin:20px 0 28px;
+  background:#fff;}
+.goodfor-head{background:var(--good);color:#fff;
+  font-size:15.5px;font-weight:700;
+  padding:10px 16px;letter-spacing:.05em;}
+.goodfor-body{padding:16px;background:var(--good-bg);}
+.goodfor-body > p{font-size:14.5px;margin-bottom:12px;}
+.goodfor-list{list-style:none;margin:0;padding:0;}
+.goodfor-list li{position:relative;
+  padding:10px 0 10px 30px;
+  line-height:1.8;
+  border-bottom:1px dashed rgba(45,168,109,.35);}
+.goodfor-list li:last-child{border-bottom:none;}
+.goodfor-list li::before{content:"✓";
+  position:absolute;left:0;top:11px;
+  width:21px;height:21px;
+  background:var(--good);color:#fff;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;line-height:1;}
+.goodfor-t{display:block;font-weight:700;font-size:14.5px;}
+.goodfor-d{display:block;font-size:13.5px;color:var(--text-sub);margin-top:2px;}
+/* ============================================================
+   Amazon CTA Button
+   ============================================================ */
+.cta-wrap{margin:26px 0;text-align:center;}
+.cta-note{font-size:12px;
+  color:var(--text-sub);
+  margin:10px 0 0;
+  line-height:1.7;}
+.btn-sub{display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  padding:10px 22px;
+  margin-top:10px;
+  background:#fff;
+  color:var(--navy) !important;
+  border:2px solid var(--navy);
+  border-radius:50px;
+  font-size:14.5px;
+  font-weight:700;
+  text-decoration:none;
+  transition:background-color .2s ease,color .2s ease;}
+.btn-sub:hover{background:var(--navy);color:#fff !important;text-decoration:none;}
+/* ============================================================
+   Pros / Cons boxes
+   ============================================================ */
+.proscons{display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+  margin:24px 0;}
+.pc-box{border-radius:var(--radius);
+  border:2px solid;
+  overflow:hidden;
+  background:#fff;}
+.pc-box .pc-head{font-size:15.5px;
+  font-weight:700;
+  color:#fff;
+  padding:9px 14px;
+  letter-spacing:.05em;}
+.pc-box ul{margin:0;padding:14px 16px 16px 16px;list-style:none;}
+.pc-box li{position:relative;
+  padding:7px 0 7px 26px;
+  font-size:14.5px;
+  line-height:1.75;
+  border-bottom:1px dashed var(--border);}
+.pc-box li:last-child{border-bottom:none;}
+.pc-good{border-color:var(--good);background:var(--good-bg);}
+.pc-good .pc-head{background:var(--good);}
+.pc-good ul{background:var(--good-bg);}
+.pc-good li::before{content:"◎";position:absolute;left:2px;top:7px;color:var(--good);font-weight:700;}
+.pc-bad{border-color:var(--bad);background:var(--bad-bg);}
+.pc-bad .pc-head{background:var(--bad);}
+.pc-bad ul{background:var(--bad-bg);}
+.pc-bad li::before{content:"△";position:absolute;left:2px;top:7px;color:var(--bad);font-weight:700;}
+/* ============================================================
+   Spec table (horizontal scroll)
+   ============================================================ */
+.table-scroll{overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  margin:18px 0 8px;
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  background:#fff;}
+.table-scroll table{width:100%;
+  min-width:640px;
+  font-size:14px;
+  line-height:1.6;}
+.table-scroll th,.table-scroll td{padding:11px 12px;
+  border-bottom:1px solid var(--border);
+  border-right:1px solid var(--border);
+  text-align:center;
+  vertical-align:middle;}
+.table-scroll th:last-child,.table-scroll td:last-child{border-right:none;}
+.table-scroll thead th{background:var(--navy);
+  color:#fff;
+  font-weight:700;
+  font-size:13.5px;
+  white-space:nowrap;
+  position:sticky;
+  top:0;}
+.table-scroll tbody th{background:var(--bg-gray);
+  color:var(--navy);
+  font-weight:700;
+  text-align:left;
+  white-space:nowrap;
+  position:sticky;
+  left:0;
+  z-index:1;
+  min-width:120px;}
+.table-scroll tbody tr:last-child th,
+.table-scroll tbody tr:last-child td{border-bottom:none;}
+.col-highlight{background:#FFF8EC;}
+.table-scroll thead th.col-highlight{background:#C87B00;}
+.mark-o{color:var(--good);font-weight:700;}
+.mark-x{color:var(--bad);font-weight:700;}
+.scroll-hint{font-size:12px;
+  color:var(--text-sub);
+  margin:0 0 4px;
+  text-align:right;}
+/* メーカー公式ページへの参照リンク（販売リンクではない） */
+.official-ref{margin:14px 0 4px;
+  font-size:14px;
+  line-height:1.7;}
+.official-ref a{font-weight:700;}
+.official-ref-note{display:block;
+  margin-top:2px;
+  font-size:12px;
+  color:var(--text-sub);}
+/* ============================================================
+   Review / countermeasure
+   ============================================================ */
+.voice{background:#fff;
+  border:1px solid var(--border);
+  border-left:4px solid var(--info);
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+  margin-bottom:14px;
+  font-size:clamp(14.5px,3.7vw,16px);
+  box-shadow:var(--shadow);}
+.voice .voice-name{display:block;
+  font-size:12.5px;
+  font-weight:700;
+  color:var(--text-sub);
+  margin-bottom:6px;}
+.voice .voice-name .voice-stars{color:var(--amazon);margin-left:6px;letter-spacing:1px;}
+.voice.is-negative{border-left-color:var(--bad);}
+.fix-box{background:var(--info-bg);
+  border:1px dashed var(--info);
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+  margin:0 0 24px;
+  font-size:clamp(14.5px,3.7vw,16px);}
+.fix-box .fix-title{font-weight:700;
+  color:var(--info);
+  display:block;
+  margin-bottom:6px;
+  font-size:14.5px;}
+/* ============================================================
+   Related cards
+   ============================================================ */
+.section-block{margin-top:36px;}
+.section-heading{font-size:19px;
+  margin:0 0 6px;
+  padding-left:12px;
+  border-left:5px solid var(--navy);}
+.card-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1;}
+.card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.tag{font-size:11px;
+  font-weight:700;
+  color:var(--navy);
+  background:#EFEFF1;
+  border-radius:3px;
+  padding:2px 8px;
+  letter-spacing:.03em;}
+.tag.tag-hot{background:#FFF1DC;color:#B36B00;}
+.card-desc{font-size:13.5px;
+  color:var(--text-sub);
+  line-height:1.75;
+  margin:0 0 14px;
+  flex:1;}
+.card-link{display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  padding:8px 18px;
+  background:var(--navy);
+  color:#fff !important;
+  border-radius:50px;
+  font-size:14px;
+  font-weight:700;
+  text-decoration:none;
+  transition:background-color .2s ease,transform .2s ease;}
+.card-link:hover{background:var(--navy-light);transform:translateY(-2px);text-decoration:none;}
+/* ============================================================
+   Sticky bottom CTA (mobile)
+   ============================================================ */
+.sticky-cta{position:fixed;
+  left:0;right:0;bottom:0;
+  background:rgba(255,255,255,.96);
+  border-top:1px solid var(--border);
+  box-shadow:0 -3px 14px rgba(0,0,0,.12);
+  padding:8px 12px calc(8px + env(safe-area-inset-bottom));
+  z-index:90;
+  transform:translateY(120%);
+  transition:transform .3s ease;}
+.sticky-cta.is-visible{transform:translateY(0);}
+/* Back to top */
+.to-top{position:fixed;
+  right:14px;
+  bottom:78px;
+  width:44px;height:44px;
+  border-radius:50%;
+  background:var(--navy);
+  color:#fff;
+  border:none;
+  font-size:18px;
+  cursor:pointer;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .25s ease,visibility .25s ease,background-color .2s ease;
+  z-index:91;
+  box-shadow:var(--shadow-lg);}
+.to-top.is-visible{opacity:1;visibility:visible;}
+.to-top:hover{background:var(--navy-light);}
+.toc-title{font-size:15px;
+  font-weight:700;
+  color:var(--navy);
+  text-align:center;
+  margin-bottom:10px;}
+@media (min-width:900px){
+  .article-title{font-size:31px;}
+  .article-body h2{font-size:22px;}
+  .sticky-cta{display:none;}
+  .to-top{bottom:24px;right:24px;}
+}
+.eyecatch.has-image{background:none;}
+.eyecatch.has-image img{width:100%;height:100%;object-fit:cover;}
+/* ============================================================
+   Contact form (features.contact_form = true のときのみ使用)
+   ============================================================ */
+.contact-form label{display:block;
+  font-size:14px;
+  font-weight:700;
+  color:var(--navy);
+  margin:20px 0 6px;}
+.contact-form input,
+.contact-form textarea{width:100%;
+  padding:12px 14px;
+  font-size:16px;
+  font-family:inherit;
+  color:var(--text);
+  background:#fff;
+  border:2px solid var(--border);
+  border-radius:var(--radius-sm);
+  outline:none;
+  transition:border-color .2s ease;
+  -webkit-appearance:none;}
+.contact-form input:focus,
+.contact-form textarea:focus{border-color:var(--navy);}
+.contact-form textarea{resize:vertical;line-height:1.8;}
+/* ============================================================
+   1. 買わないほうがいい人（最優先のネガティブ訴求）
+   ============================================================ */
+.notfor-box{border:2px solid var(--bad);
+  border-radius:var(--radius);
+  overflow:hidden;
+  margin:20px 0 28px;
+  background:#fff;}
+.notfor-head{background:var(--bad);
+  color:#fff;
+  font-size:15.5px;
+  font-weight:700;
+  padding:10px 16px;
+  letter-spacing:.05em;}
+.notfor-body{padding:16px;background:var(--bad-bg);}
+.notfor-body > p{font-size:14.5px;margin-bottom:12px;}
+.notfor-list{list-style:none;margin:0 0 14px;padding:0;}
+.notfor-list li{position:relative;
+  padding:10px 0 10px 30px;
+  font-size:14.5px;
+  line-height:1.8;
+  border-bottom:1px dashed rgba(224,83,61,.35);}
+.notfor-list li:last-child{border-bottom:none;}
+.notfor-list li::before{content:"×";
+  position:absolute;left:0;top:11px;
+  width:21px;height:21px;
+  background:var(--bad);color:#fff;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;line-height:1;}
+.notfor-foot{font-size:13.5px;
+  color:#9C3B29;
+  background:rgba(255,255,255,.7);
+  border-radius:var(--radius-sm);
+  padding:10px 12px;
+  margin:0;}
+/* ============================================================
+   2. 実際の生活シーン
+   ============================================================ */
+.scenes{margin:18px 0 28px;display:grid;gap:14px;}
+.scene{display:flex;
+  gap:14px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-left:4px solid var(--info);
+  border-radius:var(--radius);
+  padding:16px;
+  box-shadow:var(--shadow);}
+.scene-num{flex:0 0 auto;
+  width:34px;height:34px;
+  background:var(--info);
+  color:#fff;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;line-height:1;}
+.scene-body{min-width:0;}
+.scene-title{font-size:16px;
+  margin:2px 0 8px;
+  line-height:1.55;
+  color:var(--navy);}
+.scene-body p{font-size:clamp(14.5px,3.7vw,16px);margin:0;line-height:1.85;}
+/* ============================================================
+   6. 運営者の実体験コラム枠
+   ============================================================ */
+.personal-note{position:relative;
+  background:linear-gradient(180deg,#FFFDF7 0%,#FFF9EC 100%);
+  border:1px solid #F0DFB8;
+  border-left:4px solid var(--amazon);
+  border-radius:var(--radius);
+  padding:20px 18px 18px;
+  margin:30px 0;
+  box-shadow:var(--shadow);}
+.personal-note .pn-label{position:absolute;
+  top:-11px;left:16px;
+  background:var(--amazon);
+  color:#fff;
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:.06em;
+  border-radius:50px;
+  padding:3px 14px;}
+.personal-note p{font-size:clamp(14.5px,3.7vw,16px);
+  line-height:1.9;
+  margin:0;
+  color:#5C4A28;}
+/* 記事内の装飾：蛍光ペン風マーカーと、ポイント/注意の補足ボックス */
+mark.hl{background:linear-gradient(transparent 62%, #FDE68A 62%);
+  color:inherit;
+  font-weight:700;
+  padding:0 1px;}
+.callout{border-radius:0 8px 8px 0;
+  padding:13px 16px;
+  margin:18px 0;
+  font-size:14px;
+  line-height:1.85;}
+.callout p{margin:6px 0 0;}
+.callout-label{display:inline-flex;align-items:center;gap:6px;
+  font-weight:700;font-size:13.5px;letter-spacing:.02em;}
+.callout-icon{width:16px;height:16px;flex:0 0 16px;}
+.callout-point{background:#EFF6FF;
+  border-left:4px solid #3B82F6;}
+.callout-point .callout-label{color:#1D4ED8;}
+.callout-warn{background:#FFFBEB;
+  border-left:4px solid #F59E0B;}
+.callout-warn .callout-label{color:#B45309;}
+/* ============================================================
+   8. 次に困りそうなこと（回遊導線）
+   ============================================================ */
+.next-grid{display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+  margin:18px 0 28px;}
+.next-card{background:#fff;
+  border:1px solid var(--border);
+  border-top:3px solid var(--navy);
+  border-radius:var(--radius);
+  padding:16px;
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;}
+.next-title{font-size:15.5px;
+  line-height:1.6;
+  margin:0 0 8px;
+  padding-left:22px;
+  position:relative;}
+.next-title::before{content:"！";
+  position:absolute;left:0;top:2px;
+  width:17px;height:17px;
+  background:var(--navy);color:#fff;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;line-height:1;}
+.next-card p{font-size:14px;line-height:1.85;margin:0 0 12px;flex:1;}
+@media (min-width:600px){
+  .scenes{gap:16px;}
+  .next-grid{grid-template-columns:1fr 1fr;}
+  .notfor-body{padding:20px;}
+  .personal-note{padding:22px 22px 20px;}
+}
+/* ---------- セクション見出し ---------- */
+.section-heading{font-size:21px;font-weight:900;letter-spacing:.02em;
+  border-left:none;padding-left:0;
+  display:flex;align-items:center;gap:11px;}
+.section-heading::before{content:"";flex:0 0 auto;
+  width:5px;height:22px;border-radius:3px;
+  background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 45%,#fff));}
+.card-body{padding:15px 17px 17px;gap:0;}
+.card-tags{margin-bottom:9px;}
+.tag{font-size:11px;font-weight:700;letter-spacing:.02em;
+  background:var(--surface-2);color:var(--text-sub);
+  border:1px solid var(--border);border-radius:5px;padding:2px 8px;}
+.tag.tag-hot{background:color-mix(in srgb,var(--accent) 12%,#fff);
+  color:var(--accent);
+  border-color:color-mix(in srgb,var(--accent) 28%,#fff);}
+.card-desc{font-size:13.5px;line-height:1.85;margin-bottom:15px;}
+.card-link{align-self:flex-start;
+  background:var(--surface-2);
+  color:var(--ink) !important;
+  border:1px solid var(--border);
+  padding:8px 20px;font-size:13.5px;
+  transition:background-color .22s var(--ease),color .22s var(--ease),border-color .22s var(--ease),transform .22s var(--ease);}
+.card-link:hover{background:var(--accent);color:#fff !important;
+  border-color:var(--accent);transform:translateX(3px);}
+/* ---------- カテゴリータイル ---------- */
+
+/* ---------- 記事本文の見出し ---------- */
+.article-title{font-weight:900;
+  border-bottom:none;
+  padding-bottom:0;
+  margin-bottom:14px;
+  letter-spacing:.005em;}
+.article-meta{padding-bottom:2px;}
+.badge-cat{background:var(--accent);}
+.article-body h2{background:none;
+  color:var(--ink);
+  font-size:21px;font-weight:900;
+  padding:0 0 12px;
+  margin:44px 0 20px;
+  border-radius:0;
+  border-bottom:2px solid var(--border);
+  position:relative;
+  letter-spacing:.01em;}
+.article-body h2::after{content:"";position:absolute;left:0;bottom:-2px;
+  width:76px;height:2px;background:var(--accent);}
+/* ---------- 結論ボックス ---------- */
+.summary-box{border:none;
+  border-radius:var(--radius);
+  background:var(--surface);
+  box-shadow:var(--shadow);
+  overflow:hidden;}
+.summary-box .summary-head{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);
+  font-size:16px;font-weight:900;padding:13px 18px;}
+.summary-list li{font-size:15px;}
+.rating-row{border:1px solid var(--border);background:var(--surface-2);}
+/* ---------- スクロール表示アニメーション ---------- */
+.reveal{opacity:0;transform:translateY(18px);}
+.reveal.is-in{opacity:1;transform:none;
+  transition:opacity .6s var(--ease),transform .6s var(--ease);}
+@media (min-width:900px){
+  .article-body h2{font-size:23px;}
+}
+/* ============================================================
+   アイキャッチ：自動生成ビジュアル対応
+   ============================================================ */
+.eyecatch{margin:0 0 26px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  background:var(--surface-2);}
+.eyecatch.is-auto{border:none;
+  box-shadow:var(--shadow);
+  background:none;}
+.eyecatch.is-auto img,
+.eyecatch.has-image img{width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:var(--radius);}
+.card-desc{display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;}
+.card-tags{min-height:22px;}
+.card-link{margin-top:auto;}
+/* タグは2つまでの想定に合わせて余白を調整 */
+.card-tags .tag{font-size:11px;}
+/* 記事のアイキャッチも一段低く */
+.eyecatch{aspect-ratio:2.6/1;}
+@media (min-width:600px){
+  .eyecatch{aspect-ratio:2.6/1;}
+}
+/* 実写真がある場合のアイキャッチ */
+.eyecatch{aspect-ratio:16/9;
+  margin:0 0 24px;
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);}
+.eyecatch img{width:100%;height:100%;object-fit:cover;}
+@media (max-width:599px){
+  .eyecatch{aspect-ratio:16/9;}
+}
+/* ---- 横スクロールする表：スクロールできることを見せる ---- */
+.table-scroll{position:relative;}
+@media (max-width:767px){
+  .table-scroll::after{content:"";
+    position:absolute;
+    top:0;right:0;bottom:0;
+    width:28px;
+    pointer-events:none;
+    background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.95) 90%);
+    border-radius:0 var(--radius) var(--radius) 0;}
+  .table-scroll.is-end::after{opacity:0;transition:opacity .2s ease;}
+}
+.article-title{font-size:clamp(20px,5.4vw,31px);}
+.article-body h2{font-size:clamp(17px,4.4vw,23px);}
+.section-heading{font-size:clamp(17px,4.2vw,22px);}
+.card-desc{font-size:clamp(12.5px,3.4vw,13.5px);}
+.card-body{padding:clamp(11px,3vw,14px) clamp(12px,3.4vw,16px) clamp(12px,3.4vw,16px);}
+.card-surface{padding:clamp(18px,4.6vw,32px) clamp(14px,4vw,28px) clamp(28px,6vw,40px);}
+/* --- 押せる要素は狭い画面でも指で押せる大きさを保つ --- */
+.card-link{min-height:clamp(40px,11vw,48px);font-size:clamp(13px,3.5vw,14px);}
+p,li,.card-desc{text-wrap:pretty;}
+/* ============================================================
+   タイトルを「主題」と「補足」の2段で見せる（｜の代わり）
+   ============================================================ */
+.t-main{display:block;}
+.t-sub{display:block;
+  margin-top:.28em;
+  font-size:.78em;
+  font-weight:500;
+  color:var(--text-sub);
+  letter-spacing:.01em;}
+.article-title .t-sub{font-size:.62em;line-height:1.6;margin-top:.45em;}
+.notice-marquee{flex:1;min-width:0;overflow:hidden;}
+.notice-marquee p{margin:0;
+  white-space:nowrap;
+  will-change:transform;
+  animation:notice-flow 20s linear infinite;}
+.notice-marquee a{color:inherit;text-decoration:none;}
+.notice-marquee a:hover{text-decoration:underline;}
+.site-notice:hover .notice-marquee p{animation-play-state:paused;}
+/* ============================================================
+   比較表の作り直し
+   ------------------------------------------------------------
+   これまでは本文行の見出し列だけを左に固定していたため、横に
+   スクロールすると表頭の1列目だけが一緒に流れ、列がずれて
+   「固定が壊れている」ように見えていた。
+   表頭の1列目も同じ位置に固定し、境目に影を落として、
+   固定されている列だと分かるようにする。
+   ============================================================ */
+.table-scroll{overflow:auto hidden;
+  border-radius:var(--radius-sm);}
+.table-scroll table{min-width:clamp(460px,120vw,640px);
+  font-size:clamp(12.5px,3.4vw,14px);
+  border-collapse:separate;
+  border-spacing:0;}
+.table-scroll th,.table-scroll td{padding:clamp(8px,2.4vw,11px) clamp(9px,2.6vw,12px);
+  border-bottom:1px solid var(--border);
+  border-right:1px solid var(--border);}
+/* 表頭：上に固定するのはやめる（縦スクロールしない領域のため） */
+.table-scroll thead th{position:static;}
+/* 1列目は表頭・本文とも左に固定する */
+.table-scroll thead th:first-child,
+.table-scroll tbody th{position:sticky;
+  left:0;
+  min-width:clamp(92px,26vw,132px);
+  text-align:left;
+  box-shadow:1px 0 0 var(--border-strong);}
+.table-scroll thead th:first-child{background:var(--navy);
+  color:#fff;
+  z-index:3;}
+.table-scroll tbody th{background:var(--surface-2);
+  color:var(--ink);
+  z-index:2;}
+/* 横に流れる列は、固定列の下をくぐらせる */
+.table-scroll tbody td{background:var(--surface);position:relative;z-index:0;}
+.table-scroll tbody tr:nth-child(even) td{background:#FAFAFB;}
+.table-scroll tbody tr:nth-child(even) th{background:#F3F3F5;}
+.table-scroll .mark-o,.table-scroll .mark-x{font-size:1.05em;}
+.card-flags{position:absolute;
+  top:8px;left:8px;
+  display:flex;
+  gap:4px;
+  z-index:2;
+  pointer-events:none;}
+@media (max-width:599px){
+  .card-flags{top:6px;left:6px;}
+}
+.rank-list{list-style:none;
+  margin:0;
+  padding:0;
+  counter-reset:rank;
+  display:flex;
+  flex-direction:column;
+  gap:10px;}
+/* .rank-item の中身は今は .arow-link（.arow と共通の行部品）なので、
+   ここでは重ねて上書きしない。以前はここが本文側の見た目を
+   決めていて、.arow-link と食い違いが出る原因になっていた。 */
+.rank-no{flex:0 0 auto;
+  width:22px;height:22px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:4px;
+  background:var(--bg-gray);
+  color:var(--text-sub);
+  font-size:12px;
+  font-weight:700;}
+.rank-body{min-width:0;}
+@media (min-width:1240px){
+  /* 写真の幅が狭いので、乗せる札は小さめの文字にして右端に収める */
+  .side-rank .arow-thumb .cat-badge{max-width:64%;
+    padding:1px 4px;
+    font-size:8.5px;}
+}
+/* ============================================================
+   記事の余白：項目のまとまりを作る
+   ------------------------------------------------------------
+   見出しの下線のすぐ下から本文が始まり、次の項目との切れ目も
+   分かりにくかったため、見出し下と項目間の間隔を広げる。
+   ============================================================ */
+.article-body h2{margin:clamp(48px,9vw,72px) 0 clamp(20px,4.5vw,28px);
+  padding-bottom:14px;
+  /* 見出しの下線と本文のあいだに一行ぶんの余白を置く */
+  scroll-margin-top:170px;   /* 目次から飛んだとき、固定ヘッダーに隠れない */}
+.article-body h2:first-child{margin-top:0;}
+.article-body h3{margin-top:clamp(28px,5vw,38px);}
+/* 項目のかたまり（枠・グリッド）どうしの間隔 */
+.article-body > * + *{margin-top:0;}
+.notfor-box,.scenes,.pros-cons,.table-scroll,.voice-list,.next-grid,
+.personal-note,.summary-box,.cta-wrap{margin-bottom:clamp(26px,5.5vw,40px);}
+.scenes{margin-top:0;}
+/* 各カードの中身も、上下に少し呼吸を入れる */
+.scene-body,.voice-body,.next-card{line-height:1.95;}
+/* ============================================================
+   追従CTAのオレンジが画面下端まで広がる問題を直す
+   ------------------------------------------------------------
+   ボタンの外側に大きなオレンジの影が出ており、それが枠の外へ
+   はみ出して画面の最下部を覆っていた。iOSでは下端の色を拾って
+   ブラウザのツールバーまでオレンジになる。
+   影を枠の中に収め、下端は白で終わるようにする。
+   ============================================================ */
+.sticky-cta{bottom:0;
+  background:#fff;
+  padding:10px 12px calc(16px + env(safe-area-inset-bottom));
+  overflow:hidden;                     /* 影を枠の外へ出さない */}
+@media (max-width:899px){
+  .sticky-cta{bottom:0;}
+  /* 追従CTAが出ているページでは、戻るボタンを一段上へ */
+  .to-top{bottom:86px;}
+}
+/* ============================================================
+   記事の余白をさらに広げる
+   ------------------------------------------------------------
+   項目のかたまりが続くと詰まって見えるため、見出しの前後と
+   枠どうしの間隔をもう一段広く取る。
+   ============================================================ */
+.article-body h2{margin-top:clamp(64px,12vw,96px);
+  margin-bottom:clamp(26px,5.5vw,36px);
+  padding-bottom:16px;}
+.article-body h2:first-child{margin-top:clamp(8px,2vw,16px);}
+.article-body h3{margin-top:clamp(34px,6vw,46px);}
+/* かたまりの中のカードどうしも、もう少し離す */
+.scenes{gap:clamp(16px,3.6vw,22px);}
+.next-grid{gap:clamp(14px,3.2vw,20px);}
+.notfor-box li + li,.pros-cons li + li{margin-top:clamp(9px,2.2vw,13px);}
+/* 段落どうしの間隔 */
+.article-body p{margin-bottom:1.5em;}
+/* ============================================================
+   画面下に出るバーは、ゆっくり浮かび上がらせる
+   （検索・商品リンクとも同じ動き方に揃える）
+   ============================================================ */
+.float-search,.sticky-cta{transform:translateY(140%);
+  opacity:0;
+  transition:transform .6s cubic-bezier(.22,.85,.28,1),opacity .5s ease .05s;}
+.float-search.is-visible,.sticky-cta.is-visible{transform:translateY(0);
+  opacity:1;}
+@media (prefers-reduced-motion:reduce){
+  .float-search,.sticky-cta{transition:opacity .25s ease;transform:none;}
+}
+/* ============================================================
+   画面下に浮かぶものを Motion に任せる
+   ------------------------------------------------------------
+   .has-motion が付いた要素は、出し入れの動きを JS のばねで
+   作る。CSS側の transition と二重にかからないよう打ち消す。
+   Motion が読み込めない・「動きを減らす」設定のときは
+   このクラスが付かないので、これまでどおり CSS が担当する。
+   ============================================================ */
+.float-search.has-motion,
+.sticky-cta.has-motion,
+.to-top.has-motion{transition:background-color .2s ease;
+  transform:none;
+  visibility:visible;}
+.float-search.has-motion,
+.to-top.has-motion{pointer-events:none;}
+.float-search.has-motion.is-visible,
+.to-top.has-motion.is-visible{pointer-events:auto;}
+.contact-form{background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:clamp(18px,4vw,30px);}
+.contact-form select{width:100%;
+  padding:12px 14px;
+  font:inherit;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid var(--border-strong);
+  border-radius:10px;}
+.contact-form input,
+.contact-form textarea,
+.contact-form select{transition:border-color .18s ease,box-shadow .18s ease;}
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus{outline:none;
+  border-color:var(--navy);
+  box-shadow:0 0 0 3px rgba(20,20,22,.08);}
+.contact-form .is-invalid{border-color:#C0392B;}
+.contact-form .is-invalid:focus{box-shadow:0 0 0 3px rgba(192,57,43,.14);}
+.field-hint{margin:6px 0 0;font-size:12px;line-height:1.7;color:var(--text-sub);}
+.field-error{margin:6px 0 0;font-size:12.5px;font-weight:700;color:#C0392B;}
+.field-error[hidden]{display:none;}
+/* 迷惑送信よけの欄。読み上げにも出さず、画面からも外す */
+.cf-trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+.form-status{margin:14px 0 0;
+  padding:12px 14px;
+  border-radius:10px;
+  font-size:13.5px;
+  line-height:1.8;
+  border:1px solid var(--border);
+  background:var(--bg-gray);
+  color:var(--ink);}
+.form-status.is-ok{background:#E8F5EE;border-color:#B7DFC8;}
+.form-status.is-ng{background:#FBEAE8;border-color:#EEC3BD;}
+.form-status[hidden]{display:none;}
+/* ============================================================
+   特集タイル：見出しをなくし、横のタイルと上端をそろえる
+   ------------------------------------------------------------
+   バッジは記事名の上ではなく、画像の左上に重ねる。
+   ============================================================ */
+.section-block.is-flush{margin-top:0;}
+/* ============================================================
+   「この商品の強み」：良い点を先に、はっきり見せる枠
+   ============================================================ */
+.hl-grid{display:grid;gap:clamp(10px,2.4vw,14px);margin:0 0 clamp(18px,3.4vw,26px);}
+@media (min-width:760px){
+  .hl-grid{grid-template-columns:1fr;}
+}
+.hl-card{/* 番号と見出しを1行目に並べ、本文は次の行で左端から始める。
+     本文が番号の幅だけ右に寄ると、左に空白の帯ができて読みにくい。 */
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  column-gap:clamp(10px,2.6vw,14px);
+  row-gap:clamp(7px,1.8vw,10px);
+  align-items:start;
+  padding:clamp(13px,3vw,18px);
+  border-radius:var(--radius);
+  background:linear-gradient(180deg,#FFFBF4 0%,#FFF7EA 100%);
+  border:1px solid #F0DCBC;
+  box-shadow:var(--shadow-xs);}
+.hl-num{flex:0 0 auto;
+  margin-top:1px;          /* 見出しの1行目と目線をそろえる */
+  width:28px;height:28px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  background:var(--amazon);
+  color:#fff;
+  font-size:13px;
+  font-weight:700;
+  line-height:1;}
+.hl-title{grid-column:2;
+  /* 記事本文の h3 に付く上余白（最大46px）を打ち消し、
+     番号アイコンと同じ高さから始める */
+  margin:0 !important;
+  font-size:clamp(14.5px,3.8vw,16.5px);
+  font-weight:700;
+  line-height:1.55;
+  color:var(--ink);}
+.hl-card > p,
+.hl-text,
+.hl-body p{grid-column:1 / -1;          /* 番号の下をくぐらせ、左端まで文字を伸ばす */
+  margin:0;
+  /* 本文の <p> と同じサイズ・色にそろえる。以前は本文より一回り小さく
+     補足色（--text-sub）だったため、記事の核心である「強み」が
+     周辺情報に見えてしまっていた。 */
+  font-size:clamp(15px,3.9vw,16.5px);
+  line-height:1.95;
+  color:var(--text);
+  text-align:justify;
+  text-justify:inter-character;}
+/* ============================================================
+   記事の種類バッジ（レビュー／特集）
+   ------------------------------------------------------------
+   1商品を掘り下げる「レビュー」と、複数を比べる「特集」を
+   一目で見分けられるようにする。カテゴリー名の右端に置く。
+   ============================================================ */
+/* カテゴリー・タグ・種類バッジを必ず1行に収める。
+   幅が足りないときは真ん中のタグから詰める。 */
+.card-tags{align-items:center;
+  flex-wrap:nowrap;
+  overflow:hidden;}
+.card-tags .tag{flex:0 1 auto;
+  min-width:0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;}
+.card-tags .tag.tag-hot,
+.card-tags .tag.tag-kind{flex:0 0 auto;}
+/* カテゴリー名と種類バッジは削らない */
+.tag-kind{margin-left:auto;          /* 行の右端へ寄せる */
+  flex:0 0 auto;
+  border:1px solid transparent;}
+.tag-kind.is-review{background:#E8F1FB;
+  color:#1B4F86;
+  border-color:#C5DCF2;}
+.tag-kind.is-roundup{background:#FDEBD8;
+  color:#9A5B00;
+  border-color:#F3D2A8;}
+.tag-kind.is-guide{background:#E6F4EA;
+  color:#1E6B3A;
+  border-color:#C3E3CE;}
+.tag-kind.is-sale{background:#FCE8E8;
+  color:#9B2C2C;
+  border-color:#F3C9C9;}
+/* 記事ページのメタ欄では、カテゴリーバッジの隣に並べる */
+.article-meta .tag-kind{margin-left:0;}
+@media (max-width:599px){
+  /* 狭い画面では種類バッジを優先し、タグのほうを隠す */
+  .card-tags .tag-kind{display:inline-block;}
+}
+/* 種類バッジ：選び方ガイド */
+.tag-kind.is-guide{background:#E7F4EC;
+  color:#1E6B43;
+  border-color:#C2E2CF;}
+@media (max-width:899px){
+  .rail .card-body{padding:9px 10px 11px;}
+  .rail .card-tags{margin-bottom:5px;}
+  .rail .card-desc,
+  .rail .card-link{display:none;}
+}
+/* ============================================================
+   もっと見る系のボタンは、縦の場所を取りすぎないよう小さくする
+   ============================================================ */
+.cta-wrap .btn-sub{min-height:38px;
+  padding:8px 20px;
+  font-size:13px;}
+.section-block .cta-wrap{margin-top:10px;
+  margin-bottom:0;}
+@media (max-width:899px){
+  .cta-wrap .btn-sub{min-height:36px;padding:7px 18px;font-size:12.5px;}
+}
+/* ============================================================
+   カテゴリー一覧の右端を、切れ方が汚くならないようにする
+   ------------------------------------------------------------
+   横スクロールの端でアイコンだけが半分見えると、点のような
+   ゴミに見える。端を薄く消して、続きがあることを示す。
+   ============================================================ */
+/* PCでは横スクロールをやめて折り返す形にしたので、右端のぼかしは要らない。
+   ぼかしのために空けていた右余白（44px）が残っていると、そのぶん
+   横並びが1行に収まらず、最後の項目だけが2行目に落ちていた。 */
+
+/* ============================================================
+   本文中のドット絵アイコン（絵文字の置き換え）
+   ------------------------------------------------------------
+   絵文字は端末ごとに絵柄が変わり、サイトのトーンとも合わない。
+   ヘッダーのカテゴリーと同じドット絵に統一する。
+   ============================================================ */
+.hd-icon{width:1em;height:1em;
+  flex:0 0 auto;
+  vertical-align:-0.12em;
+  fill:currentColor;}
+.btn-icon{width:1.05em;height:1.05em;
+  vertical-align:-0.16em;
+  fill:currentColor;}
+.notfor-head .hd-icon,
+.pc-head .hd-icon,
+.fix-title .hd-icon{margin-right:2px;}
+.hero-policy summary .hd-icon{transition:transform .2s var(--ease);}
+.hero-policy[open] summary .hd-icon{transform:rotate(90deg);}
+.hero-tile::before,
+.today-box::before,
+.rank-box::before,
+.side-nav::before,
+.tile-card::before,
+.pt-tabs-frame::before,
+.search-tile::before,
+.card-surface::before{content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg,var(--amazon) 0%,#F5C07A 46%,var(--border) 100%);
+  /* 枠を切り取らない（overflow:visible の）タイルでも角からはみ出さない */
+  border-radius:var(--radius) var(--radius) 0 0;
+  pointer-events:none;}
+/* ============================================================
+   販売先のボタン（Amazon / 楽天 / Yahoo!）
+   ------------------------------------------------------------
+   記事に入っているショップのぶんだけ並ぶ。1つなら1つ、
+   3つなら3つ。数によって並べ方を変える。
+   ============================================================ */
+.shop-cta{display:grid;
+  gap:9px;
+  margin:clamp(18px,3.6vw,26px) 0 8px;}
+@media (min-width:600px){
+  .shop-cta.is-n2{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .shop-cta.is-n3{grid-template-columns:repeat(3,minmax(0,1fr));}
+}
+.btn-shop{display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:50px;
+  padding:11px 18px;
+  border-radius:999px;
+  font-size:14.5px;
+  font-weight:700;
+  color:#fff;
+  text-decoration:none;
+  text-align:center;
+  line-height:1.4;
+  border:0;
+  transition:transform .16s var(--ease),box-shadow .16s var(--ease),filter .16s var(--ease);}
+.btn-shop span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.btn-shop:hover{filter:brightness(1.06);text-decoration:none;}
+@media (hover:none){
+  .btn-shop:active{transform:translateY(2px) scale(.985);}
+}
+.btn-shop.is-amazon{background:var(--amazon);
+  box-shadow:0 3px 0 var(--amazon-dark),0 6px 14px rgba(255,153,0,.22);}
+.btn-shop.is-rakuten{background:#bf0000;
+  box-shadow:0 3px 0 #8e0000,0 6px 14px rgba(191,0,0,.20);}
+.btn-shop.is-yahoo{background:#ff0033;
+  box-shadow:0 3px 0 #c40027,0 6px 14px rgba(255,0,51,.18);}
+.shop-cta + .cta-note{margin:10px 0 0;
+  font-size:11.5px;
+  line-height:1.7;
+  color:var(--text-sub);
+  text-align:center;}
+/* ============================================================
+   商品画像つきのリンクカード
+   ------------------------------------------------------------
+   写真・商品名・販売先ボタンを1枚にまとめる。本文中のボタン
+   3か所とは別枠。スマホは縦、横幅が取れる画面では写真を左に
+   置いて、文字が写真の高さに引きずられないようにする。
+   ============================================================ */
+.prod-card{display:grid;
+  gap:0;
+  margin:clamp(20px,4vw,30px) 0;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;}
+.prod-body{min-width:0;
+  padding:clamp(14px,3vw,18px);}
+.prod-name{margin:0 0 10px;
+  font-size:14.5px;
+  font-weight:700;
+  line-height:1.6;
+  color:var(--text);}
+.prod-links{display:grid;gap:8px;}
+.prod-links .btn-shop{min-height:44px;font-size:13.5px;padding:9px 14px;}
+.prod-note{margin:10px 0 0;
+  font-size:11.5px;
+  line-height:1.7;
+  color:var(--text-sub);}
+@media (min-width:560px){
+  .prod-card{grid-template-columns:minmax(0,240px) minmax(0,1fr);align-items:stretch;}
+  .prod-links.is-n2,
+  .prod-links.is-n3{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (min-width:860px){
+  .prod-links.is-n3{grid-template-columns:repeat(3,minmax(0,1fr));}
+}
+.article-body > p{margin-bottom:1.9em;}
+.cta-note,
+.shop-cta + .cta-note,
+.prod-note,
+.notfor-foot,
+.eyecatch-note{line-height:1.95;
+  letter-spacing:.02em;}
+.cta-note,
+.shop-cta + .cta-note,
+.prod-note{margin-top:12px;}
+/* 結論・買わないほうがいい人：見出しつきの項目を、行で分けて見せる */
+.summary-list li .li-t,
+.notfor-list li .li-t{display:block;
+  margin-bottom:3px;
+  font-weight:700;
+  color:var(--ink);}
+.summary-list li .li-b,
+.notfor-list li .li-b{display:block;
+  color:var(--text-sub);
+  line-height:1.95;}
+/* 写真を出さない商品カード（すぐ上にアイキャッチがある記事）。
+   写真の列を作らず、1枚の帯として置く。 */
+.prod-card.is-noimg{grid-template-columns:1fr;
+  margin-top:clamp(-6px,-1vw,0px);}
+.prod-card.is-noimg .prod-body{padding:clamp(13px,2.8vw,16px);}
+/* ============================================================
+   広告の枠
+   ------------------------------------------------------------
+   ・読み込む前から高さを空けておく（あとから文章が飛ばないように）
+   ・「スポンサーリンク」と明記して、記事の一部に見えないようにする
+   ・購入ボタンや記事カードとは、はっきり間を空ける
+   ============================================================ */
+.ad-slot{display:block;
+  margin:clamp(28px,6vw,44px) 0;
+  padding:10px 0 0;
+  border-top:1px dashed var(--border);
+  text-align:center;}
+.ad-label{display:block;
+  margin-bottom:8px;
+  font-size:11px;
+  letter-spacing:.08em;
+  color:var(--text-sub);
+  opacity:.75;}
+.ad-slot .adsbygoogle{display:block;
+  min-height:100px;          /* 読み込み前の場所取り */
+  margin:0 auto;
+  max-width:100%;}
+.ad-slot.is-inline{margin:clamp(24px,5vw,36px) 0;}
+.ad-slot.is-side{margin:14px 0 0;
+  padding:12px;
+  border:1px solid var(--border);
+  border-top:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);}
+.ad-slot.is-side .adsbygoogle{min-height:250px;}
+/* ============================================================
+   記事タイルのボタン
+   ------------------------------------------------------------
+   PC：本文の幅いっぱいに伸ばして中央に置く。
+   スマホ：タイルの真下に、間を空けて横いっぱいに置く。
+        （タイルは画像が左・本文が右の横並びなので、本文の下ではなく
+          タイル全体の下に敷く。押下判定はタイル全面が受ける）
+   ============================================================ */
+.card-link{display:flex;
+  width:100%;
+  text-align:center;}
+.promo-body{max-width:100%;
+  overflow-x:auto;}
+.promo-body img{max-width:100%;height:auto;}
+.promo-body a{word-break:break-all;}
+/* ============================================================
+   一覧カードのベネフィット表示（星評価＋キャッチ）
+   ============================================================ */
+.card-rating{display:flex;
+  align-items:baseline;
+  gap:5px;
+  margin:2px 0 4px;
+  font-size:12px;
+  min-height:15px;          /* 評価の無いカードとも高さを揃える */}
+.cr-stars{color:var(--amazon);
+  letter-spacing:1px;
+  font-size:12.5px;
+  line-height:1;}
+.cr-score{font-weight:700;color:var(--navy);font-size:12.5px;}
+.card-desc{color:var(--text-sub);}
+/* ============================================================
+   新着レール：特集と同じく左右ボタンで送るカルーセル（スマホ）
+   ============================================================ */
+.btn-sub.is-quiet{background:transparent;
+  border-color:var(--border);
+  color:var(--text-sub);}
+.news-rail-block .rail-more-all .btn-sub{font-size:12.5px;padding:8px 16px;}
+@media (max-width:899px){
+  .news-rail-block .rail .card-body{display:block;
+    padding:8px 12px 12px;}
+  .news-rail-block .rail .card-tags{min-height:0;margin-bottom:4px;}
+  .news-rail-block .rail .card-rating{margin:5px 0 0;font-size:11px;min-height:0;}
+  .news-rail-block .rail .cr-stars{font-size:11px;}
+  .news-rail-block .rail .card-desc{display:none !important;}
+  .news-rail-block .rail .card-link{display:none !important;}
+}
+/* ============================================================
+   読まれている記事／本日のお勧めのモノ（タブ）の中身
+   ------------------------------------------------------------
+   ・5件目は下半分を薄くして、続きがあることを形で示す
+   ・文字は左寄せ（読む順に目を運べるようにする）
+   ・「すべて見る」は間隔を空けず、記事タイルの続きの下端として
+     くっつける（.pt-more側で指定）
+   ============================================================ */
+
+/* ---- 4件表示・5件目（最後の1件）は下半分をぼかして切る ---- */
+/* mask-image + border-radius + overflow:hidden を同じ要素に重ねると、
+   一部のSafariで角丸が反映されず下端が角ばって見える不具合がある
+   ため、mask は使わず「白へのグラデーションをかぶせる」方式に統一する
+   （以前は非対応環境向けの代替だったものを、常用に切り替えた）。 */
+.pick-tabs .rank-list > .rank-item:nth-child(5),
+.pick-tabs .today-list > .today-list-item:nth-child(5){position:relative;
+  overflow:hidden;
+  /* 上の記事タイルと同じ丸みで切る。ここを角のままにすると、
+     本来タイルの下端にあるはずの丸みが、切り取り位置より下に
+     あるせいで見えず、下端だけ角ばって見えてしまう。 */
+  border-radius:var(--radius);
+  pointer-events:none;             /* 半分しか見えないものは押させない */}
+/* 1件ぶんのおよそ半分。行の作りが違うので、枠ごとに高さを決める */
+.pick-tabs .rank-list > .rank-item:nth-child(5){max-height:46px;}
+.pick-tabs .rank-list > .rank-item:nth-child(5)::after,
+.pick-tabs .today-list > .today-list-item:nth-child(5)::after{content:"";
+  position:absolute;
+  inset:auto 0 0 0;
+  height:100%;
+  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--surface,#fff) 92%);}
+.sm-block .section-heading .cat-icon{margin-right:6px;}
+/* ============================================================
+   一覧のタイル：カテゴリーは見出しの右上、写真は大きく枠つき
+   ------------------------------------------------------------
+   見出しの右上は、これまで何も置いていない余白だった。そこに
+   カテゴリーを枠で囲んで置くと、見出しの下に置く行が1つ減り、
+   そのぶんを写真の高さに回せる。トップのタブ・新着一覧・
+   ランキングの3か所で、同じ形にそろえてある。
+   ============================================================ */
+.cat-badge{flex:0 0 auto;
+  align-self:flex-start;
+  max-width:48%;
+  padding:2px 6px;
+  border:1px solid var(--border);
+  border-radius:5px;
+  background:var(--surface);
+  color:var(--text-sub);
+  font-size:10px;
+  font-weight:700;
+  line-height:1.7;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;}
+/* 新着一覧ページ：カテゴリーの札を見出しではなく写真の右上に乗せる
+   （New/Hot の札・順位の数字は左上なので、右上を使う） */
+.arow-thumb .cat-badge{position:absolute;
+  top:4px;right:4px;
+  z-index:2;
+  margin:0;
+  max-width:calc(100% - 8px);
+  background:rgba(255,255,255,.92);
+  box-shadow:0 1px 3px rgba(0,0,0,.16);}
+/* 見出しとカテゴリーを1行に並べる器 */
+.arow-head,
+.card-head{display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:8px;
+  min-width:0;}
+.card-head{margin-bottom:9px;}
+.rank-page .rank-box{padding:6px 6px 10px;}
+/* New / Hot の札は写真の左上に。順位の数字（.arow-no）も左上にあるときは、
+   重ならないようその右へずらす。 */
+.arow-thumb .card-flags{top:4px;left:4px;}
+.arow-thumb:has(.arow-no) .card-flags{left:28px;}
+/* ============================================================
+   「当サイト独自評価」の札
+   ------------------------------------------------------------
+   星は購入者レビューの平均ではなく、こちらで採点したもの。
+   一覧では文脈が切れるため、誰の評価かを星の左に必ず添える。
+   ============================================================ */
+.rate-own{flex:0 0 auto;
+  margin-right:5px;
+  padding:1px 5px;
+  border:1px solid var(--border);
+  border-radius:4px;
+  background:var(--bg-gray);
+  color:var(--text-sub);
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.02em;
+  line-height:1.6;
+  white-space:nowrap;
+  vertical-align:2px;}
+/* 記事ページの評価の行は文字が大きいので、札もそれに合わせる */
+.rating-row .rate-own{font-size:11px;
+  padding:3px 8px;
+  margin-right:0;
+  vertical-align:0;}
+.arow-foot .cat-badge{max-width:60%;}
+.arow-more .btn-icon{width:16px;height:16px;flex:0 0 auto;}
+/* 6件目は下半分をぼかして切る。写真の高さに合わせて取り直す */
+.pick-tabs .rank-list > .rank-item:nth-child(5),
+.pick-tabs .today-list > .today-list-item:nth-child(5){max-height:60px;}
+/* つなぎ目に丸みが残ると段差に見えるので、最初のタイルの上側は角のまま */
+.pick-tabs .rank-list > .rank-item:first-child .arow-link,
+.pick-tabs .today-list > .today-list-item:first-child .today-card{border-top-left-radius:0;
+  border-top-right-radius:0;}
+/* ============================================================
+   記事末尾のシェアボタン
+   ------------------------------------------------------------
+   外部からの流入（SNS経由の訪問・被リンク）を増やすための導線。
+   アイコン画像は使わず、色でブランドを示す小さな文字ボタンにする。
+   ============================================================ */
+.share-row{display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+  margin:22px 0 0;
+  padding:14px 16px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);}
+.share-label{flex:0 0 auto;
+  margin-right:2px;
+  font-size:12.5px;
+  font-weight:700;
+  color:var(--text-sub);}
+.share-btn{display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:44px;
+  height:36px;
+  padding:0 14px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:var(--bg-gray);
+  color:var(--ink);
+  font-family:inherit;
+  font-size:12.5px;
+  font-weight:700;
+  text-decoration:none !important;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease);}
+.share-btn.is-x:hover{background:#000;color:#fff;border-color:#000;}
+.share-btn.is-line:hover{background:#06C755;color:#fff;border-color:#06C755;}
+.share-btn.is-hatena:hover{background:#00A4DE;color:#fff;border-color:#00A4DE;}
+.share-btn.is-copy{padding:0 16px;}
+.share-btn.is-copy.is-copied{background:var(--good);color:#fff;border-color:var(--good);}
+@media (hover:none){
+  .share-btn:active{transform:scale(.96);}
+}
+/* ---- タイルを並べる土台 ---- */
+.news-list-block .tile-card > .arow-list,
+.rank-box > .arow-list,
+.rank-box > .rank-list,
+.pick-tabs .pt-panel > .rank-list,
+.pick-tabs .pt-panel > .today-list{padding:12px 8px;              /* 上の12pxが「見出しの下の余白」 */
+  background:var(--bg-gray);}
+/* タブの下端と最初のタイルをつないでいた指定を戻す。
+   土台ができたので、4角とも丸めてよい。 */
+.pick-tabs .rank-list > .rank-item:first-child .arow-link,
+.pick-tabs .today-list > .today-list-item:first-child .arow-link{border-top-left-radius:var(--radius);
+  border-top-right-radius:var(--radius);}
+
+/* ---- 移設した部品のうち、無彩色の設計に合わせ直すもの ---- */
+/* 記事の種類の札は色を持たせない。色はAmazonへの導線にだけ残す */
+.badge,.cat-badge,.badge-cat{
+  background:var(--bg-3)!important;color:var(--ink-2)!important;
+  border:1px solid var(--line-2)!important;border-radius:2px!important;
+  font-size:10.5px!important;letter-spacing:.06em!important;
+}
+/* 記事の器。見出しからの流れに合わせて中央に置く */
+.article-page{max-width:900px;margin:0 auto;padding:8px 0 72px;}
+.crumbs.is-article{text-align:center;padding:24px 0 0;}

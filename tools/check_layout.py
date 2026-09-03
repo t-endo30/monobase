@@ -88,7 +88,10 @@ window.addEventListener('load', function () { setTimeout(function () {
     r.menuRows = Object.keys(nrows).length;
   }
 
-  var cards = document.querySelectorAll('.card-grid .card:not(.is-lead)');
+  /* 6枚目はスマホでわざと切って「続きがある」ことを示す枠なので、
+     高さのばらつきを見るこの検査からは外す */
+  var cards = document.querySelectorAll(
+    '.card-grid .card:not(.is-lead):not(:nth-child(n+6))');
   if (cards.length > 1) {
     var hs = Array.prototype.map.call(cards, function (c) {
       return Math.round(c.getBoundingClientRect().height);
