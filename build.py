@@ -682,7 +682,11 @@ def header(current, p, crumbs=None, current_sub="", band=""):
     search = (f'<a class="header-search" href="{p}search.html" aria-label="サイト内を検索">'
               f'{IC_SEARCH_V2}</a>' if FEAT.get("search") else "")
 
-    return f'''<header class="v2-header">
+    # カテゴリーのドット絵アイコン（tools/make_icons.py が作るスプライト）。
+    # 新デザインのナビでは使っていないが、記事本文の中に <use href="#i-…"> が
+    # 残っているので、ここで読み込まないとその分だけ何も描かれなくなる。
+    return f'''{ICON_SPRITE}
+<header class="v2-header">
   <div class="container header-inner">
     <a class="brand" href="{p}index.html" aria-label="{e(NAME)}">
       <span class="brand-mark">{LOGO_SVG_INNER}</span>
