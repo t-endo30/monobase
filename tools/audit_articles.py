@@ -248,7 +248,11 @@ def find_structure(a):
         if "最終確認日" not in plain(concl):
             add("HIGH", "情報源の明示不足", "conclusion", "最終確認日なし",
                 "まとめの最終段落に「最終確認日：YYYY年MM月DD日」を書く")
-        if not re.search(r"公式|情報源|メーカーサイト|販売ページ", plain(concl)):
+        # セール記事のようにメーカーが存在しない記事もあるので、
+        # 「Amazonのセール告知ページをもとに」のような書き方も情報源として認める。
+        if not re.search(r"公式|情報源|メーカーサイト|販売ページ|"
+                         r"告知ページ|発表|公開されている(?:情報|過去)|"
+                         r"をもとに|に基づ", plain(concl)):
             add("HIGH", "情報源の明示不足", "conclusion", "情報源の記載なし",
                 "まとめの最終段落に、使った主要な情報源を書く")
 
