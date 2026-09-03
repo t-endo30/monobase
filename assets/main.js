@@ -378,51 +378,30 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     return '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
   }
 
-  /* 掲載日はタイルの右下に「2026.08.31」の形で置く */
-  function dotDate(d) {
-    d = String(d || '').slice(0, 10);
-    return d.length === 10
-      ? '<span class="arow-date">' + esc(d).replace(/-/g, '.') + '</span>' : '';
-  }
-
-  function rows(limit, badgeOnThumb) {
+  /* 行の形は build.py の v2_row() と同じ（.row-item）にそろえてある。
+     こちらは閲覧回数から並べ替えるので JS で組み立てるが、クラス名を
+     そろえてあるので、一覧ページやトップの並びと見た目が一致する。
+     順位は写真の左上に重ねる（独立した列にすると、写真と見出しの
+     位置がランキングのときだけずれるため）。 */
+  function rows(limit) {
     return ranked.slice(0, limit).map(function (it, i) {
-      var n = counts[it.slug] || 0;
-      var sc = Number(it.score) || 0;
-      var rate = sc > 0
-        ? '<span class="arow-rating"><span class="rate-own">当サイト独自評価</span>' +
-          '<span aria-hidden="true">' + starStr(sc) +
-          '</span><b>' + (Math.round(sc * 10) / 10) + '</b></span>'
-        : '';
-      var catch_ = it.excerpt
-        ? '<span class="arow-catch">' + esc(it.excerpt) + '</span>' : '';
-      /* 札は build.py の article_row() と同じ出し分け。写真に乗せる枠
-         （PCサイドの細い列）だけ thumb、それ以外は見出しの右／日付の左。 */
-      var catBadge = '<span class="cat-badge">' + esc(it.cat) + '</span>';
-      var headBadge = '<span class="cat-badge is-head-badge">' + esc(it.cat) + '</span>';
-      var footBadge = '<span class="cat-badge is-foot-badge">' + esc(it.cat) + '</span>';
-      /* 行の形は build.py の article_row() と同じ（.arow…）。
-         こちらは閲覧回数から並べ替えるので JS 側で組み立てるが、
-         クラス名をそろえてあるので見た目は一覧ページと一致する。
-         順位はサムネイルの角に重ねる。横幅を食わずに済む。 */
-      return '<li class="arow rank-item">' +
-        '<a class="arow-link" href="' + it.url + '">' +
-          '<span class="arow-thumb">' +
+      var no = ('0' + (i + 1)).slice(-2);
+      var d = String(it.date || '').slice(0, 10);
+      return '<a class="row-item" href="' + it.url + '"' +
+          ' data-cat="' + esc(it.catKey || '') + '"' +
+          ' data-slug="' + esc(it.slug || '') + '"' +
+          ' data-date="' + esc(it.date || '') + '">' +
+          '<span class="row-no">' + no + '</span>' +
+          '<span class="thumb">' +
             '<img src="' + esc(it.thumb) + '" alt="" loading="lazy" decoding="async">' +
-            '<span class="arow-no arow-no-' + (i + 1) + '">' + (i + 1) + '</span>' +
-            (badgeOnThumb ? catBadge : '') +
           '</span>' +
-          '<span class="arow-body">' +
-            '<span class="arow-head">' +
-              '<span class="arow-title">' + esc(it.title) + '</span>' +
-              (badgeOnThumb ? '' : headBadge) +
-            '</span>' +
-            rate + catch_ +
-            '<span class="arow-foot">' +
-              (badgeOnThumb ? '' : footBadge) + dotDate(it.date) +
-            '</span>' +
+          '<span class="row-body">' +
+            '<span class="row-cat">' + esc(it.cat) + '</span>' +
+            '<h3>' + esc(it.title) + '</h3>' +
+            (it.excerpt ? '<p>' + esc(it.excerpt) + '</p>' : '') +
+            '<span class="meta">' + esc(d) + '</span>' +
           '</span>' +
-        '</a></li>';
+        '</a>';
     }).join('');
   }
 
@@ -432,7 +411,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   Array.prototype.forEach.call(lists, function (el) {
     var box = el.closest('.rank-box');
     var limit = Number(box && box.getAttribute('data-rank-limit')) || 10;
-    el.innerHTML = rows(limit, !!el.closest('.side-rank'));
+    el.innerHTML = rows(limit);
   });
 
   /* 並び順の説明文は出さない（画面を説明で埋めない） */
@@ -776,4 +755,55 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   window.addEventListener('pageshow', function (ev) {
     if (ev.persisted) replay();
   });
+})();
+
+
+/* ============================================================
+   トップの「今日のピックアップ」：全記事から3本を日替わりで選ぶ
+   ------------------------------------------------------------
+   ビルドは公開のたびにしか走らないので、選び直しはここで行う。
+   その日の日付を種にして混ぜるので、同じ日に見た人には同じ3本が、
+   日付が変われば別の3本が出る（読み込むたびに入れ替わると、
+   さっき見た記事を探せなくなるため）。
+   JSが動かないときは、build.py が入れておいた3本がそのまま残る。
+   ============================================================ */
+(function () {
+  'use strict';
+  var grid = document.getElementById('pickGrid');
+  if (!grid) return;
+  var pool = [];
+  try { pool = JSON.parse(grid.getAttribute('data-pool') || '[]'); }
+  catch (e) { return; }
+  if (pool.length < 4) return;          /* 選ぶ意味がない本数なら触らない */
+
+  /* 日付を種にした、同じ入力なら同じ結果になる混ぜ方 */
+  var seed = Math.floor(Date.now() / 86400000);
+  function rnd() {
+    seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+    return seed / 0x7fffffff;
+  }
+  var pick = pool.slice();
+  for (var i = pick.length - 1; i > 0; i--) {
+    var j = Math.floor(rnd() * (i + 1));
+    var t = pick[i]; pick[i] = pick[j]; pick[j] = t;
+  }
+  pick = pick.slice(0, 3);
+
+  function esc(v) {
+    return String(v == null ? '' : v)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  /* 形は build.py の v2_card() と同じ。ここだけ別の見た目にしない */
+  grid.innerHTML = pick.map(function (a) {
+    return '<a class="card" href="' + esc(a.u) + '"' +
+      ' data-cat="' + esc(a.k) + '" data-slug="' + esc(a.s) + '"' +
+      ' data-date="' + esc(a.d) + '">' +
+      '<span class="card-thumb"><img src="' + esc(a.th) + '" alt="" loading="lazy">' +
+        '<span class="card-cat">' + esc(a.c) + '</span></span>' +
+      '<span class="card-date">' + esc(a.d) + '</span>' +
+      '<span class="card-title">' + esc(a.t) + '</span>' +
+      '<span class="card-note">' + esc(a.x) + '</span></a>';
+  }).join('');
 })();

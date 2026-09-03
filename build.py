@@ -492,8 +492,7 @@ def rank_panel(p, limit=10):
        サイト全体の実データ（content/ranking.json）があればそれを、
        無ければ閲覧者自身の端末に記録された閲覧回数で並べる。"""
     return (f'    <section class="rank-box" data-rank-limit="{limit}">\n'
-            f'      <p class="rank-heading">ACCESS RANKING</p>\n'
-            f'      <ol class="rank-list"></ol>\n'
+            f'      <div class="row-list rank-list"></div>\n'
             f'      <p class="rank-note"></p>\n'
             f'    </section>\n')
 
@@ -693,7 +692,9 @@ def header(current, p, crumbs=None, current_sub="", band=""):
         f'<li><a href="{href}"><span>{e(ja)}</span><span>{en}</span></a></li>'
         for ja, en, href in _v2_drawer_links(p))
     cats = "".join(
-        f'<li><a href="{p}category-{c["key"]}.html"><span>{e(c["label"])}</span></a></li>'
+        f'<li><a href="{p}category-{c["key"]}.html">'
+        f'<span>{e(c["label"])}</span>'
+        f'<span class="drawer-thumb">{v2_cat_image(c, p)}</span></a></li>'
         for c in CATS)
     search = (f'<a class="header-search" href="{p}search.html" aria-label="サイト内を検索">'
               f'{IC_SEARCH_V2}</a>' if FEAT.get("search") else "")
@@ -920,24 +921,35 @@ def v2_sec_more(href, label="VIEW ALL"):
 
 
 def v2_card(a, p):
+    """一覧の記事タイル。カテゴリーは写真の右上に重ね、見出しの下には
+       その記事の一言（excerpt）を置く。"""
     src, _ = visual_path(a, p)
     title = a.get("list_title") or a["title"]
-    return (f'<a class="card" href="{p}articles/{e(a["slug"])}.html">'
-            f'<span class="card-thumb"><img src="{e(src)}" alt="" loading="lazy"></span>'
+    cat = CAT_LABEL.get(a.get("category", ""), "")
+    return (f'<a class="card" href="{p}articles/{e(a["slug"])}.html" '
+            f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
+            f'data-date="{e(a.get("date",""))}">'
+            f'<span class="card-thumb"><img src="{e(src)}" alt="" loading="lazy">'
+            f'<span class="card-cat">{e(cat)}</span></span>'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
             f'<span class="card-title">{e(title)}</span>'
-            f'<span class="card-cat">{e(CAT_LABEL.get(a.get("category",""),""))}</span></a>')
+            f'<span class="card-note">{e(a.get("excerpt",""))}</span></a>')
 
 
 def v2_row(a, p, numbered=None):
+    """横長の記事タイル。カテゴリーは右上、見出しの下に一言。"""
     src, _ = visual_path(a, p)
     no = (f'<span class="row-no">{numbered:02d}</span>' if numbered else "")
-    return (f'<a class="row-item" href="{p}articles/{e(a["slug"])}.html">'
+    cat = CAT_LABEL.get(a.get("category", ""), "")
+    return (f'<a class="row-item" href="{p}articles/{e(a["slug"])}.html" '
+            f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
+            f'data-date="{e(a.get("date",""))}">'
             f'{no}<span class="thumb"><img src="{e(src)}" alt="" loading="lazy"></span>'
-            f'<span><h3>{e(a["title"])}</h3>'
+            f'<span class="row-body">'
+            f'<span class="row-cat">{e(cat)}</span>'
+            f'<h3>{e(a["title"])}</h3>'
             f'<p>{e(a.get("excerpt",""))}</p>'
-            f'<span class="meta">{e(a.get("date",""))}　/　'
-            f'{e(CAT_LABEL.get(a.get("category",""),""))}</span></span></a>')
+            f'<span class="meta">{e(a.get("date",""))}</span></span></a>')
 
 
 def v2_rows(items, p, numbered=False, narrow=False):
@@ -960,17 +972,17 @@ def v2_cat_image(c, p):
     return ""
 
 
-def v2_cat_grid(p):
+def v2_cat_grid(p, cls=""):
     counts = {c["key"]: len([a for a in PUBLISHED if a.get("category") == c["key"]])
               for c in CATS}
     cells = "".join(
         f'<a class="cat-cell" href="{p}category-{c["key"]}.html">'
-        f'<span class="cat-thumb">{v2_cat_image(c, p)}</span>'
         f'<span class="cat-body"><span class="n">{i+1:02d}</span>'
         f'<span class="l">{e(c["label"])}</span>'
-        f'<span class="c">{counts[c["key"]]} 記事</span></span></a>'
+        f'<span class="c">{counts[c["key"]]} 記事</span></span>'
+        f'<span class="cat-thumb">{v2_cat_image(c, p)}</span></a>'
         for i, c in enumerate(CATS))
-    return f'      <div class="cat-grid">{cells}</div>\n'
+    return f'      <div class="cat-grid{" " + cls if cls else ""}">{cells}</div>\n'
 
 
 def v2_hero(p):
@@ -1010,12 +1022,13 @@ def v2_hero(p):
 '''
 
 
-def v2_page_head(title, crumbs=None, lead="", count=None, extra=""):
+def v2_page_head(title, crumbs=None, lead="", count=None, extra="",
+                 count_unit="ARTICLES"):
     """下層ページの見出し。タイトルと説明を表示領域の中央にそろえる。
        パンくずはヘッダー直下の帯（v2_crumb_bar）が出すので、ここでは書かない。"""
     cr = ""
     ld = f'<p class="lead">{e(lead)}</p>\n    ' if lead else ""
-    ct = f'<p class="count">{count} ARTICLES</p>\n    ' if count is not None else ""
+    ct = f'<p class="count">{count} {count_unit}</p>\n    ' if count is not None else ""
     return f'''  <div class="page-head">
     <div class="container">
       {cr}<h1>{e(title)}</h1>
@@ -2349,28 +2362,49 @@ POLICY = [
 
 def build_index():
     p = "./"
-    # 新着を先に出し、ピックアップは新着と重ならないものから選ぶ。
-    # スマホは6件目をわざと切って続きを示すので6本ずつ渡し、
-    # PCは4列ちょうどに収めたいので5本目から先を CSS で隠している。
     latest = PUBLISHED[:6]
-    picks = [a for a in PUBLISHED if a.get("featured") and a not in latest]
-    for a in PUBLISHED:
-        if len(picks) >= 6:
+
+    # ピックアップは「その日のおすすめ」。全記事から3本を日替わりで選ぶ。
+    # ビルドは公開のたびにしか走らないので、選び直しはブラウザ側で行う
+    # （assets/main.js）。ここで入れておく3本は、JSが動かないときの中身。
+    pool = [{
+        "u": f'{p}articles/{a["slug"]}.html',
+        "t": a.get("list_title") or a["title"],
+        "x": a.get("excerpt", ""),
+        "c": CAT_LABEL.get(a.get("category", ""), ""),
+        "k": a.get("category", ""),
+        "s": a["slug"],
+        "d": a.get("date", ""),
+        "th": visual_path(a, p)[0],
+    } for a in PUBLISHED]
+    day = int(datetime.date.today().strftime("%Y%m%d"))
+    picks = [PUBLISHED[(day * 7 + i * 13) % len(PUBLISHED)] for i in range(3)] if PUBLISHED else []
+    seen, uniq = set(), []
+    for a in picks + PUBLISHED:
+        if a["slug"] in seen:
+            continue
+        seen.add(a["slug"])
+        uniq.append(a)
+        if len(uniq) >= 3:
             break
-        if a not in picks and a not in latest:
-            picks.append(a)
-    picks = picks[:6]
+    picks = uniq
 
     body = v2_section(
         v2_sec_head("NEW", "新着記事")
         + '      <div class="card-grid">' + "".join(v2_card(a, p) for a in latest) + "</div>\n"
         + v2_sec_more(f"{p}new.html"), tinted=True)
 
+    body += v2_section(
+        v2_sec_head("RANKING", "よく読まれている記事")
+        + v2_rows(PUBLISHED[:5], p, numbered=True, narrow=True)
+        + v2_sec_more(f"{p}ranking.html"))
+
     if picks:
         body += v2_section(
-            v2_sec_head("PICK UP", "ピックアップ記事")
-            + '      <div class="card-grid">' + "".join(v2_card(a, p) for a in picks) + "</div>\n"
-            + v2_sec_more(f"{p}new.html"))
+            v2_sec_head("PICK UP", "今日のピックアップ")
+            + '      <div class="card-grid is-3" id="pickGrid" data-pool=\''
+            + html.escape(json.dumps(pool, ensure_ascii=False), quote=True) + '\'>'
+            + "".join(v2_card(a, p) for a in picks) + "</div>\n")
 
     slots = promo_slot("top", "", "is-wide") + ad_slot("top")
     if slots.strip():
@@ -2378,12 +2412,7 @@ def build_index():
 
     body += v2_section(
         v2_sec_head("CATEGORY", "カテゴリーから探す")
-        + v2_cat_grid(p) + v2_sec_more(f"{p}categories.html"))
-
-    body += v2_section(
-        v2_sec_head("RANKING", "よく読まれている記事")
-        + v2_rows(PUBLISHED[:5], p, numbered=True, narrow=True)
-        + v2_sec_more(f"{p}ranking.html"))
+        + v2_cat_grid(p, "is-all") + v2_sec_more(f"{p}categories.html"))
 
     # サイトそのものの構造化データ。検索結果にサイト名と検索窓を出す材料。
     site_ld = [
@@ -2408,6 +2437,7 @@ def build_index():
     return page(f"{NAME}｜{SUBTITLE}", f"{SUBTITLE}。{SITE['description']}", "home", p, BASE_URL + "/", body,
                 body_class="is-home", hero_slot=v2_hero(p), extra_js=ld_js,
                 image=(PUBLISHED[0].get("thumb") if PUBLISHED else ""))
+
 
 def v2_sub_nav(c, p, current_sub=""):
     """カテゴリー一覧の絞り込み。記事0件のサブ区分は出さない
@@ -2486,8 +2516,8 @@ def build_categories():
     p = "./"
     body = v2_page_head("カテゴリー",
                         lead="扱っている分野の一覧です。気になる分野からお進みください。",
-                        count=len(PUBLISHED))
-    body += v2_section(v2_cat_grid(p), style="padding:40px 0 80px")
+                        count=len(CATS), count_unit="CATEGORIES")
+    body += v2_section(v2_cat_grid(p, "is-all"), style="padding:40px 0 80px")
     return page(f"カテゴリー一覧 - {NAME}",
                 f"{NAME}のカテゴリー一覧です。{len(CATS)}分野の記事をまとめています。",
                 "", p, f"{BASE_URL}/categories.html", body, body_class="is-listing",
