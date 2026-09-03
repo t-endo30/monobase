@@ -5,11 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<<<<<<< HEAD
 <link rel="stylesheet" href="./assets/admin.css?v=6d0c214c">
-=======
-<link rel="stylesheet" href="./assets/admin.css?v=6d0c214c">
->>>>>>> origin/main
 </head>
 <body>
 
@@ -722,6 +718,17 @@
     </div>
 
     <div class="card">
+      <h2>カテゴリーの写真</h2>
+      <p class="hint">トップページのカテゴリー枠に出す写真です。1カテゴリーにつき1枚を固定します。
+        決めていないあいだは、そのカテゴリーの最新記事の写真で代用されるので、
+        記事が増えるたびに絵が入れ替わります。</p>
+      <div id="catImgList" class="cat-img-list"></div>
+      <input type="file" id="catImgFile" accept="image/*" hidden>
+      <div class="note" id="catImgNote">選んだ画像は1200px・WebPに圧縮してからGitHubへ保存します。
+        写真を選んだあと、このタブの「GitHubに保存して反映」を押すとサイトに出ます（どのカードのボタンでも構いません）。</div>
+    </div>
+
+    <div class="card">
       <h2>Amazonアソシエイト</h2>
       <p class="hint">ここに入れたIDが、ASINを設定している全記事のリンクへ自動で付与されます。</p>
       <label for="s-assoc">アソシエイトID<span class="opt">例: monobase-22</span></label>
@@ -1049,10 +1056,6 @@
 
 <div class="toast" id="toast"></div>
 <script src="./assets/vendor/qrcode.min.js"></script>
-<<<<<<< HEAD
 <script src="./assets/admin.js?v=6d0c214c"></script>
-=======
-<script src="./assets/admin.js?v=6d0c214c"></script>
->>>>>>> origin/main
 </body>
 </html>

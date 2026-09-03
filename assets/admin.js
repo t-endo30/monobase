@@ -1249,6 +1249,89 @@
     var an = site.analytics || {};
     $('s-ga').value = an.ga_measurement_id || '';
     $('s-gsc').value = an.gsc_verification || '';
+    renderCatImages();
+  }
+
+  /* ------------------------------------------- カテゴリーの写真
+     トップのカテゴリー枠に出す1枚を、カテゴリーごとに固定する。
+     決めていないあいだは、そのカテゴリーの最新記事の写真で代用するので、
+     枠が空くことはない代わりに、記事が増えると絵が入れ替わる。 */
+  var catImgKey = '';
+
+  function catFallback(key) {
+    var list = articles.filter(function (a) {
+      return a.published && a.category === key && a.thumb;
+    }).sort(function (x, y) { return (y.date || '').localeCompare(x.date || ''); });
+    return list.length ? list[0].thumb : '';
+  }
+
+  function renderCatImages() {
+    var box = $('catImgList');
+    if (!box) return;
+    var cats = (site && site.categories) || [];
+    box.innerHTML = cats.map(function (c) {
+      var fixed = (c.image || '').trim();
+      var src = fixed || catFallback(c.key);
+      var state = fixed
+        ? '固定：<code>' + esc(fixed) + '</code>'
+        : (src ? '未設定（最新記事の写真で代用中）' : '未設定（写真がありません）');
+      return '<div class="cat-img" data-key="' + esc(c.key) + '">' +
+        '<span class="ph">' + (src ? '<img src="./' + esc(src) + '" alt="">' : '') + '</span>' +
+        '<div class="bd">' +
+          '<p class="nm">' + esc(c.label) + '</p>' +
+          '<p class="st">' + state + '</p>' +
+          '<div class="ops">' +
+            '<button type="button" class="btn" data-act="pick">画像を選ぶ</button>' +
+            (fixed ? '<button type="button" class="btn btn-ghost" data-act="clear">外す</button>' : '') +
+          '</div>' +
+        '</div></div>';
+    }).join('');
+  }
+
+  if ($('catImgList')) {
+    $('catImgList').addEventListener('click', function (ev) {
+      var b = ev.target.closest('button[data-act]');
+      if (!b) return;
+      var key = b.closest('.cat-img').dataset.key;
+      var c = (site.categories || []).filter(function (x) { return x.key === key; })[0];
+      if (!c) return;
+      if (b.dataset.act === 'clear') {
+        delete c.image;
+        renderCatImages();
+        $('catImgNote').textContent =
+          '固定を外しました。「サイト設定を保存」を押すと反映されます。';
+        return;
+      }
+      if (!cfg.token) { toast('先に接続タブでGitHubを設定してください', 'err'); return; }
+      catImgKey = key;
+      $('catImgFile').click();
+    });
+
+    $('catImgFile').addEventListener('change', function () {
+      var file = this.files && this.files[0];
+      this.value = '';
+      var c = (site.categories || []).filter(function (x) { return x.key === catImgKey; })[0];
+      if (!file || !c) return;
+      var note = $('catImgNote');
+      note.textContent = '圧縮しています…';
+      compress(file, 1200, 0.82, 'image/webp').then(function (img) {
+        note.textContent = '保存しています…（' + img.w + '×' + img.h + '／' + kb(img.after) + '）';
+        /* 名前に時刻を混ぜて、差し替えても古い画像が残り続けないようにする */
+        var path = 'assets/img/cat-' + c.key + '-' + Date.now().toString(36) + '.webp';
+        return blobToB64(img.blob).then(function (b64) {
+          return putFile(path, b64, null, 'カテゴリーの写真を追加（管理画面より） [skip ci]');
+        }).then(function () {
+          c.image = path;
+          renderCatImages();
+          note.innerHTML = '保存しました：<code>' + esc(path) + '</code><br>' +
+            '<b>「サイト設定を保存」を押すとサイトに反映されます。</b>';
+          toast('カテゴリーの写真を設定しました', 'ok');
+        });
+      }).catch(function (e) {
+        note.textContent = '失敗しました：' + e.message;
+        toast(e.message, 'err');
+      });
+    });
   }
 
   $('s-contact').addEventListener('change', function () {

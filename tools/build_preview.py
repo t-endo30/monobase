@@ -173,7 +173,7 @@ def header(current="HOME"):
   </div>
   <div class="drawer" id="drawer" data-open="false">
     <div class="container" style="padding:0">
-      <ul>{drawer}</ul>
+      <ul class="drawer-main">{drawer}</ul>
       <p class="drawer-head">CATEGORY</p>
       <ul class="drawer-cats">{cats}</ul>
     </div>
@@ -282,6 +282,21 @@ def cat_label(key):
     return key
 
 
+def cat_image(c):
+    """カテゴリー枠の写真。site.json の image に入れた1枚を固定で出す。
+       まだ決めていないカテゴリーは、そのカテゴリーの最新記事の写真で代用する
+       （枠だけ空くと、写真のあるカテゴリーだけが強く見えてしまうため）。"""
+    src = (c.get("image") or "").strip()
+    fixed = bool(src)
+    if not src:
+        src = next((a.get("thumb") for a in PUBLISHED
+                    if a.get("category") == c["key"] and a.get("thumb")), "")
+    if not src:
+        return ""
+    note = "" if fixed else ' data-fallback="1"'
+    return f'<img src="{R}{e(src)}" alt="" loading="lazy"{note}>'
+
+
 def card(a):
     thumb = a.get("thumb") or ""
     img = (f'<img src="{R}{e(thumb)}" alt="" loading="lazy">' if thumb else "")
@@ -332,21 +347,26 @@ def build_top():
     picks = picks[:4]
     latest = [a for a in PUBLISHED if a not in picks][:4]
 
+    # 3つ目の「購入判断をサポート」はスマホの3列だと2行に割れて崩れるので、
+    # 横に詰めたとき用の短い言い方を別に持たせる
     points = [
-        (IC_VOICE, "口コミを分析", "良い点も悪い点も<br>包み隠さず紹介"),
-        (IC_ZOOM, "徹底調査", "仕様・価格・競合まで<br>多角的に比較"),
-        (IC_CHECK, "購入判断をサポート", "向いている人・向いていない人を<br>明確に整理"),
+        (IC_VOICE, "口コミを分析", "口コミを分析", "良い点も悪い点も<br>包み隠さず紹介"),
+        (IC_ZOOM, "徹底調査", "徹底調査", "仕様・価格・競合まで<br>多角的に比較"),
+        (IC_CHECK, "購入判断をサポート", "購入を判断", "向いている人・向いていない人を<br>明確に整理"),
     ]
     pt = "".join(
         f'<div class="hero-point"><span class="ic">{ic}</span>'
-        f'<div><h3>{t}</h3><p>{d}</p></div></div>' for ic, t, d in points)
+        f'<div><h3><span class="wide">{t}</span><span class="narrow">{sh}</span></h3>'
+        f'<p>{d}</p></div></div>' for ic, t, sh, d in points)
 
     counts = {c["key"]: len([a for a in PUBLISHED if a.get("category") == c["key"]]) for c in CATS}
     cells = "".join(
         f'<a class="cat-cell" href="category.html">'
+        f'<span class="cat-thumb">{cat_image(c)}</span>'
+        f'<span class="cat-body">'
         f'<span class="n">{i+1:02d}</span>'
         f'<span class="l">{e(c["label"])}</span>'
-        f'<span class="c">{counts[c["key"]]} 記事</span></a>'
+        f'<span class="c">{counts[c["key"]]} 記事</span></span></a>'
         for i, c in enumerate(CATS))
 
     body = f'''<section class="hero">
@@ -373,7 +393,7 @@ def build_top():
   </div>
 </section>
 
-<section class="v2-section is-tinted" style="margin-top:56px">
+<section class="v2-section is-tinted">
   <div class="container">
     {sec_head("PICK UP", "ピックアップ記事", "category.html")}
     <div class="card-grid">{"".join(card(a) for a in picks)}</div>
