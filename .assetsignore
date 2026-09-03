@@ -16,3 +16,7 @@ node_modules
 .npm-cache
 __pycache__
 .wrangler
+_probe.html
+_frame.html
+_frameM.html
+_frameP.html

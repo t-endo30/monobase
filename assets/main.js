@@ -488,6 +488,13 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   } else {
     text.textContent = label;
   }
+  /* リンク先はアフィリエイトタグ付きのAmazonなので、
+     お知らせではなく広告だと分かる表示に切り替える（ステマ規制の対応）。
+     リンクを持たない告知は、そのまま「お知らせ」で出す。 */
+  if (s.url) {
+    var lb = box.querySelector('.notice-label');
+    if (lb) lb.textContent = 'PR';
+  }
   box.hidden = false;
 
   /* 文字数に応じて流す時間を変える。短い文が速く流れると読みにくいため */
