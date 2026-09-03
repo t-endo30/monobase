@@ -530,4 +530,9 @@ textarea{resize:vertical;line-height:1.75;}
 .cat-img .nm{font-size:13px;font-weight:700;color:var(--a-navy);margin-bottom:4px;}
 .cat-img .st{font-size:11px;color:var(--a-sub);margin-bottom:9px;min-height:2.6em;word-break:break-all;}
 .cat-img .ops{display:flex;gap:8px;}
+/* 同じ写真を別のカテゴリーにも設定してしまったとき、枠ごと目立たせる */
+.cat-img.is-dup{border-color:var(--a-warn);box-shadow:0 0 0 1px var(--a-warn) inset;}
+.cat-img .dup{
+  font-size:11px;line-height:1.6;color:var(--a-warn);font-weight:700;margin-bottom:8px;
+}
 .cat-img .ops .btn{padding:5px 10px;font-size:11.5px;}

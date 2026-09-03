@@ -1269,23 +1269,85 @@
     var box = $('catImgList');
     if (!box) return;
     var cats = (site && site.categories) || [];
+    /* 反映直後は配信側にまだ無いことがあるので、毎回読み直させる */
+    var bust = '?t=' + Date.now();
     box.innerHTML = cats.map(function (c) {
       var fixed = (c.image || '').trim();
       var src = fixed || catFallback(c.key);
       var state = fixed
-        ? '固定：<code>' + esc(fixed) + '</code>'
+        ? '固定：<code>' + esc(fixed.split('/').pop()) + '</code>'
         : (src ? '未設定（最新記事の写真で代用中）' : '未設定（写真がありません）');
       return '<div class="cat-img" data-key="' + esc(c.key) + '">' +
-        '<span class="ph">' + (src ? '<img src="./' + esc(src) + '" alt="">' : '') + '</span>' +
+        '<span class="ph">' +
+          (src ? '<img src="' + esc(src) + esc(bust) + '" alt="" data-src="' + esc(src) + '">' : '') +
+        '</span>' +
         '<div class="bd">' +
           '<p class="nm">' + esc(c.label) + '</p>' +
           '<p class="st">' + state + '</p>' +
+          '<p class="dup" hidden></p>' +
           '<div class="ops">' +
             '<button type="button" class="btn" data-act="pick">画像を選ぶ</button>' +
             (fixed ? '<button type="button" class="btn btn-ghost" data-act="clear">外す</button>' : '') +
           '</div>' +
         '</div></div>';
     }).join('');
+
+    /* 読めなかった枠は、空欄と見分けがつくようにその場で言う */
+    Array.prototype.forEach.call(box.querySelectorAll('.ph img'), function (im) {
+      im.onerror = function () {
+        var st = im.closest('.cat-img').querySelector('.st');
+        im.remove();
+        if (st) st.innerHTML = '<b>まだ配信に反映されていません</b>'
+          + '（記事一覧の「変更をまとめて公開」を押すと出ます）';
+      };
+    });
+
+    markDuplicateImages(box);
+  }
+
+  /* 同じ写真を複数のカテゴリーに設定してしまうことがある。
+     ファイル名が違っても中身が同じなら見分けがつかないので、
+     中身そのものを突き合わせて、重なっている組を名指しで出す。 */
+  function markDuplicateImages(box) {
+    if (!window.crypto || !crypto.subtle) return;
+    var cards = Array.prototype.slice.call(box.querySelectorAll('.cat-img'));
+    var jobs = cards.map(function (card) {
+      var im = card.querySelector('.ph img');
+      var src = im && im.getAttribute('data-src');
+      if (!src) return Promise.resolve(null);
+      return fetch(src, { cache: 'reload' })
+        .then(function (r) { return r.ok ? r.arrayBuffer() : null; })
+        .then(function (buf) { return buf ? crypto.subtle.digest('SHA-256', buf) : null; })
+        .then(function (h) {
+          if (!h) return null;
+          var b = Array.prototype.map.call(new Uint8Array(h), function (x) {
+            return ('0' + x.toString(16)).slice(-2);
+          }).join('');
+          return { card: card, hash: b,
+                   name: card.querySelector('.nm').textContent };
+        })
+        .catch(function () { return null; });
+    });
+
+    Promise.all(jobs).then(function (rows) {
+      var groups = {};
+      rows.forEach(function (r) {
+        if (!r) return;
+        (groups[r.hash] = groups[r.hash] || []).push(r);
+      });
+      Object.keys(groups).forEach(function (k) {
+        var g = groups[k];
+        if (g.length < 2) return;
+        g.forEach(function (r) {
+          var others = g.filter(function (x) { return x !== r; })
+                        .map(function (x) { return x.name; }).join('・');
+          var el = r.card.querySelector('.dup');
+          el.textContent = '⚠ ' + others + ' と同じ写真です';
+          el.hidden = false;
+          r.card.classList.add('is-dup');
+        });
+      });
+    });
   }
 
   if ($('catImgList')) {
