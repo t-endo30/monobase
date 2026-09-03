@@ -3029,12 +3029,11 @@ def main():
         ".npm-cache",
         "__pycache__",
         ".wrangler",
-        # 画面の崩れを調べたときの作業用ファイル。中身はトップページの
-        # 古い複製なので、配信すると重複した内容が検索エンジンに拾われる。
-        "_probe.html",
-        "_frame.html",
-        "_frameM.html",
-        "_frameP.html",
+        # tools/check_layout.py が --keep で残す検査用の一時ページ。
+        # 中身は検査した実ページの複製なので、配信すると同じ内容が
+        # 別のURLで検索エンジンに拾われる。.gitignore にも入れてある。
+        "_layout_check.html",
+        "articles/_layout_check.html",
         "",
     ]))
     written.append(".assetsignore")
