@@ -75,7 +75,8 @@
           "key": "power",
           "label": "電源・電池"
         }
-      ]
+      ],
+      "image": "assets/img/cat-appliance-mtlqn747.webp"
     },
     {
       "key": "smartphone",
@@ -99,7 +100,8 @@
           "key": "acc",
           "label": "スマホアクセサリー"
         }
-      ]
+      ],
+      "image": "assets/img/cat-smartphone-mtlqs57b.webp"
     },
     {
       "key": "pc",
@@ -143,7 +145,8 @@
           "key": "software",
           "label": "ソフトウェア"
         }
-      ]
+      ],
+      "image": "assets/img/cat-pc-mtlqstnj.webp"
     },
     {
       "key": "av",
@@ -167,7 +170,8 @@
           "key": "mic",
           "label": "マイク・配信機材"
         }
-      ]
+      ],
+      "image": "assets/img/cat-av-mtlqtnb1.webp"
     },
     {
       "key": "camera",
@@ -191,7 +195,8 @@
           "key": "acc",
           "label": "カメラアクセサリー"
         }
-      ]
+      ],
+      "image": "assets/img/cat-camera-mtlqmdno.webp"
     },
     {
       "key": "beauty",
@@ -219,7 +224,8 @@
           "key": "shave",
           "label": "シェービング"
         }
-      ]
+      ],
+      "image": "assets/img/cat-beauty-mtlqlg52.webp"
     },
     {
       "key": "health",
@@ -243,7 +249,8 @@
           "key": "hygiene",
           "label": "衛生用品"
         }
-      ]
+      ],
+      "image": "assets/img/cat-health-mtlqxboo.webp"
     },
     {
       "key": "kitchen",
@@ -267,7 +274,8 @@
           "key": "storage",
           "label": "キッチン収納"
         }
-      ]
+      ],
+      "image": "assets/img/cat-kitchen-mtlquq6f.webp"
     },
     {
       "key": "daily",
@@ -323,7 +331,8 @@
           "key": "stationery",
           "label": "文具・オフィス"
         }
-      ]
+      ],
+      "image": "assets/img/cat-daily-mtlqv3bc.webp"
     },
     {
       "key": "furniture",
@@ -351,7 +360,8 @@
           "key": "deco",
           "label": "インテリア雑貨"
         }
-      ]
+      ],
+      "image": "assets/img/cat-furniture-mtlqvldt.webp"
     },
     {
       "key": "pet",
@@ -379,7 +389,8 @@
           "key": "aqua",
           "label": "アクアリウム・小動物"
         }
-      ]
+      ],
+      "image": "assets/img/cat-pet-mtlqwfcy.webp"
     },
     {
       "key": "travel",
@@ -407,7 +418,8 @@
           "key": "amenity",
           "label": "トラベル用トイレタリー"
         }
-      ]
+      ],
+      "image": "assets/img/cat-travel-mtlqwt2y.webp"
     }
   ],
   "amazon": {
