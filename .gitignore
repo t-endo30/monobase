@@ -22,3 +22,8 @@ content/candidates.json
 # 画面の崩れを検査する道具（tools/check_layout.py）が実行のたびに作る一時ページ。
 # 検査対象と同じ階層に置く必要があるので、リポジトリの中に生まれる。
 _layout_check.html
+
+# デザイン更改案の確認用ページ（tools/build_preview.py が生成する）。
+# 配信は Cloudflare Pages がリポジトリのHTMLをそのまま配るため、
+# 判断が済むまでコミットしない＝デプロイに乗せない。
+preview/
