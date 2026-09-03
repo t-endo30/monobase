@@ -182,7 +182,6 @@ def header(current="HOME"):
 
 
 def footer():
-    cats = "".join(f'<li><a href="category.html">{e(c["label"])}</a></li>' for c in CATS[:6])
     return f'''<footer class="v2-footer">
   <div class="container">
     <div class="footer-top">
@@ -197,10 +196,6 @@ def footer():
         <p class="footer-desc">{e(SITE["description"])}</p>
       </div>
       <div class="footer-cols">
-        <div class="footer-col">
-          <h3>CATEGORY</h3>
-          <ul>{cats}</ul>
-        </div>
         <div class="footer-col">
           <h3>ABOUT</h3>
           <ul>
@@ -300,7 +295,7 @@ def cat_image(c):
 def card(a):
     thumb = a.get("thumb") or ""
     img = (f'<img src="{R}{e(thumb)}" alt="" loading="lazy">' if thumb else "")
-    return (f'<a class="card" href="article.html">'
+    return (f'<a class="card" href="{article_href(a)}">'
             f'<span class="card-thumb">{img}</span>'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
             f'<span class="card-title">{e(a.get("list_title") or a.get("title",""))}</span>'
@@ -310,7 +305,7 @@ def card(a):
 def row(a):
     thumb = a.get("thumb") or ""
     img = (f'<img src="{R}{e(thumb)}" alt="" loading="lazy">' if thumb else "")
-    return (f'<a class="row-item" href="article.html">'
+    return (f'<a class="row-item" href="{article_href(a)}">'
             f'<span class="thumb">{img}</span>'
             f'<span><h3>{e(a.get("title",""))}</h3>'
             f'<p>{e(a.get("excerpt",""))}</p>'
@@ -337,15 +332,16 @@ def paras(value):
 # トップ
 # ---------------------------------------------------------------------------
 def build_top():
-    # featured が4本に満たないときは、新しい順で埋めて枠を欠けさせない
-    picks = [a for a in PUBLISHED if a.get("featured")]
+    # 新着を先に出すので、ピックアップは新着と重ならないものから選ぶ。
+    # featured が4本に満たないときは、残りの記事で埋めて枠を欠けさせない
+    latest = PUBLISHED[:4]
+    picks = [a for a in PUBLISHED if a.get("featured") and a not in latest]
     for a in PUBLISHED:
         if len(picks) >= 4:
             break
-        if a not in picks:
+        if a not in picks and a not in latest:
             picks.append(a)
     picks = picks[:4]
-    latest = [a for a in PUBLISHED if a not in picks][:4]
 
     # 3つ目の「購入判断をサポート」はスマホの3列だと2行に割れて崩れるので、
     # 横に詰めたとき用の短い言い方を別に持たせる
@@ -388,22 +384,22 @@ def build_top():
       <figure class="hero-figure">
         <img src="{R}assets/img/hero-box.jpg" alt="モノベースの箱" width="314" height="314">
       </figure>
+      <div class="hero-points">{pt}</div>
     </div>
-    <div class="hero-points">{pt}</div>
   </div>
 </section>
 
 <section class="v2-section is-tinted">
   <div class="container">
-    {sec_head("PICK UP", "ピックアップ記事", "category.html")}
-    <div class="card-grid">{"".join(card(a) for a in picks)}</div>
+    {sec_head("NEW", "新着記事", "category.html")}
+    <div class="card-grid">{"".join(card(a) for a in latest)}</div>
   </div>
 </section>
 
 <section class="v2-section">
   <div class="container">
-    {sec_head("NEW", "新着記事", "category.html")}
-    <div class="card-grid">{"".join(card(a) for a in latest)}</div>
+    {sec_head("PICK UP", "ピックアップ記事", "category.html")}
+    <div class="card-grid">{"".join(card(a) for a in picks)}</div>
   </div>
 </section>
 
@@ -417,7 +413,7 @@ def build_top():
 <section class="v2-section">
   <div class="container">
     {sec_head("RANKING", "よく読まれている記事", "category.html")}
-    <div class="row-list">{"".join(row(a) for a in PUBLISHED[:5])}</div>
+    <div class="row-list is-narrow">{"".join(row(a) for a in PUBLISHED[:5])}</div>
   </div>
 </section>
 '''
@@ -516,8 +512,16 @@ def build_subcategory():
 # ---------------------------------------------------------------------------
 # 記事
 # ---------------------------------------------------------------------------
-def build_article():
-    a = next((x for x in PUBLISHED if x.get("sections") and x.get("faq")), PUBLISHED[0])
+def article_href(a):
+    """プレビューでも記事ごとに別のページへ飛ばす。
+       1枚の見本に全部つないでいると、押しても同じ記事しか出ず、
+       並びや導線を確かめられないため。"""
+    return f'article-{e(a.get("slug") or "sample")}.html'
+
+
+def build_article(a=None):
+    if a is None:
+        a = next((x for x in PUBLISHED if x.get("sections") and x.get("faq")), PUBLISHED[0])
     secs = a.get("sections") or []
 
     toc = "".join(f'<li><a href="#s{i}">{e(s["heading"])}</a></li>' for i, s in enumerate(secs))
@@ -547,7 +551,7 @@ def build_article():
         faq = f'<h2>よくある質問</h2><div class="faq-list">{rows}</div>'
 
     side_items = "".join(
-        f'<li><a href="article.html"><span class="th">'
+        f'<li><a href="{article_href(x)}"><span class="th">'
         + (f'<img src="{R}{e(x.get("thumb",""))}" alt="" loading="lazy">' if x.get("thumb") else "")
         + f'</span><span class="tt">{e(x.get("list_title") or x.get("title",""))}</span></a></li>'
         for x in PUBLISHED[:5])
@@ -653,6 +657,7 @@ def build_search():
         "d": a.get("date", ""),
         "th": a.get("thumb", ""),
         "tg": a.get("tags", []),
+        "u": article_href(a),
     } for a in PUBLISHED]
 
     catchips = "".join(
@@ -715,7 +720,7 @@ function render(){{
   document.getElementById('count').textContent = hit.length + ' ARTICLES';
   document.getElementById('empty').hidden = hit.length > 0;
   document.getElementById('results').innerHTML = hit.map(function(a){{
-    return '<a class="row-item" href="article.html">'
+    return '<a class="row-item" href="' + esc(a.u) + '">'
       + '<span class="thumb">' + (a.th ? '<img src="' + RT + esc(a.th) + '" alt="" loading="lazy">' : '') + '</span>'
       + '<span><h3>' + esc(a.t) + '</h3><p>' + esc(a.x) + '</p>'
       + '<span class="meta">' + esc(a.d) + '　/　' + esc(a.cl) + '</span></span>'
@@ -897,8 +902,15 @@ SP_SHELL = """<!doctype html><meta charset="utf-8">
 <style>html,body{margin:0;background:#111}iframe{border:0;display:block;width:390px;height:2600px;background:#fff}</style>
 <iframe id="f"></iframe>
 <script>
+  const f = document.getElementById('f');
   const p = new URLSearchParams(location.search).get('p') || 'top';
-  document.getElementById('f').src = 'pages/' + p + '.html';
+  f.src = 'pages/' + p + '.html';
+  // 中身の高さに合わせて伸ばす。決め打ちだと長いページの下が切れて、
+  // ヘッドレスで撮ったときにフッターが写らない
+  f.addEventListener('load', function () {
+    try { f.style.height = f.contentDocument.documentElement.scrollHeight + 'px'; }
+    catch (e) {}
+  });
 </script>
 """
 
@@ -1049,10 +1061,17 @@ def main():
         "404.html": build_404(),
         "about.html": build_about(),
     }
+    # 一覧から押した記事がそれぞれ開くように、記事は全部書き出す
+    for a in PUBLISHED:
+        files[article_href(a)] = build_article(a)
+
     for name, src in files.items():
         with open(os.path.join(PAGES, name), "w", encoding="utf-8") as f:
             f.write(src)
-        print(f"  preview/pages/{name}  ({len(src):,} bytes)")
+    for name in ("top.html", "category.html", "category-sub.html", "article.html",
+                 "search.html", "contact.html", "404.html", "about.html"):
+        print(f"  preview/pages/{name}")
+    print(f"  preview/pages/article-*.html （記事 {len(PUBLISHED)} 本）")
     with open(os.path.join(OUT, "index.html"), "w", encoding="utf-8") as f:
         f.write(build_shell())
     print("  preview/index.html")
