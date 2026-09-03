@@ -56,7 +56,7 @@ SHAPE = '''{
                 "warn":"黄色い注意枠に入れる1〜2文（任意）",
                 "aside":"補足","aside_label":"レビューを読み込んで見えたこと"}],
   "voices_intro": "",
-  "voices": [{"heading":"","who":"","stars":4,"text":"","negative":false,
+  "voices": [{"heading":"","who":"","text":"","negative":false,
               "fix_title":"","fix":""}],
   "voices_after": "",
   "personal_note": "",
@@ -227,6 +227,10 @@ def build_prompt(a, site, prompt_md, fetch_official=True):
         "・耐久性・防水/防塵性・内部構造・冷却性能・バッテリー性能など、メーカーが"
         "明示していない事項を事実として断定しない。触れる場合は"
         "「公開情報から判断すると〜と考えられます」と、推測であることを明記する。",
+        "・voices に stars（星の数）を入れない。voices は購入者レビューの"
+        "傾向の要約であって、特定の投稿の引用ではない。"
+        "平均評価も個別の評価点も確認できていないので、星を付ける根拠が無い。"
+        "who も「30代・会社員」のような属性までにとどめ、実在の投稿者に見せない。",
         "・口コミの件数や割合（「100件を分析した」など）を、確認できていないのに書かない。"
         "数字がなければ「購入者レビューでは」「一部の口コミでは」とする。"
         "口コミは並べるだけでなく、評価が分かれる背景・理由まで説明する。",
@@ -536,6 +540,14 @@ def audit(a):
     n_ai = len(_find(AI_PHRASE, text))
     if n_ai > AI_PHRASE_LIMIT:
         warns.append(f"AIらしい定型表現が {n_ai} 回（上限 {AI_PHRASE_LIMIT}）")
+
+    # 口コミの要約に星の数が付いていないか。
+    # voices は傾向の要約であって特定の投稿の引用ではないので、
+    # 星を付けると、確認していない評価点を載せたことになる。
+    for i, v in enumerate(a.get("voices") or []):
+        if isinstance(v, dict) and v.get("stars"):
+            warns.append(f"voices[{i}] に星の数（{v['stars']}）が付いている"
+                         "。口コミの要約に評価点は付けない")
 
     # 裏づけが無いのに rating / spec を出していないか。
     # 公式情報が無いこと自体は問題ではない。無いのに数字を出すのが問題。

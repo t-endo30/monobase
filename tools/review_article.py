@@ -158,6 +158,12 @@ def scan(a):
             hits.append(("評価の根拠不足", "rating.breakdown",
                          f"内訳が {len(bd)}字。何を評価し何を減点したかを書く"))
 
+    # 口コミの要約に星の数が付いていないか。
+    for i, v in enumerate(a.get("voices") or []):
+        if isinstance(v, dict) and v.get("stars"):
+            hits.append(("口コミの星評価", f"voices[{i}]",
+                         f"星 {v['stars']}。傾向の要約に評価点は付けない"))
+
     # 裏づけが無いのに rating / spec を出していないか。
     # 公式情報が無いこと自体は問題ではない。無いのに数字を出すのが問題。
     facts = a.get("facts") or []
