@@ -2525,3 +2525,38 @@ p,li,.card-desc{text-wrap:pretty;}
 .fab-item .ic-sq svg{width:19px;height:19px;}
 .fab-item.is-line:hover .ic-sq,
 .fab-item.is-line:focus-visible .ic-sq{background:#06c755;}
+
+/* ---- 移設から漏れていた部品 ----
+   本文の中にあるのに指定が無く、余白と字下げだけが残って見えていた。 */
+
+/* 記事作成方針などに置く、番号つきの3つの箱 */
+.policy{display:grid;gap:12px;margin:0 0 clamp(14px,3vw,20px);text-align:left;}
+@media (min-width:900px){ .policy{grid-template-columns:repeat(3,minmax(0,1fr));} }
+.policy-item{
+  display:flex;gap:12px;padding:15px 16px;
+  background:var(--bg-2);border:1px solid var(--line);
+}
+.policy-num{
+  flex:0 0 auto;font-family:var(--font-en);font-size:13px;font-weight:700;
+  letter-spacing:.04em;color:var(--muted-2);line-height:1.6;
+}
+.policy-body{min-width:0;}
+.static-wrap .policy-body h3{margin:0 0 5px;font-size:14px;font-weight:800;line-height:1.55;}
+.static-wrap .policy-body p{margin:0;font-size:12.5px;line-height:1.85;color:var(--muted);}
+
+/* 記事の中の商品カードの写真 */
+.prod-thumb{display:block;background:var(--bg-3);line-height:0;overflow:hidden;}
+.prod-thumb img{
+  display:block;width:100%;height:100%;max-width:100%;
+  object-fit:cover;aspect-ratio:16/9;transition:transform .4s ease;
+}
+.prod-card:hover .prod-thumb img{transform:scale(1.03);}
+
+/* 検索の件数表示 */
+.search-status{
+  margin:4px 0 0;padding-top:12px;border-top:1px dashed var(--line-2);
+  font-size:12.5px;color:var(--muted);
+}
+
+/* 販売リンクが1つだけのとき、横いっぱいに伸ばさない */
+.shop-cta.is-n1{max-width:420px;margin-left:auto;margin-right:auto;}

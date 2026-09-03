@@ -1363,6 +1363,17 @@ def pr_note(a):
             f'<a href="../advertising.html">広告掲載について</a></p>\n')
 
 
+def price_note(a):
+    """価格・在庫についての断り書き。文面はアソシエイト・プログラム運営規約が
+       指定しているものに合わせる。表示した日付も併せて出す（記事に価格を
+       書いていなくても、リンク先の価格を指しているため一律で置く）。"""
+    d = jp_date(a.get("updated") or a.get("date") or "")
+    when = f"{d}時点" if d else "記事の最終確認日時点"
+    return ("※ 価格および在庫状況は" + when + "のものであり、変更される場合があります。"
+            "本商品の購入においては、購入の時点で Amazon.co.jp に表示されている"
+            "価格および在庫状況に関する情報が適用されます。")
+
+
 def shop_buttons(a, note=""):
     """販売先のボタンを並べる。1つしか無ければ1つだけ出す。"""
     links = shop_links(a)
@@ -1411,7 +1422,7 @@ def product_card(a, p, eager=False, with_img=True):
             <p class="prod-name">{e(name)}</p>{note}
             <div class="prod-links is-n{min(len(links), 3)}">
 {btns}            </div>
-            <p class="prod-note">価格・在庫は変動します。最新情報はリンク先でご確認ください。</p>
+            <p class="prod-note">{e(price_note(a))}</p>
           </div>
         </div>
 '''
@@ -1732,7 +1743,7 @@ def render_article(a):
             </div>
           </div>
 '''
-        cta = shop_buttons(a, "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。")
+        cta = shop_buttons(a, price_note(a))
         add(f'''        <section class="summary-box">
           <div class="summary-head">{a.get("verdict_title","結論")}</div>
 {rating}          <div class="summary-body">
@@ -1772,7 +1783,7 @@ def render_article(a):
     # 購入リンクは結論ボックス内（冒頭）に移動済み。
     # 結論ボックスに summary が無い記事のときだけ、ここで補う。
     if not a.get("summary"):
-        add(shop_buttons(a, "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
+        add(shop_buttons(a, price_note(a)))
 
     add('        <div class="article-body">\n')
     add(paras(a.get("lead")))
@@ -1932,7 +1943,7 @@ def render_article(a):
           </div>
 ''')
         add(shop_buttons_mid(a, "section", i,
-                             "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
+                             price_note(a)))
 
     # 口コミ・対策
     if a.get("voices"):
@@ -1955,7 +1966,7 @@ def render_article(a):
 ''')
         add(paras(a.get("voices_after")))
         add(shop_buttons_mid(a, "voices",
-                             "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
+                             price_note(a)))
 
     # 6. 運営者の実体験コラム
     if a.get("personal_note"):
@@ -2006,7 +2017,7 @@ def render_article(a):
         add(f'''          <h2 id="sec-conclusion">{a.get("conclusion_title","まとめ")}</h2>
 ''')
         add(paras(a["conclusion"]))
-        add(shop_buttons(a, "※ 価格・在庫は変動します。最新情報はリンク先でご確認ください。"))
+        add(shop_buttons(a, price_note(a)))
         add(f'''        <div class="cta-wrap" style="margin-top:-10px;">
           <a class="btn-sub" href="{p}category-{cat}.html">同じカテゴリーの記事を見る</a>
         </div>
@@ -2547,7 +2558,7 @@ def build_categories():
                         count=len(CATS), count_unit="CATEGORIES")
     body += v2_section(v2_cat_grid(p, "is-all"), style="padding:40px 0 80px")
     return page(f"カテゴリー一覧 - {NAME}",
-                f"{NAME}のカテゴリー一覧です。{len(CATS)}分野の記事をまとめています。",
+                f"{NAME}のカテゴリー一覧です。家電・パソコン・美容・キッチンなど{len(CATS)}分野に分けて、購入者レビューと公式仕様をもとにした記事をまとめています。",
                 "", p, f"{BASE_URL}/categories.html", body, body_class="is-listing",
                 crumbs=[("ホーム", f"{p}index.html"), ("カテゴリー", None)])
 
@@ -2559,7 +2570,7 @@ def build_new():
     body = v2_page_head("新着記事",
                         lead="公開の新しい順に並べています。", count=len(items))
     body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
-    return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。新しい順に並べています。", "new", p,
+    return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。購入者レビューと公式仕様を突き合わせた商品レビュー・選び方ガイドを、公開の新しい順に並べています。", "new", p,
                 f"{BASE_URL}/new.html", body, body_class="is-listing",
                 crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)])
 
@@ -2573,7 +2584,7 @@ def build_ranking():
     body += v2_section('      <div class="rank-page">\n' + rank_panel(p, 10)
                        + '      </div>\n', style="padding:40px 0 80px")
     return page(f"よく読まれている記事 - {NAME}",
-                f"{NAME}でよく読まれている記事のランキングです。", "ranking", p,
+                f"{NAME}でよく読まれている記事のランキングです。実際に読まれている順に並べているので、いま関心の集まっている商品から探せます。", "ranking", p,
                 f"{BASE_URL}/ranking.html", body, body_class="is-listing",
                 crumbs=[("ホーム", f"{p}index.html"), ("よく読まれている記事", None)])
 
@@ -2639,7 +2650,7 @@ def build_sitemap():
                         lead="このサイトにあるページの一覧です。")
     body += v2_section(inner, style="padding:40px 0 80px")
     return page(f"サイトマップ - {NAME}",
-                f"{NAME}のサイトマップ。カテゴリーと記事の一覧です。", "", p,
+                f"{NAME}のサイトマップです。{len(CATS)}分野のカテゴリーと、公開中の全記事、運営者情報などの固定ページを一覧にまとめています。", "", p,
                 f"{BASE_URL}/sitemap.html", body, body_class="is-listing",
                 crumbs=[("ホーム", f"{p}index.html"), ("サイトマップ", None)])
 
@@ -2969,9 +2980,9 @@ def static_pages():
         ("disclaimer.html", "免責事項",
          f"{NAME}の免責事項。掲載情報の正確性、商品情報、リンク先の内容についての責任範囲を記載しています。", disclaimer),
         ("about.html", "運営者情報",
-         f"{NAME}の運営者情報。運営者・お問い合わせ先を記載しています。", about),
+         f"{NAME}の運営者情報です。運営者・連絡先のほか、どんな考えでこのサイトを作り、商品情報をどう調べているかを記載しています。", about),
         ("editorial-policy.html", "記事作成方針",
-         f"{NAME}がどんな基準で記事を作り、商品を評価しているかをまとめています。", editorial_policy),
+         f"{NAME}の記事作成方針です。購入者レビューと公式仕様をどう突き合わせ、どんな基準で評価し、何を書かないと決めているかをまとめています。", editorial_policy),
         ("advertising.html", "広告掲載について",
          f"{NAME}の広告・アフィリエイトプログラムについて、およびレビュー・掲載のご依頼について記載しています。", advertising),
     ]:
@@ -3030,7 +3041,7 @@ def static_pages():
                           + v2_sec_more(f"{p}new.html"),
                           style="padding:56px 0 88px")
     out.append(("404.html", page(f"ページが見つかりません - {NAME}",
-                                 "お探しのページは見つかりませんでした。", "", p,
+                                 "お探しのページは見つかりませんでした。キーワード検索やカテゴリーから、目的の記事をお探しください。", "", p,
                                  f"{BASE_URL}/404.html", body404)))
 
     # お問い合わせフォーム（features.contact_form が true のときだけ生成）
