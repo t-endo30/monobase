@@ -38,7 +38,7 @@ def _asset_version():
        中身が変わったときだけURLが変わるため、ブラウザに古い
        スタイル・スクリプトが残り続けるのを防ぐ。"""
     h = hashlib.sha1()
-    for f in ("style.css", "main.js", "search.js", "contact.js",
+    for f in ("style-v2.css", "main.js", "search.js", "contact.js",
               "admin.css", "admin.js"):
         try:
             h.update(io.open(os.path.join(ROOT, "assets", f), "rb").read())
@@ -119,12 +119,27 @@ def _logo_path_d(cells):
 
 
 def logo_svg(size="100%"):
-    """ブランドマークのSVG（16×16グリッド）。header() と favicon/OGP 生成で共用する。"""
-    paths = "".join(
-        f'<path fill="{LOGO_COLOR_VAR[key]}" d="{_logo_path_d(LOGO_CELLS[key])}"/>'
-        for key in ("line", "box", "in", "seam", "outline"))
-    return (f'<svg viewBox="0 0 16 16" width="{size}" height="{size}" '
-            f'shape-rendering="crispEdges" aria-hidden="true">{paths}</svg>')
+    """ブランドマーク。ヘッダー・フッター・favicon/OGP の生成で共用する。
+       assets/img/hero-box.jpg（開いた箱に MB）の等角図をそのまま図形に
+       起こしたもの。箱の2面・開口部・4枚のフタという写真の構成を保つので、
+       トップのヒーロー写真と並べても同じものに見える。
+       色は CSS 変数で外から差し替える（暗いフッターでは白黒を入れ替える）。"""
+    return f'''<svg viewBox="0 0 48 44" width="{size}" height="{size}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M24 15 L9 20 L24 25 L39 20 Z" fill="var(--mk-body,#111111)"/>
+  <path d="M9 20 L24 25 L24 40 L9 35 Z" fill="var(--mk-body,#111111)"/>
+  <path d="M24 25 L39 20 L39 35 L24 40 Z" fill="var(--mk-body,#111111)"/>
+  <g fill="var(--mk-flap,#ffffff)" stroke="var(--mk-line,#111111)" stroke-width="1.5" stroke-linejoin="round">
+    <path d="M9 20 L1.2 15.4 L4.4 14.2 L14.6 22.2 Z"/>
+    <path d="M39 20 L46.8 15.4 L43.6 14.2 L33.4 22.2 Z"/>
+    <path d="M24 15 L9 20 L4.6 8.8 L21.2 3.6 Z"/>
+    <path d="M24 15 L39 20 L43.4 8.8 L26.8 3.6 Z"/>
+  </g>
+  <g fill="var(--mk-letter,#ffffff)" font-family="Helvetica Neue,Arial,sans-serif"
+     font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central">
+    <text x="16.5" y="26" transform="matrix(1,0.3333,0,1,0,0)">M</text>
+    <text x="31.5" y="42" transform="matrix(1,-0.3333,0,1,0,0)">B</text>
+  </g>
+</svg>'''
 
 
 LOGO_SVG_INNER = logo_svg()
@@ -380,7 +395,7 @@ def head(title, desc, current, p, canonical, extra="", body_class="", image="",
 {ogimg}<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-{FONT_LINKS}<link rel="stylesheet" href="{p}assets/style.css?v={ASSET_V}">
+{FONT_LINKS}<link rel="stylesheet" href="{p}assets/style-v2.css?v={ASSET_V}">
 {extra}{ga}{ads_head()}</head>
 <body data-cat="{current}"{bodycls} data-rank='{rank_data}'>
 '''
@@ -609,68 +624,94 @@ def _header_count_text():
     return names, n_cat, n_pub, cats_json, default
 
 
+# 新デザインのヘッダー。PCは英字＋日本語の5項目で、CATEGORY に
+# 13カテゴリーをドロップダウンで畳む。スマホは今までのメニュー項目を
+# そのまま引き出しに残す（カテゴリーバーとタブバーは、同じものが
+# ここに入ったのでやめた）。
+V2_NAV = [
+    ("HOME", "ホーム", "index.html"),
+    ("CATEGORY", "カテゴリー", "sitemap.html"),
+    ("ABOUT", "モノベースについて", "about.html"),
+    ("POLICY", "運営方針", "editorial-policy.html"),
+    ("CONTACT", "お問い合わせ", "contact.html"),
+]
+
+IC_SEARCH_V2 = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" '
+                'stroke-linecap="round"><circle cx="10.8" cy="10.8" r="7.2"/>'
+                '<path d="M16.2 16.2 L21 21"/></svg>')
+
+
+def _v2_drawer_links(p):
+    yield ("ホーム", "HOME", f"{p}index.html")
+    yield ("サイトマップ", "SITEMAP", f"{p}sitemap.html")
+    yield ("運営者情報", "ABOUT", f"{p}about.html")
+    yield ("記事作成方針", "POLICY", f"{p}editorial-policy.html")
+    yield ("広告掲載について", "ADVERTISING", f"{p}advertising.html")
+    if FEAT.get("contact_form"):
+        yield ("お問い合わせ", "CONTACT", f"{p}contact.html")
+    else:
+        yield ("お問い合わせ", "CONTACT", f'mailto:{SITE["email"]}')
+
+
 def header(current, p, crumbs=None, current_sub="", band=""):
-    # いま見ているカテゴリーは、ALL のすぐ右に持ってくる。
-    # 一覧は横スクロールするので、右のほうにあると現在地が画面外に出てしまう。
-    # 重複させず「移動」させるので、同じリンクが2つ並ぶことはない。
-    here = next((c for c in CATS if c["key"] == current), None)
+    nav = ""
+    for en, ja, href in V2_NAV:
+        cur = ""
+        if en == "HOME" and current in ("", "home"):
+            cur = ' aria-current="page"'
+        elif en == "CATEGORY" and current in CAT_LABEL:
+            cur = ' aria-current="page"'
+        menu = ""
+        cls = ""
+        if en == "CATEGORY":
+            cells = "".join(
+                f'<a href="{p}category-{c["key"]}.html">'
+                f'<span class="nav-en">{e(c["label"])}</span></a>' for c in CATS)
+            menu = f'<div class="nav-menu">{cells}</div>'
+            cls = ' class="nav-has-menu"'
+        nav += (f'<li{cls}><a href="{p}{href}"{cur}>'
+                f'<span class="nav-en">{en}</span>'
+                f'<span class="nav-ja">{e(ja)}</span></a>{menu}</li>')
 
-    allcur = ' class="is-current"' if current == "all" else ""
-    nav = (f'      <li><a href="{p}index.html"{allcur}>{icon("all")}'
-           f'<span class="cat-nav-label">ALL</span></a></li>\n')
-    if here:
-        nav += cat_nav_item(here, p, "is-current is-here")
-    for c in CATS:
-        if here and c["key"] == here["key"]:
-            continue          # 先頭に出したので、ここでは出さない
-        nav += cat_nav_item(c, p)
+    drawer = "".join(
+        f'<li><a href="{href}"><span>{e(ja)}</span><span>{en}</span></a></li>'
+        for ja, en, href in _v2_drawer_links(p))
+    cats = "".join(
+        f'<li><a href="{p}category-{c["key"]}.html"><span>{e(c["label"])}</span></a></li>'
+        for c in CATS)
+    search = (f'<a class="header-search" href="{p}search.html" aria-label="サイト内を検索">'
+              f'{IC_SEARCH_V2}</a>' if FEAT.get("search") else "")
 
-    # ヘッダーのメニューに検索は出さない。スマホには SEARCH タブが、
-    # PCにはヒーローと右側に検索窓があるため。
-    contact_nav = (f'<li><a href="{p}contact.html">お問い合わせ</a></li>'
-                   if FEAT.get("contact_form") else
-                   f'<li><a href="mailto:{e(SITE["email"])}">お問い合わせ</a></li>')
-
-    _cn_names, _cn_ncat, _cn_npub, _cn_json, _cn_default = _header_count_text()
-
+    # カテゴリーのドット絵アイコン（tools/make_icons.py が作るスプライト）。
+    # 新デザインのナビでは使っていないが、記事本文の中に <use href="#i-…"> が
+    # 残っているので、ここで読み込まないとその分だけ何も描かれなくなる。
     return f'''{ICON_SPRITE}
-<header class="site-header">
+<header class="v2-header">
   <div class="container header-inner">
-    <div class="header-side" aria-hidden="true"></div>
-    <div class="site-brand">
-      <a class="site-title" href="{p}index.html" aria-label="{e(NAME)}">
-        <span class="brand-mark" aria-hidden="true">{LOGO_SVG_INNER}</span>
-        <span class="brand-name">{e(NAME)}</span>
-      </a>
-      <div class="site-tagline hero-count" data-cats='{_cn_json}' data-n-cat="{_cn_ncat}" data-n-pub="{_cn_npub}">{e(_cn_default)}</div>
-    </div>
-    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="globalNav" aria-label="メニューを開く">
+    <a class="brand" href="{p}index.html" aria-label="{e(NAME)}">
+      <span class="brand-mark">{LOGO_SVG_INNER}</span>
+      <span class="brand-text">
+        <span class="brand-ja">{e(NAME)}</span>
+        <span class="brand-en">MONOBASE</span>
+      </span>
+    </a>
+    <nav class="v2-nav" aria-label="メニュー"><ul>{nav}</ul></nav>
+    <span class="header-rule" aria-hidden="true"></span>
+    {search}
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="drawer" aria-label="メニューを開く">
       <span></span><span></span><span></span>
     </button>
-    <nav class="global-nav" id="globalNav" aria-label="メニュー">
-      <ul class="nav-links">
-        <li><a href="{p}index.html">ホーム</a></li>
-        <li class="sp-only-link"><a href="{p}sitemap.html">サイトマップ</a></li>
-        <li><a href="{p}about.html">運営者情報</a></li>
-        <li><a href="{p}editorial-policy.html">記事作成方針</a></li>
-        <li><a href="{p}advertising.html">広告掲載について</a></li>
-        {contact_nav}
-      </ul>
-    </nav>
+  </div>
+  <div class="drawer" id="drawer" data-open="false">
+    <div class="container" style="padding:0">
+      <ul class="drawer-main">{drawer}</ul>
+      <p class="drawer-head">CATEGORY</p>
+      <ul class="drawer-cats">{cats}</ul>
+    </div>
   </div>
 </header>
 
-<!-- カテゴリーナビゲーション -->
-<nav class="cat-nav" aria-label="カテゴリー">
-  <div class="container">
-    <button type="button" class="cat-nav-arrow is-prev" aria-label="カテゴリーを左へ" hidden><span aria-hidden="true"></span></button>
-    <ul class="cat-nav-list">
-{nav}    </ul>
-    <button type="button" class="cat-nav-arrow is-next" aria-label="カテゴリーを右へ" hidden><span aria-hidden="true"></span></button>
-  </div>
-</nav>
-
-{tab_bar(p, current, current_sub)}{crumb_bar(crumbs)}{band}<!-- セール告知：期間内だけ JS が表示する（assets/main.js） -->
+{band}<!-- セール告知：期間内だけ JS が表示する（assets/main.js） -->
 <div class="site-notice" id="saleNotice" hidden data-sales='{SALES_JSON}'>
   <div class="container">
     <span class="notice-label">お知らせ</span>
@@ -679,104 +720,82 @@ def header(current, p, crumbs=None, current_sub="", band=""):
 </div>
 '''
 
+
 def footer(p, sticky_url=None):
     if FEAT.get("contact_form"):
-        contact_link = f'<a href="{p}contact.html">お問い合わせフォーム</a>'
+        contact_link = f'<a href="{p}contact.html">お問い合わせ</a>'
     else:
-        contact_link = f'<a href="mailto:{e(SITE["email"])}">{e(SITE["email"])}</a>'
+        contact_link = f'<a href="mailto:{e(SITE["email"])}">お問い合わせ</a>'
 
     sticky = ""
     if sticky_url and FEAT.get("sticky_cta"):
         sticky = f'''<div class="sticky-cta" id="stickyCta">
   <a class="btn-amazon" href="{e(sticky_url)}" target="_blank" rel="nofollow sponsored noopener">
-    <span class="cart">{icon("cart", "btn-icon")}</span>Amazonで商品の詳細を見る
+    Amazonで商品の詳細を見る
   </a>
 </div>
 
 '''
-    return f'''<footer class="site-footer" id="contact">
+    return f'''<footer class="v2-footer" id="contact">
   <div class="container">
-    <div class="footer-cols">
-      <div class="footer-col">
-        <p class="footer-col-heading">サイト</p>
-        <ul class="footer-col-list">
-          <li><a href="{p}index.html">ホーム</a></li>
-          <li><a href="{p}search.html">サイト内検索</a></li>
-          <li><a href="{p}sitemap.html">サイトマップ</a></li>
-        </ul>
+    <div class="footer-top">
+      <div>
+        <div class="brand">
+          <span class="brand-mark">{LOGO_SVG_INNER}</span>
+          <span class="brand-text">
+            <span class="brand-ja">{e(NAME)}</span>
+            <span class="brand-en">MONOBASE</span>
+          </span>
+        </div>
+        <p class="footer-desc">{e(SITE["description"])}</p>
       </div>
-      <div class="footer-col">
-        <p class="footer-col-heading">サイトについて</p>
-        <ul class="footer-col-list">
-          <li><a href="{p}about.html">運営者情報</a></li>
-          <li><a href="{p}editorial-policy.html">記事作成方針</a></li>
-          <li><a href="{p}advertising.html">広告掲載について</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <p class="footer-col-heading">お問い合わせ</p>
-        <ul class="footer-col-list">
-          <li>{contact_link}</li>
-          <li><a href="{p}privacy.html">プライバシーポリシー</a></li>
-          <li><a href="{p}disclaimer.html">免責事項</a></li>
-        </ul>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>ABOUT</h3>
+          <ul>
+            <li><a href="{p}about.html">運営者情報</a></li>
+            <li><a href="{p}editorial-policy.html">記事作成方針</a></li>
+            <li><a href="{p}advertising.html">広告掲載について</a></li>
+            <li><a href="{p}sitemap.html">サイトマップ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>SUPPORT</h3>
+          <ul>
+            <li>{contact_link}</li>
+            <li><a href="{p}privacy.html">プライバシーポリシー</a></li>
+            <li><a href="{p}disclaimer.html">免責事項</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-
-    <p class="assoc-note">
-      Amazonのアソシエイトとして、{e(NAME)}は適格販売により収入を得ています。<br>
-      当サイトは、Amazon・楽天市場・Yahoo!ショッピング等のアフィリエイトプログラムに参加しており、記事内の商品リンクを経由した購入により紹介料を得ることがあります。<br>
-      Amazon、Amazon.co.jp およびそれらのロゴは Amazon.com, Inc. またはその関連会社の商標です。当サイトはAmazonの公式サイトではなく、Amazon.com, Inc. およびその関連会社が運営・監修するものではありません。
-    </p>
-
-    <p class="copyright">&copy; {e(SITE["founded"])} {e(NAME)}. All rights reserved.</p>
+    <div class="footer-bottom">
+      <p class="assoc-note">
+        Amazonのアソシエイトとして、{e(NAME)}は適格販売により収入を得ています。
+        当サイトは、Amazon・楽天市場・Yahoo!ショッピング等のアフィリエイトプログラムに参加しており、記事内の商品リンクを経由した購入により紹介料を得ることがあります。<br>
+        Amazon、Amazon.co.jp およびそれらのロゴは Amazon.com, Inc. またはその関連会社の商標です。当サイトはAmazonの公式サイトではなく、Amazon.com, Inc. およびその関連会社が運営・監修するものではありません。
+      </p>
+      <p class="copyright">&copy; {e(SITE["founded"])} {e(NAME)}</p>
+    </div>
   </div>
 </footer>
 
 {sticky}<button class="to-top" id="toTop" aria-label="ページ上部へ戻る">▲</button>
 
-<script src="{p}assets/vendor/motion-mini.min.js" defer></script>
 <script src="{p}assets/main.js?v={ASSET_V}" defer></script>
 </body>
 </html>
 '''
 
+
 def main_block(body, p, current="", current_sub="", sidebar=False, hero_slot="",
                side_search_on=True):
-    """本文の器。一覧ページではPC幅のときだけ左にカテゴリー一覧を置く。
-       スマホでは幅が足りないので出さず、ハンバーガーメニュー側に集約する。"""
-    if not sidebar:
-        return ('\n<main id="top" class="layout">\n  <div class="container">\n'
-                + body + '  </div>\n</main>\n\n')
-    tree = cat_tree(p, current, current_sub, "side")
-    # 3カラムのときは「本日のお勧めのモノ」を左、検索を右に置く。
-    # 2カラムに縮んだときは右列が消えるので、検索は左に残す。
-    # 両方を書き出し、どちらを見せるかはCSSの幅で切り替える。
-    # 検索ページ自身には出さない。同じ画面に検索窓が2つ並んでも迷うだけ。
-    want = FEAT.get("search") and side_search_on
-    search_l = (side_search(p, "only-2col") if want else "")
-    search_r = (side_search(p, "only-3col") if want else "")
-    return ('\n<main id="top" class="layout has-side">\n'
-            '  <div class="container layout-grid">\n'
-            + hero_slot +
-            '    <div class="side-col">\n'
-            + search_l +
-            '    <aside class="side-nav side-tile" aria-label="カテゴリー">\n'
-            '      <p class="side-heading">CATEGORIES</p>\n'
-            + tree +
-            '    </aside>\n'
-            '    </div>\n'
-            '    <div class="layout-main">\n'
-            + body +
-            '    </div>\n'
-            '    <div class="side-rank">\n'
-            + search_r
-            # ランキングのページで右にもランキングを出しても意味が薄いので、
-            # そこだけ新着記事に差し替える。
-            + (latest_panel(p, 5) if current == "ranking" else rank_panel(p, 10))
-            + promo_slot("side", current, "is-side") + ad_slot("side", "is-side")
-            + '    </div>\n'
-            '  </div>\n</main>\n\n')
+    """本文の器。新デザインは左サイドの3カラムを持たない（カテゴリー一覧は
+       ヘッダーのドロップダウンと引き出しメニューに入れた）ので、
+       トップのヒーローだけ器の外に出し、あとは1つの流れに置く。"""
+    # 器の内側で幅を決めない。地の色を敷く区画（is-tinted）を画面の端まで
+    # 届かせたいので、幅の制御は本文側の .container に任せる
+    return ('\n<main id="top" class="layout">\n' + hero_slot + body + '</main>\n\n')
 
 
 def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="", extra_js="", body_class="", crumbs=None, current_sub="", sidebar=False, band="", hero_slot="", side_search_on=True, image="", noindex=False):
@@ -786,6 +805,173 @@ def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="
             + main_block(body, p, current, current_sub, sidebar, hero_slot,
                          side_search_on)
             + footer(p, sticky_url).replace("</body>", extra_js + "</body>"))
+
+# ============================================================ 新デザインの部品
+# ヒーローの背景に敷く設計図の線。写真の周りに置くので線は極細にする
+V2_HERO_DECO = '''<svg class="hero-deco" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse">
+      <circle cx="1.1" cy="1.1" r="1.1" fill="#c9c9c4"/>
+    </pattern>
+  </defs>
+  <g stroke="#dcdcd8" stroke-width="1" fill="none">
+    <path d="M470 0 V760"/><path d="M1150 60 V700"/>
+    <path d="M0 118 H1440"/><path d="M0 645 H1440"/>
+  </g>
+  <g stroke="#d3d3ce" stroke-width="1" fill="none" opacity=".85">
+    <circle cx="612" cy="300" r="118"/>
+    <circle cx="612" cy="300" r="72" stroke-dasharray="3 5"/>
+  </g>
+  <g stroke="#b9b9b3" stroke-width="1.1" stroke-linecap="round">
+    <path d="M525 148 h18 M534 139 v18"/><path d="M690 132 h18 M699 123 v18"/>
+    <path d="M1112 470 h16 M1120 462 v16"/><path d="M905 690 h16 M913 682 v16"/>
+  </g>
+  <rect x="1195" y="196" width="82" height="46" fill="url(#dots)" opacity=".9"/>
+  <rect x="382" y="556" width="58" height="34" fill="url(#dots)" opacity=".7"/>
+  <g stroke="#d8d8d3" stroke-width="1" stroke-dasharray="2 6" fill="none">
+    <path d="M700 0 V760"/><path d="M0 392 H1440"/>
+  </g>
+</svg>'''
+
+V2_IC_VOICE = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" '
+               'stroke-linejoin="round" stroke-linecap="round">'
+               '<path d="M3.5 5.5h17v11h-9.5L6.5 20.5V16.5h-3z"/>'
+               '<path d="M8 9.5h8M8 12.6h5.5"/></svg>')
+V2_IC_ZOOM = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" '
+              'stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.8"/>'
+              '<path d="M15.4 15.4 L21 21M7.6 10.5h5.8M10.5 7.6v5.8"/></svg>')
+V2_IC_CHECK = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" '
+               'stroke-linecap="round" stroke-linejoin="round">'
+               '<path d="M5 12.4 L10 17.2 L19.4 6.8"/></svg>')
+
+
+def v2_section(inner, tinted=False, style=""):
+    cls = "v2-section is-tinted" if tinted else "v2-section"
+    st = f' style="{style}"' if style else ""
+    return (f'  <section class="{cls}"{st}>\n    <div class="container">\n'
+            + inner + '    </div>\n  </section>\n')
+
+
+def v2_sec_head(en, ja):
+    return (f'      <div class="sec-head"><span class="rule"></span>'
+            f'<span class="titles"><span class="en">{en}</span><br>'
+            f'<span class="ja">{e(ja)}</span></span><span class="rule"></span></div>\n')
+
+
+def v2_sec_more(href, label="VIEW ALL"):
+    """一覧へ送る導線は、見出しの横ではなくタイルの下の中央に置く。
+       スマホでは6件目をわざと切って、続きがここにあることを示す。"""
+    return f'      <div class="sec-more"><a href="{e(href)}">{label}</a></div>\n'
+
+
+def v2_card(a, p):
+    src, _ = visual_path(a, p)
+    title = a.get("list_title") or a["title"]
+    return (f'<a class="card" href="{p}articles/{e(a["slug"])}.html">'
+            f'<span class="card-thumb"><img src="{e(src)}" alt="" loading="lazy"></span>'
+            f'<span class="card-date">{e(a.get("date",""))}</span>'
+            f'<span class="card-title">{e(title)}</span>'
+            f'<span class="card-cat">{e(CAT_LABEL.get(a.get("category",""),""))}</span></a>')
+
+
+def v2_row(a, p, numbered=None):
+    src, _ = visual_path(a, p)
+    no = (f'<span class="row-no">{numbered:02d}</span>' if numbered else "")
+    return (f'<a class="row-item" href="{p}articles/{e(a["slug"])}.html">'
+            f'{no}<span class="thumb"><img src="{e(src)}" alt="" loading="lazy"></span>'
+            f'<span><h3>{e(a["title"])}</h3>'
+            f'<p>{e(a.get("excerpt",""))}</p>'
+            f'<span class="meta">{e(a.get("date",""))}　/　'
+            f'{e(CAT_LABEL.get(a.get("category",""),""))}</span></span></a>')
+
+
+def v2_rows(items, p, numbered=False, narrow=False):
+    cls = "row-list is-narrow" if narrow else "row-list"
+    inner = "".join(v2_row(a, p, (i + 1) if numbered else None)
+                    for i, a in enumerate(items))
+    return f'      <div class="{cls}">{inner}</div>\n'
+
+
+def v2_cat_image(c, p):
+    """カテゴリー枠の写真。site.json の image に入れた1枚を固定で出す
+       （管理画面のサイト設定「カテゴリーの写真」から選ぶ）。
+       まだ決めていないカテゴリーは、そのカテゴリーの最新記事の写真で代用する。"""
+    src = (c.get("image") or "").strip()
+    if src:
+        return f'<img src="{p}{e(src)}" alt="" loading="lazy">'
+    for a in PUBLISHED:
+        if a.get("category") == c["key"] and a.get("thumb"):
+            return f'<img src="{p}{e(a["thumb"])}" alt="" loading="lazy">'
+    return ""
+
+
+def v2_cat_grid(p):
+    counts = {c["key"]: len([a for a in PUBLISHED if a.get("category") == c["key"]])
+              for c in CATS}
+    cells = "".join(
+        f'<a class="cat-cell" href="{p}category-{c["key"]}.html">'
+        f'<span class="cat-thumb">{v2_cat_image(c, p)}</span>'
+        f'<span class="cat-body"><span class="n">{i+1:02d}</span>'
+        f'<span class="l">{e(c["label"])}</span>'
+        f'<span class="c">{counts[c["key"]]} 記事</span></span></a>'
+        for i, c in enumerate(CATS))
+    return f'      <div class="cat-grid">{cells}</div>\n'
+
+
+def v2_hero(p):
+    points = [
+        (V2_IC_VOICE, "口コミを分析", "口コミを分析", "良い点も悪い点も<br>包み隠さず紹介"),
+        (V2_IC_ZOOM, "徹底調査", "徹底調査", "仕様・価格・競合まで<br>多角的に比較"),
+        (V2_IC_CHECK, "購入判断をサポート", "購入を判断", "向いている人・向いていない人を<br>明確に整理"),
+    ]
+    # 3つ目はスマホの3列だと2行に割れるので、短い言い方を別に持たせる
+    pt = "".join(
+        f'<div class="hero-point"><span class="ic">{ic}</span>'
+        f'<div><h3><span class="wide">{t}</span><span class="narrow">{sh}</span></h3>'
+        f'<p>{d}</p></div></div>' for ic, t, sh, d in points)
+    return f'''  <section class="hero">
+    {V2_HERO_DECO}
+    <div class="container">
+      <div class="hero-mark">
+        <div class="num">01</div>
+        <div class="txt">MONOBASE</div>
+        <div class="txt">SINCE {e(SITE.get("founded","2026"))}</div>
+        <div class="bar"></div>
+      </div>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <h1 class="hero-title">良い点も、不満点も。</h1>
+          <p class="hero-sub">買う前に「リアル」が見える<br>商品紹介サイト</p>
+          <div class="hero-rule"></div>
+          <p class="hero-desc">口コミ・仕様・価格を徹底的に調査し、<br>購入判断に必要な情報を整理してお届けします。</p>
+        </div>
+        <figure class="hero-figure">
+          <img src="{p}assets/img/hero-box.jpg" alt="{e(NAME)}" width="622" height="622">
+        </figure>
+        <div class="hero-points">{pt}</div>
+      </div>
+    </div>
+  </section>
+'''
+
+
+def v2_page_head(title, crumbs=None, lead="", count=None, extra=""):
+    """下層ページの見出し。パンくず・タイトル・説明を表示領域の中央にそろえる。"""
+    cr = ""
+    if crumbs:
+        parts = []
+        for label, href in crumbs:
+            parts.append(f'<a href="{e(href)}">{e(label)}</a>' if href else e(label))
+        cr = '<p class="crumbs">' + "<span>/</span>".join(parts) + "</p>\n    "
+    ld = f'<p class="lead">{e(lead)}</p>\n    ' if lead else ""
+    ct = f'<p class="count">{count} ARTICLES</p>\n    ' if count is not None else ""
+    return f'''  <div class="page-head">
+    <div class="container">
+      {cr}<h1>{e(title)}</h1>
+      {ld}{ct}{extra}
+    </div>
+  </div>
+'''
 
 # ============================================================ 部品
 def thumb(a, p):
@@ -1847,6 +2033,18 @@ def render_article(a):
     # 組み立ての最後にまとめてやるので、貼り漏れが起きない。
     body_html = link_past_articles("".join(b), slug, p)
 
+    # 記事の中身（商品表・購入リンク・広告枠）は組み方を変えず、
+    # 器だけ新デザインに合わせる。中身を作り直すと、収益に関わる部分が
+    # 黙って壊れるおそれがあるため。
+    crumbs_html = (
+        '  <div class="container">\n    <p class="crumbs is-article">'
+        f'<a href="{p}index.html">ホーム</a><span>/</span>'
+        f'<a href="{p}category-{cat}.html">{e(CAT_LABEL.get(cat, ""))}</a>'
+        '<span>/</span>' + e(a.get("list_title") or a["title"]) + '</p>\n  </div>\n')
+    body_html = (crumbs_html
+                 + '  <div class="container">\n    <div class="article-page">\n'
+                 + body_html + '    </div>\n  </div>\n')
+
     return page(f'{a["title"]} - {NAME}', a.get("description") or a.get("excerpt",""),
                 cat, p, url, body_html,
                 sticky_url=(shop_links(a)[0][2] if shop_links(a) else None),
@@ -2113,59 +2311,42 @@ POLICY = [
 
 def build_index():
     p = "./"
-    feat = [a for a in PUBLISHED if a.get("featured")][:3]
-    latest = PUBLISHED[:11]
-    n_pub = len(PUBLISHED)
-    n_cat = len([c for c in CATS if any(a["category"] == c["key"] for a in PUBLISHED)])
-    # 記事のあるカテゴリー名。表示する3つはページを開くたびにJSが選ぶ。
-    cat_names = html.escape(json.dumps(
-        [c["label"] for c in CATS
-         if c["key"] != "feature" and any(a["category"] == c["key"] for a in PUBLISHED)],
-        ensure_ascii=False), quote=True)
-    # ヒーローバナー。ヘッダー直下の帯ではなく、本文の先頭に置く
-    # 独立したタイルにする（サイトの主張はヘッダーにも出ているため、
-    # ここでは見出しと記事数だけに絞って高さを抑える）。
-    band = ""
-    # 見出しバナー。「このサイトの読み方」は畳んでおき、押すと開く。
-    # 常に出しておくと縦を取りすぎるが、隠しておくと信頼の材料が伝わらない。
-    # 見出しの文言は content/site.json（管理画面のサイト設定）で決める。
-    # accent に入れた語だけ、マーカーを引いた見た目にする。
-    # 文字送りの演出はやめ、最初から全文を出す（枠はオレンジの線で囲み、
-    # 背景は下の記事が薄く透けるくらいの不透明度にする＝CSS側の .hero-tile）。
-    hero_tile = (
-        '      <section class="hero-tile">\n'
-        '        <h1 class="fit-line hero-strong">良い点も、不満点も。</h1>\n'
-        '        <p class="hero-strong">買う前に「リアル」が見える商品紹介サイト</p>\n'
-        '        <p class="hero-desc">ネット上の膨大な口コミから独自に分析。<br>'
-        '人それぞれに合う・合わないの基準を整理し記事を作成しています。</p>\n'
-        '        <div class="hero-cta-row">\n'
-        f'          <a class="btn-hero" href="{p}editorial-policy.html">このサイトの活用法'
-        '<span class="btn-hero-arrow" aria-hidden="true">›</span></a>\n'
-        f'          <a class="btn-hero" href="{p}ranking.html">人気の記事を見る'
-        '<span class="btn-hero-arrow" aria-hidden="true">›</span></a>\n'
-        '        </div>\n'
-        + (SEARCH_TILE if FEAT.get("search") else "") +
-        '      </section>\n')
-    # トップに置く区画。並び順と表示・非表示は content/site.json の
-    # layout.top で決める（管理画面からドラッグして入れ替えられる）。
-    blocks = {
-        "new":        lambda: news_rail(latest, p),
-        "feature":    lambda: feature_cards(p),
-        "ranking":    lambda: mobile_ranking(p),
-        "categories": lambda: cat_finder(p),
-    }
-    body = ""
-    hero_on = True
-    for item in top_layout():
-        if item["key"] == "hero":
-            hero_on = item.get("on", True)
-            continue
-        make = blocks.get(item["key"])
-        if make and item.get("on", True):
-            # PCで並び替えられるよう、区画ごとに印を付けておく
-            body += f'<div class="tb" data-tb="{item["key"]}">\n' + make() + '</div>\n'
-    hero_slot = ('    <div class="hero-slot">\n' + hero_tile + '    </div>\n'
-                 if hero_on else "")
+    # 新着を先に出し、ピックアップは新着と重ならないものから選ぶ。
+    # スマホは6件目をわざと切って続きを示すので6本ずつ渡し、
+    # PCは4列ちょうどに収めたいので5本目から先を CSS で隠している。
+    latest = PUBLISHED[:6]
+    picks = [a for a in PUBLISHED if a.get("featured") and a not in latest]
+    for a in PUBLISHED:
+        if len(picks) >= 6:
+            break
+        if a not in picks and a not in latest:
+            picks.append(a)
+    picks = picks[:6]
+
+    body = v2_section(
+        v2_sec_head("NEW", "新着記事")
+        + '      <div class="card-grid">' + "".join(v2_card(a, p) for a in latest) + "</div>\n"
+        + v2_sec_more(f"{p}new.html"), tinted=True)
+
+    if picks:
+        body += v2_section(
+            v2_sec_head("PICK UP", "ピックアップ記事")
+            + '      <div class="card-grid">' + "".join(v2_card(a, p) for a in picks) + "</div>\n"
+            + v2_sec_more(f"{p}ranking.html"))
+
+    slots = promo_slot("top", "", "is-wide") + ad_slot("top")
+    if slots.strip():
+        body += v2_section(slots)
+
+    body += v2_section(
+        v2_sec_head("CATEGORY", "カテゴリーから探す")
+        + v2_cat_grid(p) + v2_sec_more(f"{p}sitemap.html"))
+
+    body += v2_section(
+        v2_sec_head("RANKING", "よく読まれている記事")
+        + v2_rows(PUBLISHED[:5], p, numbered=True, narrow=True)
+        + v2_sec_more(f"{p}ranking.html"))
+
     # サイトそのものの構造化データ。検索結果にサイト名と検索窓を出す材料。
     site_ld = [
         {"@context": "https://schema.org", "@type": "WebSite",
@@ -2185,115 +2366,138 @@ def build_index():
     ld_js = "".join('<script type="application/ld+json">'
                     + json.dumps(x, ensure_ascii=False) + "</script>\n"
                     for x in site_ld)
-    return page(f"{NAME}｜{TAGLINE}", SITE["description"], "all", p, BASE_URL + "/", body,
-                body_class="is-listing is-home", sidebar=True, band=band,
-                hero_slot=hero_slot, extra_js=ld_js,
+    return page(f"{NAME}｜{TAGLINE}", SITE["description"], "home", p, BASE_URL + "/", body,
+                body_class="is-home", hero_slot=v2_hero(p), extra_js=ld_js,
                 image=(PUBLISHED[0].get("thumb") if PUBLISHED else ""))
+
+def v2_sub_nav(c, p, current_sub=""):
+    """カテゴリー一覧の絞り込み。記事0件のサブ区分は出さない
+       （押しても空の一覧になるため）。選択中は地を反転させて示す。"""
+    subs = []
+    for sc in c.get("sub", []):
+        n = len([a for a in PUBLISHED
+                 if a["category"] == c["key"] and a.get("sub") == sc["key"]])
+        if n:
+            subs.append((sc, n))
+    if not subs:
+        return ""
+    total = len([a for a in PUBLISHED if a["category"] == c["key"]])
+    items = [f'<a class="sub-chip{"" if current_sub else " is-on"}" '
+             f'href="{p}category-{c["key"]}.html">すべて<span class="n">{total}</span></a>']
+    for sc, n in subs:
+        on = " is-on" if current_sub == sc["key"] else ""
+        items.append(f'<a class="sub-chip{on}" '
+                     f'href="{p}category-{c["key"]}-{sc["key"]}.html">'
+                     f'{e(sc["label"])}<span class="n">{n}</span></a>')
+    return ('<div class="sub-nav"><span class="sub-nav-label">絞り込み</span>'
+            f'<div class="sub-chips">{"".join(items)}</div></div>')
+
 
 def build_category(c):
     p = "./"
     items = [a for a in PUBLISHED if a["category"] == c["key"]]
-    body = ""
-    body += hero(icon(c["key"], "page-icon"), c["label"] + "の記事", c["lead"], len(items))
-    if FEAT.get("search"):
-        body += SEARCH_BOX
-    body += ('      <section class="section-block" style="margin-top:24px;">\n'
-             + article_rows(items, p) +
-             '      </section>\n')
+    body = v2_page_head(c["label"] + "の記事",
+                        crumbs=[("ホーム", f"{p}index.html"), (c["label"], None)],
+                        lead=c["lead"], count=len(items),
+                        extra=v2_sub_nav(c, p))
+    body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
     return page(f'{c["label"]}の記事一覧 - {NAME}',
                 c["lead"][:110], c["key"], p,
                 f'{BASE_URL}/category-{c["key"]}.html', body,
-                body_class="is-listing", sidebar=True,
+                body_class="is-listing",
                 image=(items[0].get("thumb") if items else ""),
                 extra_js=breadcrumb_ld([
                     ("ホーム", f"{BASE_URL}/"),
-                    (c["label"], f'{BASE_URL}/category-{c["key"]}.html')]),
-                crumbs=[("ホーム", f"{p}index.html"), (c["label"], None)])
+                    (c["label"], f'{BASE_URL}/category-{c["key"]}.html')]))
+
 
 def build_subcategory(c, sc):
     """サブカテゴリーの一覧ページ。記事が1本以上あるときだけ作る。"""
     p = "./"
     items = [a for a in PUBLISHED
              if a["category"] == c["key"] and a.get("sub") == sc["key"]]
-    body = hero(icon(c["key"], "page-icon"), sc["label"],
-                f'{c["label"]}のうち、{sc["label"]}に分類した記事です。', len(items))
-    body += ('      <section class="section-block" style="margin-top:24px;">\n'
-             + article_rows(items, p) +
-             '      </section>\n')
+    body = v2_page_head(sc["label"],
+                        crumbs=[("ホーム", f"{p}index.html"),
+                                (c["label"], f'{p}category-{c["key"]}.html'),
+                                (sc["label"], None)],
+                        lead=f'{c["label"]}のうち、{sc["label"]}に分類した記事です。',
+                        count=len(items),
+                        extra=v2_sub_nav(c, p, sc["key"]))
+    body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
     return page(f'{sc["label"]}の記事一覧 - {NAME}',
                 f'{NAME}の{sc["label"]}に関する記事一覧です。購入者レビューと仕様をもとに整理しています。',
                 c["key"], p,
                 f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html', body,
-                body_class="is-listing", sidebar=True, current_sub=sc["key"],
+                body_class="is-listing", current_sub=sc["key"],
                 image=(items[0].get("thumb") if items else ""),
                 extra_js=breadcrumb_ld([
                     ("ホーム", f"{BASE_URL}/"),
                     (c["label"], f'{BASE_URL}/category-{c["key"]}.html'),
-                    (sc["label"], f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html')]),
-                crumbs=[("ホーム", f"{p}index.html"),
-                        (c["label"], f'{p}category-{c["key"]}.html'),
-                        (sc["label"], None)])
+                    (sc["label"], f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html')]))
 
 
 def build_new():
-    """新着一覧。スマホのタブ「NEW」の行き先。"""
+    """新着一覧。トップの NEW からの行き先。"""
     p = "./"
     items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)[:24]
-    body = hero(icon("new", "page-icon"), "新着記事", "公開から3日以内の記事には New が付きます。")
-    body += ('      <section class="section-block" style="margin-top:24px;">\n'
-             '        <div class="rank-box">\n'
-             '          <p class="rank-heading">LATEST ARTICLES</p>\n'
-             + article_rows(items, p) +
-             '        </div>\n'
-             '      </section>\n')
+    body = v2_page_head("新着記事",
+                        crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)],
+                        lead="公開の新しい順に並べています。", count=len(items))
+    body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
     return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。", "new", p,
-                f"{BASE_URL}/new.html", body, body_class="is-listing", sidebar=True,
-                crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)])
+                f"{BASE_URL}/new.html", body, body_class="is-listing")
 
 
 def build_ranking():
-    """アクセスランキングのページ。スマホのタブ「RANKING」の行き先。"""
+    """よく読まれている記事のページ。"""
     p = "./"
-    body = hero(icon("rank", "page-icon"), "アクセスランキング",
-                "よく読まれている記事を上位から並べています。", None)
-    body += ('      <section class="section-block" style="margin-top:24px;">\n'
-             '        <div class="rank-page">\n'
-             + rank_panel(p, 10) +
-             '        </div>\n      </section>\n')
-    return page(f"アクセスランキング - {NAME}",
+    body = v2_page_head("よく読まれている記事",
+                        crumbs=[("ホーム", f"{p}index.html"), ("よく読まれている記事", None)],
+                        lead="読まれている順に並べています。")
+    body += v2_section('      <div class="rank-page">\n' + rank_panel(p, 10)
+                       + '      </div>\n', style="padding:40px 0 80px")
+    return page(f"よく読まれている記事 - {NAME}",
                 f"{NAME}でよく読まれている記事のランキングです。", "ranking", p,
-                f"{BASE_URL}/ranking.html", body, body_class="is-listing", sidebar=True,
-                crumbs=[("ホーム", f"{p}index.html"), ("アクセスランキング", None)])
+                f"{BASE_URL}/ranking.html", body, body_class="is-listing")
 
 
 def build_sitemap():
-    """人が読むサイトマップ。ハンバーガーメニューからの行き先。
+    """人が読むサイトマップ。ヘッダーの CATEGORY と引き出しメニューからの行き先。
        検索エンジン向けの sitemap.xml とは別物で、こちらは
        「どこに何があるか」を一枚で見渡すための一覧。"""
     p = "./"
-    body = hero(icon("cats", "page-icon"), "サイトマップ",
-                "サイト内のページを一覧にまとめています。", None)
 
-    # ---- 主要ページ ----
+    def links(items):
+        return "".join(f'<li><a href="{e(u)}">{e(t)}</a></li>' for t, u in items)
+
     main_links = [("ホーム", f"{p}index.html"), ("新着記事", f"{p}new.html"),
-                  ("アクセスランキング", f"{p}ranking.html")]
+                  ("よく読まれている記事", f"{p}ranking.html")]
     if FEAT.get("search"):
         main_links.append(("サイト内検索", f"{p}search.html"))
-    main_links += [("運営者情報", f"{p}about.html"),
+    if FEAT.get("contact_form"):
+        main_links.append(("お問い合わせ", f"{p}contact.html"))
+    about_links = [("運営者情報", f"{p}about.html"),
                    ("記事作成方針", f"{p}editorial-policy.html"),
                    ("広告掲載について", f"{p}advertising.html"),
                    ("プライバシーポリシー", f"{p}privacy.html"),
                    ("免責事項", f"{p}disclaimer.html")]
-    if FEAT.get("contact_form"):
-        main_links.append(("お問い合わせ", f"{p}contact.html"))
-    items = "".join(f'          <li><a href="{e(u)}">{e(t)}</a></li>\n'
-                    for t, u in main_links)
-    body += ('      <section class="section-block sm-block">\n'
-             '        <h2 class="section-heading">主要なページ</h2>\n'
-             f'        <ul class="sm-links">\n{items}        </ul>\n'
-             '      </section>\n')
 
-    # ---- カテゴリーと、その中の記事 ----
+    inner = ('      <div class="sitemap-cols">\n'
+             '        <div class="sitemap-block"><h2 class="en-label">MAIN</h2>\n'
+             f'          <ul class="sitemap-list">{links(main_links)}</ul></div>\n'
+             '        <div class="sitemap-block"><h2 class="en-label">ABOUT</h2>\n'
+             f'          <ul class="sitemap-list">{links(about_links)}</ul></div>\n'
+             '      </div>\n')
+
+    # ---- カテゴリー。サブ区分は記事のあるものだけ出す ----
+    cat_rows = ""
+    for c in CATS:
+        n = len([a for a in PUBLISHED if a["category"] == c["key"]])
+        cat_rows += (f'<li><a href="{p}category-{c["key"]}.html">{e(c["label"])}'
+                     f'<span class="n">{n}</span></a></li>')
+    inner += ('      <div class="sitemap-block is-wide"><h2 class="en-label">CATEGORY</h2>\n'
+              f'        <ul class="sitemap-list is-cols">{cat_rows}</ul></div>\n')
+
     for c in CATS:
         arts = [a for a in PUBLISHED if a["category"] == c["key"]]
         if not arts:
@@ -2301,78 +2505,68 @@ def build_sitemap():
         subs = ""
         for sc in c.get("sub", []):
             n = len([a for a in arts if a.get("sub") == sc["key"]])
-            if not n:
-                continue
-            subs += (f'          <li><a href="{p}category-{c["key"]}-{sc["key"]}.html">'
-                     f'{e(sc["label"])}<span class="sm-num">{n}</span></a></li>\n')
+            if n:
+                subs += (f'<li><a href="{p}category-{c["key"]}-{sc["key"]}.html">'
+                         f'{e(sc["label"])}<span class="n">{n}</span></a></li>')
         rows = "".join(
-            f'          <li><a href="{p}articles/{e(a["slug"])}.html">'
-            f'{e(a.get("list_title") or a["title"])}</a></li>\n' for a in arts)
-        body += ('      <section class="section-block sm-block">\n'
-                 '        <h2 class="section-heading">'
-                 f'{icon(c["key"])}{e(c["label"])}</h2>\n'
-                 f'        <p class="sm-all"><a href="{p}category-{c["key"]}.html">'
-                 f'{e(c["label"])}の記事をすべて見る（{len(arts)}）</a></p>\n'
-                 + (f'        <ul class="sm-links sm-subs">\n{subs}        </ul>\n' if subs else "")
-                 + f'        <ul class="sm-links sm-arts">\n{rows}        </ul>\n'
-                 '      </section>\n')
+            f'<li><a href="{p}articles/{e(a["slug"])}.html">'
+            f'{e(a.get("list_title") or a["title"])}'
+            f'<span class="n">{e(a.get("date",""))}</span></a></li>' for a in arts)
+        inner += ('      <div class="sitemap-block is-wide">'
+                  f'<h2 class="en-label">{e(c["label"])}</h2>\n'
+                  + (f'        <ul class="sitemap-list is-cols">{subs}</ul>\n' if subs else "")
+                  + f'        <ul class="sitemap-list is-cols">{rows}</ul></div>\n')
 
+    body = v2_page_head("サイトマップ",
+                        crumbs=[("ホーム", f"{p}index.html"), ("サイトマップ", None)],
+                        lead="このサイトにあるページの一覧です。")
+    body += v2_section(inner, style="padding:40px 0 80px")
     return page(f"サイトマップ - {NAME}",
                 f"{NAME}のサイトマップ。カテゴリーと記事の一覧です。", "", p,
-                f"{BASE_URL}/sitemap.html", body, body_class="is-listing",
-                sidebar=True,
-                crumbs=[("ホーム", f"{p}index.html"), ("サイトマップ", None)])
+                f"{BASE_URL}/sitemap.html", body, body_class="is-listing")
 
 
 def build_search():
     p = "./"
     tags = sorted({t for a in PUBLISHED for t in a.get("tags", [])})
-    chips = "".join(f'          <button type="button" class="chip" data-tag="{e(t)}">{e(t)}</button>\n'
+    chips = "".join(f'<button type="button" class="chip" data-tag="{e(t)}">{e(t)}</button>'
                     for t in tags)
-    catchips = "".join(f'          <button type="button" class="chip" data-cat="{c["key"]}">'
-                       f'{icon(c["key"], "chip-icon")}{e(c["label"])}</button>\n'
-                       for c in CATS)
-    body = f'''{hero(icon("search", "page-icon"), "サイト内検索", "キーワードやタグから記事を探せます。すべてブラウザ内で動作するため、入力内容が送信されることはありません。")}
-      <div class="search-panel">
-        <form class="searchbox" role="search" onsubmit="return false;">
+    catchips = "".join(f'<button type="button" class="chip" data-cat="{c["key"]}">'
+                       f'{e(c["label"])}</button>' for c in CATS)
+    inner = f'''      <div class="search-panel">
+        <form class="search-field" role="search" onsubmit="return false;">
+          <span class="ic" aria-hidden="true">{IC_SEARCH_V2}</span>
           <input type="search" id="searchInput" placeholder="キーワードを入力" aria-label="サイト内検索" autocomplete="off">
           <button type="button" id="searchClear">クリア</button>
         </form>
 
         <div class="chip-group is-open" id="catGroup">
-          <button type="button" class="chip-toggle" aria-expanded="true" aria-controls="catChips">
-            <span class="chip-label">カテゴリー</span>
-            <span class="chip-picked" hidden></span>
-            <span class="chip-caret" aria-hidden="true"></span>
-          </button>
-          <div class="chips" id="catChips">
-{catchips}          </div>
+          <p class="chip-label en-label">CATEGORY</p>
+          <div class="chips" id="catChips">{catchips}</div>
         </div>
 
         <div class="chip-group is-open" id="tagGroup">
-          <button type="button" class="chip-toggle" aria-expanded="true" aria-controls="tagChips">
-            <span class="chip-label">タグ</span>
-            <span class="chip-picked" hidden></span>
-            <span class="chip-caret" aria-hidden="true"></span>
-          </button>
-          <div class="chips" id="tagChips">
-{chips}          </div>
+          <p class="chip-label en-label">TAG</p>
+          <div class="chips is-scroll" id="tagChips">{chips}</div>
         </div>
 
         <p class="search-status" id="searchStatus" aria-live="polite"></p>
       </div>
 
-      <section class="section-block" style="margin-top:20px;">
-        <ol class="arow-list" id="searchResults"></ol>
-        <p class="empty-state" id="searchEmpty" hidden>該当する記事が見つかりませんでした。キーワードを短くするか、タグの選択を解除してみてください。</p>
-      </section>
+      <div class="row-list" id="searchResults"></div>
+      <p class="empty-state" id="searchEmpty" hidden>該当する記事が見つかりませんでした。<br>
+        キーワードを短くするか、カテゴリー・タグの選択を外してみてください。</p>
 '''
+    body = v2_page_head("サイト内検索",
+                        crumbs=[("ホーム", f"{p}index.html"), ("サイト内検索", None)],
+                        lead="キーワード・カテゴリー・タグから記事を探せます。"
+                             "検索はすべてブラウザの中で動くので、入力した内容が送信されることはありません。")
+    body += v2_section(inner, style="padding:36px 0 80px")
     return page(f"サイト内検索 - {NAME}", f"{NAME}のサイト内検索。キーワードとタグで記事を絞り込めます。",
                 "search", p, BASE_URL + "/search.html", body,
                 extra_js=f'<script src="./assets/search.js?v={ASSET_V}"></script>\n',
-                body_class="is-listing", sidebar=True, side_search_on=False,
-                noindex=True,
-                crumbs=[("ホーム", f"{p}index.html"), ("サイト内検索", None)])
+                body_class="is-listing", noindex=True)
+
 
 # ============================================================ Worker
 def worker_js(maintenance):
@@ -2662,27 +2856,23 @@ def static_pages():
         ("advertising.html", "広告掲載について",
          f"{NAME}の広告・アフィリエイトプログラムについて、およびレビュー・掲載のご依頼について記載しています。", advertising),
     ]:
-        body = (                f'      <div class="page-hero"><h1>{e(title)}</h1></div>\n'
-                f'      <div class="prose">\n{content}\n      </div>\n')
-        bcls = ("is-centered-static"
-                if fname in ("editorial-policy.html", "about.html", "advertising.html")
-                else "")
-        out.append((fname, page(f"{title} - {NAME}", desc, "", p,
-                                f"{BASE_URL}/{fname}", body, body_class=bcls,
-                                crumbs=[("ホーム", f"{p}index.html"), (title, None)])))
+        body = v2_page_head(title,
+                            crumbs=[("ホーム", f"{p}index.html"), (title, None)])
+        body += ('  <div class="container">\n    <div class="static-wrap">\n'
+                 f'{content}\n    </div>\n  </div>\n')
+        cur = "POLICY" if fname == "editorial-policy.html" else ""
+        out.append((fname, page(f"{title} - {NAME}", desc, cur, p,
+                                f"{BASE_URL}/{fname}", body)))
 
     # メンテナンス画面（features.maintenance が true のときだけ表示される）
     mnote = SITE.get("maintenance_message") or "ただいまサイトの準備・調整を行っています。"
-    bodym = f'''      <div class="page-hero" style="text-align:center;">
-        <div class="page-hero-head" style="justify-content:center;">
-          <span class="page-hero-icon" aria-hidden="true">{icon("tool", "page-icon")}</span><h1>ただいま準備中です</h1>
-        </div>
-        <p>{e(mnote)}</p>
-      </div>
-      <div class="prose" style="text-align:center;">
-        <p>もうしばらくお待ちください。準備が整いしだい公開します。</p>
-        <p class="field-hint">お急ぎのご用件は <a href="mailto:{e(SITE["email"])}">{e(SITE["email"])}</a> までお願いします。</p>
-      </div>
+    bodym = v2_page_head("ただいま準備中です", lead=mnote)
+    bodym += f'''  <div class="container">
+    <div class="static-wrap" style="text-align:center;margin:0 auto;">
+      <p>もうしばらくお待ちください。準備が整いしだい公開します。</p>
+      <p class="updated">お急ぎのご用件は <a href="mailto:{e(SITE["email"])}">{e(SITE["email"])}</a> までお願いします。</p>
+    </div>
+  </div>
 '''
     out.append(("maintenance.html",
                 page(f"準備中 - {NAME}", "ただいま準備中です。", "", p,
@@ -2690,13 +2880,35 @@ def static_pages():
                      extra_head='<meta name="robots" content="noindex,nofollow">\n')))
 
     # 404
-    body404 = f'''      <div class="page-hero" style="text-align:center;">
-        <span class="page-hero-icon" aria-hidden="true">{icon("search", "page-icon")}</span>
-        <h1>ページが見つかりませんでした</h1>
-        <p>お探しのページは移動または削除された可能性があります。<br>下記から目的の記事をお探しください。</p>
-      </div>
-{SEARCH_BOX}      <div class="cta-wrap"><a class="btn-sub" href="{p}index.html">トップページへ戻る</a></div>
+    # 記事のないカテゴリーは出さない。行き止まりから空の一覧へ送っても仕方がない
+    nf_cats = "".join(
+        f'<a class="nf-cat" href="{p}category-{c["key"]}.html">'
+        f'<span class="l">{e(c["label"])}</span><span class="n">{n}</span></a>'
+        for c, n in ((c, len([a for a in PUBLISHED if a["category"] == c["key"]]))
+                     for c in CATS) if n)
+    body404 = f'''  <div class="notfound">
+    <div class="container">
+      <p class="nf-code en-label">404 / NOT FOUND</p>
+      <h1>ページが見つかりませんでした</h1>
+      <p class="nf-lead">お探しのページは移動または削除された可能性があります。<br>
+        キーワードで探すか、下のカテゴリーからお進みください。</p>
+      <form class="search-field is-center" role="search" action="{p}search.html">
+        <span class="ic" aria-hidden="true">{IC_SEARCH_V2}</span>
+        <input type="search" name="q" placeholder="キーワードを入力" aria-label="サイト内検索">
+        <button type="submit">検索</button>
+      </form>
+      <p class="nf-back"><a class="btn-line" href="{p}index.html">トップページへ戻る</a></p>
+    </div>
+  </div>
 '''
+    body404 += v2_section(v2_sec_head("CATEGORY", "カテゴリーから探す")
+                          + f'      <div class="nf-cats">{nf_cats}</div>\n',
+                          style="padding:56px 0 0")
+    body404 += v2_section(v2_sec_head("NEW", "新着記事")
+                          + '      <div class="card-grid">'
+                          + "".join(v2_card(a, p) for a in PUBLISHED[:6]) + "</div>\n"
+                          + v2_sec_more(f"{p}new.html"),
+                          style="padding:56px 0 88px")
     out.append(("404.html", page(f"ページが見つかりません - {NAME}",
                                  "お探しのページは見つかりませんでした。", "", p,
                                  f"{BASE_URL}/404.html", body404)))
@@ -2704,86 +2916,88 @@ def static_pages():
     # お問い合わせフォーム（features.contact_form が true のときだけ生成）
     if FEAT.get("contact_form"):
         endpoint = FEAT.get("contact_form_endpoint", "").strip()
-        body = f'''      <div class="page-hero"><h1>お問い合わせ</h1>
-        <p>記事内容の誤りのご指摘、掲載・レビューのご依頼、その他のご連絡はこちらからお願いします。内容を確認のうえ、通常3営業日以内にご返信します。</p>
-      </div>
+        body = v2_page_head("お問い合わせ",
+                            crumbs=[("ホーム", f"{p}index.html"), ("お問い合わせ", None)],
+                            lead="記事内容の誤りのご指摘、掲載・レビューのご依頼、その他のご連絡はこちらからお願いします。"
+                                 "内容を確認のうえ、通常3営業日以内にご返信します。")
+        body += f'''  <div class="container">
+    <div class="contact-wrap">
+      <form class="v2-form contact-form" id="contactForm"
+            data-endpoint="{e(endpoint)}" data-mailto="{e(SITE["email"])}"
+            action="{e(endpoint) or "mailto:" + e(SITE["email"])}" method="POST" novalidate>
 
-      <div class="contact-wrap">
-        <form class="contact-form" id="contactForm"
-              data-endpoint="{e(endpoint)}" data-mailto="{e(SITE["email"])}"
-              action="{e(endpoint) or "mailto:" + e(SITE["email"])}" method="POST" novalidate>
+        <div class="field">
+          <label for="cf-topic">ご用件</label>
+          <select id="cf-topic" name="topic">
+            <option>記事内容についてのご指摘・ご質問</option>
+            <option>掲載・レビューのご依頼</option>
+            <option>取材・執筆のご依頼</option>
+            <option>広告・提携について</option>
+            <option>その他</option>
+          </select>
+        </div>
 
-          <div class="field">
-            <label for="cf-topic">ご用件</label>
-            <select id="cf-topic" name="topic">
-              <option>記事内容についてのご指摘・ご質問</option>
-              <option>掲載・レビューのご依頼</option>
-              <option>取材・執筆のご依頼</option>
-              <option>広告・提携について</option>
-              <option>その他</option>
-            </select>
-          </div>
+        <div class="field">
+          <label for="cf-name">お名前 <span class="req">必須</span></label>
+          <input type="text" id="cf-name" name="name" autocomplete="name"
+                 required maxlength="80" placeholder="山田 太郎">
+          <p class="field-error" id="cf-name-err" hidden></p>
+        </div>
 
-          <div class="field">
-            <label for="cf-name">お名前 <span class="req">必須</span></label>
-            <input type="text" id="cf-name" name="name" autocomplete="name"
-                   required maxlength="80" placeholder="山田 太郎">
-            <p class="field-error" id="cf-name-err" hidden></p>
-          </div>
+        <div class="field">
+          <label for="cf-email">メールアドレス <span class="req">必須</span></label>
+          <input type="email" id="cf-email" name="email" autocomplete="email"
+                 required maxlength="120" placeholder="you@example.com">
+          <p class="hint">ご返信先です。お間違いのないようご確認ください。</p>
+          <p class="field-error" id="cf-email-err" hidden></p>
+        </div>
 
-          <div class="field">
-            <label for="cf-email">メールアドレス <span class="req">必須</span></label>
-            <input type="email" id="cf-email" name="email" autocomplete="email"
-                   required maxlength="120" placeholder="you@example.com">
-            <p class="field-hint">ご返信先です。お間違いのないようご確認ください。</p>
-            <p class="field-error" id="cf-email-err" hidden></p>
-          </div>
+        <div class="field">
+          <label for="cf-url">該当ページのURL</label>
+          <input type="url" id="cf-url" name="page_url" maxlength="300"
+                 placeholder="https://{e(SITE["domain"])}/articles/…">
+          <p class="hint">記事へのご指摘の場合にご記入ください。</p>
+        </div>
 
-          <div class="field">
-            <label for="cf-url">該当ページのURL</label>
-            <input type="url" id="cf-url" name="page_url" maxlength="300"
-                   placeholder="https://{e(SITE["domain"])}/articles/…">
-            <p class="field-hint">記事へのご指摘の場合にご記入ください。</p>
-          </div>
+        <div class="field">
+          <label for="cf-body">お問い合わせ内容 <span class="req">必須</span></label>
+          <textarea id="cf-body" name="message" rows="9" required maxlength="2000"
+                    placeholder="お問い合わせの内容をご記入ください。"></textarea>
+          <p class="hint is-count"><span id="cf-count">0</span> / 2000 文字</p>
+          <p class="field-error" id="cf-body-err" hidden></p>
+        </div>
 
-          <div class="field">
-            <label for="cf-body">お問い合わせ内容 <span class="req">必須</span></label>
-            <textarea id="cf-body" name="message" rows="9" required maxlength="2000"
-                      placeholder="お問い合わせの内容をご記入ください。"></textarea>
-            <p class="field-count"><span id="cf-count">0</span> / 2000 文字</p>
-            <p class="field-error" id="cf-body-err" hidden></p>
-          </div>
+        <!-- 迷惑送信よけ。人には見えない欄で、埋まっていたら送らない -->
+        <div class="cf-trap" aria-hidden="true">
+          <label for="cf-company">会社名（入力しないでください）</label>
+          <input type="text" id="cf-company" name="_gotcha" tabindex="-1" autocomplete="off">
+        </div>
 
-          <!-- 迷惑送信よけ。人には見えない欄で、埋まっていたら送らない -->
-          <div class="cf-trap" aria-hidden="true">
-            <label for="cf-company">会社名（入力しないでください）</label>
-            <input type="text" id="cf-company" name="_gotcha" tabindex="-1" autocomplete="off">
-          </div>
+        <p class="form-note">送信をもって<a href="{p}privacy.html">プライバシーポリシー</a>に同意いただいたものとみなします。
+        いただいた個人情報は、ご返信の目的以外には利用しません。</p>
 
-          <p class="form-note">送信をもって<a href="{p}privacy.html">プライバシーポリシー</a>に同意いただいたものとみなします。
-          いただいた個人情報は、ご返信の目的以外には利用しません。</p>
+        <button type="submit" class="btn-solid" id="cfSubmit">送信する</button>
+        <p class="form-status" id="cfStatus" role="status" aria-live="polite" hidden></p>
+      </form>
 
-          <button type="submit" class="btn-submit" id="cfSubmit">送信する</button>
-          <p class="form-status" id="cfStatus" role="status" aria-live="polite" hidden></p>
-        </form>
-
-        <aside class="contact-side">
-          <div class="side-tile">
-            <p class="side-heading">広告の掲載について</p>
-            <p class="field-hint">メーカー・販売店の方からの掲載・レビューのご依頼を歓迎します。
-            受け付けている内容や当サイトの方針は、下記のページにまとめています。</p>
-            <p class="cta-wrap"><a class="btn-sub" href="{p}advertising.html">広告掲載について見る</a></p>
-          </div>
-          <div class="side-tile">
-            <p class="side-heading">お答えできないこと</p>
-            <ul class="contact-list">
-              <li>個別の商品購入・返品に関するお問い合わせ（Amazonカスタマーサービスへご連絡ください）</li>
-              <li>製品の故障・修理に関するご相談（メーカーの窓口をご利用ください）</li>
-              <li>掲載を確約するご依頼</li>
-            </ul>
-          </div>
-        </aside>
-      </div>
+      <aside class="contact-side">
+        <div class="side-tile">
+          <p class="side-heading">広告の掲載について</p>
+          <p>メーカー・販売店の方からの掲載・レビューのご依頼を歓迎します。
+          受け付けている内容や当サイトの方針は、下記のページにまとめています。</p>
+          <p class="tile-cta"><a class="btn-line" href="{p}advertising.html">広告掲載について見る</a></p>
+        </div>
+        <div class="side-tile">
+          <p class="side-heading">お答えできないこと</p>
+          <ul class="tile-list">
+            <li>個別の商品購入・返品に関するお問い合わせ（Amazonカスタマーサービスへご連絡ください）</li>
+            <li>製品の故障・修理に関するご相談（メーカーの窓口をご利用ください）</li>
+            <li>掲載を確約するご依頼</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
 '''
         out.append(("contact.html", page(f"お問い合わせ - {NAME}",
                                          f"{NAME}へのお問い合わせフォームです。記事内容のご指摘、掲載のご依頼などを受け付けています。", "", p,

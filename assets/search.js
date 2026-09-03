@@ -81,41 +81,25 @@
     return d.length === 10 ? esc(d).replace(/-/g, '.') : '';
   }
 
-  /* 行の形は build.py の article_row() と同じ（.arow…）にそろえてある。
+  /* 行の形は build.py の v2_row() と同じ（.row-item）にそろえてある。
      一覧・ランキングと見た目が一致し、記事タイルの実装がひとつで済む。 */
   function cardHtml(item, terms) {
-    var sc = Number(item.score) || 0;
-    var rate = sc > 0
-      ? '<span class="arow-rating"><span class="rate-own">当サイト独自評価</span>' +
-        '<span aria-hidden="true">' + starStr(sc) +
-        '</span><b>' + (Math.round(sc * 10) / 10) + '</b></span>'
-      : '';
     var catch_ = item.excerpt
-      ? '<span class="arow-catch">' + highlight(item.excerpt, terms) + '</span>' : '';
-    var date = dotDate(item.date);
-    date = date ? '<span class="arow-date">' + date + '</span>' : '';
+      ? '<p>' + highlight(item.excerpt, terms) + '</p>' : '';
     return '' +
-      '<li class="arow" data-cat="' + esc(item.cat || '') + '" data-slug="' + esc(item.slug || '') +
-      '" data-date="' + esc(item.date || '') + '">' +
-        '<a class="arow-link" href="./' + esc(item.url) + '">' +
-          '<span class="arow-thumb">' +
-            '<img src="./' + esc(item.thumb) + '" alt="" loading="lazy" decoding="async" width="1200" height="430">' +
-            '<span class="card-flags" aria-hidden="true"></span>' +
-          '</span>' +
-          '<span class="arow-body">' +
-            '<span class="arow-head">' +
-              '<span class="arow-title">' + highlight(item.title, terms) + '</span>' +
-              '<span class="cat-badge is-head-badge">' + esc(item.catLabel) + '</span>' +
-            '</span>' +
-            rate + catch_ +
-            /* 札は他の一覧と同じ出し分け（PCは見出しの右、スマホは日付の左） */
-            '<span class="arow-foot">' +
-              '<span class="cat-badge is-foot-badge">' + esc(item.catLabel) + '</span>' +
-              date +
-            '</span>' +
-          '</span>' +
-        '</a>' +
-      '</li>';
+      '<a class="row-item" href="./' + esc(item.url) + '"' +
+        ' data-cat="' + esc(item.cat || '') + '" data-slug="' + esc(item.slug || '') +
+        '" data-date="' + esc(item.date || '') + '">' +
+        '<span class="thumb">' +
+          '<img src="./' + esc(item.thumb) + '" alt="" loading="lazy" decoding="async">' +
+        '</span>' +
+        '<span>' +
+          '<h3>' + highlight(item.title, terms) + '</h3>' +
+          catch_ +
+          '<span class="meta">' + esc(String(item.date || '').slice(0, 10)) +
+          '　/　' + esc(item.catLabel) + '</span>' +
+        '</span>' +
+      '</a>';
   }
 
   /* ---- 検索したら、結果の位置まで画面を送る ----
