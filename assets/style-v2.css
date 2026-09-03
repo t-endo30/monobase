@@ -29,7 +29,7 @@
   --font-en:"Helvetica Neue",Arial,"Noto Sans JP",sans-serif;
   --wrap:1200px;
   --gut:40px;
-  --header-h:88px;
+  --header-h:96px;
 }
 
 /* ---------- 土台 ---------- */
@@ -79,6 +79,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .brand-mark{width:42px;height:38px;flex:0 0 auto;}
 .brand-mark svg{width:100%;height:100%;display:block;}
 .brand-text{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;}
+/* 社名の上に置くサブタイトル。社名より小さく、字送りを広げて添え書きにする */
+.brand-sub{
+  font-size:10.5px;font-weight:600;letter-spacing:.12em;color:var(--muted);
+  line-height:1;white-space:nowrap;text-indent:.12em;
+}
 .brand-ja{font-size:27px;font-weight:800;letter-spacing:.02em;line-height:1;}
 .brand-en{
   font-family:var(--font-en);font-size:10px;font-weight:600;
@@ -327,9 +332,24 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* 見出しまわりは表示領域の中央にそろえる。ヒーロー・区画見出し・
    フッターが中央なので、下層ページだけ左に寄っていると流れが切れる */
 .page-head{padding:56px 0 40px;border-bottom:1px solid var(--line);text-align:center;}
-.crumbs{font-size:11px;letter-spacing:.06em;color:var(--muted-2);margin-bottom:20px;}
+.crumbs{font-size:12.5px;letter-spacing:.04em;color:var(--muted);margin-bottom:20px;}
 .crumbs a:hover{color:var(--ink);}
-.crumbs span{margin:0 8px;}
+.crumbs span{margin:0 8px;color:var(--muted-2);}
+
+/* スクロールしてもヘッダーの下に残す。長い記事や一覧で、いま自分が
+   どこにいるかを見失わないようにするため。地の色を敷いて、下の本文が
+   透けないようにする */
+.crumb-bar{
+  position:sticky;top:var(--header-h);z-index:40;
+  background:var(--bg);border-bottom:1px solid var(--line);
+}
+.crumb-bar .crumbs{
+  margin:0;padding:11px 0;white-space:nowrap;overflow-x:auto;
+  scrollbar-width:none;
+}
+.crumb-bar .crumbs::-webkit-scrollbar{display:none;}
+/* 見出しの中に置いたパンくずは、上の帯と重複するので出さない */
+.page-head .crumbs{display:none;}
 .page-head h1{font-size:clamp(26px,3vw,38px);font-weight:900;line-height:1.45;letter-spacing:.01em;}
 .page-head .lead{margin:18px auto 0;max-width:760px;font-size:14px;line-height:2;color:#4d4d4d;}
 .page-head .count{margin-top:16px;font-family:var(--font-en);font-size:11px;letter-spacing:.16em;color:var(--muted-2);}
@@ -443,6 +463,7 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
 .v2-footer{background:var(--ink);color:#d8d8d5;padding:64px 0 32px;margin-top:0;}
 .v2-footer .brand-ja{color:#fff;}
 .v2-footer .brand-en{color:#8f8f8b;}
+.v2-footer .brand-sub{color:#9d9d99;}
 .v2-footer .brand-mark{
   --mk-body:#ffffff;   /* 箱の面 */
   --mk-flap:#111111;   /* フタ（フッターの地に沈める） */
@@ -637,6 +658,132 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
 .nf-cat .l{font-size:13.5px;font-weight:700;}
 .nf-cat .n{font-family:var(--font-en);font-size:11px;letter-spacing:.08em;color:var(--muted-2);}
 
+
+/* =========================================================================
+   記事の共有ボタン（右下に浮かせる）
+   ------------------------------------------------------------------------
+   押すと X・LINE・リンクのコピーが扇状に開く。開閉は <details> に任せる
+   ので、JSが動かない環境でも開く。
+   ばね（spring）の曲線は anime.js の bouncy をそのまま写したもの。
+   ========================================================================= */
+:root{
+  /* prettier-ignore */
+  --spring-bouncy: linear(0, 0.0222, 0.0833, 0.1743, 0.2867, 0.4123, 0.5436, 0.6739, 0.7978, 0.911, 1.0102, 1.0934, 1.1594, 1.2082, 1.2403, 1.2569, 1.2599, 1.2511, 1.2328, 1.2074, 1.177, 1.1437, 1.1095, 1.0759, 1.0443, 1.0157, 0.991, 0.9705, 0.9546, 0.9431, 0.9359, 0.9326, 0.9327, 0.9357, 0.941, 0.9481, 0.9562, 0.965, 0.9739, 0.9826, 0.9906, 0.9978, 1.0039, 1.0089, 1.0128, 1.0154, 1.017, 1.0176, 1.0174, 1.0164, 1.0149, 1.013, 1.0108, 1.0085, 1.0062, 1.0039, 1.0019, 1.0001, 0.9986, 0.9974, 0.9965, 0.9958, 0.9955, 0.9954, 0.9955, 0.9958, 0.9963, 0.9968, 0.9974, 0.998, 0.9986, 0.9991, 0.9996, 1.0001, 1.0005, 1.0008, 1.001, 1.0011, 1.0012, 1.0012, 1.0011, 1.0011, 1.0009, 1.0008, 1.0006, 1.0005, 1.0003, 1.0002, 1.0001, 0.9999, 0.9999, 0.9998, 0.9997, 0.9997, 0.9997, 0.9997, 0.9997, 0.9997, 0.9998, 0.9998, 1);
+}
+
+.fab{
+  --item-radius:92px;
+  position:fixed;right:24px;bottom:24px;z-index:45;
+  width:64px;height:64px;border:0;
+}
+.fab::details-content{content-visibility:visible;}
+
+.fab .fab-main,
+.fab .fab-item{
+  position:absolute;right:0;bottom:0;
+  border:1px solid var(--line-2);border-radius:50%;
+  background:var(--bg-2);cursor:pointer;
+  box-shadow:0 6px 20px rgba(0,0,0,.10);
+}
+
+.fab .fab-main{
+  width:64px;height:64px;display:grid;place-items:center;list-style:none;
+  transition:border-color .2s ease,box-shadow .2s ease;
+}
+.fab .fab-main::-webkit-details-marker{display:none;}
+.fab .fab-main:focus-visible{border-color:var(--ink);outline:none;}
+@media (any-hover:hover){
+  .fab .fab-main:hover{border-color:var(--ink);box-shadow:0 8px 24px rgba(0,0,0,.14);}
+}
+.fab .fab-main-icon{
+  width:24px;height:24px;color:var(--ink);
+  display:grid;place-items:center;
+  transition:scale .3s var(--spring-bouncy),opacity .2s ease;
+}
+.fab .fab-main-icon svg{width:100%;height:100%;display:block;}
+
+.fab .fab-item{
+  width:52px;height:52px;display:grid;place-items:center;
+  padding:0;text-decoration:none;color:var(--ink-2);
+  opacity:0;pointer-events:none;scale:.2;translate:0 0;
+  transition:
+    color .2s ease,
+    border-color .2s ease,
+    opacity .2s ease,
+    scale .8s var(--spring-bouncy),
+    translate .8s var(--spring-bouncy);
+}
+.fab .fab-item svg{width:21px;height:21px;}
+.fab .fab-item:focus-visible{border-color:var(--ink);color:var(--ink);outline:none;}
+@media (any-hover:hover){
+  .fab .fab-item:hover{border-color:var(--ink);color:var(--ink);}
+}
+
+/* 開いたとき、右下を中心に扇状へ散らす。角度は 0 / 45 / 90 度 */
+/* 開いているあいだは、しるしを少し小さくして「閉じる」を示す */
+.fab[open] .fab-main-icon{scale:.82;opacity:.55;}
+.fab[open] .fab-item{
+  opacity:1;pointer-events:auto;scale:1;
+  translate:calc(sin(var(--item-angle)) * var(--item-radius) * -1)
+            calc(cos(var(--item-angle)) * var(--item-radius) * -1);
+}
+/* 角度は「何番目の子か」で決める。:nth-of-type だと <a> と <button> を
+   別々に数えてしまい、リンクとコピーが同じ位置に重なる。
+   1番目の子は summary なので、項目は 2・3・4 番目になる */
+.fab .fab-item:nth-child(2){--item-angle:0deg;}
+.fab .fab-item:nth-child(3){--item-angle:45deg;}
+.fab .fab-item:nth-child(4){--item-angle:90deg;}
+
+/* コピーしたことを、ボタンの色で一瞬だけ知らせる */
+.fab .fab-item.is-copied{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+/* 追従する購入ボタンが出ているあいだは、その上に重ならないよう持ち上げる */
+body.has-sticky-cta .fab{bottom:96px;}
+
+@media (max-width:860px){
+  .fab{right:16px;bottom:16px;width:56px;height:56px;--item-radius:82px;}
+  .fab .fab-main{width:56px;height:56px;}
+  .fab .fab-item{width:48px;height:48px;}
+  body.has-sticky-cta .fab{bottom:84px;}
+}
+
+/* =========================================================================
+   トップの見出しの動き
+   ========================================================================= */
+/* 見出しは1文字ずつ出す。幅を0から伸ばして文字を現し、右端の縦棒を
+   カーソルに見立てる。文字数ぶんの steps で刻むので、等幅でなくても
+   1文字ずつ出ているように見える */
+.hero-title{
+  overflow:hidden;white-space:nowrap;
+  /* 文字の幅までで止める。器の幅まで伸ばすと、打ち終わったあとの
+     カーソルが文字から遠く離れた位置に残ってしまう */
+  max-width:max-content;
+  border-right:3px solid var(--ink);
+  width:0;
+  animation:hero-typing 1.6s steps(10) .3s forwards,
+            hero-caret .75s step-end .3s 7 forwards;
+}
+@keyframes hero-typing{ from{width:0;} to{width:100%;} }
+/* 打ち終わって数秒でカーソルは消す。点滅が残り続けると、
+   読んでいるあいだずっと視界の端で動くことになる */
+@keyframes hero-caret{
+  0%,100%{border-color:transparent;}
+  50%{border-color:var(--ink);}
+}
+
+/* 箱の写真は、見出しを打ち終わるころに、ふわっと現れる */
+.hero-figure{animation:hero-fade 1.5s ease-in .6s backwards;}
+@keyframes hero-fade{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* 動きを減らす設定の人には、最初から出したままにする */
+@media (prefers-reduced-motion:reduce){
+  .hero-title{width:auto;border-right:0;animation:none;}
+  .hero-figure{animation:none;}
+}
+
 /* =========================================================================
    画面幅ごとの調整
    ========================================================================= */
@@ -675,7 +822,7 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
     padding:20px 0 14px;gap:10px 8px;
   }
   .hero-copy{max-width:none;grid-column:1 / -1;grid-row:1;}
-  .hero-title{font-size:clamp(24px,8.4vw,38px);line-height:1.25;margin-bottom:16px;text-align:center;}
+  .hero-title{font-size:clamp(24px,8.4vw,38px);line-height:1.25;margin:0 auto 16px;text-align:center;}
   .hero-sub{font-size:clamp(17px,4.6vw,21px);line-height:1.55;}
   .hero-rule{margin:18px 0 16px;}
   .hero-desc{font-size:13.5px;line-height:1.95;}

@@ -43,7 +43,6 @@ python3 tools/build_preview.py
 | パス | 追跡 | 中身 |
 |---|---|---|
 | `assets/style-v2.css` | ✅ | サイト本体のCSS。記事本文の部品を旧 `style.css` から移設した区画が末尾にある |
-| `assets/style.css` | ✅ | 旧CSS。**どこからも読まれない**。移設元の控えとして残してある |
 | `tools/build_preview.py` | ✅ | プレビュー生成。ロゴのSVGとヘッダー/フッターの雛形もここにある |
 | `assets/img/hero-box.jpg` | ✅ | ヒーローの箱写真（622×622）。地色を白に正規化済み（後述） |
 | `tools/hero-box-src.jpg` | ✅ | その元画像（1667×640）。切り直すときはこちらから。`assets/` に置くと配信に乗り、画像の重さの検査にも引っかかるので道具の側に置く |
@@ -190,9 +189,9 @@ PAGEバーの「記事ページ」が指す `article.html` は、その中の見
 
 1. favicon / apple-touch-icon / `og-default.jpg` を新マークで作り直す
    （`assets/img/` にある静的ファイル。`build.py` は生成していない）
-2. `main.js` に、もう無い部品（`.cat-nav` / `.pick-tabs` / `.rail` など）を
-   探す処理が残っている。動きに害はないが、いずれ整理する
-3. `assets/style.css` は移設元の控え。落ち着いたら消す
+2. 旧 `assets/style.css` は削除した。`main.js` からも、もう無い部品を扱う
+   処理（カテゴリーバー・タブバー・特集カルーセル・今日のモノ・新着レール・
+   価格取得など15ブロック）を落とし、1916行→約700行にした
 4. カテゴリーの写真は、**管理画面から登録できるところまで済んでいる**
    （サイト設定タブ「カテゴリーの写真」→ `site.json` の `categories[].image`）。
    本番の `build.py` はまだこの欄を見ていないので、統合のときに

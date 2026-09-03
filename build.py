@@ -144,6 +144,10 @@ def logo_svg(size="100%"):
 
 LOGO_SVG_INNER = logo_svg()
 
+# サイトのサブタイトル。ヘッダーとフッターの社名の上に置くほか、
+# 検索結果に出したいので <title>・説明文・構造化データにも回す。
+SUBTITLE = SITE.get("subtitle") or "あらゆるモノのデータベース"
+
 
 def e(s):
     return html.escape(str(s), quote=True)
@@ -653,6 +657,18 @@ def _v2_drawer_links(p):
         yield ("お問い合わせ", "CONTACT", f'mailto:{SITE["email"]}')
 
 
+def v2_crumb_bar(crumbs):
+    """ヘッダーの下に残り続けるパンくず。長い記事や一覧で、いま自分が
+       どこにいるかを見失わないようにするため、スクロールしても消さない。"""
+    if not crumbs:
+        return ""
+    parts = []
+    for label, href in crumbs:
+        parts.append(f'<a href="{e(href)}">{e(label)}</a>' if href else e(label))
+    return ('<div class="crumb-bar"><div class="container">'
+            '<p class="crumbs">' + "<span>/</span>".join(parts) + "</p></div></div>\n")
+
+
 def header(current, p, crumbs=None, current_sub="", band=""):
     nav = ""
     for en, ja, href in V2_NAV:
@@ -691,6 +707,7 @@ def header(current, p, crumbs=None, current_sub="", band=""):
     <a class="brand" href="{p}index.html" aria-label="{e(NAME)}">
       <span class="brand-mark">{LOGO_SVG_INNER}</span>
       <span class="brand-text">
+        <span class="brand-sub">{e(SUBTITLE)}</span>
         <span class="brand-ja">{e(NAME)}</span>
         <span class="brand-en">MONOBASE</span>
       </span>
@@ -711,7 +728,7 @@ def header(current, p, crumbs=None, current_sub="", band=""):
   </div>
 </header>
 
-{band}<!-- セール告知：期間内だけ JS が表示する（assets/main.js） -->
+{v2_crumb_bar(crumbs)}{band}<!-- セール告知：期間内だけ JS が表示する（assets/main.js） -->
 <div class="site-notice" id="saleNotice" hidden data-sales='{SALES_JSON}'>
   <div class="container">
     <span class="notice-label">お知らせ</span>
@@ -743,6 +760,7 @@ def footer(p, sticky_url=None):
         <div class="brand">
           <span class="brand-mark">{LOGO_SVG_INNER}</span>
           <span class="brand-text">
+            <span class="brand-sub">{e(SUBTITLE)}</span>
             <span class="brand-ja">{e(NAME)}</span>
             <span class="brand-en">MONOBASE</span>
           </span>
@@ -807,6 +825,43 @@ def page(title, desc, current, p, canonical, body, sticky_url=None, extra_head="
             + footer(p, sticky_url).replace("</body>", extra_js + "</body>"))
 
 # ============================================================ 新デザインの部品
+IC_SHARE = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" '
+            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+            '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/>'
+            '<circle cx="18" cy="19" r="3"/>'
+            '<path d="M8.6 10.6 15.4 6.6M8.6 13.4 15.4 17.4"/></svg>')
+
+
+IC_X = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
+        '<path d="M17.5 3h3.2l-7 8L22 21h-6.4l-5-6.6L4.8 21H1.6l7.5-8.6L2 3h6.6l4.6 6.1z"/></svg>')
+IC_LINE = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
+           '<path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.2 7.9.3.07.75.22.86.5.1.26.07.66.03.92l-.14.83c-.4.25-.2.96.85.53 1.05-.44 5.65-3.33 7.7-5.7C20.9 14.5 22 12.9 22 11c0-4.4-4.5-8-10-8Z"/></svg>')
+IC_LINK = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
+           'stroke-linecap="round" aria-hidden="true">'
+           '<path d="M10.5 13.5a3.5 3.5 0 0 0 5 0l3-3a3.5 3.5 0 1 0-5-5l-1.4 1.4"/>'
+           '<path d="M13.5 10.5a3.5 3.5 0 0 0-5 0l-3 3a3.5 3.5 0 1 0 5 5l1.4-1.4"/></svg>')
+
+
+def share_fab(a, url):
+    """記事の右下に浮かせる共有ボタン。押すと X・LINE・リンクのコピーが
+       扇状に開く。読み終えた位置で共有できるよう、本文の末尾ではなく
+       画面に固定する（記事末尾の並びとは別に置く）。"""
+    text = urllib.parse.quote(a.get("list_title") or a["title"], safe="")
+    u = urllib.parse.quote(public_url(url), safe="")
+    plain = e(public_url(url))
+    return f'''<details class="fab" id="shareFab">
+  <summary class="fab-main" aria-label="この記事をシェアする">
+    <span class="fab-main-icon" aria-hidden="true">{IC_SHARE}</span>
+  </summary>
+  <a class="fab-item" href="{e(f"https://twitter.com/intent/tweet?text={text}&url={u}")}"
+     target="_blank" rel="noopener" aria-label="Xでシェア">{IC_X}</a>
+  <a class="fab-item" href="{e(f"https://social-plugins.line.me/lineit/share?url={u}")}"
+     target="_blank" rel="noopener" aria-label="LINEでシェア">{IC_LINE}</a>
+  <button type="button" class="fab-item is-copy" data-copy-url="{plain}"
+          aria-label="リンクをコピー">{IC_LINK}</button>
+</details>
+'''
+
 # ヒーローの背景に敷く設計図の線。写真の周りに置くので線は極細にする
 V2_HERO_DECO = '''<svg class="hero-deco" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
   <defs>
@@ -956,13 +1011,9 @@ def v2_hero(p):
 
 
 def v2_page_head(title, crumbs=None, lead="", count=None, extra=""):
-    """下層ページの見出し。パンくず・タイトル・説明を表示領域の中央にそろえる。"""
+    """下層ページの見出し。タイトルと説明を表示領域の中央にそろえる。
+       パンくずはヘッダー直下の帯（v2_crumb_bar）が出すので、ここでは書かない。"""
     cr = ""
-    if crumbs:
-        parts = []
-        for label, href in crumbs:
-            parts.append(f'<a href="{e(href)}">{e(label)}</a>' if href else e(label))
-        cr = '<p class="crumbs">' + "<span>/</span>".join(parts) + "</p>\n    "
     ld = f'<p class="lead">{e(lead)}</p>\n    ' if lead else ""
     ct = f'<p class="count">{count} ARTICLES</p>\n    ' if count is not None else ""
     return f'''  <div class="page-head">
@@ -2036,21 +2087,21 @@ def render_article(a):
     # 記事の中身（商品表・購入リンク・広告枠）は組み方を変えず、
     # 器だけ新デザインに合わせる。中身を作り直すと、収益に関わる部分が
     # 黙って壊れるおそれがあるため。
-    crumbs_html = (
-        '  <div class="container">\n    <p class="crumbs is-article">'
-        f'<a href="{p}index.html">ホーム</a><span>/</span>'
-        f'<a href="{p}category-{cat}.html">{e(CAT_LABEL.get(cat, ""))}</a>'
-        '<span>/</span>' + e(a.get("list_title") or a["title"]) + '</p>\n  </div>\n')
-    body_html = (crumbs_html
-                 + '  <div class="container">\n    <div class="article-page">\n'
-                 + body_html + '    </div>\n  </div>\n')
+    body_html = ('  <div class="container">\n    <div class="article-page">\n'
+                 + body_html + '    </div>\n  </div>\n'
+                 + share_fab(a, url))
 
     return page(f'{a["title"]} - {NAME}', a.get("description") or a.get("excerpt",""),
                 cat, p, url, body_html,
                 sticky_url=(shop_links(a)[0][2] if shop_links(a) else None),
                 extra_js=extra_js,
-                # 記事ページはサイドを出さず、本文だけを広く使う
-                sidebar=False, body_class="is-article", current_sub=a.get("sub", ""),
+                # 記事ページはサイドを出さず、本文だけを広く使う。
+                # has-sticky-cta は、右下の共有ボタンを追従ボタンの上へ
+                # 持ち上げるための印（重ねると押し間違えるため）
+                sidebar=False,
+                body_class=("is-article has-sticky-cta"
+                            if (shop_links(a) and FEAT.get("sticky_cta"))
+                            else "is-article"), current_sub=a.get("sub", ""),
                 image=a.get("thumb", ""),
                 crumbs=[("ホーム", f"{p}index.html"),
                         (CAT_LABEL.get(cat, ""), f"{p}category-{cat}.html"),
@@ -2350,23 +2401,24 @@ def build_index():
     # サイトそのものの構造化データ。検索結果にサイト名と検索窓を出す材料。
     site_ld = [
         {"@context": "https://schema.org", "@type": "WebSite",
-         "name": NAME, "url": BASE_URL + "/",
+         "name": NAME, "alternateName": f"{NAME}｜{SUBTITLE}",
+         "url": BASE_URL + "/",
          "inLanguage": "ja",
-         "description": SITE["description"],
+         "description": f"{SUBTITLE}。{SITE['description']}",
          "potentialAction": {
              "@type": "SearchAction",
              "target": {"@type": "EntryPoint",
                         "urlTemplate": f"{BASE_URL}/search?q={{search_term_string}}"},
              "query-input": "required name=search_term_string"}},
         {"@context": "https://schema.org", "@type": "Organization",
-         "name": NAME, "url": BASE_URL + "/",
-         "description": SITE["description"],
+         "name": NAME, "slogan": SUBTITLE, "url": BASE_URL + "/",
+         "description": f"{SUBTITLE}。{SITE['description']}",
          "email": SITE.get("email", "")},
     ]
     ld_js = "".join('<script type="application/ld+json">'
                     + json.dumps(x, ensure_ascii=False) + "</script>\n"
                     for x in site_ld)
-    return page(f"{NAME}｜{TAGLINE}", SITE["description"], "home", p, BASE_URL + "/", body,
+    return page(f"{NAME}｜{SUBTITLE}", f"{SUBTITLE}。{SITE['description']}", "home", p, BASE_URL + "/", body,
                 body_class="is-home", hero_slot=v2_hero(p), extra_js=ld_js,
                 image=(PUBLISHED[0].get("thumb") if PUBLISHED else ""))
 
@@ -2405,6 +2457,7 @@ def build_category(c):
                 c["lead"][:110], c["key"], p,
                 f'{BASE_URL}/category-{c["key"]}.html', body,
                 body_class="is-listing",
+                crumbs=[("ホーム", f"{p}index.html"), (c["label"], None)],
                 image=(items[0].get("thumb") if items else ""),
                 extra_js=breadcrumb_ld([
                     ("ホーム", f"{BASE_URL}/"),
@@ -2429,6 +2482,9 @@ def build_subcategory(c, sc):
                 c["key"], p,
                 f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html', body,
                 body_class="is-listing", current_sub=sc["key"],
+                crumbs=[("ホーム", f"{p}index.html"),
+                        (c["label"], f'{p}category-{c["key"]}.html'),
+                        (sc["label"], None)],
                 image=(items[0].get("thumb") if items else ""),
                 extra_js=breadcrumb_ld([
                     ("ホーム", f"{BASE_URL}/"),
@@ -2445,7 +2501,8 @@ def build_new():
                         lead="公開の新しい順に並べています。", count=len(items))
     body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
     return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。", "new", p,
-                f"{BASE_URL}/new.html", body, body_class="is-listing")
+                f"{BASE_URL}/new.html", body, body_class="is-listing",
+                crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)])
 
 
 def build_ranking():
@@ -2458,7 +2515,8 @@ def build_ranking():
                        + '      </div>\n', style="padding:40px 0 80px")
     return page(f"よく読まれている記事 - {NAME}",
                 f"{NAME}でよく読まれている記事のランキングです。", "ranking", p,
-                f"{BASE_URL}/ranking.html", body, body_class="is-listing")
+                f"{BASE_URL}/ranking.html", body, body_class="is-listing",
+                crumbs=[("ホーム", f"{p}index.html"), ("よく読まれている記事", None)])
 
 
 def build_sitemap():
@@ -2523,7 +2581,8 @@ def build_sitemap():
     body += v2_section(inner, style="padding:40px 0 80px")
     return page(f"サイトマップ - {NAME}",
                 f"{NAME}のサイトマップ。カテゴリーと記事の一覧です。", "", p,
-                f"{BASE_URL}/sitemap.html", body, body_class="is-listing")
+                f"{BASE_URL}/sitemap.html", body, body_class="is-listing",
+                crumbs=[("ホーム", f"{p}index.html"), ("サイトマップ", None)])
 
 
 def build_search():
@@ -2565,7 +2624,8 @@ def build_search():
     return page(f"サイト内検索 - {NAME}", f"{NAME}のサイト内検索。キーワードとタグで記事を絞り込めます。",
                 "search", p, BASE_URL + "/search.html", body,
                 extra_js=f'<script src="./assets/search.js?v={ASSET_V}"></script>\n',
-                body_class="is-listing", noindex=True)
+                body_class="is-listing", noindex=True,
+                crumbs=[("ホーム", f"{p}index.html"), ("サイト内検索", None)])
 
 
 # ============================================================ Worker
@@ -2862,7 +2922,8 @@ def static_pages():
                  f'{content}\n    </div>\n  </div>\n')
         cur = "POLICY" if fname == "editorial-policy.html" else ""
         out.append((fname, page(f"{title} - {NAME}", desc, cur, p,
-                                f"{BASE_URL}/{fname}", body)))
+                                f"{BASE_URL}/{fname}", body,
+                                crumbs=[("ホーム", f"{p}index.html"), (title, None)])))
 
     # メンテナンス画面（features.maintenance が true のときだけ表示される）
     mnote = SITE.get("maintenance_message") or "ただいまサイトの準備・調整を行っています。"

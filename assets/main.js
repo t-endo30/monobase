@@ -35,47 +35,37 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 (function () {
   'use strict';
 
-  /* ---- ハンバーガーメニュー ---- */
+  /* ---- ハンバーガーメニュー ----
+     新デザインの引き出しは #drawer を data-open で開け閉めする。
+     開いているあいだは背後の本文を動かさない（閉じたときに、読んでいた
+     位置を見失わないようにするため）。 */
   var toggle = document.getElementById('navToggle');
-  var nav = document.getElementById('globalNav');
-  if (!toggle || !nav) return;
-
-  /* 背面の覆い。押すと閉じる（メニューは画面に被せて出す）。
-     表示・非表示は CSS の transition（opacity/visibility）に任せるので
-     hidden 属性は使わず .is-on の付け外しだけで切り替える。 */
-  var veil = document.createElement('div');
-  veil.className = 'nav-veil';
-  document.body.appendChild(veil);
+  var drawer = document.getElementById('drawer');
+  if (!toggle || !drawer) return;
 
   function setOpen(open) {
-    /* 開閉は class の付け外しだけ。開き／閉じの動きは CSS 側の
-       transition（visibility+transform+opacity）に任せる。
-       以前の is-closing + animationend 方式は iOS で取りこぼして
-       メニューが開いたまま残ることがあった。 */
-    nav.classList.toggle('is-open', open);
-    veil.classList.toggle('is-on', open);
+    drawer.setAttribute('data-open', String(open));
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    document.body.style.overflow = open ? 'hidden' : '';
   }
-  veil.addEventListener('click', function () { setOpen(false); });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && nav.classList.contains('is-open')) setOpen(false);
+  function isOpen() { return drawer.getAttribute('data-open') === 'true'; }
+
+  toggle.addEventListener('click', function () { setOpen(!isOpen()); });
+
+  /* 引き出しの中のリンクを押したら閉じる */
+  drawer.addEventListener('click', function (ev) {
+    if (ev.target.closest('a')) setOpen(false);
   });
 
-  toggle.addEventListener('click', function () {
-    setOpen(!nav.classList.contains('is-open'));
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape' && isOpen()) setOpen(false);
   });
 
-  /* ナビ内リンクを押したら閉じる（スマホ時） */
-  nav.addEventListener('click', function (e) {
-    if (e.target.tagName === 'A' && window.innerWidth < 900) setOpen(false);
-  });
-
-  /* PC幅に戻したときは状態をリセット */
+  /* PC幅に戻したときは閉じた状態に戻す */
   window.addEventListener('resize', function () {
-    if (window.innerWidth >= 900) setOpen(false);
+    if (window.innerWidth >= 861 && isOpen()) setOpen(false);
   });
-
 })();
 
 (function () {
@@ -206,7 +196,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
      スマホはタブバーの位置がヘッダーの高さに連動しており、
      スクロールのたびに大きさが変わると画面がガクつく／指の位置が
      ずれる原因になるため、この演出はPC幅（900px以上）だけにする。 */
-  var header = document.querySelector('.site-header');
+  var header = document.querySelector('.v2-header');
   if (!header) return;
   var ticking = false;
   function onScroll() {
@@ -220,210 +210,6 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   onScroll();
 })();
 
-/* ============================================================
-   スマホの操作性：カテゴリーの横スワイプ切り替え
-   ------------------------------------------------------------
-   一覧ページ（トップ／カテゴリー）でだけ有効。
-   指の動きに画面が追従し、離した位置で「切り替える／戻す」を決める。
-   カテゴリーナビの並び順をそのまま使うので、タブを増やしても
-   このコードを直す必要はない。
-   ============================================================ */
-(function () {
-  'use strict';
-
-  var list = document.querySelector('.cat-nav-list');
-  if (!list) return;
-
-  /* ---- よく見るカテゴリーの回数だけ数えておく ----
-     以前はここで「よく見るカテゴリーをALLの右隣へ移動」していたが、
-     並びが人によって変わり、行き来するたびに位置が動くので取りやめた。
-     カテゴリーの並びは、サイトで決めた順のまま固定する。
-     数えた回数は「本日のお勧めのモノ」の記事選びで使う。 */
-  var COUNT_KEY = 'mb.catCounts';
-  var bodyCat = document.body.getAttribute('data-cat') || '';
-  var counts = {};
-  try { counts = JSON.parse(localStorage.getItem(COUNT_KEY) || '{}') || {}; }
-  catch (e) { counts = {}; }
-  if (bodyCat && bodyCat !== 'all') {
-    counts[bodyCat] = (counts[bodyCat] || 0) + 1;
-    try { localStorage.setItem(COUNT_KEY, JSON.stringify(counts)); } catch (e) {}
-  }
-
-  /* スワイプの移動順。並び替える前の「サイト本来の順序」を使う。
-     見た目の順序で動かすと、切り替えるたびに隣が変わってしまう。
-     スマホではカテゴリーの横並びを出していないので、
-     ALL / NEW / RANKING を見ているときはその3つの間を移動し、
-     カテゴリーのページを見ているときはカテゴリー間を移動する。 */
-  var tabs = document.querySelector('.tab-bar');
-  var onTabPage = ['all', 'new', 'ranking', 'search'].indexOf(bodyCat) >= 0;
-  var narrow = window.matchMedia && window.matchMedia('(max-width:899px)').matches;
-  var order = (narrow && tabs && onTabPage)
-    ? Array.prototype.slice.call(tabs.querySelectorAll('a'))
-    : Array.prototype.slice.call(list.querySelectorAll('a'));
-
-  if (!document.body.classList.contains('is-listing')) return;
-
-  var links = order;
-  if (links.length < 2) return;
-
-  var here = location.pathname.split('/').pop() || 'index.html';
-  var current = links.findIndex(function (a) {
-    return (a.getAttribute('href') || '').split('/').pop() === here;
-  });
-  if (current < 0) {
-    current = links.findIndex(function (a) { return a.classList.contains('is-current'); });
-  }
-  if (current < 0) current = 0;
-
-  /* ---- 現在のタブが隠れているときだけ、見える位置まで送る ----
-     links はスマホだとタブバー側の要素になることがあるので、
-     この横並びの中にあるものだけを対象にする。ほかの入れ物の
-     offsetLeft で位置を決めると、関係のない量だけ横にずれる。
-     また、既に見えているときは動かさない。動かすと先頭の項目が
-     中途半端に切れた状態で表示されてしまう。 */
-  var cur = links[current];
-  if (cur && list.contains(cur) && list.scrollWidth > list.clientWidth + 1) {
-    var cl = cur.offsetLeft, cr = cl + cur.offsetWidth;
-    var vs = list.scrollLeft, ve = vs + list.clientWidth;
-    var max = list.scrollWidth - list.clientWidth;
-    if (cl < vs) list.scrollLeft = Math.max(0, cl - 12);
-    else if (cr > ve) list.scrollLeft = Math.min(max, cr - list.clientWidth + 12);
-  }
-
-  /* ---- 隣のページを先読みしておく（切り替えを待たせない） ---- */
-  [current - 1, current + 1].forEach(function (i) {
-    if (i < 0 || i >= links.length) return;
-    var l = document.createElement('link');
-    l.rel = 'prefetch';
-    l.href = links[i].getAttribute('href');
-    document.head.appendChild(l);
-  });
-
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var stage = document.querySelector('main.layout') || document.querySelector('main');
-  if (!stage) return;
-
-  var KEY = 'mb.swipeHintSeen';
-  var seen = false;
-  try { seen = localStorage.getItem(KEY) === '1'; } catch (e) { seen = false; }
-  if (!seen) {
-    var hint = document.createElement('p');
-    hint.className = 'swipe-hint';
-    hint.textContent = (narrow && tabs && onTabPage)
-      ? '← 左右にスワイプでタブを切り替え →'
-      : '← 左右にスワイプでカテゴリーを切り替え →';
-    var box = document.querySelector('main .container');
-    if (box && box.firstElementChild) box.insertBefore(hint, box.firstElementChild);
-  }
-
-  function go(dir) {
-    var next = current + dir;
-    if (next < 0 || next >= links.length) return;
-    try { localStorage.setItem(KEY, '1'); } catch (e) {}
-    var href = links[next].getAttribute('href');
-    if (!href) return;
-    if (reduce) { window.location.href = href; return; }
-    /* 画面を最後まで送り出してから遷移する */
-    stage.style.transition = 'transform .22s var(--ease, ease), opacity .22s ease';
-    stage.style.transform = 'translate3d(' + (dir > 0 ? '-16%' : '16%') + ',0,0)';
-    stage.style.opacity = '0';
-    setTimeout(function () { window.location.href = href; }, 190);
-  }
-
-  /* ---- 指の動きに追従させる ----
-     縦横どちらの操作か決まるまでは何もしない。
-     横だと判定した後だけ、既定のスクロールを止めて画面を動かす。 */
-  var x0 = 0, y0 = 0, t0 = 0;
-  var state = 'idle';        /* idle → maybe → drag */
-  /* この中で指を動かしたときは、カテゴリー切り替えのスワイプを起こさない。
-     それぞれが自前の横スクロールを持っているため。 */
-  var IGNORE = '.table-scroll,.cat-nav,.chips,.rail,.feat-carousel,'
-             + 'input,textarea,select,button';
-  var LOCK = 12;             /* この距離で縦か横かを決める */
-  var DECIDE = 0.28;         /* 画面幅のこの割合を超えたら切り替える */
-  var FLICK = 0.45;          /* px/ms：速く払ったら距離が短くても切り替える */
-
-  function width() { return window.innerWidth || 360; }
-
-  function reset(animate) {
-    stage.style.transition = animate ? 'transform .22s var(--ease, ease)' : '';
-    stage.style.transform = '';
-    stage.style.opacity = '';
-    stage.classList.remove('is-swiping');
-  }
-
-  function edge(dir) {
-    /* 端では動かせないので、引っ張っても戻る量を小さくする */
-    var next = current + dir;
-    return next < 0 || next >= links.length;
-  }
-
-  document.addEventListener('touchstart', function (ev) {
-    if (ev.touches.length !== 1) { state = 'idle'; return; }
-    if (ev.target.closest && ev.target.closest(IGNORE)) { state = 'idle'; return; }
-    var t = ev.touches[0];
-    x0 = t.clientX; y0 = t.clientY; t0 = Date.now();
-    state = 'maybe';
-    stage.style.transition = '';
-  }, { passive: true });
-
-  stage.addEventListener('touchmove', function (ev) {
-    if (state === 'idle') return;
-    var t = ev.touches[0];
-    var dx = t.clientX - x0;
-    var dy = t.clientY - y0;
-
-    if (state === 'maybe') {
-      if (Math.abs(dy) > LOCK && Math.abs(dy) > Math.abs(dx)) { state = 'idle'; return; }
-      if (Math.abs(dx) > LOCK && Math.abs(dx) > Math.abs(dy) * 1.4) {
-        state = 'drag';
-        stage.classList.add('is-swiping');
-      }
-      else return;
-    }
-
-    /* 横スワイプと決まったら、縦スクロールは起こさせない */
-    if (ev.cancelable) ev.preventDefault();
-    var move = dx * (edge(dx < 0 ? 1 : -1) ? 0.22 : 0.72);   /* 端は重くする */
-    stage.style.transform = 'translate3d(' + move.toFixed(1) + 'px,0,0)';
-    stage.style.opacity = String(Math.max(0.55, 1 - Math.abs(move) / width()));
-  }, { passive: false });
-  /* 開始・終了判定は軽いので document のまま（passive）。移動の監視だけ
-     stage に閉じ込めて、ヘッダーや固定ナビのスクロールを軽くする。 */
-
-  function release(ev) {
-    if (state !== 'drag') { state = 'idle'; return; }
-    state = 'idle';
-    var t = ev.changedTouches[0];
-    var dx = t.clientX - x0;
-    var speed = Math.abs(dx) / Math.max(1, Date.now() - t0);
-    var dir = dx < 0 ? 1 : -1;
-    /* 速く払った場合でも、ある程度の距離がなければ誤操作とみなす */
-    var flick = speed > FLICK && Math.abs(dx) > 48;
-    if (!edge(dir) && (Math.abs(dx) > width() * DECIDE || flick)) {
-      go(dir);
-    } else {
-      reset(true);
-    }
-  }
-  document.addEventListener('touchend', release, { passive: true });
-  document.addEventListener('touchcancel', function () {
-    if (state === 'drag') reset(true);
-    state = 'idle';
-  }, { passive: true });
-
-  /* ---- PCではキーボードの左右でも移動できるようにする ---- */
-  document.addEventListener('keydown', function (ev) {
-    if (ev.altKey || ev.ctrlKey || ev.metaKey || ev.shiftKey) return;
-    var tag = (ev.target.tagName || '').toLowerCase();
-    if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
-    if (ev.key === 'ArrowRight') go(1);
-    if (ev.key === 'ArrowLeft') go(-1);
-  });
-
-  /* 戻るボタンで戻ってきたときに、送り出した状態が残らないようにする */
-  window.addEventListener('pageshow', function () { reset(false); });
-})();
 
 /* ============================================================
    横スクロールする表：右端まで見たらグラデーションを消す
@@ -652,719 +438,15 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   /* 並び順の説明文は出さない（画面を説明で埋めない） */
 })();
 
-/* ============================================================
-   PC：カテゴリーを押すと、その場でサブカテゴリーを開く
-   ------------------------------------------------------------
-   横並びのカテゴリーを押したとき、いきなり画面を移すのではなく
-   下にサブカテゴリーを出す。もう一度押すか、外を押すと閉じる。
-   サブカテゴリーが無いカテゴリーは、これまでどおり画面が移る。
-   JavaScript が動かない環境でも、リンクとしてそのまま機能する。
-   ============================================================ */
-(function () {
-  'use strict';
-  var list = document.querySelector('.cat-nav-list');
-  var nav = document.querySelector('.cat-nav');
-  if (!list || !nav) return;
-  var wide = window.matchMedia && window.matchMedia('(min-width:900px)');
-  var open = null;
-
-  /* 横並びは overflow で切り取られるので、パネルは一段外に出して置く。
-     位置は押した項目に合わせて、そのつど計算する。 */
-  Array.prototype.forEach.call(list.querySelectorAll('.sub-pop'), function (pop) {
-    nav.appendChild(pop);
-  });
-
-  function place(li) {
-    var pop = li._pop;
-    var a = li.querySelector('a');
-    var ar = a.getBoundingClientRect();
-    var nr = nav.getBoundingClientRect();
-    pop.hidden = false;
-    var w = pop.offsetWidth;
-    var left = ar.left - nr.left;
-    /* 画面からはみ出すときは、右端に合わせて内側へ寄せる */
-    var maxLeft = nr.width - w - 8;
-    pop.style.left = Math.max(8, Math.min(left, maxLeft)) + 'px';
-    pop.style.top = (ar.bottom - nr.top + 2) + 'px';
-  }
-
-  function close() {
-    if (!open) return;
-    open._pop.hidden = true;
-    open.classList.remove('is-open');
-    var a = open.querySelector('a');
-    if (a) a.setAttribute('aria-expanded', 'false');
-    open = null;
-  }
-
-  function show(li) {
-    if (open === li) { close(); return; }
-    close();
-    place(li);
-    li.classList.add('is-open');
-    var a = li.querySelector('a');
-    if (a) a.setAttribute('aria-expanded', 'true');
-    open = li;
-  }
-
-  /* 開くのはPC幅のときだけ。スマホはタブのパネルが同じ役割を持つ。 */
-  Array.prototype.forEach.call(list.querySelectorAll('.has-sub'), function (li, i) {
-    li._pop = nav.querySelectorAll('.sub-pop')[i];
-    var a = li.querySelector('a');
-    a.setAttribute('aria-expanded', 'false');
-    a.addEventListener('click', function (ev) {
-      if (!wide || !wide.matches) return;      /* 狭い画面ではそのまま移動 */
-      ev.preventDefault();
-      show(li);
-    });
-  });
-
-  /* 右端まで送りきったら、端のぼかしを外す */
-  function edgeMask() {
-    var end = list.scrollLeft + list.clientWidth >= list.scrollWidth - 2;
-    list.classList.toggle('is-end', end);
-  }
-  list.addEventListener('scroll', edgeMask, { passive: true });
-  window.addEventListener('resize', edgeMask);
-  edgeMask();
-
-  document.addEventListener('click', function (ev) {
-    if (!open) return;
-    if (!ev.target.closest) { close(); return; }
-    if (!ev.target.closest('.has-sub') && !ev.target.closest('.sub-pop')) close();
-  });
-  /* スクロールで位置がずれるので、開いたまま動かさない */
-  window.addEventListener('scroll', close, { passive: true });
-  list.addEventListener('scroll', close, { passive: true });
-  window.addEventListener('resize', close);
-  document.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape') close();
-  });
-  if (wide && wide.addEventListener) {
-    wide.addEventListener('change', function () { close(); });
-  }
-})();
-
-/* ============================================================
-   スマホのタブ「CATEGORIES」：その場でカテゴリー一覧を開閉する
-   ============================================================ */
-(function () {
-  'use strict';
-  var btn = document.getElementById('tabCats');
-  var panel = document.getElementById('catPanel');
-  if (!btn || !panel) return;
-  var bar = btn.closest('.tab-bar');
-
-  /* 背面の覆いは実体のある要素にする。疑似要素だと押した場所を
-     受け取れず、外側を押しても閉じられないため。 */
-  var veil = document.createElement('div');
-  veil.className = 'cat-veil';
-  document.body.appendChild(veil);
-  veil.addEventListener('click', function () { setOpen(false); });
-
-  /* hidden 属性は使わず、開閉は class ＋ CSS の transition に任せる。
-     初期状態（HTML の hidden）は一度だけ外す。閉じているあいだは
-     CSS 側で visibility:hidden になり操作もされない。 */
-  panel.removeAttribute('hidden');
-
-  function setOpen(open) {
-    panel.classList.toggle('is-open', open);
-    veil.classList.toggle('is-on', open);
-    btn.setAttribute('aria-expanded', String(open));
-    btn.classList.toggle('is-current', open);
-    /* 開いているあいだは現在ページのタブの色を消す。
-       選択されている印が2か所に出ると、どちらが今の状態か分からなくなる。 */
-    if (bar) bar.classList.toggle('is-panel-open', open);
-    window.mbLockScroll(open, 'is-cat-open');
-  }
-
-  function isOpen() {
-    return panel.classList.contains('is-open');
-  }
-  btn.addEventListener('click', function () {
-    setOpen(!isOpen());
-  });
-  /* メニューの外を押したら閉じる */
-  document.addEventListener('click', function (ev) {
-    if (!isOpen()) return;
-    if (panel.contains(ev.target) || btn.contains(ev.target)) return;
-    setOpen(false);
-  });
-  document.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape' && isOpen()) setOpen(false);
-  });
-})();
-
-/* ============================================================
-   特集カルーセル：1枠に1件ずつ、5秒ごとに送る
-   ------------------------------------------------------------
-   ・自動送りは、指で操作している間・タブが裏にある間は止める
-   ・前後ボタンと下の点、指のスワイプでも動かせる
-   ・「動きを減らす」設定の人には自動送りをしない
-   ============================================================ */
-(function () {
-  'use strict';
-  var box = document.querySelector('.feat-carousel');
-  if (!box) return;
-  var track = box.querySelector('.feat-track');
-  var slides = box.querySelectorAll('.feat-slide');
-  if (!track || slides.length < 2) return;
-
-  var dots = box.querySelectorAll('.feat-dot');
-  var wait = parseInt(box.getAttribute('data-interval'), 10) || 5000;
-  /* 端末の「動きを減らす」設定にかかわらず、PCと同じ間隔・同じ滑らかさで送る。
-     （サイトの見え方を端末設定で変えたくない、という運営方針による） */
-  var i = 0, timer = null, onScreen = true;
-
-  box.classList.add('is-ready');
-
-  function show(n) {
-    i = (n + slides.length) % slides.length;
-    track.style.transform = 'translate3d(' + (-i * 100) + '%,0,0)';
-    Array.prototype.forEach.call(dots, function (d, k) {
-      d.classList.toggle('is-current', k === i);
-    });
-  }
-  function next() { show(i + 1); }
-  function start() {
-    if (timer || !onScreen) return;
-    timer = setInterval(next, wait);
-  }
-  function stop() { clearInterval(timer); timer = null; }
-  function restart() { stop(); start(); }
-
-  show(0);
-  start();
-
-  var prev = box.querySelector('.feat-prev');
-  var nxt = box.querySelector('.feat-next');
-  if (prev) prev.addEventListener('click', function () { show(i - 1); restart(); });
-  if (nxt) nxt.addEventListener('click', function () { show(i + 1); restart(); });
-  Array.prototype.forEach.call(dots, function (d) {
-    d.addEventListener('click', function () {
-      show(parseInt(d.getAttribute('data-go'), 10) || 0);
-      restart();
-    });
-  });
-
-  /* 指の端末で mouseenter だけが起きて mouseleave が来ないと、
-     自動送りが止まったまま戻らない。マウスのある端末に限って結ぶ。 */
-  var hoverable = window.matchMedia && window.matchMedia('(hover:hover)').matches;
-  if (hoverable) {
-    box.addEventListener('mouseenter', stop);
-    box.addEventListener('mouseleave', start);
-  }
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) stop(); else if (onScreen) start();
-  });
-
-  /* 画面の外にあるあいだは送らない。戻ってきたら送り直す。 */
-  if (window.IntersectionObserver) {
-    onScreen = false;
-    stop();
-    new IntersectionObserver(function (es) {
-      onScreen = es[0].isIntersecting;
-      if (onScreen && !document.hidden) start(); else stop();
-    }, { threshold: .25 }).observe(box);
-  }
-
-  /* 指でも送れるようにする。カテゴリー切り替えのスワイプと
-     取り合いにならないよう、この枠の中では横移動を打ち切る。 */
-  var x0 = 0, y0 = 0, drag = false;
-  box.addEventListener('touchstart', function (ev) {
-    if (ev.touches.length !== 1) return;
-    x0 = ev.touches[0].clientX; y0 = ev.touches[0].clientY; drag = true;
-    stop();
-  }, { passive: true });
-  box.addEventListener('touchmove', function (ev) {
-    if (!drag) return;
-    var dx = ev.touches[0].clientX - x0;
-    var dy = ev.touches[0].clientY - y0;
-    if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-      ev.stopPropagation();
-      if (ev.cancelable) ev.preventDefault();
-    }
-  }, { passive: false });
-  box.addEventListener('touchend', function (ev) {
-    if (!drag) return;
-    drag = false;
-    var dx = ev.changedTouches[0].clientX - x0;
-    var dy = ev.changedTouches[0].clientY - y0;
-    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-      ev.stopPropagation();
-      show(i + (dx < 0 ? 1 : -1));
-    }
-    start();
-  }, { passive: true });
-})();
-
-/* ============================================================
-   トップの見出しを1行に収める
-   ------------------------------------------------------------
-   文字数と枠の幅は端末で変わるので、実際に測って字を詰める。
-   小さくしすぎないよう下限を決め、それでも入らない場合は
-   折り返しを許して読めなくならないようにする。
-   ============================================================ */
-(function () {
-  'use strict';
-  var el = document.querySelector('.fit-line');
-  if (!el) return;
-
-  /* px。上限は控えめにして枠を大きくしすぎない。
-     下限は、スマホの幅でもこの見出し（20字前後）が1行に収まる大きさ。
-     ここを下回るときだけ折り返す（文字が切れることはない）。 */
-  var MAX = 24, MIN = 11;
-  var box = el.parentElement;
-  if (!box) return;
-
-  function overflows() {
-    /* はみ出しているかは、要素自身の表示幅と中身の幅を比べて判定する。
-       親の幅から余白を引く方法だと1px単位でずれ、いつまでも縮み続ける。 */
-    return el.scrollWidth > el.clientWidth + 1;
-  }
-
-  function fit() {
-    if (!el.clientWidth) return;           /* まだ表示されていないときは測らない */
-
-    el.style.whiteSpace = 'nowrap';
-    el.style.fontSize = MAX + 'px';
-    if (!overflows()) return;
-
-    /* はみ出し量から必要な大きさを見積もり、そこから微調整する */
-    var size = Math.max(MIN, Math.floor(MAX * el.clientWidth / el.scrollWidth * 2) / 2);
-    el.style.fontSize = size + 'px';
-    var guard = 0;
-    while (size > MIN && overflows() && guard++ < 60) {
-      size -= 0.5;
-      el.style.fontSize = size + 'px';
-    }
-    if (overflows()) {
-      /* 下限まで縮めても入らないときは、小さいまま折り返さない。
-         読める大きさ（CSS側の指定）に戻したうえで折り返す。 */
-      el.style.whiteSpace = '';
-      el.style.fontSize = '';
-    }
-  }
-
-  /* 枠の幅が決まったタイミングで測る。読み込み直後やフォント適用前だと
-     幅が確定しておらず、必要以上に小さくなることがあるため。 */
-  if ('ResizeObserver' in window) {
-    new ResizeObserver(fit).observe(box);
-  } else {
-    window.addEventListener('resize', fit);
-  }
-  requestAnimationFrame(fit);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
-})();
-
-/* ============================================================
-   トップの記事数の一文（カテゴリー名は毎回3つ選ぶ）
-   ============================================================ */
-(function () {
-  'use strict';
-  /* data 属性つきの .hero-count が対象。ヘッダーのタグライン位置と、
-     トップのヒーロー内の一文の両方に付く（どちらも同じ数字）。
-     一覧ページの「全 N 記事」は data 属性が無いので対象外。 */
-  var els = document.querySelectorAll('.hero-count[data-n-pub]');
-  if (!els.length) return;
-
-  Array.prototype.forEach.call(els, function (el) {
-    var names = [];
-    try { names = JSON.parse(el.getAttribute('data-cats') || '[]'); } catch (e) { names = []; }
-    var nCat = el.getAttribute('data-n-cat') || '0';
-    var nPub = el.getAttribute('data-n-pub') || '0';
-
-    for (var i = names.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var t = names[i]; names[i] = names[j]; names[j] = t;
-    }
-    var pick3 = names.slice(0, 3).join('／');
-    var pick2 = names.slice(0, 2).join('／');
-    var full = pick3
-      ? pick3 + '／ など ' + nCat + ' カテゴリー・' + nPub + ' 記事公開中'
-      : nCat + ' カテゴリー・' + nPub + ' 記事公開中';
-    var brief = pick2
-      ? pick2 + '／ など ' + nCat + ' カテゴリー・' + nPub + ' 記事公開中'
-      : nCat + ' カテゴリー・' + nPub + ' 記事公開中';
-
-    var WIDE = 560;
-    var shown = null;
-
-    function fitCount() {
-      var box = el.parentElement || el;
-      var w = box.clientWidth;
-      if (!w) return;
-      var want = w >= WIDE ? 'full' : 'brief';
-      if (want === shown) return;
-      shown = want;
-      el.textContent = want === 'full' ? full : brief;
-    }
-
-    var box = el.parentElement || el;
-    if ('ResizeObserver' in window) new ResizeObserver(fitCount).observe(box);
-    else window.addEventListener('resize', fitCount);
-    requestAnimationFrame(fitCount);
-  });
-})();
-
-/* ============================================================
-   カテゴリーナビ：1行固定・左右の矢印で送る
-   ============================================================ */
-(function () {
-  'use strict';
-  var wrap = document.querySelector('.cat-nav .container');
-  if (!wrap) return;
-  var list = wrap.querySelector('.cat-nav-list');
-  var prev = wrap.querySelector('.cat-nav-arrow.is-prev');
-  var next = wrap.querySelector('.cat-nav-arrow.is-next');
-  if (!list || !prev || !next) return;
-
-  function update() {
-    var max = list.scrollWidth - list.clientWidth;
-    var overflow = max > 4;
-    var x = list.scrollLeft;
-    prev.hidden = !overflow || x <= 2;
-    next.hidden = !overflow || x >= max - 2;
-  }
-  function step(dir) {
-    list.scrollBy({ left: dir * Math.max(160, list.clientWidth * 0.7), behavior: 'smooth' });
-  }
-  prev.addEventListener('click', function () { step(-1); });
-  next.addEventListener('click', function () { step(1); });
-  list.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  if ('ResizeObserver' in window) new ResizeObserver(update).observe(list);
-  /* 現在のカテゴリーが画面外なら、見える位置まで寄せておく */
-  var cur = list.querySelector('a.is-current');
-  if (cur) {
-    var off = cur.offsetLeft - list.clientWidth / 2 + cur.offsetWidth / 2;
-    list.scrollLeft = Math.max(0, off);
-  }
-  requestAnimationFrame(update);
-})();
-
-/* ============================================================
-   新着レール：左右ボタンで1枚ずつ送る（特集と同じ操作感）
-   ============================================================ */
-(function () {
-  'use strict';
-  /* 新着とカテゴリー、どちらも同じ形（.rail-wrap）なので一括で受け持つ */
-  var wraps = document.querySelectorAll('.rail-wrap');
-  if (!wraps.length) return;
-
-  Array.prototype.forEach.call(wraps, function (wrap) {
-    var rail = wrap.querySelector('.rail');
-    var prev = wrap.querySelector('.rail-arrow.is-prev');
-    var next = wrap.querySelector('.rail-arrow.is-next');
-    if (!rail || !prev || !next) return;
-
-    function cardW() {
-      var c = rail.querySelector('.card, .cf-tile');
-      if (!c) return rail.clientWidth * 0.9;
-      var gap = parseFloat(getComputedStyle(c.parentElement).gap) || 10;
-      return c.getBoundingClientRect().width + gap;
-    }
-    function update() {
-      var max = rail.scrollWidth - rail.clientWidth;
-      var overflow = max > 4;
-      prev.hidden = !overflow || rail.scrollLeft <= 2;
-      next.hidden = !overflow || rail.scrollLeft >= max - 2;
-    }
-    prev.addEventListener('click', function () {
-      rail.scrollBy({ left: -cardW(), behavior: 'smooth' });
-    });
-    next.addEventListener('click', function () {
-      rail.scrollBy({ left: cardW(), behavior: 'smooth' });
-    });
-    rail.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    if ('ResizeObserver' in window) new ResizeObserver(update).observe(rail);
-    requestAnimationFrame(update);
-  });
-})();
 
 
-/* ============================================================
-   「今日のモノ」：日替わりで1本だけ出すミニウィジェット
-   ------------------------------------------------------------
-   よく見ているジャンルの記事から選ぶ。読み込むたびに変わると
-   「今日の」ではなくなるため、日付をもとに選び、同じ日は同じ記事を出す。
-   ============================================================ */
-(function () {
-  'use strict';
-  var boxes = document.querySelectorAll('.today-box');
-  var lists = document.querySelectorAll('.today-list');
-  if (!boxes.length && !lists.length) return;
 
-  var data = {};
-  try { data = JSON.parse(document.body.getAttribute('data-rank') || '{}'); }
-  catch (e) { return; }
-  var items = data.items || [];
-  if (!items.length) return;
 
-  var counts = {};
-  try { counts = JSON.parse(localStorage.getItem('mb.catCounts') || '{}') || {}; }
-  catch (e) { counts = {}; }
 
-  /* よく見ているジャンルを候補にする。まだ履歴がなければ全記事から選ぶ。 */
-  var liked = Object.keys(counts).filter(function (k) { return counts[k] > 0; });
-  var pool = items.filter(function (it) { return liked.indexOf(it.catKey) >= 0; });
-  if (pool.length < 2) pool = items;
 
-  /* 日付から決める。同じ日は同じ記事、日が変われば別の記事になる。 */
-  var today = new Date();
-  var seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-  var h = seed;
-  for (var i = 0; i < liked.length; i++) h += liked[i].charCodeAt(0) * (i + 7);
-  /* 起点だけを日付で決め、そこから順に並べる。1枚だけ出す枠は先頭、
-     一覧で出す枠はその続きを使うので、同じ記事が2か所に出ない。 */
-  var start = h % pool.length;
-  var order = [];
-  for (var j = 0; j < pool.length; j++) order.push(pool[(start + j) % pool.length]);
-  var pick = order[0];
-  if (!pick) return;
 
-  function starStr(n) {
-    n = Math.round(Number(n) || 0);
-    return '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
-  }
 
-  Array.prototype.forEach.call(boxes, function (box) {
-    var a = box.querySelector('.today-card');
-    var img = box.querySelector('.today-thumb img');
-    a.href = pick.url;
-    img.src = pick.thumb;
-    img.alt = pick.title;
-    var bc = box.querySelector('.today-cat');
-    if (bc) bc.textContent = pick.cat;
-    box.querySelector('.today-title').textContent = pick.title;
-    var rt = box.querySelector('.today-rating');
-    if (rt) {
-      if (pick.score && Number(pick.score) > 0) {
-        rt.textContent = '';
-        var own = document.createElement('span');
-        own.className = 'rate-own';
-        own.textContent = '当サイト独自評価';
-        rt.appendChild(own);
-        rt.appendChild(document.createTextNode(starStr(pick.score)));
-        var b = document.createElement('b');
-        b.textContent = (Math.round(Number(pick.score) * 10) / 10);
-        rt.appendChild(b);
-        rt.hidden = false;
-      } else {
-        rt.hidden = true;
-      }
-    }
-    var ct = box.querySelector('.today-catch');
-    if (ct) ct.textContent = pick.excerpt || '';
-    box.hidden = false;
-  });
 
-  /* 一覧で出す枠。1枚だけの枠が同じページに出ているときは、
-     そこで使った先頭の1本を飛ばして続きから並べる。 */
-  Array.prototype.forEach.call(lists, function (list) {
-    var limit = Number(list.getAttribute('data-today-limit')) || 5;
-    var rest = order.slice(boxes.length ? 1 : 0, (boxes.length ? 1 : 0) + limit);
-    if (!rest.length) return;
-    var frag = document.createDocumentFragment();
-    /* 行の形は build.py の article_row()／ランキングの行と同じ（.arow…）。
-       3か所とも同じクラスなので、見た目は1か所を直せば全部そろう。 */
-    rest.forEach(function (it) {
-      var li = document.createElement('li');
-      li.className = 'arow today-list-item';
-      var a = document.createElement('a');
-      a.className = 'arow-link';
-      a.href = it.url;
-
-      var th = document.createElement('span');
-      th.className = 'arow-thumb';
-      var img = document.createElement('img');
-      img.src = it.thumb;
-      img.alt = '';
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      th.appendChild(img);
-
-      var bd = document.createElement('span');
-      bd.className = 'arow-body';
-      /* 札は他の一覧と同じ出し分け（PCは見出しの右、スマホは日付の左） */
-      var head = document.createElement('span');
-      head.className = 'arow-head';
-      var ttl = document.createElement('span');
-      ttl.className = 'arow-title';
-      ttl.textContent = it.title;
-      var cat = document.createElement('span');
-      cat.className = 'cat-badge is-head-badge';
-      cat.textContent = it.cat || '';
-      head.appendChild(ttl);
-      head.appendChild(cat);
-      bd.appendChild(head);
-      if (it.score && Number(it.score) > 0) {
-        var rt = document.createElement('span');
-        rt.className = 'arow-rating';
-        var own = document.createElement('span');
-        own.className = 'rate-own';
-        own.textContent = '当サイト独自評価';
-        rt.appendChild(own);
-        var st = document.createElement('span');
-        st.setAttribute('aria-hidden', 'true');
-        st.textContent = starStr(it.score);
-        var b = document.createElement('b');
-        b.textContent = (Math.round(Number(it.score) * 10) / 10);
-        rt.appendChild(st);
-        rt.appendChild(b);
-        bd.appendChild(rt);
-      }
-      if (it.excerpt) {
-        var ct = document.createElement('span');
-        ct.className = 'arow-catch';
-        ct.textContent = it.excerpt;
-        bd.appendChild(ct);
-      }
-      var foot = document.createElement('span');
-      foot.className = 'arow-foot';
-      var fcat = document.createElement('span');
-      fcat.className = 'cat-badge is-foot-badge';
-      fcat.textContent = it.cat || '';
-      foot.appendChild(fcat);
-      var dt = String(it.date || '').slice(0, 10);
-      if (dt.length === 10) {
-        var dd = document.createElement('span');
-        dd.className = 'arow-date';
-        dd.textContent = dt.replace(/-/g, '.');
-        foot.appendChild(dd);
-      }
-      bd.appendChild(foot);
-
-      a.appendChild(th);
-      a.appendChild(bd);
-      li.appendChild(a);
-      frag.appendChild(li);
-    });
-    list.appendChild(frag);
-  });
-})();
-
-/* ============================================================
-   トップの「読まれている記事 / 本日のお勧めのモノ」の切り替え
-   ------------------------------------------------------------
-   どちらも同じ場所に置いて、押した側だけを見せる。選んだ側は
-   端末に覚えておき、次に来たときも同じ側から始める。
-   ============================================================ */
-(function () {
-  'use strict';
-  var wrap = document.querySelector('.pick-tabs');
-  if (!wrap) return;
-  var tabs = wrap.querySelectorAll('.pt-tab');
-  if (tabs.length < 2) return;
-  var stage = wrap.querySelector('.pt-stage');
-  var KEY = 'mb.pickTab';
-  var reduceMotion = window.matchMedia &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var current = 0;
-  Array.prototype.forEach.call(tabs, function (t, j) {
-    if (t.classList.contains('is-on')) current = j;
-  });
-
-  /* 切り替えはフェード＋スライドで、指でめくったような動きにする。
-     板の高さがパネルごとに違うので、消えるほうを一瞬だけ画面に残し、
-     入れ替わったところで隠す（レイアウトが一気に飛ばないように）。
-     さらに .pt-stage の高さも今の高さ→次の高さへアニメーションさせ、
-     切り替え中に下の内容ごと一気に動いて「背景がブレて」見えるのを防ぐ。 */
-  function show(i, focus) {
-    i = Math.max(0, Math.min(tabs.length - 1, i));
-    var from = current;
-    Array.prototype.forEach.call(tabs, function (t, j) {
-      var on = j === i;
-      t.classList.toggle('is-on', on);
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
-      t.tabIndex = on ? 0 : -1;
-    });
-    var curPanel = document.getElementById(tabs[from].getAttribute('aria-controls'));
-    var nextPanel = document.getElementById(tabs[i].getAttribute('aria-controls'));
-    current = i;
-    if (focus) tabs[i].focus();
-    try { localStorage.setItem(KEY, String(i)); } catch (e) {}
-    if (!nextPanel || nextPanel === curPanel) return;
-    if (i === from) { nextPanel.hidden = false; return; }
-    if (reduceMotion || !curPanel) {
-      if (curPanel) curPanel.hidden = true;
-      nextPanel.hidden = false;
-      return;
-    }
-    var dir = i > from ? 1 : -1;
-
-    /* 現在の高さで固定してから動かし始める */
-    if (stage) stage.style.height = stage.getBoundingClientRect().height + 'px';
-
-    /* 切り替えている間だけ、角丸を確実に切り取るマスクを効かせる
-       （CSS: .pt-stage.is-switching …）。常時付けておくと一覧の
-       1行ずつが合成レイヤーになり、iPhone実機でスクロールが重い。 */
-    if (stage) {
-      stage.classList.add('is-switching');
-      window.clearTimeout(stage._switchTimer);
-      stage._switchTimer = window.setTimeout(function () {
-        stage.classList.remove('is-switching');
-      }, 700);
-    }
-
-    curPanel.classList.add('is-leaving');
-    curPanel.style.setProperty('--pt-slide', (dir * -18) + 'px');
-    window.setTimeout(function () {
-      curPanel.hidden = true;
-      curPanel.classList.remove('is-leaving');
-      curPanel.style.removeProperty('--pt-slide');
-      nextPanel.style.setProperty('--pt-slide', (dir * 18) + 'px');
-      nextPanel.hidden = false;
-      nextPanel.classList.add('is-entering');
-      /* 開始位置（右/左にずれた状態）を反映させてから、0へ戻して動かす */
-      requestAnimationFrame(function () {
-        if (stage) stage.style.height = nextPanel.getBoundingClientRect().height + 'px';
-        requestAnimationFrame(function () {
-          nextPanel.classList.remove('is-entering');
-          nextPanel.style.removeProperty('--pt-slide');
-        });
-      });
-      /* 高さの遷移が終わったら固定を外し、以後の内容変化に自然について行けるようにする */
-      window.setTimeout(function () {
-        if (stage) stage.style.height = '';
-      }, 220);
-    }, 200);
-  }
-
-  Array.prototype.forEach.call(tabs, function (t, i) {
-    t.addEventListener('click', function () { show(i); });
-    t.addEventListener('keydown', function (ev) {
-      if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return;
-      ev.preventDefault();
-      show((i + (ev.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length, true);
-    });
-  });
-
-  /* 指でパネルを左右にはらうと、隣のタブへ切り替わる */
-  (function () {
-    var sx = 0, sy = 0, tracking = false;
-    var THRESH = 40;
-    wrap.addEventListener('touchstart', function (ev) {
-      if (ev.touches.length !== 1) return;
-      sx = ev.touches[0].clientX;
-      sy = ev.touches[0].clientY;
-      tracking = true;
-    }, { passive: true });
-    wrap.addEventListener('touchend', function (ev) {
-      if (!tracking) return;
-      tracking = false;
-      var t = ev.changedTouches[0];
-      var dx = t.clientX - sx, dy = t.clientY - sy;
-      if (Math.abs(dx) < THRESH || Math.abs(dx) < Math.abs(dy) * 1.4) return;
-      show(current + (dx < 0 ? 1 : -1));
-    }, { passive: true });
-  })();
-
-  var saved = null;
-  try { saved = localStorage.getItem(KEY); } catch (e) {}
-  if (saved !== null && tabs[Number(saved)]) show(Number(saved));
-})();
 
 /* ============================================================
    スマホ：画面下に浮かぶ検索（廃止）
@@ -1373,89 +455,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
    下部固定の検索欄は廃止した。SEARCH タブから search.html へ。
    ============================================================ */
 
-/* ============================================================
-   スマホ：下へスクロールしているあいだはタブを隠す
-   ------------------------------------------------------------
-   本文の表示領域を稼ぐため。ヘッダーとパンくずは残したままにして、
-   今どこを見ているかは常に分かるようにする。
-   上へスクロールするか、ページの先頭に戻ると再び出す。
-   ============================================================ */
-(function () {
-  'use strict';
-  var bar = document.querySelector('.tab-bar');
-  if (!bar) return;
-  if (!window.matchMedia || !window.matchMedia('(max-width:899px)').matches) return;
 
-  var last = window.pageYOffset || 0;
-  var ticking = false;
-  var SHOW_FROM_TOP = 120;   /* この位置より上では常に出す */
-  var STEP = 6;              /* 小さな揺れで切り替わらないようにする */
-
-  function onScroll() {
-    ticking = false;
-    var y = window.pageYOffset || 0;
-    if (Math.abs(y - last) < STEP) return;
-    var down = y > last;
-    last = y;
-    if (y < SHOW_FROM_TOP) {
-      document.body.classList.remove('is-tab-hidden');
-      return;
-    }
-    document.body.classList.toggle('is-tab-hidden', down);
-  }
-
-  window.addEventListener('scroll', function () {
-    if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
-  }, { passive: true });
-
-  /* カテゴリーメニューを開いているあいだはタブを隠さない */
-  var btn = document.getElementById('tabCats');
-  if (btn) btn.addEventListener('click', function () {
-    document.body.classList.remove('is-tab-hidden');
-  });
-})();
-
-/* ============================================================
-   固定バーの高さを実測して、下に続く帯の位置をそこに合わせる
-   ------------------------------------------------------------
-   これまではヘッダー64px・タブ52pxという固定値で位置を決めていたが、
-   実際の高さは文字サイズや端末で変わる。ずれるとタブがヘッダーの
-   裏に潜って一部しか見えなくなるため、実測した高さを CSS 変数に入れる。
-   ============================================================ */
-(function () {
-  'use strict';
-  var header = document.querySelector('.site-header');
-  if (!header) return;
-  var tab = document.querySelector('.tab-bar');
-  var catNav = document.querySelector('.cat-nav');
-  var root = document.documentElement;
-
-  function visibleHeight(el) {
-    if (!el) return 0;
-    if (getComputedStyle(el).display === 'none') return 0;
-    return Math.round(el.getBoundingClientRect().height);
-  }
-
-  function sync() {
-    root.style.setProperty('--header-h',
-      Math.round(header.getBoundingClientRect().height) + 'px');
-    /* ヘッダーの下に並ぶ帯は、スマホはタブ、PCはカテゴリーナビ。
-       表示されているほうの高さを使う。 */
-    var t = visibleHeight(tab) || visibleHeight(catNav);
-    if (t > 0) root.style.setProperty('--tab-h', t + 'px');
-  }
-
-  sync();
-  if ('ResizeObserver' in window) {
-    var ro = new ResizeObserver(sync);
-    ro.observe(header);
-    if (tab) ro.observe(tab);
-    if (catNav) ro.observe(catNav);
-  }
-  window.addEventListener('resize', sync);
-  window.addEventListener('orientationchange', sync);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
-})();
 
 /* ============================================================
    Motion（motion.dev）による、押した感触・ホバーの動き
@@ -1498,28 +498,15 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   /* 押せるもの：面積が大きいほど縮み方は控えめにする */
   pressable('.btn-amazon', .97);
   pressable('.card', .985);
-  pressable('.feat-card, .today-card, .arow-link, .cf-tile, .sm-links a', .985);
-  pressable('.card-link, .btn-sub, .searchbox button, .chip', .94);
-  pressable('.pt-more, .arow-more, .deals-btn, .pt-tab, .share-btn', .97);
-  pressable('.tab-bar a, .tab-bar button', .93);
-  pressable('.feat-arrow, .to-top, .nav-toggle, .rail-arrow', .88);
-  pressable('.cat-tree .tree-subs a', .985);
+  pressable('.card, .row-item, .cat-cell, .sitemap-list a', .985);
+  pressable('.card-link, .btn-sub, .btn-line, .btn-solid, .chip, .sub-chip', .94);
+  pressable('.share-btn, .fab-item, .sec-more a', .97);
+  pressable('.to-top, .nav-toggle, .fab-main', .88);
 
   /* ここから下は、移動をともなう演出。「動きを減らす」設定では出さない。 */
   if (reduce) return;
 
-  /* ホバー：アイコンだけ少し持ち上げる（指の端末では起きない） */
-  Array.prototype.forEach.call(
-    document.querySelectorAll('.cat-nav-list a, .tree-item > details > summary'),
-    function (el) {
-      var icon = el.querySelector('.cat-icon, .tree-icon');
-      if (!icon) return;
-      M.hover(el, function () {
-        M.animate(icon, { y: -2, scale: 1.12 }, spring);
-        return function () { M.animate(icon, { y: 0, scale: 1 }, spring); };
-      });
-    }
-  );
+
 
   /* 「＋」の開閉に合わせて、サブカテゴリーを滑り出させる */
   Array.prototype.forEach.call(document.querySelectorAll('.cat-tree details'), function (d) {
@@ -1545,7 +532,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   var hoverable = window.matchMedia && window.matchMedia('(hover:hover)').matches;
   if (hoverable) {
     Array.prototype.forEach.call(
-      document.querySelectorAll('.card, .feat-card, .today-card'),
+      document.querySelectorAll('.card, .cat-cell'),
       function (el) {
         M.hover(el, function () {
           M.animate(el, { y: -3 }, spring);
@@ -1669,109 +656,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   });
 })();
 
-/* ============================================================
-   「このサイトの読み方」：ページに重ねて開く
-   ------------------------------------------------------------
-   details のまま使い、開いているあいだだけ画面に重ねる。
-   外側・×・Escape で閉じる。背面はスクロールさせない。
-   ============================================================ */
-(function () {
-  'use strict';
-  var d = document.querySelector('details.hero-policy');
-  if (!d) return;
-  var pop = d.querySelector('.policy-pop');
-  if (!pop) return;
 
-  /* 板と覆いは body 直下へ移す。
-     ページ側にコンテナクエリ（container-type）が効いている要素があると、
-     position:fixed の基準が画面ではなくその要素になり、板が画面の外に
-     出てしまうため。移したあとは、クラスで見せ隠しする。 */
-  var veil = document.createElement('div');
-  veil.className = 'policy-veil';
-  document.body.appendChild(veil);
-  document.body.appendChild(pop);
-
-  function close() { if (d.open) d.open = false; }
-
-  d.addEventListener('toggle', function () {
-    pop.classList.toggle('is-shown', d.open);
-    veil.classList.toggle('is-shown', d.open);
-    window.mbLockScroll(d.open, 'is-policy-open');
-  });
-
-  document.addEventListener('click', function (ev) {
-    if (!d.open) return;
-    var t = ev.target;
-    if (t.closest && t.closest('.policy-close')) { close(); return; }
-    if (t.closest && t.closest('.policy-pop')) return;
-    if (t.closest && t.closest('details.hero-policy > summary')) return;
-    close();
-  });
-
-  document.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape') close();
-  });
-})();
-
-/* ============================================================
-   見出しを1文字ずつ出す
-   ------------------------------------------------------------
-   文字を消して足し直すのではなく、最初から置いてある文字の
-   「見える／見えない」を切り替える。理由は2つ。
-     ・h1 は検索エンジンが読む見出し。中身を空にする時間を作らない
-     ・幅を実測して1行に収める処理があるので、幅は最初から確定させる
-   マーカー（accent）の入れ子は保ったまま、文字だけを包む。
-   ============================================================ */
-(function () {
-  'use strict';
-  var el = document.querySelector('.fit-line[data-typewriter]');
-  if (!el) return;
-
-  var reduce = window.matchMedia
-    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* 文字を1つずつ包む。要素の入れ子はそのまま残す。 */
-  var chars = [];
-  (function wrap(node) {
-    Array.prototype.slice.call(node.childNodes).forEach(function (n) {
-      if (n.nodeType === 3) {
-        var frag = document.createDocumentFragment();
-        n.nodeValue.split('').forEach(function (ch) {
-          var s = document.createElement('span');
-          s.className = 'tw-c';
-          s.textContent = ch;
-          frag.appendChild(s);
-          chars.push(s);
-        });
-        node.replaceChild(frag, n);
-      } else if (n.nodeType === 1) {
-        wrap(n);
-      }
-    });
-  })(el);
-  if (!chars.length) return;
-
-  if (reduce) {                       /* 動きを控える設定なら、すぐ全部出す */
-    chars.forEach(function (s) { s.classList.add('is-on'); });
-    return;
-  }
-
-  var SPEED = 55;                     /* 1文字あたりのミリ秒 */
-  var i = 0, prev = null;
-  (function step() {
-    if (i >= chars.length) {
-      /* 出し終わったあとも、最後の文字の右で点滅させたままにする。
-         文字として「｜」を足すのではなく線を描いているだけなので、
-         見出しの文言は最後まで元のままになる。 */
-      return;
-    }
-    if (prev) prev.classList.remove('is-cur');
-    chars[i].classList.add('is-on', 'is-cur');
-    prev = chars[i];
-    i++;
-    setTimeout(step, SPEED);
-  })();
-})();
 
 /* ------------------------------------------------ 注目のアイテムの価格
    価格と○%OFFは、Amazon の Product Advertising API から取った値しか
@@ -1782,36 +667,6 @@ document.addEventListener('touchstart', function () {}, { passive: true });
    を入れるだけでよい。取得先は
      { "B0XXXXXXXX": {"price":"¥8,990","off":"10%OFF"}, ... , "_at":"18:53" }
    の形を返すこと。24時間以内に取り直した値だけを返す（規約の要件）。 */
-(function () {
-  var box = document.querySelector('.deals-block[data-deals-api]');
-  if (!box) return;
-  var api = box.getAttribute('data-deals-api');
-  if (!api) return;
-
-  var deals = box.querySelectorAll('.deal[data-asin]');
-  if (!deals.length) return;
-  var asins = [];
-  for (var i = 0; i < deals.length; i++) asins.push(deals[i].getAttribute('data-asin'));
-
-  fetch(api + (api.indexOf('?') < 0 ? '?' : '&') + 'asins=' + encodeURIComponent(asins.join(',')),
-        { credentials: 'omit', cache: 'no-store' })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (d) {
-      if (!d) return;
-      for (var i = 0; i < deals.length; i++) {
-        var v = d[deals[i].getAttribute('data-asin')];
-        if (!v) continue;
-        var pe = deals[i].querySelector('.deal-p');
-        var oe = deals[i].querySelector('.deal-off');
-        if (pe && v.price) { pe.textContent = v.price; pe.hidden = false; }
-        if (oe && v.off)   { oe.textContent = v.off;   oe.hidden = false; }
-      }
-      /* 「いつ取った値か」を必ず添える。これも規約の要件。 */
-      var up = box.querySelector('.deals-up');
-      if (up && d._at) { up.querySelector('b').textContent = d._at; up.hidden = false; }
-    })
-    .catch(function () {});
-})();
 
 /* ============================================================
    記事末尾のシェアボタン：「リンクをコピー」
@@ -1822,22 +677,26 @@ document.addEventListener('touchstart', function () {}, { passive: true });
    ============================================================ */
 (function () {
   'use strict';
-  var btns = document.querySelectorAll('.share-btn.is-copy');
+  var btns = document.querySelectorAll('.share-btn.is-copy, .fab-item.is-copy');
   if (!btns.length) return;
   if (!navigator.clipboard || !navigator.clipboard.writeText) {
     Array.prototype.forEach.call(btns, function (b) { b.hidden = true; });
     return;
   }
   Array.prototype.forEach.call(btns, function (btn) {
+    /* 右下の丸いボタンは中身がアイコンなので、文字は差し替えず色だけ変える */
+    var isIcon = btn.classList.contains('fab-item');
     var label = btn.textContent;
     btn.addEventListener('click', function () {
       var url = btn.getAttribute('data-copy-url') || location.href;
       navigator.clipboard.writeText(url).then(function () {
-        btn.textContent = 'コピーしました';
+        if (!isIcon) btn.textContent = 'コピーしました';
         btn.classList.add('is-copied');
+        btn.setAttribute('aria-label', 'リンクをコピーしました');
         window.setTimeout(function () {
-          btn.textContent = label;
+          if (!isIcon) btn.textContent = label;
           btn.classList.remove('is-copied');
+          btn.setAttribute('aria-label', 'リンクをコピー');
         }, 1800);
       }).catch(function () {});
     });
@@ -1846,71 +705,25 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 
 
 /* ============================================================
-   タブの行き先を、あらかじめ取り寄せておく
+   右下の共有ボタン：外を押す・Escで閉じる
    ------------------------------------------------------------
-   下のタブ（ALL / NEW / RANKING / SEARCH）は普通のページ遷移なので、
-   押してから読み込みが始まる。手が空いている間に先に取り寄せておけば、
-   押したときには手元にある状態にできる。
-
-   ・画面が出そろって、ブラウザが暇になってから始める（描画の邪魔をしない）
-   ・タブが出ている幅（スマホ）のときだけ
-   ・通信を節約する設定や、遅い回線のときは何もしない
-   ・prefetch に対応していないブラウザ（Safari など）は fetch で代用する
-     ※どちらも「取り寄せるだけ」で、そのページのJSや広告は動かない
+   開閉そのものは <details> がやるので、ここは「閉じ忘れ」を
+   拾うだけ。開いたまま記事を読み進めると、本文に重なるため。
    ============================================================ */
 (function () {
   'use strict';
-  var bar = document.querySelector('.tab-bar');
-  if (!bar) return;
-  /* タブが出ていない（PC幅）なら、先読みしても使われない */
-  if (getComputedStyle(bar).display === 'none') return;
-
-  var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  if (conn) {
-    if (conn.saveData) return;                       /* 通信節約モード */
-    if (/(^|-)2g$/.test(conn.effectiveType || '')) return;  /* 遅い回線 */
-  }
-
-  var here = location.pathname.replace(/\/$/, '/index.html');
-  var urls = [];
-  Array.prototype.forEach.call(bar.querySelectorAll('a[href]'), function (a) {
-    var u = new URL(a.getAttribute('href'), location.href);
-    if (u.origin !== location.origin) return;
-    if (u.pathname.replace(/\/$/, '/index.html') === here) return;  /* 今いるページ */
-    if (urls.indexOf(u.href) < 0) urls.push(u.href);
+  var fab = document.getElementById('shareFab');
+  if (!fab) return;
+  document.addEventListener('click', function (ev) {
+    if (fab.open && !fab.contains(ev.target)) fab.open = false;
   });
-  if (!urls.length) return;
-
-  var canPrefetch = false;
-  try {
-    canPrefetch = document.createElement('link').relList.supports('prefetch');
-  } catch (e) { canPrefetch = false; }
-
-  function warm(url) {
-    if (canPrefetch) {
-      var l = document.createElement('link');
-      l.rel = 'prefetch';
-      l.href = url;
-      document.head.appendChild(l);
-    } else {
-      /* Safari は prefetch に対応しないので、取り寄せてキャッシュに載せる */
-      fetch(url, { credentials: 'same-origin', mode: 'same-origin' })
-        .catch(function () {});
-    }
-  }
-
-  /* 1本ずつ、間を空けて取り寄せる（まとめて投げると本命の通信を圧迫する） */
-  function next() {
-    var url = urls.shift();
-    if (!url) return;
-    warm(url);
-    setTimeout(next, 400);
-  }
-
-  var start = function () { setTimeout(next, 600); };
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(start, { timeout: 3000 });
-  } else {
-    setTimeout(start, 1200);
-  }
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape' && fab.open) fab.open = false;
+  });
+  /* 共有先へ飛んだあとに戻ってきたとき、開いたままにしない */
+  fab.addEventListener('click', function (ev) {
+    if (ev.target.closest('.fab-item')) window.setTimeout(function () { fab.open = false; }, 400);
+  });
 })();
+
+
