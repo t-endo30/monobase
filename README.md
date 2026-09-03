@@ -19,6 +19,8 @@ tools/optimize-images.sh 画像一括圧縮（macOS）
 tools/check_images.py    画像サイズ検査（CIで実行）
 tools/review_article.py  記事レビュー（禁止表現・ダークパターン・事実の扱い）
 tools/audit_articles.py  公開済み記事の品質点検（読むだけ。書き換えない）
+tools/add_marks.py       蛍光ペン（==…==）の過不足を直す（文章は変えない）
+tools/fetch_reviews.py   口コミの件数・平均評価を販売APIから取る
 tools/check_layout.py    画面の崩れ検査（Chromeで実際に描画して確認）
 tools/maintain_articles.py 公開中の記事の見回り（リンク切れ・鮮度）
 tools/schedule_gate.py   自動作成の実行日と本数を決める
@@ -99,6 +101,42 @@ python3 tools/audit_articles.py --json out.json # 結果を書き出す
 
 直すときは既存の構成（キーの並び）を保ったまま、本文の値だけを書き換えます。
 記事の削除・URL変更・slug変更・Amazonリンクの削除は行いません。
+
+### 口コミの件数・平均評価を取る
+
+記事は長いあいだ「購入者レビューでは〜という傾向があります」としか書けず、
+件数も平均も「確認できていない」として扱っていました。レビュー本文を
+モールから機械で集めるのは各社の規約に触れますが、**件数と平均評価は
+楽天・Yahoo!の公式APIが正規に返します**。そこだけを取り込みます。
+
+```bash
+export RAKUTEN_APP_ID=... RAKUTEN_ACCESS_KEY=pk_... YAHOO_CLIENT_ID=...
+python3 tools/fetch_reviews.py          # JANのある公開記事すべて
+python3 tools/fetch_reviews.py --dry-run
+```
+
+取れた値は `review_stats` に入ります。`facts`（メーカー公式で裏を取った仕様）
+とは別のキーです。口コミの件数は**販売情報**であって公式情報ではなく、
+混ぜると `rating` や `spec` を出してよいかの判定まで狂うためです。
+
+**JANコードが無い記事は飛ばします。** 推測で商品を引くと、別商品の口コミを
+記事に載せることになるためです。週次の `write.yml` では本文を書く前に走ります。
+
+### 蛍光ペン（`==…==`）の過不足を直す
+
+`==この語==` はテンプレートが黄色いマーカーに変換する記法です。
+記事全体で4〜10か所が目安で、0〜2か所だと流し読みで要点を拾えず、
+多すぎると全体が黄色くなって何も強調できません。
+
+```bash
+python3 tools/add_marks.py --check      # 過不足のある記事を数える
+python3 tools/add_marks.py --all        # 足りない記事に足す
+python3 tools/add_marks.py --trim       # 多すぎる記事を減らす（AIを呼ばない）
+```
+
+**文章は1文字も変えません。** `==` を足す／外すだけで、
+返ってきた値は「`==` を外したら元と同じか」を確かめてから受け入れます。
+違っていればその項目は捨てます。更新日も動かしません。
 
 ### ASPの広告（A8.net・バリューコマースなど）
 

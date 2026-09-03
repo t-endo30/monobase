@@ -865,7 +865,8 @@
     }).join('');
   }
 
-  var KIND_JA = { review: 'レビュー', roundup: '特集', guide: '選び方' };
+  var KIND_JA = { review: 'レビュー', roundup: '特集', guide: '選び方',
+                  sale: 'セール', howto: '使い方' };
 
   /* 未公開の内容をページへ当てる。iframe は同じドメインなので中を触れる。 */
   function pvPatch(doc) {

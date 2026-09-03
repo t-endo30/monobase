@@ -200,6 +200,7 @@ def build_prompt(a, site, prompt_md, fetch_official=True):
         f'買えるモール：{"、".join(shops) or "不明"}',
         kind_block(a),
         facts_block(a),
+        reviews_block(a),
         official_block(a, do_fetch=fetch_official),
         "",
         "---------------- 出力の決まり ----------------",
@@ -247,6 +248,9 @@ def build_prompt(a, site, prompt_md, fetch_official=True):
         "「価格・在庫は変動するため最新情報はリンク先でご確認ください。」も入れる。",
         "・faq は3〜6問。購入前に実際に迷う点を、仕様と口コミから答える。"
         "各回答は1〜3文。答えられない質問は載せない。",
+        "・最も重要な結論・キーフレーズは ==この語== と == で挟む"
+        "（テンプレートが蛍光ペンに変換する）。1段落に1か所まで、"
+        "記事全体で4〜10か所。0〜2か所しか無いと流し読みで要点を拾えない。",
         "・next_problem の項目にリンクURLを入れない。",
         "・価格は書かない。変動するため。",
         "・比較対象は実在する商品にする。「一般的な商品」「同クラス製品」"
@@ -338,6 +342,32 @@ def facts_block(a):
             "スペック表もこの範囲で作ります。")
 
 
+def reviews_block(a):
+    """販売APIから取った口コミの件数と平均評価を渡す。
+
+       これがあるときだけ、記事は件数と平均を数字で書ける。
+       無いときに数字を書かせないのは今までどおり
+       （tools/fetch_reviews.py が入れる。JANが無い記事には入らない）。"""
+    st = a.get("review_stats") or {}
+    lines = []
+    for shop, ja in (("rakuten", "楽天市場"), ("yahoo", "Yahoo!ショッピング")):
+        v = st.get(shop)
+        if v:
+            lines.append(f"・{ja}：レビュー {v['count']:,}件、"
+                         f"平均 {v['average']}／5.0（{v['shops']}店舗の合計）")
+    if not lines:
+        return ("\n【口コミの件数・平均評価】取得できていません。"
+                "件数・割合・平均の星を数字で書かないでください。"
+                "「購入者レビューでは」「一部の口コミでは」として、"
+                "傾向の記述にとどめます。")
+    return ("\n【口コミの件数・平均評価（販売APIで取得済み。"
+            f"確認日 {st.get('checked', '不明')}）】\n" + "\n".join(lines)
+            + "\nこの数字は書いてよい（出どころを『楽天市場の購入者レビュー』"
+            "のように明示する）。ここに無いモールの件数・平均は書かない。"
+            "これは販売情報であって、メーカー公式の仕様ではない。"
+            "レビュー本文は取得していないので、特定の投稿を引用しない。")
+
+
 def fetch_text(url, limit=6000):
     """メーカー公式ページの本文テキストをざっくり抜く。
        自動取得なので、数値は「参考」。断定の根拠にはしない。"""
@@ -377,6 +407,14 @@ def official_block(a, do_fetch=True):
                        "数値はここだけを根拠に断定せず、facts と突き合わせる）―\n"
                        + body + "\n― 抽出ここまで ―")
     return "\n".join(out)
+
+
+# 中身のない失敗の見分け方。出力が0トークンで、コストも0のもの。
+# プロンプトの問題ではないので、同じ内容でやり直せば通ることが多い。
+TRANSIENT = re.compile(
+    r'"output_tokens"\s*:\s*0|"total_cost_usd"\s*:\s*0[,}]|'
+    r'stop_sequence|rate.?limit|429|50[0-9] |timed out|'
+    r'秒で応答がありませんでした', re.I)
 
 
 SYSTEM = ("あなたは日本語の商品レビュー記事を書くライターです。"
@@ -540,6 +578,18 @@ def audit(a):
     n_ai = len(_find(AI_PHRASE, text))
     if n_ai > AI_PHRASE_LIMIT:
         warns.append(f"AIらしい定型表現が {n_ai} 回（上限 {AI_PHRASE_LIMIT}）")
+
+    # 蛍光ペン（==…==）が少なすぎないか。
+    # 流し読みで要点を拾わせるための仕掛けなので、
+    # 0〜2か所しか無いと記事が平坦になる。
+    marks = len(re.findall(r"==[^=]+==", text))
+    if marks < 4:
+        warns.append(f"蛍光ペン（==…==）が {marks} か所"
+                     "。記事全体で4〜10か所は入れる")
+    elif marks > 10:
+        # 全段落に付けると、強調しているつもりで何も強調できない。
+        warns.append(f"蛍光ペン（==…==）が {marks} か所"
+                     "。多すぎる。python3 tools/add_marks.py --trim で減らせる")
 
     # 口コミの要約に星の数が付いていないか。
     # voices は傾向の要約であって特定の投稿の引用ではないので、
@@ -709,6 +759,8 @@ def main():
                     help="official_url のページを自動取得しない")
     ap.add_argument("--keep-updated", action="store_true",
                     help="更新日（updated）を元のまま動かさない。既存記事の書き直し用")
+    ap.add_argument("--no-review", action="store_true",
+                    help="書いたあとのレビューを行わない（既定では続けて実行する）")
     args = ap.parse_args()
 
     arts = load("content/articles.json")
@@ -734,6 +786,7 @@ def main():
 
     cost = 0.0
     done, failed = 0, 0
+    written = []            # 書けた記事。このあとレビューに回す
     for i, a in enumerate(targets, 1):
         slug = a.get("slug", "?")
         print(f"[{i}/{len(targets)}] {slug} … ", end="", flush=True)
@@ -746,18 +799,28 @@ def main():
             a.update(fresh)
         prompt = build_prompt(a, site, prompt_md, fetch_official=not args.no_fetch)
         gen = None
-        for attempt in (1, 2):
+        for attempt in (1, 2, 3):
             try:
                 out, c = run_claude(prompt, args.model, args.timeout)
                 cost += c
                 gen = parse_json(out)
                 break
             except RuntimeError as ex:
+                msg = str(ex)
                 # 文章で返してくることがある。1度だけ言い直して頼む。
-                if attempt == 1 and "JSONとして読めません" in str(ex):
+                if attempt < 3 and "JSONとして読めません" in msg:
                     print("形が違ったのでやり直し … ", end="", flush=True)
                     prompt = (prompt + "\n\n【重要】前回はJSON以外が返ってきました。"
                               "説明や前置きを書かず、JSONオブジェクトだけを返してください。")
+                    continue
+                # 中身のない失敗（出力0トークン・コスト0）は、その場の
+                # 通信やレートの問題であることが多い。同じ内容で書き直すと通る。
+                # 実際、4本まとめて落ちた直後に1本ずつ流すと全部通った。
+                if attempt < 3 and TRANSIENT.search(msg):
+                    wait = 20 * attempt
+                    print(f"一時的な失敗。{wait}秒おいてやり直し … ",
+                          end="", flush=True)
+                    time.sleep(wait)
                     continue
                 print(f"失敗\n    {ex}")
                 failed += 1
@@ -774,6 +837,8 @@ def main():
             warns = audit(a)
 
         done += 1
+        if not args.dry_run:
+            written.append(slug)
         print(f"完了（{time.time() - t0:.0f}秒 / {body_chars(gen):,}字）")
         report_self_check(gen)
         for w in warns:
@@ -788,8 +853,24 @@ def main():
         print("\ncontent/articles.json を更新しました。")
 
     print(f"\n完了 {done} 本 / 失敗 {failed} 本 / 参考コスト ${cost:.2f}")
+
+    # 書いたら、そのままレビューまで通す。
+    # 禁止表現・架空の星評価・比較表の未確認値は、書かせた直後の出力に
+    # 高い割合で混ざる。33本を書き直したときは10本で禁止表現が出た。
+    # 生成だけで公開する経路を残すと、そこから漏れる。
+    if written and not args.dry_run and not args.no_review:
+        print("\n続けてレビューします（tools/review_article.py と同じ基準）…\n")
+        cmd = ["python3", os.path.join(ROOT, "tools", "review_article.py"),
+               *written, "--model", args.model, "--timeout", str(args.timeout)]
+        if args.keep_updated:
+            cmd.append("--keep-updated")
+        rc = subprocess.run(cmd, cwd=ROOT).returncode
+        if rc != 0:
+            print("\n△ レビューで指摘が残りました。上の内容を確認してください。")
+            return 1
+
     if not args.dry_run and done:
-        print("次にやること：")
+        print("\n次にやること：")
         print("  1. 内容を読む（スペック表の数値はメーカー公式で裏を取る）")
         print("  2. python3 build.py && python3 tools/check_articles.py")
         print("  3. 問題なければコミットして push")

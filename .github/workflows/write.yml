@@ -86,7 +86,22 @@ jobs:
           python3 tools/make_drafts.py \
             --take "${{ inputs.count || steps.gate.outputs.count }}"
 
-      - name: 本文を書かせる
+      # 口コミの件数と平均評価を、販売APIから取っておく。
+      # これがあると、記事は「レビュー1,284件・平均4.3」と数字で書ける。
+      # 無いときは、今までどおり数字を書かせない。
+      - name: 口コミの件数・平均評価を取る
+        if: steps.gate.outputs.run == 'true'
+        continue-on-error: true          # 取れなくても記事は書ける
+        env:
+          RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
+          RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
+          YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
+        run: python3 tools/fetch_reviews.py
+
+      # 書き終えると、そのまま tools/review_article.py のレビューまで走る
+      # （--no-review を付けない限り）。禁止表現・架空の星評価・比較表の
+      # 未確認値は書かせた直後の出力に高い割合で混ざるため。
+      - name: 本文を書かせる（レビューまで通す）
         if: steps.gate.outputs.run == 'true'
         env:
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}

@@ -4152,6 +4152,16 @@ body,p,li,dd,dt,figcaption,a,span,button,
   color:#9A5B00;
   border-color:#F3D2A8;
 }
+.tag-kind.is-guide{
+  background:#E6F4EA;
+  color:#1E6B3A;
+  border-color:#C3E3CE;
+}
+.tag-kind.is-sale{
+  background:#FCE8E8;
+  color:#9B2C2C;
+  border-color:#F3C9C9;
+}
 /* 記事ページのメタ欄では、カテゴリーバッジの隣に並べる */
 .article-meta .tag-kind{margin-left:0;}
 @media (max-width:599px){

@@ -19,7 +19,8 @@ MIN_CHARS_UNBACKED = 5000
 MAX_CHARS = 12000   # 上限。FAQ・情報源明記・比較基準まで入れると1万字前後になる
 
 # 文字数に数えないキー（識別子・URL・分類など、読者が読む文ではない）
-SKIP_KEYS = {"slug", "thumb", "banner", "amazon_url", "asin", "jan", "date", "updated",
+SKIP_KEYS = {"review_stats", "article_type",
+             "slug", "thumb", "banner", "amazon_url", "asin", "jan", "date", "updated",
              "rakuten_url", "yahoo_url", "cta_position", "official_url",
              "icon", "category", "sub", "tags", "cta_label", "image_prompt",
              "feature_of", "feature_covers"}

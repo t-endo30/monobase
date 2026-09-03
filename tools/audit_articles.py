@@ -30,7 +30,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LEVELS = ["CRITICAL", "HIGH", "MEDIUM", "LOW"]
 
 # 読者が読む文ではないキー。検査の対象から外す。
-SKIP_KEYS = {"slug", "thumb", "banner", "amazon_url", "asin", "jan", "date",
+SKIP_KEYS = {"review_stats", "article_type",
+             "slug", "thumb", "banner", "amazon_url", "asin", "jan", "date",
              "updated", "rakuten_url", "yahoo_url", "cta_position", "official_url",
              "icon", "category", "sub", "tags", "cta_label", "image_prompt",
              "feature_of", "feature_covers", "health", "facts", "kind",

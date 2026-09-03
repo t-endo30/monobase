@@ -163,11 +163,16 @@ SALES_JSON = html.escape(json.dumps(
 
 def amazon_link(a):
     """ASIN があればアソシエイトタグ付きリンクを組み立てる。
-       無ければ手入力の amazon_url を使う（こちらにもタグを付ける）。"""
+       無ければ手入力の amazon_url を使う（こちらにもタグを付ける）。
+
+       どちらも無いときは空を返す。以前は Amazon のトップページへ
+       送っていたが、商品を特定していないボタンは読者を目的の商品へ
+       運べないうえ、記事で扱っている商品と行き先が一致しない。"""
     asin = (a.get("asin") or "").strip().upper()
     if asin:
         return amazon_tagged(f"https://www.amazon.co.jp/dp/{asin}")
-    return amazon_tagged(a.get("amazon_url") or "https://www.amazon.co.jp/")
+    url = (a.get("amazon_url") or "").strip()
+    return amazon_tagged(url) if url else ""
 
 
 def visual_path(a, p):
@@ -788,13 +793,17 @@ def thumb(a, p):
     return (f'<img src="{e(src)}" alt="{e(a.get("list_title") or a["title"])}" '
             f'loading="lazy" width="1200" height="430">')
 
-KIND_LABEL = {"review": "レビュー", "roundup": "特集", "guide": "選び方"}
+KIND_LABEL = {"review": "レビュー", "roundup": "特集", "guide": "選び方",
+              "sale": "セール", "howto": "使い方"}
 
 
 def kind_of(a):
     """記事の種類を返す。明示が無ければカテゴリーから推測する。
        review  : 1つの商品を掘り下げるレビュー
-       roundup : 複数の商品を比べる特集"""
+       roundup : 複数の商品を比べる特集
+       guide   : 選び方・基準の解説
+       sale    : セール情報
+       howto   : 使い方"""
     k = a.get("kind")
     if k in KIND_LABEL:
         return k

@@ -31,7 +31,7 @@ from write_article import (GEN_FIELDS, NG_WORDS, MIN_CHARS, MAX_CHARS,
                            MIN_CHARS_UNBACKED,
                            FAKE_EXPERIENCE, FAKE_REVIEW_NUM, AMAZON_MISLEAD,
                            VAGUE_RIVAL, CARE_CLAIM, AI_PHRASE, AI_PHRASE_LIMIT,
-                           NEGATION, save_article)
+                           NEGATION, save_article, TRANSIENT)
 
 # ---------------------------------------------------------------- 機械検査
 # 断定・保証の表現。tools/check_text.py と同じ基準。
@@ -77,7 +77,8 @@ def texts(v, path=""):
             yield from texts(x, f"{path}.{k}" if path else k)
 
 
-SKIP = ("slug", "thumb", "amazon_url", "rakuten_url", "yahoo_url", "asin",
+SKIP = ("review_stats", "article_type",
+        "slug", "thumb", "amazon_url", "rakuten_url", "yahoo_url", "asin",
         "jan", "date", "updated", "category", "sub", "image_prompt", "facts")
 
 
@@ -401,8 +402,23 @@ def main():
                 cost += c
                 res = parse_json(out)
             except RuntimeError as ex:
-                print(f"    ✗ レビューできませんでした：{ex}")
-                break
+                # 中身のない失敗（出力0トークン）は通信やレートの問題。
+                # ここで諦めると、その記事はレビューを受けないまま
+                # 要確認として残るので、間を置いて1度だけやり直す。
+                if TRANSIENT.search(str(ex)):
+                    print("    … 一時的な失敗。20秒おいてやり直します")
+                    time.sleep(20)
+                    try:
+                        out, c = run_claude(build_prompt(a, rules, hits),
+                                            args.model, args.timeout)
+                        cost += c
+                        res = parse_json(out)
+                    except RuntimeError as ex2:
+                        print(f"    ✗ レビューできませんでした：{ex2}")
+                        break
+                else:
+                    print(f"    ✗ レビューできませんでした：{ex}")
+                    break
 
             # ここまで来た回だけ「レビューが走った」と数える。
             # 機械検査に引っかからない問題（架空の星評価、比較表の未確認値、
