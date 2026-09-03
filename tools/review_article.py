@@ -377,6 +377,7 @@ def main():
         slug = a.get("slug", "?")
         print(f"[{i}/{len(targets)}] {slug}")
         score, blockers = {}, []
+        reviewed = False        # Claude のレビューが実際に走ったか
         hits = scan(a)
         for k, p, d in hits:
             print(f"    △ [{k}] {p}：{d}")
@@ -396,6 +397,12 @@ def main():
             except RuntimeError as ex:
                 print(f"    ✗ レビューできませんでした：{ex}")
                 break
+
+            # ここまで来た回だけ「レビューが走った」と数える。
+            # 機械検査に引っかからない問題（架空の星評価、比較表の未確認値、
+            # テンプレートの使い回し）は Claude 側でしか見つからないので、
+            # 呼び出しが失敗した記事を合格にしてはいけない。
+            reviewed = True
 
             for f in res.get("findings") or []:
                 print(f"    ● {f.get('where','')}：{f.get('problem','')}"
@@ -433,13 +440,18 @@ def main():
             print(f"    ✗ 公開できない理由：{b}")
 
         under = isinstance(total, (int, float)) and total < PUBLISH_SCORE
+        # レビューが走らなかった記事は「指摘なし」ではなく「未確認」。
+        not_reviewed = not (args.check_only or args.dry_run) and not reviewed
 
-        if hits or blockers or under:
+        if hits or blockers or under or not_reviewed:
             ng.append(slug)
             for k, p, d in hits:
                 print(f"    ✗ 残った指摘 [{k}] {p}：{d}")
             if under:
                 print(f"    ✗ 総合 {total} 点。{PUBLISH_SCORE} 点未満は公開しません")
+            if not_reviewed:
+                print("    ✗ レビューが実行できていません。"
+                      "機械検査だけでは判断できないので、やり直してください")
         else:
             ok.append(slug)
             print("    ✓ 基準を満たしました")
