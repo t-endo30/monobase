@@ -49,7 +49,7 @@ def e(s):
 # ---------------------------------------------------------------------------
 # ブランドマーク
 # ---------------------------------------------------------------------------
-# assets/img/hero-box.jpg（開いた箱に MB）の等角図をそのまま図形に起こしたもの。
+# assets/img/hero-box.webp（開いた箱に MB）の等角図をそのまま図形に起こしたもの。
 # 箱の2面・開口部・4枚のフタという写真の構成を保つので、ヒーローの写真と
 # 並べても同じものに見える。色は CSS 変数で外から差し替えられるようにして、
 # 暗いフッターでは白黒を入れ替える（--mk-body / --mk-flap / --mk-line / --mk-letter）。
@@ -388,7 +388,7 @@ def build_top():
         <p class="hero-desc">口コミ・仕様・価格を徹底的に調査し、<br>購入判断に必要な情報を整理してお届けします。</p>
       </div>
       <figure class="hero-figure">
-        <img src="{R}assets/img/hero-box.jpg" alt="モノベースの箱" width="314" height="314">
+        <img src="{R}assets/img/hero-box.webp" alt="モノベースの箱" width="314" height="314">
       </figure>
       <div class="hero-points">{pt}</div>
     </div>

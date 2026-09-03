@@ -206,15 +206,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .hero-mark .txt{font-family:var(--font-en);font-size:10px;font-weight:600;letter-spacing:.2em;color:var(--muted);}
 .hero-mark .bar{width:34px;height:1px;background:var(--line-2);margin-left:auto;margin-top:10px;}
 
-/* 箱の写真。素材の地色（薄いグレー）を紙面に溶かすため multiply で重ねる */
+/* 箱の写真。地は素材の時点で抜いてある（tools/prep_hero_image.py）。
+   以前は白い地のまま multiply で紙面に溶かしていたが、multiply は親に
+   opacity や transform が掛かるとそこで合成が閉じてしまい、下の
+   フェードインを付けたとたん白い四角が浮き出た。 */
 .hero-figure{position:relative;justify-self:center;width:100%;max-width:380px;grid-column:2;grid-row:1;}
-.hero-figure img{
-  width:100%;mix-blend-mode:multiply;
-  /* 素材の地色は書き出しの時点で白(255)に正規化してある。multiply は白を
-     素通しするので、地の色を変えても写真が四角い板に見えることはない。
-     ここでの補正は、紙面の無彩色に合わせる saturate だけに留める */
-  filter:saturate(0);
-}
+.hero-figure img{width:100%;filter:saturate(0);}
 
 /* 3つの特長 */
 .hero-points{
@@ -267,7 +264,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .card{display:flex;flex-direction:column;}
 .card-thumb{
   position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg-3);
-  border:1px solid var(--line);
+  border:1px solid var(--line-2);
 }
 .card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
 .card:hover .card-thumb img{transform:scale(1.04);}
@@ -290,10 +287,20 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* ランキングは一覧ページと違って本数が少ないので、器いっぱいに広げず中央に置く */
 .row-list.is-narrow{max-width:880px;margin:0 auto;}
 .row-item{
+  position:relative;
   display:grid;grid-template-columns:180px 1fr;gap:24px;
   padding:24px 0;border-bottom:1px solid var(--line);align-items:start;
 }
-.row-item .thumb{aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line);background:var(--bg-3);}
+/* 順位は写真の左上に重ねる。独立した列にすると、写真と見出しの位置が
+   ランキングのときだけずれてしまう */
+.row-no{
+  position:absolute;left:0;top:24px;z-index:1;
+  min-width:34px;padding:4px 8px;
+  background:var(--ink);color:#fff;
+  font-family:var(--font-en);font-size:11.5px;font-weight:700;letter-spacing:.08em;
+  text-align:center;
+}
+.row-item .thumb{aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line-2);background:var(--bg-3);}
 .row-item .thumb img{width:100%;height:100%;object-fit:cover;}
 .row-item h3{font-size:16px;font-weight:800;line-height:1.65;margin-bottom:8px;}
 .row-item p{font-size:13px;line-height:1.85;color:var(--muted);}
@@ -348,6 +355,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   scrollbar-width:none;
 }
 .crumb-bar .crumbs::-webkit-scrollbar{display:none;}
+/* 入りきらないときは横へ送る。切れているのか終わりなのかが分かるよう、
+   右端をぼかしておく */
+@media (max-width:860px){
+  .crumb-bar .crumbs{
+    -webkit-mask-image:linear-gradient(90deg,#000 88%,transparent 100%);
+    mask-image:linear-gradient(90deg,#000 88%,transparent 100%);
+  }
+}
 /* 見出しの中に置いたパンくずは、上の帯と重複するので出さない */
 .page-head .crumbs{display:none;}
 .page-head h1{font-size:clamp(26px,3vw,38px);font-weight:900;line-height:1.45;letter-spacing:.01em;}
@@ -432,7 +447,7 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
 .side-search button svg{width:17px;height:17px;}
 .side-list li{border-bottom:1px solid var(--line);}
 .side-list a{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:13px 0;align-items:center;}
-.side-list .th{aspect-ratio:1/1;overflow:hidden;background:var(--bg-3);border:1px solid var(--line);}
+.side-list .th{aspect-ratio:1/1;overflow:hidden;background:var(--bg-3);border:1px solid var(--line-2);}
 .side-list .th img{width:100%;height:100%;object-fit:cover;}
 .side-list .tt{font-size:12px;line-height:1.65;font-weight:600;
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
@@ -808,7 +823,10 @@ body.has-sticky-cta .fab{bottom:96px;}
      並べて置くとロゴがボタンの分だけ左へ寄ってしまうため */
   .v2-header .header-inner{position:relative;justify-content:center;gap:0;}
   .brand{gap:10px;}
-  .nav-toggle{display:flex;position:absolute;right:0;top:50%;transform:translateY(-50%);margin:0;}
+  /* 絶対配置は器の内側の余白を無視して端に張り付くので、
+     余白のぶんだけ内側へ戻す */
+  .nav-toggle{display:flex;position:absolute;right:var(--gut);top:50%;
+    transform:translateY(-50%);margin:0;}
   .brand-mark{width:34px;height:31px;}
   .brand-ja{font-size:18px;}
   .brand-en{font-size:8.5px;letter-spacing:.3em;}
@@ -904,10 +922,16 @@ body.has-sticky-cta .fab{bottom:96px;}
   .sec-more{margin-top:22px;}
   .sec-more a{width:100%;min-width:0;padding:14px 20px;}
 
-  .row-item{grid-template-columns:104px 1fr;gap:14px;padding:18px 0;}
-  .row-item h3{font-size:14px;margin-bottom:5px;}
-  .row-item p{font-size:12px;
+  /* 新着・ピックアップのタイルと同じ大きさにそろえる。ここだけ写真が
+     大きいと、同じ「記事の一覧」なのに別物に見える */
+  .row-item{grid-template-columns:92px minmax(0,1fr);gap:14px;padding:12px 0;align-items:center;}
+  .row-no{top:12px;min-width:26px;padding:3px 6px;font-size:10px;}
+  .row-item .thumb{aspect-ratio:4/3;}
+  .row-item h3{font-size:13px;line-height:1.6;margin-bottom:3px;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  /* 説明文はスマホでは落とす。見出しと日付だけで選べる */
+  .row-item p{display:none;}
+  .row-item .meta{margin-top:2px;font-size:10px;}
 
   .page-head{padding:32px 0 26px;}
   .article-wrap{padding:32px 0 56px;gap:44px;}

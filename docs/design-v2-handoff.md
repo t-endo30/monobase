@@ -44,7 +44,7 @@ python3 tools/build_preview.py
 |---|---|---|
 | `assets/style-v2.css` | ✅ | サイト本体のCSS。記事本文の部品を旧 `style.css` から移設した区画が末尾にある |
 | `tools/build_preview.py` | ✅ | プレビュー生成。ロゴのSVGとヘッダー/フッターの雛形もここにある |
-| `assets/img/hero-box.jpg` | ✅ | ヒーローの箱写真（622×622）。地色を白に正規化済み（後述） |
+| `assets/img/hero-box.webp` | ✅ | ヒーローの箱写真（622×622・透過）。地を抜いてある（後述） |
 | `tools/hero-box-src.jpg` | ✅ | その元画像（1667×640）。切り直すときはこちらから。`assets/` に置くと配信に乗り、画像の重さの検査にも引っかかるので道具の側に置く |
 | `tools/prep_hero_image.py` | ✅ | 上の2つを作る道具（地色の正規化＋箱の輪郭で正方形に切り出し） |
 | `preview/` | ❌ | 生成物。`.gitignore` 済み＝Cloudflare Pages に乗らない |

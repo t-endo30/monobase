@@ -120,7 +120,7 @@ def _logo_path_d(cells):
 
 def logo_svg(size="100%"):
     """ブランドマーク。ヘッダー・フッター・favicon/OGP の生成で共用する。
-       assets/img/hero-box.jpg（開いた箱に MB）の等角図をそのまま図形に
+       assets/img/hero-box.webp（開いた箱に MB）の等角図をそのまま図形に
        起こしたもの。箱の2面・開口部・4枚のフタという写真の構成を保つので、
        トップのヒーロー写真と並べても同じものに見える。
        色は CSS 変数で外から差し替える（暗いフッターでは白黒を入れ替える）。"""
@@ -634,7 +634,7 @@ def _header_count_text():
 # ここに入ったのでやめた）。
 V2_NAV = [
     ("HOME", "ホーム", "index.html"),
-    ("CATEGORY", "カテゴリー", "sitemap.html"),
+    ("CATEGORY", "カテゴリー", "categories.html"),
     ("ABOUT", "モノベースについて", "about.html"),
     ("POLICY", "運営方針", "editorial-policy.html"),
     ("CONTACT", "お問い合わせ", "contact.html"),
@@ -1001,7 +1001,7 @@ def v2_hero(p):
           <p class="hero-desc">口コミ・仕様・価格を徹底的に調査し、<br>購入判断に必要な情報を整理してお届けします。</p>
         </div>
         <figure class="hero-figure">
-          <img src="{p}assets/img/hero-box.jpg" alt="{e(NAME)}" width="622" height="622">
+          <img src="{p}assets/img/hero-box.webp" alt="{e(NAME)}" width="622" height="622">
         </figure>
         <div class="hero-points">{pt}</div>
       </div>
@@ -1973,21 +1973,8 @@ def render_article(a):
 
     add('        </div>\n      </article>\n')
 
-    # シェアボタン。外部からの流入（SNS経由の訪問・被リンク）を増やすため、
-    # 読み終えた人がそのまま共有できる導線を記事の直後に置く。
-    # クエリの値は urllib.parse.quote でURLエンコードしてから、
-    # HTML属性として安全な形に e() で escape する（&の連結はここで足す）。
-    _share_text = urllib.parse.quote(a.get("list_title") or a["title"], safe="")
-    _share_url_q = urllib.parse.quote(public_url(url), safe="")
-    share_url_plain = e(public_url(url))
-    add(f'''      <div class="share-row" aria-label="この記事をシェアする">
-        <span class="share-label">この記事をシェア</span>
-        <a class="share-btn is-x" href="{e(f"https://twitter.com/intent/tweet?text={_share_text}&url={_share_url_q}")}" target="_blank" rel="noopener" aria-label="Xでシェア">X</a>
-        <a class="share-btn is-line" href="{e(f"https://social-plugins.line.me/lineit/share?url={_share_url_q}")}" target="_blank" rel="noopener" aria-label="LINEでシェア">LINE</a>
-        <a class="share-btn is-hatena" href="{e(f"https://b.hatena.ne.jp/entry/panel/?url={_share_url_q}")}" target="_blank" rel="noopener" aria-label="はてなブックマークに追加">B!</a>
-        <button type="button" class="share-btn is-copy" data-copy-url="{share_url_plain}">リンクをコピー</button>
-      </div>
-''')
+    # シェアの導線は、記事の右下に浮かせた丸いボタン（share_fab）に集約した。
+    # 本文の末尾にも並べると、同じものが2か所に出て迷わせるため置かない。
 
     # 関連記事
     rel = [x for x in PUBLISHED if x["slug"] != slug and x["category"] == cat]
@@ -1995,9 +1982,9 @@ def render_article(a):
     rel = rel[:3]
     if rel:
         add(f'''
-      <section class="section-block">
-        <h2 class="section-heading">関連記事</h2>
-{grid(rel, p)}      </section>
+      <section class="v2-section" style="padding:8px 0 0">
+{v2_sec_head("RELATED", "関連記事")}        <div class="card-grid is-3">{"".join(v2_card(x, p) for x in rel)}</div>
+      </section>
 ''')
 
     # 広告はページのいちばん下にもう1枠。関連記事より下に置いて、
@@ -2383,7 +2370,7 @@ def build_index():
         body += v2_section(
             v2_sec_head("PICK UP", "ピックアップ記事")
             + '      <div class="card-grid">' + "".join(v2_card(a, p) for a in picks) + "</div>\n"
-            + v2_sec_more(f"{p}ranking.html"))
+            + v2_sec_more(f"{p}new.html"))
 
     slots = promo_slot("top", "", "is-wide") + ad_slot("top")
     if slots.strip():
@@ -2391,7 +2378,7 @@ def build_index():
 
     body += v2_section(
         v2_sec_head("CATEGORY", "カテゴリーから探す")
-        + v2_cat_grid(p) + v2_sec_more(f"{p}sitemap.html"))
+        + v2_cat_grid(p) + v2_sec_more(f"{p}categories.html"))
 
     body += v2_section(
         v2_sec_head("RANKING", "よく読まれている記事")
@@ -2492,15 +2479,29 @@ def build_subcategory(c, sc):
                     (sc["label"], f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html')]))
 
 
+def build_categories():
+    """カテゴリーの一覧ページ。ヘッダーの CATEGORY と、トップの
+       CATEGORY 区画の「VIEW ALL」の行き先。以前はサイトマップへ
+       送っていたが、押した先が別物の画面に見えるのでここを用意した。"""
+    p = "./"
+    body = v2_page_head("カテゴリー",
+                        lead="扱っている分野の一覧です。気になる分野からお進みください。",
+                        count=len(PUBLISHED))
+    body += v2_section(v2_cat_grid(p), style="padding:40px 0 80px")
+    return page(f"カテゴリー一覧 - {NAME}",
+                f"{NAME}のカテゴリー一覧です。{len(CATS)}分野の記事をまとめています。",
+                "", p, f"{BASE_URL}/categories.html", body, body_class="is-listing",
+                crumbs=[("ホーム", f"{p}index.html"), ("カテゴリー", None)])
+
+
 def build_new():
     """新着一覧。トップの NEW からの行き先。"""
     p = "./"
-    items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)[:24]
-    body = v2_page_head("新着記事",
-                        crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)],
+    items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)
+    body = v2_page_head("記事一覧",
                         lead="公開の新しい順に並べています。", count=len(items))
     body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
-    return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。", "new", p,
+    return page(f"記事一覧 - {NAME}", f"{NAME}の記事一覧です。新しい順に並べています。", "new", p,
                 f"{BASE_URL}/new.html", body, body_class="is-listing",
                 crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)])
 
@@ -3105,6 +3106,7 @@ def main():
 
     write("index.html", build_index()); written.append("index.html")
     write("new.html", build_new()); written.append("new.html")
+    write("categories.html", build_categories()); written.append("categories.html")
     write("ranking.html", build_ranking()); written.append("ranking.html")
     for c in CATS:
         f = f'category-{c["key"]}.html'
@@ -3162,7 +3164,8 @@ def main():
 
     urls = [(BASE_URL + "/", "1.0", newest)]
     urls += [(f'{BASE_URL}/new.html', "0.7", newest),
-             (f'{BASE_URL}/ranking.html', "0.7", newest)]
+             (f'{BASE_URL}/ranking.html', "0.7", newest),
+             (f'{BASE_URL}/categories.html', "0.8", newest)]
     urls += [(f'{BASE_URL}/category-{c["key"]}.html', "0.8", cat_mod(c["key"])) for c in CATS]
     urls += [(f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html', "0.6",
               cat_mod(c["key"], sc["key"]))
