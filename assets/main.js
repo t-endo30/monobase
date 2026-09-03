@@ -727,3 +727,53 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 })();
 
 
+/* ============================================================
+   トップの見出しと箱の写真：画面に入るたび、もう一度動かす
+   ------------------------------------------------------------
+   CSSのアニメーションはページを開いたときに1回きり走る。
+   スクロールで一度離れて戻ってきても、そのままでは動かない。
+   ここでは画面から出たことを見張っておき、次に入ってきたときに
+   animation を external に外して付け直す（＝最初から流し直す）。
+
+   JSが動かない環境でも、開いたときの1回は CSS 側で動く。
+   ============================================================ */
+(function () {
+  'use strict';
+  if (window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!('IntersectionObserver' in window)) return;
+
+  var hero = document.querySelector('.hero');
+  if (!hero) return;
+  var parts = hero.querySelectorAll('.hero-title, .hero-figure');
+  if (!parts.length) return;
+
+  function replay() {
+    Array.prototype.forEach.call(parts, function (el) {
+      el.style.animation = 'none';
+      /* 一度レイアウトを読ませて、付け直しを別の変化として扱わせる */
+      void el.offsetWidth;
+      el.style.animation = '';
+    });
+  }
+
+  /* いま画面に入っているかどうか。出てから入り直したときだけ流し直す
+     （入ったまま少し揺れただけで何度も動くと、うるさくなる） */
+  var inside = true;
+  new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) {
+        if (!inside) replay();
+        inside = true;
+      } else {
+        inside = false;
+      }
+    });
+  }, { threshold: 0.25 }).observe(hero);
+
+  /* 戻るボタンで戻ってきたときは、ブラウザが画面をそのまま復元するので
+     アニメーションは走らない。そのときも流し直す */
+  window.addEventListener('pageshow', function (ev) {
+    if (ev.persisted) replay();
+  });
+})();
