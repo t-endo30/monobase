@@ -120,17 +120,17 @@ NAV = [
     ("HOME", "ホーム", "top.html"),
     ("CATEGORY", "カテゴリー", "category.html"),
     ("ABOUT", "モノベースについて", "about.html"),
-    ("POLICY", "運営方針", "about.html"),
+    ("POLICY", "運営方針", "editorial-policy.html"),
     ("CONTACT", "お問い合わせ", "contact.html"),
 ]
 
 # スマホの引き出しは現行サイトの項目をそのまま残す（ご指定）
 DRAWER = [
     ("ホーム", "HOME", "top.html"),
-    ("サイトマップ", "SITEMAP", "#"),
+    ("サイトマップ", "SITEMAP", "sitemap.html"),
     ("運営者情報", "ABOUT", "about.html"),
-    ("記事作成方針", "POLICY", "about.html"),
-    ("広告掲載について", "ADVERTISING", "#"),
+    ("記事作成方針", "POLICY", "editorial-policy.html"),
+    ("広告掲載について", "ADVERTISING", "advertising.html"),
     ("お問い合わせ", "CONTACT", "contact.html"),
 ]
 
@@ -200,17 +200,17 @@ def footer():
           <h3>ABOUT</h3>
           <ul>
             <li><a href="about.html">運営者情報</a></li>
-            <li><a href="about.html">記事作成方針</a></li>
-            <li><a href="#">広告掲載について</a></li>
-            <li><a href="#">サイトマップ</a></li>
+            <li><a href="editorial-policy.html">記事作成方針</a></li>
+            <li><a href="advertising.html">広告掲載について</a></li>
+            <li><a href="sitemap.html">サイトマップ</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h3>SUPPORT</h3>
           <ul>
             <li><a href="contact.html">お問い合わせ</a></li>
-            <li><a href="#">プライバシーポリシー</a></li>
-            <li><a href="#">免責事項</a></li>
+            <li><a href="privacy.html">プライバシーポリシー</a></li>
+            <li><a href="disclaimer.html">免責事項</a></li>
           </ul>
         </div>
       </div>
@@ -262,12 +262,16 @@ def page(title, body, current="HOME"):
 # ---------------------------------------------------------------------------
 # 部品
 # ---------------------------------------------------------------------------
-def sec_head(en, ja, more_href=None, more_label="VIEW ALL"):
-    more = (f'<a class="more" href="{more_href}">{more_label}</a>' if more_href else "")
-    right_rule = '<span class="rule is-right"></span>' if more else '<span class="rule"></span>'
+def sec_head(en, ja):
     return (f'<div class="sec-head"><span class="rule"></span>'
             f'<span class="titles"><span class="en">{en}</span><br>'
-            f'<span class="ja">{e(ja)}</span></span>{right_rule}{more}</div>')
+            f'<span class="ja">{e(ja)}</span></span><span class="rule"></span></div>')
+
+
+def sec_more(href, label="VIEW ALL"):
+    """一覧へ送る導線は、見出しの横ではなくタイルの下の中央に置く。
+       スマホでは6件目をわざと切って、その続きがここにあることを示す。"""
+    return f'<div class="sec-more"><a href="{href}">{label}</a></div>'
 
 
 def cat_label(key):
@@ -334,14 +338,16 @@ def paras(value):
 def build_top():
     # 新着を先に出すので、ピックアップは新着と重ならないものから選ぶ。
     # featured が4本に満たないときは、残りの記事で埋めて枠を欠けさせない
-    latest = PUBLISHED[:4]
+    # スマホは6件目をわざと切って「続きがある」ことを示すので、6本ずつ渡す。
+    # PCは4列なので、5本目から先は CSS で隠している
+    latest = PUBLISHED[:6]
     picks = [a for a in PUBLISHED if a.get("featured") and a not in latest]
     for a in PUBLISHED:
-        if len(picks) >= 4:
+        if len(picks) >= 6:
             break
         if a not in picks and a not in latest:
             picks.append(a)
-    picks = picks[:4]
+    picks = picks[:6]
 
     # 3つ目の「購入判断をサポート」はスマホの3列だと2行に割れて崩れるので、
     # 横に詰めたとき用の短い言い方を別に持たせる
@@ -391,15 +397,17 @@ def build_top():
 
 <section class="v2-section is-tinted">
   <div class="container">
-    {sec_head("NEW", "新着記事", "category.html")}
+    {sec_head("NEW", "新着記事")}
     <div class="card-grid">{"".join(card(a) for a in latest)}</div>
+    {sec_more("category.html")}
   </div>
 </section>
 
 <section class="v2-section">
   <div class="container">
-    {sec_head("PICK UP", "ピックアップ記事", "category.html")}
+    {sec_head("PICK UP", "ピックアップ記事")}
     <div class="card-grid">{"".join(card(a) for a in picks)}</div>
+    {sec_more("category.html")}
   </div>
 </section>
 
@@ -407,13 +415,15 @@ def build_top():
   <div class="container">
     {sec_head("CATEGORY", "カテゴリーから探す")}
     <div class="cat-grid">{cells}</div>
+    {sec_more("category.html")}
   </div>
 </section>
 
 <section class="v2-section">
   <div class="container">
-    {sec_head("RANKING", "よく読まれている記事", "category.html")}
+    {sec_head("RANKING", "よく読まれている記事")}
     <div class="row-list is-narrow">{"".join(row(a) for a in PUBLISHED[:5])}</div>
+    {sec_more("category.html")}
   </div>
 </section>
 '''
@@ -800,7 +810,7 @@ def build_contact():
                   placeholder="お問い合わせの内容をご記入ください。" required></textarea>
         <p class="hint is-count"><span id="cf-count">0</span> / 2000 文字</p>
       </div>
-      <p class="form-note">送信をもって<a href="about.html">プライバシーポリシー</a>に同意いただいたものとみなします。いただいた個人情報は、ご返信の目的以外には利用しません。</p>
+      <p class="form-note">送信をもって<a href="privacy.html">プライバシーポリシー</a>に同意いただいたものとみなします。いただいた個人情報は、ご返信の目的以外には利用しません。</p>
       <button type="submit" class="btn-solid">送信する</button>
     </form>
 
@@ -808,7 +818,7 @@ def build_contact():
       <div class="side-tile">
         <p class="side-heading">広告の掲載について</p>
         <p>メーカー・販売店の方からの掲載・レビューのご依頼を歓迎します。受け付けている内容や当サイトの方針は、下記のページにまとめています。</p>
-        <p class="tile-cta"><a class="btn-line" href="about.html">広告掲載について見る</a></p>
+        <p class="tile-cta"><a class="btn-line" href="advertising.html">広告掲載について見る</a></p>
       </div>
       <div class="side-tile">
         <p class="side-heading">お答えできないこと</p>
@@ -861,11 +871,131 @@ def build_404():
     <div class="nf-cats">{cats}</div>
   </div>
   <div class="v2-section" style="padding:56px 0 88px">
-    {sec_head("NEW", "新着記事", "category.html")}
+    {sec_head("NEW", "新着記事")}
     <div class="card-grid">{latest}</div>
+    {sec_more("category.html")}
   </div>
 </div>'''
     return page(f"ページが見つかりません - {NAME}", body, "")
+
+
+# ---------------------------------------------------------------------------
+# 固定ページ（プライバシー・免責・広告掲載・記事作成方針）
+# ---------------------------------------------------------------------------
+# 本番の HTML から見出しと本文だけを取り出して、新デザインの器に入れ直す。
+# 文面を書き写すと本番と食い違うので、置き場所は1つに保つ。
+STATIC_PAGES = [
+    ("privacy.html", "プライバシーポリシー"),
+    ("disclaimer.html", "免責事項"),
+    ("advertising.html", "広告掲載について"),
+    ("editorial-policy.html", "記事作成方針"),
+]
+
+# 本文の中のリンクを、プレビューの中で開けるものに向け直す
+LINK_MAP = {
+    "./index.html": "top.html",
+    "./search.html": "search.html",
+    "./contact.html": "contact.html",
+    "./about.html": "about.html",
+    "./sitemap.html": "sitemap.html",
+    "./ranking.html": "category.html",
+    "./new.html": "category.html",
+}
+for _f, _t in STATIC_PAGES:
+    LINK_MAP["./" + _f] = _f
+
+
+def _fix_links(html_src):
+    """本番のリンクをプレビューの中の行き先に置き換える。
+       置き換え先の無いもの（カテゴリー・記事・外部）は、それぞれの受け皿へ送る。"""
+    def repl(m):
+        href = m.group(1)
+        if href in LINK_MAP:
+            return f'href="{LINK_MAP[href]}"'
+        if href.startswith("./articles/"):
+            slug = href[len("./articles/"):-len(".html")]
+            return f'href="article-{slug}.html"'
+        if href.startswith("./category-"):
+            return 'href="category.html"'
+        if href.startswith("http") or href.startswith("mailto:"):
+            return m.group(0)
+        return 'href="top.html"'
+    return re.sub(r'href="([^"]+)"', repl, html_src)
+
+
+def build_static(fname):
+    src = open(os.path.join(ROOT, fname), encoding="utf-8").read()
+    h1 = re.search(r"<h1>(.*?)</h1>", src, re.S).group(1)
+    i = src.index('<div class="prose">') + len('<div class="prose">')
+    j = src.index("</div>\n  </div>\n</main>", i)
+    prose = _fix_links(src[i:j].strip())
+    body = f'''<div class="page-head">
+  <div class="container">
+    <p class="crumbs"><a href="top.html">ホーム</a><span>/</span>{h1}</p>
+    <h1>{h1}</h1>
+  </div>
+</div>
+<div class="container">
+  <div class="static-wrap">{prose}</div>
+</div>'''
+    cur = "POLICY" if fname == "editorial-policy.html" else ""
+    return page(f"{h1} - {NAME}", body, cur)
+
+
+def build_sitemap():
+    """サイトマップだけは本番の組み方が違うので、データから作り直す。"""
+    def links(items):
+        return "".join(f'<li><a href="{h}">{e(t)}</a></li>' for t, h in items)
+
+    cats = "".join(
+        f'<li><a href="category.html">{e(c["label"])}'
+        f'<span class="n">{len([a for a in PUBLISHED if a.get("category") == c["key"]])}</span>'
+        f'</a></li>' for c in CATS)
+    arts = "".join(
+        f'<li><a href="{article_href(a)}">{e(a.get("list_title") or a.get("title",""))}'
+        f'<span class="n">{e(a.get("date",""))}</span></a></li>' for a in PUBLISHED)
+    body = f'''<div class="page-head">
+  <div class="container">
+    <p class="crumbs"><a href="top.html">ホーム</a><span>/</span>サイトマップ</p>
+    <h1>サイトマップ</h1>
+    <p class="lead">このサイトにあるページの一覧です。</p>
+  </div>
+</div>
+<div class="container">
+  <div class="v2-section" style="padding:40px 0 80px">
+    <div class="sitemap-cols">
+      <div class="sitemap-block">
+        <h2 class="en-label">MAIN</h2>
+        <ul class="sitemap-list">{links([
+            ("ホーム", "top.html"),
+            ("サイト内検索", "search.html"),
+            ("お問い合わせ", "contact.html"),
+        ])}</ul>
+      </div>
+      <div class="sitemap-block">
+        <h2 class="en-label">ABOUT</h2>
+        <ul class="sitemap-list">{links([
+            ("運営者情報", "about.html"),
+            ("記事作成方針", "editorial-policy.html"),
+            ("広告掲載について", "advertising.html"),
+            ("プライバシーポリシー", "privacy.html"),
+            ("免責事項", "disclaimer.html"),
+        ])}</ul>
+      </div>
+    </div>
+
+    <div class="sitemap-block is-wide">
+      <h2 class="en-label">CATEGORY</h2>
+      <ul class="sitemap-list is-cols">{cats}</ul>
+    </div>
+
+    <div class="sitemap-block is-wide">
+      <h2 class="en-label">ARTICLES</h2>
+      <ul class="sitemap-list is-cols">{arts}</ul>
+    </div>
+  </div>
+</div>'''
+    return page(f"サイトマップ - {NAME}", body, "")
 
 
 # ---------------------------------------------------------------------------
@@ -880,6 +1010,11 @@ REVIEW_PAGES = [
     ("contact", "お問い合わせ", "contact.html"),
     ("notfound", "404", "404.html"),
     ("about", "運営者情報", "about.html"),
+    ("editorial-policy", "記事作成方針", "editorial-policy.html"),
+    ("advertising", "広告掲載", "advertising.html"),
+    ("privacy", "プライバシー", "privacy.html"),
+    ("disclaimer", "免責事項", "disclaimer.html"),
+    ("sitemap", "サイトマップ", "sitemap.html"),
 ]
 # 「現行と比較」で並べる、いまのサイトの対応ファイル。無いものは None
 LIVE_PAGES = {
@@ -891,6 +1026,11 @@ LIVE_PAGES = {
     "contact": "../contact.html",
     "notfound": "../404.html",
     "about": "../about.html",
+    "editorial-policy": "../editorial-policy.html",
+    "advertising": "../advertising.html",
+    "privacy": "../privacy.html",
+    "disclaimer": "../disclaimer.html",
+    "sitemap": "../sitemap.html",
 }
 
 
@@ -1061,6 +1201,10 @@ def main():
         "404.html": build_404(),
         "about.html": build_about(),
     }
+    for name, _t in STATIC_PAGES:
+        files[name] = build_static(name)
+    files["sitemap.html"] = build_sitemap()
+
     # 一覧から押した記事がそれぞれ開くように、記事は全部書き出す
     for a in PUBLISHED:
         files[article_href(a)] = build_article(a)
@@ -1069,7 +1213,8 @@ def main():
         with open(os.path.join(PAGES, name), "w", encoding="utf-8") as f:
             f.write(src)
     for name in ("top.html", "category.html", "category-sub.html", "article.html",
-                 "search.html", "contact.html", "404.html", "about.html"):
+                 "search.html", "contact.html", "404.html", "about.html",
+                 "sitemap.html") + tuple(n for n, _t in STATIC_PAGES):
         print(f"  preview/pages/{name}")
     print(f"  preview/pages/article-*.html （記事 {len(PUBLISHED)} 本）")
     with open(os.path.join(OUT, "index.html"), "w", encoding="utf-8") as f:
