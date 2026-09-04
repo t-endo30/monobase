@@ -970,7 +970,8 @@ def v2_card(a, p):
 def v2_row(a, p, numbered=None):
     """横長の記事タイル。カテゴリーは右上、見出しの下に一言。"""
     src, _ = visual_path(a, p)
-    no = (f'<span class="row-no">{numbered:02d}</span>' if numbered else "")
+    no = (f'<span class="row-no is-n{numbered}">{numbered:02d}</span>'
+          if numbered else "")
     cat = CAT_LABEL.get(a.get("category", ""), "")
     return (f'<a class="row-item" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
@@ -985,6 +986,8 @@ def v2_row(a, p, numbered=None):
 
 
 def v2_rows(items, p, numbered=False, narrow=False):
+    # is-narrow はトップの区画。新着と同じく6件目をわざと切って、
+    # 続きが下の VIEW ALL にあることを見た目で伝える
     cls = "row-list is-narrow" if narrow else "row-list"
     inner = "".join(v2_row(a, p, (i + 1) if numbered else None)
                     for i, a in enumerate(items))
@@ -1017,16 +1020,53 @@ def v2_cat_grid(p, cls=""):
 
 
 def v2_hero(p):
+    # 押すと、何をしているのかを文章で開く。ヒーローでは字数を絞って
+    # いるので、その中身をここに置く
     points = [
-        (V2_IC_VOICE, "口コミを分析", "口コミを分析", "良い点も悪い点も<br>包み隠さず紹介"),
-        (V2_IC_ZOOM, "徹底調査", "徹底調査", "仕様・価格・競合まで<br>多角的に比較"),
-        (V2_IC_CHECK, "購入判断をサポート", "購入を判断", "向いている人・向いていない人を<br>明確に整理"),
+        (V2_IC_VOICE, "口コミを分析", "口コミを分析", "良い点も悪い点も<br>包み隠さず紹介",
+         ["販売ページに寄せられた利用者の声を、良い評価だけでなく低い評価まで"
+          "読み込みます。星の数の平均ではなく、繰り返し出てくる指摘が何かを見ます。",
+          "評価が割れている商品ほど、その理由は「製品の当たり外れ」ではなく"
+          "「使う環境の違い」にあります。どの条件で満足し、どの条件で不満が出たのか、"
+          "書かれている中身から読み取って整理します。",
+          "確認できていない件数や割合を数字で書くことはしません。"]),
+        (V2_IC_ZOOM, "徹底調査", "徹底調査", "仕様・価格・競合まで<br>多角的に比較",
+         ["メーカーが公表している仕様（型番・寸法・重量・消費電力など）を、"
+          "公式の情報にあたって確認します。裏の取れていない数値は載せません。",
+          "そのうえで、同じ用途の他の製品と並べたときにどこが違うのか、"
+          "価格帯の中でどういう位置づけなのかを見ます。",
+          "「メーカーが公表していること」「利用者の声から読み取れること」"
+          "「当サイトの見方」は、読み分けられるように分けて書きます。"]),
+        (V2_IC_CHECK, "購入判断をサポート", "購入を判断", "向いている人・向いていない人を<br>明確に整理",
+         ["どんな製品にも向かない使い方があります。買ってから気づく条件を、"
+          "記事の前半ではっきり書くようにしています。",
+          "「おすすめ」で終わらせず、どんな環境の人に効いて、"
+          "どんな人には別の選択肢のほうがよいのかまで書きます。",
+          "広告収益の有無や紹介料の高さで、評価の書き方を変えることはありません。"]),
     ]
     # 3つ目はスマホの3列だと2行に割れるので、短い言い方を別に持たせる
-    pt = "".join(
-        f'<div class="hero-point"><span class="ic">{ic}</span>'
-        f'<div><h3><span class="wide">{t}</span><span class="narrow">{sh}</span></h3>'
-        f'<p>{d}</p></div></div>' for ic, t, sh, d in points)
+    pt = ""
+    modals = ""
+    for i, (ic, t, sh, d, body) in enumerate(points):
+        pid = f"hp{i + 1}"
+        pt += (f'<button type="button" class="hero-point" '
+               f'aria-haspopup="dialog" aria-controls="{pid}" data-point="{pid}">'
+               f'<span class="ic">{ic}</span>'
+               f'<span class="hero-point-body"><span class="h3">'
+               f'<span class="wide">{t}</span><span class="narrow">{sh}</span></span>'
+               f'<span class="p">{d}</span></span>'
+               f'<span class="more" aria-hidden="true">くわしく</span></button>')
+        paras = "".join(f"<p>{e(x)}</p>" for x in body)
+        modals += (f'<div class="hp-dialog" id="{pid}" role="dialog" aria-modal="true" '
+                   f'aria-labelledby="{pid}-t" hidden>\n'
+                   f'  <div class="hp-panel">\n'
+                   f'    <p class="hp-title" id="{pid}-t">{e(t)}</p>\n'
+                   f'    <div class="hp-body">{paras}</div>\n'
+                   f'    <p class="hp-foot"><a href="{p}editorial-policy.html">'
+                   f'記事作成方針をすべて読む</a></p>\n'
+                   f'    <button type="button" class="hp-close" aria-label="閉じる">'
+                   f'<span aria-hidden="true"></span></button>\n'
+                   f'  </div>\n</div>\n')
     return f'''  <section class="hero">
     {V2_HERO_DECO}
     <div class="container">
@@ -1049,7 +1089,7 @@ def v2_hero(p):
         <div class="hero-points">{pt}</div>
       </div>
     </div>
-  </section>
+    {modals}  </section>
 '''
 
 
@@ -2438,7 +2478,7 @@ def build_index():
 
     body += v2_section(
         v2_sec_head("RANKING", "よく読まれている記事")
-        + v2_rows(PUBLISHED[:5], p, numbered=True, narrow=True)
+        + v2_rows(PUBLISHED[:6], p, numbered=True, narrow=True)
         + v2_sec_more(f"{p}ranking.html"))
 
     if picks:

@@ -395,7 +395,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
           ' data-date="' + esc(it.date || '') + '">' +
           '<span class="thumb">' +
             '<img src="' + esc(it.thumb) + '" alt="" loading="lazy" decoding="async">' +
-            '<span class="row-no">' + no + '</span>' +
+            '<span class="row-no is-n' + (i + 1) + '">' + no + '</span>' +
           '</span>' +
           '<span class="row-body">' +
             '<span class="row-meta">' +
@@ -941,4 +941,62 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function () { measure(); onScroll(); });
   window.addEventListener('load', function () { measure(); onScroll(); });
+})();
+
+
+/* ============================================================
+   3つの特長を押したときに開く板
+   ------------------------------------------------------------
+   ヒーローでは字数を絞っているので、具体的に何をしているのかは
+   ここで読ませる。開いているあいだは背後の本文を動かさない。
+   ============================================================ */
+(function () {
+  'use strict';
+  var buttons = document.querySelectorAll('.hero-point[data-point]');
+  if (!buttons.length) return;
+
+  var opener = null;
+
+  function close(dlg) {
+    dlg.classList.remove('is-open');
+    document.body.style.overflow = '';
+    window.setTimeout(function () { dlg.hidden = true; }, 200);
+    if (opener) { opener.focus(); opener = null; }
+  }
+
+  function open(dlg, btn) {
+    opener = btn;
+    dlg.hidden = false;
+    document.body.style.overflow = 'hidden';
+    /* 一度描かせてから印を付ける。そうしないと出る動きが省かれる */
+    void dlg.offsetWidth;
+    dlg.classList.add('is-open');
+    var c = dlg.querySelector('.hp-close');
+    if (c) c.focus();
+  }
+
+  Array.prototype.forEach.call(buttons, function (btn) {
+    var dlg = document.getElementById(btn.getAttribute('data-point'));
+    if (!dlg) return;
+    btn.addEventListener('click', function () { open(dlg, btn); });
+
+    /* 閉じる：×・板の外・Esc */
+    dlg.querySelector('.hp-close').addEventListener('click', function () { close(dlg); });
+    dlg.addEventListener('click', function (ev) {
+      if (ev.target === dlg) close(dlg);
+    });
+    dlg.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape') close(dlg);
+      /* 開いているあいだ、タブ移動は板の中だけを回す */
+      if (ev.key !== 'Tab') return;
+      var f = dlg.querySelectorAll('a[href],button');
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (ev.shiftKey && document.activeElement === first) {
+        ev.preventDefault(); last.focus();
+      } else if (!ev.shiftKey && document.activeElement === last) {
+        ev.preventDefault(); first.focus();
+      }
+    });
+  });
 })();
