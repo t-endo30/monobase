@@ -3282,9 +3282,10 @@ h1,h2,h3,h4,
    価格も商品画像もAmazonのロゴも使わず、文字とボタンだけで作る。 */
 .promo-band{border-top:1px solid var(--line);background:var(--bg-2);
   padding:clamp(22px,4vw,30px) 0;}
-/* 見出しのすぐ横にボタンを置き、開示文はその下の行に回す */
+/* 見出しのすぐ横にボタンを置き、開示文はその下の行に回す。枠ごと中央へ */
+.promo-inner{text-align:center;}
 .promo-head{display:flex;align-items:center;gap:clamp(14px,2.5vw,24px);
-  flex-wrap:wrap;}
+  flex-wrap:wrap;justify-content:center;}
 .promo-label{display:inline-block;margin-bottom:10px;padding:3px 8px;
   border:1px solid var(--line-2);border-radius:999px;
   font-family:var(--font-en);font-size:10px;font-weight:800;letter-spacing:.1em;
@@ -3317,4 +3318,26 @@ h1,h2,h3,h4,
 }
 @media (prefers-reduced-motion:reduce){
   .sec-more a:hover{animation:none;}
+}
+
+/* ---- 他のボタンにも同じ波紋を当てる ----
+   VIEW ALL と違って板の厚みを持たないので、輪だけを出す。
+   触る画面で光り続けないよう hover を持つ機器だけ。 */
+@keyframes btn-ripple{
+  0%{box-shadow:0 0 0 0 rgba(17,17,17,.30);}
+  70%{box-shadow:0 0 0 12px rgba(17,17,17,0);}
+  100%{box-shadow:0 0 0 0 rgba(17,17,17,0);}
+}
+@media (hover:hover){
+  .btn-sub:hover,
+  .btn-solid:hover,
+  .btn-line:hover{animation:btn-ripple 1.5s infinite;}
+  .btn-sub:active,
+  .btn-solid:active,
+  .btn-line:active{animation:none;}
+}
+@media (prefers-reduced-motion:reduce){
+  .btn-sub:hover,
+  .btn-solid:hover,
+  .btn-line:hover{animation:none;}
 }
