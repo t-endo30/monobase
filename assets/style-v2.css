@@ -68,6 +68,16 @@ body{
 .card-thumb,.cat-cell,.article-page .card-surface{
   background-color:var(--bg-2);
 }
+/* 背景の写真を送る層。assets/main.js がここへ写真を移し、
+   スクロール量の半分だけずらす。JSが動かないときは作られないので、
+   上の body の指定（止めたまま）がそのまま残る */
+.bg-parallax{
+  position:fixed;left:0;right:0;top:0;
+  height:100vh;z-index:-1;pointer-events:none;
+  will-change:transform;
+}
+.has-bg-parallax{background-image:none;}
+
 /* パンくずの帯は不透明にする（文字が小さく、写真が透けると読みにくい） */
 .crumb-bar{background-color:var(--bg);}
 .v2-footer{background-color:var(--ink);}

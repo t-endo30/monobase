@@ -874,3 +874,71 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       '<span class="card-note">' + esc(a.x) + '</span></a>';
   }).join('');
 })();
+
+
+/* ============================================================
+   背景の写真を、スクロールの半分の速さで動かす
+   ------------------------------------------------------------
+   CSS だけだと background-attachment は「止める（fixed）」か
+   「本文と同じ速さで動かす（scroll）」の2つしか選べない。その中間に
+   したいので、写真だけを別の層に分けて、スクロール量の半分だけずらす。
+
+   ずらせる量には上限を置く。層を縦に伸ばすほど写真も引き伸ばされ、
+   拡大されて粗くなるため。画面の高さの4割ぶんまで送ったら止める。
+   最初の1〜2画面ぶんで効く演出なので、そこまであれば足りる。
+
+   ・動かすのは transform だけなので、画面の描き直しが起きず、
+     指で送っても引っかかりにくい
+   ・JSが動かない環境では、CSS 側の背景（止めたまま）がそのまま残る
+   ============================================================ */
+(function () {
+  'use strict';
+  var body = document.body;
+  if (!body) return;
+
+  var cs = window.getComputedStyle(body);
+  var image = cs.backgroundImage;
+  if (!image || image === 'none') return;
+
+  var layer = document.createElement('div');
+  layer.className = 'bg-parallax';
+  layer.setAttribute('aria-hidden', 'true');
+  layer.style.backgroundImage = image;
+  layer.style.backgroundSize = cs.backgroundSize;
+  layer.style.backgroundPosition = cs.backgroundPosition;
+  layer.style.backgroundRepeat = cs.backgroundRepeat;
+  body.insertBefore(layer, body.firstChild);
+  body.classList.add('has-bg-parallax');   /* body 側の写真は消す */
+
+  var SPEED = 0.5;
+  var MAX_RATIO = 0.4;          /* 送れるのは画面の高さの4割まで */
+  var maxTravel = 0;
+  var offset = 0;
+  var ticking = false;
+
+  function measure() {
+    maxTravel = window.innerHeight * MAX_RATIO;
+    /* 送るぶんだけ層を伸ばす。伸ばさないと下端が切れて地の色が出る */
+    layer.style.height = 'calc(100vh + ' + Math.ceil(maxTravel) + 'px)';
+  }
+
+  function apply() {
+    layer.style.transform = 'translate3d(0,' + (-offset).toFixed(1) + 'px,0)';
+    ticking = false;
+  }
+
+  function onScroll() {
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    offset = Math.min(y * SPEED, maxTravel);
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(apply);
+    }
+  }
+
+  measure();
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', function () { measure(); onScroll(); });
+  window.addEventListener('load', function () { measure(); onScroll(); });
+})();
