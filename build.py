@@ -1124,8 +1124,7 @@ def v2_hero(p):
                f'<span class="ic">{ic}</span>'
                f'<span class="hero-point-body"><span class="h3">'
                f'<span class="wide">{t}</span><span class="narrow">{sh}</span></span>'
-               f'<span class="p">{d}</span></span>'
-               f'<span class="more" aria-hidden="true">くわしく</span></button>')
+               f'<span class="p">{d}</span></span></button>')
         paras = "".join(f"<p>{e(x)}</p>" for x in body)
         modals += (f'<div class="hp-dialog" id="{pid}" role="dialog" aria-modal="true" '
                    f'aria-labelledby="{pid}-t" hidden>\n'

@@ -148,6 +148,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   background:var(--ink);transform:scaleX(0);transition:transform .22s ease;
 }
 .v2-nav a:hover::after,.v2-nav a[aria-current="page"]::after{transform:scaleX(1);}
+/* 下線に加えて、文字そのものをわずかに大きくする。下線は動かしたくないので、
+   a ではなく中の文字（span）だけを拡大する。指で触る画面では hover が
+   残り続けて見えるため、hover を持つ機器に限る */
+@media (hover:hover){
+  .v2-nav > ul > li > a > span{
+    display:block;transition:transform .5s ease;transform-origin:center;
+  }
+  .v2-nav > ul > li > a:hover > span{transform:scale(1.1);}
+}
 
 /* カテゴリーのドロップダウン。既存のカテゴリー一覧をここに畳んで入れる */
 .nav-has-menu{position:relative;}
@@ -330,14 +339,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 }
 .hero-point .h3 .narrow{display:none;}
 .hero-point .p{display:block;font-size:12px;line-height:1.75;color:#767676;}
-/* 押せることが分かるよう、しるしと下線を添える */
-.hero-point .more{
-  display:inline-block;margin-top:7px;white-space:nowrap;
-  font-size:10.5px;letter-spacing:.08em;color:var(--muted);
-  border-bottom:1px solid var(--line-2);padding-bottom:2px;
-}
 .hero-point:hover .ic,.hero-point:focus-visible .ic{border-color:var(--ink);background:var(--bg-2);}
-.hero-point:hover .more{color:var(--ink);border-bottom-color:var(--ink);}
 .hero-point:focus-visible{outline:2px solid var(--ink);outline-offset:6px;}
 
 /* =========================================================================
@@ -429,6 +431,33 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   flex:0 1 auto;min-width:0;text-align:right;
   font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);
   line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+/* 持ち上げに重ねて、斜めに切った面が左上と右下から入ってきて、
+   タイルの白い面を黒に置き換える。三角に切った2枚が対角線で合わさる形。
+   タイルの縦横比が変わっても隙間や取り残しが出ない置き方にしている。
+   文字は面の上に残したいので、中の要素だけ手前（z-index:1）に置く。
+   タイルが横長のリストに変わる 860px 以下では持ち上げと同じく掛けない */
+@media (hover:hover) and (min-width:861px){
+  .card{position:relative;overflow:hidden;}
+  .card > *{position:relative;z-index:1;}
+  .card::before,.card::after{
+    content:"";position:absolute;inset:0;z-index:0;
+    background:var(--ink);pointer-events:none;
+    transition:transform .5s ease-in-out;
+  }
+  /* 左上の三角は左上の外へ、右下の三角は右下の外へ退けておく */
+  .card::before{
+    clip-path:polygon(0 0,100% 0,0 100%);transform:translate(-100%,-100%);
+  }
+  .card::after{
+    clip-path:polygon(100% 0,100% 100%,0 100%);transform:translate(100%,100%);
+  }
+  .card:hover::before,.card:hover::after{transform:translate(0,0);}
+  /* 黒い面の上では文字を白に。見出しだけ薄くしていた指定も打ち消す */
+  .card:hover .card-title,
+  .card:hover .card-date,
+  .card:hover .card-cat,
+  .card:hover .card-note{color:#fff;}
 }
 
 /* 横長の記事行（カテゴリー一覧で使う） */
@@ -1205,7 +1234,7 @@ body.has-sticky-cta .fab{bottom:96px;}
     justify-items:center;text-align:center;
     padding:12px 6px;
   }
-  .hero-point .p,.hero-point .more{display:none;}
+  .hero-point .p{display:none;}
   .hero-point + .hero-point{border-left:1px solid var(--line);}
   .hero-point .ic{width:30px;height:30px;}
   .hero-point .ic svg{width:15px;height:15px;}
