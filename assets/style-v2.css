@@ -62,9 +62,10 @@ body{
       url("img/bg-pc.jpg");
   }
 }
-/* 帯や面は地の色を持たせて、写真が透けないようにする */
-.v2-header,.crumb-bar,.v2-footer,.site-notice,
-.v2-section.is-tinted,.card-thumb,.cat-cell,.article-page .card-surface{
+/* 背景写真を出さない面。ヘッダー・フッター・ヒーローと、
+   写真が透けると中身が読みにくくなるタイルや記事の面 */
+.v2-header,.v2-footer,.site-notice,
+.card-thumb,.cat-cell,.article-page .card-surface{
   background-color:var(--bg-2);
 }
 /* 見出しの帯と、地を沈める区画は不透明にして、写真が透けないようにする */
@@ -212,9 +213,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* =========================================================================
    ヒーロー
    ========================================================================= */
-/* ヒーローは地の色で塗らない。ページ全体に敷いた写真を、
-   ここでも同じように透かせるため */
-.hero{position:relative;overflow:hidden;}
+/* ヒーローは地の色で塗りつぶす。ここに背景写真を透かすと、
+   箱の写真と設計図の線に重なって見分けがつかなくなるため（指定） */
+.hero{position:relative;overflow:hidden;background:var(--bg);}
 .hero-deco{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
 /* 左右2段の組みはそのまま、文字と箱をひとかたまりとして画面の中央に置く。
    1fr で割ると器の幅いっぱいに広がり、組が左へ寄って見えるため、
@@ -272,7 +273,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    ========================================================================= */
 .v2-section{padding:60px 0;}
 .v2-section + .v2-section{padding-top:0;}
-.v2-section.is-tinted{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+/* 地を沈める区画。背景写真はここにも透かすので、塗りは持たせず
+   上下の罫線だけで区切る */
+.v2-section.is-tinted{border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 
 .sec-head{display:flex;align-items:center;gap:24px;margin-bottom:34px;}
 .sec-head .rule{flex:1;height:1px;background:var(--line-2);}
