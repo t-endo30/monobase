@@ -301,10 +301,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    （スマホでは6本目をわざと切って「続きがある」ことを示す） */
 .card-grid > .card:nth-child(n+5){display:none;}
 .card-grid.is-3{grid-template-columns:repeat(3,minmax(0,1fr));}
-.card{display:flex;flex-direction:column;}
+/* タイルは白い面。背景に敷いた写真の上に置くので、文字が写真に
+   直接乗らないようにする */
+.card{display:flex;flex-direction:column;background:var(--bg-2);}
+.card > :not(.card-thumb){padding-left:14px;padding-right:14px;}
+.card > :last-child{padding-bottom:16px;}
 .card-thumb{
   position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg-3);
-  border:1px solid var(--line-2);
+  border-bottom:1px solid var(--line);
 }
 .card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
 .card:hover .card-thumb img{transform:scale(1.04);}
@@ -336,13 +340,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 }
 
 /* 横長の記事行（カテゴリー一覧で使う） */
-.row-list{display:flex;flex-direction:column;border-top:1px solid var(--line);}
+.row-list{display:flex;flex-direction:column;gap:12px;}
 /* ランキングは一覧ページと違って本数が少ないので、器いっぱいに広げず中央に置く */
 .row-list.is-narrow{max-width:880px;margin:0 auto;}
 .row-item{
-  position:relative;
+  position:relative;background:var(--bg-2);
   display:grid;grid-template-columns:180px 1fr;gap:24px;
-  padding:24px 0;border-bottom:1px solid var(--line);align-items:start;
+  padding:18px 22px;align-items:start;
 }
 /* 順位は写真の左下。左上はカテゴリーの札に譲る。独立した列にすると、
    写真と見出しの位置がランキングのときだけずれてしまう */
@@ -938,7 +942,8 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* 写真は説明文の右の空きに置く。文字と競らないよう幅を抑える */
   .hero-figure{grid-column:2;grid-row:2 / span 3;margin:0;max-width:none;align-self:center;}
 
-  /* 特長は横一列。しるしを小さくして、3つで1行に収める */
+  /* 特長は画面を3等分し、それぞれの真ん中に置く。
+     しるしを上、その下に短い見出しを1行で */
   .hero-points{
     grid-column:1 / -1;grid-row:5;
     grid-template-columns:repeat(3,minmax(0,1fr));gap:0;max-width:none;
@@ -946,12 +951,13 @@ body.has-sticky-cta .fab{bottom:96px;}
     border-top:1px solid var(--line);border-bottom:1px solid var(--line);
   }
   .hero-point{
-    grid-template-columns:26px minmax(0,1fr);gap:8px;align-items:center;
-    padding:11px 8px 11px 2px;
+    grid-template-columns:1fr;gap:6px;
+    justify-items:center;text-align:center;
+    padding:12px 6px;
   }
-  .hero-point + .hero-point{border-left:1px solid var(--line);padding-left:10px;}
-  .hero-point .ic{width:26px;height:26px;}
-  .hero-point .ic svg{width:13px;height:13px;}
+  .hero-point + .hero-point{border-left:1px solid var(--line);}
+  .hero-point .ic{width:30px;height:30px;}
+  .hero-point .ic svg{width:15px;height:15px;}
   .hero-point h3{margin-bottom:0;font-size:11px;line-height:1.4;}
   .hero-point h3 .wide{display:none;}
   .hero-point h3 .narrow{display:inline;}
@@ -966,23 +972,26 @@ body.has-sticky-cta .fab{bottom:96px;}
      1枚で画面の半分近くを使い、5本目までが遠くなるため。
      写真は小さく添えて、見出しを主役にする */
   .card-grid{
-    display:flex;flex-direction:column;gap:0;overflow:visible;
-    margin:0;padding:0;border-top:1px solid var(--line);
+    display:flex;flex-direction:column;gap:10px;overflow:visible;
+    margin:0;padding:0;
   }
   .card{
     flex:none;display:grid;grid-template-columns:92px minmax(0,1fr);
     gap:0 14px;align-items:center;
-    padding:12px 2px;border-bottom:1px solid var(--line);
+    padding:12px 14px 12px 12px;border-bottom:0;
   }
+  .card > :not(.card-thumb){padding-left:0;padding-right:0;}
+  .card > :last-child{padding-bottom:0;}
   /* 札は写真の左上に重ねる。写真が小さいので、札も小さくする */
   .card{position:relative;}
   .card-thumb{grid-row:1 / span 4;aspect-ratio:4/3;}
   .card-cat{font-size:9.5px;}
   .card-meta{margin:0 0 3px;}
   .card-date{font-size:10px;}
-  /* 見出しは2行ぶんの高さで固定する。1行の記事と2行の記事が混ざると
-     行の高さがそろわず、一覧が階段状に見えるため */
-  .card-title{font-size:13px;line-height:1.6;-webkit-line-clamp:2;height:2.4em;}
+  /* 見出しは2行ぶんの高さを確保する。1行の記事と2行の記事が混ざると
+     行の高さがそろわず、一覧が階段状に見えるため。
+     行間ぶんを見ずに高さを決めると、2行目が下の一言に重なる */
+  .card-title{font-size:13px;line-height:1.6;-webkit-line-clamp:2;min-height:3.2em;}
   /* 一言は、写真の右の残りに収まる分だけ */
   .card-note{margin-top:3px;font-size:11px;line-height:1.7;-webkit-line-clamp:2;}
   .card-cat{margin-top:4px;font-size:10px;}
@@ -1012,7 +1021,7 @@ body.has-sticky-cta .fab{bottom:96px;}
 
   /* 新着・ピックアップのタイルと同じ大きさにそろえる。ここだけ写真が
      大きいと、同じ「記事の一覧」なのに別物に見える */
-  .row-item{grid-template-columns:92px minmax(0,1fr);gap:14px;padding:12px 0;align-items:center;}
+  .row-item{grid-template-columns:92px minmax(0,1fr);gap:14px;padding:12px 14px 12px 12px;align-items:center;}
   .row-cat{font-size:9.5px;}
   .row-meta{margin-bottom:3px;}
   .row-no{top:0;min-width:24px;padding:2px 6px;font-size:9.5px;}
@@ -2512,7 +2521,7 @@ p,li,.card-desc{text-wrap:pretty;}
    ランキングの枠（トップの区画と、よく読まれている記事のページ）
    ========================================================================= */
 .rank-box{max-width:880px;margin:0 auto;}
-.rank-list{border-top:1px solid var(--line);}
+.rank-list{border-top:0;}
 .rank-note{margin-top:16px;font-size:11.5px;color:var(--muted-2);text-align:center;}
 
 /* ---- 枠の中の見出しと段落は、地の文の間隔をそのまま持ち込まない ----
@@ -2615,11 +2624,13 @@ p,li,.card-desc{text-wrap:pretty;}
 .static-wrap p,
 .static-wrap li,
 .scene-body p,
-.hl-text,
-.page-head .lead{
+.hl-text{
   text-align:justify;
   text-justify:inter-character;
 }
+/* 見出しの下の説明文は、見出しに合わせて中央に置く。
+   両端揃えにすると左寄せになってしまう */
+.page-head .lead{text-align:center;}
 /* 見出しや短い一言は、無理に伸ばすと字間が空きすぎるので揃えない */
 .card-note,.row-item p,.card-title,.row-item h3{text-align:left;}
 
