@@ -38,6 +38,15 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 認証は applicationId と accessKey の2点が要る。
 RAKUTEN_API = ("https://openapi.rakuten.co.jp/ichibams/api/IchibaItem"
                "/Search/20260701")
+# 楽天ウェブサービスに登録したアプリのURL。
+# 2026年2月の刷新でブラウザからの呼び出しを前提とする作りになり、
+# Origin と Referer の両方を見るようになった。どちらかが欠けると
+# REQUEST_CONTEXT_BODY_HTTP_REFERRER_MISSING で弾かれる。
+# ここに入れるURLは、アプリの「許可サイト」に登録しておくこと
+# （登録が無いと HTTP_REFERRER_NOT_ALLOWED になる）。
+RAKUTEN_ORIGIN = (os.environ.get("RAKUTEN_ORIGIN", "").strip()
+                  or "https://monobase.site")
+
 YAHOO_API = "https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch"
 
 TIMEOUT = 15
@@ -114,7 +123,11 @@ def rakuten_search(app_id, access_key=None, genre=None, keyword=None, jan=None,
     kw = jan or keyword
     if kw:
         q["keyword"] = kw
-    head = {"accessKey": access_key} if access_key else None
+    # 楽天は、アプリ登録時に届け出たURLと同じ Referer を要求する
+    # （無いと REQUEST_CONTEXT_BODY_HTTP_REFERRER_MISSING で弾かれる）。
+    head = {"Origin": RAKUTEN_ORIGIN, "Referer": RAKUTEN_ORIGIN + "/"}
+    if access_key:
+        head["accessKey"] = access_key
     data = get_json(RAKUTEN_API + "?" + urllib.parse.urlencode(q), head)
     out = []
     # 刷新で items（小文字・平たい配列）になったが、古い形も受けておく。
