@@ -774,13 +774,13 @@ def footer_promo():
     return f'''<section class="promo-band" aria-label="Amazonへの案内">
   <div class="container">
     <div class="promo-inner">
-      <div class="promo-text">
-        <span class="promo-label">PR</span>
+      <span class="promo-label">PR</span>
+      <div class="promo-head">
         <p class="promo-title">{e(title)}</p>
-        {f'<p class="promo-note">{e(note)}</p>' if note else ''}
+        <a class="btn-shop is-amazon" href="{e(url)}" target="_blank"
+           rel="nofollow sponsored noopener">{icon("cart", "btn-icon")}<span>{e(button)}</span></a>
       </div>
-      <a class="btn-shop is-amazon" href="{e(url)}" target="_blank"
-         rel="nofollow sponsored noopener">{icon("cart", "btn-icon")}<span>{e(button)}</span></a>
+      {f'<p class="promo-note">{e(note)}</p>' if note else ''}
     </div>
   </div>
 </section>
