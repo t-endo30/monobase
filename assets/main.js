@@ -122,8 +122,10 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 (function () {
   'use strict';
 
-  /* ---- 動きを減らす設定の人には適用しない ---- */
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* 端末の「動きを減らす」設定は見ない（サイト運営者の指定）。
+     iOS の「視差効果を減らす」を入れている人が多く、その端末だけ
+     何も動かなくなるため、設定にかかわらず動かす。 */
+  var reduce = false;
   var targets = document.querySelectorAll('.reveal');
 
   /* アニメが終わったら reveal 関連のクラスを外す。
@@ -459,8 +461,8 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   'use strict';
   var M = window.Motion;
   if (!M || !M.press) return;
-  var reduce = !!(window.matchMedia
-    && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  /* 「動きを減らす」設定は見ない（上と同じ理由） */
+  var reduce = false;
 
   var spring = { type: 'spring', stiffness: 520, damping: 26, mass: .7 };
   var quick = { duration: .18, ease: [.2, .7, .3, 1] };
@@ -658,7 +660,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
    ============================================================ */
 (function () {
   'use strict';
-  var btns = document.querySelectorAll('.share-btn.is-copy, .fab-item.is-copy');
+  var btns = document.querySelectorAll('.share-btn.is-copy');
   if (!btns.length) return;
   if (!navigator.clipboard || !navigator.clipboard.writeText) {
     Array.prototype.forEach.call(btns, function (b) { b.hidden = true; });
@@ -686,15 +688,79 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 
 
 /* ============================================================
-   右下の共有ボタン：外を押す・Escで閉じる
+   右下の共有ボタン
    ------------------------------------------------------------
-   開閉そのものは <details> がやるので、ここは「閉じ忘れ」を
-   拾うだけ。開いたまま記事を読み進めると、本文に重なるため。
+   中身（X・LINE・リンクのコピー）は、最初に開かれたときにここで作る。
+   HTMLに置いたままにすると、閉じているあいだ、文字の無いリンクが
+   透明のまま画面の隅に残り、隠しリンクを埋め込んでいるように見える。
+   共有先のURLは data 属性で受け取る。
    ============================================================ */
 (function () {
   'use strict';
   var fab = document.getElementById('shareFab');
   if (!fab) return;
+
+  var IC_X = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+    '<path d="M17.5 3h3.2l-7 8L22 21h-6.4l-5-6.6L4.8 21H1.6l7.5-8.6L2 3h6.6l4.6 6.1z"/></svg>';
+  var IC_LINE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+    '<path d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.2 7.9.3.07.75.22.86.5.1.26.07.66.03.92' +
+    'l-.14.83c-.4.25-.2.96.85.53 1.05-.44 5.65-3.33 7.7-5.7C20.9 14.5 22 12.9 22 11c0-4.4-4.5-8-10-8Z"/></svg>';
+  var IC_LINK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+    'stroke-linecap="round" aria-hidden="true">' +
+    '<path d="M10.5 13.5a3.5 3.5 0 0 0 5 0l3-3a3.5 3.5 0 1 0-5-5l-1.4 1.4"/>' +
+    '<path d="M13.5 10.5a3.5 3.5 0 0 0-5 0l-3 3a3.5 3.5 0 1 0 5 5l1.4-1.4"/></svg>';
+
+  var built = false;
+  function build() {
+    if (built) return;
+    built = true;
+    var x = fab.getAttribute('data-x') || '';
+    var line = fab.getAttribute('data-line') || '';
+    var url = fab.getAttribute('data-url') || location.href;
+
+    function item(href, label, inner, cls) {
+      var el = document.createElement(href ? 'a' : 'button');
+      el.className = 'fab-item' + (cls ? ' ' + cls : '');
+      if (href) {
+        el.href = href;
+        el.target = '_blank';
+        el.rel = 'noopener';
+      } else {
+        el.type = 'button';
+        el.setAttribute('data-copy-url', url);
+      }
+      el.setAttribute('aria-label', label);
+      el.innerHTML = inner;
+      fab.appendChild(el);
+      return el;
+    }
+
+    item(x, 'Xでシェア', IC_X);
+    item(line, 'LINEでシェア', '<span class="ic-sq">' + IC_LINE + '</span>', 'is-line');
+    var copy = item('', 'リンクをコピー', IC_LINK, 'is-copy');
+
+    copy.addEventListener('click', function () {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+      navigator.clipboard.writeText(url).then(function () {
+        copy.classList.add('is-copied');
+        copy.setAttribute('aria-label', 'リンクをコピーしました');
+        window.setTimeout(function () {
+          copy.classList.remove('is-copied');
+          copy.setAttribute('aria-label', 'リンクをコピー');
+        }, 1800);
+      }).catch(function () {});
+    });
+
+    /* 中身を足した直後に開くと、置いた位置から動かず飛び出さないので、
+       一度描かせてから開いた状態の指定を当てる */
+    void fab.offsetWidth;
+  }
+
+  fab.addEventListener('toggle', function () { if (fab.open) build(); });
+  /* 押した時点で作っておく（toggle より前に用意できる） */
+  fab.querySelector('.fab-main').addEventListener('click', build);
+
+  /* 開いたまま記事を読み進めると本文に重なるので、外を押したら閉じる */
   document.addEventListener('click', function (ev) {
     if (fab.open && !fab.contains(ev.target)) fab.open = false;
   });
@@ -720,8 +786,6 @@ document.addEventListener('touchstart', function () {}, { passive: true });
    ============================================================ */
 (function () {
   'use strict';
-  if (window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (!('IntersectionObserver' in window)) return;
 
   var hero = document.querySelector('.hero');

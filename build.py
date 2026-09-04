@@ -845,23 +845,24 @@ IC_LINK = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
 
 def share_fab(a, url):
     """記事の右下に浮かせる共有ボタン。押すと X・LINE・リンクのコピーが
-       扇状に開く。読み終えた位置で共有できるよう、本文の末尾ではなく
-       画面に固定する（記事末尾の並びとは別に置く）。"""
+       扇状に開く。
+
+       中身のリンクは、ここでは書き出さない。閉じているあいだ、文字の無い
+       リンクが透明のまま画面の隅に残ることになり、隠しリンクを埋め込んで
+       いるように見えてしまうため。押されたときに assets/main.js が作る。
+       組み立てに要る値は data 属性で渡す。"""
     text = urllib.parse.quote(a.get("list_title") or a["title"], safe="")
     u = urllib.parse.quote(public_url(url), safe="")
-    plain = e(public_url(url))
-    return f'''<details class="fab" id="shareFab">
-  <summary class="fab-main" aria-label="この記事をシェアする">
-    <span class="fab-main-icon" aria-hidden="true">{IC_SHARE}</span>
-  </summary>
-  <a class="fab-item" href="{e(f"https://twitter.com/intent/tweet?text={text}&url={u}")}"
-     target="_blank" rel="noopener" aria-label="Xでシェア">{IC_X}</a>
-  <a class="fab-item is-line" href="{e(f"https://line.me/R/share?text={text}%0D%0A{u}")}"
-     target="_blank" rel="noopener" aria-label="LINEでシェア"><span class="ic-sq">{IC_LINE}</span></a>
-  <button type="button" class="fab-item is-copy" data-copy-url="{plain}"
-          aria-label="リンクをコピー">{IC_LINK}</button>
-</details>
-'''
+    x_url = f"https://twitter.com/intent/tweet?text={text}&url={u}"
+    line_url = f"https://line.me/R/share?text={text}%0D%0A{u}"
+    return (f'<details class="fab" id="shareFab" '
+            f'data-x="{e(x_url)}" data-line="{e(line_url)}" '
+            f'data-url="{e(public_url(url))}">\n'
+            f'  <summary class="fab-main" aria-label="この記事をシェアする">\n'
+            f'    <span class="fab-main-icon" aria-hidden="true">{IC_SHARE}</span>\n'
+            f'  </summary>\n'
+            f'</details>\n')
+
 
 # ヒーローの背景に敷く設計図の線。写真の周りに置くので線は極細にする
 V2_HERO_DECO = '''<svg class="hero-deco" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">

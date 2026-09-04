@@ -35,15 +35,42 @@
 /* ---------- 土台 ---------- */
 *,*::before,*::after{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;}
+/* ページ全体の地に、デスクまわりの写真を敷く。
+   スマホと横長のPCとで別の写真にする（縦横で見せたい構図が違うため）。
+   上に紙面の色を重ねて、本文の読みやすさを保つ。
+   スクロールしても止めておく（attachment:fixed）。 */
 body{
   margin:0;
   font-family:var(--font);
   font-size:15px;
   line-height:1.9;
   color:var(--ink);
-  background:var(--bg);
+  background-color:var(--bg);
+  background-image:
+    linear-gradient(rgba(244,244,242,.80),rgba(244,244,242,.80)),
+    url("img/bg-mobile.jpg");
+  background-size:cover;
+  background-position:top center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
   -webkit-font-smoothing:antialiased;
 }
+@media (min-width:900px){
+  body{
+    background-image:
+      linear-gradient(rgba(244,244,242,.80),rgba(244,244,242,.80)),
+      url("img/bg-pc.jpg");
+  }
+}
+/* 帯や面は地の色を持たせて、写真が透けないようにする */
+.v2-header,.crumb-bar,.v2-footer,.site-notice,
+.v2-section.is-tinted,.card-thumb,.cat-cell,.article-page .card-surface{
+  background-color:var(--bg-2);
+}
+/* 見出しの帯と、地を沈める区画は不透明にして、写真が透けないようにする */
+.crumb-bar{background-color:var(--bg);}
+.v2-section.is-tinted{background-color:var(--bg-2);}
+.v2-footer{background-color:var(--ink);}
 img{max-width:100%;height:auto;display:block;}
 a{color:inherit;text-decoration:none;}
 h1,h2,h3,h4,p,ul,ol,figure{margin:0;}
@@ -185,7 +212,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* =========================================================================
    ヒーロー
    ========================================================================= */
-.hero{position:relative;overflow:hidden;background:var(--bg);}
+/* ヒーローは地の色で塗らない。ページ全体に敷いた写真を、
+   ここでも同じように透かせるため */
+.hero{position:relative;overflow:hidden;}
 .hero-deco{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
 /* 左右2段の組みはそのまま、文字と箱をひとかたまりとして画面の中央に置く。
    1fr で割ると器の幅いっぱいに広がり、組が左へ寄って見えるため、
@@ -762,11 +791,16 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
 .fab .fab-item{
   width:52px;height:52px;display:grid;place-items:center;
   padding:0;text-decoration:none;color:var(--ink-2);
+  /* 閉じているあいだは visibility でも隠す。opacity だけだと、文字の無い
+     リンクが透明のまま画面の隅に残り、隠しリンクを埋め込んでいるように
+     見えてしまう（読み上げにも拾われる）。 */
+  visibility:hidden;
   opacity:0;pointer-events:none;scale:.2;translate:0 0;
   transition:
     color .2s ease,
     border-color .2s ease,
     opacity .2s ease,
+    visibility .2s ease,
     scale .8s var(--spring-bouncy),
     translate .8s var(--spring-bouncy);
 }
@@ -780,6 +814,7 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
 /* 開いているあいだは、しるしを少し小さくして「閉じる」を示す */
 .fab[open] .fab-main-icon{scale:.82;opacity:.55;}
 .fab[open] .fab-item{
+  visibility:visible;
   opacity:1;pointer-events:auto;scale:1;
   translate:calc(sin(var(--item-angle)) * var(--item-radius) * -1)
             calc(cos(var(--item-angle)) * var(--item-radius) * -1);
@@ -842,11 +877,9 @@ body.has-sticky-cta .fab{bottom:96px;}
   to{opacity:1;transform:translateY(0);}
 }
 
-/* 動きを減らす設定の人には、最初から出したままにする */
-@media (prefers-reduced-motion:reduce){
-  .hero-title .tw{width:auto;border-right:0;animation:none;}
-  .hero-figure{animation:none;}
-}
+/* 端末の「動きを減らす」設定は見ない（サイト運営者の指定）。
+   iOS の「視差効果を減らす」を入れている人が多く、その端末で
+   ヒーローの動きが出ないため、設定にかかわらず動かす。 */
 
 /* =========================================================================
    画面幅ごとの調整
@@ -1029,10 +1062,8 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card{flex:0 0 56%;}
 }
 
-/* 動きを減らす設定を尊重する */
-@media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important;}
-}
+/* ここには以前「動きを減らす」設定のとき、すべての動きを止める指定を
+   置いていた。設定にかかわらず動かす方針に変えたので外している。 */
 
 /* =========================================================================
    移設した部品が使う色と形（旧 style.css の :root から引き継ぐ）
@@ -1897,9 +1928,7 @@ p,li,.card-desc{text-wrap:pretty;}
   transition:transform .6s cubic-bezier(.22,.85,.28,1),opacity .5s ease .05s;}
 .float-search.is-visible,.sticky-cta.is-visible{transform:translateY(0);
   opacity:1;}
-@media (prefers-reduced-motion:reduce){
-  .float-search,.sticky-cta{transition:opacity .25s ease;transform:none;}
-}
+
 /* ============================================================
    画面下に浮かぶものを Motion に任せる
    ------------------------------------------------------------
