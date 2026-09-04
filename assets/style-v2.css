@@ -14,6 +14,8 @@
 
 /* ---------- 変数 ---------- */
 :root{
+  /* auto の高さを動かせるようにする（引き出しの開閉で使う） */
+  interpolate-size:allow-keywords;
   --ink:#111111;         /* 見出し・本文の主色 */
   --ink-2:#333333;
   --muted:#6e6e6e;       /* 補足文 */
@@ -210,6 +212,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   list-style:none;cursor:pointer;position:relative;
 }
 .drawer-acc summary::-webkit-details-marker{display:none;}
+/* 開閉を、引き出し本体と同じようにすっと動かす。
+   auto の高さを補間できるようにしたうえで、開いた中身の高さを変える。
+   対応していないブラウザでは、今までどおりその場で開くだけ */
+.drawer-acc details::details-content{
+  block-size:0;overflow:hidden;opacity:0;
+  transition:block-size .28s ease,opacity .22s ease,content-visibility .28s;
+  transition-behavior:allow-discrete;
+}
+.drawer-acc details[open]::details-content{block-size:auto;opacity:1;}
 .drawer-acc summary span:last-child{
   color:var(--muted-2);font-family:var(--font-en);font-size:10px;
   font-weight:600;letter-spacing:.2em;text-indent:.2em;line-height:1;
@@ -252,7 +263,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    中身の幅で列を作って justify-content で中央に寄せる */
 .hero-inner{
   position:relative;
-  display:grid;grid-template-columns:auto auto;justify-content:center;
+  /* 列の幅は中身に合わせない。見出しを1文字ずつ出すあいだ、文字が
+     増えるたびに列が広がり、箱の写真や説明文まで動いてしまうため */
+  display:grid;grid-template-columns:minmax(0,560px) minmax(0,380px);
+  justify-content:center;
   align-items:center;gap:28px 48px;
   padding:28px 0 16px;
 }
@@ -328,7 +342,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .sec-head .rule{flex:1;height:1px;background:var(--ink);}
 .sec-head .titles{text-align:center;line-height:1.4;flex:0 0 auto;}
 .sec-head .en{font-family:var(--font-en);font-size:19px;font-weight:700;letter-spacing:.2em;}
-.sec-head .ja{font-size:11px;color:var(--muted);letter-spacing:.08em;}
+/* 「今日のピックアップ」などは1行で出す */
+.sec-head .ja{font-size:11px;color:var(--muted);letter-spacing:.08em;white-space:nowrap;}
 /* 一覧へ送る導線はタイルの下の中央。見出しの横に置くと、
    タイルを見終わったあとの視線と離れてしまう */
 .sec-more{display:flex;justify-content:center;margin-top:36px;}
@@ -418,6 +433,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 }
 /* 順位は写真の左下。左上はカテゴリーの札に譲る。独立した列にすると、
    写真と見出しの位置がランキングのときだけずれてしまう */
+.card-thumb .row-no,
 .row-no{
   position:absolute;left:0;top:0;z-index:2;
   min-width:34px;padding:4px 8px;

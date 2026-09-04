@@ -970,16 +970,18 @@ def v2_title(t):
     return e(t)
 
 
-def v2_card(a, p):
-    """一覧の記事タイル。カテゴリーは写真の右上に重ね、見出しの下には
-       その記事の一言（excerpt）を置く。"""
+def v2_card(a, p, no=None):
+    """一覧の記事タイル。日付とカテゴリーを1行目に並べ、見出し、一言と続く。
+       no を渡すと、順位の札を写真の左上に重ねる（ランキング用）。"""
     src, _ = visual_path(a, p)
+    rank = (f'<span class="row-no is-n{no}">{no:02d}</span>' if no else "")
     title = a.get("list_title") or a["title"]
     cat = CAT_LABEL.get(a.get("category", ""), "")
     return (f'<a class="card" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
             f'data-date="{e(a.get("date",""))}">'
-            f'<span class="card-thumb"><img src="{e(src)}" alt="" loading="lazy"></span>'
+            f'<span class="card-thumb"><img src="{e(src)}" alt="" loading="lazy">'
+            f'{rank}</span>'
             f'<span class="card-meta">'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
             f'<span class="card-cat">{e(cat)}</span></span>'
@@ -2498,7 +2500,9 @@ def build_index():
 
     body += v2_section(
         v2_sec_head("RANKING", "よく読まれている記事")
-        + v2_rows(PUBLISHED[:6], p, numbered=True, narrow=True)
+        + '      <div class="card-grid">'
+        + "".join(v2_card(a, p, no=i + 1) for i, a in enumerate(PUBLISHED[:6]))
+        + "</div>\n"
         + v2_sec_more(f"{p}ranking.html"))
 
     if picks:
