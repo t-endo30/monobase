@@ -398,7 +398,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .card{display:flex;flex-direction:column;background:var(--bg-2);}
 .card-thumb{margin:14px 14px 0;}
 .card > :not(.card-thumb){padding-left:14px;padding-right:14px;}
-.card > :last-child{padding-bottom:16px;}
+/* 文字で終わると下が詰まって見えるので、最後の要素の下に一行ぶん足す。
+   一言が1行の記事も2行の記事も、下端の空きは同じだけ取る */
+.card > :last-child{padding-bottom:38px;}
 /* 写真は枠で囲む。地の色に近い写真だと、どこまでが写真か分からなく
    なるため。枠は罫線と同じ濃さにして、線が主張しすぎないようにする */
 .card-thumb{
@@ -448,35 +450,43 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* 持ち上げに重ねて、斜めに切った面が左上と右下から入ってきて、
    タイルの白い面を黒に置き換える。三角に切った2枚が対角線で合わさる形。
    タイルの縦横比が変わっても隙間や取り残しが出ない置き方にしている。
-   文字は面の上に残したいので、中の要素だけ手前（z-index:1）に置く。
-   タイルが横長のリストに変わる 860px 以下では持ち上げと同じく掛けない */
+   文字は面の上に残したいので、中の要素だけ手前（z-index:1）に置く */
+.card{position:relative;overflow:hidden;}
+.card > *{position:relative;z-index:1;}
+.card::before,.card::after{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:var(--ink);pointer-events:none;
+  /* 面が渡りきるまでの間、白い面に白い文字が乗って読めなくなる。
+     その時間を短くするため、動きは速めに切り上げる */
+  transition:transform .34s ease-out;
+}
+/* 左上の三角は左上の外へ、右下の三角は右下の外へ退けておく */
+.card::before{clip-path:polygon(0 0,100% 0,0 100%);transform:translate(-100%,-100%);}
+.card::after{clip-path:polygon(100% 0,100% 100%,0 100%);transform:translate(100%,100%);}
+/* 黒い面の上では文字を白に。見出しだけ薄くしていた指定も打ち消す。
+   白のまま白い面に乗る時間を減らしたいので、切り替えは面がほぼ
+   渡りきってから。戻すときは逆に、黒が引く前に早めに暗い色へ返す */
+.card .card-title,.card .card-date,
+.card .card-cat,.card .card-note{transition:color .08s ease;}
+/* カーソルを当てられる機器では hover で。860px 以下は横長のリストに
+   変わるので、持ち上げと同じくここでは掛けない */
 @media (hover:hover) and (min-width:861px){
-  .card{position:relative;overflow:hidden;}
-  .card > *{position:relative;z-index:1;}
-  .card::before,.card::after{
-    content:"";position:absolute;inset:0;z-index:0;
-    background:var(--ink);pointer-events:none;
-    /* 面が渡りきるまでの間、白い面に白い文字が乗って読めなくなる。
-       その時間を短くするため、動きは速めに切り上げる */
-    transition:transform .34s ease-out;
-  }
-  /* 左上の三角は左上の外へ、右下の三角は右下の外へ退けておく */
-  .card::before{
-    clip-path:polygon(0 0,100% 0,0 100%);transform:translate(-100%,-100%);
-  }
-  .card::after{
-    clip-path:polygon(100% 0,100% 100%,0 100%);transform:translate(100%,100%);
-  }
   .card:hover::before,.card:hover::after{transform:translate(0,0);}
-  /* 黒い面の上では文字を白に。見出しだけ薄くしていた指定も打ち消す。
-     白のまま白い面に乗る時間を減らしたいので、切り替えは面がほぼ
-     渡りきってから。戻すときは逆に、黒が引く前に早めに暗い色へ返す */
-  .card .card-title,.card .card-date,
-  .card .card-cat,.card .card-note{transition:color .08s ease;}
   .card:hover .card-title,
   .card:hover .card-date,
   .card:hover .card-cat,
   .card:hover .card-note{color:#fff;transition-delay:.24s;}
+}
+/* 指で触る機器では、押している間に同じ動きを出す。hover と違って
+   触れている時間が短いので、面は速く渡し、文字はすぐ白へ返す。
+   （押した指が離れるとすぐ元に戻り、当たり判定が残って見えることはない） */
+@media (hover:none){
+  .card::before,.card::after{transition-duration:.2s;}
+  .card:active::before,.card:active::after{transform:translate(0,0);}
+  .card:active .card-title,
+  .card:active .card-date,
+  .card:active .card-cat,
+  .card:active .card-note{color:#fff;transition-delay:.14s;}
 }
 
 /* 横長の記事行（カテゴリー一覧で使う） */
