@@ -970,6 +970,21 @@ def v2_title(t):
     return e(t)
 
 
+SUB_LABEL = {(c["key"], sc["key"]): sc["label"]
+             for c in CATS for sc in c.get("sub", [])}
+
+
+def v2_cat_text(a, detail=False):
+    """タイルに出す分野の名前。カテゴリーの一覧ページでは、その分野の中の
+       どれなのか（サブ区分）を出す。ページの見出しと同じ「パソコン」を
+       並べても、記事どうしの違いが分からないため。"""
+    if detail:
+        sub = SUB_LABEL.get((a.get("category", ""), a.get("sub", "")))
+        if sub:
+            return sub
+    return CAT_LABEL.get(a.get("category", ""), "")
+
+
 def v2_card(a, p, no=None):
     """一覧の記事タイル。日付とカテゴリーを1行目に並べ、見出し、一言と続く。
        no を渡すと、順位の札を写真の左上に重ねる（ランキング用）。"""
@@ -989,12 +1004,13 @@ def v2_card(a, p, no=None):
             f'<span class="card-note">{e(v2_appeal(a))}</span></a>')
 
 
-def v2_row(a, p, numbered=None):
-    """横長の記事タイル。カテゴリーは右上、見出しの下に一言。"""
+def v2_row(a, p, numbered=None, detail=False):
+    """横長の記事タイル。日付とカテゴリーを1行目に並べ、見出し、一言と続く。
+       detail=True で、分野の名前をサブ区分まで細かく出す。"""
     src, _ = visual_path(a, p)
     no = (f'<span class="row-no is-n{numbered}">{numbered:02d}</span>'
           if numbered else "")
-    cat = CAT_LABEL.get(a.get("category", ""), "")
+    cat = v2_cat_text(a, detail)
     return (f'<a class="row-item" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
             f'data-date="{e(a.get("date",""))}">'
@@ -1007,11 +1023,11 @@ def v2_row(a, p, numbered=None):
             f'<p>{e(v2_appeal(a))}</p></span></a>')
 
 
-def v2_rows(items, p, numbered=False, narrow=False):
+def v2_rows(items, p, numbered=False, narrow=False, detail=False):
     # is-narrow はトップの区画。新着と同じく6件目をわざと切って、
     # 続きが下の VIEW ALL にあることを見た目で伝える
     cls = "row-list is-narrow" if narrow else "row-list"
-    inner = "".join(v2_row(a, p, (i + 1) if numbered else None)
+    inner = "".join(v2_row(a, p, (i + 1) if numbered else None, detail)
                     for i, a in enumerate(items))
     return f'      <div class="{cls}">{inner}</div>\n'
 
@@ -2598,7 +2614,7 @@ def build_category(c):
                         crumbs=[("ホーム", f"{p}index.html"), (c["label"], None)],
                         lead=c["lead"], count=len(items),
                         extra=v2_sub_nav(c, p))
-    body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
+    body += v2_section(v2_rows(items, p, detail=True), style="padding:40px 0 80px")
     return page(f'{c["label"]}の記事一覧 - {NAME}',
                 c["lead"][:110], c["key"], p,
                 f'{BASE_URL}/category-{c["key"]}.html', body,

@@ -970,7 +970,9 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   function close(dlg) {
     dlg.classList.remove('is-open');
     document.body.style.overflow = '';
-    window.setTimeout(function () { dlg.hidden = true; }, 200);
+    /* 消える動きが終わってから隠す。すぐ hidden にすると、
+       ふっと消えるだけになってしまう */
+    window.setTimeout(function () { dlg.hidden = true; }, 240);
     if (opener) { opener.focus(); opener = null; }
   }
 

@@ -989,7 +989,7 @@ body.has-sticky-cta .fab{bottom:96px;}
   position:fixed;inset:0;z-index:60;
   display:flex;align-items:center;justify-content:center;
   padding:24px;background:rgba(17,17,17,.42);
-  opacity:0;transition:opacity .2s ease;
+  opacity:0;transition:opacity .22s ease;
 }
 /* 閉じているあいだは必ず消す。display を指定すると hidden 属性より
    こちらが勝ってしまい、透明な板が画面全体を覆って、どこも押せなく
@@ -999,11 +999,18 @@ body.has-sticky-cta .fab{bottom:96px;}
 .hp-panel{
   position:relative;width:100%;max-width:560px;max-height:82vh;overflow-y:auto;
   background:var(--bg-2);border:1px solid var(--line-2);
+  border-radius:var(--r2,2px);
   padding:34px 34px 28px;
   box-shadow:0 24px 60px rgba(0,0,0,.18);
-  transform:translateY(10px);transition:transform .24s var(--spring-bouncy);
+  /* 出るときも消えるときも、少し下から浮かび上がるように動かす。
+     閉じるときは動きを短くして、待たされる感じを出さない */
+  opacity:0;transform:translateY(14px) scale(.985);
+  transition:opacity .16s ease,transform .18s ease;
 }
-.hp-dialog.is-open .hp-panel{transform:translateY(0);}
+.hp-dialog.is-open .hp-panel{
+  opacity:1;transform:translateY(0) scale(1);
+  transition:opacity .24s ease,transform .34s var(--spring-bouncy);
+}
 .hp-title{
   font-size:18px;font-weight:900;letter-spacing:.02em;line-height:1.5;
   padding-bottom:14px;border-bottom:2px solid var(--ink);margin-bottom:18px;
