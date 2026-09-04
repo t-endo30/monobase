@@ -1119,6 +1119,15 @@ document.addEventListener('touchstart', function () {}, { passive: true });
    ============================================================ */
 (function () {
   if (!window.matchMedia) return;
+
+  /* 遷移を待たせるのはスマホだけ。指で触る機器でも、タイルが4列で並ぶ
+     幅（861px以上／タブレットなど）では待たせず、そのまま飛ばす。
+     幅は向きを変えると変わるので、そのつど見る */
+  function phone() {
+    return matchMedia('(hover:none)').matches
+        && matchMedia('(max-width:860px)').matches
+        && !matchMedia('(prefers-reduced-motion:reduce)').matches;
+  }
   if (!matchMedia('(hover:none)').matches) return;
   if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
 
@@ -1155,7 +1164,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     clear();
     target = a; startedAt = Date.now();
     a.classList.add('is-tapping');
-    warm(a.getAttribute('href'));
+    if (phone()) warm(a.getAttribute('href'));
   }, { passive: true });
 
   /* 指が動いたらスクロール。押したことにしない */
@@ -1169,6 +1178,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     if (!a || a !== target) return;
     if (ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.shiftKey) return;
     if (a.target && a.target !== '_self') return;
+    if (!phone()) return;
     var wait = HOLD - (Date.now() - startedAt);
     if (wait <= 0) return;         /* 長押しなどで、もう渡りきっている */
     ev.preventDefault();
