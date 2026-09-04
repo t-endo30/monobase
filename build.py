@@ -1791,6 +1791,46 @@ def link_past_articles(html_body, cur_slug, p, limit=5):
     return "".join(out)
 
 
+_REL_CACHE = {}
+
+
+def related_map():
+    """記事どうしのリンク先を決める。
+
+       以前は「同じカテゴリー→残り」を新しい順に3本取っていた。
+       この形だと毎回いちばん新しい記事が選ばれ、1本の記事に17本集まる
+       一方で、どこからもリンクされない記事が7本できていた。
+       リンクされない記事は、クローラーが辿りにくく評価も渡らない。
+
+       ここでは近さで並べたうえで、同じくらい近い候補が並んだときは
+       まだリンクの少ない記事を先に選ぶ。全記事がほぼ均等に
+       リンクを受け取る。"""
+    if _REL_CACHE:
+        return _REL_CACHE
+    inbound = {a["slug"]: 0 for a in PUBLISHED}
+
+    def near(a, b):
+        """近さ。小分類まで同じ＞大分類が同じ＞タグが重なる、の順。"""
+        s = 0
+        if b["category"] == a["category"]:
+            s += 2
+            if b.get("sub") and b.get("sub") == a.get("sub"):
+                s += 2
+        s += min(len(set(a.get("tags") or []) & set(b.get("tags") or [])), 3)
+        return s
+
+    for a in PUBLISHED:
+        cands = [b for b in PUBLISHED if b["slug"] != a["slug"]]
+        # 近い順。同じ近さなら、まだリンクされていない記事を先に。
+        # slug を最後に入れて、毎回同じ結果になるようにする。
+        cands.sort(key=lambda b: (-near(a, b), inbound[b["slug"]], b["slug"]))
+        picked = cands[:3]
+        for b in picked:
+            inbound[b["slug"]] += 1
+        _REL_CACHE[a["slug"]] = picked
+    return _REL_CACHE
+
+
 def render_article(a):
     _cta_mid_used[0] = False
     p = "../"
@@ -2151,9 +2191,7 @@ def render_article(a):
     # 本文の末尾にも並べると、同じものが2か所に出て迷わせるため置かない。
 
     # 関連記事
-    rel = [x for x in PUBLISHED if x["slug"] != slug and x["category"] == cat]
-    rel += [x for x in PUBLISHED if x["slug"] != slug and x["category"] != cat]
-    rel = rel[:3]
+    rel = related_map().get(slug, [])
     if rel:
         add(f'''
       <section class="v2-section" style="padding:8px 0 0">
