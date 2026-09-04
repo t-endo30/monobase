@@ -113,7 +113,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 /* ブランド */
 .brand{display:flex;align-items:center;gap:12px;flex:0 0 auto;}
-.brand-mark{width:42px;height:38px;flex:0 0 auto;}
+.brand-mark{width:42px;height:42px;flex:0 0 auto;}
 .brand-mark svg{width:100%;height:100%;display:block;}
 .brand-text{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;}
 /* 社名の上に置くサブタイトル。社名より小さく、字送りを広げて添え書きにする */
@@ -610,10 +610,12 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
 .v2-footer .brand-en{color:#8f8f8b;}
 .v2-footer .brand-sub{color:#9d9d99;}
 .v2-footer .brand-mark{
-  --mk-body:#ffffff;   /* 箱の面 */
-  --mk-flap:#111111;   /* フタ（フッターの地に沈める） */
-  --mk-line:#ffffff;   /* フタの輪郭 */
-  --mk-letter:#111111; /* 頭文字 */
+  --mk-body:#ffffff;    /* 箱の面 */
+  --mk-flap:#111111;    /* フタ（フッターの地に沈める） */
+  --mk-line:#ffffff;    /* フタの輪郭 */
+  --mk-letter:#111111;  /* 頭文字 */
+  --mk-inner:#111111;   /* 箱の内側 */
+  --mk-inner2:#ffffff;  /* 箱の底 */
 }
 /* フッターは中央揃え。カテゴリーはヘッダーのドロップダウンと
    引き出しメニューにあるので、ここには置かない */
@@ -1028,7 +1030,7 @@ body.has-sticky-cta .fab{bottom:96px;}
      余白のぶんだけ内側へ戻す */
   .nav-toggle{display:flex;position:absolute;right:var(--gut);top:50%;
     transform:translateY(-50%);margin:0;}
-  .brand-mark{width:34px;height:31px;}
+  .brand-mark{width:36px;height:36px;}
   .brand-ja{font-size:18px;}
   .brand-en{font-size:8.5px;letter-spacing:.3em;}
 
@@ -2756,3 +2758,55 @@ p,li,.card-desc{text-wrap:pretty;}
 body,p,li,dd,dt,figcaption{line-break:strict;overflow-wrap:anywhere;}
 p,li{text-wrap:pretty;}
 h1,h2,h3,.card-title,.article-title,.sec-head .titles{text-wrap:balance;}
+
+/* =========================================================================
+   角のまるめ
+   ------------------------------------------------------------------------
+   記事タイル・写真・ボタン・カテゴリー枠の四隅を 2px だけ落とす。
+   直角のままだと硬く見えるが、大きく丸めると図面の線を使った設計と
+   合わなくなるので、角が立っていないと分かる最小限にとどめる。
+   ========================================================================= */
+:root{ --r2:2px; }
+
+/* 記事タイルとカテゴリー枠 */
+.card,
+.row-item,
+.cat-cell,
+.nf-cat,
+.side-tile,
+.search-panel,
+.hp-panel{border-radius:var(--r2);}
+
+/* 写真 */
+.card-thumb,
+.row-item .thumb,
+.cat-thumb,
+.drawer-thumb,
+.side-list .th,
+.prod-thumb,
+.article-hero,
+.eyecatch,
+.eyecatch img{border-radius:var(--r2);}
+
+/* 順位の札は写真の角に重なるので、外側の角だけ合わせる */
+.row-no{border-radius:var(--r2) 0 var(--r2) 0;}
+
+/* ボタン・入力欄 */
+.sec-more a,
+.btn-line,
+.btn-solid,
+.btn-sub,
+.btn-shop,
+.btn-amazon,
+.btn-hero,
+.chip,
+.sub-chip,
+.search-field,
+.field input,
+.field select,
+.field textarea,
+.card-cat,
+.row-cat{border-radius:var(--r2);}
+
+/* 枠の中の写真は、枠自身の角より内側に来るので少しだけ小さく丸める */
+.cat-cell .cat-thumb{border-radius:0 0 var(--r2) var(--r2);}

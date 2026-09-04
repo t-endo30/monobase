@@ -53,20 +53,19 @@ def e(s):
 # 箱の2面・開口部・4枚のフタという写真の構成を保つので、ヒーローの写真と
 # 並べても同じものに見える。色は CSS 変数で外から差し替えられるようにして、
 # 暗いフッターでは白黒を入れ替える（--mk-body / --mk-flap / --mk-line / --mk-letter）。
-LOGO_MARK = '''<svg viewBox="0 0 48 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path d="M24 15 L9 20 L24 25 L39 20 Z" fill="var(--mk-body,#111111)"/>
-  <path d="M9 20 L24 25 L24 40 L9 35 Z" fill="var(--mk-body,#111111)"/>
-  <path d="M24 25 L39 20 L39 35 L24 40 Z" fill="var(--mk-body,#111111)"/>
-  <g fill="var(--mk-flap,#ffffff)" stroke="var(--mk-line,#111111)" stroke-width="1.5" stroke-linejoin="round">
-    <path d="M9 20 L1.2 15.4 L4.4 14.2 L14.6 22.2 Z"/>
-    <path d="M39 20 L46.8 15.4 L43.6 14.2 L33.4 22.2 Z"/>
-    <path d="M24 15 L9 20 L4.6 8.8 L21.2 3.6 Z"/>
-    <path d="M24 15 L39 20 L43.4 8.8 L26.8 3.6 Z"/>
-  </g>
+LOGO_MARK = '''<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<g fill="var(--mk-flap,#ffffff)" stroke="var(--mk-line,#111111)" stroke-width="0.9" stroke-linejoin="round"><path d="M9 22 L24 31 L15.6 32.8 L0.6 23.8 Z"/>
+    <path d="M24 31 L39 22 L47.4 23.8 L32.4 32.8 Z"/></g>
+  <path d="M24 13 L39 22 L24 31 L9 22 Z" fill="var(--mk-inner,#ffffff)" stroke="var(--mk-line,#111111)" stroke-width="0.9" stroke-linejoin="round"/>
+  <path d="M24 22.5 L31 26.5 L24 30.5 L17 26.5 Z" fill="var(--mk-inner2,#1b1b1b)"/>
+  <g fill="var(--mk-flap,#ffffff)" stroke="var(--mk-line,#111111)" stroke-width="0.9" stroke-linejoin="round"><path d="M9 22 L24 13 L21.5 2.5 L6.5 10.5 Z"/>
+    <path d="M24 13 L39 22 L41.5 10.5 L26.5 2.5 Z"/></g>
+  <path d="M9 22 L24 31 L24 44.5 L9 35.5 Z" fill="var(--mk-body,#111111)"/>
+  <path d="M24 31 L39 22 L39 35.5 L24 44.5 Z" fill="var(--mk-body,#111111)"/>
   <g fill="var(--mk-letter,#ffffff)" font-family="Helvetica Neue,Arial,sans-serif"
-     font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central">
-    <text x="16.5" y="26" transform="matrix(1,0.3333,0,1,0,0)">M</text>
-    <text x="31.5" y="42" transform="matrix(1,-0.3333,0,1,0,0)">B</text>
+     font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">
+    <text x="16.5" y="23.6" transform="matrix(1,0.6,0,1,0,0)">M</text>
+    <text x="31.5" y="52.4" transform="matrix(1,-0.6,0,1,0,0)">B</text>
   </g>
 </svg>'''
 

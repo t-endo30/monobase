@@ -45,33 +45,43 @@ def chrome():
     sys.exit("Chrome が見つかりません。")
 
 
-def mark(body, flap, line, letter, flaps=True):
-    """ブランドマーク。色は呼び出し側から渡す（地の明るさで入れ替えるため）。
-       flaps=False は、16pxまで小さくなるタブのアイコン用。フタを外して
-       箱と頭文字だけにする。フタまで入れると線が潰れて何も読めなくなる。"""
-    fl = f'''<g fill="{flap}" stroke="{line}" stroke-width="1.5" stroke-linejoin="round">
-    <path d="M9 20 L1.2 15.4 L4.4 14.2 L14.6 22.2 Z"/>
-    <path d="M39 20 L46.8 15.4 L43.6 14.2 L33.4 22.2 Z"/>
-    <path d="M24 15 L9 20 L4.6 8.8 L21.2 3.6 Z"/>
-    <path d="M24 15 L39 20 L43.4 8.8 L26.8 3.6 Z"/>
-  </g>''' if flaps else ""
+def mark(body, flap, line, letter, inner="#ffffff", inner2="#1b1b1b", flaps=True):
+    """写真（開いた箱に MB）に寄せたブランドマーク。
+       立方体を角から見た形。上面は菱形の開口で、そこから4枚のフタが開く。
+       奥の2枚は立ち上がり、手前の2枚は上面と同じ平面のまま外へ倒れる。"""
+    T, L, R, F = (24, 13), (9, 22), (39, 22), (24, 31)
+    L2, F2, R2 = (9, 35.5), (24, 44.5), (39, 35.5)
+    def d(*pts): return "M" + " L".join(f"{x} {y}" for x, y in pts) + " Z"
+
+    # 手前のフタは上面と同じ平面のまま外へ。奥へ向かう対角の逆向きに倒す
+    fl_front = f'''<path d="{d(L, F, (15.6,32.8), (0.6,23.8))}"/>
+    <path d="{d(F, R, (47.4,23.8), (32.4,32.8))}"/>'''
+    # 奥のフタは立ち上がる
+    fl_back = f'''<path d="{d(L, T, (21.5,2.5), (6.5,10.5))}"/>
+    <path d="{d(T, R, (41.5,10.5), (26.5,2.5))}"/>'''
+    g_front = (f'<g fill="{flap}" stroke="{line}" stroke-width="0.9" '
+               f'stroke-linejoin="round">{fl_front}</g>' if flaps else "")
+    g_back = (f'<g fill="{flap}" stroke="{line}" stroke-width="0.9" '
+              f'stroke-linejoin="round">{fl_back}</g>' if flaps else "")
     return f'''<g>
-  <path d="M24 15 L9 20 L24 25 L39 20 Z" fill="{body}"/>
-  <path d="M9 20 L24 25 L24 40 L9 35 Z" fill="{body}"/>
-  <path d="M24 25 L39 20 L39 35 L24 40 Z" fill="{body}"/>
-  {fl}
+  {g_front}
+  <path d="{d(T, R, F, L)}" fill="{inner}" stroke="{line}" stroke-width="0.9" stroke-linejoin="round"/>
+  <path d="{d((24,22.5),(31,26.5),(24,30.5),(17,26.5))}" fill="{inner2}"/>
+  {g_back}
+  <path d="{d(L, F, F2, L2)}" fill="{body}"/>
+  <path d="{d(F, R, R2, F2)}" fill="{body}"/>
   <g fill="{letter}" font-family="Helvetica Neue,Arial,sans-serif"
-     font-size="12" font-weight="700" text-anchor="middle" dominant-baseline="central">
-    <text x="16.5" y="26" transform="matrix(1,0.3333,0,1,0,0)">M</text>
-    <text x="31.5" y="42" transform="matrix(1,-0.3333,0,1,0,0)">B</text>
+     font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">
+    <text x="16.5" y="23.6" transform="matrix(1,0.6,0,1,0,0)">M</text>
+    <text x="31.5" y="52.4" transform="matrix(1,-0.6,0,1,0,0)">B</text>
   </g>
 </g>'''
 
 
 # マークの図形が実際に占める範囲（48×44 の枠のうち、フタの先から箱の底まで）。
 # タイルいっぱいに収めるための計算に使う。
-MARK_BOX = (1.2, 3.6, 46.8, 40.0)      # フタまで入れたとき
-MARK_BOX_NOFLAP = (9.0, 15.0, 39.0, 40.0)   # 箱だけのとき
+MARK_BOX = (0.6, 2.5, 47.4, 44.5)       # フタまで入れたとき
+MARK_BOX_NOFLAP = (9.0, 13.0, 39.0, 44.5)   # 箱だけのとき
 
 
 def tile_svg(round_corners=True, pad=3.0, flaps=True):
@@ -87,7 +97,7 @@ def tile_svg(round_corners=True, pad=3.0, flaps=True):
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64"{r} fill="{INK}"/>
   <g transform="translate({tx:.2f},{ty:.2f}) scale({s:.3f})">
-{mark("#ffffff", INK, "#ffffff", INK, flaps)}
+{mark("#ffffff", INK, "#ffffff", INK, inner=INK, inner2="#ffffff", flaps=flaps)}
   </g>
 </svg>'''
 
