@@ -1,3 +1,13 @@
+
+/* タイルの見出しは「主題｜補足」を必ず「｜」で折る。build.py の
+   v2_title() と同じ扱い。成り行きに任せると語の途中で割れる。 */
+function titleHtml(t) {
+  t = String(t == null ? '' : t);
+  var i = t.indexOf('｜');
+  if (i < 0) return t;
+  return '<span class="tt-main">' + t.slice(0, i).trim() + '</span>' +
+         '<span class="tt-sub">' + t.slice(i + 1).trim() + '</span>';
+}
 /* ============================================================
    重ねて出すものを開いているあいだ、背面のスクロールを止める
    ------------------------------------------------------------
@@ -402,7 +412,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
               '<span class="meta">' + esc(d) + '</span>' +
               '<span class="row-cat">' + esc(it.cat) + '</span>' +
             '</span>' +
-            '<h3>' + esc(it.title) + '</h3>' +
+            '<h3>' + titleHtml(it.title) + '</h3>' +
             (it.excerpt ? '<p>' + esc(it.excerpt) + '</p>' : '') +
           '</span>' +
         '</a>';
@@ -870,7 +880,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       '<span class="card-meta">' +
         '<span class="card-date">' + esc(a.d) + '</span>' +
         '<span class="card-cat">' + esc(a.c) + '</span></span>' +
-      '<span class="card-title">' + esc(a.t) + '</span>' +
+      '<span class="card-title">' + titleHtml(a.t) + '</span>' +
       '<span class="card-note">' + esc(a.x) + '</span></a>';
   }).join('');
 })();

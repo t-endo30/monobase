@@ -1,3 +1,13 @@
+
+/* タイルの見出しは「主題｜補足」を必ず「｜」で折る。build.py の
+   v2_title() と同じ扱い。成り行きに任せると語の途中で割れる。 */
+function titleHtml(t) {
+  t = String(t == null ? '' : t);
+  var i = t.indexOf('｜');
+  if (i < 0) return t;
+  return '<span class="tt-main">' + t.slice(0, i).trim() + '</span>' +
+         '<span class="tt-sub">' + t.slice(i + 1).trim() + '</span>';
+}
 /* ============================================================
    サイト内検索（クライアントサイド）
    search.json を読み込み、キーワード + カテゴリ + タグで絞り込む。
@@ -98,7 +108,7 @@
             '<span class="meta">' + esc(String(item.date || '').slice(0, 10)) + '</span>' +
             '<span class="row-cat">' + esc(item.catLabel) + '</span>' +
           '</span>' +
-          '<h3>' + highlight(item.title, terms) + '</h3>' +
+          '<h3>' + titleHtml(highlight(item.title, terms)) + '</h3>' +
           catch_ +
         '</span>' +
       '</a>';

@@ -2757,7 +2757,27 @@ p,li,.card-desc{text-wrap:pretty;}
 
 body,p,li,dd,dt,figcaption{line-break:strict;overflow-wrap:anywhere;}
 p,li{text-wrap:pretty;}
-h1,h2,h3,.card-title,.article-title,.sec-head .titles{text-wrap:balance;}
+
+/* 見出しは文節の切れ目で折り返す。
+   text-wrap:balance は行の長さをそろえようとするだけなので、日本語では
+   「〜人 / が、超音波を選ぶ場合」のように助詞の前で割れたり、最後の行に
+   「場合」だけが残ったりする。word-break:auto-phrase は文節を見て折るので、
+   意味の切れ目で改行される。対応していないブラウザでは今までどおりの
+   折り返しになるだけで、崩れることはない。
+   あわせて overflow-wrap:anywhere も外す（語の途中で割らせない）。 */
+h1,h2,h3,h4,
+.article-title,.card-title,.row-item h3,.sec-head .titles,
+.scene-title,.hl-title,.fix-title,.goodfor-t,.notfor-t,
+.summary-head,.side-heading,.page-head h1,.hp-title,
+.li-t,.next-title,.callout-label,.pn-label,.voice-title,.prod-title,
+.faq-item .q,.toc a,.hero-point .h3{
+  word-break:auto-phrase;
+  overflow-wrap:normal;
+  text-wrap:pretty;
+  /* 見出しは両端揃えにしない。字数が少ないところで伸ばすと、
+     「電 気 代 を 最 重 視」のように字間が開いてしまう */
+  text-align:left;
+}
 
 /* =========================================================================
    角のまるめ
@@ -2810,3 +2830,6 @@ h1,h2,h3,.card-title,.article-title,.sec-head .titles{text-wrap:balance;}
 
 /* 枠の中の写真は、枠自身の角より内側に来るので少しだけ小さく丸める */
 .cat-cell .cat-thumb{border-radius:0 0 var(--r2) var(--r2);}
+
+/* タイルの見出しは「主題／補足」の2段。行数の上限（2行）にちょうど収まる */
+.tt-main,.tt-sub{display:block;}

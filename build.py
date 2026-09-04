@@ -949,6 +949,19 @@ def v2_appeal(a):
     return src
 
 
+def v2_title(t):
+    """タイルの見出し。「主題｜補足」は必ず「｜」で折る。
+       成り行きに任せると「ダマに／なりにくさと合う人」のように
+       語の途中で割れる。区切りで折れば、どのタイルも
+       1行目が主題・2行目が補足という同じ形になる。"""
+    t = str(t or "")
+    if "｜" in t:
+        main, sub = t.split("｜", 1)
+        return (f'<span class="tt-main">{e(main.strip())}</span>'
+                f'<span class="tt-sub">{e(sub.strip())}</span>')
+    return e(t)
+
+
 def v2_card(a, p):
     """一覧の記事タイル。カテゴリーは写真の右上に重ね、見出しの下には
        その記事の一言（excerpt）を置く。"""
@@ -962,7 +975,7 @@ def v2_card(a, p):
             f'<span class="card-meta">'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
             f'<span class="card-cat">{e(cat)}</span></span>'
-            f'<span class="card-title">{e(title)}</span>'
+            f'<span class="card-title">{v2_title(title)}</span>'
             f'<span class="card-note">{e(v2_appeal(a))}</span></a>')
 
 
@@ -980,7 +993,7 @@ def v2_row(a, p, numbered=None):
             f'<span class="row-meta">'
             f'<span class="meta">{e(a.get("date",""))}</span>'
             f'<span class="row-cat">{e(cat)}</span></span>'
-            f'<h3>{e(a["title"])}</h3>'
+            f'<h3>{v2_title(a["title"])}</h3>'
             f'<p>{e(v2_appeal(a))}</p></span></a>')
 
 
