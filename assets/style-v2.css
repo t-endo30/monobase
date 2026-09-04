@@ -416,12 +416,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .card-grid.is-3{grid-template-columns:repeat(3,minmax(0,1fr));}
 /* タイルは白い面。背景に敷いた写真の上に置くので、文字が写真に
    直接乗らないようにする */
-.card{display:flex;flex-direction:column;background:var(--bg-2);}
+.card{display:flex;flex-direction:column;background:var(--bg-2);padding-bottom:38px;}
 .card-thumb{margin:14px 14px 0;}
 .card > :not(.card-thumb){padding-left:14px;padding-right:14px;}
-/* 文字で終わると下が詰まって見えるので、最後の要素の下に一行ぶん足す。
-   一言が1行の記事も2行の記事も、下端の空きは同じだけ取る */
-.card > :last-child{padding-bottom:38px;}
+/* 文字で終わると下が詰まって見えるので、タイルの下に一行ぶん空ける。
+   空きは一言（.card-note）ではなくタイル側に持たせる。一言は行数を
+   max-height でも止めており、box-sizing:border-box なので、そちらに
+   余白を足すと文字の入る高さが削られて最後の行が切れる */
+.card > :last-child{padding-bottom:0;}
 /* 写真は枠で囲む。地の色に近い写真だと、どこまでが写真か分からなく
    なるため。枠は罫線と同じ濃さにして、線が主張しすぎないようにする */
 .card-thumb{
@@ -621,7 +623,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    読み込みに失敗した枠と見分けがつくようにするため */
 .cat-thumb{
   display:block;aspect-ratio:16/10;overflow:hidden;background:var(--bg-3);
-  border-top:1px solid var(--line-2);
+  /* 記事タイルと同じで、写真は白い面の内側に置く。左右と下にも余白を
+     作り、枠で囲って地の色に近い写真でも境目が分かるようにする */
+  border:1px solid var(--line-2);
   background-image:radial-gradient(var(--line-2) 1px,transparent 1px);
   background-size:9px 9px;
 }
@@ -630,7 +634,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* 見出しを先に読ませ、写真はその下に添える */
 .cat-cell{position:relative;}
 .cat-body{display:flex;flex-direction:column;gap:6px;padding:16px 18px 14px;}
-.cat-thumb{margin-top:auto;}
+.cat-thumb{margin:auto 14px 14px;}
 .cat-cell .n{font-family:var(--font-en);font-size:10.5px;letter-spacing:.14em;color:var(--muted-2);}
 .cat-cell .l{font-size:15px;font-weight:800;letter-spacing:.02em;padding-right:52px;}
 /* 記事数はタイルの右上。見出しの下に置くと、名前より先に数が目に入る */
@@ -1150,6 +1154,7 @@ body.has-sticky-cta .fab{bottom:96px;}
 }
 .hp-dialog.is-open .hp-panel{transform:scale(1);}
 .hp-title{
+  text-align:center;
   font-size:18px;font-weight:900;letter-spacing:.02em;line-height:1.5;
   padding-bottom:14px;border-bottom:2px solid var(--ink);margin-bottom:18px;
 }
@@ -1158,7 +1163,7 @@ body.has-sticky-cta .fab{bottom:96px;}
   text-align:justify;text-justify:inter-character;
 }
 .hp-body p + p{margin-top:14px;}
-.hp-foot{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);}
+.hp-foot{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);text-align:center;}
 .hp-foot a{
   font-size:12.5px;font-weight:700;
   text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line-2);
