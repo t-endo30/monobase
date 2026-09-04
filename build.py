@@ -2166,10 +2166,18 @@ def render_article(a):
     faq = [q for q in (a.get("faq") or [])
            if q.get("q") and q.get("a")]
     if faq:
+        # 質問をたたんで置き、押した所だけ開く。答えを読み飛ばして
+        # 次の質問へ移れるようにするため、details で組む。
         add('          <h2 id="sec-faq">よくある質問</h2>\n')
+        add('          <div class="faq-acc">\n')
         for q in faq:
-            add(f'''          <h3>{mark(e(q["q"]))}</h3>
-{paras(q["a"])}''')
+            add(f'''            <details class="faq-ac">
+              <summary class="faq-ac-q">{mark(e(q["q"]))}</summary>
+              <div class="faq-ac-a">
+{paras(q["a"])}              </div>
+            </details>
+''')
+        add('          </div>\n')
 
     # この商品を扱っている特集への導線
     add(featured_in(a, p))

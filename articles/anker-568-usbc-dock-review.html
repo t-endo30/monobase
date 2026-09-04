@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" media="print" onload="this.media='all';this.onload=null">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap"></noscript>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&text=%E3%82%B9%E3%83%8E%E3%83%99%E3%83%A2%E3%83%BC&display=swap" media="print" onload="this.media='all';this.onload=null">
-<link rel="stylesheet" href="../assets/style-v2.css?v=2397348e">
+<link rel="stylesheet" href="../assets/style-v2.css?v=67dbecb8">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ85V2J7EK"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -413,18 +413,44 @@
             </div>
           </div>
           <h2 id="sec-faq">よくある質問</h2>
-          <h3>MacBookで使えますか？</h3>
+          <div class="faq-acc">
+            <details class="faq-ac">
+              <summary class="faq-ac-q">MacBookで使えますか？</summary>
+              <div class="faq-ac-a">
           <p>接続自体はできますが、AnkerはmacOSがMST（画面拡張モード）に非対応であると注意事項に明記しています。複数のモニターにそれぞれ異なる画面を表示する使い方は、この仕様上できません。</p>
-          <h3>ノートPCの充電はこれ1台で足りますか？</h3>
+              </div>
+            </details>
+            <details class="faq-ac">
+              <summary class="faq-ac-q">ノートPCの充電はこれ1台で足りますか？</summary>
+              <div class="faq-ac-a">
           <p>USB4アップストリームポートからPCへ最大100Wの給電に対応します。ただし2つのUSB-Cポートを両方使っている場合、PCへの給電は最大65Wに下がるとメーカーが明記しているため、消費電力の大きいノートPCではUSB-Cポートの使い方を決めておくと安定します。</p>
-          <h3>USB-Aポートでスマホを充電できますか？</h3>
+              </div>
+            </details>
+            <details class="faq-ac">
+              <summary class="faq-ac-q">USB-Aポートでスマホを充電できますか？</summary>
+              <div class="faq-ac-a">
           <p>できません。メーカーはUSB-A 4ポートを「データ転送用」とし、充電および映像出力に非対応と明記しています。充電はUSB-C 3.2 Gen2ポート（それぞれ最大30W）を使う構成になります。</p>
-          <h3>モニター3台をすべて4K/60Hzで使えますか？</h3>
+              </div>
+            </details>
+            <details class="faq-ac">
+              <summary class="faq-ac-q">モニター3台をすべて4K/60Hzで使えますか？</summary>
+              <div class="faq-ac-a">
           <p>使えません。公式の公表値では3画面接続時の上限は4K(30Hz)、2画面までなら最大4K(60Hz)です。60Hzを保ちたい場合は2画面までに抑える構成になります。</p>
-          <h3>Nintendo Switchのドックとして使えますか？</h3>
+              </div>
+            </details>
+            <details class="faq-ac">
+              <summary class="faq-ac-q">Nintendo Switchのドックとして使えますか？</summary>
+              <div class="faq-ac-a">
           <p>使えません。Ankerは注意事項で、ニンテンドースイッチおよびUSB SuperDriveには対応していないと明記しています。</p>
-          <h3>8K出力は挿すだけで使えますか？</h3>
+              </div>
+            </details>
+            <details class="faq-ac">
+              <summary class="faq-ac-q">8K出力は挿すだけで使えますか？</summary>
+              <div class="faq-ac-a">
           <p>環境が揃った場合の上限値です。メーカーは8K出力にPC・ケーブル・モニターすべての8K対応が必要であること、PC側がDisplayPort 1.4に対応している必要があることを注記しています。</p>
+              </div>
+            </details>
+          </div>
           <h2 id="sec-conclusion">まとめ</h2>
           <p>この製品が合うのは、USB4またはThunderbolt対応のWindowsノートを使っていて、4K/60Hzのモニターを2枚、有線LAN、USB機器を複数、そして給電までを1本にまとめたい人です。上流40Gbpsと最大100W給電という土台は、あとから運用で足せない部分で、ここが必要かどうかが選択の分かれ目になります。逆に、モニター1台と周辺機器2〜3個で足りるなら、下位モデルで用は足ります。</p>
           <p>条件が噛み合ったときの変化は、机に戻る動作そのものが変わることです。これまで電源、映像、LAN、USBと順に挿していた工程が、USB4ケーブル1本に置き換わります。持ち出すときも1本抜くだけで、モニターの表示も外付けストレージも有線接続もそのまま机に残る。<mark class="hl">抜き差しの回数が減ることは、毎日繰り返す作業だからこそ効いてきます。</mark> 純正ACアダプタを机から撤去できることも含め、机の上から消えるものの多さがこの製品の主な価値です。</p>
@@ -519,7 +545,7 @@
 
 <button class="to-top" id="toTop" aria-label="ページ上部へ戻る">▲</button>
 
-<script src="../assets/main.js?v=2397348e" defer></script>
+<script src="../assets/main.js?v=67dbecb8" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Anker 568 ドック 仕様分析｜1本化の条件と確認点", "description": "Anker 568 USB-C ドッキングステーション（11-in-1, USB4）をメーカー仕様から分析。40Gbps上流と100W給電の実力、モニター3台の条件、macOSの制約と購入前の確認点をまとめました。", "datePublished": "2026-08-24", "dateModified": "2026-08-31", "author": {"@type": "Person", "name": "モノベース運営事務局", "url": "https://monobase.site/about"}, "publisher": {"@type": "Organization", "name": "モノベース", "url": "https://monobase.site", "logo": {"@type": "ImageObject", "url": "https://monobase.site/assets/img/apple-touch-icon.png", "width": 180, "height": 180}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://monobase.site/articles/anker-568-usbc-dock-review"}, "inLanguage": "ja", "image": ["https://monobase.site/assets/img/anker-568-usbc-dock-review-mt7gftih.webp"], "keywords": "Anker、ドッキングステーション、USB4、USB-Cハブ、デスク環境"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://monobase.site/"}, {"@type": "ListItem", "position": 2, "name": "パソコン", "item": "https://monobase.site/category-pc"}, {"@type": "ListItem", "position": 3, "name": "Anker 568 ドック 仕様分析", "item": "https://monobase.site/articles/anker-568-usbc-dock-review"}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Review", "itemReviewed": {"@type": "Product", "name": "Anker 568 ドック 仕様分析", "image": "https://monobase.site/assets/img/anker-568-usbc-dock-review-mt7gftih.webp"}, "reviewRating": {"@type": "Rating", "ratingValue": 4.0, "bestRating": "5", "worstRating": "1"}, "author": {"@type": "Person", "name": "モノベース運営事務局"}, "publisher": {"@type": "Organization", "name": "モノベース", "url": "https://monobase.site", "logo": {"@type": "ImageObject", "url": "https://monobase.site/assets/img/apple-touch-icon.png", "width": 180, "height": 180}}, "datePublished": "2026-08-24"}</script>

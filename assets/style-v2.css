@@ -3146,3 +3146,87 @@ h1,h2,h3,h4,
    ただし overflow-wrap は anywhere をやめて、英字や型番が途中で
    割れないようにする（MagSpeed / 84.3×124.9×51mm など） */
 .sgb-box li,.goodfor-d,.notfor-list li .li-b{overflow-wrap:normal;}
+
+/* ============================================================
+   記事の目次・見出し・よくある質問（PC／スマホ共通）
+   ============================================================ */
+
+/* 目次：字は左で揃えたまま、まとまりごと枠の中央に置く。
+   左端に貼り付いていると、幅の広い画面で右側が大きく空いて見えた。 */
+.article-page .toc ol{width:fit-content;max-width:100%;margin-inline:auto;text-align:left;}
+
+/* 見出しは中央に置く。下線の飾りも中央から伸ばす */
+.article-body h2{text-align:center;}
+.article-body h2::after{left:50%;transform:translateX(-50%);}
+
+/* ---- よくある質問（開閉式） ----
+   質問だけを並べ、押した所の答えだけを開く。色と角の丸みは
+   サイトの他の枠（--surface / --line / --accent）に合わせる。 */
+.faq-acc{display:grid;gap:12px;margin-bottom:clamp(26px,5.5vw,40px);}
+.faq-ac{
+  --faq-rythm:1.6em;
+  --faq-gap:10px;
+  position:relative;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  cursor:pointer;
+  -webkit-user-select:none;user-select:none;
+  transition:border-color .2s ease,box-shadow .2s ease;
+}
+.faq-ac[open]{border-color:var(--accent);box-shadow:var(--shadow);}
+/* 開き具合を示す三角。閉じているときは右、開くと下を向く */
+.faq-ac::after{
+  content:"";position:absolute;top:1.35rem;right:1rem;
+  width:.75rem;aspect-ratio:1;background:var(--muted-2,#888);
+  rotate:0deg;transition:rotate .4s ease,background-color .2s ease;
+  clip-path:polygon(25% 10%,25% 90%,75% 50%);
+  pointer-events:none;
+}
+.faq-ac[open]::after{rotate:90deg;background:var(--accent);}
+/* Q */
+.faq-ac-q{
+  display:flex;gap:var(--faq-gap);
+  padding:16px 40px 16px 18px;
+  font-size:14.5px;font-weight:800;line-height:var(--faq-rythm);
+  color:var(--ink);
+  list-style:none;
+  transition:color .2s ease;
+}
+.faq-ac-q::-webkit-details-marker{display:none;}
+.faq-ac-q::marker{content:"";}
+.faq-ac-q:hover{color:var(--accent);}
+.faq-ac-q::before{
+  content:"Q.";display:block;flex:none;
+  font-family:var(--font-en);font-size:var(--faq-rythm);
+  color:var(--accent);line-height:1;
+}
+/* A */
+.faq-ac-a{
+  display:flex;gap:var(--faq-gap);
+  padding:0 18px 16px;
+}
+.faq-ac-a::before{
+  content:"A.";flex:none;
+  font-family:var(--font-en);font-size:var(--faq-rythm);
+  font-weight:700;color:var(--muted-2,#888);line-height:1;
+}
+.article-body .faq-ac-a p{margin:0;font-size:13.5px;line-height:1.95;}
+.article-body .faq-ac-a p + p{margin-top:.8em;}
+/* 開くときに、答えがすっと下りてくる */
+@keyframes faq-open{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
+.faq-ac[open] .faq-ac-a{animation:faq-open .32s ease;}
+/* 対応するブラウザでは、閉じるときも高さが縮んで見えるようにする */
+@supports selector(details::details-content){
+  .faq-ac::details-content{
+    block-size:0;overflow:hidden;opacity:0;
+    transition:block-size .32s ease,content-visibility .32s allow-discrete,opacity .32s ease;
+  }
+  .faq-ac[open]::details-content{block-size:auto;opacity:1;}
+  .faq-ac{interpolate-size:allow-keywords;}
+  .faq-ac[open] .faq-ac-a{animation:none;}
+}
+@media (prefers-reduced-motion:reduce){
+  .faq-ac[open] .faq-ac-a{animation:none;}
+  .faq-ac::after{transition:none;}
+}
