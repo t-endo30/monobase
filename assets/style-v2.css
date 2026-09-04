@@ -1104,10 +1104,11 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card-cat{font-size:9.5px;}
   .card-meta{margin:0 0 3px;}
   .card-date{font-size:10px;}
-  /* 見出しは2行ぶんの高さを確保する。1行の記事と2行の記事が混ざると
-     行の高さがそろわず、一覧が階段状に見えるため。
-     行間ぶんを見ずに高さを決めると、2行目が下の一言に重なる */
-  .card-title{font-size:13px;line-height:1.6;-webkit-line-clamp:2;min-height:3.2em;max-height:3.2em;}
+  /* 上限は2行。下限は決めない。以前はタイルの高さをそろえるために
+     2行ぶんを必ず確保していたが、見出しが1行の記事では、その下に
+     空の行がひとつ残ってしまう。いまのスマホのタイルは横に並べず
+     縦に積むので、高さがそろっていなくても階段状には見えない */
+  .card-title{font-size:13px;line-height:1.6;-webkit-line-clamp:2;max-height:3.2em;}
   /* 一言は、写真の右の残りに収まる分だけ */
   .card-note{margin-top:3px;font-size:11px;line-height:1.7;-webkit-line-clamp:2;max-height:3.4em;}
   .card-cat{margin-top:4px;font-size:10px;}
@@ -2774,10 +2775,22 @@ h1,h2,h3,h4,
   word-break:auto-phrase;
   overflow-wrap:normal;
   text-wrap:pretty;
-  /* 見出しは両端揃えにしない。字数が少ないところで伸ばすと、
-     「電 気 代 を 最 重 視」のように字間が開いてしまう */
-  text-align:left;
 }
+
+/* 本文の中の小見出しは両端揃えにしない。字数が少ないところで伸ばすと
+   「電 気 代 を 最 重 視」のように字間が開いてしまう。
+   ページの見出し（.page-head h1 など）は中央に置いているので、
+   ここにはまとめず、本文の中のものだけを対象にする */
+.article-body .li-t,
+.article-body .next-title,
+.article-body .callout-label,
+.article-body .pn-label,
+.article-body .voice-title,
+.article-body .scene-title,
+.article-body .hl-title,
+.article-body .fix-title,
+.article-body .goodfor-t,
+.article-body .notfor-t{text-align:left;}
 
 /* =========================================================================
    角のまるめ

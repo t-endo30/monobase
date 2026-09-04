@@ -2073,7 +2073,7 @@ def render_article(a):
 ''')
         add(paras(a["conclusion"]))
         add(shop_buttons(a, price_note(a)))
-        add(f'''        <div class="cta-wrap" style="margin-top:-10px;">
+        add(f'''        <div class="cta-wrap" style="margin-top:1.9em;">
           <a class="btn-sub" href="{p}category-{cat}.html">同じカテゴリーの記事を見る</a>
         </div>
 ''')

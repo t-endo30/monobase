@@ -19,7 +19,7 @@ Chrome を画面なしで動かし、いくつかの幅でページを実際に�
      （PCは横スクロール＋矢印で送る作りなので、枠外にあること自体は正常）
   4. ヘッダーのメニューが1行に収まっている（900px以上）
   5. 「このサイトの読み方」を開くと、板が画面の中に出る（スマホ幅）
-  6. 記事タイルの高さがそろっている（スマホ幅の一覧）
+  6. 記事タイルの写真の高さがそろっている（スマホ幅の一覧）
 
 Chrome が見つからないときは、何もせずに成功として抜けます
 （CIで Chrome が無い環境でも止めないため）。
@@ -88,10 +88,13 @@ window.addEventListener('load', function () { setTimeout(function () {
     r.menuRows = Object.keys(nrows).length;
   }
 
-  /* 6枚目はスマホでわざと切って「続きがある」ことを示す枠なので、
-     高さのばらつきを見るこの検査からは外す */
+  /* 見るのは写真の高さ。タイル自体の高さは、見出しが1行の記事と2行の
+     記事とで変わるが、いまのスマホは横に並べず縦に積むので、そろって
+     いなくても階段状には見えない。写真の大きさだけは、そろっていないと
+     一覧がガタついて見える。
+     6枚目はわざと切って「続きがある」ことを示す枠なので、ここでは外す */
   var cards = document.querySelectorAll(
-    '.card-grid .card:not(.is-lead):not(:nth-child(n+6))');
+    '.card-grid .card:not(.is-lead):not(:nth-child(n+6)) .card-thumb');
   if (cards.length > 1) {
     var hs = Array.prototype.map.call(cards, function (c) {
       return Math.round(c.getBoundingClientRect().height);
@@ -222,7 +225,7 @@ def main():
                 errs.append(f"「このサイトの読み方」が画面の外に出ている"
                             f"（top={r.get('policyTop')}）")
             if "cards" in wants and r.get("cardSpread", 0) > 2:
-                errs.append(f"記事タイルの高さが {r['cardSpread']}px ばらついている")
+                errs.append(f"記事タイルの写真の高さが {r['cardSpread']}px ばらついている")
 
             if errs:
                 bad.append((name, errs))
