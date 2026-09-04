@@ -958,9 +958,10 @@ def v2_card(a, p):
     return (f'<a class="card" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
             f'data-date="{e(a.get("date",""))}">'
-            f'<span class="card-thumb"><img src="{e(src)}" alt="" loading="lazy">'
-            f'<span class="card-cat">{e(cat)}</span></span>'
+            f'<span class="card-thumb"><img src="{e(src)}" alt="" loading="lazy"></span>'
+            f'<span class="card-meta">'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
+            f'<span class="card-cat">{e(cat)}</span></span>'
             f'<span class="card-title">{e(title)}</span>'
             f'<span class="card-note">{e(v2_appeal(a))}</span></a>')
 
@@ -973,12 +974,13 @@ def v2_row(a, p, numbered=None):
     return (f'<a class="row-item" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
             f'data-date="{e(a.get("date",""))}">'
-            f'<span class="thumb"><img src="{e(src)}" alt="" loading="lazy">'
-            f'<span class="row-cat">{e(cat)}</span>{no}</span>'
+            f'<span class="thumb"><img src="{e(src)}" alt="" loading="lazy">{no}</span>'
             f'<span class="row-body">'
+            f'<span class="row-meta">'
+            f'<span class="meta">{e(a.get("date",""))}</span>'
+            f'<span class="row-cat">{e(cat)}</span></span>'
             f'<h3>{e(a["title"])}</h3>'
-            f'<p>{e(v2_appeal(a))}</p>'
-            f'<span class="meta">{e(a.get("date",""))}</span></span></a>')
+            f'<p>{e(v2_appeal(a))}</p></span></a>')
 
 
 def v2_rows(items, p, numbered=False, narrow=False):

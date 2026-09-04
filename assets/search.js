@@ -92,12 +92,14 @@
         '" data-date="' + esc(item.date || '') + '">' +
         '<span class="thumb">' +
           '<img src="./' + esc(item.thumb) + '" alt="" loading="lazy" decoding="async">' +
-          '<span class="row-cat">' + esc(item.catLabel) + '</span>' +
         '</span>' +
         '<span class="row-body">' +
+          '<span class="row-meta">' +
+            '<span class="meta">' + esc(String(item.date || '').slice(0, 10)) + '</span>' +
+            '<span class="row-cat">' + esc(item.catLabel) + '</span>' +
+          '</span>' +
           '<h3>' + highlight(item.title, terms) + '</h3>' +
           catch_ +
-          '<span class="meta">' + esc(String(item.date || '').slice(0, 10)) + '</span>' +
         '</span>' +
       '</a>';
   }

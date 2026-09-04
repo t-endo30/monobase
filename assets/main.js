@@ -393,13 +393,15 @@ document.addEventListener('touchstart', function () {}, { passive: true });
           ' data-date="' + esc(it.date || '') + '">' +
           '<span class="thumb">' +
             '<img src="' + esc(it.thumb) + '" alt="" loading="lazy" decoding="async">' +
-            '<span class="row-cat">' + esc(it.cat) + '</span>' +
             '<span class="row-no">' + no + '</span>' +
           '</span>' +
           '<span class="row-body">' +
+            '<span class="row-meta">' +
+              '<span class="meta">' + esc(d) + '</span>' +
+              '<span class="row-cat">' + esc(it.cat) + '</span>' +
+            '</span>' +
             '<h3>' + esc(it.title) + '</h3>' +
             (it.excerpt ? '<p>' + esc(it.excerpt) + '</p>' : '') +
-            '<span class="meta">' + esc(d) + '</span>' +
           '</span>' +
         '</a>';
     }).join('');
@@ -800,9 +802,10 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     return '<a class="card" href="' + esc(a.u) + '"' +
       ' data-cat="' + esc(a.k) + '" data-slug="' + esc(a.s) + '"' +
       ' data-date="' + esc(a.d) + '">' +
-      '<span class="card-thumb"><img src="' + esc(a.th) + '" alt="" loading="lazy">' +
+      '<span class="card-thumb"><img src="' + esc(a.th) + '" alt="" loading="lazy"></span>' +
+      '<span class="card-meta">' +
+        '<span class="card-date">' + esc(a.d) + '</span>' +
         '<span class="card-cat">' + esc(a.c) + '</span></span>' +
-      '<span class="card-date">' + esc(a.d) + '</span>' +
       '<span class="card-title">' + esc(a.t) + '</span>' +
       '<span class="card-note">' + esc(a.x) + '</span></a>';
   }).join('');

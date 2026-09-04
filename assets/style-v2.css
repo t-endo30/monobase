@@ -277,8 +277,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 }
 .card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
 .card:hover .card-thumb img{transform:scale(1.04);}
+/* 写真の下は「日付＋カテゴリー」で1行、次に見出し、その次に一言。
+   すべての記事タイルでこの並びにそろえる */
+.card-meta{
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  margin:12px 0 6px;
+}
 .card-date{
-  margin:12px 0 6px;font-family:var(--font-en);font-size:11px;letter-spacing:.1em;color:var(--muted-2);
+  font-family:var(--font-en);font-size:11px;letter-spacing:.1em;color:var(--muted-2);
+  flex:0 0 auto;
 }
 .card-title{
   font-size:14px;font-weight:700;line-height:1.7;
@@ -290,13 +297,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   margin-top:7px;font-size:12px;line-height:1.8;color:var(--muted);
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
 }
-/* カテゴリーは写真の左上に重ねる。視線の入り口に置いて、
-   タイルの中で「どの分野か」を最初に目に入れる */
+/* カテゴリーは日付と同じ行の右端に置く */
 .card-cat{
-  position:absolute;top:0;left:0;z-index:1;
-  padding:5px 10px;background:rgba(255,255,255,.94);
-  font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--ink);
-  line-height:1.5;
+  flex:0 1 auto;min-width:0;text-align:right;
+  font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);
+  line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 
 /* 横長の記事行（カテゴリー一覧で使う） */
@@ -311,7 +316,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* 順位は写真の左下。左上はカテゴリーの札に譲る。独立した列にすると、
    写真と見出しの位置がランキングのときだけずれてしまう */
 .row-no{
-  position:absolute;left:0;bottom:0;z-index:2;
+  position:absolute;left:0;top:0;z-index:2;
   min-width:34px;padding:4px 8px;
   background:var(--ink);color:#fff;
   font-family:var(--font-en);font-size:11.5px;font-weight:700;letter-spacing:.08em;
@@ -320,15 +325,18 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .row-item .thumb{position:relative;aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line-2);background:var(--bg-3);}
 .row-item .thumb img{width:100%;height:100%;object-fit:cover;}
 .row-body{position:relative;}
-.row-item h3{font-size:16px;font-weight:800;line-height:1.65;margin-bottom:8px;}
+.row-item h3{font-size:16px;font-weight:800;line-height:1.65;margin-bottom:6px;}
 .row-item p{font-size:13px;line-height:1.85;color:var(--muted);}
-.row-item .meta{margin-top:10px;font-family:var(--font-en);font-size:11px;letter-spacing:.1em;color:var(--muted-2);}
-/* カテゴリーの札は、新着のタイルと同じように写真の左上に重ねる */
+.row-item .meta{flex:0 0 auto;font-family:var(--font-en);font-size:11px;letter-spacing:.1em;color:var(--muted-2);}
+/* 横長のタイルも、縦のタイルと同じ「日付＋カテゴリー／見出し／一言」の並び */
+.row-meta{
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  margin-bottom:6px;
+}
 .row-cat{
-  position:absolute;top:0;left:0;z-index:1;
-  padding:4px 9px;background:rgba(255,255,255,.94);
-  font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--ink);
-  line-height:1.5;
+  flex:0 1 auto;min-width:0;text-align:right;
+  font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);
+  line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 
 /* =========================================================================
@@ -934,12 +942,9 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* 札は写真の左上に重ねる。写真が小さいので、札も小さくする */
   .card{position:relative;}
   .card-thumb{grid-row:1 / span 4;aspect-ratio:4/3;}
-  .card-cat{
-    top:0;left:0;right:auto;padding:2px 6px;
-    font-size:9px;white-space:nowrap;max-width:100%;
-    overflow:hidden;text-overflow:ellipsis;
-  }
-  .card-date{margin:0 0 3px;font-size:10px;}
+  .card-cat{font-size:9.5px;}
+  .card-meta{margin:0 0 3px;}
+  .card-date{font-size:10px;}
   /* 見出しは2行ぶんの高さで固定する。1行の記事と2行の記事が混ざると
      行の高さがそろわず、一覧が階段状に見えるため */
   .card-title{font-size:13px;line-height:1.6;-webkit-line-clamp:2;height:2.4em;}
@@ -973,12 +978,9 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* 新着・ピックアップのタイルと同じ大きさにそろえる。ここだけ写真が
      大きいと、同じ「記事の一覧」なのに別物に見える */
   .row-item{grid-template-columns:92px minmax(0,1fr);gap:14px;padding:12px 0;align-items:center;}
-  /* 札は写真の左上。順位はその下（左下）に置く */
-  .row-cat{
-    padding:2px 6px;font-size:9px;
-    max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  }
-  .row-no{bottom:0;min-width:24px;padding:2px 6px;font-size:9.5px;}
+  .row-cat{font-size:9.5px;}
+  .row-meta{margin-bottom:3px;}
+  .row-no{top:0;min-width:24px;padding:2px 6px;font-size:9.5px;}
   .row-item .thumb{aspect-ratio:4/3;}
   .row-item h3{font-size:13px;line-height:1.6;margin-bottom:3px;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
@@ -987,7 +989,7 @@ body.has-sticky-cta .fab{bottom:96px;}
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
     font-size:11.5px;line-height:1.7;margin-top:3px;
   }
-  .row-item .meta{margin-top:2px;font-size:10px;}
+  .row-item .meta{font-size:10px;}
 
   .page-head{padding:22px 0 18px;}
   .article-wrap{padding:32px 0 56px;gap:44px;}
@@ -2565,3 +2567,31 @@ p,li,.card-desc{text-wrap:pretty;}
 
 /* 販売リンクが1つだけのとき、横いっぱいに伸ばさない */
 .shop-cta.is-n1{max-width:420px;margin-left:auto;margin-right:auto;}
+
+/* =========================================================================
+   日本語の組み方
+   ------------------------------------------------------------------------
+   移設のとき、要素そのものへの指定は持ってこない規則にしていたため、
+   旧CSSにあったこの一式が落ちていた。
+
+   本文は両端揃えにする。左だけ揃えると右端が行ごとにばらつき、
+   空いている右側を使い切れずに、文章だけが詰まって見える。
+   日本語は文字幅がそろっているので、字間で伸ばす（inter-character）と
+   不自然な間延びが起きにくい。
+   ========================================================================= */
+.article-body p,
+.article-body li,
+.static-wrap p,
+.static-wrap li,
+.scene-body p,
+.hl-text,
+.page-head .lead{
+  text-align:justify;
+  text-justify:inter-character;
+}
+/* 見出しや短い一言は、無理に伸ばすと字間が空きすぎるので揃えない */
+.card-note,.row-item p,.card-title,.row-item h3{text-align:left;}
+
+body,p,li,dd,dt,figcaption{line-break:strict;overflow-wrap:anywhere;}
+p,li{text-wrap:pretty;}
+h1,h2,h3,.card-title,.article-title,.sec-head .titles{text-wrap:balance;}
