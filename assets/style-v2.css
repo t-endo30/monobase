@@ -1367,7 +1367,7 @@ body.has-sticky-cta .fab{bottom:96px;}
   color:var(--text-sub);margin-bottom:4px;}
 .summary-gb{display:grid;grid-template-columns:1fr;gap:10px;
   margin:4px 16px 0;}
-.sgb-box{border-radius:6px;overflow:hidden;}
+.sgb-box{border-radius:var(--r2,2px);overflow:hidden;}
 .sgb-head{font-size:12.5px;font-weight:700;letter-spacing:.04em;
   padding:8px 12px 4px;display:flex;align-items:center;gap:6px;}
 .sgb-good{background:#E6F4EA;}
@@ -2747,6 +2747,9 @@ p,li,.card-desc{text-wrap:pretty;}
 .li-b,
 .summary-head,
 .rating-label,
+.sgb-box li,
+.goodfor-d,
+.notfor-list li .li-b,
 .static-wrap p,
 .static-wrap li,
 .scene-body p,
@@ -2861,3 +2864,10 @@ h1,h2,h3,h4,
    両方を効かせると、行が早めに折れたうえで字間を伸ばすことになり、
    「結 論 ： 静 か な 部 屋 で」のように間延びする */
 .summary-head{word-break:normal;overflow-wrap:anywhere;}
+
+/* 良い点・悪い点の項目。両端を揃えるほうを取り、文節での折り返しは
+   掛けない。両方を効かせると、行が早めに折れたうえで字間を伸ばすことに
+   なり「重 量 １ ４ １ ｇ」のように間延びする。
+   ただし overflow-wrap は anywhere をやめて、英字や型番が途中で
+   割れないようにする（MagSpeed / 84.3×124.9×51mm など） */
+.sgb-box li,.goodfor-d,.notfor-list li .li-b{overflow-wrap:normal;}
