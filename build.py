@@ -1041,6 +1041,29 @@ def v2_cat_grid(p, cls=""):
     return f'      <div class="cat-grid{" " + cls if cls else ""}">{cells}</div>\n'
 
 
+def v2_cat_carousel(p):
+    """トップのカテゴリー。PCは横並びで送る形にする。
+       全部を並べると縦に長くなるが、横なら分野の数がひと目で分かり、
+       右端が切れていることで「まだ続く」ことも伝わる。
+       ボタンは1枠ずつ、指やマウスでもそのまま引ける。
+       スマホでは送らず、これまでどおり2列で3行目を切る（CSS側）。"""
+    counts = {c["key"]: len([a for a in PUBLISHED if a.get("category") == c["key"]])
+              for c in CATS}
+    cells = "".join(
+        f'<a class="cat-cell" href="{p}category-{c["key"]}.html">'
+        f'<span class="cat-body"><span class="l">{e(c["label"])}</span>'
+        f'<span class="c">{counts[c["key"]]} 記事</span></span>'
+        f'<span class="cat-thumb">{v2_cat_image(c, p)}</span></a>'
+        for c in CATS)
+    return ('      <div class="cat-rail" data-rail>\n'
+            '        <button type="button" class="rail-btn is-prev" aria-label="前のカテゴリー"'
+            ' hidden><span aria-hidden="true"></span></button>\n'
+            f'        <div class="cat-grid is-rail">{cells}</div>\n'
+            '        <button type="button" class="rail-btn is-next" aria-label="次のカテゴリー"'
+            ' hidden><span aria-hidden="true"></span></button>\n'
+            '      </div>\n')
+
+
 def v2_hero(p):
     # 押すと、何をしているのかを文章で開く。ヒーローでは字数を絞って
     # いるので、その中身をここに置く
@@ -2518,7 +2541,7 @@ def build_index():
 
     body += v2_section(
         v2_sec_head("CATEGORY", "カテゴリーから探す")
-        + v2_cat_grid(p, "is-clip") + v2_sec_more(f"{p}categories.html"))
+        + v2_cat_carousel(p) + v2_sec_more(f"{p}categories.html"))
 
     # サイトそのものの構造化データ。検索結果にサイト名と検索窓を出す材料。
     site_ld = [

@@ -1039,6 +1039,78 @@ body.has-sticky-cta .fab{bottom:96px;}
   .hp-body p{font-size:13px;line-height:1.95;}
 }
 
+
+/* =========================================================================
+   トップのカテゴリー：横に送る並び（PC）
+   ------------------------------------------------------------------------
+   全部を縦に並べると場所を取るので、横に流して右端を切る。
+   切れていること自体が「まだ続く」という合図になる。
+   送りは1枠ずつ。指やマウスでそのまま引くこともできる。
+   ========================================================================= */
+.cat-rail{position:relative;}
+.cat-grid.is-rail{
+  display:flex;gap:16px;
+  overflow-x:auto;scroll-snap-type:x mandatory;
+  border:0;padding:2px 0 10px;
+  scrollbar-width:none;-ms-overflow-style:none;
+  /* 右端が切れていることを、ぼかしでも示す */
+  -webkit-mask-image:linear-gradient(90deg,#000 92%,transparent 100%);
+  mask-image:linear-gradient(90deg,#000 92%,transparent 100%);
+}
+.cat-grid.is-rail::-webkit-scrollbar{display:none;}
+.cat-grid.is-rail.is-end{
+  -webkit-mask-image:none;mask-image:none;
+}
+.cat-grid.is-rail > .cat-cell{
+  flex:0 0 clamp(190px,20%,240px);
+  scroll-snap-align:start;
+  border:1px solid var(--line);
+}
+/* 指で引いているあいだは、押した先へ飛ばさない */
+.cat-grid.is-rail.is-dragging{scroll-snap-type:none;cursor:grabbing;}
+.cat-grid.is-rail.is-dragging a{pointer-events:none;}
+
+.rail-btn{
+  position:absolute;top:calc(50% - 12px);z-index:2;
+  width:44px;height:44px;transform:translateY(-50%);
+  display:grid;place-items:center;
+  background:var(--bg-2);border:1px solid var(--line-2);border-radius:50%;
+  box-shadow:0 4px 14px rgba(0,0,0,.10);
+  transition:border-color .2s ease,box-shadow .2s ease,opacity .2s ease;
+}
+/* display を指定しているので、hidden 属性より勝ってしまう。
+   端まで来て隠したはずのボタンが残らないよう、明示的に消す */
+.rail-btn[hidden]{display:none;}
+.rail-btn:hover{border-color:var(--ink);box-shadow:0 6px 18px rgba(0,0,0,.14);}
+.rail-btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+.rail-btn.is-prev{left:-14px;}
+.rail-btn.is-next{right:-14px;}
+/* 「＜」「＞」は線2本を組む（書体に依存しない） */
+.rail-btn span{
+  width:11px;height:11px;
+  border-right:1.8px solid var(--ink);border-bottom:1.8px solid var(--ink);
+}
+.rail-btn.is-prev span{transform:rotate(135deg);margin-left:3px;}
+.rail-btn.is-next span{transform:rotate(-45deg);margin-right:3px;}
+
+@media (max-width:860px){
+  /* スマホは送らない。2列に戻して3行目を切る */
+  .cat-grid.is-rail{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;overflow:visible;padding:0;
+    -webkit-mask-image:none;mask-image:none;
+  }
+  .cat-grid.is-rail > .cat-cell{flex:none;}
+  .cat-grid.is-rail > .cat-cell:nth-child(5),
+  .cat-grid.is-rail > .cat-cell:nth-child(6){
+    max-height:52px;overflow:hidden;pointer-events:none;
+    -webkit-mask-image:linear-gradient(180deg,#000 34%,transparent 100%);
+    mask-image:linear-gradient(180deg,#000 34%,transparent 100%);
+  }
+  .cat-grid.is-rail > .cat-cell:nth-child(n+7){display:none;}
+  .rail-btn{display:none;}
+}
+
 /* =========================================================================
    画面幅ごとの調整
    ========================================================================= */

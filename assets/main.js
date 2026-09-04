@@ -1010,3 +1010,97 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     });
   });
 })();
+
+
+/* ============================================================
+   トップのカテゴリー：横に送る並び
+   ------------------------------------------------------------
+   ・左右のボタンで1枠ずつ送る
+   ・指やマウスでそのまま引ける
+   ・端まで来たらボタンを隠す（押しても動かないボタンを残さない）
+   スマホでは横に送らない組みにしているので、ここも何もしない。
+   ============================================================ */
+(function () {
+  'use strict';
+  var rails = document.querySelectorAll('[data-rail]');
+  if (!rails.length) return;
+
+  Array.prototype.forEach.call(rails, function (rail) {
+    var track = rail.querySelector('.cat-grid');
+    var prev = rail.querySelector('.rail-btn.is-prev');
+    var next = rail.querySelector('.rail-btn.is-next');
+    if (!track || !prev || !next) return;
+
+    function step() {
+      var cell = track.querySelector('.cat-cell');
+      if (!cell) return track.clientWidth * 0.8;
+      var gap = parseFloat(getComputedStyle(track).columnGap) || 16;
+      return cell.getBoundingClientRect().width + gap;
+    }
+
+    function sync() {
+      /* 横に送らない組み（スマホ）のときは、ボタンを出さない */
+      if (getComputedStyle(track).overflowX !== 'auto') {
+        prev.hidden = next.hidden = true;
+        return;
+      }
+      var max = track.scrollWidth - track.clientWidth;
+      var x = track.scrollLeft;
+      /* 端の判定には少し余裕を持たせる。枠を吸い付かせている関係で、
+         いちばん左でも数pxずれた値になることがある */
+      prev.hidden = x <= 4;
+      next.hidden = x >= max - 4;
+      /* 右端まで来たら、続きがある合図のぼかしを消す */
+      track.classList.toggle('is-end', x >= max - 4);
+    }
+
+    /* 送ったあとは、動きが終わるのを待たずにボタンの出し分けも見直す。
+       scroll の通知だけに頼ると、環境によっては更新が遅れる */
+    function go(dir) {
+      track.scrollBy({ left: dir * step(), behavior: 'smooth' });
+      window.setTimeout(sync, 60);
+      window.setTimeout(sync, 420);
+    }
+    prev.addEventListener('click', function () { go(-1); });
+    next.addEventListener('click', function () { go(1); });
+
+    track.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+
+    /* ---- 指やマウスで引く ----
+       押した位置からの動きぶんだけ横に送る。少しでも動かしたときは
+       クリックとして扱わない（引いた先の記事へ飛ばさないため）。 */
+    var down = false, moved = false, startX = 0, startLeft = 0;
+
+    track.addEventListener('pointerdown', function (ev) {
+      if (ev.pointerType === 'touch') return;   /* 指は端末の慣性に任せる */
+      down = true; moved = false;
+      startX = ev.clientX; startLeft = track.scrollLeft;
+      track.setPointerCapture(ev.pointerId);
+    });
+    track.addEventListener('pointermove', function (ev) {
+      if (!down) return;
+      var dx = ev.clientX - startX;
+      if (!moved && Math.abs(dx) > 4) {
+        moved = true;
+        track.classList.add('is-dragging');
+      }
+      if (moved) { track.scrollLeft = startLeft - dx; sync(); }
+    });
+    function release(ev) {
+      if (!down) return;
+      down = false;
+      track.classList.remove('is-dragging');
+      sync();
+      if (ev && ev.pointerId != null) {
+        try { track.releasePointerCapture(ev.pointerId); } catch (e) {}
+      }
+    }
+    track.addEventListener('pointerup', release);
+    track.addEventListener('pointercancel', release);
+    track.addEventListener('click', function (ev) {
+      if (moved) { ev.preventDefault(); ev.stopPropagation(); moved = false; }
+    }, true);
+  });
+})();
