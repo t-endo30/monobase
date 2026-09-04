@@ -513,19 +513,16 @@
       }
     ]
   },
-  "moshimo": {
-    "_note": "もしもアフィリエイトのショップ別ID（楽天・Yahoo!）。管理画面の「サイト設定」から編集できる。IDを空にすると、そのショップのボタンは通常リンク（タグなし）になる。Amazon はもしもを通さず、Amazonアソシエイトの直リンク（associate_tag）を使う。",
+  "affiliate": {
+    "_note": "楽天・Yahoo!ショッピングのアフィリエイト設定。管理画面の「サイト設定」から編集できる。IDを空にすると、そのショップのボタンは通常リンク（タグなし）になる。Amazon は associate_tag の直リンクを使う。",
     "rakuten": {
-      "a_id": 5785062,
-      "p_id": 54,
-      "pc_id": 54,
-      "pl_id": 27059
+      "affiliate_id": "56d346a9.eb62e37a.56d346aa.44554a44",
+      "_note": "楽天アフィリエイトのID（直参加）。ドット区切りの文字列。hb.afl.rakuten.co.jp/hgc/<ID>/ の形でリンクを組み立てる。"
     },
     "yahoo": {
-      "a_id": 5785176,
-      "p_id": 1225,
-      "pc_id": 1925,
-      "pl_id": 27061
+      "vc_sid": "",
+      "vc_pid": "",
+      "_note": "Yahoo!ショッピングはバリューコマース経由。管理画面の広告リンクに出る sid と pid を入れると ck.jp.ap.valuecommerce.com 経由になる。空のあいだは通常リンク。"
     }
   }
 }

@@ -1372,7 +1372,7 @@ def grid(items, p):
                 '<a href="' + p + 'index.html">トップページ</a>から他の記事をご覧ください。</p>\n')
     return '      <div class="card-grid">\n' + "\n".join(card(a, p) for a in items) + '      </div>\n'
 
-MSM = SITE.get("moshimo") or {}
+AFF = SITE.get("affiliate") or {}
 
 SHOPS = [
     ("amazon",  "Amazon",            "amazon_url"),
@@ -1381,21 +1381,31 @@ SHOPS = [
 ]
 
 
-def moshimo_url(shop, target):
-    """もしもアフィリエイト経由のリンクを組み立てる。
+def affiliate_url(shop, target):
+    """ショップごとのアフィリエイトリンクを組み立てる。
        IDが登録されていないショップは、そのまま商品ページへ送る。
-       もしもの形式：af.moshimo.com/af/c/click?a_id=…&url=<商品URL>"""
+         Amazon … Amazonアソシエイトの直リンク（associate_tag は別で付与済み）
+         楽天   … 楽天アフィリエイト直参加
+                  hb.afl.rakuten.co.jp/hgc/<ID>/?pc=<商品URL>&m=<商品URL>
+         Yahoo! … バリューコマース経由
+                  ck.jp.ap.valuecommerce.com/servlet/referral?sid=…&pid=…&vc_url=<商品URL>"""
     if shop == "amazon":
-        # Amazon だけは Amazon アソシエイトの直リンクを使う。
-        # もしも経由にすると、こちらのタグでの成果にならない。
         return target
-    ids = MSM.get(shop) or {}
-    if not all(ids.get(k) for k in ("a_id", "p_id", "pc_id", "pl_id")):
-        return target
-    return ("https://af.moshimo.com/af/c/click"
-            f'?a_id={ids["a_id"]}&p_id={ids["p_id"]}'
-            f'&pc_id={ids["pc_id"]}&pl_id={ids["pl_id"]}'
-            f'&url={urllib.parse.quote(target, safe="")}')
+    enc = urllib.parse.quote(target, safe="")
+    if shop == "rakuten":
+        aid = str((AFF.get("rakuten") or {}).get("affiliate_id") or "").strip()
+        if not aid:
+            return target
+        return f"https://hb.afl.rakuten.co.jp/hgc/{aid}/?pc={enc}&m={enc}"
+    if shop == "yahoo":
+        vc = AFF.get("yahoo") or {}
+        sid = str(vc.get("vc_sid") or "").strip()
+        pid = str(vc.get("vc_pid") or "").strip()
+        if not (sid and pid):
+            return target
+        return ("https://ck.jp.ap.valuecommerce.com/servlet/referral"
+                f"?sid={sid}&pid={pid}&vc_url={enc}")
+    return target
 
 
 def shop_links(a):
@@ -1409,7 +1419,7 @@ def shop_links(a):
             target = amazon_link(a) if (not target or a.get("asin")) else amazon_tagged(target)
         if not target:
             continue
-        out.append((shop, label, moshimo_url(shop, target)))
+        out.append((shop, label, affiliate_url(shop, target)))
     return out
 
 
@@ -2870,7 +2880,7 @@ def static_pages():
       <p>当サイトでは、サイトの利用状況を把握するために Google Analytics を利用しています。このツールはトラフィックデータの収集のために Cookie を使用しますが、このデータは匿名で収集されており、個人を特定するものではありません。この機能はブラウザの設定で Cookie を無効にすることで収集を拒否できます。</p>
 
       <h2>広告・アフィリエイトについて</h2>
-      <p>Amazonのアソシエイトとして、{e(NAME)}は適格販売により収入を得ています。当サイトは、Amazonアソシエイト・プログラムのほか、楽天市場・Yahoo!ショッピング向けのアフィリエイトサービス（もしもアフィリエイト）に参加しています。記事内の商品リンクを経由して購入いただいた場合、当サイトに紹介料が入ることがあります。</p>
+      <p>Amazonのアソシエイトとして、{e(NAME)}は適格販売により収入を得ています。当サイトは、Amazonアソシエイト・プログラムのほか、楽天アフィリエイト、およびバリューコマース（Yahoo!ショッピング）に参加しています。記事内の商品リンクを経由して購入いただいた場合、当サイトに紹介料が入ることがあります。</p>
       <p>これらのアフィリエイトリンクをクリックすると、成果の計測のために各プログラムの提供事業者が Cookie を設定することがあります。Cookie に個人を特定する情報は含まれません。取り扱いの詳細は各事業者のプライバシーポリシーをご確認ください。</p>
 {ad_note}      <p>広告・アフィリエイトの詳細な方針は<a href="{p}advertising.html">広告掲載について</a>に記載しています。</p>
 
@@ -3063,7 +3073,7 @@ def static_pages():
         <dt>Amazonアソシエイト</dt>
         <dd>Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定されたアフィリエイトプログラムです。記事内の「Amazonで見る」ボタンおよび商品リンクが該当します。</dd>
         <dt>その他のアフィリエイト</dt>
-        <dd>楽天市場・Yahoo!ショッピングへのリンクは、もしもアフィリエイトを経由しています。記事内の各ショップのボタンが該当します。</dd>
+        <dd>楽天市場へのリンクは楽天アフィリエイト、Yahoo!ショッピングへのリンクはバリューコマースを経由しています。記事内の各ショップのボタンが該当します。</dd>
 {ad_kind}{asp_kind}      </dl>
       <p>アフィリエイトリンクを含む記事には、本文の冒頭に広告を含む旨を表示しています。リンクには広告リンクであることを示す属性（rel="sponsored nofollow"）を付与し、検索エンジンに対しても広告リンクであることを示しています。</p>
 
