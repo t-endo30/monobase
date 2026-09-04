@@ -422,8 +422,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    指で触る画面では当たり判定が残り続けて見えるため、hover を持つ機器だけ。
    860px以下はタイルが横長のリストに変わるので、そこでは持ち上げない */
 @media (hover:hover) and (min-width:861px){
-  .card{transition:transform .28s ease,box-shadow .28s ease;}
-  .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.10);}
+  .card,.row-item{transition:transform .28s ease,box-shadow .28s ease;}
+  .card:hover,.row-item:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.10);}
 }
 /* 写真の下は「日付＋カテゴリー」で1行、次に見出し、その次に一言。
    すべての記事タイルでこの並びにそろえる */
@@ -458,48 +458,73 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 }
 /* 持ち上げに重ねて、斜めに切った面が左上と右下から入ってきて、
    タイルの白い面を黒に置き換える。三角に切った2枚が対角線で合わさる形。
-   タイルの縦横比が変わっても隙間や取り残しが出ない置き方にしている。
+   タイルの縦横比が変わっても隙間や取り残しが出ない置き方にしているので、
+   縦のタイル（.card）と、一覧ページの横長のタイル（.row-item）の
+   どちらにも同じ指定で掛かる。
    文字は面の上に残したいので、中の要素だけ手前（z-index:1）に置く */
-.card{position:relative;overflow:hidden;}
-.card > *{position:relative;z-index:1;}
-.card::before,.card::after{
+.card,.row-item{position:relative;overflow:hidden;}
+.card > *,.row-item > *{position:relative;z-index:1;}
+.card::before,.card::after,
+.row-item::before,.row-item::after{
   content:"";position:absolute;inset:0;z-index:0;
   background:var(--ink);pointer-events:none;
   /* 面が渡りきるまでの間、白い面に白い文字が乗って読めなくなる。
      その時間を短くするため、動きは速めに切り上げる */
   transition:transform .34s ease-out;
 }
-/* 左上の三角は左上の外へ、右下の三角は右下の外へ退けておく */
-.card::before{clip-path:polygon(0 0,100% 0,0 100%);transform:translate(-100%,-100%);}
-.card::after{clip-path:polygon(100% 0,100% 100%,0 100%);transform:translate(100%,100%);}
+/* 左上の三角は左上の外へ、右下の三角は右下の外へ退けておく。
+   対角線はちょうどで切らず、1%ずつ重ねる。ぴったりで合わせると
+   合わせ目に細い筋（描き分けの隙間）が出るため */
+.card::before,.row-item::before{
+  clip-path:polygon(0 0,101% 0,0 101%);transform:translate(-100%,-100%);
+}
+.card::after,.row-item::after{
+  clip-path:polygon(100% -1%,100% 100%,-1% 100%);transform:translate(100%,100%);
+}
 /* 黒い面の上では文字を白に。見出しだけ薄くしていた指定も打ち消す。
    白のまま白い面に乗る時間を減らしたいので、切り替えは面がほぼ
    渡りきってから。戻すときは逆に、黒が引く前に早めに暗い色へ返す */
-.card .card-title,.card .card-date,
-.card .card-cat,.card .card-note{transition:color .08s ease;}
-/* カーソルを当てられる機器では hover で。860px 以下は横長のリストに
-   変わるので、持ち上げと同じくここでは掛けない */
+.card .card-title,.card .card-date,.card .card-cat,.card .card-note,
+.row-item h3,.row-item p,.row-item .meta,.row-item .row-cat{
+  transition:color .08s ease;
+}
+/* カーソルを当てられる機器では hover で。縦のタイルは 860px 以下で
+   横長のリストに変わるので、持ち上げと同じくそこでは掛けない */
 @media (hover:hover) and (min-width:861px){
-  .card:hover::before,.card:hover::after{transform:translate(0,0);}
+  .card:hover::before,.card:hover::after,
+  .row-item:hover::before,.row-item:hover::after{transform:translate(0,0);}
   .card:hover .card-title,
   .card:hover .card-date,
   .card:hover .card-cat,
-  .card:hover .card-note{color:#fff;transition-delay:.24s;}
+  .card:hover .card-note,
+  .row-item:hover h3,
+  .row-item:hover p,
+  .row-item:hover .meta,
+  .row-item:hover .row-cat{color:#fff;transition-delay:.24s;}
 }
 /* 指で触る機器では、押している間に同じ動きを出す。hover と違って
    触れている時間が短いので、面は速く渡し、文字はすぐ白へ返す。
    （押した指が離れるとすぐ元に戻り、当たり判定が残って見えることはない） */
 @media (hover:none){
-  .card::before,.card::after{transition-duration:.2s;}
+  .card::before,.card::after,
+  .row-item::before,.row-item::after{transition-duration:.2s;}
   /* .is-tapping は main.js が押した時点で付けるしるし。指を離しても
      面が渡りきるまで遷移を待たせるので、:active より長く見える。
      JS が動かない場合でも :active だけで同じ動きになる */
   .card:active::before,.card:active::after,
-  .card.is-tapping::before,.card.is-tapping::after{transform:translate(0,0);}
+  .card.is-tapping::before,.card.is-tapping::after,
+  .row-item:active::before,.row-item:active::after,
+  .row-item.is-tapping::before,.row-item.is-tapping::after{transform:translate(0,0);}
   .card:active .card-title,.card.is-tapping .card-title,
   .card:active .card-date,.card.is-tapping .card-date,
   .card:active .card-cat,.card.is-tapping .card-cat,
-  .card:active .card-note,.card.is-tapping .card-note{color:#fff;transition-delay:.14s;}
+  .card:active .card-note,.card.is-tapping .card-note,
+  .row-item:active h3,.row-item.is-tapping h3,
+  .row-item:active p,.row-item.is-tapping p,
+  .row-item:active .meta,.row-item.is-tapping .meta,
+  .row-item:active .row-cat,.row-item.is-tapping .row-cat{
+    color:#fff;transition-delay:.14s;
+  }
 }
 
 /* 横長の記事行（カテゴリー一覧で使う） */

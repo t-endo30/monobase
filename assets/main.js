@@ -1153,7 +1153,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 
   function card(ev) {
     var t = ev.target;
-    return t && t.closest ? t.closest('a.card') : null;
+    return t && t.closest ? t.closest('a.card,a.row-item') : null;
   }
   function clear() {
     if (!target) return;
