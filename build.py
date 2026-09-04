@@ -774,8 +774,8 @@ def footer_promo():
     return f'''<section class="promo-band" aria-label="Amazonへの案内">
   <div class="container">
     <div class="promo-inner">
-      <span class="promo-label">PR</span>
       <div class="promo-head">
+        <span class="promo-label">PR</span>
         <p class="promo-title">{e(title)}</p>
         <a class="btn-shop is-amazon" href="{e(url)}" target="_blank"
            rel="nofollow sponsored noopener">{icon("cart", "btn-icon")}<span>{e(button)}</span></a>
@@ -1045,7 +1045,10 @@ def v2_card(a, p, no=None, flags=""):
             f'<span class="card-date">{e(a.get("date",""))}</span>'
             f'<span class="card-cat">{e(cat)}</span></span>'
             f'<span class="card-title">{v2_title(title)}</span>'
-            f'<span class="card-note">{e(v2_appeal(a))}</span></a>')
+            f'<span class="card-note">{e(v2_appeal(a))}</span>'
+            # 閲覧数は GA4 の実数（content/ranking.json）を assets/main.js が入れる。
+            # 数字が無いあいだは空のまま隠しておく。
+            f'<span class="card-views" hidden></span></a>')
 
 
 def v2_row(a, p, numbered=None, detail=False, flags=""):
@@ -1066,7 +1069,8 @@ def v2_row(a, p, numbered=None, detail=False, flags=""):
             f'<span class="meta">{e(a.get("date",""))}</span>'
             f'<span class="row-cat">{e(cat)}</span></span>'
             f'<h3>{v2_title(a["title"])}</h3>'
-            f'<p>{e(v2_appeal(a))}</p></span></a>')
+            f'<p>{e(v2_appeal(a))}</p>'
+            f'<span class="card-views" hidden></span></span></a>')
 
 
 def v2_rows(items, p, numbered=False, narrow=False, detail=False, flags=""):

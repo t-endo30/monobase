@@ -3286,7 +3286,9 @@ h1,h2,h3,h4,
 .promo-inner{text-align:center;}
 .promo-head{display:flex;align-items:center;gap:clamp(14px,2.5vw,24px);
   flex-wrap:wrap;justify-content:center;}
-.promo-label{display:inline-block;margin-bottom:10px;padding:3px 8px;
+/* 「PR」は見出しのすぐ左に置く。あいだは見出しとボタンより狭くする */
+.promo-head .promo-label + .promo-title{margin-left:-8px;}
+.promo-label{display:inline-block;flex:0 0 auto;padding:3px 8px;
   border:1px solid var(--line-2);border-radius:999px;
   font-family:var(--font-en);font-size:10px;font-weight:800;letter-spacing:.1em;
   color:var(--muted);}
@@ -3295,8 +3297,10 @@ h1,h2,h3,h4,
   margin:12px 0 0;}
 .promo-band .btn-shop{flex:0 0 auto;min-width:260px;}
 @media (max-width:599px){
-  .promo-head{display:block;}
+  /* 「PR」と見出しは横並びのまま、ボタンだけ下の行に回す */
+  .promo-head{gap:8px;}
   .promo-band .btn-shop{width:100%;min-width:0;margin-top:14px;}
+  .promo-head .promo-label + .promo-title{margin-left:0;}
 }
 
 /* ---- VIEW ALL：カーソルを当てているあいだ、波紋を出す ----
@@ -3340,4 +3344,29 @@ h1,h2,h3,h4,
   .btn-sub:hover,
   .btn-solid:hover,
   .btn-line:hover{animation:none;}
+}
+
+/* ---- タイルの右下に出す閲覧数 ----
+   日付（.card-date / .row-item .meta）と同じ字体・大きさ・色にそろえる。
+   数字は assets/main.js が GA4 の実数から入れる。 */
+.card{position:relative;}
+.card .card-views{
+  position:absolute;right:14px;bottom:14px;
+  padding:0;
+  font-family:var(--font-en);font-size:11px;letter-spacing:.1em;
+  color:var(--muted-2);
+}
+.row-item .card-views{
+  display:block;margin-top:6px;text-align:right;
+  font-family:var(--font-en);font-size:11px;letter-spacing:.1em;
+  color:var(--muted-2);
+}
+@media (max-width:599px){
+  /* スマホのタイルは写真の右に文字を積む形なので、浮かせると一言に
+     かぶる。流れの中に置いて、最後の行として右端にそろえる。 */
+  .card .card-views{
+    position:static;display:block;text-align:right;
+    margin-top:3px;font-size:10.5px;
+  }
+  .row-item .card-views{font-size:10px;margin-top:3px;}
 }

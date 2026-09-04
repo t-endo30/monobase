@@ -373,11 +373,33 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       }
     });
   }
+  /* ---- タイルの右下に閲覧数を出す ----
+     出すのは content/ranking.json（GA4 の実数）があるときだけ。
+     端末ごとの記録は、その人だけの回数なので出さない。 */
+  function views(root) {
+    if (!hasSiteViews) return;
+    var t = (root || document).querySelectorAll('.card-views');
+    Array.prototype.forEach.call(t, function (el) {
+      var card = el.closest('[data-slug]');
+      if (!card) return;
+      var n = siteViews[card.getAttribute('data-slug')];
+      if (!n) return;                      /* 0 や未計測は出さない */
+      el.textContent = 'VIEW : ' + n.toLocaleString('en-US');
+      el.hidden = false;
+    });
+  }
+  views();
+
   flags();
+  /* あとから組み直された枠（今日のピックアップなど）にも付け直す */
+  document.addEventListener('mb:cards', function (ev) {
+    var root = (ev && ev.detail) || document;
+    flags(root); views(root);
+  });
   /* 検索結果はあとから差し込まれるので、増えたぶんにも付ける */
   var results = document.getElementById('searchResults');
   if (results && 'MutationObserver' in window) {
-    new MutationObserver(function () { flags(results); })
+    new MutationObserver(function () { flags(results); views(results); })
       .observe(results, { childList: true });
   }
 
@@ -881,13 +903,17 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     return '<a class="card" href="' + esc(a.u) + '"' +
       ' data-cat="' + esc(a.k) + '" data-slug="' + esc(a.s) + '"' +
       ' data-date="' + esc(a.d) + '">' +
-      '<span class="card-thumb"><img src="' + esc(a.th) + '" alt="" loading="lazy"></span>' +
+      '<span class="card-thumb"><img src="' + esc(a.th) + '" alt="" loading="lazy">' +
+        '<span class="card-flags" aria-hidden="true"></span></span>' +
       '<span class="card-meta">' +
         '<span class="card-date">' + esc(a.d) + '</span>' +
         '<span class="card-cat">' + esc(a.c) + '</span></span>' +
       '<span class="card-title">' + titleHtml(a.t) + '</span>' +
-      '<span class="card-note">' + esc(a.x) + '</span></a>';
+      '<span class="card-note">' + esc(a.x) + '</span>' +
+      '<span class="card-views" hidden></span></a>';
   }).join('');
+  /* 差し替えた札と閲覧数は、ここで組み直したぶんにも付ける */
+  document.dispatchEvent(new CustomEvent('mb:cards', { detail: grid }));
 })();
 
 
