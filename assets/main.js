@@ -1153,7 +1153,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 
   function card(ev) {
     var t = ev.target;
-    return t && t.closest ? t.closest('a.card,a.row-item') : null;
+    return t && t.closest ? t.closest('a.card,a.row-item,a.cat-cell') : null;
   }
   function clear() {
     if (!target) return;
@@ -1191,6 +1191,17 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     if (ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.shiftKey) return;
     if (a.target && a.target !== '_self') return;
     if (!phone()) return;
+
+    /* 押した先と、いま押されたものが食い違うことがある（指が少し動いて
+       取り消していた、touchstart を取りこぼした、など）。その場合は
+       ここを動きの始まりとして数え直す。数えられないまま素通しすると、
+       動きが出ないまま遷移してしまう */
+    if (a !== target) {
+      if (target) target.classList.remove('is-tapping');
+      target = a; startedAt = Date.now();
+      a.classList.add('is-tapping');
+      warm(a.getAttribute('href'));
+    }
     var wait = HOLD - (Date.now() - startedAt);
     if (wait <= 0) return;         /* 長押しなどで、もう終わりきっている */
     ev.preventDefault();
@@ -1201,6 +1212,8 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     var cap = setTimeout(go, wait + 180);
     a.addEventListener('transitionend', function h(te) {
       if (te.propertyName !== 'color') return;
+      /* 戻る向きの色の変化（しるしが外れたあと）では飛ばさない */
+      if (!a.classList.contains('is-tapping')) return;
       a.removeEventListener('transitionend', h);
       clearTimeout(cap); go();
     });
