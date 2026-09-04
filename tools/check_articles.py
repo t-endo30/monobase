@@ -88,6 +88,21 @@ def main():
         if not shops:
             warns.append(f"{slug}: 販売先（ASIN・楽天・Yahoo!）がひとつも設定されていません")
 
+        # 題名に型番かメーカー名が入っているか。
+        # 一般名詞だけの題名は大手比較サイトと競合して埋もれる。
+        # 実データ（Search Console 2026-09-04）では、表示回数のあった
+        # クエリは3件ともメーカー名か型番の検索だった。
+        # 単品を扱う記事（販売先がある記事）だけを見る。
+        if shops:
+            name = str(a.get("title") or "").split("｜")[0]
+            # 英数字の語（型番・ブランド）か、カタカナの固有名らしい語
+            has_code = re.search(r"[A-Za-z0-9][A-Za-z0-9\-]+", name)
+            if not has_code:
+                warns.append(
+                    f"{slug}: 題名に型番・英数字の製品名がありません"
+                    f"（{name}）。一般名詞だけの題名は大手比較サイトと"
+                    f"競合して埋もれます")
+
         # JANコード。3モールで同じ商品を照合するための鍵。
         jan = str(a.get("jan") or "").strip()
         if jan:
