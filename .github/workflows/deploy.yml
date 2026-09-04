@@ -24,6 +24,8 @@ jobs:
         with:
           # 生成物を push し直すため、認証情報を残す
           persist-credentials: true
+          # IndexNow で「今回変わったページ」を出すため、1つ前のコミットまで取る
+          fetch-depth: 2
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -71,3 +73,11 @@ jobs:
           done
           echo "::error::生成物のpushに失敗しました"
           exit 1
+
+      # 公開が済んでから、更新を Bing・Yandex などへ知らせる（IndexNow）。
+      # 先に知らせると、まだ古い中身を配っている状態で読まれてしまう。
+      # Google は IndexNow に参加していないので、サイトマップとリンクで拾われる。
+      # 通知できなくても公開自体は済んでいるため、失敗させない。
+      - name: Notify IndexNow
+        continue-on-error: true
+        run: python3 tools/ping_indexnow.py

@@ -524,5 +524,10 @@
       "vc_pid": "",
       "_note": "Yahoo!ショッピングはバリューコマース経由。管理画面の広告リンクに出る sid と pid を入れると ck.jp.ap.valuecommerce.com 経由になる。空のあいだは通常リンク。"
     }
+  },
+  "indexnow": {
+    "key": "915c9ed24598bf24b17e077cd405a65d",
+    "_note": "IndexNow の鍵。記事を更新したとき Bing・Yandex などへ通知する。build.py が <鍵>.txt をサイトの直下に置き、相手はそれを読んで「本当にこのサイトの持ち主か」を確かめる。公開される値なので秘密ではない。Google は IndexNow に対応していない（サイトマップとリンクで拾われる）。",
+    "endpoint": "https://api.indexnow.org/indexnow"
   }
 }

@@ -3463,6 +3463,15 @@ def main():
           f"\nSitemap: {BASE_URL}/sitemap.xml\n")
     written.append("robots.txt")
 
+    # IndexNow の鍵ファイル。
+    # 更新を通知したとき、相手（Bing・Yandex など）がこのファイルを読んで
+    # 「本当にこのサイトの持ち主からの通知か」を確かめる。
+    # 中身は鍵そのもの1行。公開される値で、秘密ではない。
+    inkey = str((SITE.get("indexnow") or {}).get("key") or "").strip()
+    if re.fullmatch(r"[A-Za-z0-9\-]{8,128}", inkey or ""):
+        write(f"{inkey}.txt", inkey + "\n")
+        written.append(f"{inkey}.txt")
+
     # feed.xml：更新を知らせるフィード。
     # 読者の購読だけでなく、検索エンジンやニュース系のクローラが
     # 新着を見つける手がかりにもなる（sitemap より更新に敏感）。
