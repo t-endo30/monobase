@@ -291,6 +291,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   font-family:var(--font-en);font-size:11.5px;font-weight:700;letter-spacing:.18em;
   transition:background .2s ease,color .2s ease;
 }
+/* 区画見出しと同じように、前後を線ではさむ */
+.sec-more a::before,
 .sec-more a::after{content:"";width:22px;height:1px;background:currentColor;}
 .sec-more a:hover{background:var(--ink);color:#fff;}
 
@@ -1014,8 +1016,13 @@ body.has-sticky-cta .fab{bottom:96px;}
   }
   .card-grid > .card:nth-child(n+7){display:none;}
 
-  /* カテゴリーは2列。3列にすると1枠が狭すぎて、写真も名前も読めない */
-  .cat-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  /* カテゴリーは2列。3列にすると1枠が狭すぎて、写真も名前も読めない。
+     枠どうしがくっつかないよう、罫線でつなぐのをやめて隙間を空ける */
+  .cat-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;border-top:0;border-left:0;
+  }
+  .cat-cell{border:1px solid var(--line);}
   .cat-body{padding:11px 12px 9px;gap:3px;}
   .cat-cell .l{font-size:13px;padding-right:44px;}
   .cat-cell .c{top:11px;right:12px;font-size:10px;}
