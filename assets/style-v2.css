@@ -281,7 +281,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   align-items:center;gap:28px 48px;
   padding:28px 0 16px;
 }
-.hero-copy{max-width:560px;grid-column:1;grid-row:1;}
+/* 文字の組みは、列の中でもう少し右へ寄せる。列そのものを動かすと
+   箱の写真との間合いまで変わるので、中身だけをずらす */
+.hero-copy{max-width:560px;grid-column:1;grid-row:1;transform:translateX(34px);}
 .hero-title{
   /* 10文字を1行で見せる。折り返すと図版との左右の釣り合いが崩れるため、
      nowrap を掛けたうえで、桁数ぶんの幅に収まる大きさまで自動で縮める */
@@ -482,11 +484,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    （押した指が離れるとすぐ元に戻り、当たり判定が残って見えることはない） */
 @media (hover:none){
   .card::before,.card::after{transition-duration:.2s;}
-  .card:active::before,.card:active::after{transform:translate(0,0);}
-  .card:active .card-title,
-  .card:active .card-date,
-  .card:active .card-cat,
-  .card:active .card-note{color:#fff;transition-delay:.14s;}
+  /* .is-tapping は main.js が押した時点で付けるしるし。指を離しても
+     面が渡りきるまで遷移を待たせるので、:active より長く見える。
+     JS が動かない場合でも :active だけで同じ動きになる */
+  .card:active::before,.card:active::after,
+  .card.is-tapping::before,.card.is-tapping::after{transform:translate(0,0);}
+  .card:active .card-title,.card.is-tapping .card-title,
+  .card:active .card-date,.card.is-tapping .card-date,
+  .card:active .card-cat,.card.is-tapping .card-cat,
+  .card:active .card-note,.card.is-tapping .card-note{color:#fff;transition-delay:.14s;}
 }
 
 /* 横長の記事行（カテゴリー一覧で使う） */
@@ -1236,7 +1242,10 @@ body.has-sticky-cta .fab{bottom:96px;}
     justify-content:stretch;align-items:start;
     padding:18px 0 10px;gap:0 12px;
   }
+  /* スマホは display:contents で中身を直接並べるため、囲みを動かせない。
+     中身の4つをそのままずらす */
   .hero-copy{display:contents;}
+  .hero-title,.hero-sub,.hero-rule,.hero-desc{transform:translateX(12px);}
   .hero-title{grid-column:1 / -1;grid-row:1;}
   .hero-sub{grid-column:1;grid-row:2;align-self:end;}
   .hero-rule{grid-column:1;grid-row:3;}

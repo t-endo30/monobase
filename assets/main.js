@@ -1106,3 +1106,73 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     }, true);
   });
 })();
+
+/* ============================================================
+   指で押したときの、記事タイルの面を最後まで見せる
+   ------------------------------------------------------------
+   :active だけだと、指を離した瞬間に遷移が始まるので、斜めの面が
+   渡りきる前に次のページへ移ってしまう。押した時点でしるし（クラス）
+   を付け、面が渡りきるまでの残り時間だけ遷移を待たせる。
+   待っているあいだは手ぶらではなく、遷移先の HTML を裏で読みに行く
+   ので、待った時間はそのぶん次のページの表示が早くなる方に使われる。
+   カーソルのある機器と、動きを控える設定の人には掛けない。
+   ============================================================ */
+(function () {
+  if (!window.matchMedia) return;
+  if (!matchMedia('(hover:none)').matches) return;
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+
+  /* CSS の面（.2s）が渡りきるまで。これ以上待たせると遅く感じる */
+  var HOLD = 220;
+  var warmed = {};
+  var target = null, startedAt = 0;
+
+  /* 遷移先を先に読みに行く。同じ場所の HTML だけ、1回だけ */
+  function warm(href) {
+    if (!href || warmed[href]) return;
+    var u;
+    try { u = new URL(href, location.href); } catch (e) { return; }
+    if (u.origin !== location.origin) return;
+    warmed[href] = 1;
+    try {
+      fetch(u.href, { credentials: 'same-origin' }).catch(function () {});
+    } catch (e) {}
+  }
+
+  function card(ev) {
+    var t = ev.target;
+    return t && t.closest ? t.closest('a.card') : null;
+  }
+  function clear() {
+    if (!target) return;
+    target.classList.remove('is-tapping');
+    target = null;
+  }
+
+  document.addEventListener('touchstart', function (ev) {
+    var a = card(ev);
+    if (!a) return;
+    clear();
+    target = a; startedAt = Date.now();
+    a.classList.add('is-tapping');
+    warm(a.getAttribute('href'));
+  }, { passive: true });
+
+  /* 指が動いたらスクロール。押したことにしない */
+  document.addEventListener('touchmove', clear, { passive: true });
+  document.addEventListener('touchcancel', clear, { passive: true });
+  /* 戻ってきたときにしるしが残らないようにする（bfcache） */
+  window.addEventListener('pageshow', clear);
+
+  document.addEventListener('click', function (ev) {
+    var a = card(ev);
+    if (!a || a !== target) return;
+    if (ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.shiftKey) return;
+    if (a.target && a.target !== '_self') return;
+    var wait = HOLD - (Date.now() - startedAt);
+    if (wait <= 0) return;         /* 長押しなどで、もう渡りきっている */
+    ev.preventDefault();
+    var href = a.href;
+    setTimeout(function () { location.href = href; }, wait);
+  });
+})();
