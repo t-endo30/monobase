@@ -28,6 +28,7 @@ import os
 import re
 import sys
 import time
+import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pick_products import rakuten_search, yahoo_search   # noqa: E402
@@ -41,7 +42,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ACCESSORY = re.compile(
     r"(ケース|カバー|フィルム|保護|スタンド|ホルダー|替え|交換用|互換|"
     r"用アダプタ|プロテクター|収納袋|ポーチ|スキンシール|"
-    r"中古|美品|ジャンク|訳あり|アウトレット|リユース|再生品)")
+    r"中古|美品|ジャンク|訳あり|アウトレット|リユース|再生品|"
+    r"法人限定|業務用専用|受注生産)")
 
 # 商品名から落とす飾り。モール側の商品名は装飾語が多い。
 DECOR = re.compile(
@@ -103,6 +105,31 @@ def model_tokens(name):
             if MODEL.fullmatch(t) and (len(t) >= 2 or t.isdigit())]
 
 
+def flat_alnum(s):
+    """型番を比べるための形。区切り記号だけを落とし、日本語は残す。
+       日本語まで落とすと「BHS-600SM-BK[幅605]」が
+       「bhs600smbk605」になり、型番の直後に数字が来たと誤判定する。"""
+    return re.sub(r"[\s\-_/.･・]+", "", str(s or "").lower())
+
+
+def spaced_alnum(s):
+    """区切り記号と日本語を、すべて空白に置き換えた形。"""
+    return re.sub(r"[^0-9a-z]+", " ", str(s or "").lower())
+
+
+def code_ok(code, cand):
+    """型番が商品名に入っているか。
+       区切りの書き方は店によって違うので、記号を詰めた形と
+       空白に開いた形の両方で探す。どちらの形でも、型番の直後に
+       英数字が続くものは別物として弾く
+       （AHX-FGD30 の記事に AHX-FGD301 を掴ませない）。"""
+    for f in (flat_alnum, spaced_alnum):
+        c, n = f(code).strip(), f(cand)
+        if c and re.search(re.escape(c) + r"(?![0-9a-z])", n):
+            return True
+    return False
+
+
 def model_ok(name, cand):
     """記事の型番・ブランドが、商品側の名前に入っているか。
        数字だけの語（Watch の 5 など）は、単体で探すとクーポンの日時や
@@ -133,10 +160,11 @@ def coverage(name, cand):
     return hit / len(ts)
 
 
-def best_match(name, cands, min_score):
+def best_match(name, cands, min_score, code=""):
     """検索結果から、記事の商品といちばん近いものを選ぶ。
-       含有率がいちばん高いもの。同じなら、余計な語が少ない＝短い方を採る
-       （装飾やセット品を掴みにくい）。返すのは (商品, 含有率)。"""
+       含有率がいちばん高いもの。同じなら安い方を採る。
+       楽天には同じ商品を大きく上乗せして出している店があり、
+       高い方を選ぶと読者を損させるため。返すのは (商品, 含有率)。"""
     scored = []
     for c in cands:
         cname = c.get("name") or ""
@@ -149,10 +177,13 @@ def best_match(name, cands, min_score):
         extra = variants(cname) - variants(name)
         if extra:
             continue
+        # 型番が分かっているときは、それが一致しない商品は採らない
+        if code and not code_ok(code, cname):
+            continue
         # ブランド・型番は、1語でも欠けたら別商品として扱う
         if not model_ok(name, cname):
             continue
-        scored.append((coverage(name, cname), len(norm(cname)), c))
+        scored.append((coverage(name, cname), c.get("price") or 10**9, c))
     if not scored:
         return None, 0.0
     scored.sort(key=lambda x: (-x[0], x[1]))
@@ -199,7 +230,7 @@ def search(shop, keys, jan=None, keyword=None, tries=3):
             raise
 
 
-def lookup(shop, name, jan, keys, min_score):
+def lookup(shop, name, jan, keys, min_score, code=""):
     """1商品ぶんの検索。JANがあればJANで、無ければ商品名で引く。
        0件のときは、商品名を短くして引き直す（楽天は語をすべて含む
        商品を探すため、語が多いと0件になりやすい）。"""
@@ -219,12 +250,93 @@ def lookup(shop, name, jan, keys, min_score):
         if not cands:
             continue
         # JANは型番そのものなので、名前の一致は緩めてよい
-        hit, s = best_match(name, cands, 0.0 if how == "jan" else min_score)
+        hit, s = best_match(name, cands,
+                            0.0 if how == "jan" else min_score, code)
         if hit:
             hit = dict(hit, url=clean_url(hit.get("url")))
             return hit, s, ("JAN" if how == "jan" else f"「{q}」")
         fallback_s = max(fallback_s, s)
     return None, fallback_s, None
+
+
+AMAZON_UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36")
+# 型番らしい語。英字と数字が混ざったもの（BHS-600SM-BK、CL8DL-5.0WF など）。
+MODEL_CODE = re.compile(r"^[a-z0-9][a-z0-9.\-]*$", re.I)
+
+
+def is_model_code(w):
+    """型番らしい語か。ハイフンを含む長めの語だけを採る。
+       「2WAY」「100W」のような単位まで型番と見なすと、
+       まるで関係のない商品（LED電球など）を掴んでしまう。"""
+    return (len(w) >= 6 and "-" in w and MODEL_CODE.match(w)
+            and re.search(r"\d", w) and re.search(r"[a-z]", w, re.I))
+
+
+# 一度読んだ商品名は控えておく。同じASINを何度も取りに行くと、
+# Amazonが返してくれなくなる（下見を繰り返すため効きやすい）。
+TITLE_CACHE = os.path.join(ROOT, ".amazon-titles.json")
+
+
+def _cache():
+    try:
+        return json.load(io.open(TITLE_CACHE, encoding="utf-8"))
+    except Exception:                                 # noqa: BLE001
+        return {}
+
+
+def amazon_title(asin, tries=3):
+    """ASINの商品名をAmazonの商品ページから読む。
+       記事の題名が一般名詞だけのとき、これがブランドと型番を教えてくれる。
+       取るのは商品名の1行だけで、本文や口コミには触れない。"""
+    cache = _cache()
+    if asin in cache:
+        return cache[asin]
+    title = ""
+    for n in range(tries):
+        req = urllib.request.Request(f"https://www.amazon.co.jp/dp/{asin}")
+        req.add_header("User-Agent", AMAZON_UA)
+        req.add_header("Accept-Language", "ja,en;q=0.9")
+        try:
+            with urllib.request.urlopen(req, timeout=20) as r:
+                html = r.read().decode("utf-8", "replace")
+        except Exception:                             # noqa: BLE001
+            time.sleep(5 * (n + 1))
+            continue
+        m = re.search(r'<span[^>]*id="productTitle"[^>]*>(.*?)</span>',
+                      html, re.S)
+        if m:
+            title = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(1)))
+            title = title.strip()
+            break
+        # 商品名の入っていない画面（確認画面など）が返ったとき
+        time.sleep(5 * (n + 1))
+    if title:
+        cache[asin] = title
+        with io.open(TITLE_CACHE, "w", encoding="utf-8") as f:
+            json.dump(cache, f, ensure_ascii=False, indent=1)
+    return title
+
+
+def search_name(title):
+    """Amazonの長い商品名から、検索に使う短い言い方を作る。
+       楽天の検索は語をすべて含む商品を探すため、長いままでは0件になる。
+       ブランド（先頭の語）と型番（英数字が混ざった語）の2語に絞る。"""
+    t = re.sub(r"[（(\[【][^）)\]】]*[）)\]】]", " ", title)   # 寸法などの括弧書き
+    t = re.sub(r"[,、/／]+", " ", t)
+    ws = [w for w in t.split() if w]
+    if not ws:
+        return ("", "")
+    brand = ws[0]
+    code = ""
+    for w in reversed(ws):
+        w2 = w.strip("・")
+        if is_model_code(w2):
+            code = w2
+            break
+    # 型番が読み取れない商品は、名前だけでは特定できない。
+    # 一般名詞で探すと別の商品が当たるので、探さないほうがよい。
+    return (f"{brand} {code}", code) if code else ("", "")
 
 
 def main():
@@ -239,6 +351,9 @@ def main():
                     help="処理する記事数の上限。0で全部")
     ap.add_argument("--slug", default="",
                     help="この slug の記事だけ処理する")
+    ap.add_argument("--from-amazon", action="store_true",
+                    help="題名で特定できない記事は、ASINからAmazonの商品名を"
+                         "読んで検索語にする")
     ap.add_argument("--include-drafts", action="store_true",
                     help="下書き（published:false）も対象にする")
     ap.add_argument("--include-no-asin", action="store_true",
@@ -271,6 +386,7 @@ def main():
     filled = {s: 0 for s in shops}
     missed = []
     vague = []
+    codes = {}
     done = 0
     for a in targets:
         need = [s for s in shops if not (a.get(f"{s}_url") or "").strip()]
@@ -290,14 +406,27 @@ def main():
         # ブランドも型番も無い題名（「デスクサイドラック」など）は、
         # 検索しても記事とは別の商品が当たる。人が選ぶしかない。
         if not jan and not model_tokens(name):
-            print(f"\n・{a.get('slug')}：題名に型番・ブランドが無いため"
-                  f"飛ばします（{name}）")
-            vague.append((a.get("slug"), name))
-            continue
+            asin = (a.get("asin") or "").strip()
+            picked = ""
+            code = ""
+            if args.from_amazon and asin:
+                picked, code = search_name(amazon_title(asin))
+                time.sleep(PAUSE)
+            if not picked:
+                print(f"\n・{a.get('slug')}：題名に型番・ブランドが無いため"
+                      f"飛ばします（{name}）")
+                vague.append((a.get("slug"), name))
+                continue
+            print(f"\n・{a.get('slug')}")
+            print(f"   題名：{name} → Amazonの商品名から"
+                  f"「{picked}」で探します（型番 {code}）")
+            name = picked
+            codes[a.get("slug")] = code
         print(f"\n・{a.get('slug')}")
         print(f"   記事の商品：{name}" + (f"（JAN {jan}）" if jan else ""))
         for shop in need:
-            hit, s, how = lookup(shop, name, jan, keys, args.min_score)
+            hit, s, how = lookup(shop, name, jan, keys, args.min_score,
+                                 codes.get(a.get('slug'), ''))
             label = "楽天" if shop == "rakuten" else "Yahoo!"
             if not hit:
                 print(f"   {label}：見つかりません（最も近い含有率 {s:.2f}）")

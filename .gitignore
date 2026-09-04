@@ -27,3 +27,4 @@ _layout_check.html
 # 配信は Cloudflare Pages がリポジトリのHTMLをそのまま配るため、
 # 判断が済むまでコミットしない＝デプロイに乗せない。
 preview/
+.amazon-titles.json
