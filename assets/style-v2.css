@@ -277,7 +277,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .v2-section.is-tinted{border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 
 .sec-head{display:flex;align-items:center;gap:24px;margin-bottom:34px;}
-.sec-head .rule{flex:1;height:1px;background:var(--line-2);}
+.sec-head .rule{flex:1;height:1px;background:var(--ink);}
 .sec-head .titles{text-align:center;line-height:1.4;flex:0 0 auto;}
 .sec-head .en{font-family:var(--font-en);font-size:19px;font-weight:700;letter-spacing:.2em;}
 .sec-head .ja{font-size:11px;color:var(--muted);letter-spacing:.08em;}
@@ -286,7 +286,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .sec-more{display:flex;justify-content:center;margin-top:36px;}
 .sec-more a{
   display:inline-flex;align-items:center;justify-content:center;gap:12px;
-  min-width:230px;padding:13px 32px;border:1px solid var(--ink);
+  min-width:230px;padding:13px 32px;
+  border:1px solid var(--ink);background:var(--bg-2);
   font-family:var(--font-en);font-size:11.5px;font-weight:700;letter-spacing:.18em;
   transition:background .2s ease,color .2s ease;
 }
@@ -322,15 +323,20 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   font-family:var(--font-en);font-size:11px;letter-spacing:.1em;color:var(--muted-2);
   flex:0 0 auto;
 }
+/* 行数の制限は -webkit-box で掛けているが、タイルは flex の器なので、
+   中の項目は display が block 相当に均されて指定が効かなくなる。
+   高さでも上限を決めて、確実に2行で止める */
 .card-title{
   font-size:14px;font-weight:700;line-height:1.7;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;max-height:3.4em;
 }
 .card:hover .card-title{color:#5a5a5a;}
 /* 見出しの下の一言。どんな記事かが一覧のまま分かるようにする */
 .card-note{
   margin-top:7px;font-size:12px;line-height:1.8;color:var(--muted);
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;max-height:3.6em;
 }
 /* カテゴリーは日付と同じ行の右端に置く */
 .card-cat{
@@ -991,9 +997,9 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* 見出しは2行ぶんの高さを確保する。1行の記事と2行の記事が混ざると
      行の高さがそろわず、一覧が階段状に見えるため。
      行間ぶんを見ずに高さを決めると、2行目が下の一言に重なる */
-  .card-title{font-size:13px;line-height:1.6;-webkit-line-clamp:2;min-height:3.2em;}
+  .card-title{font-size:13px;line-height:1.6;-webkit-line-clamp:2;min-height:3.2em;max-height:3.2em;}
   /* 一言は、写真の右の残りに収まる分だけ */
-  .card-note{margin-top:3px;font-size:11px;line-height:1.7;-webkit-line-clamp:2;}
+  .card-note{margin-top:3px;font-size:11px;line-height:1.7;-webkit-line-clamp:2;max-height:3.4em;}
   .card-cat{margin-top:4px;font-size:10px;}
   .card-cat::before{width:10px;}
 
