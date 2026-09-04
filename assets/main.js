@@ -391,12 +391,12 @@ document.addEventListener('touchstart', function () {}, { passive: true });
           ' data-cat="' + esc(it.catKey || '') + '"' +
           ' data-slug="' + esc(it.slug || '') + '"' +
           ' data-date="' + esc(it.date || '') + '">' +
-          '<span class="row-no">' + no + '</span>' +
           '<span class="thumb">' +
             '<img src="' + esc(it.thumb) + '" alt="" loading="lazy" decoding="async">' +
+            '<span class="row-cat">' + esc(it.cat) + '</span>' +
+            '<span class="row-no">' + no + '</span>' +
           '</span>' +
           '<span class="row-body">' +
-            '<span class="row-cat">' + esc(it.cat) + '</span>' +
             '<h3>' + esc(it.title) + '</h3>' +
             (it.excerpt ? '<p>' + esc(it.excerpt) + '</p>' : '') +
             '<span class="meta">' + esc(d) + '</span>' +
@@ -724,7 +724,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 
   var hero = document.querySelector('.hero');
   if (!hero) return;
-  var parts = hero.querySelectorAll('.hero-title, .hero-figure');
+  var parts = hero.querySelectorAll('.hero-title .tw, .hero-figure');
   if (!parts.length) return;
 
   function replay() {

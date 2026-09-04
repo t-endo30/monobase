@@ -382,7 +382,7 @@ def build_top():
     </div>
     <div class="hero-inner">
       <div class="hero-copy">
-        <h1 class="hero-title">良い点も、不満点も。</h1>
+        <h1 class="hero-title"><span class="tw">良い点も、不満点も。</span></h1>
         <p class="hero-sub">買う前に「リアル」が見える<br>商品紹介サイト</p>
         <div class="hero-rule"></div>
         <p class="hero-desc">口コミ・仕様・価格を徹底的に調査し、<br>購入判断に必要な情報を整理してお届けします。</p>
@@ -926,8 +926,11 @@ def _fix_links(html_src):
 def build_static(fname):
     src = open(os.path.join(ROOT, fname), encoding="utf-8").read()
     h1 = re.search(r"<h1>(.*?)</h1>", src, re.S).group(1)
-    i = src.index('<div class="prose">') + len('<div class="prose">')
-    j = src.index("</div>\n  </div>\n</main>", i)
+    # 本番の器は v2 に切り替わり、本文は .static-wrap の中に入った
+    key = '<div class="static-wrap">' if '<div class="static-wrap">' in src \
+        else '<div class="prose">'
+    i = src.index(key) + len(key)
+    j = src.rindex("</div>", i, src.index("</main>", i))
     prose = _fix_links(src[i:j].strip())
     body = f'''<div class="page-head">
   <div class="container">
