@@ -46,9 +46,17 @@ def fetch(prop_id, days):
     for row in res.rows:
         path = row.dimension_values[0].value or ""
         views = int(row.metric_values[0].value or 0)
-        m = re.search(r"/articles/([^/?#]+)\.html", path)
+        # 配信は拡張子なしのURL（hosting.clean_urls）。GA4 には
+        #   /articles/desk-side-rack-review
+        # の形で入るが、GitHub Pages へ戻すと .html が付く。
+        # 末尾のスラッシュとクエリも来るので、どの形でも slug を取り出す。
+        m = re.search(r"/articles/([^/?#]+)", path)
         if m:
-            out[m.group(1)] = out.get(m.group(1), 0) + views
+            slug = m.group(1)
+            if slug.endswith(".html"):
+                slug = slug[:-len(".html")]
+            if slug:
+                out[slug] = out.get(slug, 0) + views
     return out
 
 
