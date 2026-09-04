@@ -3232,3 +3232,13 @@ h1,h2,h3,h4,
   .faq-ac[open] .faq-ac-a{animation:none;}
   .faq-ac::after{transition:none;}
 }
+
+/* 運営者情報・記事作成方針・プライバシーポリシーの箇条書きは、
+   行の字を左で揃えたまま、まとまりごとページの中央に置く。
+   左端に貼り付いていると、中央の見出しと合わずに寄って見えた。 */
+.static-wrap.is-list-center ul,
+.static-wrap.is-list-center ol{
+  width:fit-content;max-width:100%;
+  margin-inline:auto;
+  text-align:left;
+}

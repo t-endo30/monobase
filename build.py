@@ -2121,7 +2121,11 @@ def render_article(a):
             <span class="voice-name">{v.get("who","")}{st}</span>
             {v.get("text","")}
           </div>
-          <div class="fix-box">
+''')
+            # 対策が用意されていない声もある。空の箱だけが出て
+            # チェックの印が浮くので、中身があるときだけ置く。
+            if (v.get("fix") or "").strip() or (v.get("fix_title") or "").strip():
+                add(f'''          <div class="fix-box">
             <span class="fix-title">{icon("check", "hd-icon")} {v.get("fix_title","")}</span>
             {v.get("fix","")}
           </div>
@@ -3169,7 +3173,12 @@ def static_pages():
     ]:
         body = v2_page_head(title,
                             crumbs=[("ホーム", f"{p}index.html"), (title, None)])
-        body += ('  <div class="container">\n    <div class="static-wrap">\n'
+        # 運営者情報・記事作成方針・プライバシーポリシーは、箇条書きを
+        # ページの中央に置く（行の字は左で揃えたまま、まとまりを中央へ）。
+        wcls = ("static-wrap is-list-center"
+                if fname in ("about.html", "editorial-policy.html", "privacy.html")
+                else "static-wrap")
+        body += (f'  <div class="container">\n    <div class="{wcls}">\n'
                  f'{content}\n    </div>\n  </div>\n')
         cur = "POLICY" if fname == "editorial-policy.html" else ""
         out.append((fname, page(f"{title} - {NAME}", desc, cur, p,
