@@ -323,24 +323,37 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   grid-column:1 / -1;grid-row:2;
 }
 .hero-point{
-  display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start;
-  text-align:left;font:inherit;color:inherit;background:none;border:0;padding:0;
+  display:grid;grid-template-columns:auto auto;justify-content:center;
+  column-gap:8px;row-gap:5px;align-items:center;
+  text-align:center;font:inherit;color:inherit;background:none;border:0;padding:0;
   cursor:pointer;
 }
-.hero-point-body{display:block;min-width:0;}
+/* しるしと見出しを同じ行に並べたいので、囲みは器として数えず、
+   中の3つ（しるし・見出し・説明）をそのまま並びに参加させる */
+.hero-point-body{display:contents;}
 .hero-point .ic{
-  width:40px;height:40px;border:1.3px solid var(--ink);border-radius:50%;
+  width:26px;height:26px;flex:0 0 auto;
+  border:1.3px solid var(--ink);border-radius:50%;
   display:flex;align-items:center;justify-content:center;
 }
-.hero-point .ic svg{width:19px;height:19px;}
+.hero-point .ic svg{width:13px;height:13px;}
 .hero-point .h3{
   display:block;font-size:13.5px;font-weight:800;letter-spacing:.02em;
-  margin-bottom:5px;line-height:1.5;
+  line-height:1.5;
 }
 .hero-point .h3 .narrow{display:none;}
-.hero-point .p{display:block;font-size:12px;line-height:1.75;color:#767676;}
+/* 説明はしるしの下ではなく、2つの真下いっぱいに中央寄せで置く */
+.hero-point .p{
+  grid-column:1 / -1;
+  display:block;font-size:12px;line-height:1.75;color:#767676;text-align:center;
+}
 .hero-point:hover .ic,.hero-point:focus-visible .ic{border-color:var(--ink);background:var(--bg-2);}
 .hero-point:focus-visible{outline:2px solid var(--ink);outline-offset:6px;}
+/* ヘッダーのメニューと同じ、わずかに大きくする動き */
+@media (hover:hover){
+  .hero-point{transition:transform .5s ease;}
+  .hero-point:hover{transform:scale(1.1);}
+}
 
 /* =========================================================================
    セクションの見出し（PICK UP / NEW / CATEGORY …）
@@ -443,7 +456,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   .card::before,.card::after{
     content:"";position:absolute;inset:0;z-index:0;
     background:var(--ink);pointer-events:none;
-    transition:transform .5s ease-in-out;
+    /* 面が渡りきるまでの間、白い面に白い文字が乗って読めなくなる。
+       その時間を短くするため、動きは速めに切り上げる */
+    transition:transform .34s ease-out;
   }
   /* 左上の三角は左上の外へ、右下の三角は右下の外へ退けておく */
   .card::before{
@@ -453,11 +468,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     clip-path:polygon(100% 0,100% 100%,0 100%);transform:translate(100%,100%);
   }
   .card:hover::before,.card:hover::after{transform:translate(0,0);}
-  /* 黒い面の上では文字を白に。見出しだけ薄くしていた指定も打ち消す */
+  /* 黒い面の上では文字を白に。見出しだけ薄くしていた指定も打ち消す。
+     白のまま白い面に乗る時間を減らしたいので、切り替えは面がほぼ
+     渡りきってから。戻すときは逆に、黒が引く前に早めに暗い色へ返す */
+  .card .card-title,.card .card-date,
+  .card .card-cat,.card .card-note{transition:color .08s ease;}
   .card:hover .card-title,
   .card:hover .card-date,
   .card:hover .card-cat,
-  .card:hover .card-note{color:#fff;}
+  .card:hover .card-note{color:#fff;transition-delay:.24s;}
 }
 
 /* 横長の記事行（カテゴリー一覧で使う） */
@@ -1234,6 +1253,7 @@ body.has-sticky-cta .fab{bottom:96px;}
     justify-items:center;text-align:center;
     padding:12px 6px;
   }
+  .hero-point .p{grid-column:auto;}
   .hero-point .p{display:none;}
   .hero-point + .hero-point{border-left:1px solid var(--line);}
   .hero-point .ic{width:30px;height:30px;}
