@@ -202,16 +202,37 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   color:var(--muted-2);font-family:var(--font-en);font-size:10px;
   font-weight:600;letter-spacing:.2em;text-indent:.2em;line-height:1;
 }
-.drawer-head{text-align:center;}
-.drawer-cats a{font-size:13.5px;font-weight:600;color:var(--ink);padding:13px 2px;}
-.drawer-head{
-  margin:24px 0 4px;font-size:10.5px;letter-spacing:.22em;color:var(--muted-2);
-  font-family:var(--font-en);font-weight:700;
+/* 引き出しの中の「カテゴリー」。ほかの項目と同じ行に見せて、
+   押すと下に一覧が開く。開閉は <details> に任せている */
+.drawer-acc summary{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  padding:14px 2px;font-size:15.5px;font-weight:700;
+  list-style:none;cursor:pointer;position:relative;
 }
-.drawer-cats{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;}
+.drawer-acc summary::-webkit-details-marker{display:none;}
+.drawer-acc summary span:last-child{
+  color:var(--muted-2);font-family:var(--font-en);font-size:10px;
+  font-weight:600;letter-spacing:.2em;text-indent:.2em;line-height:1;
+}
+/* 開くしるし。線2本を組んで＋にし、開いたら－にする */
+.drawer-acc summary::after{
+  content:"";position:absolute;right:2px;top:50%;
+  width:11px;height:11px;margin-top:-5.5px;
+  background:
+    linear-gradient(var(--ink),var(--ink)) center/11px 1.4px no-repeat,
+    linear-gradient(var(--ink),var(--ink)) center/1.4px 11px no-repeat;
+  transition:transform .2s ease;
+}
+/* 開いたら縦線を消して「−」にする。回すと縦線が残ってしまう */
+.drawer-acc details[open] summary::after{
+  background:linear-gradient(var(--ink),var(--ink)) center/11px 1.4px no-repeat;
+}
+
+.drawer-cats{display:grid;grid-template-columns:1fr 1fr;gap:12px 12px;padding:4px 0 16px;}
 /* カテゴリー名の下に写真を添える。名前だけの並びより、どの分野かが早く分かる */
 .drawer-cats li{border-bottom:0;}
-.drawer-cats a{display:flex;flex-direction:column;align-items:stretch;gap:7px;padding:0;}
+.drawer-cats a{display:flex;flex-direction:column;align-items:stretch;gap:6px;padding:0;}
+.drawer-cat-name{font-size:12.5px;font-weight:700;text-align:left;}
 .drawer-thumb{
   display:block;aspect-ratio:16/10;overflow:hidden;
   background:var(--bg-3);border:1px solid var(--line-2);

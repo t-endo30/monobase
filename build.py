@@ -687,14 +687,24 @@ def header(current, p, crumbs=None, current_sub="", band=""):
                 f'<span class="nav-en">{en}</span>'
                 f'<span class="nav-ja">{e(ja)}</span></a>{menu}</li>')
 
-    drawer = "".join(
-        f'<li><a href="{href}"><span>{e(ja)}</span><span>{en}</span></a></li>'
-        for ja, en, href in _v2_drawer_links(p))
     cats = "".join(
         f'<li><a href="{p}category-{c["key"]}.html">'
-        f'<span>{e(c["label"])}</span>'
+        f'<span class="drawer-cat-name">{e(c["label"])}</span>'
         f'<span class="drawer-thumb">{v2_cat_image(c, p)}</span></a></li>'
         for c in CATS)
+    # カテゴリーは、ほかの項目と同じ「日本語＋英字」の行にして、
+    # 押したときに引き出しの中でそのまま開くようにする。
+    # 開閉は <details> に任せるので、JSが動かなくても開く。
+    cat_row = (f'<li class="drawer-acc"><details>'
+               f'<summary><span>カテゴリー</span><span>CATEGORY</span></summary>'
+               f'<ul class="drawer-cats">{cats}</ul>'
+               f'</details></li>')
+    drawer = ""
+    for ja, en, href in _v2_drawer_links(p):
+        drawer += (f'<li><a href="{href}"><span>{e(ja)}</span>'
+                   f'<span>{en}</span></a></li>')
+        if en == "HOME":
+            drawer += cat_row
     search = (f'<a class="header-search" href="{p}search.html" aria-label="サイト内を検索">'
               f'{IC_SEARCH_V2}</a>' if FEAT.get("search") else "")
 
@@ -722,8 +732,6 @@ def header(current, p, crumbs=None, current_sub="", band=""):
   <div class="drawer" id="drawer" data-open="false">
     <div class="container" style="padding:0">
       <ul class="drawer-main">{drawer}</ul>
-      <p class="drawer-head">CATEGORY</p>
-      <ul class="drawer-cats">{cats}</ul>
     </div>
   </div>
 </header>
