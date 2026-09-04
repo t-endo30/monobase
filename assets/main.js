@@ -1131,10 +1131,13 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   if (!matchMedia('(hover:none)').matches) return;
   if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
 
-  /* CSS の面（.2s）が渡りきるまで。これ以上待たせると遅く感じる */
-  var HOLD = 220;
+  /* 面が渡る .2s と、そのあと文字が白へ変わり終わるまで（.14s 待って .08s）。
+     動きが終わりきる .22s に、描き始めの1フレームぶんを足して待つ */
+  var HOLD = 240;
+  /* 指はタップでも数px動く。少し動いたくらいでは押したことを取り消さない */
+  var SLOP = 12;
   var warmed = {};
-  var target = null, startedAt = 0;
+  var target = null, startedAt = 0, startX = 0, startY = 0;
 
   /* 遷移先を先に読みに行く。同じ場所の HTML だけ、1回だけ */
   function warm(href) {
@@ -1163,12 +1166,21 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     if (!a) return;
     clear();
     target = a; startedAt = Date.now();
+    var t0 = ev.touches && ev.touches[0];
+    startX = t0 ? t0.clientX : 0;
+    startY = t0 ? t0.clientY : 0;
     a.classList.add('is-tapping');
     if (phone()) warm(a.getAttribute('href'));
   }, { passive: true });
 
-  /* 指が動いたらスクロール。押したことにしない */
-  document.addEventListener('touchmove', clear, { passive: true });
+  /* はっきり動かしたときだけスクロールとみなし、押したことを取り消す */
+  document.addEventListener('touchmove', function (ev) {
+    if (!target) return;
+    var t0 = ev.touches && ev.touches[0];
+    if (!t0) { clear(); return; }
+    if (Math.abs(t0.clientX - startX) > SLOP
+     || Math.abs(t0.clientY - startY) > SLOP) clear();
+  }, { passive: true });
   document.addEventListener('touchcancel', clear, { passive: true });
   /* 戻ってきたときにしるしが残らないようにする（bfcache） */
   window.addEventListener('pageshow', clear);
@@ -1180,9 +1192,17 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     if (a.target && a.target !== '_self') return;
     if (!phone()) return;
     var wait = HOLD - (Date.now() - startedAt);
-    if (wait <= 0) return;         /* 長押しなどで、もう渡りきっている */
+    if (wait <= 0) return;         /* 長押しなどで、もう終わりきっている */
     ev.preventDefault();
-    var href = a.href;
-    setTimeout(function () { location.href = href; }, wait);
+    var href = a.href, gone = false;
+    function go() { if (gone) return; gone = true; location.href = href; }
+    /* 動きが終わったことは、最後に終わる「文字の色」で見る。端末が
+       transitionend を返さない場合に備えて、時間でも必ず飛ばす */
+    var cap = setTimeout(go, wait + 180);
+    a.addEventListener('transitionend', function h(te) {
+      if (te.propertyName !== 'color') return;
+      a.removeEventListener('transitionend', h);
+      clearTimeout(cap); go();
+    });
   });
 })();
