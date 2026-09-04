@@ -3242,3 +3242,37 @@ h1,h2,h3,h4,
   margin-inline:auto;
   text-align:left;
 }
+
+/* ---- 写真の左上に乗せる New / Hot の札 ----
+   assets/main.js が公開日と閲覧数から差し込む。移設のときに見た目の
+   指定が漏れ、ただの小さな文字として写真に埋もれていた。 */
+.flag{
+  display:inline-block;
+  padding:3px 7px;
+  border-radius:999px;
+  font-family:var(--font-en);
+  font-size:10px;font-weight:800;letter-spacing:.06em;line-height:1;
+  text-transform:uppercase;
+  box-shadow:0 1px 4px rgba(0,0,0,.28);
+}
+.flag-new{background:var(--ink);color:#fff;}
+.flag-hot{background:var(--amazon);color:var(--amazon-ink);}
+@media (max-width:599px){
+  .flag{padding:2px 6px;font-size:9px;}
+}
+
+/* スマホでは、長い項目が枠いっぱいまで伸びるため、まとまりを中央へ
+   寄せても左端に貼り付いたままに見える。番号を行頭に置き直し、
+   1行ずつ中央に揃えて、見出しの中央寄せと合わせる。 */
+@media (max-width:599px){
+  .article-page .toc ol{width:auto;}
+  .article-page .toc li{padding-left:0;text-align:center;}
+  .article-page .toc li::before{
+    position:static;display:inline;margin-right:7px;top:auto;
+  }
+}
+/* 順位の札と同じ左上に出るので、順位があるタイルでは下にずらす */
+.card-thumb .card-flags,
+.row-item .thumb .card-flags{top:8px;left:8px;}
+.card-thumb:has(.row-no) .card-flags,
+.row-item .thumb:has(.row-no) .card-flags{top:34px;}
