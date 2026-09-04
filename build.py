@@ -51,17 +51,24 @@ ASSET_V = _asset_version()
 # アクセスランキング用のデータ。
 # content/ranking.json に実データ（GA4等）があればそれを使い、
 # 無ければ閲覧者自身の端末に記録した閲覧回数で並べる（assets/main.js）。
+# views は開設からの累計（タイルに出す VIEW）、views_recent は直近ぶん
+# （ランキングの並び順と Hot の札）。分けているのは、累計だけで並べると
+# 古い記事が上に張り付き、直近だけで出すと VIEW が日ごとに減るため。
 try:
-    RANKING = json.load(io.open(os.path.join(ROOT, "content", "ranking.json"),
-                                encoding="utf-8")).get("views") or {}
+    _rank_file = json.load(io.open(os.path.join(ROOT, "content", "ranking.json"),
+                                   encoding="utf-8"))
+    RANKING = _rank_file.get("views") or {}
+    RANKING_RECENT = _rank_file.get("views_recent") or {}
 except (FileNotFoundError, ValueError):
     RANKING = {}
+    RANKING_RECENT = {}
 
 # セール告知に使う日程。JSON をそのまま埋め込み、表示の可否は
 # 閲覧時点の日付でブラウザ側が判断する（再ビルド不要にするため）。
 def rank_json(p):
     data = {
         "views": RANKING,
+        "recent": RANKING_RECENT,
         "items": [{"slug": a["slug"],
                    "title": a.get("list_title") or a["title"],
                    "url": f'{p}articles/{a["slug"]}.html',

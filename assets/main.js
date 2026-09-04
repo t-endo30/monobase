@@ -317,8 +317,12 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   try { data = JSON.parse(document.body.getAttribute('data-rank') || '{}'); }
   catch (e) { data = {}; }
   var items = data.items || [];
+  /* views は開設からの累計（タイルに出す VIEW）、
+     recent は直近ぶん（並び順と Hot の札）。 */
   var siteViews = data.views || {};
-  var hasSiteViews = Object.keys(siteViews).length > 0;
+  var recentViews = data.recent || {};
+  var rankBase = Object.keys(recentViews).length ? recentViews : siteViews;
+  var hasSiteViews = Object.keys(rankBase).length > 0;
 
   /* ---- この端末の閲覧回数を数える ---- */
   var mine = {};
@@ -335,7 +339,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   }
 
   /* ---- 並び順を決める ---- */
-  var counts = hasSiteViews ? siteViews : mine;
+  var counts = hasSiteViews ? rankBase : mine;
   var ranked = items.slice().sort(function (a, b) {
     var d = (counts[b.slug] || 0) - (counts[a.slug] || 0);
     if (d) return d;
