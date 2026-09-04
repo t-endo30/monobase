@@ -3408,12 +3408,29 @@ def main():
     urls += [(f'{BASE_URL}/new.html', "0.7", newest),
              (f'{BASE_URL}/ranking.html', "0.7", newest),
              (f'{BASE_URL}/categories.html', "0.8", newest)]
-    urls += [(f'{BASE_URL}/category-{c["key"]}.html', "0.8", cat_mod(c["key"])) for c in CATS]
+    # カテゴリーページは、記事が十分に載っているものだけ載せる。
+    #
+    # サイトマップは「ここを見に来てほしい」という申告なので、
+    # 記事1本しかない一覧ページまで並べると、クロールがそちらへ分散する。
+    # 実際、記事33本に対してカテゴリーページが37本あり、うち20本は
+    # 記事1本以下だった（2026-09-04）。記事が増えれば、この判定で
+    # 自動的にサイトマップへ戻る。
+    #
+    # 載せないだけで、ページは今までどおり作られ、ヘッダーからも辿れる。
+    # 検索エンジンが見に来ることも妨げない（noindex にはしない）。
+    SITEMAP_MIN_MAIN = 1      # 大分類は1本でも載せる（サイトの骨格のため）
+    SITEMAP_MIN_SUB = 2       # 小分類は2本から
+
+    def n_arts(key, sub=None):
+        return sum(1 for a in PUBLISHED
+                   if a["category"] == key and (sub is None or a.get("sub") == sub))
+
+    urls += [(f'{BASE_URL}/category-{c["key"]}.html', "0.8", cat_mod(c["key"]))
+             for c in CATS if n_arts(c["key"]) >= SITEMAP_MIN_MAIN]
     urls += [(f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html', "0.6",
               cat_mod(c["key"], sc["key"]))
              for c in CATS for sc in c.get("sub", [])
-             if any(a["category"] == c["key"] and a.get("sub") == sc["key"]
-                    for a in PUBLISHED)]
+             if n_arts(c["key"], sc["key"]) >= SITEMAP_MIN_SUB]
     urls += [(f'{BASE_URL}/articles/{a["slug"]}.html', "0.9", mod(a)) for a in PUBLISHED]
     static = ["about.html", "editorial-policy.html", "advertising.html",
               "privacy.html", "disclaimer.html", "sitemap.html"]

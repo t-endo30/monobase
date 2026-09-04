@@ -46,11 +46,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://monobase.site/category-camera</loc>
-    <lastmod>2026-09-02</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://monobase.site/category-beauty</loc>
     <lastmod>2026-09-02</lastmod>
     <priority>0.8</priority>
@@ -76,24 +71,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://monobase.site/category-pet</loc>
-    <lastmod>2026-09-02</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://monobase.site/category-travel</loc>
     <lastmod>2026-08-31</lastmod>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-feature-guide</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-feature-season</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-appliance-aircon</loc>
@@ -106,37 +86,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://monobase.site/category-appliance-smart</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-smartphone-charger</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-pc-tablet</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://monobase.site/category-pc-monitor</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-pc-input</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-pc-peripheral</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-pc-network</loc>
     <lastmod>2026-08-31</lastmod>
     <priority>0.6</priority>
   </url>
@@ -146,17 +96,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://monobase.site/category-beauty-skincare</loc>
-    <lastmod>2026-09-02</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://monobase.site/category-beauty-makeup</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-health-measure</loc>
     <lastmod>2026-08-31</lastmod>
     <priority>0.6</priority>
   </url>
@@ -166,37 +106,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://monobase.site/category-daily-storage</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-daily-safety</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-daily-outdoor</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-furniture-desk</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-furniture-chair</loc>
-    <lastmod>2026-09-01</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://monobase.site/category-furniture-shelf</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-furniture-bed</loc>
     <lastmod>2026-08-31</lastmod>
     <priority>0.6</priority>
   </url>
