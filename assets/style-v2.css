@@ -1162,6 +1162,17 @@ body.has-sticky-cta .fab{bottom:96px;}
   }
   .card-grid > .card:nth-child(n+7){display:none;}
 
+  /* トップは3行まで。3行目はわざと切って、続きが下の VIEW ALL に
+     あることを見た目で伝える（新着やランキングと同じ扱い）。
+     2列なので、5・6番目が3行目にあたる */
+  .cat-grid.is-clip > .cat-cell:nth-child(5),
+  .cat-grid.is-clip > .cat-cell:nth-child(6){
+    max-height:52px;overflow:hidden;pointer-events:none;
+    -webkit-mask-image:linear-gradient(180deg,#000 34%,transparent 100%);
+    mask-image:linear-gradient(180deg,#000 34%,transparent 100%);
+  }
+  .cat-grid.is-clip > .cat-cell:nth-child(n+7){display:none;}
+
   /* カテゴリーは2列。3列にすると1枠が狭すぎて、写真も名前も読めない。
      枠どうしがくっつかないよう、罫線でつなぐのをやめて隙間を空ける */
   .cat-grid{

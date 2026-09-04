@@ -2518,7 +2518,7 @@ def build_index():
 
     body += v2_section(
         v2_sec_head("CATEGORY", "カテゴリーから探す")
-        + v2_cat_grid(p, "is-all") + v2_sec_more(f"{p}categories.html"))
+        + v2_cat_grid(p, "is-clip") + v2_sec_more(f"{p}categories.html"))
 
     # サイトそのものの構造化データ。検索結果にサイト名と検索窓を出す材料。
     site_ld = [
