@@ -380,6 +380,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   min-width:230px;padding:13px 32px;
   border:1px solid var(--ink);background:var(--bg-2);
   font-family:var(--font-en);font-size:11.5px;font-weight:700;letter-spacing:.18em;
+  /* 板が一枚浮いているように見せる。下に硬い影を敷いて厚みを作り、
+     その外側にやわらかい影を置いて面から離す */
+  box-shadow:0 4px 0 rgba(17,17,17,.16),0 8px 16px rgba(0,0,0,.10);
   transition:background .2s ease,color .2s ease,
              transform .28s ease,box-shadow .28s ease;
 }
@@ -391,7 +394,16 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    タイルより小さい面なので、浮かせる量と影も控えめにする。
    指で触る画面では当たり判定が残り続けて見えるため、hover を持つ機器だけ */
 @media (hover:hover){
-  .sec-more a:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.14);}
+  .sec-more a:hover{
+    transform:translateY(-3px);
+    box-shadow:0 7px 0 rgba(17,17,17,.20),0 16px 26px rgba(0,0,0,.16);
+  }
+}
+/* 押している間は、厚みのぶんだけ沈める */
+.sec-more a:active{
+  transform:translateY(2px);
+  box-shadow:0 1px 0 rgba(17,17,17,.20),0 3px 8px rgba(0,0,0,.12);
+  transition-duration:.08s;
 }
 
 /* =========================================================================
@@ -1102,8 +1114,8 @@ body.has-sticky-cta .fab{bottom:96px;}
 .hp-dialog{
   position:fixed;inset:0;z-index:60;
   display:flex;align-items:center;justify-content:center;
-  padding:24px;background:rgba(17,17,17,.42);
-  opacity:0;transition:opacity .22s ease;
+  padding:24px;background:rgba(0,0,0,.7);
+  opacity:0;transition:opacity .5s;
 }
 /* 閉じているあいだは必ず消す。display を指定すると hidden 属性より
    こちらが勝ってしまい、透明な板が画面全体を覆って、どこも押せなく
@@ -1116,15 +1128,12 @@ body.has-sticky-cta .fab{bottom:96px;}
   border-radius:var(--r2,2px);
   padding:34px 34px 28px;
   box-shadow:0 24px 60px rgba(0,0,0,.18);
-  /* 出るときも消えるときも、少し下から浮かび上がるように動かす。
-     閉じるときは動きを短くして、待たされる感じを出さない */
-  opacity:0;transform:translateY(14px) scale(.985);
-  transition:opacity .16s ease,transform .18s ease;
+  /* 板は少し大きい状態から、地の暗転に合わせて元の大きさへ寄ってくる。
+     閉じるときは逆に、大きくなりながら暗転と一緒に消える */
+  transform:scale(1.2);
+  transition:transform .5s;
 }
-.hp-dialog.is-open .hp-panel{
-  opacity:1;transform:translateY(0) scale(1);
-  transition:opacity .24s ease,transform .34s var(--spring-bouncy);
-}
+.hp-dialog.is-open .hp-panel{transform:scale(1);}
 .hp-title{
   font-size:18px;font-weight:900;letter-spacing:.02em;line-height:1.5;
   padding-bottom:14px;border-bottom:2px solid var(--ink);margin-bottom:18px;

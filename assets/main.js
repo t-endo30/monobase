@@ -971,8 +971,8 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     dlg.classList.remove('is-open');
     document.body.style.overflow = '';
     /* 消える動きが終わってから隠す。すぐ hidden にすると、
-       ふっと消えるだけになってしまう */
-    window.setTimeout(function () { dlg.hidden = true; }, 240);
+       ふっと消えるだけになってしまう（CSS の .5s に合わせる） */
+    window.setTimeout(function () { dlg.hidden = true; }, 520);
     if (opener) { opener.focus(); opener = null; }
   }
 
