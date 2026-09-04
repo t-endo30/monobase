@@ -755,6 +755,39 @@ def header(current, p, crumbs=None, current_sub="", band=""):
 '''
 
 
+def footer_promo():
+    """フッターの上に置く、Amazonへの導線。
+       価格・在庫・割引率は書かない（PA-API 経由でないデータは表示できない）。
+       商品画像とAmazonのロゴも使わず、文字と自前のアイコンだけで作る。
+       リンク先を決めていなければAmazonのトップへ送る。トップ宛てでも
+       アソシエイトIDは付き、24時間以内の購入は成果として計上される。"""
+    if not FEAT.get("footer_promo"):
+        return ""
+    c = SITE.get("footer_promo") or {}
+    title = c.get("title") or "Amazonで気になるものを探す"
+    button = c.get("button") or "Amazon.co.jp を見る"
+    note = c.get("note") or ""
+    url = amazon_tagged((c.get("url") or "").strip()
+                        or "https://www.amazon.co.jp/")
+    if not url:
+        return ""
+    return f'''<section class="promo-band" aria-label="Amazonへの案内">
+  <div class="container">
+    <div class="promo-inner">
+      <div class="promo-text">
+        <span class="promo-label">PR</span>
+        <p class="promo-title">{e(title)}</p>
+        {f'<p class="promo-note">{e(note)}</p>' if note else ''}
+      </div>
+      <a class="btn-shop is-amazon" href="{e(url)}" target="_blank"
+         rel="nofollow sponsored noopener">{icon("cart", "btn-icon")}<span>{e(button)}</span></a>
+    </div>
+  </div>
+</section>
+
+'''
+
+
 def footer(p, sticky_url=None):
     if FEAT.get("contact_form"):
         contact_link = f'<a href="{p}contact.html">お問い合わせ</a>'
@@ -770,7 +803,7 @@ def footer(p, sticky_url=None):
 </div>
 
 '''
-    return f'''<footer class="v2-footer" id="contact">
+    return footer_promo() + f'''<footer class="v2-footer" id="contact">
   <div class="container">
     <div class="footer-top">
       <div>

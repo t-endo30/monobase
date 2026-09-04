@@ -3277,3 +3277,22 @@ h1,h2,h3,h4,
 /* 写真の左上。順位の札が乗るタイルには、そもそも札を出さない（main.js） */
 .card-thumb .card-flags,
 .row-item .thumb .card-flags{top:8px;left:8px;}
+
+/* ---- フッター上のAmazon導線 ----
+   価格も商品画像もAmazonのロゴも使わず、文字とボタンだけで作る。 */
+.promo-band{border-top:1px solid var(--line);background:var(--bg-2);
+  padding:clamp(22px,4vw,30px) 0;}
+.promo-inner{display:flex;align-items:center;justify-content:space-between;
+  gap:clamp(16px,3vw,32px);flex-wrap:wrap;}
+.promo-text{min-width:0;flex:1 1 320px;}
+.promo-label{display:inline-block;margin-bottom:8px;padding:3px 8px;
+  border:1px solid var(--line-2);border-radius:999px;
+  font-family:var(--font-en);font-size:10px;font-weight:800;letter-spacing:.1em;
+  color:var(--muted);}
+.promo-title{font-size:16px;font-weight:800;line-height:1.6;margin:0 0 6px;}
+.promo-note{font-size:11.5px;line-height:1.8;color:var(--muted);margin:0;}
+.promo-band .btn-shop{flex:0 0 auto;min-width:260px;}
+@media (max-width:599px){
+  .promo-inner{display:block;}
+  .promo-band .btn-shop{width:100%;min-width:0;margin-top:14px;}
+}

@@ -22,7 +22,9 @@
     "maintenance": false,
     "_maintenance_note": "true にすると全ページがメンテナンス画面（503）に切り替わる。管理画面と assets/content は通るので、管理画面から戻せる。",
     "deals_api": "",
-    "_deals_note": "注目のアイテム枠。Amazon Product Advertising API の審査が通ったら、価格を返す取得先URL（例 /api/deals）をここに入れる。すると価格と○%OFFが出るようになる。空のあいだは商品名と写真だけ。"
+    "_deals_note": "注目のアイテム枠。Amazon Product Advertising API の審査が通ったら、価格を返す取得先URL（例 /api/deals）をここに入れる。すると価格と○%OFFが出るようになる。空のあいだは商品名と写真だけ。",
+    "footer_promo": true,
+    "_footer_promo_note": "フッター上のAmazon導線。false で消える。文言とリンク先は footer_promo で決める。"
   },
   "categories": [
     {
@@ -529,5 +531,12 @@
     "key": "915c9ed24598bf24b17e077cd405a65d",
     "_note": "IndexNow の鍵。記事を更新したとき Bing・Yandex などへ通知する。build.py が <鍵>.txt をサイトの直下に置き、相手はそれを読んで「本当にこのサイトの持ち主か」を確かめる。公開される値なので秘密ではない。Google は IndexNow に対応していない（サイトマップとリンクで拾われる）。",
     "endpoint": "https://api.indexnow.org/indexnow"
+  },
+  "footer_promo": {
+    "_note": "フッター上に出すAmazonへの導線。価格・在庫・割引率は書かないこと（PA-API 経由のデータ以外は表示できない）。url は空ならAmazonのトップ。",
+    "title": "Amazonで気になるものを探す",
+    "button": "Amazon.co.jp を見る",
+    "note": "当サイトはAmazonアソシエイトとして、適格販売により収入を得ています。価格・在庫は必ず販売ページでご確認ください。",
+    "url": ""
   }
 }
