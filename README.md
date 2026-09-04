@@ -24,6 +24,7 @@ tools/fetch_reviews.py   口コミの件数・平均評価を販売APIから取�
 tools/check_layout.py    画面の崩れ検査（Chromeで実際に描画して確認）
 tools/maintain_articles.py 公開中の記事の見回り（リンク切れ・鮮度）
 tools/schedule_gate.py   自動作成の実行日と本数を決める
+tools/backfill_shop_urls.py 抜けている楽天・Yahoo!の商品URLを検索APIで埋める
 docs/review-rules.md     レビューの判定基準
 .github/workflows/       push すると自動でビルド＆デプロイ
 ```

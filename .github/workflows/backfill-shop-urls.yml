@@ -1,0 +1,75 @@
+name: Backfill shop URLs
+
+# 既存記事に抜けている楽天市場・Yahoo!ショッピングの商品URLを埋める。
+#
+# 記事を書いた経路によっては rakuten_url / yahoo_url が空のまま公開されており、
+# そのモールの販売ボタンが出ない＝収益経路が無い状態になっている。
+# tools/backfill_shop_urls.py が商品検索APIで同じ商品を探し、URLを書き戻す。
+#
+# APIの鍵は Secrets にしか無いため、手元ではなくここで実行する。
+# まず apply を外して（下見）実行し、ログに並んだ商品名を見てから
+# apply を付けて実行し直す。誤った商品を掴んでいないかの確認は人がやる。
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: '記事に書き戻す（外すと下見だけ）'
+        type: boolean
+        required: false
+        default: false
+      shops:
+        description: '対象のモール（rakuten,yahoo ／ rakuten ／ yahoo）'
+        required: false
+        default: 'rakuten,yahoo'
+      min_score:
+        description: '商品名の一致度の下限（0〜1）'
+        required: false
+        default: '0.62'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backfill-shop-urls
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 抜けている商品URLを探す
+        env:
+          RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
+          RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
+          YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
+        run: |
+          python3 tools/backfill_shop_urls.py \
+            --shops "${{ inputs.shops }}" \
+            --min-score "${{ inputs.min_score }}" \
+            ${{ inputs.apply && '--apply' || '' }}
+
+      - name: サイトを生成して検査する
+        if: inputs.apply
+        run: |
+          python3 build.py
+          python3 tools/check_articles.py
+
+      - name: 変更をコミットする
+        if: inputs.apply
+        run: |
+          git config user.name  "monobase-bot"
+          git config user.email "monobase.site@gmail.com"
+          if git diff --quiet; then
+            echo "変わったところはありません。"
+            exit 0
+          fi
+          git add -A
+          git commit -m "楽天・Yahoo!の商品URLを既存記事に補う（自動）"
+          git push
