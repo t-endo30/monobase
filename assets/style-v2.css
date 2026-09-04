@@ -68,9 +68,8 @@ body{
 .card-thumb,.cat-cell,.article-page .card-surface{
   background-color:var(--bg-2);
 }
-/* 見出しの帯と、地を沈める区画は不透明にして、写真が透けないようにする */
+/* パンくずの帯は不透明にする（文字が小さく、写真が透けると読みにくい） */
 .crumb-bar{background-color:var(--bg);}
-.v2-section.is-tinted{background-color:var(--bg-2);}
 .v2-footer{background-color:var(--ink);}
 img{max-width:100%;height:auto;display:block;}
 a{color:inherit;text-decoration:none;}
