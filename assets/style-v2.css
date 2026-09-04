@@ -952,6 +952,10 @@ body.has-sticky-cta .fab{bottom:96px;}
   padding:24px;background:rgba(17,17,17,.42);
   opacity:0;transition:opacity .2s ease;
 }
+/* 閉じているあいだは必ず消す。display を指定すると hidden 属性より
+   こちらが勝ってしまい、透明な板が画面全体を覆って、どこも押せなく
+   なる（実際にそうなった） */
+.hp-dialog[hidden]{display:none;}
 .hp-dialog.is-open{opacity:1;}
 .hp-panel{
   position:relative;width:100%;max-width:560px;max-height:82vh;overflow-y:auto;
