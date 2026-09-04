@@ -377,7 +377,8 @@ document.addEventListener('touchstart', function () {}, { passive: true });
      出すのは content/ranking.json（GA4 の実数）があるときだけ。
      端末ごとの記録は、その人だけの回数なので出さない。 */
   function views(root) {
-    if (!hasSiteViews) return;
+    /* content/ranking.json がまだ空でも、枠だけ消えると欠けて見えるので
+       0 として出す。端末ごとの記録は「その人だけの回数」なので使わない。 */
     var t = (root || document).querySelectorAll('.card-views');
     Array.prototype.forEach.call(t, function (el) {
       var card = el.closest('[data-slug]');
