@@ -382,8 +382,8 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     Array.prototype.forEach.call(t, function (el) {
       var card = el.closest('[data-slug]');
       if (!card) return;
-      var n = siteViews[card.getAttribute('data-slug')];
-      if (!n) return;                      /* 0 や未計測は出さない */
+      /* GA4 は閲覧のあった記事しか返さないので、無い記事は 0 として出す */
+      var n = siteViews[card.getAttribute('data-slug')] || 0;
       el.textContent = 'VIEW : ' + n.toLocaleString('en-US');
       el.hidden = false;
     });
