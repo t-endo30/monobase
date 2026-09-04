@@ -534,6 +534,15 @@ def tab_bar(p, current="", current_sub=""):
         '</div>\n')
 
 
+# 検索結果に出す発行元のロゴ。Googleは Article の publisher に
+# ImageObject のロゴを求める。無いと構造化データの警告が出る。
+def publisher_ld():
+    return {"@type": "Organization", "name": NAME, "url": BASE_URL,
+            "logo": {"@type": "ImageObject",
+                     "url": f"{BASE_URL}/assets/img/apple-touch-icon.png",
+                     "width": 180, "height": 180}}
+
+
 def breadcrumb_ld(items):
     """パンくずの構造化データ。items = [(ラベル, 絶対URL), ...]
        画面のパンくずと同じ並びを、検索エンジンにも読める形で渡す。"""
@@ -2166,8 +2175,7 @@ def render_article(a):
       "datePublished": a["date"], "dateModified": a.get("updated") or a["date"],
       "author": {"@type": "Person", "name": SITE["author"],
                  "url": f"{BASE_URL}/about"},
-      "publisher": {"@type": "Organization", "name": NAME,
-                    "url": BASE_URL},
+      "publisher": publisher_ld(),
       "mainEntityOfPage": {"@type": "WebPage", "@id": public_url(url)},
       "inLanguage": "ja",
     }
@@ -2198,7 +2206,7 @@ def render_article(a):
             "reviewRating": {"@type": "Rating", "ratingValue": score,
                              "bestRating": "5", "worstRating": "1"},
             "author": {"@type": "Person", "name": SITE["author"]},
-            "publisher": {"@type": "Organization", "name": NAME},
+            "publisher": publisher_ld(),
             "datePublished": a["date"],
         }
         if oi:
@@ -2584,6 +2592,9 @@ def build_index():
         {"@context": "https://schema.org", "@type": "Organization",
          "name": NAME, "slogan": SUBTITLE, "url": BASE_URL + "/",
          "description": f"{SUBTITLE}。{SITE['description']}",
+         "logo": {"@type": "ImageObject",
+                  "url": f"{BASE_URL}/assets/img/apple-touch-icon.png",
+                  "width": 180, "height": 180},
          "email": SITE.get("email", "")},
     ]
     ld_js = "".join('<script type="application/ld+json">'
@@ -2676,7 +2687,9 @@ def build_categories():
     return page(f"カテゴリー一覧 - {NAME}",
                 f"{NAME}のカテゴリー一覧です。家電・パソコン・美容・キッチンなど{len(CATS)}分野に分けて、利用者の声と公式仕様をもとにした記事をまとめています。",
                 "", p, f"{BASE_URL}/categories.html", body, body_class="is-listing",
-                crumbs=[("ホーム", f"{p}index.html"), ("カテゴリー", None)])
+                crumbs=[("ホーム", f"{p}index.html"), ("カテゴリー", None)],
+                extra_js=breadcrumb_ld([("ホーム", f"{BASE_URL}/"),
+                                        ("カテゴリー", f"{BASE_URL}/categories.html")]))
 
 
 def build_new():
@@ -2688,7 +2701,9 @@ def build_new():
     body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
     return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。利用者の声と公式仕様を突き合わせた商品レビュー・選び方ガイドを、公開の新しい順に並べています。", "new", p,
                 f"{BASE_URL}/new.html", body, body_class="is-listing",
-                crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)])
+                crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)],
+                extra_js=breadcrumb_ld([("ホーム", f"{BASE_URL}/"),
+                                        ("新着記事", f"{BASE_URL}/new.html")]))
 
 
 def build_ranking():
@@ -2702,7 +2717,10 @@ def build_ranking():
     return page(f"よく読まれている記事 - {NAME}",
                 f"{NAME}でよく読まれている記事のランキングです。実際に読まれている順に並べているので、いま関心の集まっている商品から探せます。", "ranking", p,
                 f"{BASE_URL}/ranking.html", body, body_class="is-listing",
-                crumbs=[("ホーム", f"{p}index.html"), ("よく読まれている記事", None)])
+                crumbs=[("ホーム", f"{p}index.html"), ("よく読まれている記事", None)],
+                extra_js=breadcrumb_ld([
+                    ("ホーム", f"{BASE_URL}/"),
+                    ("よく読まれている記事", f"{BASE_URL}/ranking.html")]))
 
 
 def build_sitemap():
@@ -2768,7 +2786,9 @@ def build_sitemap():
     return page(f"サイトマップ - {NAME}",
                 f"{NAME}のサイトマップです。{len(CATS)}分野のカテゴリーと、公開中の全記事、運営者情報などの固定ページを一覧にまとめています。", "", p,
                 f"{BASE_URL}/sitemap.html", body, body_class="is-listing",
-                crumbs=[("ホーム", f"{p}index.html"), ("サイトマップ", None)])
+                crumbs=[("ホーム", f"{p}index.html"), ("サイトマップ", None)],
+                extra_js=breadcrumb_ld([("ホーム", f"{BASE_URL}/"),
+                                        ("サイトマップ", f"{BASE_URL}/sitemap.html")]))
 
 
 def build_search():
