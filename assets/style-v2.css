@@ -3274,8 +3274,6 @@ h1,h2,h3,h4,
     position:static;display:inline;margin-right:7px;top:auto;
   }
 }
-/* 順位の札と同じ左上に出るので、順位があるタイルでは下にずらす */
+/* 写真の左上。順位の札が乗るタイルには、そもそも札を出さない（main.js） */
 .card-thumb .card-flags,
 .row-item .thumb .card-flags{top:8px;left:8px;}
-.card-thumb:has(.row-no) .card-flags,
-.row-item .thumb:has(.row-no) .card-flags{top:34px;}

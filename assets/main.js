@@ -351,11 +351,16 @@ document.addEventListener('touchstart', function () {}, { passive: true });
      もう札が消えてしまい、新着記事の枠に1つも札が出ない日が続く。 */
   var NEW_SPAN = 3 * 24 * 60 * 60 * 1000;
   function flags(root) {
-    var cards = (root || document).querySelectorAll('.card[data-slug],.arow[data-slug]');
+    var cards = (root || document).querySelectorAll(
+      '.card[data-slug],.arow[data-slug],.row-item[data-slug]');
     Array.prototype.forEach.call(cards, function (card) {
       var box = card.querySelector('.card-flags');
       if (!box || box.dataset.done) return;
       box.dataset.done = '1';
+      /* 順位の札が乗るタイル（ランキングの欄）は、その札だけを見せる。
+         新着の欄（data-flags="new"）は New だけに絞る。 */
+      if (card.querySelector('.row-no,.arow-no')) return;
+      var only = card.getAttribute('data-flags') || '';
       var d = card.getAttribute('data-date');
       if (d) {
         var t = new Date(d + 'T00:00:00').getTime();
@@ -363,7 +368,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
           box.insertAdjacentHTML('beforeend', '<span class="flag flag-new">New</span>');
         }
       }
-      if (hot[card.getAttribute('data-slug')]) {
+      if (only !== 'new' && hot[card.getAttribute('data-slug')]) {
         box.insertAdjacentHTML('beforeend', '<span class="flag flag-hot">Hot</span>');
       }
     });

@@ -994,16 +994,18 @@ def v2_cat_text(a, detail=False):
     return CAT_LABEL.get(a.get("category", ""), "")
 
 
-def v2_card(a, p, no=None):
+def v2_card(a, p, no=None, flags=""):
     """一覧の記事タイル。日付とカテゴリーを1行目に並べ、見出し、一言と続く。
-       no を渡すと、順位の札を写真の左上に重ねる（ランキング用）。"""
+       no を渡すと、順位の札を写真の左上に重ねる（ランキング用）。
+       flags="new" なら、写真に出す札を New だけに絞る（新着の区画用）。"""
     src, _ = visual_path(a, p)
     rank = (f'<span class="row-no is-n{no}">{no:02d}</span>' if no else "")
     title = a.get("list_title") or a["title"]
     cat = CAT_LABEL.get(a.get("category", ""), "")
+    fl = f' data-flags="{flags}"' if flags else ""
     return (f'<a class="card" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
-            f'data-date="{e(a.get("date",""))}">'
+            f'data-date="{e(a.get("date",""))}"{fl}>'
             f'<span class="card-thumb"><img src="{e(src)}" alt="" loading="lazy">'
             f'<span class="card-flags" aria-hidden="true"></span>{rank}</span>'
             f'<span class="card-meta">'
@@ -1013,16 +1015,17 @@ def v2_card(a, p, no=None):
             f'<span class="card-note">{e(v2_appeal(a))}</span></a>')
 
 
-def v2_row(a, p, numbered=None, detail=False):
+def v2_row(a, p, numbered=None, detail=False, flags=""):
     """横長の記事タイル。日付とカテゴリーを1行目に並べ、見出し、一言と続く。
        detail=True で、分野の名前をサブ区分まで細かく出す。"""
     src, _ = visual_path(a, p)
     no = (f'<span class="row-no is-n{numbered}">{numbered:02d}</span>'
           if numbered else "")
     cat = v2_cat_text(a, detail)
+    fl = f' data-flags="{flags}"' if flags else ""
     return (f'<a class="row-item" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
-            f'data-date="{e(a.get("date",""))}">'
+            f'data-date="{e(a.get("date",""))}"{fl}>'
             f'<span class="thumb"><img src="{e(src)}" alt="" loading="lazy">'
             f'<span class="card-flags" aria-hidden="true"></span>{no}</span>'
             f'<span class="row-body">'
@@ -1033,11 +1036,11 @@ def v2_row(a, p, numbered=None, detail=False):
             f'<p>{e(v2_appeal(a))}</p></span></a>')
 
 
-def v2_rows(items, p, numbered=False, narrow=False, detail=False):
+def v2_rows(items, p, numbered=False, narrow=False, detail=False, flags=""):
     # is-narrow はトップの区画。新着と同じく6件目をわざと切って、
     # 続きが下の VIEW ALL にあることを見た目で伝える
     cls = "row-list is-narrow" if narrow else "row-list"
-    inner = "".join(v2_row(a, p, (i + 1) if numbered else None, detail)
+    inner = "".join(v2_row(a, p, (i + 1) if numbered else None, detail, flags)
                     for i, a in enumerate(items))
     return f'      <div class="{cls}">{inner}</div>\n'
 
@@ -2602,7 +2605,8 @@ def build_index():
 
     body = v2_section(
         v2_sec_head("NEW", "新着記事")
-        + '      <div class="card-grid">' + "".join(v2_card(a, p) for a in latest) + "</div>\n"
+        + '      <div class="card-grid">'
+        + "".join(v2_card(a, p, flags="new") for a in latest) + "</div>\n"
         + v2_sec_more(f"{p}new.html"), tinted=True)
 
     body += v2_section(
@@ -2748,7 +2752,7 @@ def build_new():
     items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)
     body = v2_page_head("新着記事",
                         lead="公開の新しい順に並べています。", count=len(items))
-    body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
+    body += v2_section(v2_rows(items, p, flags="new"), style="padding:40px 0 80px")
     return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。利用者の声と公式仕様を突き合わせた商品レビュー・選び方ガイドを、公開の新しい順に並べています。", "new", p,
                 f"{BASE_URL}/new.html", body, body_class="is-listing",
                 crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)],
