@@ -2743,6 +2743,10 @@ p,li,.card-desc{text-wrap:pretty;}
    ========================================================================= */
 .article-body p,
 .article-body li,
+.summary-list li,
+.li-b,
+.summary-head,
+.rating-label,
 .static-wrap p,
 .static-wrap li,
 .scene-body p,
@@ -2769,7 +2773,7 @@ p,li{text-wrap:pretty;}
 h1,h2,h3,h4,
 .article-title,.card-title,.row-item h3,.sec-head .titles,
 .scene-title,.hl-title,.fix-title,.goodfor-t,.notfor-t,
-.summary-head,.side-heading,.page-head h1,.hp-title,
+.side-heading,.page-head h1,.hp-title,
 .li-t,.next-title,.callout-label,.pn-label,.voice-title,.prod-title,
 .faq-item .q,.toc a,.hero-point .h3{
   word-break:auto-phrase;
@@ -2844,5 +2848,16 @@ h1,h2,h3,h4,
 /* 枠の中の写真は、枠自身の角より内側に来るので少しだけ小さく丸める */
 .cat-cell .cat-thumb{border-radius:0 0 var(--r2) var(--r2);}
 
-/* タイルの見出しは「主題／補足」の2段。行数の上限（2行）にちょうど収まる */
-.tt-main,.tt-sub{display:block;}
+/* タイルの見出しは「主題／補足」の2段。それぞれ1行に収め、
+   入りきらないぶんは「…」で切る。折り返しに任せると、補足が2行に
+   なったときに上限（2行）で途中から消え、切れ方がタイルごとに
+   変わって見える。 */
+.tt-main,.tt-sub{
+  display:block;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+/* 結論の帯は両端揃えにするので、文節での折り返しは掛けない。
+   両方を効かせると、行が早めに折れたうえで字間を伸ばすことになり、
+   「結 論 ： 静 か な 部 屋 で」のように間延びする */
+.summary-head{word-break:normal;overflow-wrap:anywhere;}
