@@ -390,8 +390,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg-3);
   border:1px solid var(--line-2);
 }
-.card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
-.card:hover .card-thumb img{transform:scale(1.04);}
+.card-thumb img{width:100%;height:100%;object-fit:cover;}
+/* カーソルを当てたときは、写真だけを動かすのではなくタイルごと持ち上げる。
+   タイル全体がリンクなので、動く範囲と押せる範囲を一致させる。
+   指で触る画面では当たり判定が残り続けて見えるため、hover を持つ機器だけ。
+   860px以下はタイルが横長のリストに変わるので、そこでは持ち上げない */
+@media (hover:hover) and (min-width:861px){
+  .card{transition:transform .28s ease,box-shadow .28s ease;}
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.10);}
+}
 /* 写真の下は「日付＋カテゴリー」で1行、次に見出し、その次に一言。
    すべての記事タイルでこの並びにそろえる */
 .card-meta{
