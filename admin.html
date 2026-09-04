@@ -280,7 +280,8 @@
       <div class="note">
         入力したショップのボタンだけが記事に並びます。<b>その商品が売っていないショップは空欄のままにしてください。</b><br>
         検索結果ページのURLは入れないでください（購入率が大きく下がります）。商品ページのURLだけを貼ります。<br>
-        リンクは <b>もしもアフィリエイト</b> 経由に自動で変換されます（IDは「サイト設定」で管理）。
+        リンクは自動でアフィリエイト経由に変換されます（楽天は<b>楽天アフィリエイト</b>の直参加、
+        Yahoo!は<b>バリューコマース</b>、Amazonは<b>アソシエイト</b>。IDは「サイト設定」で管理）。
       </div>
     </div>
 
@@ -968,7 +969,11 @@
         楽天 → <b>楽天ウェブサービス</b> <code>webservice.rakuten.co.jp</code> でアプリを登録すると、
         <b>アプリケーションID</b>（ハイフン区切りのUUID）と<b>アクセスキー</b>（<code>pk_</code> で始まる）が出ます。
         <b>2026年2月のAPI刷新で、この2つが揃わないと認証を通りません。</b>
-        アフィリエイトIDは楽天直アフィリエイト用で、当サイトはもしも経由のため使いません。<br>
+        <b>ここのIDは商品を検索するためのもので、報酬のリンクに入るアフィリエイトIDとは別物です。</b>
+        アフィリエイトIDは <code>content/site.json</code> の <code>affiliate</code> で管理しています。<br>
+        <b>ここに入れた鍵は、このブラウザの中だけに残ります。</b>記事を自動で作る仕組み（GitHub Actions）は
+        別に <code>RAKUTEN_APP_ID</code> / <code>RAKUTEN_ACCESS_KEY</code> / <code>YAHOO_CLIENT_ID</code> を
+        GitHub の Settings → Secrets and variables → Actions で必要とします。両方に入れてください。<br>
         Yahoo! → <b>Yahoo!デベロッパーネットワーク</b> <code>e.developer.yahoo.co.jp/register</code> でアプリケーションIDを発行します。<br>
         Amazon → <b>Amazonアソシエイト</b> の管理画面 → <b>ツール → Product Advertising API</b> から
         認証キー（アクセスキーとシークレットキー）を発行します。シークレットキーは発行時にしか表示されません。
