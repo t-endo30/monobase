@@ -3238,7 +3238,10 @@ h1,h2,h3,h4,
    左端に貼り付いていると、中央の見出しと合わずに寄って見えた。 */
 .static-wrap.is-list-center ul,
 .static-wrap.is-list-center ol{
-  width:fit-content;max-width:100%;
+  width:fit-content;
+  /* 長い項目が1行で枠いっぱいに伸びると、まとまりの幅が本文と同じに
+     なり中央に置いても左寄りに見える。折り返す幅で頭打ちにする。 */
+  max-width:min(100%,36em);
   margin-inline:auto;
   text-align:left;
 }
