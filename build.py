@@ -2323,17 +2323,25 @@ def render_article(a):
         product_name = re.sub(
             r"[\s　]*(徹底|正直)?(レビュー|口コミ(分析)?|評価|選び方|比較)$",
             "", product_name).strip()
+        # Google は itemReviewed の Product 単体を「offers / review /
+        # aggregateRating のどれも無い Product」として弾く。そこで入れ子を
+        # 逆にして、Product の中に review を持たせる形で出す。中身（自分たちで
+        # 採点した1件ぶんの評価）は変わらない。
         review_ld = {
-            "@context": "https://schema.org", "@type": "Review",
-            "itemReviewed": {"@type": "Product", "name": product_name},
-            "reviewRating": {"@type": "Rating", "ratingValue": score,
-                             "bestRating": "5", "worstRating": "1"},
-            "author": {"@type": "Person", "name": SITE["author"]},
-            "publisher": publisher_ld(),
-            "datePublished": a["date"],
+            "@context": "https://schema.org", "@type": "Product",
+            "name": product_name,
+            "review": {
+                "@type": "Review",
+                "reviewRating": {"@type": "Rating", "ratingValue": score,
+                                 "bestRating": "5", "worstRating": "1"},
+                "author": {"@type": "Person", "name": SITE["author"]},
+                "publisher": publisher_ld(),
+                "datePublished": a["date"],
+                "url": public_url(url),
+            },
         }
         if oi:
-            review_ld["itemReviewed"]["image"] = oi
+            review_ld["image"] = oi
 
     # パンくずの構造化データ。検索結果に「ホーム › 家電 › 記事名」と出る。
     crumb_ld = breadcrumb_ld([
