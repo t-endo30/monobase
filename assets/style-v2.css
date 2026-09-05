@@ -630,6 +630,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   background-size:9px 9px;
 }
 .cat-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+/* 写真がまだ無いカテゴリー。ドット絵のアイコンを中央に置いて、
+   写真の並びに穴が開いて見えないようにする */
+.cat-thumb-mark{display:flex;align-items:center;justify-content:center;
+  width:100%;height:100%;}
+.cat-mark{width:38%;max-width:96px;aspect-ratio:1;color:var(--muted);
+  opacity:.5;transition:transform .5s ease;}
+.cat-cell:hover .cat-mark{transform:scale(1.04);}
 .cat-cell:hover .cat-thumb img{transform:scale(1.04);}
 /* 見出しを先に読ませ、写真はその下に添える */
 .cat-cell{position:relative;}

@@ -1221,7 +1221,11 @@ def v2_cat_image(c, p):
     for a in PUBLISHED:
         if a.get("category") == c["key"] and a.get("thumb"):
             return f'<img src="{p}{e(a["thumb"])}" alt="" loading="lazy">'
-    return ""
+    # 写真も記事もまだ無いカテゴリー。空のままだと、写真の並びの中で
+    # そこだけ穴が開いて見えるので、ドット絵のアイコンを大きく出しておく。
+    # 記事が1本できれば、その写真に自動で入れ替わる。
+    return ('<span class="cat-thumb-mark">'
+            + icon(c["key"], "cat-mark") + '</span>')
 
 
 def v2_cat_grid(p, cls=""):

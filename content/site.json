@@ -337,6 +337,34 @@
    "image": "assets/img/cat-daily-mtlqv3bc.webp"
   },
   {
+   "key": "fashion",
+   "icon": "👕",
+   "label": "ファッション",
+   "lead": "衣類・靴・バッグ・時計などの身につけるものです。サイズや素材で評価が分かれやすいため、利用者の声から「誰の体型・使い方に合うか」を整理して紹介します。",
+   "sub": [
+    {
+     "key": "wear",
+     "label": "衣類"
+    },
+    {
+     "key": "shoes",
+     "label": "靴"
+    },
+    {
+     "key": "bag",
+     "label": "バッグ・財布"
+    },
+    {
+     "key": "watch",
+     "label": "時計"
+    },
+    {
+     "key": "acc",
+     "label": "小物・アクセサリー"
+    }
+   ]
+  },
+  {
    "key": "furniture",
    "label": "家具・インテリア",
    "icon": "🪑",

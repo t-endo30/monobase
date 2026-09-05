@@ -73,6 +73,7 @@ CATEGORY_MAP = {
     "health":     {"rakuten_genre": 100938, "words": ["健康計測"]},
     "beauty":     {"rakuten_genre": 100939, "words": ["美容家電"]},
     "pet":        {"rakuten_genre": 101213, "words": ["ペット用品"]},
+    "fashion":    {"rakuten_genre": 100371, "words": ["メンズファッション"]},
 }
 
 
