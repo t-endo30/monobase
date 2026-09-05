@@ -169,8 +169,8 @@ def main():
     ap.add_argument("--where", default="article_end",
                     choices=["article_end", "side", "none"],
                     help="出す場所（既定は記事の下）")
-    ap.add_argument("--drop-unknown", action="store_true",
-                    help="CSVに無い広告も外す（提携解除ぶんを消すとき）")
+    ap.add_argument("--keep-unknown", action="store_true",
+                    help="CSVに無い広告も残す（既定は外す）")
     ap.add_argument("--size", default="",
                     help="使うバナーの大きさを絞る（例 300x250,336x280）。"
                          "テキストリンクは常に残す。空なら絞らない")
@@ -210,10 +210,11 @@ def main():
         for c in codes:
             pid = program_id(c) or pid_by_mat.get(mat_key(c), "")
             if pid not in programs:
+                # CSVに載っていない＝提携が切れているか、身元が分からない。
+                # どちらにせよ案件名も終了日も引けないので、既定では外す。
                 unknown_pid.append(c)
-                if args.drop_unknown:
-                    continue
-                keep.append(c)
+                if args.keep_unknown:
+                    keep.append(c)
                 continue
             stop = programs[pid][3]
             if stop and stop < today:
@@ -225,7 +226,7 @@ def main():
             for nm, d in ended[:6]:
                 print(f"    ・{d} 終了：{nm[:44]}")
         if unknown_pid:
-            state = "外しました" if args.drop_unknown else "残しています"
+            state = "残しています" if args.keep_unknown else "外しました"
             print(f"CSVに見つからない広告が {len(unknown_pid)} 件（{state}）。"
                   "提携が解除されたか、CSVより新しい提携です")
         codes = keep
