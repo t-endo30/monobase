@@ -159,6 +159,32 @@ def e(s):
     return html.escape(str(s), quote=True)
 
 
+# 目次だけは、折り返す位置をこちらで決める。iOSのSafariは
+# word-break:auto-phrase を解さず、語の途中で改行してしまうため。
+# 文節の切れ目に <wbr>（折り返してよい場所）を入れ、CSSの
+# word-break:keep-all と組で「ここでしか折らない」形にする。
+TOC_PARTICLE = r"(?:から|まで|より|は|が|を|に|へ|と|で|も|や|の)"
+TOC_NEXT = r"[一-龥ァ-ヴA-Za-z0-9「（【]"
+
+
+def e_wbr(text):
+    """文節の切れ目に <wbr> を挟んでからエスケープする。"""
+    t = str(text)
+    marks = set()
+    for m in re.finditer(r"[、。・）」]", t):
+        marks.add(m.end())
+    for m in re.finditer(TOC_PARTICLE + "(?=" + TOC_NEXT + ")", t):
+        marks.add(m.end())
+    # 1文字だけの断片を作らない。行頭・行末に1字が残ると、かえって読みにくい。
+    points = [i for i in sorted(marks) if 2 <= i <= len(t) - 2]
+    parts, prev = [], 0
+    for i in points:
+        parts.append(t[prev:i])
+        prev = i
+    parts.append(t[prev:])
+    return "<wbr>".join(e(s) for s in parts if s)
+
+
 def amazon_tagged(url):
     """AmazonのURLにアソシエイトIDを付ける。
        商品ページだけでなく、トップやセール会場のURLでも成果は計上されるので、
@@ -1982,7 +2008,7 @@ def render_article(a):
     if featured_in(a, p):                 toc.append(("sec-featured-in", "この商品を比較した特集"))
     if a.get("conclusion"):               toc.append(("sec-conclusion", "まとめ"))
     if toc:
-        li = "".join(f'            <li><a href="#{i}">{e(t)}</a></li>\n' for i, t in toc)
+        li = "".join(f'            <li><a href="#{i}">{e_wbr(t)}</a></li>\n' for i, t in toc)
         add(f'''        <nav class="toc" aria-label="目次">
           <div class="toc-title">目次</div>
           <ol>

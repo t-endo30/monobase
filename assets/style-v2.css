@@ -3275,9 +3275,10 @@ h1,h2,h3,h4,
   .article-page .toc ol{width:fit-content;max-width:92%;margin-inline:auto;text-align:left;
     position:relative;left:-15px;}
   .article-page .toc li{padding-left:30px;padding-right:0;text-align:left;
-    /* 「…であることの／ほうが効く」のように、語の途中で折り返していた。
-       文節の切れ目で折り、2行の長さも均すようブラウザに任せる。 */
-    word-break:auto-phrase;text-wrap:balance;}
+    /* 語の途中で折り返さない。折ってよい場所は build.py が <wbr> で
+       入れてある（iOSのSafariは word-break:auto-phrase を解さないため、
+       ブラウザ任せにはしない）。長すぎる語だけは、はみ出す前に折る。 */
+    word-break:keep-all;overflow-wrap:anywhere;text-wrap:balance;}
   .article-page .toc li::before{position:absolute;left:0;top:7px;display:block;margin-right:0;}
 }
 /* 写真の左上。順位の札が乗るタイルには、そもそも札を出さない（main.js） */
