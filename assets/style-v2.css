@@ -436,10 +436,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    指で触る画面では当たり判定が残り続けて見えるため、hover を持つ機器だけ。
    860px以下はタイルが横長のリストに変わるので、そこでは持ち上げない */
 @media (hover:hover) and (min-width:861px){
-  .card,.row-item,.cat-grid.is-rail > .cat-cell{
+  /* 分野のタイルは、ホームの横スクロール（is-rail）だけに掛けていた。
+     カテゴリーページの一覧では持ち上がらず、記事タイルと動きが揃って
+     いなかったので、置き場所によらず同じ動きにする */
+  .card,.row-item,.cat-cell{
     transition:transform .28s ease,box-shadow .28s ease;
   }
-  .card:hover,.row-item:hover,.cat-grid.is-rail > .cat-cell:hover{
+  .card:hover,.row-item:hover,.cat-cell:hover{
     transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.10);
   }
 }
