@@ -3273,7 +3273,7 @@ h1,h2,h3,h4,
   /* 番号は行の外に張り出す飾りなので、中央の基準は文字のほうに置く。
      番号ぶんの半分だけ左へずらし、文字の左右の余白をそろえる。 */
   .article-page .toc ol{width:fit-content;max-width:92%;margin-inline:auto;text-align:left;
-    position:relative;left:-15px;}
+    position:relative;left:-6px;}
   .article-page .toc li{padding-left:30px;padding-right:0;text-align:left;
     /* 語の途中で折り返さない。折ってよい場所は build.py が <wbr> で
        入れてある（iOSのSafariは word-break:auto-phrase を解さないため、
