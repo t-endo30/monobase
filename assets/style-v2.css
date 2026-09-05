@@ -1952,12 +1952,6 @@ body.has-sticky-cta .fab{bottom:96px;}
   border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   font-size:13px;font-weight:700;line-height:1;}
-.notfor-foot{font-size:13.5px;
-  color:#9C3B29;
-  background:rgba(255,255,255,.7);
-  border-radius:var(--radius-sm);
-  padding:10px 12px;
-  margin:0;}
 /* ============================================================
    2. 実際の生活シーン
    ============================================================ */
@@ -2634,7 +2628,6 @@ p,li,.card-desc{text-wrap:pretty;}
 .cta-note,
 .shop-cta + .cta-note,
 .prod-note,
-.notfor-foot,
 .eyecatch-note{line-height:1.95;
   letter-spacing:.02em;}
 .cta-note,

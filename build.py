@@ -2059,7 +2059,6 @@ def render_article(a):
               <p>{nf.get("intro","")}</p>
               <ul class="notfor-list">
 {items}              </ul>
-              <p class="notfor-foot">上のどれかに当てはまる場合、この商品は期待に応えられない可能性が高いです。別の選択肢を検討したほうが満足度は高くなります。</p>
             </div>
           </div>
 ''')
