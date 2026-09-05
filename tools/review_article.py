@@ -301,6 +301,12 @@ def apply_fixed(a, fixed, keep_updated=False, removed=None):
     return changed
 
 
+# レビューの呼び出しは、記事を書いた直後だと立て続けに空振りすることがある。
+# 1回きりのやり直しでは足りないので、間隔を広げながら数回試す。
+RETRIES = 4
+BACKOFF = (20, 60, 150)
+
+
 # ---------------------------------------------------------------- 仕上げ
 def run(cmd):
     p = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
@@ -396,29 +402,29 @@ def main():
             continue
 
         for r in range(1, args.rounds + 1):
-            try:
-                out, c = run_claude(build_prompt(a, rules, hits),
-                                    args.model, args.timeout)
-                cost += c
-                res = parse_json(out)
-            except RuntimeError as ex:
-                # 中身のない失敗（出力0トークン）は通信やレートの問題。
-                # ここで諦めると、その記事はレビューを受けないまま
-                # 要確認として残るので、間を置いて1度だけやり直す。
-                if TRANSIENT.search(str(ex)):
-                    print("    … 一時的な失敗。20秒おいてやり直します")
-                    time.sleep(20)
-                    try:
-                        out, c = run_claude(build_prompt(a, rules, hits),
-                                            args.model, args.timeout)
-                        cost += c
-                        res = parse_json(out)
-                    except RuntimeError as ex2:
-                        print(f"    ✗ レビューできませんでした：{ex2}")
-                        break
-                else:
+            # 中身のない失敗（出力0トークン）は通信やレートの問題。
+            # ここで諦めると、その記事はレビューを受けないまま要確認として
+            # 残るので、間を空けて数回やり直す。記事を書いた直後に続けて
+            # 呼ぶと、この失敗がまとまって出ることがあった。
+            res = None
+            for attempt in range(1, RETRIES + 1):
+                try:
+                    out, c = run_claude(build_prompt(a, rules, hits),
+                                        args.model, args.timeout)
+                    cost += c
+                    res = parse_json(out)
+                    break
+                except RuntimeError as ex:
+                    if attempt < RETRIES and TRANSIENT.search(str(ex)):
+                        wait = BACKOFF[attempt - 1]
+                        print(f"    … 一時的な失敗（{attempt}回目）。"
+                              f"{wait}秒おいてやり直します")
+                        time.sleep(wait)
+                        continue
                     print(f"    ✗ レビューできませんでした：{ex}")
                     break
+            if res is None:
+                break
 
             # ここまで来た回だけ「レビューが走った」と数える。
             # 機械検査に引っかからない問題（架空の星評価、比較表の未確認値、
