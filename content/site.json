@@ -1,1242 +1,1243 @@
 {
- "site_name": "モノベース",
- "subtitle": "あらゆるモノのデータベース",
- "tagline": "暮らしと作業を快適にするおすすめアイテム紹介",
- "description": "暮らしと作業を快適にするアイテムを、利用者の声と公式仕様を突き合わせて検証。良い点だけでなく「向かない人」まで整理して紹介します。",
- "domain": "monobase.site",
- "base_url": "https://monobase.site",
- "author": "モノベース運営事務局",
- "email": "monobase.site@gmail.com",
- "founded": "2026",
- "analytics": {
-  "ga_measurement_id": "G-YJ85V2J7EK",
-  "gsc_verification": "XzDLJp48lBwivyxHNORLURzTwXu_-apgDXr5Z-POer8"
- },
- "features": {
-  "contact_form": true,
-  "contact_form_endpoint": "https://formspree.io/f/xbgjgnyp",
-  "sticky_cta": true,
-  "search": true,
-  "feature_threshold": 5,
-  "_contact_note": "contact_form_endpoint が空のあいだは、送信ボタンでメールソフトが開く。Formspree などの窓口URLを入れるとその場で送信できるようになる。",
-  "maintenance": false,
-  "_maintenance_note": "true にすると全ページがメンテナンス画面（503）に切り替わる。管理画面と assets/content は通るので、管理画面から戻せる。",
-  "deals_api": "",
-  "_deals_note": "注目のアイテム枠。Amazon Product Advertising API の審査が通ったら、価格を返す取得先URL（例 /api/deals）をここに入れる。すると価格と○%OFFが出るようになる。空のあいだは商品名と写真だけ。",
-  "footer_promo": true,
-  "_footer_promo_note": "フッター上のAmazon導線。false で消える。文言とリンク先は footer_promo で決める。"
- },
- "categories": [
-  {
-   "key": "feature",
-   "label": "特集・まとめ",
-   "icon": "📊",
-   "lead": "複数の製品を横に並べて比較した記事と、買い時などのまとめ記事です。個別のレビューを読む前の全体像として使ってください。",
-   "sub": [
-    {
-     "key": "compare",
-     "label": "比較・ランキング"
-    },
-    {
-     "key": "guide",
-     "label": "選び方ガイド"
-    },
-    {
-     "key": "season",
-     "label": "セール・買い時"
-    }
-   ]
+  "site_name": "モノベース",
+  "subtitle": "あらゆるモノのデータベース",
+  "tagline": "暮らしと作業を快適にするおすすめアイテム紹介",
+  "description": "暮らしと作業を快適にするアイテムを、利用者の声と公式仕様を突き合わせて検証。良い点だけでなく「向かない人」まで整理して紹介します。",
+  "domain": "monobase.site",
+  "base_url": "https://monobase.site",
+  "author": "モノベース運営事務局",
+  "email": "monobase.site@gmail.com",
+  "founded": "2026",
+  "analytics": {
+    "ga_measurement_id": "G-YJ85V2J7EK",
+    "gsc_verification": "XzDLJp48lBwivyxHNORLURzTwXu_-apgDXr5Z-POer8"
   },
-  {
-   "key": "appliance",
-   "label": "家電",
-   "icon": "🏠",
-   "lead": "加湿器・扇風機・照明・掃除機など、暮らしの土台になる家電。家事の手間をどれだけ減らせるかという視点で整理しています。",
-   "sub": [
-    {
-     "key": "aircon",
-     "label": "空調・季節家電"
-    },
-    {
-     "key": "clean",
-     "label": "掃除機・掃除家電"
-    },
-    {
-     "key": "laundry",
-     "label": "洗濯・アイロン"
-    },
-    {
-     "key": "light",
-     "label": "照明"
-    },
-    {
-     "key": "smart",
-     "label": "スマート家電"
-    },
-    {
-     "key": "power",
-     "label": "電源・電池"
-    }
-   ],
-   "image": "assets/img/cat-appliance-mtlrf5bn.webp"
+  "features": {
+    "contact_form": true,
+    "contact_form_endpoint": "https://formspree.io/f/xbgjgnyp",
+    "sticky_cta": true,
+    "search": true,
+    "feature_threshold": 5,
+    "_contact_note": "contact_form_endpoint が空のあいだは、送信ボタンでメールソフトが開く。Formspree などの窓口URLを入れるとその場で送信できるようになる。",
+    "maintenance": false,
+    "_maintenance_note": "true にすると全ページがメンテナンス画面（503）に切り替わる。管理画面と assets/content は通るので、管理画面から戻せる。",
+    "deals_api": "",
+    "_deals_note": "注目のアイテム枠。Amazon Product Advertising API の審査が通ったら、価格を返す取得先URL（例 /api/deals）をここに入れる。すると価格と○%OFFが出るようになる。空のあいだは商品名と写真だけ。",
+    "footer_promo": true,
+    "_footer_promo_note": "フッター上のAmazon導線。false で消える。文言とリンク先は footer_promo で決める。"
   },
-  {
-   "key": "smartphone",
-   "label": "スマートフォン",
-   "icon": "📱",
-   "lead": "スマホ本体と、ケース・充電器・アクセサリー。毎日触れるものなので、使い勝手の差が出やすい領域です。",
-   "sub": [
+  "categories": [
     {
-     "key": "body",
-     "label": "スマホ本体"
+      "key": "feature",
+      "label": "特集・まとめ",
+      "icon": "📊",
+      "lead": "複数の製品を横に並べて比較した記事と、買い時などのまとめ記事です。個別のレビューを読む前の全体像として使ってください。",
+      "sub": [
+        {
+          "key": "compare",
+          "label": "比較・ランキング"
+        },
+        {
+          "key": "guide",
+          "label": "選び方ガイド"
+        },
+        {
+          "key": "season",
+          "label": "セール・買い時"
+        }
+      ]
     },
     {
-     "key": "case",
-     "label": "ケース・保護フィルム"
+      "key": "appliance",
+      "label": "家電",
+      "icon": "🏠",
+      "lead": "加湿器・扇風機・照明・掃除機など、暮らしの土台になる家電。家事の手間をどれだけ減らせるかという視点で整理しています。",
+      "sub": [
+        {
+          "key": "aircon",
+          "label": "空調・季節家電"
+        },
+        {
+          "key": "clean",
+          "label": "掃除機・掃除家電"
+        },
+        {
+          "key": "laundry",
+          "label": "洗濯・アイロン"
+        },
+        {
+          "key": "light",
+          "label": "照明"
+        },
+        {
+          "key": "smart",
+          "label": "スマート家電"
+        },
+        {
+          "key": "power",
+          "label": "電源・電池"
+        }
+      ],
+      "image": "assets/img/cat-appliance-mtlrf5bn.webp"
     },
     {
-     "key": "charger",
-     "label": "充電器・モバイルバッテリー"
+      "key": "smartphone",
+      "label": "スマートフォン",
+      "icon": "📱",
+      "lead": "スマホ本体と、ケース・充電器・アクセサリー。毎日触れるものなので、使い勝手の差が出やすい領域です。",
+      "sub": [
+        {
+          "key": "body",
+          "label": "スマホ本体"
+        },
+        {
+          "key": "case",
+          "label": "ケース・保護フィルム"
+        },
+        {
+          "key": "charger",
+          "label": "充電器・モバイルバッテリー"
+        },
+        {
+          "key": "acc",
+          "label": "スマホアクセサリー"
+        }
+      ],
+      "image": "assets/img/cat-smartphone-mtlrdwfb.webp"
     },
     {
-     "key": "acc",
-     "label": "スマホアクセサリー"
+      "key": "pc",
+      "label": "パソコン",
+      "icon": "💻",
+      "lead": "ノートPC・モニター・入力機器・周辺機器まで。作業時間が長い人ほど、小さな差が積み上がる分野です。",
+      "sub": [
+        {
+          "key": "laptop",
+          "label": "ノートパソコン"
+        },
+        {
+          "key": "tablet",
+          "label": "タブレット・電子書籍"
+        },
+        {
+          "key": "monitor",
+          "label": "ディスプレイ・モニター"
+        },
+        {
+          "key": "input",
+          "label": "キーボード・マウス・入力機器"
+        },
+        {
+          "key": "peripheral",
+          "label": "周辺機器・USBハブ"
+        },
+        {
+          "key": "storage",
+          "label": "ストレージ・外付けドライブ"
+        },
+        {
+          "key": "network",
+          "label": "Wi-Fi・ネットワーク"
+        },
+        {
+          "key": "parts",
+          "label": "PCパーツ"
+        },
+        {
+          "key": "software",
+          "label": "ソフトウェア"
+        }
+      ],
+      "image": "assets/img/cat-pc-mtlqstnj.webp"
+    },
+    {
+      "key": "av",
+      "label": "AV機器",
+      "icon": "🎧",
+      "lead": "イヤホン・スピーカー・マイク・映像機器。音と映像は数値より、使う場面との相性で評価が変わります。",
+      "sub": [
+        {
+          "key": "headphone",
+          "label": "イヤホン・ヘッドホン"
+        },
+        {
+          "key": "speaker",
+          "label": "スピーカー"
+        },
+        {
+          "key": "tv",
+          "label": "テレビ・プロジェクター"
+        },
+        {
+          "key": "mic",
+          "label": "マイク・配信機材"
+        }
+      ],
+      "image": "assets/img/cat-av-mtlrfe95.webp"
+    },
+    {
+      "key": "camera",
+      "label": "カメラ",
+      "icon": "📷",
+      "lead": "カメラ本体とレンズ、三脚などの撮影機材。作例より、運用のしやすさを中心に整理します。",
+      "sub": [
+        {
+          "key": "body",
+          "label": "カメラ本体"
+        },
+        {
+          "key": "lens",
+          "label": "レンズ"
+        },
+        {
+          "key": "tripod",
+          "label": "三脚・ジンバル"
+        },
+        {
+          "key": "acc",
+          "label": "カメラアクセサリー"
+        }
+      ],
+      "image": "assets/img/cat-camera-mtlqmdno.webp"
+    },
+    {
+      "key": "beauty",
+      "label": "美容・コスメ",
+      "icon": "💄",
+      "lead": "スキンケア・ヘアケア・美容家電。肌質や髪質で結果が変わるため、合わない場合の条件も併せて書きます。",
+      "sub": [
+        {
+          "key": "skincare",
+          "label": "スキンケア"
+        },
+        {
+          "key": "haircare",
+          "label": "ヘアケア"
+        },
+        {
+          "key": "makeup",
+          "label": "メイク"
+        },
+        {
+          "key": "device",
+          "label": "美容家電"
+        },
+        {
+          "key": "shave",
+          "label": "シェービング"
+        }
+      ],
+      "image": "assets/img/cat-beauty-mtlqlg52.webp"
+    },
+    {
+      "key": "health",
+      "label": "ヘルスケア",
+      "icon": "🩺",
+      "lead": "体調や睡眠の記録、体のケア用品。医療機器ではないため、数値は目安として扱います。",
+      "sub": [
+        {
+          "key": "measure",
+          "label": "計測・スマートウォッチ"
+        },
+        {
+          "key": "care",
+          "label": "マッサージ・体のケア"
+        },
+        {
+          "key": "supplement",
+          "label": "サプリメント"
+        },
+        {
+          "key": "hygiene",
+          "label": "衛生用品"
+        }
+      ],
+      "image": "assets/img/cat-health-mtlqxboo.webp"
+    },
+    {
+      "key": "kitchen",
+      "label": "キッチン",
+      "icon": "🍳",
+      "lead": "調理家電と調理器具、food周りの収納。片付けまで含めた手間で評価します。",
+      "sub": [
+        {
+          "key": "appliance",
+          "label": "調理家電"
+        },
+        {
+          "key": "tool",
+          "label": "調理器具"
+        },
+        {
+          "key": "ware",
+          "label": "食器・保存容器"
+        },
+        {
+          "key": "storage",
+          "label": "キッチン収納"
+        }
+      ],
+      "image": "assets/img/cat-kitchen-mtlquq6f.webp"
+    },
+    {
+      "key": "daily",
+      "label": "日用品・雑貨",
+      "icon": "🧺",
+      "lead": "毎日使う消耗品と雑貨に加え、工具・園芸・アウトドア・ホビーなど、他のカテゴリーに収まらない領域もここにまとめています。",
+      "sub": [
+        {
+          "key": "storage",
+          "label": "収納・整理"
+        },
+        {
+          "key": "clean",
+          "label": "掃除・洗濯用品"
+        },
+        {
+          "key": "bath",
+          "label": "バス・トイレ"
+        },
+        {
+          "key": "safety",
+          "label": "防災・防犯"
+        },
+        {
+          "key": "misc",
+          "label": "その他雑貨"
+        },
+        {
+          "key": "fashion",
+          "label": "ファッション・時計"
+        },
+        {
+          "key": "tool",
+          "label": "DIY・工具"
+        },
+        {
+          "key": "garden",
+          "label": "ガーデニング"
+        },
+        {
+          "key": "hobby",
+          "label": "ゲーム・ホビー"
+        },
+        {
+          "key": "car",
+          "label": "車・バイク"
+        },
+        {
+          "key": "outdoor",
+          "label": "アウトドア・スポーツ"
+        },
+        {
+          "key": "stationery",
+          "label": "文具・オフィス"
+        }
+      ],
+      "image": "assets/img/cat-daily-mtlqv3bc.webp"
+    },
+    {
+      "key": "fashion",
+      "icon": "👕",
+      "label": "ファッション",
+      "lead": "衣類・靴・バッグ・時計などの身につけるものです。サイズや素材で評価が分かれやすいため、利用者の声から「誰の体型・使い方に合うか」を整理して紹介します。",
+      "sub": [
+        {
+          "key": "wear",
+          "label": "衣類"
+        },
+        {
+          "key": "shoes",
+          "label": "靴"
+        },
+        {
+          "key": "bag",
+          "label": "バッグ・財布"
+        },
+        {
+          "key": "watch",
+          "label": "時計"
+        },
+        {
+          "key": "acc",
+          "label": "小物・アクセサリー"
+        }
+      ],
+      "image": "assets/img/cat-fashion-mtonnfur.webp"
+    },
+    {
+      "key": "furniture",
+      "label": "家具・インテリア",
+      "icon": "🪑",
+      "lead": "デスク・チェア・収納・寝具。在宅作業の快適さは、この領域でほぼ決まります。",
+      "sub": [
+        {
+          "key": "desk",
+          "label": "デスク・デスク周り"
+        },
+        {
+          "key": "chair",
+          "label": "チェア"
+        },
+        {
+          "key": "shelf",
+          "label": "収納家具・ラック"
+        },
+        {
+          "key": "bed",
+          "label": "寝具"
+        },
+        {
+          "key": "deco",
+          "label": "インテリア雑貨"
+        }
+      ],
+      "image": "assets/img/cat-furniture-mtlqvldt.webp"
+    },
+    {
+      "key": "pet",
+      "label": "ペット",
+      "icon": "🐾",
+      "lead": "犬・猫を中心としたペット用品。生き物が相手なので、合わなかったときの切り替えやすさも含めて整理します。",
+      "sub": [
+        {
+          "key": "dog",
+          "label": "犬用品"
+        },
+        {
+          "key": "cat",
+          "label": "猫用品"
+        },
+        {
+          "key": "food",
+          "label": "フード・おやつ"
+        },
+        {
+          "key": "care",
+          "label": "ケア・衛生"
+        },
+        {
+          "key": "aqua",
+          "label": "アクアリウム・小動物"
+        }
+      ],
+      "image": "assets/img/cat-pet-mtlqwfcy.webp"
+    },
+    {
+      "key": "travel",
+      "label": "旅行・トラベル",
+      "icon": "🧳",
+      "lead": "スーツケース・トラベルポーチ・機内グッズなど、移動と滞在を軽くするための道具。荷造りのしやすさと、現地で困らないかという視点で整理します。",
+      "sub": [
+        {
+          "key": "luggage",
+          "label": "スーツケース・バッグ"
+        },
+        {
+          "key": "organize",
+          "label": "パッキング・収納"
+        },
+        {
+          "key": "gadget",
+          "label": "旅行ガジェット・変換器"
+        },
+        {
+          "key": "comfort",
+          "label": "機内・移動の快適グッズ"
+        },
+        {
+          "key": "amenity",
+          "label": "トラベル用トイレタリー"
+        }
+      ],
+      "image": "assets/img/cat-travel-mtlqwt2y.webp"
     }
-   ],
-   "image": "assets/img/cat-smartphone-mtlrdwfb.webp"
+  ],
+  "amazon": {
+    "associate_tag": "monobase30-22",
+    "_note": "アソシエイトID（例: monobase-22）。審査通過後にここへ入れると、ASIN指定の全記事リンクへ自動で付与されます。"
   },
-  {
-   "key": "pc",
-   "label": "パソコン",
-   "icon": "💻",
-   "lead": "ノートPC・モニター・入力機器・周辺機器まで。作業時間が長い人ほど、小さな差が積み上がる分野です。",
-   "sub": [
-    {
-     "key": "laptop",
-     "label": "ノートパソコン"
-    },
-    {
-     "key": "tablet",
-     "label": "タブレット・電子書籍"
-    },
-    {
-     "key": "monitor",
-     "label": "ディスプレイ・モニター"
-    },
-    {
-     "key": "input",
-     "label": "キーボード・マウス・入力機器"
-    },
-    {
-     "key": "peripheral",
-     "label": "周辺機器・USBハブ"
-    },
-    {
-     "key": "storage",
-     "label": "ストレージ・外付けドライブ"
-    },
-    {
-     "key": "network",
-     "label": "Wi-Fi・ネットワーク"
-    },
-    {
-     "key": "parts",
-     "label": "PCパーツ"
-    },
-    {
-     "key": "software",
-     "label": "ソフトウェア"
-    }
-   ],
-   "image": "assets/img/cat-pc-mtlqstnj.webp"
+  "sales": {
+    "_note": "Amazonのセール日程は公式に配信されていないため、日程が発表されたらここに追加する。期間内だけサイト上部に流れる告知が出る。",
+    "items": [
+      {
+        "name": "Amazon プライムデー",
+        "start": "2026-07-14",
+        "end": "2026-07-17",
+        "url": "https://www.amazon.co.jp/events/primeday",
+        "note": ""
+      },
+      {
+        "name": "Amazon ブラックフライデー",
+        "start": "2026-11-27",
+        "end": "2026-12-01",
+        "url": "https://www.amazon.co.jp/events/blackfriday",
+        "note": ""
+      }
+    ]
   },
-  {
-   "key": "av",
-   "label": "AV機器",
-   "icon": "🎧",
-   "lead": "イヤホン・スピーカー・マイク・映像機器。音と映像は数値より、使う場面との相性で評価が変わります。",
-   "sub": [
-    {
-     "key": "headphone",
-     "label": "イヤホン・ヘッドホン"
-    },
-    {
-     "key": "speaker",
-     "label": "スピーカー"
-    },
-    {
-     "key": "tv",
-     "label": "テレビ・プロジェクター"
-    },
-    {
-     "key": "mic",
-     "label": "マイク・配信機材"
-    }
-   ],
-   "image": "assets/img/cat-av-mtlrfe95.webp"
+  "images": {
+    "_note": "画像生成の設定。APIキーはここに書かない（公開リポジトリのため）。ローカルは環境変数 GEMINI_API_KEY、GitHub Actions は Secrets を使う。",
+    "model": "gemini-3.1-flash-image"
   },
-  {
-   "key": "camera",
-   "label": "カメラ",
-   "icon": "📷",
-   "lead": "カメラ本体とレンズ、三脚などの撮影機材。作例より、運用のしやすさを中心に整理します。",
-   "sub": [
-    {
-     "key": "body",
-     "label": "カメラ本体"
-    },
-    {
-     "key": "lens",
-     "label": "レンズ"
-    },
-    {
-     "key": "tripod",
-     "label": "三脚・ジンバル"
-    },
-    {
-     "key": "acc",
-     "label": "カメラアクセサリー"
-    }
-   ],
-   "image": "assets/img/cat-camera-mtlqmdno.webp"
+  "promos": {
+    "_note": "A8.net・バリューコマース・もしもなどで取得した広告リンクを、そのまま貼る枠。コードは書き換えず、置き場所と対象カテゴリーだけこちらで決める。where は article_end（記事の下）／side（PCサイド）／none（出さない）。cats を空にすると全カテゴリーの記事に出る。",
+    "label": "PR",
+    "items": [
+      {
+        "name": "四角いバナー／オーディオ（1件）",
+        "kind": "tile",
+        "where": "article_end",
+        "cats": [
+          "av"
+        ],
+        "ads": [
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YT+ANF6CY+55QO+5ZU29\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www27.a8.net/svt/bgt?aid=260905493644&wid=001&eno=01&mid=s00000024072001007000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BC3YT+ANF6CY+55QO+5ZU29\" alt=\"\">",
+            "title": "イヤホン・ヘッドホン専門店【e☆イヤホン】",
+            "date": "2022-12-19",
+            "size": "300x250"
+          }
+        ]
+      },
+      {
+        "name": "四角いバナー／回線・Wi-Fi（24件）",
+        "kind": "tile",
+        "where": "article_end",
+        "cats": [
+          "pc"
+        ],
+        "ads": [
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BOC1V6+3SPO+BQTME9\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www24.a8.net/svt/bgt?aid=260905492706&wid=001&eno=01&mid=s00000017718071018000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BC3YS+BOC1V6+3SPO+BQTME9\" alt=\"\">",
+            "title": "超高速インターネットが1年間ずっと月額980円～！【コミュファ光】",
+            "date": "2023-11-10",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BLCVUA+42Y0+5ZMCH\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260905492701&wid=001&eno=01&mid=s00000019044001006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BC3YS+BLCVUA+42Y0+5ZMCH\" alt=\"\">",
+            "title": "【auひかり】初期工事費無料！豪華キャンペーン！知らない人はモッタイナイ！",
+            "date": "2018-07-10",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B5A6IA+1MWA+1TS6MP\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www29.a8.net/svt/bgt?aid=260905492674&wid=001&eno=01&mid=s00000007633011049000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BC3YS+B5A6IA+1MWA+1TS6MP\" alt=\"\">",
+            "title": "【キャッシュバック最大7万円】ひかり電話、ヒカリ回線のお申込み窓口",
+            "date": "2012-06-29",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B43BAQ+1MWA+2ZAQN5\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260905492672&wid=001&eno=01&mid=s00000007633018022000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BC3YS+B43BAQ+1MWA+2ZAQN5\" alt=\"\">",
+            "title": "高速インターネット回線のNTTフレッツ光【キャッシュバック最大7万円】",
+            "date": "2013-11-29",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AFOJHU+5JPQ+5YZ75\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384631&wid=001&eno=01&mid=s00000025883001003000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+AFOJHU+5JPQ+5YZ75\" alt=\"\">",
+            "title": "東海地方の高速光回線なら【コミュファ光】充実したキャッシュバック特典あり！",
+            "date": "2024-05-31",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9W18J6+3MKA+15PEXD\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www21.a8.net/svt/bgt?aid=260826384598&wid=001&eno=01&mid=s00000016921007005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+9W18J6+3MKA+15PEXD\" alt=\"\">",
+            "title": "好きな分だけ、いつでも使える！【WiFi東京プリペイド】",
+            "date": "2024-06-14",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9QOC36+3MKA+TTDZ5\" rel=\"nofollow\">\n<img border=\"0\" width=\"336\" height=\"280\" alt=\"\" src=\"https://www26.a8.net/svt/bgt?aid=260826384589&wid=001&eno=01&mid=s00000016921005008000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+9QOC36+3MKA+TTDZ5\" alt=\"\">",
+            "title": "【FreeMax+5G】2台目以降初期費用0円｜法人特別プラン",
+            "date": "2023-06-08",
+            "size": "336x280"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9U8XPU+2ZBM+3H4129\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384595&wid=001&eno=01&mid=s00000013909021014000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+9U8XPU+2ZBM+3H4129\" alt=\"\">",
+            "title": "【海外WiFiレンタルのグローバルモバイル】",
+            "date": "2024-02-16",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A0SPDE+2ZBM+3B3RKH\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384606&wid=001&eno=01&mid=s00000013909020005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+A0SPDE+2ZBM+3B3RKH\" alt=\"\">",
+            "title": "世界周遊レンタルWiFiルーター【ワールドデータ】",
+            "date": "2023-08-29",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9ZLU5U+2ZBM+2Z73GX\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384604&wid=001&eno=01&mid=s00000013909018005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+9ZLU5U+2ZBM+2Z73GX\" alt=\"\">",
+            "title": "ベトナム専用レンタルWiFIルーター【ベトナムデータ】",
+            "date": "2023-08-29",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9XTJCI+2ZBM+2BDR9T\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www27.a8.net/svt/bgt?aid=260826384601&wid=001&eno=01&mid=s00000013909014005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+9XTJCI+2ZBM+2BDR9T\" alt=\"\">",
+            "title": "インド専用レンタルWiFiルーター【インドデータ】",
+            "date": "2023-08-29",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9X83QQ+2ZBM+25FF81\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www29.a8.net/svt/bgt?aid=260826384600&wid=001&eno=01&mid=s00000013909013005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+9X83QQ+2ZBM+25FF81\" alt=\"\">",
+            "title": "イギリス専用レンタルWiFiルーター【イギリスデータ】",
+            "date": "2023-08-29",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AC3XV6+7JY+3SZMKX\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384625&wid=001&eno=01&mid=s00000000979023009000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+AC3XV6+7JY+3SZMKX\" alt=\"\">",
+            "title": "フレッツ光の10ギガ光回線【BB.exciteカスタム クロス回線】",
+            "date": "2024-10-07",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B5A6IA+42Y0+NWC81\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www25.a8.net/svt/bgt?aid=260826384674&wid=001&eno=01&mid=s00000019044004014000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+B5A6IA+42Y0+NWC81\" alt=\"\">",
+            "title": "【BBIQ(ビビック)】当サイト特典！最大30,000円キャッシュバック！",
+            "date": "2020-11-17",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B0IPO2+4LSW+BXIYP\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www28.a8.net/svt/bgt?aid=260826384666&wid=001&eno=01&mid=s00000021488002004000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+B0IPO2+4LSW+BXIYP\" alt=\"\">",
+            "title": "マルウェア等の脅威からデバイスを保護【Surfshark Antivirus】",
+            "date": "2023-05-31",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AZBUGI+7QW+2BE6PD\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www21.a8.net/svt/bgt?aid=260826384664&wid=001&eno=01&mid=s00000001004014007000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+AZBUGI+7QW+2BE6PD\" alt=\"\">",
+            "title": "専用VPNサーバーを１台提供【グループ専用VPN / WG / WG + NGN】",
+            "date": "2020-07-15",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AVR8TU+B4+2BSJOH\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384658&wid=001&eno=01&mid=s00000000040014074000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+AVR8TU+B4+2BSJOH\" alt=\"\">",
+            "title": "【公式】BIGLOBE WiMAX +5G",
+            "date": "2019-10-15",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AINPIQ+2JMM+1BNYOX\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384636&wid=001&eno=01&mid=s00000011875008006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+AINPIQ+2JMM+1BNYOX\" alt=\"\">",
+            "title": "【VisionWiMAX】選べるプラン内容",
+            "date": "2021-03-23",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AI29WY+348K+44VFTD\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www26.a8.net/svt/bgt?aid=260826384635&wid=001&eno=01&mid=s00000014546025005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+AI29WY+348K+44VFTD\" alt=\"\">",
+            "title": "機器代金0円！工事不要のホームルーターレンタル【おきらくホームWi-Fi】",
+            "date": "2024-05-22",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AG9Z3M+7JY+3B5P0H\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384632&wid=001&eno=01&mid=s00000000979020014000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+AG9Z3M+7JY+3B5P0H\" alt=\"\">",
+            "title": "10ギガ光回線【 BB.excite光 10G】",
+            "date": "2023-03-23",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AAX2NM+4PB0+BYLJL\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384623&wid=001&eno=01&mid=s00000021942002009000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+AAX2NM+4PB0+BYLJL\" alt=\"\">",
+            "title": "【フレッツ光】安心と信頼の光回線｜最大79,000円キャッシュバック",
+            "date": "2022-09-12",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A6R1F6+548I+609HT\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www25.a8.net/svt/bgt?aid=260826384616&wid=001&eno=01&mid=s00000023877001009000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+A6R1F6+548I+609HT\" alt=\"\">",
+            "title": "快適なインターネット生活を送ろう！超高速光回線【Fon光】",
+            "date": "2022-10-07",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A3RVEA+7JY+1BNYOX\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260826384611&wid=001&eno=01&mid=s00000000979008006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+A3RVEA+7JY+1BNYOX\" alt=\"\">",
+            "title": "PPPoE光回線【BB.excite光 Classic】",
+            "date": "2011-08-04",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9FD3LE+4SIK+HXD0X\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www24.a8.net/svt/bgt?aid=260826384570&wid=001&eno=01&mid=s00000022358003011000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+9FD3LE+4SIK+HXD0X\" alt=\"\">",
+            "title": "チャージ型ポケットWiFi【プレミアムチャージWiFi】何度も使える買い切り型モバイルWiFi",
+            "date": "2025-09-01",
+            "size": "300x250"
+          }
+        ]
+      },
+      {
+        "name": "四角いバナー／家電レンタル（2件）",
+        "kind": "tile",
+        "where": "article_end",
+        "cats": [
+          "appliance",
+          "kitchen"
+        ],
+        "ads": [
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AKG0C2+5MMG+601S1\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www21.a8.net/svt/bgt?aid=260826384639&wid=001&eno=01&mid=s00000026260001008000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+AKG0C2+5MMG+601S1\" alt=\"\">",
+            "title": "生活家電のレンタル・サブスクサービス【家電レンタルみんなのHappy】",
+            "date": "2024-09-25",
+            "size": "300x250"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AKG0C2+5MMG+5ZEMP\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260826384639&wid=001&eno=01&mid=s00000026260001005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+AKG0C2+5MMG+5ZEMP\" alt=\"\">",
+            "title": "生活家電のレンタル・サブスクサービス【家電レンタルみんなのHappy】",
+            "date": "2024-09-25",
+            "size": "300x250"
+          }
+        ]
+      },
+      {
+        "name": "横長バナー／その他（2件）",
+        "kind": "wide",
+        "where": "none",
+        "cats": [],
+        "ads": [
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YT+BKRG8I+4V0U+ZRIB5\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www29.a8.net/svt/bgt?aid=260905493700&wid=001&eno=01&mid=s00000022683006007000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www15.a8.net/0.gif?a8mat=4BC3YT+BKRG8I+4V0U+ZRIB5\" alt=\"\">",
+            "title": "【資格認定あり・顧客紹介あり・歩合報酬あり】動画教材エディター養成コース参加者募集",
+            "date": "2023-05-16",
+            "size": "120x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+8FN3AQ+50+2HCB1D\" rel=\"nofollow\">\n<img border=\"0\" width=\"100\" height=\"60\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384510&wid=001&eno=01&mid=s00000000018015006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+8FN3AQ+50+2HCB1D\" alt=\"\">",
+            "title": "【.com/.net ０円～】独自ドメインの取得は国内シェアNo.1の＜お名前.com＞",
+            "date": "2007-08-29",
+            "size": "100x60"
+          }
+        ]
+      },
+      {
+        "name": "横長バナー／オーディオ（1件）",
+        "kind": "wide",
+        "where": "none",
+        "cats": [
+          "av"
+        ],
+        "ads": [
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YT+ANF6CY+55QO+609HT\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www29.a8.net/svt/bgt?aid=260905493644&wid=001&eno=01&mid=s00000024072001009000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BC3YT+ANF6CY+55QO+609HT\" alt=\"\">",
+            "title": "イヤホン・ヘッドホン専門店【e☆イヤホン】",
+            "date": "2022-12-19",
+            "size": "120x60"
+          }
+        ]
+      },
+      {
+        "name": "横長バナー／回線・Wi-Fi（25件）",
+        "kind": "wide",
+        "where": "none",
+        "cats": [
+          "pc"
+        ],
+        "ads": [
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B8US4Y+2BZM+3562O1\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260905492680&wid=001&eno=01&mid=s00000010885019008000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BC3YS+B8US4Y+2BZM+3562O1\" alt=\"\">",
+            "title": "工事不要！最短3日でご利用可能！法人・店舗向けの5G対応Wi-Fi【BizAir】",
+            "date": "2022-08-23",
+            "size": "120x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B8US4Y+2BZM+3557SX\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260905492680&wid=001&eno=01&mid=s00000010885019004000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BC3YS+B8US4Y+2BZM+3557SX\" alt=\"\">",
+            "title": "工事不要！最短3日でご利用可能！法人・店舗向けの5G対応Wi-Fi【BizAir】",
+            "date": "2022-08-23",
+            "size": "468x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BQ4COI+4MTU+60H7L\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www28.a8.net/svt/bgt?aid=260905492709&wid=001&eno=01&mid=s00000021621001010000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BC3YS+BQ4COI+4MTU+60H7L\" alt=\"\">",
+            "title": "工事不要でネット使い放題！月々2468円(税込)～！【SoftbankAir】",
+            "date": "2020-11-26",
+            "size": "120x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BLCVUA+42Y0+62MDD\" rel=\"nofollow\">\n<img border=\"0\" width=\"320\" height=\"50\" alt=\"\" src=\"https://www21.a8.net/svt/bgt?aid=260905492701&wid=001&eno=01&mid=s00000019044001020000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BC3YS+BLCVUA+42Y0+62MDD\" alt=\"\">",
+            "title": "【auひかり】初期工事費無料！豪華キャンペーン！知らない人はモッタイナイ！",
+            "date": "2018-07-10",
+            "size": "320x50"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B5A6IA+1MWA+1TIJEP\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www27.a8.net/svt/bgt?aid=260905492674&wid=001&eno=01&mid=s00000007633011004000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BC3YS+B5A6IA+1MWA+1TIJEP\" alt=\"\">",
+            "title": "【キャッシュバック最大7万円】ひかり電話、ヒカリ回線のお申込み窓口",
+            "date": "2012-06-29",
+            "size": "120x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9R9ROY+3MKA+NUU7L\" rel=\"nofollow\">\n<img border=\"0\" width=\"320\" height=\"50\" alt=\"\" src=\"https://www27.a8.net/svt/bgt?aid=260826384590&wid=001&eno=01&mid=s00000016921004007000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+9R9ROY+3MKA+NUU7L\" alt=\"\">",
+            "title": "【FreeMax+5G】端末代金0円+無制限WiMAXレンタルサービス",
+            "date": "2022-11-24",
+            "size": "320x50"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AC3XV6+7JY+3T020H\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384625&wid=001&eno=01&mid=s00000000979023011000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+AC3XV6+7JY+3T020H\" alt=\"\">",
+            "title": "フレッツ光の10ギガ光回線【BB.exciteカスタム クロス回線】",
+            "date": "2024-10-07",
+            "size": "468x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B72HBM+7QW+HVFKX\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384677&wid=001&eno=01&mid=s00000001004003002000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+B72HBM+7QW+HVFKX\" alt=\"\">",
+            "title": "違約金や契約期間の拘束が一切なし。最大２ヶ月無料体験のフレッツ接続【ZOOT NEXT】",
+            "date": "2004-08-05",
+            "size": "468x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B5VM42+3YFI+626XT\" rel=\"nofollow\">\n<img border=\"0\" width=\"320\" height=\"50\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384675&wid=001&eno=01&mid=s00000018459001018000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+B5VM42+3YFI+626XT\" alt=\"\">",
+            "title": "【NordVPN】プライバシー保護で安全な制限なしネットワーク！",
+            "date": "2018-02-16",
+            "size": "320x50"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B4OQWI+3HKU+1NK7CX\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384673&wid=001&eno=01&mid=s00000016275010004000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+B4OQWI+3HKU+1NK7CX\" alt=\"\">",
+            "title": "高速回線選ぶならコミュファ光！速度もキャッシュバックも満足度No1！【コミュファ光】",
+            "date": "2021-06-25",
+            "size": "468x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B3HVOY+3SPO+3N0FO1\" rel=\"nofollow\">\n<img border=\"0\" width=\"320\" height=\"50\" alt=\"\" src=\"https://www25.a8.net/svt/bgt?aid=260826384671&wid=001&eno=01&mid=s00000017718022005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+B3HVOY+3SPO+3N0FO1\" alt=\"\">",
+            "title": "スマホのパケット量が使い放題で工事が不要！【SoftbankAir】",
+            "date": "2020-08-28",
+            "size": "320x50"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B43BAQ+50+64C3K1\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260826384672&wid=001&eno=01&mid=s00000000018037008000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+B43BAQ+50+64C3K1\" alt=\"\">",
+            "title": "GMOとくとくBB auひかりプロモーション",
+            "date": "2019-12-26",
+            "size": "468x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B0IPO2+4LSW+BXYE9\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www28.a8.net/svt/bgt?aid=260826384666&wid=001&eno=01&mid=s00000021488002006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+B0IPO2+4LSW+BXYE9\" alt=\"\">",
+            "title": "マルウェア等の脅威からデバイスを保護【Surfshark Antivirus】",
+            "date": "2023-05-31",
+            "size": "120x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AYQEUQ+7QW+1ZIL6P\" rel=\"nofollow\">\n<img border=\"0\" width=\"320\" height=\"50\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260826384663&wid=001&eno=01&mid=s00000001004012012000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+AYQEUQ+7QW+1ZIL6P\" alt=\"\">",
+            "title": "「セカイVPN」でネット検閲や地理的規制を一時的に回避！無料Wi-Fiでのセキュリティも確保",
+            "date": "2014-10-16",
+            "size": "320x50"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AY4Z8Y+348K+3H2QRL\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384662&wid=001&eno=01&mid=s00000014546021008000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+AY4Z8Y+348K+3H2QRL\" alt=\"\">",
+            "title": "業界最速のキャッシュバック還元！更にオプション加入条件なし【auひかりサイト】",
+            "date": "2021-09-24",
+            "size": "120x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9Q2WHE+3NMM+HVV0H\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www21.a8.net/svt/bgt?aid=260826384588&wid=001&eno=01&mid=s00000017059003004000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+9Q2WHE+3NMM+HVV0H\" alt=\"\">",
+            "title": "【オプションなしで最大50,000円CBが最短翌月末進呈】工事不要のSoftBank Air！",
+            "date": "2018-12-17",
+            "size": "468x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AHGUB6+3SPO+7LWGUP\" rel=\"nofollow\">\n<img border=\"0\" width=\"320\" height=\"50\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384634&wid=001&eno=01&mid=s00000017718046005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+AHGUB6+3SPO+7LWGUP\" alt=\"\">",
+            "title": "当サイト限定！最大40,000円還元キャンペーン！【BIGLOBE光】",
+            "date": "2022-07-21",
+            "size": "320x50"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+ADAT2Q+7JY+2T8Z4X\" rel=\"nofollow\">\n<img border=\"0\" width=\"728\" height=\"90\" alt=\"\" src=\"https://www29.a8.net/svt/bgt?aid=260826384627&wid=001&eno=01&mid=s00000000979017006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+ADAT2Q+7JY+2T8Z4X\" alt=\"\">",
+            "title": "段階料金制の光回線【BB.excite光 Fit】",
+            "date": "2020-02-28",
+            "size": "728x90"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+ADW8OI+4VXM+5ZEMP\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www25.a8.net/svt/bgt?aid=260826384628&wid=001&eno=01&mid=s00000022801001005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+ADW8OI+4VXM+5ZEMP\" alt=\"\">",
+            "title": "現金キャッシュバック実施中！最短翌日開通！次世代接続方式v6プラス利用可能光回線【イツキ光】",
+            "date": "2021-11-01",
+            "size": "120x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+ABII9E+7JY+2NBXDT\" rel=\"nofollow\">\n<img border=\"0\" width=\"728\" height=\"90\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260826384624&wid=001&eno=01&mid=s00000000979016012000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+ABII9E+7JY+2NBXDT\" alt=\"\">",
+            "title": "1ギガ光回線【BB.excite光 MEC】",
+            "date": "2019-04-12",
+            "size": "728x90"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A4YQLU+4SHG+5Z6WX\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www26.a8.net/svt/bgt?aid=260826384613&wid=001&eno=01&mid=s00000022354001004000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+A4YQLU+4SHG+5Z6WX\" alt=\"\">",
+            "title": "複雑な条件なし！契約期間しばり無し光回線＋【おてがる光】",
+            "date": "2021-06-30",
+            "size": "468x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A4YQLU+4SHG+61RI9\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www28.a8.net/svt/bgt?aid=260826384613&wid=001&eno=01&mid=s00000022354001016000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+A4YQLU+4SHG+61RI9\" alt=\"\">",
+            "title": "複雑な条件なし！契約期間しばり無し光回線＋【おてがる光】",
+            "date": "2021-06-30",
+            "size": "120x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9HQU0I+4SIK+BXB8X\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www26.a8.net/svt/bgt?aid=260826384574&wid=001&eno=01&mid=s00000022358002003000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+9HQU0I+4SIK+BXB8X\" alt=\"\">",
+            "title": "チャージ型ポケットWiFi【ギガセットWiFi】使いたい時に使いたい分だけチャージして使う！",
+            "date": "2025-07-16",
+            "size": "120x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9FYJ76+2W74+61Z81\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www29.a8.net/svt/bgt?aid=260826384571&wid=001&eno=01&mid=s00000013504001017000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+9FYJ76+2W74+61Z81\" alt=\"\">",
+            "title": "業界最安級の海外WiFiレンタル【WiFiトラベル】",
+            "date": "2013-12-06",
+            "size": "120x60"
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9FD3LE+4SIK+HWAG1\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384570&wid=001&eno=01&mid=s00000022358003006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+9FD3LE+4SIK+HWAG1\" alt=\"\">",
+            "title": "チャージ型ポケットWiFi【プレミアムチャージWiFi】何度も使える買い切り型モバイルWiFi",
+            "date": "2025-09-01",
+            "size": "120x60"
+          }
+        ]
+      },
+      {
+        "name": "テキストリンク／その他（2件）",
+        "kind": "text",
+        "where": "none",
+        "cats": [],
+        "ads": [
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YT+BKRG8I+4V0U+ZQFQA\" rel=\"nofollow\">【動画教材エディター養成コース】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BC3YT+BKRG8I+4V0U+ZQFQA\" alt=\"\">",
+            "title": "【資格認定あり・顧客紹介あり・歩合報酬あり】動画教材エディター養成コース参加者募集",
+            "date": "2023-05-16",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+8G8IWI+1WP2+1HL85U\" rel=\"nofollow\">【PR】ウルトラ投資アプリ【TOSSY】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+8G8IWI+1WP2+1HL85U\" alt=\"\">",
+            "title": "【TOSSY】あらゆる取引がアプリひとつで完結！お得な特典が盛りだくさん！",
+            "date": "2025-10-29",
+            "size": ""
+          }
+        ]
+      },
+      {
+        "name": "テキストリンク／回線・Wi-Fi（42件）",
+        "kind": "text",
+        "where": "none",
+        "cats": [
+          "pc"
+        ],
+        "ads": [
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BQ4COI+4MTU+5Z6WY\" rel=\"nofollow\">コンセントを差すだけ！工事不要！Wi-Fi【SoftBank Air】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BC3YS+BQ4COI+4MTU+5Z6WY\" alt=\"\">",
+            "title": "工事不要でネット使い放題！月々2468円(税込)～！【SoftbankAir】",
+            "date": "2020-11-26",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BOC1V6+3SPO+BQPZ82\" rel=\"nofollow\">超高速インターネットが1年間ずっと月額980円〜！【コミュファ光】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BC3YS+BOC1V6+3SPO+BQPZ82\" alt=\"\">",
+            "title": "超高速インターネットが1年間ずっと月額980円～！【コミュファ光】",
+            "date": "2023-11-10",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BN56NM+1MWA+NYWTE\" rel=\"nofollow\">詳細はコチラ</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BC3YS+BN56NM+1MWA+NYWTE\" alt=\"\">",
+            "title": "【インターネット】最大最速キャッシュバック80,000円フレッツ光",
+            "date": "2010-03-17",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BN56NM+1MWA+O0ETT\" rel=\"nofollow\">\n<img border=\"0\" alt=\"\" src=\"https://www24.a8.net/svt/bgt?aid=260905492704&wid=001&eno=01&mid=s00000007633004033000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BC3YS+BN56NM+1MWA+O0ETT\" alt=\"\">",
+            "title": "【インターネット】最大最速キャッシュバック80,000円フレッツ光",
+            "date": "2010-03-17",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B43BAQ+1MWA+2Z7YC2\" rel=\"nofollow\">NTTフレッツ光・ひかり電話</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www15.a8.net/0.gif?a8mat=4BC3YS+B43BAQ+1MWA+2Z7YC2\" alt=\"\">",
+            "title": "高速インターネット回線のNTTフレッツ光【キャッシュバック最大7万円】",
+            "date": "2013-11-29",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B1PKVM+5460+HX5B5\" rel=\"nofollow\">\n<img border=\"0\" alt=\"\" src=\"https://www21.a8.net/svt/bgt?aid=260826384668&wid=001&eno=01&mid=s00000023868003010000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+B1PKVM+5460+HX5B5\" alt=\"\">",
+            "title": "安心の24時間日本語サポート・旅がもっと自由になる【地球の歩き方eSIM】",
+            "date": "2026-01-19",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B1PKVM+5460+HV7V6\" rel=\"nofollow\">安心の24時間サポート-旅がもっと自由になる【地球の歩き方eSIM】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+B1PKVM+5460+HV7V6\" alt=\"\">",
+            "title": "安心の24時間日本語サポート・旅がもっと自由になる【地球の歩き方eSIM】",
+            "date": "2026-01-19",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AFOJHU+5JPQ+5YJRM\" rel=\"nofollow\">東海でネット使うなら【コミュファ光】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+AFOJHU+5JPQ+5YJRM\" alt=\"\">",
+            "title": "東海地方の高速光回線なら【コミュファ光】充実したキャッシュバック特典あり！",
+            "date": "2024-05-31",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9W18J6+3MKA+15ORS2\" rel=\"nofollow\">【WiFi東京プリペイド】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+9W18J6+3MKA+15ORS2\" alt=\"\">",
+            "title": "好きな分だけ、いつでも使える！【WiFi東京プリペイド】",
+            "date": "2024-06-14",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9QOC36+3MKA+TRVYQ\" rel=\"nofollow\">無制限WiMAXレンタルサービス【FreeMax+5G｜法人プラン】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+9QOC36+3MKA+TRVYQ\" alt=\"\">",
+            "title": "【FreeMax+5G】2台目以降初期費用0円｜法人特別プラン",
+            "date": "2023-06-08",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9R9ROY+3MKA+NTRMQ\" rel=\"nofollow\">FreeMax+5G</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www15.a8.net/0.gif?a8mat=4BAEXC+9R9ROY+3MKA+NTRMQ\" alt=\"\">",
+            "title": "【FreeMax+5G】端末代金0円+無制限WiMAXレンタルサービス",
+            "date": "2022-11-24",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9U8XPU+2ZBM+3H18R6\" rel=\"nofollow\">【グローバルモバイル】海外レンタルWiFi</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+9U8XPU+2ZBM+3H18R6\" alt=\"\">",
+            "title": "【海外WiFiレンタルのグローバルモバイル】",
+            "date": "2024-02-16",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A0SPDE+2ZBM+3B2WPE\" rel=\"nofollow\">世界周遊専用レンタルWiFi</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+A0SPDE+2ZBM+3B2WPE\" alt=\"\">",
+            "title": "世界周遊レンタルWiFiルーター【ワールドデータ】",
+            "date": "2023-08-29",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9ZLU5U+2ZBM+2Z68LU\" rel=\"nofollow\">ベトナム専用レンタルWiFi</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+9ZLU5U+2ZBM+2Z68LU\" alt=\"\">",
+            "title": "ベトナム専用レンタルWiFIルーター【ベトナムデータ】",
+            "date": "2023-08-29",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9XTJCI+2ZBM+2BCWEQ\" rel=\"nofollow\">インド専用レンタルWiFi</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+9XTJCI+2ZBM+2BCWEQ\" alt=\"\">",
+            "title": "インド専用レンタルWiFiルーター【インドデータ】",
+            "date": "2023-08-29",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9X83QQ+2ZBM+25EKCY\" rel=\"nofollow\">イギリス専用レンタルWiFi</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+9X83QQ+2ZBM+25EKCY\" alt=\"\">",
+            "title": "イギリス専用レンタルWiFiルーター【イギリスデータ】",
+            "date": "2023-08-29",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B5A6IA+42Y0+NTJWY\" rel=\"nofollow\">おトクなキャンペーンでBBIQをスタート！！【BBIQ】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www15.a8.net/0.gif?a8mat=4BAEXC+B5A6IA+42Y0+NTJWY\" alt=\"\">",
+            "title": "【BBIQ(ビビック)】当サイト特典！最大30,000円キャッシュバック！",
+            "date": "2020-11-17",
+            "size": ""
+          },
+          {
+            "html": "<A HREF=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B72HBM+7QW+HY7W2\" rel=\"nofollow\">\n無料で試せる固定IP\n</A>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+B72HBM+7QW+HY7W2\" alt=\"\">",
+            "title": "違約金や契約期間の拘束が一切なし。最大２ヶ月無料体験のフレッツ接続【ZOOT NEXT】",
+            "date": "2004-08-05",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B6H1PU+50+3HULUP\" rel=\"nofollow\">\n<img border=\"0\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384676&wid=001&eno=01&mid=s00000000018021138000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+B6H1PU+50+3HULUP\" alt=\"\">",
+            "title": "GMOインターネット株式会社【GMOとくとくBB】申込募集",
+            "date": "2009-09-16",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B6H1PU+50+3H3TCI\" rel=\"nofollow\">【GMOとくとくBB WiMAX +5G】工事不要の最新Wi-Fiルーターが月額770円（税込）〜</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+B6H1PU+50+3H3TCI\" alt=\"\">",
+            "title": "GMOインターネット株式会社【GMOとくとくBB】申込募集",
+            "date": "2009-09-16",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B5VM42+3YFI+674EQ\" rel=\"nofollow\">NordVPN</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+B5VM42+3YFI+674EQ\" alt=\"\">",
+            "title": "【NordVPN】プライバシー保護で安全な制限なしネットワーク！",
+            "date": "2018-02-16",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B4OQWI+3HKU+1NJK7M\" rel=\"nofollow\">顧客満足度5年連続No.1！【コミュファ光】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+B4OQWI+3HKU+1NJK7M\" alt=\"\">",
+            "title": "高速回線選ぶならコミュファ光！速度もキャッシュバックも満足度No1！【コミュファ光】",
+            "date": "2021-06-25",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B3HVOY+3SPO+3MZKSY\" rel=\"nofollow\">最大36000円キャッシュバック！【SoftbankAir】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+B3HVOY+3SPO+3MZKSY\" alt=\"\">",
+            "title": "スマホのパケット量が使い放題で工事が不要！【SoftbankAir】",
+            "date": "2020-08-28",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B43BAQ+50+64ALJM\" rel=\"nofollow\">【キャッシュバック還元中！】GMOとくとくBBのauひかりキャンペーン</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+B43BAQ+50+64ALJM\" alt=\"\">",
+            "title": "GMOとくとくBB auひかりプロモーション",
+            "date": "2019-12-26",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AZBUGI+7QW+2BFWFM\" rel=\"nofollow\">自由テキスト</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+AZBUGI+7QW+2BFWFM\" alt=\"\">",
+            "title": "専用VPNサーバーを１台提供【グループ専用VPN / WG / WG + NGN】",
+            "date": "2020-07-15",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AYQEUQ+7QW+1ZGNQQ\" rel=\"nofollow\">自由テキスト</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+AYQEUQ+7QW+1ZGNQQ\" alt=\"\">",
+            "title": "「セカイVPN」でネット検閲や地理的規制を一時的に回避！無料Wi-Fiでのセキュリティも確保",
+            "date": "2014-10-16",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AY4Z8Y+348K+3H18R6\" rel=\"nofollow\">【他社よりお得なauひかりサイトはここ！】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+AY4Z8Y+348K+3H18R6\" alt=\"\">",
+            "title": "業界最速のキャッシュバック還元！更にオプション加入条件なし【auひかりサイト】",
+            "date": "2021-09-24",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AVR8TU+B4+2BIH0X\" rel=\"nofollow\">\n<img border=\"0\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384658&wid=001&eno=01&mid=s00000000040014027000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+AVR8TU+B4+2BIH0X\" alt=\"\">",
+            "title": "【公式】BIGLOBE WiMAX +5G",
+            "date": "2019-10-15",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AINPIQ+2JMM+1BN3TU\" rel=\"nofollow\">【VisionWiMAX】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+AINPIQ+2JMM+1BN3TU\" alt=\"\">",
+            "title": "【VisionWiMAX】選べるプラン内容",
+            "date": "2021-03-23",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9Q2WHE+3NMM+HXSGI\" rel=\"nofollow\">【話題のSoftBank Air】工事不要！コンセントに差すだけで高速インターネットが実現！</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+9Q2WHE+3NMM+HXSGI\" alt=\"\">",
+            "title": "【オプションなしで最大50,000円CBが最短翌月末進呈】工事不要のSoftBank Air！",
+            "date": "2018-12-17",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AI29WY+348K+44UKYA\" rel=\"nofollow\">おきらくホームWi-Fi</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+AI29WY+348K+44UKYA\" alt=\"\">",
+            "title": "機器代金0円！工事不要のホームルーターレンタル【おきらくホームWi-Fi】",
+            "date": "2024-05-22",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AG9Z3M+7JY+3B34F6\" rel=\"nofollow\">【BB.excite光 10G】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+AG9Z3M+7JY+3B34F6\" alt=\"\">",
+            "title": "10ギガ光回線【 BB.excite光 10G】",
+            "date": "2023-03-23",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AHGUB6+3SPO+7LXJFM\" rel=\"nofollow\">高速通信で快適に！【BIGLOBE光】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+AHGUB6+3SPO+7LXJFM\" alt=\"\">",
+            "title": "当サイト限定！最大40,000円還元キャンペーン！【BIGLOBE光】",
+            "date": "2022-07-21",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+ADAT2Q+7JY+2TB4AQ\" rel=\"nofollow\">「BB.excite光 Fit」公式</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+ADAT2Q+7JY+2TB4AQ\" alt=\"\">",
+            "title": "段階料金制の光回線【BB.excite光 Fit】",
+            "date": "2020-02-28",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+ADW8OI+4VXM+60OXE\" rel=\"nofollow\">次世代接続方式v6プラス利用可能光回線【イツキ光】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+ADW8OI+4VXM+60OXE\" alt=\"\">",
+            "title": "現金キャッシュバック実施中！最短翌日開通！次世代接続方式v6プラス利用可能光回線【イツキ光】",
+            "date": "2021-11-01",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AAX2NM+4PB0+BWVTE\" rel=\"nofollow\">当サイト限定キャンペーン実施中！【フレッツ光】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+AAX2NM+4PB0+BWVTE\" alt=\"\">",
+            "title": "【フレッツ光】安心と信頼の光回線｜最大79,000円キャッシュバック",
+            "date": "2022-09-12",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+ABII9E+7JY+2N9KIA\" rel=\"nofollow\">BB.excite光 MEC</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+ABII9E+7JY+2N9KIA\" alt=\"\">",
+            "title": "1ギガ光回線【BB.excite光 MEC】",
+            "date": "2019-04-12",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A6R1F6+548I+5YJRM\" rel=\"nofollow\">自由テキスト</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+A6R1F6+548I+5YJRM\" alt=\"\">",
+            "title": "快適なインターネット生活を送ろう！超高速光回線【Fon光】",
+            "date": "2022-10-07",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A3RVEA+7JY+1BSW5U\" rel=\"nofollow\">【BB.excite光 Classic】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+A3RVEA+7JY+1BSW5U\" alt=\"\">",
+            "title": "PPPoE光回線【BB.excite光 Classic】",
+            "date": "2011-08-04",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9HQU0I+4SIK+BX3J6\" rel=\"nofollow\">【ギガセットWiFi】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+9HQU0I+4SIK+BX3J6\" alt=\"\">",
+            "title": "チャージ型ポケットWiFi【ギガセットWiFi】使いたい時に使いたい分だけチャージして使う！",
+            "date": "2025-07-16",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9FYJ76+2W74+5ZMCI\" rel=\"nofollow\">200カ国対応海外WiFiレンタルサービス</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+9FYJ76+2W74+5ZMCI\" alt=\"\">",
+            "title": "業界最安級の海外WiFiレンタル【WiFiトラベル】",
+            "date": "2013-12-06",
+            "size": ""
+          },
+          {
+            "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9ERNZM+2JMM+64C3M\" rel=\"nofollow\">グローバルWiFi公式サイトを見てみる</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+9ERNZM+2JMM+64C3M\" alt=\"\">",
+            "title": "【海外WiFiレンタルのグローバルWiFi】",
+            "date": "2012-02-21",
+            "size": ""
+          }
+        ]
+      }
+    ]
   },
-  {
-   "key": "beauty",
-   "label": "美容・コスメ",
-   "icon": "💄",
-   "lead": "スキンケア・ヘアケア・美容家電。肌質や髪質で結果が変わるため、合わない場合の条件も併せて書きます。",
-   "sub": [
-    {
-     "key": "skincare",
-     "label": "スキンケア"
-    },
-    {
-     "key": "haircare",
-     "label": "ヘアケア"
-    },
-    {
-     "key": "makeup",
-     "label": "メイク"
-    },
-    {
-     "key": "device",
-     "label": "美容家電"
-    },
-    {
-     "key": "shave",
-     "label": "シェービング"
-    }
-   ],
-   "image": "assets/img/cat-beauty-mtlqlg52.webp"
+  "hero": {
+    "_note": "トップの見出しタイルの文言。accent に入れた語だけ、マーカーを引いた見た目になる（title の中に含まれている語を指定する）。",
+    "title": "レビューを読み込んで、不満点までまとめる。",
+    "accent": "不満点まで",
+    "typewriter": true
   },
-  {
-   "key": "health",
-   "label": "ヘルスケア",
-   "icon": "🩺",
-   "lead": "体調や睡眠の記録、体のケア用品。医療機器ではないため、数値は目安として扱います。",
-   "sub": [
-    {
-     "key": "measure",
-     "label": "計測・スマートウォッチ"
-    },
-    {
-     "key": "care",
-     "label": "マッサージ・体のケア"
-    },
-    {
-     "key": "supplement",
-     "label": "サプリメント"
-    },
-    {
-     "key": "hygiene",
-     "label": "衛生用品"
+  "ads": {
+    "_note": "Google AdSense。enabled を true にすると読み込みタグが入る。コードは書き換えず、置き場所だけこちらで決める（規約）。mode=auto は自動広告、manual は下の slots に入れた広告ユニットIDの位置だけに出す。",
+    "enabled": true,
+    "client": "ca-pub-4017242913861863",
+    "mode": "manual",
+    "label": "スポンサーリンク",
+    "slots": {
+      "article_mid": "",
+      "article_end": "",
+      "side": ""
     }
-   ],
-   "image": "assets/img/cat-health-mtlqxboo.webp"
   },
-  {
-   "key": "kitchen",
-   "label": "キッチン",
-   "icon": "🍳",
-   "lead": "調理家電と調理器具、food周りの収納。片付けまで含めた手間で評価します。",
-   "sub": [
-    {
-     "key": "appliance",
-     "label": "調理家電"
-    },
-    {
-     "key": "tool",
-     "label": "調理器具"
-    },
-    {
-     "key": "ware",
-     "label": "食器・保存容器"
-    },
-    {
-     "key": "storage",
-     "label": "キッチン収納"
-    }
-   ],
-   "image": "assets/img/cat-kitchen-mtlquq6f.webp"
+  "automation": {
+    "_note": "記事を自動で作る頻度と本数。ワークフローは毎日まわし、tools/schedule_gate.py がこの設定で間引く。enabled が false のあいだは何も作らない。",
+    "enabled": true,
+    "runs_per_week": 5,
+    "articles_per_run": 2,
+    "auto_publish": true
   },
-  {
-   "key": "daily",
-   "label": "日用品・雑貨",
-   "icon": "🧺",
-   "lead": "毎日使う消耗品と雑貨に加え、工具・園芸・アウトドア・ホビーなど、他のカテゴリーに収まらない領域もここにまとめています。",
-   "sub": [
-    {
-     "key": "storage",
-     "label": "収納・整理"
-    },
-    {
-     "key": "clean",
-     "label": "掃除・洗濯用品"
-    },
-    {
-     "key": "bath",
-     "label": "バス・トイレ"
-    },
-    {
-     "key": "safety",
-     "label": "防災・防犯"
-    },
-    {
-     "key": "misc",
-     "label": "その他雑貨"
-    },
-    {
-     "key": "fashion",
-     "label": "ファッション・時計"
-    },
-    {
-     "key": "tool",
-     "label": "DIY・工具"
-    },
-    {
-     "key": "garden",
-     "label": "ガーデニング"
-    },
-    {
-     "key": "hobby",
-     "label": "ゲーム・ホビー"
-    },
-    {
-     "key": "car",
-     "label": "車・バイク"
-    },
-    {
-     "key": "outdoor",
-     "label": "アウトドア・スポーツ"
-    },
-    {
-     "key": "stationery",
-     "label": "文具・オフィス"
-    }
-   ],
-   "image": "assets/img/cat-daily-mtlqv3bc.webp"
+  "hosting": {
+    "_note": "配信先は Cloudflare Workers（静的アセット）。build.py が wrangler.jsonc と .assetsignore を書き出す。GitHub Pages へ戻す場合は clean_urls を false にする。",
+    "clean_urls": true,
+    "worker_name": "monobase",
+    "compatibility_date": "2026-08-24"
   },
-  {
-   "key": "fashion",
-   "icon": "👕",
-   "label": "ファッション",
-   "lead": "衣類・靴・バッグ・時計などの身につけるものです。サイズや素材で評価が分かれやすいため、利用者の声から「誰の体型・使い方に合うか」を整理して紹介します。",
-   "sub": [
-    {
-     "key": "wear",
-     "label": "衣類"
-    },
-    {
-     "key": "shoes",
-     "label": "靴"
-    },
-    {
-     "key": "bag",
-     "label": "バッグ・財布"
-    },
-    {
-     "key": "watch",
-     "label": "時計"
-    },
-    {
-     "key": "acc",
-     "label": "小物・アクセサリー"
-    }
-   ]
+  "legal_updated": "2026-09-03",
+  "_legal_updated_note": "プライバシーポリシー・免責事項・運営者情報の「最終更新」に出る日付。文面を変えたときだけ手で更新する。",
+  "maintenance_message": "ただいまサイトの準備・調整を行っています。",
+  "layout": {
+    "_note": "トップページに出す区画の並びと表示。管理画面の「サイト設定 → トップページの並び」から変更できる。",
+    "top": [
+      {
+        "key": "hero",
+        "on": true
+      },
+      {
+        "key": "feature",
+        "on": true
+      },
+      {
+        "key": "new",
+        "on": true
+      },
+      {
+        "key": "ranking",
+        "on": true
+      },
+      {
+        "key": "categories",
+        "on": true
+      }
+    ]
   },
-  {
-   "key": "furniture",
-   "label": "家具・インテリア",
-   "icon": "🪑",
-   "lead": "デスク・チェア・収納・寝具。在宅作業の快適さは、この領域でほぼ決まります。",
-   "sub": [
-    {
-     "key": "desk",
-     "label": "デスク・デスク周り"
+  "affiliate": {
+    "_note": "楽天・Yahoo!ショッピングのアフィリエイト設定。管理画面の「サイト設定」から編集できる。IDを空にすると、そのショップのボタンは通常リンク（タグなし）になる。Amazon は associate_tag の直リンクを使う。",
+    "rakuten": {
+      "affiliate_id": "56d346a9.eb62e37a.56d346aa.44554a44",
+      "_note": "楽天アフィリエイトのID（直参加）。ドット区切りの文字列。hb.afl.rakuten.co.jp/hgc/<ID>/ の形でリンクを組み立てる。"
     },
-    {
-     "key": "chair",
-     "label": "チェア"
-    },
-    {
-     "key": "shelf",
-     "label": "収納家具・ラック"
-    },
-    {
-     "key": "bed",
-     "label": "寝具"
-    },
-    {
-     "key": "deco",
-     "label": "インテリア雑貨"
+    "yahoo": {
+      "vc_sid": "",
+      "vc_pid": "",
+      "_note": "Yahoo!ショッピングはバリューコマース経由。管理画面の広告リンクに出る sid と pid を入れると ck.jp.ap.valuecommerce.com 経由になる。空のあいだは通常リンク。"
     }
-   ],
-   "image": "assets/img/cat-furniture-mtlqvldt.webp"
   },
-  {
-   "key": "pet",
-   "label": "ペット",
-   "icon": "🐾",
-   "lead": "犬・猫を中心としたペット用品。生き物が相手なので、合わなかったときの切り替えやすさも含めて整理します。",
-   "sub": [
-    {
-     "key": "dog",
-     "label": "犬用品"
-    },
-    {
-     "key": "cat",
-     "label": "猫用品"
-    },
-    {
-     "key": "food",
-     "label": "フード・おやつ"
-    },
-    {
-     "key": "care",
-     "label": "ケア・衛生"
-    },
-    {
-     "key": "aqua",
-     "label": "アクアリウム・小動物"
-    }
-   ],
-   "image": "assets/img/cat-pet-mtlqwfcy.webp"
+  "indexnow": {
+    "key": "915c9ed24598bf24b17e077cd405a65d",
+    "_note": "IndexNow の鍵。記事を更新したとき Bing・Yandex などへ通知する。build.py が <鍵>.txt をサイトの直下に置き、相手はそれを読んで「本当にこのサイトの持ち主か」を確かめる。公開される値なので秘密ではない。Google は IndexNow に対応していない（サイトマップとリンクで拾われる）。",
+    "endpoint": "https://api.indexnow.org/indexnow"
   },
-  {
-   "key": "travel",
-   "label": "旅行・トラベル",
-   "icon": "🧳",
-   "lead": "スーツケース・トラベルポーチ・機内グッズなど、移動と滞在を軽くするための道具。荷造りのしやすさと、現地で困らないかという視点で整理します。",
-   "sub": [
-    {
-     "key": "luggage",
-     "label": "スーツケース・バッグ"
-    },
-    {
-     "key": "organize",
-     "label": "パッキング・収納"
-    },
-    {
-     "key": "gadget",
-     "label": "旅行ガジェット・変換器"
-    },
-    {
-     "key": "comfort",
-     "label": "機内・移動の快適グッズ"
-    },
-    {
-     "key": "amenity",
-     "label": "トラベル用トイレタリー"
-    }
-   ],
-   "image": "assets/img/cat-travel-mtlqwt2y.webp"
+  "footer_promo": {
+    "_note": "フッター上に出すAmazonへの導線。価格・在庫・割引率は書かないこと（PA-API 経由のデータ以外は表示できない）。url は空ならAmazonのトップ。",
+    "title": "Amazonで気になるものを探す",
+    "button": "Amazon.co.jp を見る",
+    "note": "当サイトはAmazonアソシエイトとして、適格販売により収入を得ています。価格・在庫は必ず販売ページでご確認ください。",
+    "url": ""
   }
- ],
- "amazon": {
-  "associate_tag": "monobase30-22",
-  "_note": "アソシエイトID（例: monobase-22）。審査通過後にここへ入れると、ASIN指定の全記事リンクへ自動で付与されます。"
- },
- "sales": {
-  "_note": "Amazonのセール日程は公式に配信されていないため、日程が発表されたらここに追加する。期間内だけサイト上部に流れる告知が出る。",
-  "items": [
-   {
-    "name": "Amazon プライムデー",
-    "start": "2026-07-14",
-    "end": "2026-07-17",
-    "url": "https://www.amazon.co.jp/events/primeday",
-    "note": ""
-   },
-   {
-    "name": "Amazon ブラックフライデー",
-    "start": "2026-11-27",
-    "end": "2026-12-01",
-    "url": "https://www.amazon.co.jp/events/blackfriday",
-    "note": ""
-   }
-  ]
- },
- "images": {
-  "_note": "画像生成の設定。APIキーはここに書かない（公開リポジトリのため）。ローカルは環境変数 GEMINI_API_KEY、GitHub Actions は Secrets を使う。",
-  "model": "gemini-3.1-flash-image"
- },
- "promos": {
-  "_note": "A8.net・バリューコマース・もしもなどで取得した広告リンクを、そのまま貼る枠。コードは書き換えず、置き場所と対象カテゴリーだけこちらで決める。where は article_end（記事の下）／side（PCサイド）／none（出さない）。cats を空にすると全カテゴリーの記事に出る。",
-  "label": "PR",
-  "items": [
-   {
-    "name": "四角いバナー／オーディオ（1件）",
-    "kind": "tile",
-    "where": "article_end",
-    "cats": [
-     "av"
-    ],
-    "ads": [
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YT+ANF6CY+55QO+5ZU29\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www27.a8.net/svt/bgt?aid=260905493644&wid=001&eno=01&mid=s00000024072001007000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BC3YT+ANF6CY+55QO+5ZU29\" alt=\"\">",
-      "title": "イヤホン・ヘッドホン専門店【e☆イヤホン】",
-      "date": "2022-12-19",
-      "size": "300x250"
-     }
-    ]
-   },
-   {
-    "name": "四角いバナー／回線・Wi-Fi（24件）",
-    "kind": "tile",
-    "where": "article_end",
-    "cats": [
-     "pc"
-    ],
-    "ads": [
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BOC1V6+3SPO+BQTME9\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www24.a8.net/svt/bgt?aid=260905492706&wid=001&eno=01&mid=s00000017718071018000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BC3YS+BOC1V6+3SPO+BQTME9\" alt=\"\">",
-      "title": "超高速インターネットが1年間ずっと月額980円～！【コミュファ光】",
-      "date": "2023-11-10",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BLCVUA+42Y0+5ZMCH\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260905492701&wid=001&eno=01&mid=s00000019044001006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BC3YS+BLCVUA+42Y0+5ZMCH\" alt=\"\">",
-      "title": "【auひかり】初期工事費無料！豪華キャンペーン！知らない人はモッタイナイ！",
-      "date": "2018-07-10",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B5A6IA+1MWA+1TS6MP\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www29.a8.net/svt/bgt?aid=260905492674&wid=001&eno=01&mid=s00000007633011049000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BC3YS+B5A6IA+1MWA+1TS6MP\" alt=\"\">",
-      "title": "【キャッシュバック最大7万円】ひかり電話、ヒカリ回線のお申込み窓口",
-      "date": "2012-06-29",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B43BAQ+1MWA+2ZAQN5\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260905492672&wid=001&eno=01&mid=s00000007633018022000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BC3YS+B43BAQ+1MWA+2ZAQN5\" alt=\"\">",
-      "title": "高速インターネット回線のNTTフレッツ光【キャッシュバック最大7万円】",
-      "date": "2013-11-29",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AFOJHU+5JPQ+5YZ75\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384631&wid=001&eno=01&mid=s00000025883001003000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+AFOJHU+5JPQ+5YZ75\" alt=\"\">",
-      "title": "東海地方の高速光回線なら【コミュファ光】充実したキャッシュバック特典あり！",
-      "date": "2024-05-31",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9W18J6+3MKA+15PEXD\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www21.a8.net/svt/bgt?aid=260826384598&wid=001&eno=01&mid=s00000016921007005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+9W18J6+3MKA+15PEXD\" alt=\"\">",
-      "title": "好きな分だけ、いつでも使える！【WiFi東京プリペイド】",
-      "date": "2024-06-14",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9QOC36+3MKA+TTDZ5\" rel=\"nofollow\">\n<img border=\"0\" width=\"336\" height=\"280\" alt=\"\" src=\"https://www26.a8.net/svt/bgt?aid=260826384589&wid=001&eno=01&mid=s00000016921005008000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+9QOC36+3MKA+TTDZ5\" alt=\"\">",
-      "title": "【FreeMax+5G】2台目以降初期費用0円｜法人特別プラン",
-      "date": "2023-06-08",
-      "size": "336x280"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9U8XPU+2ZBM+3H4129\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384595&wid=001&eno=01&mid=s00000013909021014000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+9U8XPU+2ZBM+3H4129\" alt=\"\">",
-      "title": "【海外WiFiレンタルのグローバルモバイル】",
-      "date": "2024-02-16",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A0SPDE+2ZBM+3B3RKH\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384606&wid=001&eno=01&mid=s00000013909020005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+A0SPDE+2ZBM+3B3RKH\" alt=\"\">",
-      "title": "世界周遊レンタルWiFiルーター【ワールドデータ】",
-      "date": "2023-08-29",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9ZLU5U+2ZBM+2Z73GX\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384604&wid=001&eno=01&mid=s00000013909018005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+9ZLU5U+2ZBM+2Z73GX\" alt=\"\">",
-      "title": "ベトナム専用レンタルWiFIルーター【ベトナムデータ】",
-      "date": "2023-08-29",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9XTJCI+2ZBM+2BDR9T\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www27.a8.net/svt/bgt?aid=260826384601&wid=001&eno=01&mid=s00000013909014005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+9XTJCI+2ZBM+2BDR9T\" alt=\"\">",
-      "title": "インド専用レンタルWiFiルーター【インドデータ】",
-      "date": "2023-08-29",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9X83QQ+2ZBM+25FF81\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www29.a8.net/svt/bgt?aid=260826384600&wid=001&eno=01&mid=s00000013909013005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+9X83QQ+2ZBM+25FF81\" alt=\"\">",
-      "title": "イギリス専用レンタルWiFiルーター【イギリスデータ】",
-      "date": "2023-08-29",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AC3XV6+7JY+3SZMKX\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384625&wid=001&eno=01&mid=s00000000979023009000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+AC3XV6+7JY+3SZMKX\" alt=\"\">",
-      "title": "フレッツ光の10ギガ光回線【BB.exciteカスタム クロス回線】",
-      "date": "2024-10-07",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B5A6IA+42Y0+NWC81\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www25.a8.net/svt/bgt?aid=260826384674&wid=001&eno=01&mid=s00000019044004014000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+B5A6IA+42Y0+NWC81\" alt=\"\">",
-      "title": "【BBIQ(ビビック)】当サイト特典！最大30,000円キャッシュバック！",
-      "date": "2020-11-17",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B0IPO2+4LSW+BXIYP\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www28.a8.net/svt/bgt?aid=260826384666&wid=001&eno=01&mid=s00000021488002004000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+B0IPO2+4LSW+BXIYP\" alt=\"\">",
-      "title": "マルウェア等の脅威からデバイスを保護【Surfshark Antivirus】",
-      "date": "2023-05-31",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AZBUGI+7QW+2BE6PD\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www21.a8.net/svt/bgt?aid=260826384664&wid=001&eno=01&mid=s00000001004014007000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+AZBUGI+7QW+2BE6PD\" alt=\"\">",
-      "title": "専用VPNサーバーを１台提供【グループ専用VPN / WG / WG + NGN】",
-      "date": "2020-07-15",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AVR8TU+B4+2BSJOH\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384658&wid=001&eno=01&mid=s00000000040014074000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+AVR8TU+B4+2BSJOH\" alt=\"\">",
-      "title": "【公式】BIGLOBE WiMAX +5G",
-      "date": "2019-10-15",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AINPIQ+2JMM+1BNYOX\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384636&wid=001&eno=01&mid=s00000011875008006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+AINPIQ+2JMM+1BNYOX\" alt=\"\">",
-      "title": "【VisionWiMAX】選べるプラン内容",
-      "date": "2021-03-23",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AI29WY+348K+44VFTD\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www26.a8.net/svt/bgt?aid=260826384635&wid=001&eno=01&mid=s00000014546025005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+AI29WY+348K+44VFTD\" alt=\"\">",
-      "title": "機器代金0円！工事不要のホームルーターレンタル【おきらくホームWi-Fi】",
-      "date": "2024-05-22",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AG9Z3M+7JY+3B5P0H\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384632&wid=001&eno=01&mid=s00000000979020014000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+AG9Z3M+7JY+3B5P0H\" alt=\"\">",
-      "title": "10ギガ光回線【 BB.excite光 10G】",
-      "date": "2023-03-23",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AAX2NM+4PB0+BYLJL\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384623&wid=001&eno=01&mid=s00000021942002009000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+AAX2NM+4PB0+BYLJL\" alt=\"\">",
-      "title": "【フレッツ光】安心と信頼の光回線｜最大79,000円キャッシュバック",
-      "date": "2022-09-12",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A6R1F6+548I+609HT\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www25.a8.net/svt/bgt?aid=260826384616&wid=001&eno=01&mid=s00000023877001009000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+A6R1F6+548I+609HT\" alt=\"\">",
-      "title": "快適なインターネット生活を送ろう！超高速光回線【Fon光】",
-      "date": "2022-10-07",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A3RVEA+7JY+1BNYOX\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260826384611&wid=001&eno=01&mid=s00000000979008006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+A3RVEA+7JY+1BNYOX\" alt=\"\">",
-      "title": "PPPoE光回線【BB.excite光 Classic】",
-      "date": "2011-08-04",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9FD3LE+4SIK+HXD0X\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www24.a8.net/svt/bgt?aid=260826384570&wid=001&eno=01&mid=s00000022358003011000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+9FD3LE+4SIK+HXD0X\" alt=\"\">",
-      "title": "チャージ型ポケットWiFi【プレミアムチャージWiFi】何度も使える買い切り型モバイルWiFi",
-      "date": "2025-09-01",
-      "size": "300x250"
-     }
-    ]
-   },
-   {
-    "name": "四角いバナー／家電レンタル（2件）",
-    "kind": "tile",
-    "where": "article_end",
-    "cats": [
-     "appliance",
-     "kitchen"
-    ],
-    "ads": [
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AKG0C2+5MMG+601S1\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www21.a8.net/svt/bgt?aid=260826384639&wid=001&eno=01&mid=s00000026260001008000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+AKG0C2+5MMG+601S1\" alt=\"\">",
-      "title": "生活家電のレンタル・サブスクサービス【家電レンタルみんなのHappy】",
-      "date": "2024-09-25",
-      "size": "300x250"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AKG0C2+5MMG+5ZEMP\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260826384639&wid=001&eno=01&mid=s00000026260001005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+AKG0C2+5MMG+5ZEMP\" alt=\"\">",
-      "title": "生活家電のレンタル・サブスクサービス【家電レンタルみんなのHappy】",
-      "date": "2024-09-25",
-      "size": "300x250"
-     }
-    ]
-   },
-   {
-    "name": "横長バナー／その他（2件）",
-    "kind": "wide",
-    "where": "none",
-    "cats": [],
-    "ads": [
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YT+BKRG8I+4V0U+ZRIB5\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www29.a8.net/svt/bgt?aid=260905493700&wid=001&eno=01&mid=s00000022683006007000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www15.a8.net/0.gif?a8mat=4BC3YT+BKRG8I+4V0U+ZRIB5\" alt=\"\">",
-      "title": "【資格認定あり・顧客紹介あり・歩合報酬あり】動画教材エディター養成コース参加者募集",
-      "date": "2023-05-16",
-      "size": "120x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+8FN3AQ+50+2HCB1D\" rel=\"nofollow\">\n<img border=\"0\" width=\"100\" height=\"60\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384510&wid=001&eno=01&mid=s00000000018015006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+8FN3AQ+50+2HCB1D\" alt=\"\">",
-      "title": "【.com/.net ０円～】独自ドメインの取得は国内シェアNo.1の＜お名前.com＞",
-      "date": "2007-08-29",
-      "size": "100x60"
-     }
-    ]
-   },
-   {
-    "name": "横長バナー／オーディオ（1件）",
-    "kind": "wide",
-    "where": "none",
-    "cats": [
-     "av"
-    ],
-    "ads": [
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YT+ANF6CY+55QO+609HT\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www29.a8.net/svt/bgt?aid=260905493644&wid=001&eno=01&mid=s00000024072001009000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BC3YT+ANF6CY+55QO+609HT\" alt=\"\">",
-      "title": "イヤホン・ヘッドホン専門店【e☆イヤホン】",
-      "date": "2022-12-19",
-      "size": "120x60"
-     }
-    ]
-   },
-   {
-    "name": "横長バナー／回線・Wi-Fi（25件）",
-    "kind": "wide",
-    "where": "none",
-    "cats": [
-     "pc"
-    ],
-    "ads": [
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B8US4Y+2BZM+3562O1\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260905492680&wid=001&eno=01&mid=s00000010885019008000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BC3YS+B8US4Y+2BZM+3562O1\" alt=\"\">",
-      "title": "工事不要！最短3日でご利用可能！法人・店舗向けの5G対応Wi-Fi【BizAir】",
-      "date": "2022-08-23",
-      "size": "120x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B8US4Y+2BZM+3557SX\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260905492680&wid=001&eno=01&mid=s00000010885019004000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BC3YS+B8US4Y+2BZM+3557SX\" alt=\"\">",
-      "title": "工事不要！最短3日でご利用可能！法人・店舗向けの5G対応Wi-Fi【BizAir】",
-      "date": "2022-08-23",
-      "size": "468x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BQ4COI+4MTU+60H7L\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www28.a8.net/svt/bgt?aid=260905492709&wid=001&eno=01&mid=s00000021621001010000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BC3YS+BQ4COI+4MTU+60H7L\" alt=\"\">",
-      "title": "工事不要でネット使い放題！月々2468円(税込)～！【SoftbankAir】",
-      "date": "2020-11-26",
-      "size": "120x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BLCVUA+42Y0+62MDD\" rel=\"nofollow\">\n<img border=\"0\" width=\"320\" height=\"50\" alt=\"\" src=\"https://www21.a8.net/svt/bgt?aid=260905492701&wid=001&eno=01&mid=s00000019044001020000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BC3YS+BLCVUA+42Y0+62MDD\" alt=\"\">",
-      "title": "【auひかり】初期工事費無料！豪華キャンペーン！知らない人はモッタイナイ！",
-      "date": "2018-07-10",
-      "size": "320x50"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B5A6IA+1MWA+1TIJEP\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www27.a8.net/svt/bgt?aid=260905492674&wid=001&eno=01&mid=s00000007633011004000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BC3YS+B5A6IA+1MWA+1TIJEP\" alt=\"\">",
-      "title": "【キャッシュバック最大7万円】ひかり電話、ヒカリ回線のお申込み窓口",
-      "date": "2012-06-29",
-      "size": "120x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9R9ROY+3MKA+NUU7L\" rel=\"nofollow\">\n<img border=\"0\" width=\"320\" height=\"50\" alt=\"\" src=\"https://www27.a8.net/svt/bgt?aid=260826384590&wid=001&eno=01&mid=s00000016921004007000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+9R9ROY+3MKA+NUU7L\" alt=\"\">",
-      "title": "【FreeMax+5G】端末代金0円+無制限WiMAXレンタルサービス",
-      "date": "2022-11-24",
-      "size": "320x50"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AC3XV6+7JY+3T020H\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384625&wid=001&eno=01&mid=s00000000979023011000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+AC3XV6+7JY+3T020H\" alt=\"\">",
-      "title": "フレッツ光の10ギガ光回線【BB.exciteカスタム クロス回線】",
-      "date": "2024-10-07",
-      "size": "468x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B72HBM+7QW+HVFKX\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384677&wid=001&eno=01&mid=s00000001004003002000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+B72HBM+7QW+HVFKX\" alt=\"\">",
-      "title": "違約金や契約期間の拘束が一切なし。最大２ヶ月無料体験のフレッツ接続【ZOOT NEXT】",
-      "date": "2004-08-05",
-      "size": "468x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B5VM42+3YFI+626XT\" rel=\"nofollow\">\n<img border=\"0\" width=\"320\" height=\"50\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384675&wid=001&eno=01&mid=s00000018459001018000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+B5VM42+3YFI+626XT\" alt=\"\">",
-      "title": "【NordVPN】プライバシー保護で安全な制限なしネットワーク！",
-      "date": "2018-02-16",
-      "size": "320x50"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B4OQWI+3HKU+1NK7CX\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384673&wid=001&eno=01&mid=s00000016275010004000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+B4OQWI+3HKU+1NK7CX\" alt=\"\">",
-      "title": "高速回線選ぶならコミュファ光！速度もキャッシュバックも満足度No1！【コミュファ光】",
-      "date": "2021-06-25",
-      "size": "468x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B3HVOY+3SPO+3N0FO1\" rel=\"nofollow\">\n<img border=\"0\" width=\"320\" height=\"50\" alt=\"\" src=\"https://www25.a8.net/svt/bgt?aid=260826384671&wid=001&eno=01&mid=s00000017718022005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+B3HVOY+3SPO+3N0FO1\" alt=\"\">",
-      "title": "スマホのパケット量が使い放題で工事が不要！【SoftbankAir】",
-      "date": "2020-08-28",
-      "size": "320x50"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B43BAQ+50+64C3K1\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260826384672&wid=001&eno=01&mid=s00000000018037008000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+B43BAQ+50+64C3K1\" alt=\"\">",
-      "title": "GMOとくとくBB auひかりプロモーション",
-      "date": "2019-12-26",
-      "size": "468x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B0IPO2+4LSW+BXYE9\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www28.a8.net/svt/bgt?aid=260826384666&wid=001&eno=01&mid=s00000021488002006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+B0IPO2+4LSW+BXYE9\" alt=\"\">",
-      "title": "マルウェア等の脅威からデバイスを保護【Surfshark Antivirus】",
-      "date": "2023-05-31",
-      "size": "120x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AYQEUQ+7QW+1ZIL6P\" rel=\"nofollow\">\n<img border=\"0\" width=\"320\" height=\"50\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260826384663&wid=001&eno=01&mid=s00000001004012012000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+AYQEUQ+7QW+1ZIL6P\" alt=\"\">",
-      "title": "「セカイVPN」でネット検閲や地理的規制を一時的に回避！無料Wi-Fiでのセキュリティも確保",
-      "date": "2014-10-16",
-      "size": "320x50"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AY4Z8Y+348K+3H2QRL\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384662&wid=001&eno=01&mid=s00000014546021008000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+AY4Z8Y+348K+3H2QRL\" alt=\"\">",
-      "title": "業界最速のキャッシュバック還元！更にオプション加入条件なし【auひかりサイト】",
-      "date": "2021-09-24",
-      "size": "120x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9Q2WHE+3NMM+HVV0H\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www21.a8.net/svt/bgt?aid=260826384588&wid=001&eno=01&mid=s00000017059003004000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+9Q2WHE+3NMM+HVV0H\" alt=\"\">",
-      "title": "【オプションなしで最大50,000円CBが最短翌月末進呈】工事不要のSoftBank Air！",
-      "date": "2018-12-17",
-      "size": "468x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AHGUB6+3SPO+7LWGUP\" rel=\"nofollow\">\n<img border=\"0\" width=\"320\" height=\"50\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384634&wid=001&eno=01&mid=s00000017718046005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+AHGUB6+3SPO+7LWGUP\" alt=\"\">",
-      "title": "当サイト限定！最大40,000円還元キャンペーン！【BIGLOBE光】",
-      "date": "2022-07-21",
-      "size": "320x50"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+ADAT2Q+7JY+2T8Z4X\" rel=\"nofollow\">\n<img border=\"0\" width=\"728\" height=\"90\" alt=\"\" src=\"https://www29.a8.net/svt/bgt?aid=260826384627&wid=001&eno=01&mid=s00000000979017006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+ADAT2Q+7JY+2T8Z4X\" alt=\"\">",
-      "title": "段階料金制の光回線【BB.excite光 Fit】",
-      "date": "2020-02-28",
-      "size": "728x90"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+ADW8OI+4VXM+5ZEMP\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www25.a8.net/svt/bgt?aid=260826384628&wid=001&eno=01&mid=s00000022801001005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+ADW8OI+4VXM+5ZEMP\" alt=\"\">",
-      "title": "現金キャッシュバック実施中！最短翌日開通！次世代接続方式v6プラス利用可能光回線【イツキ光】",
-      "date": "2021-11-01",
-      "size": "120x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+ABII9E+7JY+2NBXDT\" rel=\"nofollow\">\n<img border=\"0\" width=\"728\" height=\"90\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260826384624&wid=001&eno=01&mid=s00000000979016012000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+ABII9E+7JY+2NBXDT\" alt=\"\">",
-      "title": "1ギガ光回線【BB.excite光 MEC】",
-      "date": "2019-04-12",
-      "size": "728x90"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A4YQLU+4SHG+5Z6WX\" rel=\"nofollow\">\n<img border=\"0\" width=\"468\" height=\"60\" alt=\"\" src=\"https://www26.a8.net/svt/bgt?aid=260826384613&wid=001&eno=01&mid=s00000022354001004000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+A4YQLU+4SHG+5Z6WX\" alt=\"\">",
-      "title": "複雑な条件なし！契約期間しばり無し光回線＋【おてがる光】",
-      "date": "2021-06-30",
-      "size": "468x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A4YQLU+4SHG+61RI9\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www28.a8.net/svt/bgt?aid=260826384613&wid=001&eno=01&mid=s00000022354001016000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+A4YQLU+4SHG+61RI9\" alt=\"\">",
-      "title": "複雑な条件なし！契約期間しばり無し光回線＋【おてがる光】",
-      "date": "2021-06-30",
-      "size": "120x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9HQU0I+4SIK+BXB8X\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www26.a8.net/svt/bgt?aid=260826384574&wid=001&eno=01&mid=s00000022358002003000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+9HQU0I+4SIK+BXB8X\" alt=\"\">",
-      "title": "チャージ型ポケットWiFi【ギガセットWiFi】使いたい時に使いたい分だけチャージして使う！",
-      "date": "2025-07-16",
-      "size": "120x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9FYJ76+2W74+61Z81\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www29.a8.net/svt/bgt?aid=260826384571&wid=001&eno=01&mid=s00000013504001017000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+9FYJ76+2W74+61Z81\" alt=\"\">",
-      "title": "業界最安級の海外WiFiレンタル【WiFiトラベル】",
-      "date": "2013-12-06",
-      "size": "120x60"
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9FD3LE+4SIK+HWAG1\" rel=\"nofollow\">\n<img border=\"0\" width=\"120\" height=\"60\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384570&wid=001&eno=01&mid=s00000022358003006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+9FD3LE+4SIK+HWAG1\" alt=\"\">",
-      "title": "チャージ型ポケットWiFi【プレミアムチャージWiFi】何度も使える買い切り型モバイルWiFi",
-      "date": "2025-09-01",
-      "size": "120x60"
-     }
-    ]
-   },
-   {
-    "name": "テキストリンク／その他（2件）",
-    "kind": "text",
-    "where": "none",
-    "cats": [],
-    "ads": [
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YT+BKRG8I+4V0U+ZQFQA\" rel=\"nofollow\">【動画教材エディター養成コース】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BC3YT+BKRG8I+4V0U+ZQFQA\" alt=\"\">",
-      "title": "【資格認定あり・顧客紹介あり・歩合報酬あり】動画教材エディター養成コース参加者募集",
-      "date": "2023-05-16",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+8G8IWI+1WP2+1HL85U\" rel=\"nofollow\">【PR】ウルトラ投資アプリ【TOSSY】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+8G8IWI+1WP2+1HL85U\" alt=\"\">",
-      "title": "【TOSSY】あらゆる取引がアプリひとつで完結！お得な特典が盛りだくさん！",
-      "date": "2025-10-29",
-      "size": ""
-     }
-    ]
-   },
-   {
-    "name": "テキストリンク／回線・Wi-Fi（42件）",
-    "kind": "text",
-    "where": "none",
-    "cats": [
-     "pc"
-    ],
-    "ads": [
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BQ4COI+4MTU+5Z6WY\" rel=\"nofollow\">コンセントを差すだけ！工事不要！Wi-Fi【SoftBank Air】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BC3YS+BQ4COI+4MTU+5Z6WY\" alt=\"\">",
-      "title": "工事不要でネット使い放題！月々2468円(税込)～！【SoftbankAir】",
-      "date": "2020-11-26",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BOC1V6+3SPO+BQPZ82\" rel=\"nofollow\">超高速インターネットが1年間ずっと月額980円〜！【コミュファ光】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BC3YS+BOC1V6+3SPO+BQPZ82\" alt=\"\">",
-      "title": "超高速インターネットが1年間ずっと月額980円～！【コミュファ光】",
-      "date": "2023-11-10",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BN56NM+1MWA+NYWTE\" rel=\"nofollow\">詳細はコチラ</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BC3YS+BN56NM+1MWA+NYWTE\" alt=\"\">",
-      "title": "【インターネット】最大最速キャッシュバック80,000円フレッツ光",
-      "date": "2010-03-17",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BN56NM+1MWA+O0ETT\" rel=\"nofollow\">\n<img border=\"0\" alt=\"\" src=\"https://www24.a8.net/svt/bgt?aid=260905492704&wid=001&eno=01&mid=s00000007633004033000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BC3YS+BN56NM+1MWA+O0ETT\" alt=\"\">",
-      "title": "【インターネット】最大最速キャッシュバック80,000円フレッツ光",
-      "date": "2010-03-17",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B43BAQ+1MWA+2Z7YC2\" rel=\"nofollow\">NTTフレッツ光・ひかり電話</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www15.a8.net/0.gif?a8mat=4BC3YS+B43BAQ+1MWA+2Z7YC2\" alt=\"\">",
-      "title": "高速インターネット回線のNTTフレッツ光【キャッシュバック最大7万円】",
-      "date": "2013-11-29",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B1PKVM+5460+HX5B5\" rel=\"nofollow\">\n<img border=\"0\" alt=\"\" src=\"https://www21.a8.net/svt/bgt?aid=260826384668&wid=001&eno=01&mid=s00000023868003010000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+B1PKVM+5460+HX5B5\" alt=\"\">",
-      "title": "安心の24時間日本語サポート・旅がもっと自由になる【地球の歩き方eSIM】",
-      "date": "2026-01-19",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B1PKVM+5460+HV7V6\" rel=\"nofollow\">安心の24時間サポート-旅がもっと自由になる【地球の歩き方eSIM】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+B1PKVM+5460+HV7V6\" alt=\"\">",
-      "title": "安心の24時間日本語サポート・旅がもっと自由になる【地球の歩き方eSIM】",
-      "date": "2026-01-19",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AFOJHU+5JPQ+5YJRM\" rel=\"nofollow\">東海でネット使うなら【コミュファ光】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+AFOJHU+5JPQ+5YJRM\" alt=\"\">",
-      "title": "東海地方の高速光回線なら【コミュファ光】充実したキャッシュバック特典あり！",
-      "date": "2024-05-31",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9W18J6+3MKA+15ORS2\" rel=\"nofollow\">【WiFi東京プリペイド】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+9W18J6+3MKA+15ORS2\" alt=\"\">",
-      "title": "好きな分だけ、いつでも使える！【WiFi東京プリペイド】",
-      "date": "2024-06-14",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9QOC36+3MKA+TRVYQ\" rel=\"nofollow\">無制限WiMAXレンタルサービス【FreeMax+5G｜法人プラン】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+9QOC36+3MKA+TRVYQ\" alt=\"\">",
-      "title": "【FreeMax+5G】2台目以降初期費用0円｜法人特別プラン",
-      "date": "2023-06-08",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9R9ROY+3MKA+NTRMQ\" rel=\"nofollow\">FreeMax+5G</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www15.a8.net/0.gif?a8mat=4BAEXC+9R9ROY+3MKA+NTRMQ\" alt=\"\">",
-      "title": "【FreeMax+5G】端末代金0円+無制限WiMAXレンタルサービス",
-      "date": "2022-11-24",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9U8XPU+2ZBM+3H18R6\" rel=\"nofollow\">【グローバルモバイル】海外レンタルWiFi</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+9U8XPU+2ZBM+3H18R6\" alt=\"\">",
-      "title": "【海外WiFiレンタルのグローバルモバイル】",
-      "date": "2024-02-16",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A0SPDE+2ZBM+3B2WPE\" rel=\"nofollow\">世界周遊専用レンタルWiFi</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+A0SPDE+2ZBM+3B2WPE\" alt=\"\">",
-      "title": "世界周遊レンタルWiFiルーター【ワールドデータ】",
-      "date": "2023-08-29",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9ZLU5U+2ZBM+2Z68LU\" rel=\"nofollow\">ベトナム専用レンタルWiFi</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+9ZLU5U+2ZBM+2Z68LU\" alt=\"\">",
-      "title": "ベトナム専用レンタルWiFIルーター【ベトナムデータ】",
-      "date": "2023-08-29",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9XTJCI+2ZBM+2BCWEQ\" rel=\"nofollow\">インド専用レンタルWiFi</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+9XTJCI+2ZBM+2BCWEQ\" alt=\"\">",
-      "title": "インド専用レンタルWiFiルーター【インドデータ】",
-      "date": "2023-08-29",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9X83QQ+2ZBM+25EKCY\" rel=\"nofollow\">イギリス専用レンタルWiFi</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+9X83QQ+2ZBM+25EKCY\" alt=\"\">",
-      "title": "イギリス専用レンタルWiFiルーター【イギリスデータ】",
-      "date": "2023-08-29",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B5A6IA+42Y0+NTJWY\" rel=\"nofollow\">おトクなキャンペーンでBBIQをスタート！！【BBIQ】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www15.a8.net/0.gif?a8mat=4BAEXC+B5A6IA+42Y0+NTJWY\" alt=\"\">",
-      "title": "【BBIQ(ビビック)】当サイト特典！最大30,000円キャッシュバック！",
-      "date": "2020-11-17",
-      "size": ""
-     },
-     {
-      "html": "<A HREF=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B72HBM+7QW+HY7W2\" rel=\"nofollow\">\n無料で試せる固定IP\n</A>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+B72HBM+7QW+HY7W2\" alt=\"\">",
-      "title": "違約金や契約期間の拘束が一切なし。最大２ヶ月無料体験のフレッツ接続【ZOOT NEXT】",
-      "date": "2004-08-05",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B6H1PU+50+3HULUP\" rel=\"nofollow\">\n<img border=\"0\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260826384676&wid=001&eno=01&mid=s00000000018021138000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+B6H1PU+50+3HULUP\" alt=\"\">",
-      "title": "GMOインターネット株式会社【GMOとくとくBB】申込募集",
-      "date": "2009-09-16",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B6H1PU+50+3H3TCI\" rel=\"nofollow\">【GMOとくとくBB WiMAX +5G】工事不要の最新Wi-Fiルーターが月額770円（税込）〜</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+B6H1PU+50+3H3TCI\" alt=\"\">",
-      "title": "GMOインターネット株式会社【GMOとくとくBB】申込募集",
-      "date": "2009-09-16",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B5VM42+3YFI+674EQ\" rel=\"nofollow\">NordVPN</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+B5VM42+3YFI+674EQ\" alt=\"\">",
-      "title": "【NordVPN】プライバシー保護で安全な制限なしネットワーク！",
-      "date": "2018-02-16",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B4OQWI+3HKU+1NJK7M\" rel=\"nofollow\">顧客満足度5年連続No.1！【コミュファ光】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+B4OQWI+3HKU+1NJK7M\" alt=\"\">",
-      "title": "高速回線選ぶならコミュファ光！速度もキャッシュバックも満足度No1！【コミュファ光】",
-      "date": "2021-06-25",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B3HVOY+3SPO+3MZKSY\" rel=\"nofollow\">最大36000円キャッシュバック！【SoftbankAir】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+B3HVOY+3SPO+3MZKSY\" alt=\"\">",
-      "title": "スマホのパケット量が使い放題で工事が不要！【SoftbankAir】",
-      "date": "2020-08-28",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+B43BAQ+50+64ALJM\" rel=\"nofollow\">【キャッシュバック還元中！】GMOとくとくBBのauひかりキャンペーン</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+B43BAQ+50+64ALJM\" alt=\"\">",
-      "title": "GMOとくとくBB auひかりプロモーション",
-      "date": "2019-12-26",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AZBUGI+7QW+2BFWFM\" rel=\"nofollow\">自由テキスト</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+AZBUGI+7QW+2BFWFM\" alt=\"\">",
-      "title": "専用VPNサーバーを１台提供【グループ専用VPN / WG / WG + NGN】",
-      "date": "2020-07-15",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AYQEUQ+7QW+1ZGNQQ\" rel=\"nofollow\">自由テキスト</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+AYQEUQ+7QW+1ZGNQQ\" alt=\"\">",
-      "title": "「セカイVPN」でネット検閲や地理的規制を一時的に回避！無料Wi-Fiでのセキュリティも確保",
-      "date": "2014-10-16",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AY4Z8Y+348K+3H18R6\" rel=\"nofollow\">【他社よりお得なauひかりサイトはここ！】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+AY4Z8Y+348K+3H18R6\" alt=\"\">",
-      "title": "業界最速のキャッシュバック還元！更にオプション加入条件なし【auひかりサイト】",
-      "date": "2021-09-24",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AVR8TU+B4+2BIH0X\" rel=\"nofollow\">\n<img border=\"0\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384658&wid=001&eno=01&mid=s00000000040014027000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+AVR8TU+B4+2BIH0X\" alt=\"\">",
-      "title": "【公式】BIGLOBE WiMAX +5G",
-      "date": "2019-10-15",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AINPIQ+2JMM+1BN3TU\" rel=\"nofollow\">【VisionWiMAX】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+AINPIQ+2JMM+1BN3TU\" alt=\"\">",
-      "title": "【VisionWiMAX】選べるプラン内容",
-      "date": "2021-03-23",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9Q2WHE+3NMM+HXSGI\" rel=\"nofollow\">【話題のSoftBank Air】工事不要！コンセントに差すだけで高速インターネットが実現！</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+9Q2WHE+3NMM+HXSGI\" alt=\"\">",
-      "title": "【オプションなしで最大50,000円CBが最短翌月末進呈】工事不要のSoftBank Air！",
-      "date": "2018-12-17",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AI29WY+348K+44UKYA\" rel=\"nofollow\">おきらくホームWi-Fi</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+AI29WY+348K+44UKYA\" alt=\"\">",
-      "title": "機器代金0円！工事不要のホームルーターレンタル【おきらくホームWi-Fi】",
-      "date": "2024-05-22",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AG9Z3M+7JY+3B34F6\" rel=\"nofollow\">【BB.excite光 10G】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+AG9Z3M+7JY+3B34F6\" alt=\"\">",
-      "title": "10ギガ光回線【 BB.excite光 10G】",
-      "date": "2023-03-23",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AHGUB6+3SPO+7LXJFM\" rel=\"nofollow\">高速通信で快適に！【BIGLOBE光】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www19.a8.net/0.gif?a8mat=4BAEXC+AHGUB6+3SPO+7LXJFM\" alt=\"\">",
-      "title": "当サイト限定！最大40,000円還元キャンペーン！【BIGLOBE光】",
-      "date": "2022-07-21",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+ADAT2Q+7JY+2TB4AQ\" rel=\"nofollow\">「BB.excite光 Fit」公式</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+ADAT2Q+7JY+2TB4AQ\" alt=\"\">",
-      "title": "段階料金制の光回線【BB.excite光 Fit】",
-      "date": "2020-02-28",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+ADW8OI+4VXM+60OXE\" rel=\"nofollow\">次世代接続方式v6プラス利用可能光回線【イツキ光】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+ADW8OI+4VXM+60OXE\" alt=\"\">",
-      "title": "現金キャッシュバック実施中！最短翌日開通！次世代接続方式v6プラス利用可能光回線【イツキ光】",
-      "date": "2021-11-01",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AAX2NM+4PB0+BWVTE\" rel=\"nofollow\">当サイト限定キャンペーン実施中！【フレッツ光】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+AAX2NM+4PB0+BWVTE\" alt=\"\">",
-      "title": "【フレッツ光】安心と信頼の光回線｜最大79,000円キャッシュバック",
-      "date": "2022-09-12",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+ABII9E+7JY+2N9KIA\" rel=\"nofollow\">BB.excite光 MEC</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www14.a8.net/0.gif?a8mat=4BAEXC+ABII9E+7JY+2N9KIA\" alt=\"\">",
-      "title": "1ギガ光回線【BB.excite光 MEC】",
-      "date": "2019-04-12",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A6R1F6+548I+5YJRM\" rel=\"nofollow\">自由テキスト</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BAEXC+A6R1F6+548I+5YJRM\" alt=\"\">",
-      "title": "快適なインターネット生活を送ろう！超高速光回線【Fon光】",
-      "date": "2022-10-07",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A3RVEA+7JY+1BSW5U\" rel=\"nofollow\">【BB.excite光 Classic】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+A3RVEA+7JY+1BSW5U\" alt=\"\">",
-      "title": "PPPoE光回線【BB.excite光 Classic】",
-      "date": "2011-08-04",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9HQU0I+4SIK+BX3J6\" rel=\"nofollow\">【ギガセットWiFi】</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+9HQU0I+4SIK+BX3J6\" alt=\"\">",
-      "title": "チャージ型ポケットWiFi【ギガセットWiFi】使いたい時に使いたい分だけチャージして使う！",
-      "date": "2025-07-16",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9FYJ76+2W74+5ZMCI\" rel=\"nofollow\">200カ国対応海外WiFiレンタルサービス</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BAEXC+9FYJ76+2W74+5ZMCI\" alt=\"\">",
-      "title": "業界最安級の海外WiFiレンタル【WiFiトラベル】",
-      "date": "2013-12-06",
-      "size": ""
-     },
-     {
-      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9ERNZM+2JMM+64C3M\" rel=\"nofollow\">グローバルWiFi公式サイトを見てみる</a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BAEXC+9ERNZM+2JMM+64C3M\" alt=\"\">",
-      "title": "【海外WiFiレンタルのグローバルWiFi】",
-      "date": "2012-02-21",
-      "size": ""
-     }
-    ]
-   }
-  ]
- },
- "hero": {
-  "_note": "トップの見出しタイルの文言。accent に入れた語だけ、マーカーを引いた見た目になる（title の中に含まれている語を指定する）。",
-  "title": "レビューを読み込んで、不満点までまとめる。",
-  "accent": "不満点まで",
-  "typewriter": true
- },
- "ads": {
-  "_note": "Google AdSense。enabled を true にすると読み込みタグが入る。コードは書き換えず、置き場所だけこちらで決める（規約）。mode=auto は自動広告、manual は下の slots に入れた広告ユニットIDの位置だけに出す。",
-  "enabled": true,
-  "client": "ca-pub-4017242913861863",
-  "mode": "manual",
-  "label": "スポンサーリンク",
-  "slots": {
-   "article_mid": "",
-   "article_end": "",
-   "side": ""
-  }
- },
- "automation": {
-  "_note": "記事を自動で作る頻度と本数。ワークフローは毎日まわし、tools/schedule_gate.py がこの設定で間引く。enabled が false のあいだは何も作らない。",
-  "enabled": true,
-  "runs_per_week": 5,
-  "articles_per_run": 2,
-  "auto_publish": true
- },
- "hosting": {
-  "_note": "配信先は Cloudflare Workers（静的アセット）。build.py が wrangler.jsonc と .assetsignore を書き出す。GitHub Pages へ戻す場合は clean_urls を false にする。",
-  "clean_urls": true,
-  "worker_name": "monobase",
-  "compatibility_date": "2026-08-24"
- },
- "legal_updated": "2026-09-03",
- "_legal_updated_note": "プライバシーポリシー・免責事項・運営者情報の「最終更新」に出る日付。文面を変えたときだけ手で更新する。",
- "maintenance_message": "ただいまサイトの準備・調整を行っています。",
- "layout": {
-  "_note": "トップページに出す区画の並びと表示。管理画面の「サイト設定 → トップページの並び」から変更できる。",
-  "top": [
-   {
-    "key": "hero",
-    "on": true
-   },
-   {
-    "key": "feature",
-    "on": true
-   },
-   {
-    "key": "new",
-    "on": true
-   },
-   {
-    "key": "ranking",
-    "on": true
-   },
-   {
-    "key": "categories",
-    "on": true
-   }
-  ]
- },
- "affiliate": {
-  "_note": "楽天・Yahoo!ショッピングのアフィリエイト設定。管理画面の「サイト設定」から編集できる。IDを空にすると、そのショップのボタンは通常リンク（タグなし）になる。Amazon は associate_tag の直リンクを使う。",
-  "rakuten": {
-   "affiliate_id": "56d346a9.eb62e37a.56d346aa.44554a44",
-   "_note": "楽天アフィリエイトのID（直参加）。ドット区切りの文字列。hb.afl.rakuten.co.jp/hgc/<ID>/ の形でリンクを組み立てる。"
-  },
-  "yahoo": {
-   "vc_sid": "",
-   "vc_pid": "",
-   "_note": "Yahoo!ショッピングはバリューコマース経由。管理画面の広告リンクに出る sid と pid を入れると ck.jp.ap.valuecommerce.com 経由になる。空のあいだは通常リンク。"
-  }
- },
- "indexnow": {
-  "key": "915c9ed24598bf24b17e077cd405a65d",
-  "_note": "IndexNow の鍵。記事を更新したとき Bing・Yandex などへ通知する。build.py が <鍵>.txt をサイトの直下に置き、相手はそれを読んで「本当にこのサイトの持ち主か」を確かめる。公開される値なので秘密ではない。Google は IndexNow に対応していない（サイトマップとリンクで拾われる）。",
-  "endpoint": "https://api.indexnow.org/indexnow"
- },
- "footer_promo": {
-  "_note": "フッター上に出すAmazonへの導線。価格・在庫・割引率は書かないこと（PA-API 経由のデータ以外は表示できない）。url は空ならAmazonのトップ。",
-  "title": "Amazonで気になるものを探す",
-  "button": "Amazon.co.jp を見る",
-  "note": "当サイトはAmazonアソシエイトとして、適格販売により収入を得ています。価格・在庫は必ず販売ページでご確認ください。",
-  "url": ""
- }
 }
