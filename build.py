@@ -3418,6 +3418,45 @@ def write(path, content):
         os.makedirs(d, exist_ok=True)
     io.open(path, "w", encoding="utf-8").write(content)
 
+LD_RE = re.compile(
+    r'<script type="application/ld\+json">(.*?)</script>', re.S)
+
+def _ld_nodes(v):
+    """入れ子も含めて、@type を持つ辞書を全部たどる。"""
+    if isinstance(v, dict):
+        if v.get("@type"):
+            yield v
+        for x in v.values():
+            yield from _ld_nodes(x)
+    elif isinstance(v, list):
+        for x in v:
+            yield from _ld_nodes(x)
+
+def validate_ld(paths):
+    """書き出した HTML の JSON-LD を読み直して、Google が弾く形を探す。"""
+    ng = []
+    for path in paths:
+        if not path.endswith(".html") or not os.path.exists(path):
+            continue
+        html = io.open(path, encoding="utf-8").read()
+        for raw in LD_RE.findall(html):
+            try:
+                data = json.loads(raw)
+            except ValueError as ex:
+                ng.append(f"{path}: JSON-LD が壊れています（{ex}）")
+                continue
+            for node in _ld_nodes(data):
+                t = node.get("@type")
+                types = t if isinstance(t, list) else [t]
+                if "Product" not in types:
+                    continue
+                if not any(node.get(k) for k in
+                           ("offers", "review", "aggregateRating")):
+                    ng.append(
+                        f"{path}: Product「{node.get('name', '(名前なし)')}」に "
+                        "offers / review / aggregateRating がありません")
+    return ng
+
 def main():
     written = []
 
@@ -3711,6 +3750,17 @@ def main():
         "",
     ]))
     written.append("_headers")
+
+    # 構造化データの検算。Google は入れ子の Product も1アイテムとして見るので、
+    # offers / review / aggregateRating のどれも持たない Product があると
+    # 「無効なアイテム」になりリッチリザルトから外れる。過去に一度やらかして
+    # いるので、書き出した HTML を読み直して機械的に止める。
+    ng = validate_ld(written)
+    if ng:
+        print("\n❌ 構造化データに不備があります（リッチリザルト対象外になります）")
+        for line in ng:
+            print(f"   ・{line}")
+        sys.exit(1)
 
     print(f"\n✅ ビルド完了：{len(written)} ファイル（アイキャッチ自動生成 {made} 枚）")
     print(f"   公開記事 {len(PUBLISHED)} 本 / 下書き {len(ARTICLES)-len(PUBLISHED)} 本")
