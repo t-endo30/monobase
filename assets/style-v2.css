@@ -3154,6 +3154,7 @@ h1,h2,h3,h4,
 /* 目次：字は左で揃えたまま、まとまりごと枠の中央に置く。
    左端に貼り付いていると、幅の広い画面で右側が大きく空いて見えた。 */
 .article-page .toc ol{width:fit-content;max-width:100%;margin-inline:auto;text-align:left;}
+.article-page .toc li{margin-left:100px;}
 
 /* 見出しは中央に置く。下線の飾りも中央から伸ばす */
 .article-body h2{text-align:center;}
@@ -3274,7 +3275,7 @@ h1,h2,h3,h4,
      番号ぶんの半分だけ左へずらし、文字の左右の余白をそろえる。 */
   .article-page .toc ol{width:fit-content;max-width:92%;margin-inline:auto;text-align:left;
     position:relative;left:-6px;}
-  .article-page .toc li{padding-left:30px;padding-right:0;text-align:left;
+  .article-page .toc li{margin-left:80px;padding-left:30px;padding-right:0;text-align:left;
     /* 語の途中で折り返さない。折ってよい場所は build.py が <wbr> で
        入れてある（iOSのSafariは word-break:auto-phrase を解さないため、
        ブラウザ任せにはしない）。長すぎる語だけは、はみ出す前に折る。 */
