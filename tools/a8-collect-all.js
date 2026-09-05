@@ -32,6 +32,63 @@
   var WAIT_MS = 400;         /* 1ページごとに空ける時間 */
   var MAX_PAGES = 400;       /* 読みに行くページ数の上限（安全弁） */
 
+  /* ---- 画面に出す小さな窓 ----
+     この道具はブックマークから押して使うので、コンソールを開いていない
+     ことが多い。進み具合と結果は画面に出す。
+     クリップボードへの書き込みは「押した直後」しか許可されないため、
+     巡回を終えたあとでは拒まれる。だから最後に「コピー」ボタンを出し、
+     それを押してもらう（そのクリックが許可の根拠になる）。 */
+  var panel, msg, area;
+  function ui(text) {
+    if (!panel) {
+      panel = document.createElement('div');
+      panel.setAttribute('style',
+        'position:fixed;right:16px;bottom:16px;z-index:2147483647;'
+        + 'width:340px;max-width:92vw;background:#fff;color:#111;'
+        + 'border:1px solid #ccc;border-radius:8px;padding:14px;'
+        + 'box-shadow:0 6px 24px rgba(0,0,0,.2);'
+        + 'font:13px/1.6 -apple-system,BlinkMacSystemFont,sans-serif');
+      msg = document.createElement('div');
+      panel.appendChild(msg);
+      var x = document.createElement('button');
+      x.textContent = '×';
+      x.setAttribute('style', 'position:absolute;top:6px;right:8px;border:0;'
+        + 'background:none;font-size:18px;line-height:1;cursor:pointer');
+      x.onclick = function () { panel.remove(); };
+      panel.appendChild(x);
+      document.body.appendChild(panel);
+    }
+    msg.textContent = text;
+  }
+
+  /* 結果を出す。テキスト欄に入れておき、押したらコピーする */
+  function finish(out, n, pages) {
+    ui(n + ' 件の広告コードを集めました（案件 ' + pages + ' 件を確認）');
+    area = document.createElement('textarea');
+    area.value = out;
+    area.setAttribute('style', 'width:100%;height:90px;margin-top:10px;'
+      + 'font:11px/1.4 monospace;border:1px solid #ccc;border-radius:4px');
+    panel.appendChild(area);
+    var b = document.createElement('button');
+    b.textContent = 'コピーする';
+    b.setAttribute('style', 'margin-top:8px;padding:8px 14px;border:0;'
+      + 'border-radius:6px;background:#0a7;color:#fff;font-weight:700;'
+      + 'cursor:pointer');
+    b.onclick = function () {
+      area.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      if (ok) { b.textContent = 'コピーしました'; return; }
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(out).then(
+          function () { b.textContent = 'コピーしました'; },
+          function () { b.textContent = '下の欄を選んでコピーしてください'; });
+      }
+    };
+    panel.appendChild(b);
+    console.log(out);
+  }
+
   var origin = location.origin;
   var here = new URL(location.href);
   var codes = [];
@@ -118,8 +175,7 @@
     if (!seenList[u]) { seenList[u] = 1; listPages.push(u); }
   });
 
-  console.log('%cA8：一覧 ' + listPages.length + ' ページから案件を集めます',
-    'color:#0a7;font-weight:bold');
+  ui('A8：一覧 ' + listPages.length + ' ページから案件を集めます…');
 
   var targets = [];
   var seenTarget = {};
@@ -140,15 +196,12 @@
   }
 
   if (!targets.length) {
-    console.log('%c「広告リンク作成」の行き先が見つかりませんでした。',
-      'color:#c00;font-weight:bold');
-    console.log('「プログラム管理 → 参加中プログラム」で実行してください。');
-    console.log('それでも出ないときは、案件の「広告リンク作成」を手で開いて、'
-      + 'そのURLを Claude に伝えてください（形を合わせます）。');
+    ui('「広告リンク作成」の行き先が見つかりませんでした。'
+       + '「プログラム管理 → 参加中プログラム」の一覧で押してください。');
     return;
   }
 
-  console.log('  案件 ' + targets.length + ' 件。広告コードを取りに行きます');
+  ui('案件 ' + targets.length + ' 件。広告コードを取りに行きます…');
 
   for (var ti = 0; ti < targets.length && checked < MAX_PAGES; ti++) {
     try {
@@ -156,35 +209,18 @@
       collect(d);
     } catch (e) { /* 読めないページは飛ばす */ }
     checked++;
-    if (checked % 10 === 0) {
-      console.log('  ' + checked + ' / ' + targets.length
-        + ' 件、コード ' + codes.length + ' 件');
+    if (checked % 3 === 0 || checked === targets.length) {
+      ui(checked + ' / ' + targets.length + ' 件を確認、'
+         + codes.length + ' 件のコードを取得…');
     }
     await wait();
   }
 
   if (!codes.length) {
-    console.log('%c広告コードが見つかりませんでした。',
-      'color:#c00;font-weight:bold');
-    console.log('広告リンクのページが JavaScript で作られている可能性があります。'
-      + '1件だけ手で開いて tools/a8-collect.js を試してください。');
+    ui('広告コードが見つかりませんでした（案件 ' + checked + ' 件を確認）。'
+       + '広告リンクのページの作りが変わっている可能性があります。');
     return;
   }
 
-  var out = codes.join('\n---\n');
-  function done() {
-    console.log('%c' + codes.length + ' 件をコピーしました（案件 '
-      + checked + ' 件を確認）',
-      'color:#0a7;font-weight:bold;font-size:14px');
-    console.log('codes.txt に貼り付けて、次を実行してください：');
-    console.log('  python3 tools/import_a8.py --csv programs.csv --codes codes.txt');
-  }
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(out).then(done, function () {
-      console.log('クリップボードに入れられませんでした。下を選んでコピーしてください。');
-      console.log(out);
-    });
-  } else {
-    console.log(out);
-  }
+  finish(codes.join('\n---\n'), codes.length, checked);
 })();

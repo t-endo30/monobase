@@ -2713,9 +2713,13 @@ p,li,.card-desc{text-wrap:pretty;}
 /* タイルの子に効いている余白を、入れ物ごしにも同じだけ与える。
    写真の位置は関連記事と同じ 4:3 の枠にして、タイルの縦の高さをそろえる。
    バナーの縦横はまちまちなので、枠の中に収めて中央に置く（絵は切らない） */
+/* overflow は切らない。バナーは object-fit で枠に収まっており、はみ出す
+   ことがないうえ、切ると「タイル全面を押せるようにする指定」まで
+   写真の枠で切り落とされてしまうため */
 .promo-slot .card-thumb{margin:14px 14px 0;
   aspect-ratio:4 / 3;background:none;border:0;
-  display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  display:flex;align-items:center;justify-content:center;
+  position:static;overflow:visible;}
 .promo-slot .promo-body > :not(.card-thumb){padding-left:14px;padding-right:14px;}
 /* バナーは枠に収める。object-fit:contain なので、縦横比を保ったまま
    全体が入る（絵は切れない）。枠は関連記事の写真と同じ */
@@ -2733,13 +2737,28 @@ p,li,.card-desc{text-wrap:pretty;}
 /* 一言の場所取り。関連記事は2行ぶん（3.6em）＋上の余白7px を使うので、
    同じだけ空けてタイルの高さをそろえる */
 .promo-slot .card-note{margin-top:7px;height:3.6em;font-size:12px;}
-/* 記事タイルは、カーソルを当てると黒い面が斜めに渡る（.card::before/after）。
-   広告のタイルでは掛けない。広告の上に面がかぶさると、バナーが読めなく
-   なるうえ、広告を覆う見せ方はA8・AdSenseどちらの規約にも触れる。
-   そもそもタイル全体がリンクではないので、当てても飛び先がない */
-.promo-slot::before,.promo-slot::after{content:none;}
-.promo-slot:hover .card-title,.promo-slot:hover .card-date,
-.promo-slot:hover .card-cat{color:inherit;}
+/* タイル全体を押せるようにする。
+   ------------------------------------------------------------
+   広告コードの中にある A8 の <a> を、擬似要素でタイル全面まで広げる。
+   自前のリンクを作って href を写すと、配られたコードを作り直すことに
+   なるので、そうはしない。押されるのは A8 のリンクそのもので、
+   計測もこれまで通り行われる。 */
+.promo-slot{position:relative;}
+.promo-slot .card-thumb a{display:block;}
+.promo-slot .card-thumb a::after{content:"";position:absolute;inset:0;
+  z-index:2;}
+/* 記事タイルと同じく、カーソルを当てると黒い面が斜めに渡る。
+   ただしバナーだけは面より上に置き、隠れないようにする。広告を覆って
+   見せるのはA8・AdSenseどちらの規約にも触れるため、動きは同じでも
+   絵は最後まで見えている。
+   上に出すのは画像そのもの。写真の枠（.card-thumb）を position:relative
+   にすると、そこが「全面に広げる指定」の基準になってしまい、押せる範囲が
+   写真の大きさで止まる。 */
+.promo-slot .card-thumb img{position:relative;z-index:1;}
+/* 日付・PR・見出しも黒い面より上に出す。記事タイルでは中身が
+   自然に面より上に来るが、広告は差し込み用の入れ物（.promo-body）を
+   はさんでいるぶん重なり順が変わり、面に潜って読めなくなるため */
+.promo-slot .card-meta,.promo-slot .card-title{position:relative;z-index:1;}
 /* スマホは関連記事と同じ横並び。写真の位置に入るバナーも、記事の写真と
    同じ大きさ（96px角）に収める */
 @media (max-width:860px){
