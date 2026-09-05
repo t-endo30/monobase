@@ -669,21 +669,47 @@ document.addEventListener('touchstart', function () {}, { passive: true });
    選ばれなかったものは <template> の中に残るので、画像も計測用の
    画像も読み込まれない。1回の表示につき、出したぶんだけが数えられる。
    コードそのものには一切手を触れず、そのまま差し込む。
+
+   バナーが出せなかったときは、そのタイルごと引っ込める。広告を止める
+   拡張機能を使っている人や、配信元に届かなかったときに、写真の位置が
+   空いたまま日付と見出しだけが残るのを避けるため。
    ============================================================ */
 (function () {
   'use strict';
-  var groups = document.querySelectorAll('.promo-group[data-rotate]');
+
+  /* 差し込んだ広告のバナーを見張る。読めなかったらタイルを隠す */
+  function watch(slot) {
+    var imgs = slot.querySelectorAll('.card-thumb img');
+    var banner = null;
+    for (var i = 0; i < imgs.length; i++) {
+      /* 1x1 は成果を数えるための画像。バナーではない */
+      if (imgs[i].getAttribute('width') !== '1') { banner = imgs[i]; break; }
+    }
+    if (!banner) { slot.hidden = true; return; }
+    function hide() { slot.hidden = true; }
+    if (banner.complete) {
+      if (!banner.naturalWidth) hide();   /* 読み込みに失敗している */
+      return;
+    }
+    banner.addEventListener('error', hide);
+  }
+
+  var groups = document.querySelectorAll('.promo-group');
   Array.prototype.forEach.call(groups, function (group) {
-    var pool = Array.prototype.slice.call(
-      group.querySelectorAll('template.promo-item'));
     var bodies = group.querySelectorAll('.promo-body');
-    if (!pool.length || !bodies.length) return;
-    Array.prototype.forEach.call(bodies, function (body) {
-      if (!pool.length) return;
-      var i = Math.floor(Math.random() * pool.length);
-      body.appendChild(pool[i].content.cloneNode(true));
-      pool.splice(i, 1);          /* 選んだものは候補から外す */
-    });
+    if (group.hasAttribute('data-rotate')) {
+      var pool = Array.prototype.slice.call(
+        group.querySelectorAll('template.promo-item'));
+      if (!pool.length || !bodies.length) return;
+      Array.prototype.forEach.call(bodies, function (body) {
+        if (!pool.length) return;
+        var i = Math.floor(Math.random() * pool.length);
+        body.appendChild(pool[i].content.cloneNode(true));
+        pool.splice(i, 1);          /* 選んだものは候補から外す */
+      });
+    }
+    Array.prototype.forEach.call(
+      group.querySelectorAll('.promo-slot'), watch);
   });
 })();
 
@@ -873,13 +899,14 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 
 
 /* ============================================================
-   トップの「今日のピックアップ」：全記事から3本を日替わりで選ぶ
+   トップの「今日のピックアップ」：全記事から4本を日替わりで選ぶ
    ------------------------------------------------------------
    ビルドは公開のたびにしか走らないので、選び直しはここで行う。
-   その日の日付を種にして混ぜるので、同じ日に見た人には同じ3本が、
-   日付が変われば別の3本が出る（読み込むたびに入れ替わると、
+   その日の日付を種にして混ぜるので、同じ日に見た人には同じ4本が、
+   日付が変われば別の4本が出る（読み込むたびに入れ替わると、
    さっき見た記事を探せなくなるため）。
-   JSが動かないときは、build.py が入れておいた3本がそのまま残る。
+   よく読まれている記事（RANKING）と同じ4列にそろえている。
+   JSが動かないときは、build.py が入れておいた4本がそのまま残る。
    ============================================================ */
 (function () {
   'use strict';
@@ -888,7 +915,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   var pool = [];
   try { pool = JSON.parse(grid.getAttribute('data-pool') || '[]'); }
   catch (e) { return; }
-  if (pool.length < 4) return;          /* 選ぶ意味がない本数なら触らない */
+  if (pool.length < 5) return;          /* 選ぶ意味がない本数なら触らない */
 
   /* 日付を種にした、同じ入力なら同じ結果になる混ぜ方 */
   var seed = Math.floor(Date.now() / 86400000);
@@ -901,7 +928,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     var j = Math.floor(rnd() * (i + 1));
     var t = pick[i]; pick[i] = pick[j]; pick[j] = t;
   }
-  pick = pick.slice(0, 3);
+  pick = pick.slice(0, 4);
 
   function esc(v) {
     return String(v == null ? '' : v)

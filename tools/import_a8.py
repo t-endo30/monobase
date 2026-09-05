@@ -26,7 +26,7 @@ A8には広告コードを配るAPIがありません。コード自体は
   $ python3 tools/import_a8.py --csv programs.csv --codes codes.txt --apply
   $ python3 tools/import_a8.py --csv programs.csv --codes codes.txt --where side --apply
 """
-import argparse, csv, io, json, os, re, sys
+import argparse, csv, datetime, io, json, os, re, sys
 from collections import OrderedDict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -67,8 +67,8 @@ RULES = [
 
 
 def read_csv(path):
-    """提携中プログラムのCSVを読む。ID → (案件名, ジャンル, 開始日) を返す。
-       列は プログラムID／プログラム名／広告主名／カテゴリ／開始日／…"""
+    """提携中プログラムのCSVを読む。ID → (案件名, ジャンル, 開始日, 終了日) を返す。
+       列は プログラムID／プログラム名／広告主名／カテゴリ／開始日／終了日／提携日"""
     last = None
     for enc in ENCODINGS:
         try:
@@ -83,7 +83,8 @@ def read_csv(path):
                 if len(r) < 4 or not r[0].strip().startswith("s"):
                     continue
                 start = r[4].strip().replace("/", "-") if len(r) > 4 else ""
-                out[r[0].strip()] = (r[1].strip(), r[3].strip(), start)
+                stop = r[5].strip().replace("/", "-") if len(r) > 5 else ""
+                out[r[0].strip()] = (r[1].strip(), r[3].strip(), start, stop)
             if out:
                 print(f"CSVを {enc} として読みました（{len(out)} 件の提携）")
                 return out
@@ -168,6 +169,8 @@ def main():
     ap.add_argument("--where", default="article_end",
                     choices=["article_end", "side", "none"],
                     help="出す場所（既定は記事の下）")
+    ap.add_argument("--drop-unknown", action="store_true",
+                    help="CSVに無い広告も外す（提携解除ぶんを消すとき）")
     ap.add_argument("--size", default="",
                     help="使うバナーの大きさを絞る（例 300x250,336x280）。"
                          "テキストリンクは常に残す。空なら絞らない")
@@ -181,6 +184,51 @@ def main():
     codes = split_codes(io.open(args.codes, encoding="utf-8").read())
     if not codes:
         raise SystemExit("広告コードが見つかりませんでした。")
+
+    # a8mat の前半（案件ごとに決まっている）で、画像バナーとテキストリンクを
+    # 突き合わせる。テキストリンクには mid= が入らず、画像バナーには
+    # リンクの文言が入らないため、両方から1件ぶんの手がかりをまとめる。
+    pid_by_mat, name_by_mat = {}, {}
+    for c in codes:
+        k = mat_key(c)
+        if not k:
+            continue
+        pid, nm = program_id(c), name_from_code(c)
+        if pid and k not in pid_by_mat:
+            pid_by_mat[k] = pid
+        if nm and k not in name_by_mat:
+            name_by_mat[k] = nm
+
+    # 掲載が終わった広告は使わない。CSVの「終了日」が今日より前のものと、
+    # CSVに載っていないもの（提携が解除された／案件が消えた）を外す。
+    # ただしCSVに無いものは「CSVより新しい提携」の可能性もあるので、
+    # --drop-unknown を付けたときだけ外す。付けなければ数だけ知らせる。
+    if programs:
+        today = datetime.date.today().isoformat()
+        ended, unknown_pid = [], []
+        keep = []
+        for c in codes:
+            pid = program_id(c) or pid_by_mat.get(mat_key(c), "")
+            if pid not in programs:
+                unknown_pid.append(c)
+                if args.drop_unknown:
+                    continue
+                keep.append(c)
+                continue
+            stop = programs[pid][3]
+            if stop and stop < today:
+                ended.append((programs[pid][0], stop))
+                continue
+            keep.append(c)
+        if ended:
+            print(f"掲載が終わった案件を外しました（{len(ended)} 件）")
+            for nm, d in ended[:6]:
+                print(f"    ・{d} 終了：{nm[:44]}")
+        if unknown_pid:
+            state = "外しました" if args.drop_unknown else "残しています"
+            print(f"CSVに見つからない広告が {len(unknown_pid)} 件（{state}）。"
+                  "提携が解除されたか、CSVより新しい提携です")
+        codes = keep
 
     # 形ごとに分ける。記事下に出せるのは四角いバナーだけだが、
     # 横長とテキストも取り込んでおく（出す場所が決まったら where を変える）。
@@ -209,27 +257,13 @@ def main():
     # 枠の中に複数入れておくと、表示のたびに1件が選ばれる。
     # プログラムIDごとに、リンク文言から取れた名前を1つ覚えておく。
     # 画像バナーだけのコードは、同じ案件のテキストリンクから名前を借りる。
-    # a8mat の前半（案件ごとに決まっている）で、画像バナーとテキストリンクを
-    # 突き合わせる。テキストリンクには mid= が入らず、画像バナーには
-    # リンクの文言が入らないため、両方から1件ぶんの手がかりをまとめる。
-    pid_by_mat, name_by_mat = {}, {}
-    for c in codes:
-        k = mat_key(c)
-        if not k:
-            continue
-        pid, nm = program_id(c), name_from_code(c)
-        if pid and k not in pid_by_mat:
-            pid_by_mat[k] = pid
-        if nm and k not in name_by_mat:
-            name_by_mat[k] = nm
-
     groups = OrderedDict()
     unknown = []
     for kind in ("tile", "wide", "text"):
       for c in by_shape[kind]:
         k = mat_key(c)
         pid = program_id(c) or pid_by_mat.get(k, "")
-        name, genre, start = programs.get(pid, ("", "", ""))
+        name, genre, start, stop = programs.get(pid, ("", "", "", ""))
         if not name:
             # CSVに無い（または --csv を省いた）ときは、リンクの文言を名前にする
             name = name_by_mat.get(k, "")

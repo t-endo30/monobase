@@ -349,8 +349,10 @@ def promo_slot(where, cat="", cls=""):
        選ばれなかったものは <template> の中に置いたままなので、画像も
        計測用の画像も読み込まれない（表示回数が水増しされない）。
 
-       cats が空の案件は全記事に出す。記事のカテゴリーが一致した案件だけを
-       その記事に出すことで、内容と関係のない広告が並ぶのを避ける。"""
+       記事のカテゴリーに合う案件があれば、その中から選ぶ。無ければ
+       出せるもの全部から選ぶ。関係のない広告になるが、枠が空いたまま
+       になるよりはよい（合う案件が増えれば自然にそちらへ寄る）。
+       cats が空の案件は、どのカテゴリーの記事にも出る。"""
     items = [x for x in (PROMOS.get("items") or [])
              if str(x.get("where") or "") == where and promo_ads(x)]
     # 記事下は関連記事と同じタイルの形なので、四角いバナーだけを入れる。
@@ -360,42 +362,44 @@ def promo_slot(where, cat="", cls=""):
     if where == "article_end":
         items = [x for x in items if str(x.get("kind") or "tile") == "tile"]
     if cat:
-        items = [x for x in items
-                 if not x.get("cats") or cat in (x.get("cats") or [])]
+        fit = [x for x in items
+               if not x.get("cats") or cat in (x.get("cats") or [])]
+        # 合う案件で3枚そろうならそれだけを使う。足りない（0件を含む）ときは
+        # 出せるもの全部から選ぶ。関係のない広告になるが、枠が欠けたまま
+        # 並ぶよりはよい
+        if sum(len(promo_ads(x)) for x in fit) >= PROMO_COUNT:
+            items = fit
     if not items:
         return ""
+
+    # 枠は1つ。合う案件が複数の枠に分かれていても、広告はひとまとめにして
+    # そこから3件を選ぶ。枠ごとに3件ずつ並べると、広告だらけになるため。
     label = e(str(PROMOS.get("label") or "PR"))
-    out = ""
-    for x in items:
-        c = f" {cls}" if cls else ""
-        ads = promo_ads(x)
-        cards = [promo_card(a, label) for a in ads]
-        show = min(PROMO_COUNT, len(cards))
-        if len(cards) <= show:
-            # 選びようがないので、そのまま並べる
-            slots = "".join(
-                f'          <div class="card promo-slot">'
-                f'<div class="promo-body">{t}</div></div>\n'
-                for t in cards[:show])
-            tpl = ""
-            rot = ""
-        else:
-            slots = "".join('          <div class="card promo-slot">'
-                            '<div class="promo-body"></div></div>\n'
-                            for _ in range(show))
-            tpl = "".join(
-                f'        <template class="promo-item">{t}</template>\n'
-                for t in cards)
-            rot = ' data-rotate="1"'
-            # JavaScriptが動かないときは、先頭から順に出す
-            tpl += ('        <noscript>' + "".join(
-                f'<div class="card promo-slot"><div class="promo-body">{t}</div></div>'
-                for t in cards[:show]) + '</noscript>\n')
-        out += (f'      <aside class="promo-group{c}"{rot} aria-label="広告">\n'
-                f'        <div class="card-grid is-3">\n{slots}        </div>\n'
-                + tpl +
-                f'      </aside>\n')
-    return out
+    cards = [promo_card(a, label) for x in items for a in promo_ads(x)]
+    show = min(PROMO_COUNT, len(cards))
+    c = f" {cls}" if cls else ""
+    if len(cards) <= show:
+        # 選びようがないので、そのまま並べる
+        slots = "".join(
+            f'          <div class="card promo-slot">'
+            f'<div class="promo-body">{t}</div></div>\n'
+            for t in cards[:show])
+        tpl, rot = "", ""
+    else:
+        slots = "".join('          <div class="card promo-slot">'
+                        '<div class="promo-body"></div></div>\n'
+                        for _ in range(show))
+        tpl = "".join(f'        <template class="promo-item">{t}</template>\n'
+                      for t in cards)
+        rot = ' data-rotate="1"'
+        # JavaScriptが動かないときは、先頭から順に出す
+        tpl += ('        <noscript>' + "".join(
+            f'<div class="card promo-slot"><div class="promo-body">{t}</div></div>'
+            for t in cards[:show]) + '</noscript>\n')
+    return (f'      <aside class="promo-group{c}"{rot} aria-label="広告">\n'
+            f'        <div class="card-grid is-3">\n{slots}        </div>\n'
+            + tpl +
+            f'      </aside>\n')
 
 
 def ad_slot(name, cls=""):
@@ -2721,14 +2725,15 @@ def build_index():
         "th": visual_path(a, p)[0],
     } for a in PUBLISHED]
     day = int(datetime.date.today().strftime("%Y%m%d"))
-    picks = [PUBLISHED[(day * 7 + i * 13) % len(PUBLISHED)] for i in range(3)] if PUBLISHED else []
+    # RANKING と同じ4枚ならべる（1行に4列）
+    picks = [PUBLISHED[(day * 7 + i * 13) % len(PUBLISHED)] for i in range(4)] if PUBLISHED else []
     seen, uniq = set(), []
     for a in picks + PUBLISHED:
         if a["slug"] in seen:
             continue
         seen.add(a["slug"])
         uniq.append(a)
-        if len(uniq) >= 3:
+        if len(uniq) >= 4:
             break
     picks = uniq
 
@@ -2748,7 +2753,7 @@ def build_index():
     if picks:
         body += v2_section(
             v2_sec_head("PICK UP", "今日のピックアップ")
-            + '      <div class="card-grid is-3" id="pickGrid" data-pool=\''
+            + '      <div class="card-grid" id="pickGrid" data-pool=\''
             + html.escape(json.dumps(pool, ensure_ascii=False), quote=True) + '\'>'
             + "".join(v2_card(a, p) for a in picks) + "</div>\n")
 
