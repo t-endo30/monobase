@@ -3267,10 +3267,11 @@ h1,h2,h3,h4,
 /* スマホでも番号は行の左に置いたまま、まとまりごと枠の中央へ寄せる。
    1行ずつ中央に揃えると番号の位置が行ごとにずれて読みにくかった。 */
 @media (max-width:599px){
-  /* 長い項目は枠幅いっぱいまで伸びるため、幅の上限を少し内側に取る。
-     そのぶん左右に同じだけ余白ができ、まとまりが枠の中央に見える。 */
-  .article-page .toc ol{width:fit-content;max-width:86%;margin-inline:auto;text-align:left;}
-  .article-page .toc li{padding-left:30px;text-align:left;}
+  /* 番号は左端の同じ位置に並べたまま、文字は1行ずつ中央に置く。
+     長い項目が枠幅いっぱいまで伸びるため、かたまりごと動かす方法では
+     中央に寄る余地が無かった。 */
+  .article-page .toc ol{width:auto;max-width:100%;margin-inline:0;}
+  .article-page .toc li{padding-left:30px;padding-right:30px;text-align:center;}
   .article-page .toc li::before{position:absolute;left:0;top:7px;display:block;margin-right:0;}
 }
 /* 写真の左上。順位の札が乗るタイルには、そもそも札を出さない（main.js） */
