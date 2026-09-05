@@ -1,542 +1,611 @@
 {
-  "site_name": "モノベース",
-  "subtitle": "あらゆるモノのデータベース",
-  "tagline": "暮らしと作業を快適にするおすすめアイテム紹介",
-  "description": "暮らしと作業を快適にするアイテムを、利用者の声と公式仕様を突き合わせて検証。良い点だけでなく「向かない人」まで整理して紹介します。",
-  "domain": "monobase.site",
-  "base_url": "https://monobase.site",
-  "author": "モノベース運営事務局",
-  "email": "monobase.site@gmail.com",
-  "founded": "2026",
-  "analytics": {
-    "ga_measurement_id": "G-YJ85V2J7EK",
-    "gsc_verification": "XzDLJp48lBwivyxHNORLURzTwXu_-apgDXr5Z-POer8"
-  },
-  "features": {
-    "contact_form": true,
-    "contact_form_endpoint": "https://formspree.io/f/xbgjgnyp",
-    "sticky_cta": true,
-    "search": true,
-    "feature_threshold": 5,
-    "_contact_note": "contact_form_endpoint が空のあいだは、送信ボタンでメールソフトが開く。Formspree などの窓口URLを入れるとその場で送信できるようになる。",
-    "maintenance": false,
-    "_maintenance_note": "true にすると全ページがメンテナンス画面（503）に切り替わる。管理画面と assets/content は通るので、管理画面から戻せる。",
-    "deals_api": "",
-    "_deals_note": "注目のアイテム枠。Amazon Product Advertising API の審査が通ったら、価格を返す取得先URL（例 /api/deals）をここに入れる。すると価格と○%OFFが出るようになる。空のあいだは商品名と写真だけ。",
-    "footer_promo": true,
-    "_footer_promo_note": "フッター上のAmazon導線。false で消える。文言とリンク先は footer_promo で決める。"
-  },
-  "categories": [
+ "site_name": "モノベース",
+ "subtitle": "あらゆるモノのデータベース",
+ "tagline": "暮らしと作業を快適にするおすすめアイテム紹介",
+ "description": "暮らしと作業を快適にするアイテムを、利用者の声と公式仕様を突き合わせて検証。良い点だけでなく「向かない人」まで整理して紹介します。",
+ "domain": "monobase.site",
+ "base_url": "https://monobase.site",
+ "author": "モノベース運営事務局",
+ "email": "monobase.site@gmail.com",
+ "founded": "2026",
+ "analytics": {
+  "ga_measurement_id": "G-YJ85V2J7EK",
+  "gsc_verification": "XzDLJp48lBwivyxHNORLURzTwXu_-apgDXr5Z-POer8"
+ },
+ "features": {
+  "contact_form": true,
+  "contact_form_endpoint": "https://formspree.io/f/xbgjgnyp",
+  "sticky_cta": true,
+  "search": true,
+  "feature_threshold": 5,
+  "_contact_note": "contact_form_endpoint が空のあいだは、送信ボタンでメールソフトが開く。Formspree などの窓口URLを入れるとその場で送信できるようになる。",
+  "maintenance": false,
+  "_maintenance_note": "true にすると全ページがメンテナンス画面（503）に切り替わる。管理画面と assets/content は通るので、管理画面から戻せる。",
+  "deals_api": "",
+  "_deals_note": "注目のアイテム枠。Amazon Product Advertising API の審査が通ったら、価格を返す取得先URL（例 /api/deals）をここに入れる。すると価格と○%OFFが出るようになる。空のあいだは商品名と写真だけ。",
+  "footer_promo": true,
+  "_footer_promo_note": "フッター上のAmazon導線。false で消える。文言とリンク先は footer_promo で決める。"
+ },
+ "categories": [
+  {
+   "key": "feature",
+   "label": "特集・まとめ",
+   "icon": "📊",
+   "lead": "複数の製品を横に並べて比較した記事と、買い時などのまとめ記事です。個別のレビューを読む前の全体像として使ってください。",
+   "sub": [
     {
-      "key": "feature",
-      "label": "特集・まとめ",
-      "icon": "📊",
-      "lead": "複数の製品を横に並べて比較した記事と、買い時などのまとめ記事です。個別のレビューを読む前の全体像として使ってください。",
-      "sub": [
-        {
-          "key": "compare",
-          "label": "比較・ランキング"
-        },
-        {
-          "key": "guide",
-          "label": "選び方ガイド"
-        },
-        {
-          "key": "season",
-          "label": "セール・買い時"
-        }
-      ]
+     "key": "compare",
+     "label": "比較・ランキング"
     },
     {
-      "key": "appliance",
-      "label": "家電",
-      "icon": "🏠",
-      "lead": "加湿器・扇風機・照明・掃除機など、暮らしの土台になる家電。家事の手間をどれだけ減らせるかという視点で整理しています。",
-      "sub": [
-        {
-          "key": "aircon",
-          "label": "空調・季節家電"
-        },
-        {
-          "key": "clean",
-          "label": "掃除機・掃除家電"
-        },
-        {
-          "key": "laundry",
-          "label": "洗濯・アイロン"
-        },
-        {
-          "key": "light",
-          "label": "照明"
-        },
-        {
-          "key": "smart",
-          "label": "スマート家電"
-        },
-        {
-          "key": "power",
-          "label": "電源・電池"
-        }
-      ],
-      "image": "assets/img/cat-appliance-mtlrf5bn.webp"
+     "key": "guide",
+     "label": "選び方ガイド"
     },
     {
-      "key": "smartphone",
-      "label": "スマートフォン",
-      "icon": "📱",
-      "lead": "スマホ本体と、ケース・充電器・アクセサリー。毎日触れるものなので、使い勝手の差が出やすい領域です。",
-      "sub": [
-        {
-          "key": "body",
-          "label": "スマホ本体"
-        },
-        {
-          "key": "case",
-          "label": "ケース・保護フィルム"
-        },
-        {
-          "key": "charger",
-          "label": "充電器・モバイルバッテリー"
-        },
-        {
-          "key": "acc",
-          "label": "スマホアクセサリー"
-        }
-      ],
-      "image": "assets/img/cat-smartphone-mtlrdwfb.webp"
-    },
-    {
-      "key": "pc",
-      "label": "パソコン",
-      "icon": "💻",
-      "lead": "ノートPC・モニター・入力機器・周辺機器まで。作業時間が長い人ほど、小さな差が積み上がる分野です。",
-      "sub": [
-        {
-          "key": "laptop",
-          "label": "ノートパソコン"
-        },
-        {
-          "key": "tablet",
-          "label": "タブレット・電子書籍"
-        },
-        {
-          "key": "monitor",
-          "label": "ディスプレイ・モニター"
-        },
-        {
-          "key": "input",
-          "label": "キーボード・マウス・入力機器"
-        },
-        {
-          "key": "peripheral",
-          "label": "周辺機器・USBハブ"
-        },
-        {
-          "key": "storage",
-          "label": "ストレージ・外付けドライブ"
-        },
-        {
-          "key": "network",
-          "label": "Wi-Fi・ネットワーク"
-        },
-        {
-          "key": "parts",
-          "label": "PCパーツ"
-        },
-        {
-          "key": "software",
-          "label": "ソフトウェア"
-        }
-      ],
-      "image": "assets/img/cat-pc-mtlqstnj.webp"
-    },
-    {
-      "key": "av",
-      "label": "AV機器",
-      "icon": "🎧",
-      "lead": "イヤホン・スピーカー・マイク・映像機器。音と映像は数値より、使う場面との相性で評価が変わります。",
-      "sub": [
-        {
-          "key": "headphone",
-          "label": "イヤホン・ヘッドホン"
-        },
-        {
-          "key": "speaker",
-          "label": "スピーカー"
-        },
-        {
-          "key": "tv",
-          "label": "テレビ・プロジェクター"
-        },
-        {
-          "key": "mic",
-          "label": "マイク・配信機材"
-        }
-      ],
-      "image": "assets/img/cat-av-mtlrfe95.webp"
-    },
-    {
-      "key": "camera",
-      "label": "カメラ",
-      "icon": "📷",
-      "lead": "カメラ本体とレンズ、三脚などの撮影機材。作例より、運用のしやすさを中心に整理します。",
-      "sub": [
-        {
-          "key": "body",
-          "label": "カメラ本体"
-        },
-        {
-          "key": "lens",
-          "label": "レンズ"
-        },
-        {
-          "key": "tripod",
-          "label": "三脚・ジンバル"
-        },
-        {
-          "key": "acc",
-          "label": "カメラアクセサリー"
-        }
-      ],
-      "image": "assets/img/cat-camera-mtlqmdno.webp"
-    },
-    {
-      "key": "beauty",
-      "label": "美容・コスメ",
-      "icon": "💄",
-      "lead": "スキンケア・ヘアケア・美容家電。肌質や髪質で結果が変わるため、合わない場合の条件も併せて書きます。",
-      "sub": [
-        {
-          "key": "skincare",
-          "label": "スキンケア"
-        },
-        {
-          "key": "haircare",
-          "label": "ヘアケア"
-        },
-        {
-          "key": "makeup",
-          "label": "メイク"
-        },
-        {
-          "key": "device",
-          "label": "美容家電"
-        },
-        {
-          "key": "shave",
-          "label": "シェービング"
-        }
-      ],
-      "image": "assets/img/cat-beauty-mtlqlg52.webp"
-    },
-    {
-      "key": "health",
-      "label": "ヘルスケア",
-      "icon": "🩺",
-      "lead": "体調や睡眠の記録、体のケア用品。医療機器ではないため、数値は目安として扱います。",
-      "sub": [
-        {
-          "key": "measure",
-          "label": "計測・スマートウォッチ"
-        },
-        {
-          "key": "care",
-          "label": "マッサージ・体のケア"
-        },
-        {
-          "key": "supplement",
-          "label": "サプリメント"
-        },
-        {
-          "key": "hygiene",
-          "label": "衛生用品"
-        }
-      ],
-      "image": "assets/img/cat-health-mtlqxboo.webp"
-    },
-    {
-      "key": "kitchen",
-      "label": "キッチン",
-      "icon": "🍳",
-      "lead": "調理家電と調理器具、food周りの収納。片付けまで含めた手間で評価します。",
-      "sub": [
-        {
-          "key": "appliance",
-          "label": "調理家電"
-        },
-        {
-          "key": "tool",
-          "label": "調理器具"
-        },
-        {
-          "key": "ware",
-          "label": "食器・保存容器"
-        },
-        {
-          "key": "storage",
-          "label": "キッチン収納"
-        }
-      ],
-      "image": "assets/img/cat-kitchen-mtlquq6f.webp"
-    },
-    {
-      "key": "daily",
-      "label": "日用品・雑貨",
-      "icon": "🧺",
-      "lead": "毎日使う消耗品と雑貨に加え、工具・園芸・アウトドア・ホビーなど、他のカテゴリーに収まらない領域もここにまとめています。",
-      "sub": [
-        {
-          "key": "storage",
-          "label": "収納・整理"
-        },
-        {
-          "key": "clean",
-          "label": "掃除・洗濯用品"
-        },
-        {
-          "key": "bath",
-          "label": "バス・トイレ"
-        },
-        {
-          "key": "safety",
-          "label": "防災・防犯"
-        },
-        {
-          "key": "misc",
-          "label": "その他雑貨"
-        },
-        {
-          "key": "fashion",
-          "label": "ファッション・時計"
-        },
-        {
-          "key": "tool",
-          "label": "DIY・工具"
-        },
-        {
-          "key": "garden",
-          "label": "ガーデニング"
-        },
-        {
-          "key": "hobby",
-          "label": "ゲーム・ホビー"
-        },
-        {
-          "key": "car",
-          "label": "車・バイク"
-        },
-        {
-          "key": "outdoor",
-          "label": "アウトドア・スポーツ"
-        },
-        {
-          "key": "stationery",
-          "label": "文具・オフィス"
-        }
-      ],
-      "image": "assets/img/cat-daily-mtlqv3bc.webp"
-    },
-    {
-      "key": "furniture",
-      "label": "家具・インテリア",
-      "icon": "🪑",
-      "lead": "デスク・チェア・収納・寝具。在宅作業の快適さは、この領域でほぼ決まります。",
-      "sub": [
-        {
-          "key": "desk",
-          "label": "デスク・デスク周り"
-        },
-        {
-          "key": "chair",
-          "label": "チェア"
-        },
-        {
-          "key": "shelf",
-          "label": "収納家具・ラック"
-        },
-        {
-          "key": "bed",
-          "label": "寝具"
-        },
-        {
-          "key": "deco",
-          "label": "インテリア雑貨"
-        }
-      ],
-      "image": "assets/img/cat-furniture-mtlqvldt.webp"
-    },
-    {
-      "key": "pet",
-      "label": "ペット",
-      "icon": "🐾",
-      "lead": "犬・猫を中心としたペット用品。生き物が相手なので、合わなかったときの切り替えやすさも含めて整理します。",
-      "sub": [
-        {
-          "key": "dog",
-          "label": "犬用品"
-        },
-        {
-          "key": "cat",
-          "label": "猫用品"
-        },
-        {
-          "key": "food",
-          "label": "フード・おやつ"
-        },
-        {
-          "key": "care",
-          "label": "ケア・衛生"
-        },
-        {
-          "key": "aqua",
-          "label": "アクアリウム・小動物"
-        }
-      ],
-      "image": "assets/img/cat-pet-mtlqwfcy.webp"
-    },
-    {
-      "key": "travel",
-      "label": "旅行・トラベル",
-      "icon": "🧳",
-      "lead": "スーツケース・トラベルポーチ・機内グッズなど、移動と滞在を軽くするための道具。荷造りのしやすさと、現地で困らないかという視点で整理します。",
-      "sub": [
-        {
-          "key": "luggage",
-          "label": "スーツケース・バッグ"
-        },
-        {
-          "key": "organize",
-          "label": "パッキング・収納"
-        },
-        {
-          "key": "gadget",
-          "label": "旅行ガジェット・変換器"
-        },
-        {
-          "key": "comfort",
-          "label": "機内・移動の快適グッズ"
-        },
-        {
-          "key": "amenity",
-          "label": "トラベル用トイレタリー"
-        }
-      ],
-      "image": "assets/img/cat-travel-mtlqwt2y.webp"
+     "key": "season",
+     "label": "セール・買い時"
     }
-  ],
-  "amazon": {
-    "associate_tag": "monobase30-22",
-    "_note": "アソシエイトID（例: monobase-22）。審査通過後にここへ入れると、ASIN指定の全記事リンクへ自動で付与されます。"
+   ]
   },
-  "sales": {
-    "_note": "Amazonのセール日程は公式に配信されていないため、日程が発表されたらここに追加する。期間内だけサイト上部に流れる告知が出る。",
-    "items": [
-      {
-        "name": "Amazon プライムデー",
-        "start": "2026-07-14",
-        "end": "2026-07-17",
-        "url": "https://www.amazon.co.jp/events/primeday",
-        "note": ""
-      },
-      {
-        "name": "Amazon ブラックフライデー",
-        "start": "2026-11-27",
-        "end": "2026-12-01",
-        "url": "https://www.amazon.co.jp/events/blackfriday",
-        "note": ""
-      }
-    ]
-  },
-  "images": {
-    "_note": "画像生成の設定。APIキーはここに書かない（公開リポジトリのため）。ローカルは環境変数 GEMINI_API_KEY、GitHub Actions は Secrets を使う。",
-    "model": "gemini-3.1-flash-image"
-  },
-  "promos": {
-    "_note": "A8.net・バリューコマース・もしもなどで取得した広告リンクを、そのまま貼る枠。コードは書き換えず、置き場所と対象カテゴリーだけこちらで決める。where は article_end（記事の下）／side（PCサイド）／none（出さない）。cats を空にすると全カテゴリーの記事に出る。",
-    "label": "PR",
-    "items": []
-  },
-  "hero": {
-    "_note": "トップの見出しタイルの文言。accent に入れた語だけ、マーカーを引いた見た目になる（title の中に含まれている語を指定する）。",
-    "title": "レビューを読み込んで、不満点までまとめる。",
-    "accent": "不満点まで",
-    "typewriter": true
-  },
-  "ads": {
-    "_note": "Google AdSense。enabled を true にすると読み込みタグが入る。コードは書き換えず、置き場所だけこちらで決める（規約）。mode=auto は自動広告、manual は下の slots に入れた広告ユニットIDの位置だけに出す。",
-    "enabled": true,
-    "client": "ca-pub-4017242913861863",
-    "mode": "manual",
-    "label": "スポンサーリンク",
-    "slots": {
-      "article_mid": "",
-      "article_end": "",
-      "side": ""
-    }
-  },
-  "automation": {
-    "_note": "記事を自動で作る頻度と本数。ワークフローは毎日まわし、tools/schedule_gate.py がこの設定で間引く。enabled が false のあいだは何も作らない。",
-    "enabled": true,
-    "runs_per_week": 5,
-    "articles_per_run": 2,
-    "auto_publish": true
-  },
-  "hosting": {
-    "_note": "配信先は Cloudflare Workers（静的アセット）。build.py が wrangler.jsonc と .assetsignore を書き出す。GitHub Pages へ戻す場合は clean_urls を false にする。",
-    "clean_urls": true,
-    "worker_name": "monobase",
-    "compatibility_date": "2026-08-24"
-  },
-  "legal_updated": "2026-09-03",
-  "_legal_updated_note": "プライバシーポリシー・免責事項・運営者情報の「最終更新」に出る日付。文面を変えたときだけ手で更新する。",
-  "maintenance_message": "ただいまサイトの準備・調整を行っています。",
-  "layout": {
-    "_note": "トップページに出す区画の並びと表示。管理画面の「サイト設定 → トップページの並び」から変更できる。",
-    "top": [
-      {
-        "key": "hero",
-        "on": true
-      },
-      {
-        "key": "feature",
-        "on": true
-      },
-      {
-        "key": "new",
-        "on": true
-      },
-      {
-        "key": "ranking",
-        "on": true
-      },
-      {
-        "key": "categories",
-        "on": true
-      }
-    ]
-  },
-  "affiliate": {
-    "_note": "楽天・Yahoo!ショッピングのアフィリエイト設定。管理画面の「サイト設定」から編集できる。IDを空にすると、そのショップのボタンは通常リンク（タグなし）になる。Amazon は associate_tag の直リンクを使う。",
-    "rakuten": {
-      "affiliate_id": "56d346a9.eb62e37a.56d346aa.44554a44",
-      "_note": "楽天アフィリエイトのID（直参加）。ドット区切りの文字列。hb.afl.rakuten.co.jp/hgc/<ID>/ の形でリンクを組み立てる。"
+  {
+   "key": "appliance",
+   "label": "家電",
+   "icon": "🏠",
+   "lead": "加湿器・扇風機・照明・掃除機など、暮らしの土台になる家電。家事の手間をどれだけ減らせるかという視点で整理しています。",
+   "sub": [
+    {
+     "key": "aircon",
+     "label": "空調・季節家電"
     },
-    "yahoo": {
-      "vc_sid": "",
-      "vc_pid": "",
-      "_note": "Yahoo!ショッピングはバリューコマース経由。管理画面の広告リンクに出る sid と pid を入れると ck.jp.ap.valuecommerce.com 経由になる。空のあいだは通常リンク。"
+    {
+     "key": "clean",
+     "label": "掃除機・掃除家電"
+    },
+    {
+     "key": "laundry",
+     "label": "洗濯・アイロン"
+    },
+    {
+     "key": "light",
+     "label": "照明"
+    },
+    {
+     "key": "smart",
+     "label": "スマート家電"
+    },
+    {
+     "key": "power",
+     "label": "電源・電池"
     }
+   ],
+   "image": "assets/img/cat-appliance-mtlrf5bn.webp"
   },
-  "indexnow": {
-    "key": "915c9ed24598bf24b17e077cd405a65d",
-    "_note": "IndexNow の鍵。記事を更新したとき Bing・Yandex などへ通知する。build.py が <鍵>.txt をサイトの直下に置き、相手はそれを読んで「本当にこのサイトの持ち主か」を確かめる。公開される値なので秘密ではない。Google は IndexNow に対応していない（サイトマップとリンクで拾われる）。",
-    "endpoint": "https://api.indexnow.org/indexnow"
+  {
+   "key": "smartphone",
+   "label": "スマートフォン",
+   "icon": "📱",
+   "lead": "スマホ本体と、ケース・充電器・アクセサリー。毎日触れるものなので、使い勝手の差が出やすい領域です。",
+   "sub": [
+    {
+     "key": "body",
+     "label": "スマホ本体"
+    },
+    {
+     "key": "case",
+     "label": "ケース・保護フィルム"
+    },
+    {
+     "key": "charger",
+     "label": "充電器・モバイルバッテリー"
+    },
+    {
+     "key": "acc",
+     "label": "スマホアクセサリー"
+    }
+   ],
+   "image": "assets/img/cat-smartphone-mtlrdwfb.webp"
   },
-  "footer_promo": {
-    "_note": "フッター上に出すAmazonへの導線。価格・在庫・割引率は書かないこと（PA-API 経由のデータ以外は表示できない）。url は空ならAmazonのトップ。",
-    "title": "Amazonで気になるものを探す",
-    "button": "Amazon.co.jp を見る",
-    "note": "当サイトはAmazonアソシエイトとして、適格販売により収入を得ています。価格・在庫は必ず販売ページでご確認ください。",
-    "url": ""
+  {
+   "key": "pc",
+   "label": "パソコン",
+   "icon": "💻",
+   "lead": "ノートPC・モニター・入力機器・周辺機器まで。作業時間が長い人ほど、小さな差が積み上がる分野です。",
+   "sub": [
+    {
+     "key": "laptop",
+     "label": "ノートパソコン"
+    },
+    {
+     "key": "tablet",
+     "label": "タブレット・電子書籍"
+    },
+    {
+     "key": "monitor",
+     "label": "ディスプレイ・モニター"
+    },
+    {
+     "key": "input",
+     "label": "キーボード・マウス・入力機器"
+    },
+    {
+     "key": "peripheral",
+     "label": "周辺機器・USBハブ"
+    },
+    {
+     "key": "storage",
+     "label": "ストレージ・外付けドライブ"
+    },
+    {
+     "key": "network",
+     "label": "Wi-Fi・ネットワーク"
+    },
+    {
+     "key": "parts",
+     "label": "PCパーツ"
+    },
+    {
+     "key": "software",
+     "label": "ソフトウェア"
+    }
+   ],
+   "image": "assets/img/cat-pc-mtlqstnj.webp"
+  },
+  {
+   "key": "av",
+   "label": "AV機器",
+   "icon": "🎧",
+   "lead": "イヤホン・スピーカー・マイク・映像機器。音と映像は数値より、使う場面との相性で評価が変わります。",
+   "sub": [
+    {
+     "key": "headphone",
+     "label": "イヤホン・ヘッドホン"
+    },
+    {
+     "key": "speaker",
+     "label": "スピーカー"
+    },
+    {
+     "key": "tv",
+     "label": "テレビ・プロジェクター"
+    },
+    {
+     "key": "mic",
+     "label": "マイク・配信機材"
+    }
+   ],
+   "image": "assets/img/cat-av-mtlrfe95.webp"
+  },
+  {
+   "key": "camera",
+   "label": "カメラ",
+   "icon": "📷",
+   "lead": "カメラ本体とレンズ、三脚などの撮影機材。作例より、運用のしやすさを中心に整理します。",
+   "sub": [
+    {
+     "key": "body",
+     "label": "カメラ本体"
+    },
+    {
+     "key": "lens",
+     "label": "レンズ"
+    },
+    {
+     "key": "tripod",
+     "label": "三脚・ジンバル"
+    },
+    {
+     "key": "acc",
+     "label": "カメラアクセサリー"
+    }
+   ],
+   "image": "assets/img/cat-camera-mtlqmdno.webp"
+  },
+  {
+   "key": "beauty",
+   "label": "美容・コスメ",
+   "icon": "💄",
+   "lead": "スキンケア・ヘアケア・美容家電。肌質や髪質で結果が変わるため、合わない場合の条件も併せて書きます。",
+   "sub": [
+    {
+     "key": "skincare",
+     "label": "スキンケア"
+    },
+    {
+     "key": "haircare",
+     "label": "ヘアケア"
+    },
+    {
+     "key": "makeup",
+     "label": "メイク"
+    },
+    {
+     "key": "device",
+     "label": "美容家電"
+    },
+    {
+     "key": "shave",
+     "label": "シェービング"
+    }
+   ],
+   "image": "assets/img/cat-beauty-mtlqlg52.webp"
+  },
+  {
+   "key": "health",
+   "label": "ヘルスケア",
+   "icon": "🩺",
+   "lead": "体調や睡眠の記録、体のケア用品。医療機器ではないため、数値は目安として扱います。",
+   "sub": [
+    {
+     "key": "measure",
+     "label": "計測・スマートウォッチ"
+    },
+    {
+     "key": "care",
+     "label": "マッサージ・体のケア"
+    },
+    {
+     "key": "supplement",
+     "label": "サプリメント"
+    },
+    {
+     "key": "hygiene",
+     "label": "衛生用品"
+    }
+   ],
+   "image": "assets/img/cat-health-mtlqxboo.webp"
+  },
+  {
+   "key": "kitchen",
+   "label": "キッチン",
+   "icon": "🍳",
+   "lead": "調理家電と調理器具、food周りの収納。片付けまで含めた手間で評価します。",
+   "sub": [
+    {
+     "key": "appliance",
+     "label": "調理家電"
+    },
+    {
+     "key": "tool",
+     "label": "調理器具"
+    },
+    {
+     "key": "ware",
+     "label": "食器・保存容器"
+    },
+    {
+     "key": "storage",
+     "label": "キッチン収納"
+    }
+   ],
+   "image": "assets/img/cat-kitchen-mtlquq6f.webp"
+  },
+  {
+   "key": "daily",
+   "label": "日用品・雑貨",
+   "icon": "🧺",
+   "lead": "毎日使う消耗品と雑貨に加え、工具・園芸・アウトドア・ホビーなど、他のカテゴリーに収まらない領域もここにまとめています。",
+   "sub": [
+    {
+     "key": "storage",
+     "label": "収納・整理"
+    },
+    {
+     "key": "clean",
+     "label": "掃除・洗濯用品"
+    },
+    {
+     "key": "bath",
+     "label": "バス・トイレ"
+    },
+    {
+     "key": "safety",
+     "label": "防災・防犯"
+    },
+    {
+     "key": "misc",
+     "label": "その他雑貨"
+    },
+    {
+     "key": "fashion",
+     "label": "ファッション・時計"
+    },
+    {
+     "key": "tool",
+     "label": "DIY・工具"
+    },
+    {
+     "key": "garden",
+     "label": "ガーデニング"
+    },
+    {
+     "key": "hobby",
+     "label": "ゲーム・ホビー"
+    },
+    {
+     "key": "car",
+     "label": "車・バイク"
+    },
+    {
+     "key": "outdoor",
+     "label": "アウトドア・スポーツ"
+    },
+    {
+     "key": "stationery",
+     "label": "文具・オフィス"
+    }
+   ],
+   "image": "assets/img/cat-daily-mtlqv3bc.webp"
+  },
+  {
+   "key": "furniture",
+   "label": "家具・インテリア",
+   "icon": "🪑",
+   "lead": "デスク・チェア・収納・寝具。在宅作業の快適さは、この領域でほぼ決まります。",
+   "sub": [
+    {
+     "key": "desk",
+     "label": "デスク・デスク周り"
+    },
+    {
+     "key": "chair",
+     "label": "チェア"
+    },
+    {
+     "key": "shelf",
+     "label": "収納家具・ラック"
+    },
+    {
+     "key": "bed",
+     "label": "寝具"
+    },
+    {
+     "key": "deco",
+     "label": "インテリア雑貨"
+    }
+   ],
+   "image": "assets/img/cat-furniture-mtlqvldt.webp"
+  },
+  {
+   "key": "pet",
+   "label": "ペット",
+   "icon": "🐾",
+   "lead": "犬・猫を中心としたペット用品。生き物が相手なので、合わなかったときの切り替えやすさも含めて整理します。",
+   "sub": [
+    {
+     "key": "dog",
+     "label": "犬用品"
+    },
+    {
+     "key": "cat",
+     "label": "猫用品"
+    },
+    {
+     "key": "food",
+     "label": "フード・おやつ"
+    },
+    {
+     "key": "care",
+     "label": "ケア・衛生"
+    },
+    {
+     "key": "aqua",
+     "label": "アクアリウム・小動物"
+    }
+   ],
+   "image": "assets/img/cat-pet-mtlqwfcy.webp"
+  },
+  {
+   "key": "travel",
+   "label": "旅行・トラベル",
+   "icon": "🧳",
+   "lead": "スーツケース・トラベルポーチ・機内グッズなど、移動と滞在を軽くするための道具。荷造りのしやすさと、現地で困らないかという視点で整理します。",
+   "sub": [
+    {
+     "key": "luggage",
+     "label": "スーツケース・バッグ"
+    },
+    {
+     "key": "organize",
+     "label": "パッキング・収納"
+    },
+    {
+     "key": "gadget",
+     "label": "旅行ガジェット・変換器"
+    },
+    {
+     "key": "comfort",
+     "label": "機内・移動の快適グッズ"
+    },
+    {
+     "key": "amenity",
+     "label": "トラベル用トイレタリー"
+    }
+   ],
+   "image": "assets/img/cat-travel-mtlqwt2y.webp"
   }
+ ],
+ "amazon": {
+  "associate_tag": "monobase30-22",
+  "_note": "アソシエイトID（例: monobase-22）。審査通過後にここへ入れると、ASIN指定の全記事リンクへ自動で付与されます。"
+ },
+ "sales": {
+  "_note": "Amazonのセール日程は公式に配信されていないため、日程が発表されたらここに追加する。期間内だけサイト上部に流れる告知が出る。",
+  "items": [
+   {
+    "name": "Amazon プライムデー",
+    "start": "2026-07-14",
+    "end": "2026-07-17",
+    "url": "https://www.amazon.co.jp/events/primeday",
+    "note": ""
+   },
+   {
+    "name": "Amazon ブラックフライデー",
+    "start": "2026-11-27",
+    "end": "2026-12-01",
+    "url": "https://www.amazon.co.jp/events/blackfriday",
+    "note": ""
+   }
+  ]
+ },
+ "images": {
+  "_note": "画像生成の設定。APIキーはここに書かない（公開リポジトリのため）。ローカルは環境変数 GEMINI_API_KEY、GitHub Actions は Secrets を使う。",
+  "model": "gemini-3.1-flash-image"
+ },
+ "promos": {
+  "_note": "A8.net・バリューコマース・もしもなどで取得した広告リンクを、そのまま貼る枠。コードは書き換えず、置き場所と対象カテゴリーだけこちらで決める。where は article_end（記事の下）／side（PCサイド）／none（出さない）。cats を空にすると全カテゴリーの記事に出る。",
+  "label": "PR",
+  "items": [
+   {
+    "name": "オーディオ（1件）",
+    "where": "article_end",
+    "cats": [
+     "av"
+    ],
+    "ads": [
+     {
+      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YT+ANF6CY+55QO+5ZU29\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260905493644&wid=001&eno=01&mid=s00000024072001007000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www12.a8.net/0.gif?a8mat=4BC3YT+ANF6CY+55QO+5ZU29\" alt=\"\">",
+      "title": "イヤホン・ヘッドホン専門店【e☆イヤホン】",
+      "date": "2022-12-19"
+     }
+    ]
+   },
+   {
+    "name": "回線・Wi-Fi（9件）",
+    "where": "article_end",
+    "cats": [
+     "pc"
+    ],
+    "ads": [
+     {
+      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BOC1V6+3SPO+BQTME9\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260905492706&wid=001&eno=01&mid=s00000017718071018000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www18.a8.net/0.gif?a8mat=4BC3YS+BOC1V6+3SPO+BQTME9\" alt=\"\">",
+      "title": "超高速インターネットが1年間ずっと月額980円～！【コミュファ光】",
+      "date": "2023-11-10"
+     },
+     {
+      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+BLCVUA+42Y0+5ZMCH\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www25.a8.net/svt/bgt?aid=260905492701&wid=001&eno=01&mid=s00000019044001006000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www15.a8.net/0.gif?a8mat=4BC3YS+BLCVUA+42Y0+5ZMCH\" alt=\"\">",
+      "title": "【auひかり】初期工事費無料！豪華キャンペーン！知らない人はモッタイナイ！",
+      "date": "2018-07-10"
+     },
+     {
+      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B5A6IA+1MWA+1TS6MP\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www26.a8.net/svt/bgt?aid=260905492674&wid=001&eno=01&mid=s00000007633011049000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www16.a8.net/0.gif?a8mat=4BC3YS+B5A6IA+1MWA+1TS6MP\" alt=\"\">",
+      "title": "【キャッシュバック最大7万円】ひかり電話、ヒカリ回線のお申込み窓口",
+      "date": "2012-06-29"
+     },
+     {
+      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BC3YS+B43BAQ+1MWA+2ZAQN5\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www23.a8.net/svt/bgt?aid=260905492672&wid=001&eno=01&mid=s00000007633018022000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BC3YS+B43BAQ+1MWA+2ZAQN5\" alt=\"\">",
+      "title": "高速インターネット回線のNTTフレッツ光【キャッシュバック最大7万円】",
+      "date": "2013-11-29"
+     },
+     {
+      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+AFOJHU+5JPQ+5YZ75\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www25.a8.net/svt/bgt?aid=260826384631&wid=001&eno=01&mid=s00000025883001003000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+AFOJHU+5JPQ+5YZ75\" alt=\"\">",
+      "title": "東海地方の高速光回線なら【コミュファ光】充実したキャッシュバック特典あり！",
+      "date": "2024-05-31"
+     },
+     {
+      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9W18J6+3MKA+15PEXD\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384598&wid=001&eno=01&mid=s00000016921007005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www17.a8.net/0.gif?a8mat=4BAEXC+9W18J6+3MKA+15PEXD\" alt=\"\">",
+      "title": "好きな分だけ、いつでも使える！【WiFi東京プリペイド】",
+      "date": "2024-06-14"
+     },
+     {
+      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9QOC36+3MKA+TTDZ5\" rel=\"nofollow\">\n<img border=\"0\" width=\"336\" height=\"280\" alt=\"\" src=\"https://www22.a8.net/svt/bgt?aid=260826384589&wid=001&eno=01&mid=s00000016921005008000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www13.a8.net/0.gif?a8mat=4BAEXC+9QOC36+3MKA+TTDZ5\" alt=\"\">",
+      "title": "【FreeMax+5G】2台目以降初期費用0円｜法人特別プラン",
+      "date": "2023-06-08"
+     },
+     {
+      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+9U8XPU+2ZBM+3H4129\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www24.a8.net/svt/bgt?aid=260826384595&wid=001&eno=01&mid=s00000013909021014000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www10.a8.net/0.gif?a8mat=4BAEXC+9U8XPU+2ZBM+3H4129\" alt=\"\">",
+      "title": "【海外WiFiレンタルのグローバルモバイル】",
+      "date": "2024-02-16"
+     },
+     {
+      "html": "<a href=\"https://px.a8.net/svt/ejp?a8mat=4BAEXC+A0SPDE+2ZBM+3B3RKH\" rel=\"nofollow\">\n<img border=\"0\" width=\"300\" height=\"250\" alt=\"\" src=\"https://www20.a8.net/svt/bgt?aid=260826384606&wid=001&eno=01&mid=s00000013909020005000&mc=1\"></a>\n<img border=\"0\" width=\"1\" height=\"1\" src=\"https://www11.a8.net/0.gif?a8mat=4BAEXC+A0SPDE+2ZBM+3B3RKH\" alt=\"\">",
+      "title": "世界周遊レンタルWiFiルーター【ワールドデータ】",
+      "date": "2023-08-29"
+     }
+    ]
+   }
+  ]
+ },
+ "hero": {
+  "_note": "トップの見出しタイルの文言。accent に入れた語だけ、マーカーを引いた見た目になる（title の中に含まれている語を指定する）。",
+  "title": "レビューを読み込んで、不満点までまとめる。",
+  "accent": "不満点まで",
+  "typewriter": true
+ },
+ "ads": {
+  "_note": "Google AdSense。enabled を true にすると読み込みタグが入る。コードは書き換えず、置き場所だけこちらで決める（規約）。mode=auto は自動広告、manual は下の slots に入れた広告ユニットIDの位置だけに出す。",
+  "enabled": true,
+  "client": "ca-pub-4017242913861863",
+  "mode": "manual",
+  "label": "スポンサーリンク",
+  "slots": {
+   "article_mid": "",
+   "article_end": "",
+   "side": ""
+  }
+ },
+ "automation": {
+  "_note": "記事を自動で作る頻度と本数。ワークフローは毎日まわし、tools/schedule_gate.py がこの設定で間引く。enabled が false のあいだは何も作らない。",
+  "enabled": true,
+  "runs_per_week": 5,
+  "articles_per_run": 2,
+  "auto_publish": true
+ },
+ "hosting": {
+  "_note": "配信先は Cloudflare Workers（静的アセット）。build.py が wrangler.jsonc と .assetsignore を書き出す。GitHub Pages へ戻す場合は clean_urls を false にする。",
+  "clean_urls": true,
+  "worker_name": "monobase",
+  "compatibility_date": "2026-08-24"
+ },
+ "legal_updated": "2026-09-03",
+ "_legal_updated_note": "プライバシーポリシー・免責事項・運営者情報の「最終更新」に出る日付。文面を変えたときだけ手で更新する。",
+ "maintenance_message": "ただいまサイトの準備・調整を行っています。",
+ "layout": {
+  "_note": "トップページに出す区画の並びと表示。管理画面の「サイト設定 → トップページの並び」から変更できる。",
+  "top": [
+   {
+    "key": "hero",
+    "on": true
+   },
+   {
+    "key": "feature",
+    "on": true
+   },
+   {
+    "key": "new",
+    "on": true
+   },
+   {
+    "key": "ranking",
+    "on": true
+   },
+   {
+    "key": "categories",
+    "on": true
+   }
+  ]
+ },
+ "affiliate": {
+  "_note": "楽天・Yahoo!ショッピングのアフィリエイト設定。管理画面の「サイト設定」から編集できる。IDを空にすると、そのショップのボタンは通常リンク（タグなし）になる。Amazon は associate_tag の直リンクを使う。",
+  "rakuten": {
+   "affiliate_id": "56d346a9.eb62e37a.56d346aa.44554a44",
+   "_note": "楽天アフィリエイトのID（直参加）。ドット区切りの文字列。hb.afl.rakuten.co.jp/hgc/<ID>/ の形でリンクを組み立てる。"
+  },
+  "yahoo": {
+   "vc_sid": "",
+   "vc_pid": "",
+   "_note": "Yahoo!ショッピングはバリューコマース経由。管理画面の広告リンクに出る sid と pid を入れると ck.jp.ap.valuecommerce.com 経由になる。空のあいだは通常リンク。"
+  }
+ },
+ "indexnow": {
+  "key": "915c9ed24598bf24b17e077cd405a65d",
+  "_note": "IndexNow の鍵。記事を更新したとき Bing・Yandex などへ通知する。build.py が <鍵>.txt をサイトの直下に置き、相手はそれを読んで「本当にこのサイトの持ち主か」を確かめる。公開される値なので秘密ではない。Google は IndexNow に対応していない（サイトマップとリンクで拾われる）。",
+  "endpoint": "https://api.indexnow.org/indexnow"
+ },
+ "footer_promo": {
+  "_note": "フッター上に出すAmazonへの導線。価格・在庫・割引率は書かないこと（PA-API 経由のデータ以外は表示できない）。url は空ならAmazonのトップ。",
+  "title": "Amazonで気になるものを探す",
+  "button": "Amazon.co.jp を見る",
+  "note": "当サイトはAmazonアソシエイトとして、適格販売により収入を得ています。価格・在庫は必ず販売ページでご確認ください。",
+  "url": ""
+ }
 }

@@ -2689,8 +2689,46 @@ p,li,.card-desc{text-wrap:pretty;}
 .card-link{display:flex;
   width:100%;
   text-align:center;}
-.promo-body{max-width:100%;
-  overflow-x:auto;}
+/* ============================================================
+   ASPの広告枠（A8.netなど）
+   ------------------------------------------------------------
+   関連記事と同じ3列のタイルとして並べる。枠には class="card" が
+   付いているので、大きさ・地の色・余白・スマホでの横並びは、すべて
+   タイルの決まりがそのまま効く。ここで足すのは2つだけ。
+
+     1. 中身の位置 … .promo-body は表示のたびに1件を差し込む入れ物。
+                     display:contents で中身をタイルの直接の子と同じに
+                     並べるが、CSSの「>」は入れ物を飛ばせないので、
+                     余白は改めて指定する
+     2. バナー … タイルの幅に合わせて縮める。配布されたコードには手を
+                 触れず、表示の大きさだけをCSSで決める。縦横比は保つ
+
+     写真の位置  … バナー
+     日付の位置  … 案件の開始日
+     分野の位置  … 「PR」。広告であることは必ず示す（規約）
+     見出しの位置… 案件名
+   ============================================================ */
+.promo-group{display:block;margin:clamp(28px,6vw,44px) 0 0;}
+.promo-body{display:contents;}
+/* タイルの子に効いている余白を、入れ物ごしにも同じだけ与える */
+.promo-slot .card-thumb{margin:14px 14px 0;
+  aspect-ratio:auto;background:none;border:0;
+  display:block;line-height:0;}
+.promo-slot .promo-body > :not(.card-thumb){padding-left:14px;padding-right:14px;}
+/* バナーはタイルの幅いっぱいまで縮める。枠は関連記事の写真と同じ */
+.promo-slot .card-thumb img{width:100%;height:auto;
+  border:1px solid var(--line-2);}
+/* 計測用の1x1画像は、A8が数えるための画像。隠さず、位置も動かさない。
+   幅いっぱいに伸ばす指定だけを打ち消して、1x1のまま読み込ませる */
+.promo-slot .card-thumb img[width="1"]{width:1px;height:1px;border:0;}
+.promo-slot .card-title{word-break:break-word;}
+/* スマホは関連記事と同じ横並び。写真の位置に入るバナーも、記事の写真と
+   同じ大きさ（96px角）に収める */
+@media (max-width:860px){
+  .promo-slot .card-thumb{grid-row:1 / span 3;margin:0;}
+  .promo-slot .promo-body > :not(.card-thumb){padding-left:0;padding-right:0;}
+}
+}
 .promo-body img{max-width:100%;height:auto;}
 .promo-body a{word-break:break-all;}
 /* ============================================================

@@ -663,21 +663,27 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 })();
 
 /* ============================================================
-   ASPの広告：複数入れてあるときは、表示のたびに1つを選ぶ
+   ASPの広告：入れてあるものから、表示のたびに何件かを選ぶ
    ------------------------------------------------------------
+   同じ広告が並ばないよう、重複なしで選ぶ（選んだものは候補から外す）。
    選ばれなかったものは <template> の中に残るので、画像も計測用の
-   画像も読み込まれない。1回の表示につき1件だけが数えられる。
+   画像も読み込まれない。1回の表示につき、出したぶんだけが数えられる。
    コードそのものには一切手を触れず、そのまま差し込む。
    ============================================================ */
 (function () {
   'use strict';
-  var slots = document.querySelectorAll('.promo-slot[data-rotate]');
-  Array.prototype.forEach.call(slots, function (slot) {
-    var list = slot.querySelectorAll('template.promo-item');
-    var body = slot.querySelector('.promo-body');
-    if (!list.length || !body) return;
-    var pick = list[Math.floor(Math.random() * list.length)];
-    body.appendChild(pick.content.cloneNode(true));
+  var groups = document.querySelectorAll('.promo-group[data-rotate]');
+  Array.prototype.forEach.call(groups, function (group) {
+    var pool = Array.prototype.slice.call(
+      group.querySelectorAll('template.promo-item'));
+    var bodies = group.querySelectorAll('.promo-body');
+    if (!pool.length || !bodies.length) return;
+    Array.prototype.forEach.call(bodies, function (body) {
+      if (!pool.length) return;
+      var i = Math.floor(Math.random() * pool.length);
+      body.appendChild(pool[i].content.cloneNode(true));
+      pool.splice(i, 1);          /* 選んだものは候補から外す */
+    });
   });
 })();
 

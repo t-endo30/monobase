@@ -32,6 +32,8 @@ FEAT     = SITE.get("features", {})
 GA       = SITE.get("analytics", {}).get("ga_measurement_id", "").strip()
 ADS      = SITE.get("ads", {}) or {}
 PROMOS   = SITE.get("promos", {}) or {}
+# 広告をいくつ並べるか。関連記事と同じ3列に合わせる。
+PROMO_COUNT = int(PROMOS.get("count") or 3)
 GSC      = SITE.get("analytics", {}).get("gsc_verification", "").strip()
 def _asset_version():
     """assets の CSS/JS の内容から作る短いハッシュ。
@@ -310,19 +312,47 @@ def split_codes(text):
     return auto or [text]
 
 
+def promo_ads(item):
+    """枠に入っている広告を1件ずつ取り出す。
+       新しい形は ads（1件ごとに広告主名と開始日を持つ）。
+       古い形（html にコードを --- でつないだもの）も読めるようにしておく。"""
+    ads = item.get("ads")
+    if isinstance(ads, list) and ads:
+        return [a for a in ads if (a.get("html") or "").strip()]
+    return [{"html": c, "title": "", "date": ""}
+            for c in split_codes(item.get("html") or "")]
+
+
+def promo_card(ad, label):
+    """広告1件ぶんの中身。関連記事のタイルと同じ並びにする。
+         写真の位置  … バナー
+         日付の位置  … 案件の開始日
+         分野の位置  … 「PR」（広告であることを必ず示す）
+         見出しの位置… 案件名
+       バナーのコードには手を触れず、そのまま写真の位置に入れる。"""
+    date = e(str(ad.get("date") or ""))
+    title = e(str(ad.get("title") or ""))
+    return (f'<span class="card-thumb">{ad["html"]}</span>'
+            f'<span class="card-meta">'
+            f'<span class="card-date">{date}</span>'
+            f'<span class="card-cat">{label}</span></span>'
+            f'<span class="card-title">{title}</span>')
+
+
 def promo_slot(where, cat="", cls=""):
     """ASP（A8.net・バリューコマースなど）で取得した広告リンクを置く枠。
        配られたコードは書き換えず、そのまま流し込む（規約）。
        決めるのは「どこに出すか」と「どのカテゴリーの記事に出すか」だけ。
 
-       1つの枠に複数のコードを入れておくと、表示のたびに1つを選ぶ。
-       選ばれなかったコードは <template> の中に置いたままなので、
-       画像も計測用の画像も読み込まれない（表示回数が水増しされない）。
+       関連記事と同じ3列で、3件ならべる。表示のたびに選び直すが、
+       同じ広告が2つ並ばないように、重複なしで選ぶ（assets/main.js）。
+       選ばれなかったものは <template> の中に置いたままなので、画像も
+       計測用の画像も読み込まれない（表示回数が水増しされない）。
 
        cats が空の案件は全記事に出す。記事のカテゴリーが一致した案件だけを
        その記事に出すことで、内容と関係のない広告が並ぶのを避ける。"""
     items = [x for x in (PROMOS.get("items") or [])
-             if str(x.get("where") or "") == where and (x.get("html") or "").strip()]
+             if str(x.get("where") or "") == where and promo_ads(x)]
     if cat:
         items = [x for x in items
                  if not x.get("cats") or cat in (x.get("cats") or [])]
@@ -332,20 +362,33 @@ def promo_slot(where, cat="", cls=""):
     out = ""
     for x in items:
         c = f" {cls}" if cls else ""
-        codes = split_codes(x["html"])
-        if len(codes) == 1:
-            body = f'          <div class="promo-body">{codes[0]}</div>\n'
+        ads = promo_ads(x)
+        cards = [promo_card(a, label) for a in ads]
+        show = min(PROMO_COUNT, len(cards))
+        if len(cards) <= show:
+            # 選びようがないので、そのまま並べる
+            slots = "".join(
+                f'          <div class="card promo-slot">'
+                f'<div class="promo-body">{t}</div></div>\n'
+                for t in cards[:show])
+            tpl = ""
+            rot = ""
         else:
-            tpl = "".join(f'          <template class="promo-item">{t}</template>\n'
-                          for t in codes)
-            body = ('          <div class="promo-body"></div>\n'
-                    + tpl
-                    + f'          <noscript><div class="promo-body">{codes[0]}</div></noscript>\n')
-        rot = ' data-rotate="1"' if len(codes) > 1 else ""
-        out += (f'        <aside class="promo-slot{c}"{rot} aria-label="広告">\n'
-                f'          <span class="ad-label">{label}</span>\n'
-                + body +
-                f'        </aside>\n')
+            slots = "".join('          <div class="card promo-slot">'
+                            '<div class="promo-body"></div></div>\n'
+                            for _ in range(show))
+            tpl = "".join(
+                f'        <template class="promo-item">{t}</template>\n'
+                for t in cards)
+            rot = ' data-rotate="1"'
+            # JavaScriptが動かないときは、先頭から順に出す
+            tpl += ('        <noscript>' + "".join(
+                f'<div class="card promo-slot"><div class="promo-body">{t}</div></div>'
+                for t in cards[:show]) + '</noscript>\n')
+        out += (f'      <aside class="promo-group{c}"{rot} aria-label="広告">\n'
+                f'        <div class="card-grid is-3">\n{slots}        </div>\n'
+                + tpl +
+                f'      </aside>\n')
     return out
 
 
