@@ -274,7 +274,10 @@ def main():
         key = (kind, tuple(cats), label)
         groups.setdefault(key, {"label": label, "cats": cats, "kind": kind,
                                 "names": [], "ads": []})
-        groups[key]["ads"].append({"html": c, "title": name, "date": start})
+        m = re.search(r'<img[^>]*\bwidth="(\d+)"[^>]*\bheight="(\d+)"', c, re.I)
+        size = f"{m.group(1)}x{m.group(2)}" if m and int(m.group(1)) > 1 else ""
+        groups[key]["ads"].append({"html": c, "title": name, "date": start,
+                                   "size": size})
         if name and name not in groups[key]["names"]:
             groups[key]["names"].append(name)
 
@@ -282,13 +285,26 @@ def main():
     print(f"\n広告コード {total} 件を {len(groups)} 枠にまとめました\n")
     items = []
     for (kind, cats, label), g in groups.items():
-        # 記事下に出せるのは四角いバナーだけ。横長とテキストは、出す場所が
-        # 決まるまで none にしておく（消さずに取っておく）
-        where = args.where if (cats and kind == "tile") else "none"
-        if not cats:
+        # 出す場所は形で決まる。
+        #   四角いバナー … 記事の下（関連記事と同じタイルで3枚）
+        #   横長バナー   … ホームの帯（横幅を使える唯一の場所）。ここは
+        #                  カテゴリーに関係なく出るので、振り分けは要らない
+        #   テキストリンク… 置き場所が決まっていないので出さない。文脈に
+        #                  沿って本文に差し込む形が本来の使い方で、いまの
+        #                  在庫（回線案件がほとんど）を機械的に並べても
+        #                  記事の脈絡から外れる
+        if kind == "tile":
+            where = args.where if cats else "none"
+        elif kind == "wide":
+            where = "top"
+        else:
+            where = "none"
+        if kind == "wide":
+            cat_txt = "ホームの帯"
+        elif not cats:
             cat_txt = "（振り分け先が決まらず。出さないに設定）"
         elif kind != "tile":
-            cat_txt = f"{'、'.join(cats)}（形が合わないので、いまは出さない）"
+            cat_txt = f"{'、'.join(cats)}（置き場所が決まっていないので出さない）"
         else:
             cat_txt = "、".join(cats)
         print(f"■ [{SHAPE_LABEL[kind]}] {label}：{len(g['ads'])} 件 → {cat_txt}")

@@ -2709,6 +2709,20 @@ p,li,.card-desc{text-wrap:pretty;}
      見出しの位置… 案件名
    ============================================================ */
 .promo-group{display:block;margin:clamp(28px,6vw,44px) 0 0;}
+/* ============================================================
+   横長バナーの帯（ホーム）
+   ------------------------------------------------------------
+   タイルに入れると潰れて読めない横長を、1本だけ置く場所。
+   AdSenseの枠（.ad-slot）と同じ見せ方にそろえる。
+   ============================================================ */
+.promo-band-ad{display:block;text-align:center;
+  margin:clamp(20px,4vw,32px) 0;padding:10px 0 0;
+  border-top:1px dashed var(--border);}
+.promo-band-ad .promo-body{display:block;}
+.promo-band-ad img{display:inline-block;max-width:100%;height:auto;}
+/* 計測用の1x1画像は、そのままの大きさで読み込ませる */
+.promo-band-ad img[width="1"]{width:1px;height:1px;}
+.promo-band-ad[hidden]{display:none !important;}
 .promo-body{display:contents;}
 /* タイルの子に効いている余白を、入れ物ごしにも同じだけ与える。
    写真の位置は関連記事と同じ 4:3 の枠にして、タイルの縦の高さをそろえる。

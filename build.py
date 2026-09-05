@@ -342,6 +342,46 @@ def promo_card(ad, label):
             f'<span class="card-note" aria-hidden="true"></span>')
 
 
+def promo_band(where="top"):
+    """横長バナーを、1本の帯として出す枠。
+
+       横長は関連記事のタイルに入れると、写真の位置で潰れて読めなくなる。
+       横幅を使えるホームの区画に、1本だけ置く。
+
+       PCとスマホで入るバナーの大きさが違うので、両方を候補として持たせ、
+       画面の幅に合うものを assets/main.js が1つ選ぶ。選ばれなかったものは
+       <template> の中に残るため、画像も計測用の画像も読み込まれない
+       （両方を置いて隠す作りにすると、表示回数が2倍に水増しされる）。"""
+    items = [x for x in (PROMOS.get("items") or [])
+             if str(x.get("where") or "") == where
+             and str(x.get("kind") or "") == "wide" and promo_ads(x)]
+    if not items:
+        return ""
+    label = e(str(PROMOS.get("label") or "PR"))
+    ads = [a for x in items for a in promo_ads(x)]
+
+    def width(ad):
+        m = re.match(r"(\d+)x", str(ad.get("size") or ""))
+        return int(m.group(1)) if m else 0
+
+    # 幅400px以上はPC向け（728x90・468x60）。それ未満はスマホ向け（320x50）。
+    tpl = ""
+    for a in ads:
+        w = width(a)
+        if not w:
+            continue
+        for_sp = "sp" if w < 400 else "pc"
+        tpl += (f'        <template class="promo-item" data-for="{for_sp}">'
+                f'{a["html"]}</template>\n')
+    if not tpl:
+        return ""
+    return ('      <aside class="promo-band-ad" data-rotate="1" aria-label="広告">\n'
+            f'        <span class="ad-label">{label}</span>\n'
+            '        <div class="promo-body"></div>\n'
+            + tpl +
+            '      </aside>\n')
+
+
 def promo_slot(where, cat="", cls=""):
     """ASP（A8.net・バリューコマースなど）で取得した広告リンクを置く枠。
        配られたコードは書き換えず、そのまま流し込む（規約）。
@@ -2760,7 +2800,7 @@ def build_index():
             + html.escape(json.dumps(pool, ensure_ascii=False), quote=True) + '\'>'
             + "".join(v2_card(a, p) for a in picks) + "</div>\n")
 
-    slots = promo_slot("top", "", "is-wide") + ad_slot("top")
+    slots = promo_band("top") + ad_slot("top")
     if slots.strip():
         body += v2_section(slots)
 

@@ -679,7 +679,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 
   /* 差し込んだ広告のバナーを見張る。読めなかったらタイルを隠す */
   function watch(slot) {
-    var imgs = slot.querySelectorAll('.card-thumb img');
+    var imgs = slot.querySelectorAll('.card-thumb img, .promo-body img');
     var banner = null;
     for (var i = 0; i < imgs.length; i++) {
       /* 1x1 は成果を数えるための画像。バナーではない */
@@ -700,6 +700,27 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       if (!banner.complete || !banner.naturalWidth) hide();
     }, 20000);
   }
+
+  /* 横長バナーの帯。PC向けとスマホ向けを候補として持たせてあるので、
+     いまの画面幅に合うものだけから1つ選ぶ。選ばなかったものは
+     <template> の中に残るので、画像は読み込まれない。 */
+  var bands = document.querySelectorAll('.promo-band-ad[data-rotate]');
+  Array.prototype.forEach.call(bands, function (band) {
+    var want = window.innerWidth < 700 ? 'sp' : 'pc';
+    var pool = Array.prototype.filter.call(
+      band.querySelectorAll('template.promo-item'),
+      function (t) { return t.getAttribute('data-for') === want; });
+    /* その幅向けの在庫が無いときは、あるものから選ぶ（枠を空けない） */
+    if (!pool.length) {
+      pool = Array.prototype.slice.call(
+        band.querySelectorAll('template.promo-item'));
+    }
+    var body = band.querySelector('.promo-body');
+    if (!pool.length || !body) { band.hidden = true; return; }
+    body.appendChild(
+      pool[Math.floor(Math.random() * pool.length)].content.cloneNode(true));
+    watch(band);
+  });
 
   var groups = document.querySelectorAll('.promo-group');
   Array.prototype.forEach.call(groups, function (group) {
