@@ -2748,6 +2748,12 @@ p,li,.card-desc{text-wrap:pretty;}
   /* 関連記事は縦に並ぶ1枚もののリストになる。広告もその続きとして、
      タイル同士と同じすき間（.card-grid の gap:10px）でつなぐ */
   .promo-group{margin-top:10px;}
+  /* 写真の位置は、関連記事と同じ 1:1（96px角）にそろえる。
+     PCでは 4:3 にしているが、スマホでは関連記事のほうが正方形になる */
+  .promo-slot .card-thumb{aspect-ratio:1 / 1;}
+  /* 一言の場所取りは要らない。スマホの関連記事は、写真の右に
+     日付・見出し・一言が入る形で、高さは写真で決まるため */
+  .promo-slot .card-note{display:none;}
 }
 }
 .promo-body img{max-width:100%;height:auto;}
