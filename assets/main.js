@@ -1121,7 +1121,9 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       if (ev.pointerType === 'touch') return;   /* 指は端末の慣性に任せる */
       down = true; moved = false;
       startX = ev.clientX; startLeft = track.scrollLeft;
-      track.setPointerCapture(ev.pointerId);
+      /* ここで pointer を捕まえてはいけない。捕まえたままだと、離したときの
+         click が捕まえた側（この帯）に届き、タイルのリンクには届かなくなる
+         ＝押しても分野のページへ飛べなくなる。引き始めてから捕まえる。 */
     });
     track.addEventListener('pointermove', function (ev) {
       if (!down) return;
@@ -1129,6 +1131,9 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       if (!moved && Math.abs(dx) > 4) {
         moved = true;
         track.classList.add('is-dragging');
+        /* 引くと決まった時点で捕まえる。ここから先は、枠の外に
+           出てもついてくる。クリックはもとより打ち消す */
+        try { track.setPointerCapture(ev.pointerId); } catch (e) {}
       }
       if (moved) { track.scrollLeft = startLeft - dx; sync(); }
     });

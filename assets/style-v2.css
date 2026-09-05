@@ -2722,6 +2722,13 @@ p,li,.card-desc{text-wrap:pretty;}
    幅いっぱいに伸ばす指定だけを打ち消して、1x1のまま読み込ませる */
 .promo-slot .card-thumb img[width="1"]{width:1px;height:1px;border:0;}
 .promo-slot .card-title{word-break:break-word;}
+/* 記事タイルは、カーソルを当てると黒い面が斜めに渡る（.card::before/after）。
+   広告のタイルでは掛けない。広告の上に面がかぶさると、バナーが読めなく
+   なるうえ、広告を覆う見せ方はA8・AdSenseどちらの規約にも触れる。
+   そもそもタイル全体がリンクではないので、当てても飛び先がない */
+.promo-slot::before,.promo-slot::after{content:none;}
+.promo-slot:hover .card-title,.promo-slot:hover .card-date,
+.promo-slot:hover .card-cat{color:inherit;}
 /* スマホは関連記事と同じ横並び。写真の位置に入るバナーも、記事の写真と
    同じ大きさ（96px角）に収める */
 @media (max-width:860px){
