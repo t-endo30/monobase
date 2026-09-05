@@ -3264,15 +3264,12 @@ h1,h2,h3,h4,
   .flag{padding:2px 6px;font-size:9px;}
 }
 
-/* スマホでは、長い項目が枠いっぱいまで伸びるため、まとまりを中央へ
-   寄せても左端に貼り付いたままに見える。番号を行頭に置き直し、
-   1行ずつ中央に揃えて、見出しの中央寄せと合わせる。 */
+/* スマホでも番号は行の左に置いたまま、まとまりごと枠の中央へ寄せる。
+   1行ずつ中央に揃えると番号の位置が行ごとにずれて読みにくかった。 */
 @media (max-width:599px){
-  .article-page .toc ol{width:auto;}
-  .article-page .toc li{padding-left:0;text-align:center;}
-  .article-page .toc li::before{
-    position:static;display:inline;margin-right:7px;top:auto;
-  }
+  .article-page .toc ol{width:fit-content;max-width:100%;margin-inline:auto;text-align:left;}
+  .article-page .toc li{padding-left:30px;text-align:left;}
+  .article-page .toc li::before{position:absolute;left:0;top:7px;display:block;margin-right:0;}
 }
 /* 写真の左上。順位の札が乗るタイルには、そもそも札を出さない（main.js） */
 .card-thumb .card-flags,
