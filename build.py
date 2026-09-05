@@ -1690,7 +1690,10 @@ def paras(v, cls=""):
         return ""
     items = v if isinstance(v, list) else [v]
     c = f' class="{cls}"' if cls else ""
-    return "".join(f"          <p{c}>{mark(t)}</p>\n" for t in items if str(t).strip())
+    # 文字列以外（書きかけの {} や null）は捨てる。str() を通すと "{}" が
+    # そのまま段落として出てしまい、実際に本文に「{}」が表示されていた。
+    return "".join(f"          <p{c}>{mark(t)}</p>\n"
+                   for t in items if isinstance(t, str) and t.strip())
 
 
 def official_link(a):
@@ -3432,6 +3435,28 @@ def _ld_nodes(v):
         for x in v:
             yield from _ld_nodes(x)
 
+def validate_articles():
+    """中身の無い見出しや、書きかけの記述が残っていないか調べる。
+       見出しだけ立てて本文が空のまま公開すると、目次には出るのに
+       開いても何も無い節ができる。実際に本文へ「{}」が出ていた。"""
+    ng = []
+    for a in PUBLISHED:
+        for i, sec in enumerate(a.get("sections") or []):
+            body = [p for p in (sec.get("paras") or [])
+                    if isinstance(p, str) and p.strip()]
+            junk = [p for p in (sec.get("paras") or []) if not isinstance(p, str)]
+            head = (sec.get("heading") or "").strip()
+            if junk:
+                ng.append(f'{a["slug"]}: sections[{i}]「{head}」の paras に'
+                          f"文字列でない値が入っています（{junk!r}）")
+            elif not body and not sec.get("aside") and not sec.get("point"):
+                ng.append(f'{a["slug"]}: sections[{i}]「{head or "(見出しなし)"}」'
+                          "の本文が空です")
+            if not head and body:
+                ng.append(f'{a["slug"]}: sections[{i}] に見出しがありません')
+    return ng
+
+
 def validate_ld(paths):
     """書き出した HTML の JSON-LD を読み直して、Google が弾く形を探す。"""
     ng = []
@@ -3755,9 +3780,9 @@ def main():
     # offers / review / aggregateRating のどれも持たない Product があると
     # 「無効なアイテム」になりリッチリザルトから外れる。過去に一度やらかして
     # いるので、書き出した HTML を読み直して機械的に止める。
-    ng = validate_ld(written)
+    ng = validate_articles() + validate_ld(written)
     if ng:
-        print("\n❌ 構造化データに不備があります（リッチリザルト対象外になります）")
+        print("\n❌ 公開前の検査で不備が見つかりました")
         for line in ng:
             print(f"   ・{line}")
         sys.exit(1)
