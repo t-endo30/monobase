@@ -10,8 +10,13 @@
   $ python3 tools/write_article.py --drafts        # 本文を書かせる
 
 下書きは published=false で作る。公開は管理画面から手で行う。
+
+Amazonへの導線は、どの下書きにも必ず1本入れる。候補は楽天とYahoo!の
+商品検索から集めるので、Amazonの商品ページ（ASIN）は分からない。その
+場合はAmazonの検索結果へのリンクを入れておく。ASINが分かったら記事の
+asin を埋めれば、商品ページへの直リンクに切り替わる。
 """
-import json, io, os, re, sys, time, argparse
+import json, io, os, re, sys, time, argparse, urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,6 +31,27 @@ def clean_name(s):
                r"(送料無料|ポイント|クーポン|セール|限定|正規品|あす楽)"
                r"[^】\]）)]{0,20}[】\]）)]", "", str(s or ""))
     return re.sub(r"\s+", " ", s).strip()
+
+
+def amazon_search_url(name, jan=""):
+    """Amazonの検索結果へのリンクを作る。
+
+       候補は楽天とYahoo!の商品検索から集めているため、Amazonの商品ページ
+       （ASIN）は分からない。PA-APIの承認が下りるまで、これは埋まらない。
+       それでも記事にはAmazonへの導線を必ず1本置く。読者の多くはAmazonで
+       買うため、経路が無い記事は取りこぼしになる。
+
+       JANがあれば型番で絞れるので、それを検索語にする。無ければ商品名。
+       アソシエイトIDは build.py の amazon_tagged が付ける（Amazonは
+       検索結果へのリンクでも成果を計上する）。
+
+       ASINが分かったら記事の asin を埋めればよい。build.py は asin を
+       優先するので、商品ページへの直リンクに自動で切り替わる。"""
+    q = str(jan or "").strip() or str(name or "").strip()
+    if not q:
+        return ""
+    return ("https://www.amazon.co.jp/s?k="
+            + urllib.parse.quote(q, safe="") + "&i=aps")
 
 
 def draft_slug(name, cat, taken):
@@ -92,7 +118,52 @@ def make_draft(c, site, taken):
     for key in ("rakuten_url", "yahoo_url", "amazon_url"):
         if c.get(key):
             a[key] = c[key]
+    if c.get("asin"):
+        a["asin"] = c["asin"]
+    # Amazonへの導線は必ず1本入れる。商品ページが分からないときは検索結果へ。
+    if not (a.get("asin") or a.get("amazon_url")):
+        a["amazon_url"] = amazon_search_url(name, c.get("jan"))
     return a
+
+
+def fill_existing(dry_run):
+    """すでにある記事で、Amazonへの導線が無いものに検索リンクを入れる。
+
+       対象は商品を1つ扱っている記事だけ。特集や選び方の記事は、扱う商品が
+       1つに決まらないため、商品名で検索させても読者の役に立たない。
+       楽天かYahoo!の商品URL、またはJANを持っていることを目印にする。"""
+    path = os.path.join(ROOT, "content", "articles.json")
+    arts = json.load(io.open(path, encoding="utf-8"))
+    done, skipped = [], []
+    for a in arts:
+        if (a.get("asin") or "").strip() or (a.get("amazon_url") or "").strip():
+            continue
+        product = bool(a.get("jan") or a.get("rakuten_url") or a.get("yahoo_url"))
+        # 「｜」以降の説明と、末尾の「レビュー」「口コミ」を落として商品名にする
+        name = re.sub(r"[｜|].*$", "", str(a.get("title") or ""))
+        name = clean_name(re.sub(
+            r"[\s　]*(徹底|正直)?(レビュー|口コミ(分析)?|評価|選び方|比較)$",
+            "", name).strip())
+        if not product or not name:
+            skipped.append(a.get("slug", ""))
+            continue
+        a["amazon_url"] = amazon_search_url(name, a.get("jan"))
+        done.append((a.get("slug", ""), name))
+
+    print(f"Amazonへの導線が無い記事：{len(done) + len(skipped)} 本")
+    for slug, name in done:
+        print(f"  埋める  {slug}  ← 「{name[:34]}」で検索")
+    for slug in skipped:
+        print(f"  見送り  {slug}（商品を1つに絞れない記事）")
+    if not done:
+        return 0
+    if dry_run:
+        print("\n（--dry-run のため書き込んでいません）")
+        return 0
+    with io.open(path, "w", encoding="utf-8") as f:
+        json.dump(arts, f, ensure_ascii=False, indent=1)
+    print(f"\n{len(done)} 本に書き込みました。python3 build.py で反映します。")
+    return 0
 
 
 def main():
@@ -100,7 +171,12 @@ def main():
     ap.add_argument("--take", type=int, default=5, help="下書きにする件数")
     ap.add_argument("--from", dest="src", default="content/candidates.json")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--fill-existing", action="store_true",
+                    help="すでにある記事のうち、Amazonへの導線が無いものを埋める")
     args = ap.parse_args()
+
+    if args.fill_existing:
+        return fill_existing(args.dry_run)
 
     src = os.path.join(ROOT, args.src)
     if not os.path.exists(src):
@@ -139,6 +215,8 @@ def main():
     for a in made:
         shops = "/".join(k.replace("_url", "") for k in
                          ("amazon_url", "rakuten_url", "yahoo_url") if a.get(k))
+        if a.get("amazon_url", "").startswith("https://www.amazon.co.jp/s?"):
+            shops = shops.replace("amazon", "amazon(検索)")
         print(f"  ・{a['title'][:44]}")
         print(f"     {a['slug']} / {a['category']} / {shops or '—'}")
 
