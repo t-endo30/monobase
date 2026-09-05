@@ -176,8 +176,23 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   text-align:center;
   padding:7px 4px;font-size:13px;border-bottom:1px solid transparent;
 }
-.nav-menu a::after{display:none;}
-.nav-menu a:hover{color:var(--muted);}
+/* 動きはヘッダーの項目（.v2-nav a）と同じにする。下線を引き、文字を
+   わずかに大きくする。以前はここだけ下線を打ち消して薄くしていたので、
+   同じヘッダーの中で当て方が2種類あることになっていた。
+   下線は文字の幅にそろえる。項目の枠は3列ぶんの幅があり、端まで引くと
+   文字から離れた線になるため */
+/* 下線は文字の幅にそろえる。3列の枠は文字より広いので、枠いっぱいに
+   引くと文字から離れた線になる。項目自体を文字の幅に縮めて、
+   ヘッダーと同じ「文字の下に引く」形にする */
+.nav-menu a{justify-self:center;}
+.nav-menu a::after{display:block;bottom:0;}
+.nav-menu a:hover::after{transform:scaleX(1);}
+@media (hover:hover){
+  .nav-menu a > span{
+    display:block;transition:transform .5s ease;transform-origin:center;
+  }
+  .nav-menu a:hover > span{transform:scale(1.1);}
+}
 
 /* 縦罫と検索 */
 .header-rule{width:1px;height:30px;background:var(--line-2);flex:0 0 auto;}
