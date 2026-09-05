@@ -126,6 +126,31 @@ def name_from_code(code):
     return txt
 
 
+def shape(code):
+    """広告の形を見分ける。出せる場所が形で決まるため。
+
+         tile … 四角いバナー（300x250 など）。記事下に、関連記事と同じ
+                タイルの形で出す。写真の位置にちょうど収まる
+         wide … 横長のバナー（468x60 など）。タイルの写真の位置に入れると
+                スマホで文字が読めなくなるので、記事下には出さない
+         text … 文字だけのリンク。写真の位置が空くので、記事下には出さない
+
+       wide と text も捨てずに取り込む。出す場所が決まったら、
+       content/site.json の where を書き換えるだけで使える。"""
+    m = re.search(r'<img[^>]*\bwidth="(\d+)"[^>]*\bheight="(\d+)"', code, re.I)
+    if "svt/bgt" not in code:
+        return "text"
+    if not m:
+        return "tile"          # 大きさの指定が無いバナーは、そのまま扱う
+    w, h = int(m.group(1)), int(m.group(2))
+    if w <= 1 or h <= 1:
+        return "text"          # 計測用の1x1しか無い＝文字だけのリンク
+    return "wide" if w / h >= 1.6 else "tile"
+
+
+SHAPE_LABEL = {"tile": "四角いバナー", "wide": "横長バナー", "text": "テキストリンク"}
+
+
 def classify(name, genre):
     """案件名とジャンルから、出す先のカテゴリーを決める。"""
     blob = f"{name} {genre}"
@@ -157,27 +182,28 @@ def main():
     if not codes:
         raise SystemExit("広告コードが見つかりませんでした。")
 
-    # テキストリンクは使わない。広告枠は関連記事のタイルと同じ形で見せており、
-    # 写真の位置にバナーが入らないと、枠だけが空いた見た目になるため。
-    img = [c for c in codes if "svt/bgt" in c]
-    if len(img) < len(codes):
-        print(f"テキストリンクを除きました：{len(codes)} → {len(img)} 件")
-    codes = img
+    # 形ごとに分ける。記事下に出せるのは四角いバナーだけだが、
+    # 横長とテキストも取り込んでおく（出す場所が決まったら where を変える）。
+    by_shape = {"tile": [], "wide": [], "text": []}
+    for c in codes:
+        by_shape[shape(c)].append(c)
+    print("形の内訳：" + "、".join(
+        f"{SHAPE_LABEL[k]} {len(v)}件" for k, v in by_shape.items() if v))
 
-    # 1つの枠の中では大きさをそろえる。表示のたびに1件が選ばれるので、
-    # 縦横がばらばらだと記事のレイアウトが動いてしまう。
+    # 大きさをさらに絞りたいとき（例：300x250だけにする）。
+    # 表示のたびに1件が選ばれるので、縦横がばらばらだと記事の
+    # レイアウトが動いてしまう。
     if args.size:
         want = {t.strip().lower() for t in args.size.split(",") if t.strip()}
         kept = []
-        for c in codes:
+        for c in by_shape["tile"]:
             m = re.search(r'<img[^>]*\bwidth="(\d+)"[^>]*\bheight="(\d+)"',
                           c, re.I)
-            if not m or int(m.group(1)) <= 1:
-                continue
-            if f"{m.group(1)}x{m.group(2)}" in want:
+            if m and f"{m.group(1)}x{m.group(2)}" in want:
                 kept.append(c)
-        print(f"大きさで絞りました：{len(codes)} → {len(kept)} 件")
-        codes = kept
+        print(f"四角いバナーを大きさで絞りました："
+              f"{len(by_shape['tile'])} → {len(kept)} 件")
+        by_shape["tile"] = kept
 
     # 同じカテゴリーに出すものは1つの枠にまとめる。
     # 枠の中に複数入れておくと、表示のたびに1件が選ばれる。
@@ -199,7 +225,8 @@ def main():
 
     groups = OrderedDict()
     unknown = []
-    for c in codes:
+    for kind in ("tile", "wide", "text"):
+      for c in by_shape[kind]:
         k = mat_key(c)
         pid = program_id(c) or pid_by_mat.get(k, "")
         name, genre, start = programs.get(pid, ("", "", ""))
@@ -209,25 +236,34 @@ def main():
         cats, label = classify(name, genre)
         if not name:
             unknown.append(c[:70])
-        key = (tuple(cats), label)
-        groups.setdefault(key, {"label": label, "cats": cats,
+        key = (kind, tuple(cats), label)
+        groups.setdefault(key, {"label": label, "cats": cats, "kind": kind,
                                 "names": [], "ads": []})
         groups[key]["ads"].append({"html": c, "title": name, "date": start})
         if name and name not in groups[key]["names"]:
             groups[key]["names"].append(name)
 
-    print(f"\n広告コード {len(codes)} 件を {len(groups)} 枠にまとめました\n")
+    total = sum(len(v) for v in by_shape.values())
+    print(f"\n広告コード {total} 件を {len(groups)} 枠にまとめました\n")
     items = []
-    for (cats, label), g in groups.items():
-        where = args.where if cats else "none"
-        cat_txt = "、".join(cats) if cats else "（振り分け先が決まらず。出さないに設定）"
-        print(f"■ {label}：{len(g['ads'])} 件 → {cat_txt}")
+    for (kind, cats, label), g in groups.items():
+        # 記事下に出せるのは四角いバナーだけ。横長とテキストは、出す場所が
+        # 決まるまで none にしておく（消さずに取っておく）
+        where = args.where if (cats and kind == "tile") else "none"
+        if not cats:
+            cat_txt = "（振り分け先が決まらず。出さないに設定）"
+        elif kind != "tile":
+            cat_txt = f"{'、'.join(cats)}（形が合わないので、いまは出さない）"
+        else:
+            cat_txt = "、".join(cats)
+        print(f"■ [{SHAPE_LABEL[kind]}] {label}：{len(g['ads'])} 件 → {cat_txt}")
         for n in g["names"][:6]:
             print(f"    ・{n[:52]}")
         if len(g["names"]) > 6:
             print(f"    …ほか {len(g['names']) - 6} 件")
         items.append({
-            "name": f"{label}（{len(g['ads'])}件）",
+            "name": f"{SHAPE_LABEL[kind]}／{label}（{len(g['ads'])}件）",
+            "kind": kind,
             "where": where,
             "cats": list(cats),
             "ads": g["ads"],

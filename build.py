@@ -353,6 +353,12 @@ def promo_slot(where, cat="", cls=""):
        その記事に出すことで、内容と関係のない広告が並ぶのを避ける。"""
     items = [x for x in (PROMOS.get("items") or [])
              if str(x.get("where") or "") == where and promo_ads(x)]
+    # 記事下は関連記事と同じタイルの形なので、四角いバナーだけを入れる。
+    # 横長バナーは写真の位置に入れるとスマホで文字が読めず、テキストだけの
+    # ものは写真の位置が空く。どちらも site.json には取ってあるので、
+    # 出す場所が決まったら where を変えれば使える。
+    if where == "article_end":
+        items = [x for x in items if str(x.get("kind") or "tile") == "tile"]
     if cat:
         items = [x for x in items
                  if not x.get("cats") or cat in (x.get("cats") or [])]
