@@ -692,6 +692,11 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       return;
     }
     banner.addEventListener('error', hide);
+    /* 失敗を知らせないまま止まることがある（要求を握りつぶす遮断など）。
+       一定時間たっても絵が入っていなければ、同じように引っ込める */
+    setTimeout(function () {
+      if (!banner.complete || !banner.naturalWidth) hide();
+    }, 4000);
   }
 
   var groups = document.querySelectorAll('.promo-group');

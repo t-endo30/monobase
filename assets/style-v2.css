@@ -2734,6 +2734,9 @@ p,li,.card-desc{text-wrap:pretty;}
 @media (max-width:860px){
   .promo-slot .card-thumb{grid-row:1 / span 3;margin:0;}
   .promo-slot .promo-body > :not(.card-thumb){padding-left:0;padding-right:0;}
+  /* 関連記事は縦に並ぶ1枚もののリストになる。広告もその続きとして、
+     タイル同士と同じすき間（.card-grid の gap:10px）でつなぐ */
+  .promo-group{margin-top:10px;}
 }
 }
 .promo-body img{max-width:100%;height:auto;}
