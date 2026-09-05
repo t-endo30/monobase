@@ -336,7 +336,10 @@ def promo_card(ad, label):
             f'<span class="card-meta">'
             f'<span class="card-date">{date}</span>'
             f'<span class="card-cat">{label}</span></span>'
-            f'<span class="card-title">{title}</span>')
+            f'<span class="card-title">{title}</span>'
+            # 関連記事のタイルには、この下に一言（.card-note）が2行ぶん入る。
+            # 広告には出す文がないので、場所だけ取ってタイルの高さをそろえる。
+            f'<span class="card-note" aria-hidden="true"></span>')
 
 
 def promo_slot(where, cat="", cls=""):

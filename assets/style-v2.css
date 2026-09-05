@@ -2710,18 +2710,29 @@ p,li,.card-desc{text-wrap:pretty;}
    ============================================================ */
 .promo-group{display:block;margin:clamp(28px,6vw,44px) 0 0;}
 .promo-body{display:contents;}
-/* タイルの子に効いている余白を、入れ物ごしにも同じだけ与える */
+/* タイルの子に効いている余白を、入れ物ごしにも同じだけ与える。
+   写真の位置は関連記事と同じ 4:3 の枠にして、タイルの縦の高さをそろえる。
+   バナーの縦横はまちまちなので、枠の中に収めて中央に置く（絵は切らない） */
 .promo-slot .card-thumb{margin:14px 14px 0;
-  aspect-ratio:auto;background:none;border:0;
-  display:block;line-height:0;}
+  aspect-ratio:4 / 3;background:none;border:0;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;}
 .promo-slot .promo-body > :not(.card-thumb){padding-left:14px;padding-right:14px;}
-/* バナーはタイルの幅いっぱいまで縮める。枠は関連記事の写真と同じ */
-.promo-slot .card-thumb img{width:100%;height:auto;
+/* バナーは枠に収める。object-fit:contain なので、縦横比を保ったまま
+   全体が入る（絵は切れない）。枠は関連記事の写真と同じ */
+.promo-slot .card-thumb img{width:100%;height:100%;
+  object-fit:contain;
   border:1px solid var(--line-2);}
 /* 計測用の1x1画像は、A8が数えるための画像。隠さず、位置も動かさない。
    幅いっぱいに伸ばす指定だけを打ち消して、1x1のまま読み込ませる */
 .promo-slot .card-thumb img[width="1"]{width:1px;height:1px;border:0;}
 .promo-slot .card-title{word-break:break-word;}
+/* バナーを読めなかったタイルは assets/main.js が hidden を付けて隠す。
+   .card{display:flex} が付いているため、そのままでは[hidden]の display:none
+   （ブラウザ既定）が負けて隠れない。ここで明示的に消す */
+.promo-slot[hidden]{display:none !important;}
+/* 一言の場所取り。関連記事は2行ぶん（3.6em）＋上の余白7px を使うので、
+   同じだけ空けてタイルの高さをそろえる */
+.promo-slot .card-note{margin-top:7px;height:3.6em;font-size:12px;}
 /* 記事タイルは、カーソルを当てると黒い面が斜めに渡る（.card::before/after）。
    広告のタイルでは掛けない。広告の上に面がかぶさると、バナーが読めなく
    なるうえ、広告を覆う見せ方はA8・AdSenseどちらの規約にも触れる。
