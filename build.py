@@ -2800,7 +2800,9 @@ def build_index():
             + html.escape(json.dumps(pool, ensure_ascii=False), quote=True) + '\'>'
             + "".join(v2_card(a, p) for a in picks) + "</div>\n")
 
-    slots = promo_band("top") + ad_slot("top")
+    # 横長バナーの帯はホームに置かない（promo_band は残してある）。
+    # サイトの顔にあたる場所で、古い規格のバナーが浮くため。
+    slots = ad_slot("top")
     if slots.strip():
         body += v2_section(slots)
 

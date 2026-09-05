@@ -287,24 +287,17 @@ def main():
     for (kind, cats, label), g in groups.items():
         # 出す場所は形で決まる。
         #   四角いバナー … 記事の下（関連記事と同じタイルで3枚）
-        #   横長バナー   … ホームの帯（横幅を使える唯一の場所）。ここは
-        #                  カテゴリーに関係なく出るので、振り分けは要らない
-        #   テキストリンク… 置き場所が決まっていないので出さない。文脈に
-        #                  沿って本文に差し込む形が本来の使い方で、いまの
-        #                  在庫（回線案件がほとんど）を機械的に並べても
-        #                  記事の脈絡から外れる
-        if kind == "tile":
-            where = args.where if cats else "none"
-        elif kind == "wide":
-            where = "top"
-        else:
-            where = "none"
-        if kind == "wide":
-            cat_txt = "ホームの帯"
+        #   横長・テキスト … 出さない。写真主体のこのサイトでは、468x60 や
+        #                    320x50 のような文字を詰めた古い規格のバナーが
+        #                    浮いてしまう。ホームの帯に出してみたが、
+        #                    サイトの顔が安っぽくなるので取りやめた。
+        #                    どちらも回線の比較記事を書いたときに、文脈に
+        #                    沿って使うための在庫として取ってある。
+        where = (args.where if cats else "none") if kind == "tile" else "none"
+        if kind != "tile":
+            cat_txt = "（在庫として保管。いまは出さない）"
         elif not cats:
             cat_txt = "（振り分け先が決まらず。出さないに設定）"
-        elif kind != "tile":
-            cat_txt = f"{'、'.join(cats)}（置き場所が決まっていないので出さない）"
         else:
             cat_txt = "、".join(cats)
         print(f"■ [{SHAPE_LABEL[kind]}] {label}：{len(g['ads'])} 件 → {cat_txt}")

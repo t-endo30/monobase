@@ -670,74 +670,84 @@ document.addEventListener('touchstart', function () {}, { passive: true });
    画像も読み込まれない。1回の表示につき、出したぶんだけが数えられる。
    コードそのものには一切手を触れず、そのまま差し込む。
 
-   バナーが出せなかったときは、そのタイルごと引っ込める。広告を止める
-   拡張機能を使っている人や、配信元に届かなかったときに、写真の位置が
-   空いたまま日付と見出しだけが残るのを避けるため。
+   バナーを出せなかったときは、残っている候補から次を入れ直す。以前は
+   その枠を引っ込めるだけだったので、3枚のはずが1枚や2枚になっていた。
+   候補が尽きたときだけ、枠ごと引っ込める（写真の位置が空いたまま
+   日付と見出しだけが残るのを避けるため）。
    ============================================================ */
 (function () {
   'use strict';
 
-  /* 差し込んだ広告のバナーを見張る。読めなかったらタイルを隠す */
-  function watch(slot) {
-    var imgs = slot.querySelectorAll('.card-thumb img, .promo-body img');
+  /* 差し込んだ広告のバナーを見張る。読めなかったら onfail を呼ぶ */
+  function watch(box, onfail) {
+    var imgs = box.querySelectorAll('.card-thumb img, .promo-body img');
     var banner = null;
     for (var i = 0; i < imgs.length; i++) {
       /* 1x1 は成果を数えるための画像。バナーではない */
       if (imgs[i].getAttribute('width') !== '1') { banner = imgs[i]; break; }
     }
-    if (!banner) { slot.hidden = true; return; }
-    function hide() { slot.hidden = true; }
+    if (!banner) { onfail(); return; }
+    var done = false;
+    function fail() { if (!done) { done = true; onfail(); } }
     if (banner.complete) {
-      if (!banner.naturalWidth) hide();   /* 読み込みに失敗している */
+      if (!banner.naturalWidth) fail();   /* 読み込みに失敗している */
       return;
     }
-    banner.addEventListener('error', hide);
+    banner.addEventListener('error', fail);
+    banner.addEventListener('load', function () { done = true; });
     /* 失敗を知らせないまま止まることがある（要求を握りつぶす遮断など）。
-       一定時間たっても絵が入っていなければ、同じように引っ込める。
        待つ時間は長めにとる。短くすると、回線の遅い人のところで
        まだ読み込み中の広告まで消してしまう */
     setTimeout(function () {
-      if (!banner.complete || !banner.naturalWidth) hide();
+      if (!banner.complete || !banner.naturalWidth) fail();
     }, 20000);
   }
 
+  /* 候補から1つ引いて差し込む。出せなければ次の候補で入れ直す */
+  function fill(slot, body, pool) {
+    if (!pool.length) { slot.hidden = true; return; }
+    var i = Math.floor(Math.random() * pool.length);
+    var pick = pool.splice(i, 1)[0];
+    body.innerHTML = '';
+    body.appendChild(pick.content.cloneNode(true));
+    slot.hidden = false;
+    watch(slot, function () { fill(slot, body, pool); });
+  }
+
   /* 横長バナーの帯。PC向けとスマホ向けを候補として持たせてあるので、
-     いまの画面幅に合うものだけから1つ選ぶ。選ばなかったものは
-     <template> の中に残るので、画像は読み込まれない。 */
+     いまの画面幅に合うものだけから1つ選ぶ。 */
   var bands = document.querySelectorAll('.promo-band-ad[data-rotate]');
   Array.prototype.forEach.call(bands, function (band) {
     var want = window.innerWidth < 700 ? 'sp' : 'pc';
-    var pool = Array.prototype.filter.call(
-      band.querySelectorAll('template.promo-item'),
-      function (t) { return t.getAttribute('data-for') === want; });
-    /* その幅向けの在庫が無いときは、あるものから選ぶ（枠を空けない） */
-    if (!pool.length) {
-      pool = Array.prototype.slice.call(
-        band.querySelectorAll('template.promo-item'));
-    }
+    var all = Array.prototype.slice.call(
+      band.querySelectorAll('template.promo-item'));
+    var pool = all.filter(function (t) {
+      return t.getAttribute('data-for') === want;
+    });
+    if (!pool.length) { pool = all; }   /* その幅向けが無ければ、あるもので */
     var body = band.querySelector('.promo-body');
-    if (!pool.length || !body) { band.hidden = true; return; }
-    body.appendChild(
-      pool[Math.floor(Math.random() * pool.length)].content.cloneNode(true));
-    watch(band);
+    if (!body) return;
+    fill(band, body, pool);
   });
 
+  /* 記事下のタイル。候補は枠ごとに1つの山で持ち、順に引いていく。
+     同じ広告が2つ並ばないのと、出せなかったぶんを埋め直すのを、
+     同じ山で扱う。 */
   var groups = document.querySelectorAll('.promo-group');
   Array.prototype.forEach.call(groups, function (group) {
     var bodies = group.querySelectorAll('.promo-body');
-    if (group.hasAttribute('data-rotate')) {
-      var pool = Array.prototype.slice.call(
-        group.querySelectorAll('template.promo-item'));
-      if (!pool.length || !bodies.length) return;
-      Array.prototype.forEach.call(bodies, function (body) {
-        if (!pool.length) return;
-        var i = Math.floor(Math.random() * pool.length);
-        body.appendChild(pool[i].content.cloneNode(true));
-        pool.splice(i, 1);          /* 選んだものは候補から外す */
-      });
+    if (!group.hasAttribute('data-rotate')) {
+      Array.prototype.forEach.call(
+        group.querySelectorAll('.promo-slot'), function (slot) {
+          watch(slot, function () { slot.hidden = true; });
+        });
+      return;
     }
-    Array.prototype.forEach.call(
-      group.querySelectorAll('.promo-slot'), watch);
+    var pool = Array.prototype.slice.call(
+      group.querySelectorAll('template.promo-item'));
+    Array.prototype.forEach.call(bodies, function (body) {
+      fill(body.closest('.promo-slot') || body.parentNode, body, pool);
+    });
   });
 })();
 

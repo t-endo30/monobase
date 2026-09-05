@@ -651,7 +651,7 @@
    {
     "name": "横長バナー／その他（2件）",
     "kind": "wide",
-    "where": "top",
+    "where": "none",
     "cats": [],
     "ads": [
      {
@@ -671,7 +671,7 @@
    {
     "name": "横長バナー／オーディオ（1件）",
     "kind": "wide",
-    "where": "top",
+    "where": "none",
     "cats": [
      "av"
     ],
@@ -687,7 +687,7 @@
    {
     "name": "横長バナー／回線・Wi-Fi（25件）",
     "kind": "wide",
-    "where": "top",
+    "where": "none",
     "cats": [
      "pc"
     ],
