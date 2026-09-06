@@ -436,6 +436,10 @@ def main():
             print(f"        含有率 {s:.2f}（{how}で検索） / {hit['price']:,}円")
             print(f"        {hit['url']}")
             a[f"{shop}_url"] = hit["url"]
+            # 販売ボタンが1つ増える＝読む人に見える中身が変わった。
+            # サイトマップの <lastmod> はこの updated をそのまま出すので、
+            # 繰り上げないと検索エンジンに「変わっていない」と伝わる。
+            a["updated"] = time.strftime("%Y-%m-%d")
             filled[shop] += 1
 
     print("\n" + "-" * 56)

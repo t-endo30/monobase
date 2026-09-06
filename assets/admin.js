@@ -14,6 +14,10 @@
   var site = null;
   var shaArticles = null, shaSite = null;
   var editing = null;      // 編集中の記事オブジェクト
+  /* 編集画面を開いたときに「更新日」欄へ入れた値。保存のときに
+     これと変わっていれば、人が意図して直した日付とみなす。
+     変わっていなければ、本文を直した日＝今日に繰り上げる。 */
+  var updatedShown = '';
   var pendingImages = [];  // 圧縮済みアップロード待ち
 
   /* ---------------------------------------------------- utils */
@@ -615,6 +619,7 @@
     $('f-icon').value = a.icon || '';
     $('f-date').value = a.date || today();
     $('f-updated').value = a.updated || today();
+    updatedShown = $('f-updated').value;
     $('f-thumb').value = a.thumb || '';
     $('f-imageAi').checked = !!a.image_ai;
     ecPreview();
@@ -681,7 +686,13 @@
     a.kind = $('f-kind').value;
     a.icon = $('f-icon').value.trim() || '📦';
     a.date = $('f-date').value || today();
-    a.updated = $('f-updated').value || today();
+    /* 更新日は、欄を触っていなければ今日に繰り上げる。
+       サイトマップの <lastmod> はこの値をそのまま出しているので、
+       ここが古いままだと、本文を直しても検索エンジンには
+       「変わっていない」と伝わってしまう。
+       欄を明示的に直したときは、その日付を尊重する。 */
+    var uf = $('f-updated').value;
+    a.updated = (uf && uf !== updatedShown) ? uf : today();
     a.thumb = $('f-thumb').value.trim();
     if ($('f-imageAi').checked && a.thumb) a.image_ai = true;
     else delete a.image_ai;

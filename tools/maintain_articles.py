@@ -169,6 +169,8 @@ def main():
 
     today = date.today().isoformat()
     dropped, stopped, stale, warned = [], [], [], []
+    # 中身が変わった記事。更新日の繰り上げに使う
+    touched = set()
 
     for a in targets:
         slug = a["slug"]
@@ -203,17 +205,29 @@ def main():
                         a["asin"] = ""
                     else:
                         a[key] = ""
+                # 販売ボタンが1つ消える＝読む人に見える中身が変わった。
+                # サイトマップの <lastmod> はこの updated をそのまま出すので、
+                # ここを繰り上げないと「変わっていない」と伝わってしまう。
+                # 繰り上げは下の「見直しどき」の判定を済ませてから行う
+                # （リンクを1本外しただけで、本文を書き直した扱いにしない）。
+                touched.add(slug)
         else:
             h.pop("dead", None)
             h.pop("stopped_reason", None)
             h.pop("dead_strikes", None)
 
+        # 「最後の更新から何日か」は、繰り上げる前の値で数える。
+        # 先に繰り上げると、リンクを外した記事が毎回「更新したて」に見え、
+        # 内容の見直しどきを知らせられなくなる。
         old = days_since(a.get("updated") or a.get("date"))
         if old >= args.stale_days:
             stale.append((slug, old))
             h["stale_days"] = old
         else:
             h.pop("stale_days", None)
+
+        if slug in touched:
+            a["updated"] = today
 
     for slug, shops in dropped:
         print(f"::warning::{slug}: {'・'.join(shops)} のリンクが切れています"

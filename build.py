@@ -342,6 +342,73 @@ def promo_card(ad, label):
             f'<span class="card-note" aria-hidden="true"></span>')
 
 
+def promo_row(ad, label):
+    """広告1件ぶんの中身を、横長タイル（.row-item）の並びで作る。
+       新着・ランキングの一覧は縦の3列ではなく横長の行なので、
+       記事の行と同じ「写真／日付＋PR／見出し」の形にそろえる。
+
+       記事の行にある札（New の .card-flags、順位の .row-no）は入れない。
+       広告に「New」や順位が付くと、記事の並びと見分けが付かなくなるため。
+       PR の表示は残す（広告であることは必ず示す：規約）。"""
+    date = e(str(ad.get("date") or ""))
+    title = e(str(ad.get("title") or ""))
+    return (f'<span class="thumb">{ad["html"]}</span>'
+            f'<span class="row-body">'
+            f'<span class="row-meta">'
+            f'<span class="meta">{date}</span>'
+            f'<span class="row-cat">{label}</span></span>'
+            f'<h3>{title}</h3>'
+            # 記事の行には見出しの下に一言（<p>）が入る。広告には出す文が
+            # 無いので、場所だけ取って行の高さをそろえる。
+            f'<p aria-hidden="true"></p></span>')
+
+
+def promo_row_slot(cls=""):
+    """新着・ランキングの一覧の最後に置く広告。記事の行と同じ形で並べる。
+
+       出す広告は「一覧の最後（list_end）」に指定されたものを使う。
+       まだ指定が無ければ、タイル用の広告全部から選ぶ（枠が空のまま
+       になるより、出せるものを出す。promo_slot と同じ考え方）。
+
+       差し込み・入れ替え・読めなかったときの引っ込めは、記事下のタイルと
+       同じ仕組み（assets/main.js）がそのまま働く。そのために
+       .promo-group / .promo-slot / template.promo-item の組みは変えない。"""
+    tiles = [x for x in (PROMOS.get("items") or [])
+             if str(x.get("kind") or "tile") == "tile" and promo_ads(x)]
+    items = [x for x in tiles if str(x.get("where") or "") == "list_end"]
+    if not items:
+        items = tiles
+    if not items:
+        return ""
+
+    label = e(str(PROMOS.get("label") or "PR"))
+    cards = [promo_row(a, label) for x in items for a in promo_ads(x)]
+    show = min(PROMO_COUNT, len(cards))
+    c = f" {cls}" if cls else ""
+    if len(cards) <= show:
+        slots = "".join(
+            f'          <div class="row-item promo-slot promo-row">'
+            f'<div class="promo-body">{t}</div></div>\n'
+            for t in cards[:show])
+        tpl, rot = "", ""
+    else:
+        slots = "".join('          <div class="row-item promo-slot promo-row">'
+                        '<div class="promo-body"></div></div>\n'
+                        for _ in range(show))
+        tpl = "".join(f'        <template class="promo-item">{t}</template>\n'
+                      for t in cards)
+        rot = ' data-rotate="1"'
+        # JavaScriptが動かないときは、先頭から順に出す
+        tpl += ('        <noscript>' + "".join(
+            f'<div class="row-item promo-slot promo-row">'
+            f'<div class="promo-body">{t}</div></div>'
+            for t in cards[:show]) + '</noscript>\n')
+    return (f'      <aside class="promo-group is-rows{c}"{rot} aria-label="広告">\n'
+            f'        <div class="row-list">\n{slots}        </div>\n'
+            + tpl +
+            f'      </aside>\n')
+
+
 def promo_band(where="top"):
     """横長バナーを、1本の帯として出す枠。
 
@@ -615,12 +682,18 @@ def today_panel(cls=""):
             f'    </section>\n')
 
 
-def rank_panel(p, limit=10):
+def rank_panel(p, limit=10, extra=""):
     """アクセスランキングの枠。中身は assets/main.js が入れる。
        サイト全体の実データ（content/ranking.json）があればそれを、
-       無ければ閲覧者自身の端末に記録された閲覧回数で並べる。"""
+       無ければ閲覧者自身の端末に記録された閲覧回数で並べる。
+
+       extra は一覧の後ろに続けて置くもの（広告）。この枠の中に入れないと、
+       .rank-box の max-width と土台の余白が効かず、広告の行だけ横に
+       広がってしまう。なお .rank-list は assets/main.js が中身を
+       丸ごと書き換えるので、そこには入れられない。"""
     return (f'    <section class="rank-box" data-rank-limit="{limit}">\n'
             f'      <div class="row-list rank-list"></div>\n'
+            f'{extra}'
             f'      <p class="rank-note"></p>\n'
             f'    </section>\n')
 
@@ -2942,7 +3015,8 @@ def build_new():
     items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)
     body = v2_page_head("新着記事",
                         lead="公開の新しい順に並べています。", count=len(items))
-    body += v2_section(v2_rows(items, p, flags="new"), style="padding:40px 0 80px")
+    body += v2_section(v2_rows(items, p, flags="new") + promo_row_slot(),
+                       style="padding:40px 0 80px")
     return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。利用者の声と公式仕様を突き合わせた商品レビュー・選び方ガイドを、公開の新しい順に並べています。", "new", p,
                 f"{BASE_URL}/new.html", body, body_class="is-listing",
                 crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)],
@@ -2956,8 +3030,12 @@ def build_ranking():
     body = v2_page_head("よく読まれている記事",
                         crumbs=[("ホーム", f"{p}index.html"), ("よく読まれている記事", None)],
                         lead="読まれている順に並べています。")
-    body += v2_section('      <div class="rank-page">\n' + rank_panel(p, 10)
-                       + '      </div>\n', style="padding:40px 0 80px")
+    # 広告は一覧と同じ器（.rank-page）の中に入れる。外に出すと、
+    # ランキングの枠だけ幅が狭いぶん、広告の行だけ横に広くなってしまう。
+    body += v2_section('      <div class="rank-page">\n'
+                       + rank_panel(p, 10, promo_row_slot("is-rank"))
+                       + '      </div>\n',
+                       style="padding:40px 0 80px")
     return page(f"よく読まれている記事 - {NAME}",
                 f"{NAME}でよく読まれている記事のランキングです。実際に読まれている順に並べているので、いま関心の集まっている商品から探せます。", "ranking", p,
                 f"{BASE_URL}/ranking.html", body, body_class="is-listing",

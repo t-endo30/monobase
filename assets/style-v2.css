@@ -2760,6 +2760,73 @@ p,li,.card-desc{text-wrap:pretty;}
    ============================================================ */
 .promo-group{display:block;margin:clamp(28px,6vw,44px) 0 0;}
 /* ============================================================
+   一覧の最後に置く広告（新着・ランキング）
+   ------------------------------------------------------------
+   記事の行（.row-item）と同じ形にそろえる。枠に .row-item が付いて
+   いるので、大きさ・地の色・余白・スマホでの組み方はすべて記事の行の
+   決まりがそのまま効く。ここで足すのはバナーの収め方だけ。
+
+   記事の行と続けて見えるよう、間隔は一覧と同じ 12px にする。
+   New の札と順位の札は付けない（build.py の promo_row）。
+   PR の表示は残す（広告であることは必ず示す：規約）。
+   ============================================================ */
+.promo-group.is-rows{margin:12px 0 0;}
+/* バナーは記事の写真と同じ枠に収める。縦横比はまちまちなので、
+   contain で全体を入れる（絵は切らない）。
+   枠の縦横比はここで決めない。記事の写真（.row-item .thumb）が
+   PCで 4:3、スマホで 1:1 に変わるので、それをそのまま受ける
+   （ここで 4:3 を書くとスマホの 1:1 を打ち消して、広告だけ写真が
+   小さくなり、行の高さもそろわなくなる） */
+.promo-row .thumb{
+  background:none;border:0;
+  display:flex;align-items:center;justify-content:center;
+  position:static;overflow:visible;
+}
+/* 記事の行は「見出し2行＋一言2行＋閲覧数1行」ぶんを使う。
+   広告には一言も閲覧数も無いので、同じだけ場所を取って高さをそろえる */
+.promo-row h3{min-height:3.3em;}
+.promo-row p{min-height:3.7em;}
+.promo-row .thumb img{
+  width:100%;height:100%;object-fit:contain;
+  border:1px solid var(--line-2);
+  position:relative;z-index:1;
+}
+/* 計測用の1x1画像は、A8が数えるための画像。隠さず、位置も動かさない */
+.promo-row .thumb img[width="1"]{width:1px;height:1px;border:0;}
+.promo-row h3{word-break:break-word;}
+/* 行全体を押せるようにする。広告コードの中の <a> を擬似要素で広げる。
+   配られたコードは書き換えない（押されるのはA8のリンクそのもの） */
+.promo-row{position:relative;}
+.promo-row .thumb a{display:block;}
+.promo-row .thumb a::after{content:"";position:absolute;inset:0;z-index:2;}
+/* バナーを読めなかった行は assets/main.js が hidden を付けて隠す。
+   .row-item{display:grid} が効いているので、明示的に消す */
+.promo-row[hidden]{display:none !important;}
+/* 写真の右に文字を積む幅では、行の高さを文字の側が決める。
+   記事の行はいちばん下に閲覧数（VIEW : n）が1行入るが、広告には無い。
+   そのぶんの場所を取って高さをそろえる。
+   PC幅では写真（4:3）の高さが行の高さを決めるので、ここは要らない */
+@media (max-width:860px){
+  .promo-row .row-body::after{
+    content:"";display:block;
+    font-size:11px;line-height:1.5;height:1.5em;margin-top:6px;
+  }
+}
+/* ランキングの一覧は、閲覧数も一言も持たない行で組まれている
+   （assets/main.js の rows()）。そちらに合わせて、場所取りを外す */
+.promo-group.is-rank .promo-row .row-body::after{content:none;}
+.promo-group.is-rank .promo-row p{min-height:0;}
+/* ランキングの枠の中では、一覧と同じ土台（灰色の地と左右8px）に乗せる。
+   .rank-list が padding:12px 8px を持っているので、そこにそろえる。
+   上の余白は .rank-list の下12pxが担うので、ここでは取らない */
+.rank-box > .promo-group.is-rank{
+  margin:0;padding:0 8px 12px;background:var(--bg-gray);
+}
+@media (max-width:599px){
+  .promo-row .row-body::after{font-size:10px;margin-top:3px;}
+}
+
+/* ============================================================
    横長バナーの帯（ホーム）
    ------------------------------------------------------------
    タイルに入れると潰れて読めない横長を、1本だけ置く場所。
