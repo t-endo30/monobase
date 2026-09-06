@@ -1467,8 +1467,13 @@ body.has-sticky-cta .fab{bottom:96px;}
   .sec-more a{width:100%;min-width:0;padding:14px 20px;}
 
   /* 新着・ピックアップのタイルと同じ大きさにそろえる。ここだけ写真が
-     大きいと、同じ「記事の一覧」なのに別物に見える */
-  .row-item{grid-template-columns:96px minmax(0,1fr);gap:14px;padding:12px 14px 12px 12px;align-items:center;}
+     大きいと、同じ「記事の一覧」なのに別物に見える。
+
+     写真は上端でそろえる（中央に寄せない）。中央寄せだと、写真の上端が
+     行の高さによって動き、日付・カテゴリー（PR）の行とそろわない。
+     見出しが1行の記事と2行の記事が混ざると、そのぶんだけ写真が
+     上下にずれて、一覧全体がガタついて見える。 */
+  .row-item{grid-template-columns:96px minmax(0,1fr);gap:14px;padding:12px 14px 12px 12px;align-items:start;}
   .row-cat{font-size:9.5px;}
   .row-meta{margin-bottom:3px;}
   .row-no{top:0;min-width:24px;padding:2px 6px;font-size:9.5px;}
