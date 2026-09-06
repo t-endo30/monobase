@@ -1787,8 +1787,18 @@ def shop_image(a):
         url = str(imgs.get(shop) or "").strip()
         if not url.startswith("http") or shop not in links:
             continue
-        return url, links[shop], shop
+        return shop_image_size(url, shop), links[shop], shop
     return "", "", ""
+
+
+def shop_image_size(url, shop):
+    """楽天のサムネイルURLは ?_ex=128x128 のように寸法が付いてくる。
+       APIが返すのは一覧用の小さい絵なので、そのまま出すとカードでぼやける。
+       寸法だけを差し替えて、同じ画像の大きい版を指す。
+       （画像そのものは楽天のサーバのまま。加工はしていない）"""
+    if shop != "rakuten" or "_ex=" not in url:
+        return url
+    return re.sub(r"_ex=\d+x\d+", "_ex=600x600", url)
 
 
 SHOP_IMAGE_CREDIT = {
