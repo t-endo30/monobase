@@ -332,15 +332,33 @@ def finish(publish_slugs, do_push):
         return 0
 
     msg = "記事をレビューして公開（" + "、".join(publish_slugs) + "）"
-    for cmd in (["git", "add", "-A"],
-                ["git", "commit", "-m", msg],
-                ["git", "push"]):
+    # 入れるのは記事のデータと、そこから生成したページだけ。
+    # git add -A だと、たまたま手元にある別の作業まで巻き込む。
+    for cmd in (["git", "add", "content/articles.json", "articles",
+                 "assets/img/auto", "assets/img/gen"],
+                ["git", "add", "-u"],
+                ["git", "commit", "-m", msg]):
         code, out = run(cmd)
         if code != 0 and "nothing to commit" not in out:
             print(f"  ✗ {' '.join(cmd)}\n{out}")
             return 1
-    print("  ✓ コミットして push しました")
-    return 0
+
+    # push は弾かれることがある。この実行の最中に、別の作業が main へ
+    # 入っていると「remote contains work that you do not have」になる。
+    # 実際にそれで、書き上げた3本が誰にも push されないまま消えた。
+    # 取り込んでから出し直す。
+    for attempt in (1, 2, 3):
+        code, out = run(["git", "push"])
+        if code == 0:
+            print("  ✓ コミットして push しました")
+            return 0
+        print(f"  … push が弾かれました（{attempt}回目）。取り込んで出し直します")
+        code, out = run(["git", "pull", "--rebase", "origin", "main"])
+        if code != 0:
+            print(f"  ✗ git pull --rebase\n{out}")
+            return 1
+    print("  ✗ git push（3回とも弾かれました）")
+    return 1
 
 
 def main():

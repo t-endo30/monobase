@@ -185,16 +185,25 @@ jobs:
       - name: 埋めたURLと写真を公開する
         if: steps.gate.outputs.run == 'true' && steps.gate.outputs.auto_publish == 'true'
         run: |
-          if git diff --quiet; then
-            echo "埋まったものはありません。"
+          # 作業中の変更が無くても、前の手順が commit だけ済ませて push に
+          # 失敗している場合がある。その取りこぼしもここで出し直す。
+          git fetch -q origin main
+          if git diff --quiet && [ -z "$(git log origin/main..HEAD --oneline)" ]; then
+            echo "出すものはありません。"
             exit 0
           fi
-          git add content/articles.json articles assets/img/auto
+          git add content/articles.json articles assets/img/auto assets/img/gen
           git add -u
-          git diff --cached --stat
-          git commit -m "新しい記事に、商品URLと写真を足す（自動）"
-          git pull --rebase origin main
-          git push
+          if ! git diff --cached --quiet; then
+            git diff --cached --stat
+            git commit -m "新しい記事に、商品URLと写真を足す（自動）"
+          fi
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            echo "push が弾かれました（$i回目）。取り込んで出し直します"
+          done
+          echo "::error::push できませんでした"
+          exit 1
 
       # 公開まで自動にしていないときだけ、下書きをPRにして人に渡す。
       # 自動公開のときは、通らなかった記事も published:false のまま main に入り、
