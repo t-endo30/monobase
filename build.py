@@ -2165,7 +2165,12 @@ def render_article(a):
     # 商品カード（写真つきの購入リンク）は結論の上に置く。
     # 読者が最初に見る位置に、商品そのものと買える場所を出す。
     # 特集（複数商品の比較）は商品を1つに絞れないので、上には置かない。
-    top_card = (product_card(a, p, eager=True, with_img=not a.get("thumb"))
+    # 写真を出すのは、アイキャッチが無いとき。すぐ上に同じ絵が並ぶと、
+    # スマホでは同じ画像が2枚重なって見えるため。
+    # ただしモールの実物写真があるときは別の絵なので、アイキャッチが
+    # あっても出す（実物を見せるのがこのカードの役目）。
+    card_img = (not a.get("thumb")) or bool(shop_image(a)[0])
+    top_card = (product_card(a, p, eager=True, with_img=card_img)
                 if kind_of(a) == "review" else "")
 
     # アイキャッチは実写真があるときだけ置く。
