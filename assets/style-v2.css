@@ -2823,16 +2823,11 @@ p,li,.card-desc{text-wrap:pretty;}
 /* バナーを読めなかった行は assets/main.js が hidden を付けて隠す。
    .row-item{display:grid} が効いているので、明示的に消す */
 .promo-row[hidden]{display:none !important;}
-/* 写真の右に文字を積む幅では、行の高さを文字の側が決める。
-   記事の行はいちばん下に閲覧数（VIEW : n）が1行入るが、広告には無い。
-   そのぶんの場所を取って高さをそろえる。
-   PC幅では写真（1:1）の高さが行の高さを決めるので、ここは要らない */
-@media (max-width:860px){
-  .promo-row .row-body::after{
-    content:"";display:block;
-    font-size:11px;line-height:1.5;height:1.5em;margin-top:6px;
-  }
-}
+/* 以前は、記事の行にある閲覧数（VIEW : n）のぶんの場所を、広告の行にも
+   取って高さをそろえていた。しかし写真を 1:1 にしてからは、行の高さを
+   写真（96px）が決めるようになり、この場所取りは下に空きを作るだけに
+   なった。記事の行132pxに対して広告の行が152pxと、20px高くなっていた。
+   行はそれぞれ独立した札なので、高さをそろえる必要もない。 */
 /* ランキングの一覧は、閲覧数も一言も持たない行で組まれている
    （assets/main.js の rows()）。そちらに合わせて、場所取りを外す */
 .promo-group.is-rank .promo-row .row-body::after{content:none;}
