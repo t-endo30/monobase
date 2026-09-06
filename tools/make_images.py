@@ -146,6 +146,44 @@ def build_prompt(a, site):
     )
 
 
+def shape(o, depth=0):
+    """応答のどこに何が入っているかだけを、短く書き出す。
+       中身をそのまま出すと画像データで埋まって読めないため。"""
+    if depth > 3:
+        return "…"
+    if isinstance(o, dict):
+        return "{" + ", ".join(f"{k}:{shape(v, depth + 1)}"
+                               for k, v in list(o.items())[:12]) + "}"
+    if isinstance(o, list):
+        return "[" + (shape(o[0], depth + 1) + f" ×{len(o)}" if o else "") + "]"
+    if isinstance(o, str):
+        return f"str({len(o)})"
+    return type(o).__name__
+
+
+def find_image(o):
+    """応答のどこに画像が入っていても拾う。
+
+       Gemini の応答の形は版で変わる（output_image / output[] / candidates[]
+       …）。場所を決め打ちで探していたため、画像は作られているのに
+       「応答に画像が含まれていません」で落ちていた。
+       長い文字列の入った項目を、木をたどって探す。"""
+    keys = ("data", "b64_json", "image_bytes", "bytesBase64Encoded",
+            "b64Json", "imageBytes")
+    stack = [o]
+    while stack:
+        cur = stack.pop()
+        if isinstance(cur, dict):
+            for k in keys:
+                v = cur.get(k)
+                if isinstance(v, str) and len(v) > 512:
+                    return v
+            stack.extend(cur.values())
+        elif isinstance(cur, list):
+            stack.extend(cur)
+    return None
+
+
 def generate(prompt, api_key, model, aspect="16:9"):
     """Gemini に画像を作らせ、バイト列で返す。"""
     body = json.dumps({
@@ -161,27 +199,10 @@ def generate(prompt, api_key, model, aspect="16:9"):
     with urllib.request.urlopen(req, timeout=180) as res:
         data = json.load(res)
 
-    # 応答の形は版によって差があるため、画像データのある場所を順に探す
-    b64 = None
-    if isinstance(data.get("output_image"), dict):
-        b64 = data["output_image"].get("data")
+    b64 = find_image(data)
     if not b64:
-        for out in (data.get("output") or []):
-            if isinstance(out, dict):
-                if out.get("type") == "image" and out.get("data"):
-                    b64 = out["data"]; break
-                for part in (out.get("content") or []):
-                    if isinstance(part, dict) and part.get("data"):
-                        b64 = part["data"]; break
-    if not b64:
-        for cand in (data.get("candidates") or []):
-            for part in ((cand.get("content") or {}).get("parts") or []):
-                inline = part.get("inline_data") or part.get("inlineData")
-                if inline and inline.get("data"):
-                    b64 = inline["data"]; break
-    if not b64:
-        raise RuntimeError("応答に画像が含まれていません: "
-                           + json.dumps(data, ensure_ascii=False)[:400])
+        raise RuntimeError("応答に画像が含まれていません。応答の形："
+                           + shape(data))
     return base64.b64decode(b64)
 
 

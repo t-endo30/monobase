@@ -2049,21 +2049,26 @@
     return new Blob([buf], { type: mime || 'image/jpeg' });
   }
 
+  /* 応答のどこに画像が入っていても拾う。
+     Geminiの応答の形は版で変わる。場所を決め打ちで探していたため、
+     画像は作られているのに「見つからない」で落ちる事故が起きていた。
+     長い文字列の入った項目を、木をたどって探す。 */
   function pickImage(data) {
-    /* 応答の形が版によって違うため、画像データのある場所を順に探す */
-    if (data.output_image && data.output_image.data) return data.output_image.data;
-    var out = data.output || [];
-    for (var i = 0; i < out.length; i++) {
-      if (out[i] && out[i].type === 'image' && out[i].data) return out[i].data;
-      var cont = (out[i] && out[i].content) || [];
-      for (var j = 0; j < cont.length; j++) if (cont[j].data) return cont[j].data;
-    }
-    var cands = data.candidates || [];
-    for (var k = 0; k < cands.length; k++) {
-      var parts = ((cands[k].content) || {}).parts || [];
-      for (var m = 0; m < parts.length; m++) {
-        var inl = parts[m].inline_data || parts[m].inlineData;
-        if (inl && inl.data) return inl.data;
+    var keys = ['data', 'b64_json', 'image_bytes', 'bytesBase64Encoded',
+                'b64Json', 'imageBytes'];
+    var stack = [data], seen = 0;
+    while (stack.length && seen++ < 5000) {
+      var cur = stack.pop();
+      if (!cur || typeof cur !== 'object') continue;
+      if (!Array.isArray(cur)) {
+        for (var i = 0; i < keys.length; i++) {
+          var v = cur[keys[i]];
+          if (typeof v === 'string' && v.length > 512) return v;
+        }
+      }
+      for (var k in cur) if (Object.prototype.hasOwnProperty.call(cur, k)) {
+        var c = cur[k];
+        if (c && typeof c === 'object') stack.push(c);
       }
     }
     return null;
