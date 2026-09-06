@@ -83,8 +83,12 @@ DEFAULT_SUBJECT = ("a single unbranded consumer product",
 
 CAMERA = ("Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, "
           "ISO 200, 1/125s, shallow depth of field")
+# 背景・光・角度は全記事で固定する。一覧に並んだときに紙面がそろわないと、
+# 記事ごとに別のサイトのように見えるため。変えるのは被写体（SUBJECT）だけ。
+SETTING = ("a flat light oak wood tabletop in front of a plain matte white wall, "
+           "nothing else on the surface")
 LIGHT = ("lit by soft diffused daylight from a large window on the left, "
-         "a subtle fill from the right, gentle natural shadows")
+         "a subtle fill from the right, gentle natural shadows that stay short")
 QUALITY = ("photorealistic, natural material texture — visible plastic grain, brushed metal, "
            "woven fabric and wood grain, realistic specular highlights and soft reflections, "
            "accurate white balance, fine surface detail, no digital smoothing")
@@ -92,19 +96,22 @@ NEGATIVE = ("Do not produce: illustration, 3D render, CGI, cartoon or anime styl
             "heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, "
             "brand logos, readable text, watermarks, full human figures or faces, "
             "distorted or extra fingers, warped straight edges, duplicated objects, "
+            "props or decorative objects, patterned or coloured walls, "
             "floating or physically impossible arrangements, cluttered background.")
 
 
 def build_prompt(a, site):
     """記事1本ぶんの英文プロンプトを組み立てる。"""
     key = (a.get("category", ""), a.get("sub", ""))
-    subject, setting = SUBJECT.get(key, DEFAULT_SUBJECT)
+    subject, _setting = SUBJECT.get(key, DEFAULT_SUBJECT)
+    # SUBJECT の置き場所（_setting）は使わない。背景は SETTING に固定する。
     return (
-        f"A photograph of {subject}, placed on {setting}. "
+        f"A photograph of {subject}, placed on {SETTING}. "
         f"The product fills about 70 percent of the frame, positioned slightly off-centre "
         f"following the rule of thirds, seen from a natural eye-level three-quarter angle. "
-        f"Only a partial human hand may appear at the edge of the frame, and only if it "
-        f"helps show scale; never show a face or a full body. "
+        f"Use exactly this framing, background, and lighting for every image so that all "
+        f"article thumbnails look like one consistent series; only the product changes. "
+        f"No props, no decorations, no plants, no people. "
         f"{CAMERA}, background softly blurred so the product stays sharp. "
         f"{LIGHT}. "
         f"{QUALITY}. "
