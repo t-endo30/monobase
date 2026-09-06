@@ -337,8 +337,81 @@ function json(obj, status) {
   });
 }
 
+// ============================================================
+// 一覧の写真に出すAmazonの商品画像（公開ページ用）
+// ------------------------------------------------------------
+// なぜ「取りに行く」形なのか
+//   Amazonのライセンス契約 13(n) は
+//     「乙は、画像で構成される商品関連コンテンツを保存またはキャッシュしてはいけません」
+//     「画像で構成される商品関連コンテンツへのリンクについては最長24時間保存することができます」
+//   としている。build.py が生成したHTMLは何日も配信されるので、
+//   画像URLを書き込んだ時点で24時間を超える。だからページを開いたときに
+//   取りに行き、その場で差し替える。
+//
+//   毎回モールのAPIを叩くわけではない。24時間までは保存してよいと
+//   書かれているので、Cloudflare のキャッシュに寄せて1日1回に抑える。
+//   楽天は毎秒1回までという制限があり、素直に毎回叩くと即座に潰れる。
+//
+// パスを /api/ の下に置いていないのは、Cloudflare Access が /api/ を
+// 見張っているため。ここは訪問者が使う入口なので、認証の外に置く。
+// 鍵は管理画面（ブラウザ）からではなく、Worker の Secrets から読む。
+// 公開ページから鍵を送らせるわけにはいかないため。
+// ============================================================
+const THUMB_TTL = 60 * 60 * 12;   // 12時間。契約の上限（24時間）の半分にしておく
+
+async function amazonImages(asins, env) {
+  // ★未実装★
+  // PA-API v5 は 2026年5月15日に提供終了した。後継は Creators API。
+  // アソシエイトの審査が通り、Creators API の鍵が用意できたら、
+  // ここで商品情報を引いて { ASIN: 画像URL } を返す。
+  //   ・鍵は env.AMAZON_ACCESS_KEY / env.AMAZON_SECRET_KEY / env.AMAZON_PARTNER_TAG
+  //     （wrangler secret put で登録する）
+  //   ・画像は返ってきたURLをそのまま返す。加工も保存もしない（13条(f)）
+  // それまでは空を返し、assets/main.js 側は焼き込んである
+  // 楽天の写真・自前の画像をそのまま残す。
+  if (!env || !env.AMAZON_ACCESS_KEY) return {};
+  return {};
+}
+
+async function serveThumbs(request, env, ctx) {
+  if (request.method !== "POST") {
+    return json({ error: "POSTで呼んでください" }, 405);
+  }
+  let body;
+  try {
+    body = await request.json();
+  } catch (e) {
+    return json({ error: "JSONを読めませんでした" }, 400);
+  }
+  const asins = Array.isArray(body && body.asins)
+    ? body.asins.filter((x) => /^[A-Z0-9]{10}$/i.test(String(x))).slice(0, 40)
+    : [];
+  if (!asins.length) return json({ images: {} });
+
+  // 同じ並びなら同じキーになるようにそろえる（キャッシュを効かせるため）
+  const key = new Request(
+    "https://thumb.internal/lookup?a=" + asins.slice().sort().join(","),
+    { method: "GET" },
+  );
+  const cache = caches.default;
+  const hit = await cache.match(key);
+  if (hit) return hit;
+
+  let images = {};
+  try {
+    images = await amazonImages(asins, env);
+  } catch (e) {
+    images = {};
+  }
+
+  const res = json({ images: images });
+  res.headers.set("cache-control", `public, max-age=${THUMB_TTL}`);
+  if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(key, res.clone()));
+  return res;
+}
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;
 
@@ -350,6 +423,11 @@ export default {
     // Amazon 商品検索APIの中継
     if (path === "/api/amazon") {
       return proxyAmazon(request);
+    }
+
+    // 一覧の写真に出すAmazonの商品画像（訪問者が使う。認証の外）
+    if (path === "/img/lookup") {
+      return serveThumbs(request, env, ctx);
     }
 
     // 商品ページの取得（URLから記事を作るタブが使う）

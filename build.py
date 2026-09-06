@@ -263,6 +263,26 @@ def card_visual(a, p):
     src, _auto = visual_path(a, p)
     return src, False, ""
 
+
+def thumb_attrs(a, is_shop, shop):
+    """一覧の写真の枠に付ける属性。
+
+       data-shop … 焼き込んだ写真の出どころ（楽天・Yahoo!）。
+       data-asin … Amazonの商品番号。assets/main.js がこれを見て、
+                   ページを開いたときにAmazonの写真を取りに行き、
+                   取れたら差し替える（Amazonを最優先にするため）。
+                   Amazonの画像URLはHTMLに焼き込めない——ライセンス契約
+                   13(n)が「画像へのリンクの保存は最長24時間」としているので、
+                   何日も配信するファイルには書けない。取りに行く形なら
+                   保存しないので、この制限に掛からない。"""
+    out = ""
+    if is_shop:
+        out += f' data-shop="{e(shop)}"'
+    asin = str(a.get("asin") or "").strip()
+    if asin:
+        out += f' data-asin="{e(asin)}"'
+    return out
+
 def title_lines(t):
     """「主題｜補足」形式のタイトルを2段に分けて表示する。
        1行に詰めると読みにくいうえ、区切り記号が目立ちすぎるため。"""
@@ -1274,7 +1294,7 @@ def v2_card(a, p, no=None, flags=""):
     # モールの写真は切り取らない（規約が改変を認めていない）。
     # 枠の大きさはそのままで、余った分は地の色で埋める。
     tcls = " is-shop" if is_shop else ""
-    tsrc = f' data-shop="{e(shop)}"' if is_shop else ""
+    tsrc = thumb_attrs(a, is_shop, shop)
     rank = (f'<span class="row-no is-n{no}">{no:02d}</span>' if no else "")
     title = a.get("list_title") or a["title"]
     cat = CAT_LABEL.get(a.get("category", ""), "")
@@ -1299,7 +1319,7 @@ def v2_row(a, p, numbered=None, detail=False, flags=""):
        detail=True で、分野の名前をサブ区分まで細かく出す。"""
     src, is_shop, shop = card_visual(a, p)
     tcls = " is-shop" if is_shop else ""
-    tsrc = f' data-shop="{e(shop)}"' if is_shop else ""
+    tsrc = thumb_attrs(a, is_shop, shop)
     no = (f'<span class="row-no is-n{numbered}">{numbered:02d}</span>'
           if numbered else "")
     cat = v2_cat_text(a, detail)
@@ -1471,7 +1491,7 @@ def v2_page_head(title, crumbs=None, lead="", count=None, extra="",
 def thumb(a, p):
     src, is_shop, shop = card_visual(a, p)
     tcls = " is-shop" if is_shop else ""
-    tsrc = f' data-shop="{e(shop)}"' if is_shop else ""
+    tsrc = thumb_attrs(a, is_shop, shop)
     return (f'<img src="{e(src)}" alt="{e(a.get("list_title") or a["title"])}" '
             f'loading="lazy" width="1200" height="430">')
 

@@ -1338,3 +1338,84 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     });
   });
 })();
+
+
+/* ============================================================
+   一覧の写真を、Amazonの商品写真に差し替える
+   ------------------------------------------------------------
+   出品者が作った楽天の写真は「公式ストア」「保証2年」のような文字が
+   焼き込まれていることが多い。Amazonの写真はそれが無く白背景で
+   そろうため、取れるならAmazonを最優先にする。
+
+   ただしAmazonの画像URLはHTMLに焼き込めない。ライセンス契約 13(n) が
+     「乙は、画像で構成される商品関連コンテンツを保存またはキャッシュしてはいけません」
+     「画像で構成される商品関連コンテンツへのリンクについては最長24時間保存することができます」
+   としており、生成したページを何日も配信するこのサイトでは、書いた時点で
+   24時間を超えてしまう。そこで**ページを開いたときに取りに行き、その場で
+   差し替える**。保存しないので制限に掛からない。
+
+   取れなかったとき（審査前・APIの不調・通信断）は、焼き込んである
+   楽天の写真や自前の画像がそのまま残る。差し替えは上書きだけを行い、
+   何も消さない。
+   ============================================================ */
+(function () {
+  var ENDPOINT = '/img/lookup';        /* Cloudflare Access の外に置く */
+  var MAX = 40;                        /* 1ページで問い合わせる上限 */
+
+  function thumbs() {
+    var out = [], seen = {};
+    var els = document.querySelectorAll('[data-asin]');
+    for (var i = 0; i < els.length && out.length < MAX; i++) {
+      var el = els[i];
+      var asin = el.getAttribute('data-asin');
+      if (!asin || !el.querySelector('img')) continue;
+      if (!seen[asin]) { seen[asin] = []; out.push(asin); }
+      seen[asin].push(el);
+    }
+    return { list: out, byAsin: seen };
+  }
+
+  function swap(el, url) {
+    var img = el.querySelector('img');
+    if (!img) return;
+    /* 読めた絵だけを出す。壊れたURLで元の写真を消さないよう、
+       先に裏で読み込んでから差し替える。 */
+    var probe = new Image();
+    probe.onload = function () {
+      img.src = url;
+      /* Amazonの写真は白背景の正方形が多い。切り取らずに収める
+         （規約が改変を認めていないため）。CSS は .is-shop と共通。 */
+      el.classList.add('is-shop');
+      el.setAttribute('data-shop', 'amazon');
+    };
+    probe.referrerPolicy = 'no-referrer';
+    probe.src = url;
+  }
+
+  function run() {
+    var t = thumbs();
+    if (!t.list.length) return;
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ asins: t.list })
+    }).then(function (r) {
+      if (!r.ok) return null;         /* 審査前は 501 が返る。黙って諦める */
+      return r.json();
+    }).then(function (data) {
+      var imgs = (data && data.images) || null;
+      if (!imgs) return;
+      Object.keys(imgs).forEach(function (asin) {
+        var url = imgs[asin];
+        if (!url || !t.byAsin[asin]) return;
+        t.byAsin[asin].forEach(function (el) { swap(el, url); });
+      });
+    }).catch(function () { /* 取れなければ焼き込んだ写真のまま */ });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+})();
