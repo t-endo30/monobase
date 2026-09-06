@@ -918,8 +918,13 @@ def main():
             cmd.append("--keep-updated")
         rc = subprocess.run(cmd, cwd=ROOT).returncode
         if rc != 0:
-            print("\n△ レビューで指摘が残りました。上の内容を確認してください。")
-            return 1
+            # 指摘が残っていても、ここでは止めない。
+            # 直して公開するのは次の手順（review_article.py --publish）の
+            # 役目で、そちらがもう一度見て、通らなければ下書きのまま残す。
+            # ここで異常終了すると、書けた記事ごと捨てられる（実際、
+            # 2本書けていたのに禁止表現の指摘1件で全部消えた）。
+            print("\n△ レビューで指摘が残りました。"
+                  "次の手順で直してから公開します。")
 
     if not args.dry_run and done:
         print("\n次にやること：")
