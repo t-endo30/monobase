@@ -228,11 +228,17 @@ def shorten(name):
     for n in (3, 2):
         if len(ts) > n:
             out.append(" ".join(ts[:n]))
-    # 型番だけで引く手。ブランド名の書き方が店ごとに違っても
-    # （グンゼ／GUNZE／郡是）、型番は同じなので当たる。
-    # 型番は英字と数字が混ざった語に限る。「40L」のような単位は
-    # 別商品を大量に連れてくるので採らない。
-    for t in ts:
+    return out
+
+
+def code_queries(name):
+    """型番だけで引く手。ブランド名の書き方が店ごとに違っても
+       （グンゼ／GUNZE／郡是）、型番は同じなので当たる。
+
+       型番は英字と数字が混ざった4文字以上の語に限る。「40L」「100W」
+       のような単位は、関係のない商品を大量に連れてくるので採らない。"""
+    out = []
+    for t in name.split():
         w = t.strip("()（）[]【】")
         if (len(w) >= 4 and re.search(r"[a-zA-Z]", w) and re.search(r"\d", w)
                 and not re.fullmatch(r"\d+[a-zA-Z]+", w)):
@@ -263,12 +269,17 @@ def lookup(shop, name, jan, keys, min_score, code="", debug=False):
        商品を探すため、語が多いと0件になりやすい）。"""
     plans = ([("jan", jan)] if jan else [])
     plans += [("keyword", name)] + [("keyword", q) for q in shorten(name)]
+    # 型番で引いたときは、名前の一致を求めない。
+    # 店によってブランドの書き方が違うため（「グンゼ AGW112」の商品が
+    # 「靴下 〈3足組〉アセドロン ショート丈 AGW112」で売られている）。
+    # 型番そのものが商品側に入っているかは best_match が必ず確かめる。
+    plans += [("code", q) for q in code_queries(name)]
     fallback_s = 0.0
     for how, q in plans:
         try:
             cands = search(shop, keys,
                            jan=q if how == "jan" else None,
-                           keyword=q if how == "keyword" else None)
+                           keyword=None if how == "jan" else q)
         except Exception as ex:                       # noqa: BLE001
             print(f"      検索できませんでした（{shop}/{q}）：{ex}")
             time.sleep(PAUSE)
@@ -280,12 +291,13 @@ def lookup(shop, name, jan, keys, min_score, code="", debug=False):
                 print(f"        - {str(c.get('name'))[:60]}")
         if not cands:
             continue
-        # JANは型番そのものなので、名前の一致は緩めてよい
+        # JANと型番は商品を一つに定めるので、名前の一致は緩めてよい
         hit, s = best_match(name, cands,
-                            0.0 if how == "jan" else min_score, code)
+                            0.0 if how in ("jan", "code") else min_score, code)
         if hit:
             hit = dict(hit, url=clean_url(hit.get("url")))
-            return hit, s, ("JAN" if how == "jan" else f"「{q}」")
+            label = {"jan": "JAN", "code": f"型番「{q}」"}.get(how, f"「{q}」")
+            return hit, s, label
         fallback_s = max(fallback_s, s)
     return None, fallback_s, None
 
