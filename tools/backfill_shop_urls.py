@@ -228,6 +228,15 @@ def shorten(name):
     for n in (3, 2):
         if len(ts) > n:
             out.append(" ".join(ts[:n]))
+    # 型番だけで引く手。ブランド名の書き方が店ごとに違っても
+    # （グンゼ／GUNZE／郡是）、型番は同じなので当たる。
+    # 型番は英字と数字が混ざった語に限る。「40L」のような単位は
+    # 別商品を大量に連れてくるので採らない。
+    for t in ts:
+        w = t.strip("()（）[]【】")
+        if (len(w) >= 4 and re.search(r"[a-zA-Z]", w) and re.search(r"\d", w)
+                and not re.fullmatch(r"\d+[a-zA-Z]+", w)):
+            out.append(w)
     return out
 
 
