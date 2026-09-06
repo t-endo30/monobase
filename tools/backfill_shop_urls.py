@@ -152,7 +152,7 @@ def coverage(name, cand):
     """記事の商品名の語が、商品側の名前にどれだけ含まれているか。
        楽天の商品名は装飾が長いので、全体の似かたではなく
        「記事の語が入っているか」で見ないと正しく測れない。"""
-    ts = tokens(name)
+    ts = [t for t in tokens(name) if t]
     if not ts:
         return 0.0
     flat = norm(cand).replace(" ", "")
@@ -205,6 +205,10 @@ def best_match(name, cands, min_score, code=""):
        含有率がいちばん高いもの。同じなら安い方を採る。
        楽天には同じ商品を大きく上乗せして出している店があり、
        高い方を選ぶと読者を損させるため。返すのは (商品, 含有率)。"""
+    # 名前が無ければ、何とも一致させない。空の名前で照合すると
+    # 含有率が 1.00 になり、まるで関係のない商品を採ってしまう。
+    if not str(name or "").strip():
+        return None, 0.0
     scored = []
     for c in cands:
         cname = c.get("name") or ""
@@ -496,14 +500,22 @@ def main():
         # 検索しても記事とは別の商品が当たる。人が選ぶしかない。
         if not jan and not model_tokens(name):
             asin = (a.get("asin") or "").strip()
-            picked = ""
-            code = ""
+            picked, code = "", ""
             if args.from_amazon and asin:
                 picked, code = search_name(amazon_title(asin))
                 time.sleep(PAUSE)
-            if not picked:
+            if picked:
+                # Amazonの商品名から、ブランドと型番を読み取れた
+                print(f"\n・{a.get('slug')}")
+                print(f"   題名：{name} → Amazonの商品名から"
+                      f"「{picked}」で探します（型番 {code}）")
+                name = picked
+                codes[a.get("slug")] = code
+            else:
                 # 題名だけでは特定できないが、タグにブランドと品目が
                 # 入っていることがある。それも無ければ諦める。
+                # ここで name を書き換えてはいけない。空にすると
+                # 照合が素通りして、まったく別の商品を掴む。
                 tq = tag_queries(a)
                 if not tq:
                     print(f"\n・{a.get('slug')}：題名にもタグにも手掛かりが"
@@ -513,11 +525,6 @@ def main():
                 print(f"\n・{a.get('slug')}")
                 print(f"   題名：{name} → タグからも探します（{', '.join(tq)}）")
                 extra_queries[a.get("slug")] = tq
-            print(f"\n・{a.get('slug')}")
-            print(f"   題名：{name} → Amazonの商品名から"
-                  f"「{picked}」で探します（型番 {code}）")
-            name = picked
-            codes[a.get("slug")] = code
         print(f"\n・{a.get('slug')}")
         print(f"   記事の商品：{name}" + (f"（JAN {jan}）" if jan else ""))
         for shop in need:
