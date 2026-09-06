@@ -67,20 +67,31 @@ except (FileNotFoundError, ValueError):
 
 # セール告知に使う日程。JSON をそのまま埋め込み、表示の可否は
 # 閲覧時点の日付でブラウザ側が判断する（再ビルド不要にするため）。
+def rank_item(a, p):
+    """ランキングの1件分。assets/main.js が .row-item を組み立てるのに使う。
+
+       写真の出どころ（shop）とAmazonの商品番号（asin）も渡す。
+       ランキングだけHTMLではなくJSで組むため、これが無いと
+       他の一覧に出ているモールの写真がここにだけ出ない。"""
+    src, is_shop, shop = card_visual(a, p)
+    return {"slug": a["slug"],
+            "title": a.get("list_title") or a["title"],
+            "url": f'{p}articles/{a["slug"]}.html',
+            "cat": CAT_LABEL.get(a["category"], ""),
+            "catKey": a["category"],
+            "thumb": src,
+            "shop": shop if is_shop else "",
+            "asin": str(a.get("asin") or "").strip(),
+            "excerpt": a.get("excerpt", ""),
+            "score": a.get("rating", {}).get("score") or 0,
+            "date": a.get("date", "")}
+
+
 def rank_json(p):
     data = {
         "views": RANKING,
         "recent": RANKING_RECENT,
-        "items": [{"slug": a["slug"],
-                   "title": a.get("list_title") or a["title"],
-                   "url": f'{p}articles/{a["slug"]}.html',
-                   "cat": CAT_LABEL.get(a["category"], ""),
-                   "catKey": a["category"],
-                   "thumb": visual_path(a, p)[0],
-                   "excerpt": a.get("excerpt", ""),
-                   "score": a.get("rating", {}).get("score") or 0,
-                   "date": a.get("date", "")}
-                  for a in PUBLISHED],
+        "items": [rank_item(a, p) for a in PUBLISHED],
     }
     return html.escape(json.dumps(data, ensure_ascii=False), quote=True)
 

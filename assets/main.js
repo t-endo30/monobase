@@ -442,7 +442,9 @@ document.addEventListener('touchstart', function () {}, { passive: true });
           ' data-cat="' + esc(it.catKey || '') + '"' +
           ' data-slug="' + esc(it.slug || '') + '"' +
           ' data-date="' + esc(it.date || '') + '">' +
-          '<span class="thumb">' +
+          '<span class="thumb' + (it.shop ? ' is-shop' : '') + '"' +
+              (it.shop ? ' data-shop="' + esc(it.shop) + '"' : '') +
+              (it.asin ? ' data-asin="' + esc(it.asin) + '"' : '') + '>' +
             '<img src="' + esc(it.thumb) + '" alt="" loading="lazy" decoding="async">' +
             '<span class="row-no is-n' + (i + 1) + '">' + no + '</span>' +
           '</span>' +
