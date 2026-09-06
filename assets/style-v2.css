@@ -213,14 +213,33 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
 .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.8px) rotate(-45deg);}
 
-/* スマホの引き出しメニュー。中身は現行サイトの項目をそのまま残す */
+/* スマホの引き出しメニュー。中身は現行サイトの項目をそのまま残す。
+   高さは中身のぶんだけにする（下端まで伸ばさない）。画面いっぱいの板だと、
+   項目が終わったあとの余白まで塗りつぶしてしまい、下に何のページが
+   あるのか分からなくなるため。項目が増えて画面に収まらないときだけ、
+   引き出しの中をスクロールさせる */
 .drawer{
-  position:fixed;inset:var(--header-h) 0 0;z-index:49;
-  background:var(--bg-2);padding:8px 24px 48px;overflow-y:auto;
+  position:fixed;inset:var(--header-h) 0 auto;z-index:49;
+  background:var(--bg-2);padding:8px 24px 16px;
+  /* 下に必ず 80px ぶんの余地を残す。項目が増えても画面を覆い切らないので、
+     「いま開いているのはメニューで、下にページがある」ことが見て分かる。
+     入り切らないぶんは引き出しの中をスクロールして読む */
+  max-height:calc(100dvh - var(--header-h) - 80px);overflow-y:auto;
   transform:translateY(-8px);opacity:0;visibility:hidden;
   transition:opacity .2s ease,transform .2s ease,visibility .2s;
 }
 .drawer[data-open="true"]{opacity:1;visibility:visible;transform:none;}
+/* 引き出しの下に敷く膜。ここを押すと閉じる。
+   下のページが透けて見える濃さにして、「まだそのページに居る」ことを残す */
+.drawer-scrim{
+  position:fixed;inset:var(--header-h) 0 0;z-index:48;
+  background:rgba(17,17,17,.3);
+  opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s;
+}
+.drawer-scrim[data-open="true"]{opacity:1;visibility:visible;}
+@media (min-width:861px){
+  .drawer-scrim{display:none;}
+}
 .drawer li{border-bottom:1px solid var(--line);}
 .drawer a{
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
@@ -1393,13 +1412,19 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card-cat{font-size:9.5px;}
   .card-meta{margin:0 0 3px;}
   .card-date{font-size:10px;}
-  /* 上限は2行。下限は決めない。以前はタイルの高さをそろえるために
-     2行ぶんを必ず確保していたが、見出しが1行の記事では、その下に
-     空の行がひとつ残ってしまう。いまのスマホのタイルは横に並べず
-     縦に積むので、高さがそろっていなくても階段状には見えない */
-  .card-title{font-size:13px;line-height:1.6;-webkit-line-clamp:2;max-height:3.2em;}
-  /* 一言は、写真の右の残りに収まる分だけ */
-  .card-note{margin-top:3px;font-size:11px;line-height:1.7;-webkit-line-clamp:2;max-height:3.4em;}
+  /* 見出しは2行ぶんの高さを必ず確保する（上限も下限も2行）。
+     下限を決めずにいると、見出しが2行の記事だけタイルが1行ぶん高くなる。
+     新着の先頭は題名が長くなりやすく、一番上のタイルだけ大きく見えていた。
+     1行の記事では見出しの下に空きが出るが、並べたときの高さのそろいを取る */
+  .card-title{
+    font-size:13px;line-height:1.6;-webkit-line-clamp:2;
+    min-height:3.2em;max-height:3.2em;
+  }
+  /* 一言は、写真の右の残りに収まる分だけ。ここも2行ぶんで高さを固定する */
+  .card-note{
+    margin-top:3px;font-size:11px;line-height:1.7;-webkit-line-clamp:2;
+    min-height:3.4em;max-height:3.4em;
+  }
   .card-cat{margin-top:4px;font-size:10px;}
   .card-cat::before{width:10px;}
 

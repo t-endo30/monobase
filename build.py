@@ -783,6 +783,11 @@ IC_SEARCH_V2 = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 
 def _v2_drawer_links(p):
     yield ("ホーム", "HOME", f"{p}index.html")
+    # 「カテゴリー」はこの直後に差し込まれる（header() の cat_row）。
+    # 新着とランキングは、下のタブと同じ入口をここにも置く。
+    # 引き出しを開いたまま探せるようにするため、上のほうに並べる。
+    yield ("新着記事", "NEW", f"{p}new.html")
+    yield ("ランキング", "RANKING", f"{p}ranking.html")
     yield ("サイトマップ", "SITEMAP", f"{p}sitemap.html")
     yield ("運営者情報", "ABOUT", f"{p}about.html")
     yield ("記事作成方針", "POLICY", f"{p}editorial-policy.html")
@@ -872,6 +877,8 @@ def header(current, p, crumbs=None, current_sub="", band=""):
       <ul class="drawer-main">{drawer}</ul>
     </div>
   </div>
+  <!-- 引き出しの外側。押すと閉じる（assets/main.js） -->
+  <div class="drawer-scrim" id="drawerScrim" data-open="false"></div>
 </header>
 
 {v2_crumb_bar(crumbs)}{band}<!-- セール告知：期間内だけ JS が表示する（assets/main.js） -->

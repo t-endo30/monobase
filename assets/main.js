@@ -51,10 +51,12 @@ document.addEventListener('touchstart', function () {}, { passive: true });
      位置を見失わないようにするため）。 */
   var toggle = document.getElementById('navToggle');
   var drawer = document.getElementById('drawer');
+  var scrim = document.getElementById('drawerScrim');
   if (!toggle || !drawer) return;
 
   function setOpen(open) {
     drawer.setAttribute('data-open', String(open));
+    if (scrim) scrim.setAttribute('data-open', String(open));
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
     document.body.style.overflow = open ? 'hidden' : '';
@@ -67,6 +69,11 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   drawer.addEventListener('click', function (ev) {
     if (ev.target.closest('a')) setOpen(false);
   });
+
+  /* 引き出しの外（下に敷いた膜）を押したら閉じる。
+     膜は引き出しの下だけを覆うので、ヘッダーのハンバーガー自身は
+     いつもどおり押せる（開いているときは、それが閉じる操作になる） */
+  if (scrim) scrim.addEventListener('click', function () { setOpen(false); });
 
   document.addEventListener('keydown', function (ev) {
     if (ev.key === 'Escape' && isOpen()) setOpen(false);
