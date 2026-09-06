@@ -1537,6 +1537,18 @@ def kind_of(a):
     return "roundup" if a.get("category") == "feature" else "review"
 
 
+def sub_badge(a):
+    """記事の分野の、さらに細かい区分（サブ区分）の札。
+
+       「パソコン」だけでは何の記事か分からない。「モニター」「マウス」
+       まで出すと、開いた瞬間に扱っている物が伝わる。
+       区分を持たない記事では何も出さない。"""
+    label = SUB_LABEL.get((a.get("category", ""), a.get("sub", "")))
+    if not label:
+        return ""
+    return f'<span class="badge badge-sub">{e(label)}</span>'
+
+
 def kind_badge(a):
     k = kind_of(a)
     return f'<span class="tag tag-kind is-{k}">{KIND_LABEL[k]}</span>'
@@ -2254,7 +2266,7 @@ def render_article(a):
 
     add('      <article class="card-surface" id="review">\n')
     add(f'''        <div class="article-meta">
-          <span class="badge badge-cat">{e(CAT_LABEL.get(cat,""))}</span>
+          <span class="badge badge-cat">{e(CAT_LABEL.get(cat,""))}</span>{sub_badge(a)}
           {kind_badge(a)}
           <span class="article-date">{e(jp_date(a.get("updated") or a["date"]))} 更新</span>
         </div>

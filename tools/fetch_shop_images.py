@@ -84,6 +84,23 @@ def pick_image(hits, article, shop, exact):
     return "", ""
 
 
+def product_name(article):
+    """記事の題名から、検索に使う商品名を取り出す。
+
+       題名は「商品名 口コミ｜○○と△△」の形で作られている。
+       これをそのまま検索語にすると、モールには当たらない
+       （実際「PLuS プラセンタモイスチュアマスク70枚 口コミ｜合う人と
+       確認点」で引いて0件だった）。「｜」以降と、末尾の「口コミ」
+       「レビュー」などを落とす。"""
+    t = str(article.get("product") or article.get("product_name") or "")
+    if not t:
+        t = str(article.get("title") or "")
+        t = re.split(r"[｜|]", t)[0]
+        t = re.sub(r"(の)?(口コミ(分析)?|レビュー|評価|選び方|比較|"
+                   r"仕様分析|徹底比較)\s*$", "", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
 def attempts(shop, article, keys):
     """引き方を、確かな順に並べて返す。(呼び出す関数, 一つに定まる引き方か)。
 
@@ -97,14 +114,17 @@ def attempts(shop, article, keys):
             out.append((lambda: rk(jan=jan), True))
         code = item_key(article.get("rakuten_url") or "")
         if code:
-            # 「店舗コード/商品コード」で直接引く。その商品だけが返る。
-            out.append((lambda: rk(item_code=code), True))
-            # 刷新後のAPIが itemCode を受けない場合の逃げ道。
-            # あいまいなのでURLが一致したものしか採らない。
+            # 店の商品コードで引く。商品名に載せている店もあるので当たる
+            # ことがある。当たらなくても、次の商品名で引き直す。
+            # （itemCode 指定は刷新後のAPIが受け付けず、毎回400になる）
             out.append((lambda: rk(keyword=code.split("/")[-1]), False))
-        name = str(article.get("product") or article.get("title") or "").strip()
+        name = product_name(article)
         if name:
             out.append((lambda: rk(keyword=name), False))
+            # 語が多いと0件になりやすい。前から2語だけでも引いてみる。
+            short = " ".join(name.split()[:2])
+            if short and short != name:
+                out.append((lambda: rk(keyword=short), False))
     if shop == "yahoo" and keys.get("yh_id"):
         yh = lambda **kw: yahoo_search(keys["yh_id"], hits=30, **kw)
         if jan:
@@ -112,9 +132,12 @@ def attempts(shop, article, keys):
         code = item_key(article.get("yahoo_url") or "")
         if code:
             out.append((lambda: yh(query=code.split("/")[-1]), False))
-        name = str(article.get("product") or article.get("title") or "").strip()
+        name = product_name(article)
         if name:
             out.append((lambda: yh(query=name), False))
+            short = " ".join(name.split()[:2])
+            if short and short != name:
+                out.append((lambda: yh(query=short), False))
     return out
 
 
