@@ -258,21 +258,32 @@ def visual_path(a, p):
 SHOP_THUMB_ORDER = ("rakuten", "yahoo")
 
 
+def shop_thumb(a):
+    """一覧に出せる、モールの実物写真。無ければ空。"""
+    imgs = a.get("shop_images") or {}
+    for shop in SHOP_THUMB_ORDER:
+        url = str(imgs.get(shop) or "").strip()
+        if url.startswith("http"):
+            return shop_image_size(url, shop), shop
+    return "", ""
+
+
 def card_visual(a, p):
     """一覧タイル・一覧の行に出す写真を決める。
 
        返り値は (URL, モールの写真か, ショップ名)。
 
+       出すのはモールの実物写真だけ。無いときは、記事名を入れた
+       自動生成の絵にする。AIで作ったアイキャッチはここでは使わない。
+       実物と違う物が並ぶため（「シック 替刃」の記事に、実物とは別の
+       カミソリの絵が出ていた）。AIの絵は記事ページとOGPで使う。
+
        モールの写真は**切り取らない**。規約が改変を認めていないため、
-       枠に対して余った部分は地の色で埋める（CSS の .is-shop）。
-       枠の大きさは今までと同じなので、並びは崩れない。"""
-    imgs = a.get("shop_images") or {}
-    for shop in SHOP_THUMB_ORDER:
-        url = str(imgs.get(shop) or "").strip()
-        if url.startswith("http"):
-            return shop_image_size(url, shop), True, shop
-    src, _auto = visual_path(a, p)
-    return src, False, ""
+       枠に対して余った部分は地の色で埋める（CSS の .is-shop）。"""
+    url, shop = shop_thumb(a)
+    if url:
+        return url, True, shop
+    return p + f'assets/img/auto/{a["slug"]}.svg', False, ""
 
 
 def thumb_attrs(a, is_shop, shop):
@@ -3808,12 +3819,14 @@ def main():
     auto_dir = "assets/img/auto"
     os.makedirs(auto_dir, exist_ok=True)
     made = 0
+    # 一覧に出すのはモールの実物写真だけなので、それが無い記事には
+    # ここで作る絵が出る。AIのアイキャッチがあっても関係ない。
     for a in PUBLISHED:
-        if not a.get("thumb"):
+        if not shop_thumb(a)[0]:
             make_visual(a["slug"], a.get("list_title") or a["title"], a["category"],
                         CAT_LABEL.get(a["category"], ""), NAME, auto_dir)
             made += 1
-    keep_svg = {a["slug"] + ".svg" for a in PUBLISHED if not a.get("thumb")}
+    keep_svg = {a["slug"] + ".svg" for a in PUBLISHED if not shop_thumb(a)[0]}
     for f in os.listdir(auto_dir):
         if f.endswith(".svg") and f not in keep_svg:
             os.remove(os.path.join(auto_dir, f))
@@ -3866,7 +3879,7 @@ def main():
             "excerpt": a.get("excerpt", ""), "desc": a.get("description", ""),
             "cat": a["category"], "catLabel": CAT_LABEL.get(a["category"], ""),
             "icon": a.get("icon", "📦"),
-            "thumb": a.get("thumb") or f'assets/img/auto/{a["slug"]}.svg',
+            "thumb": shop_thumb(a)[0] or f'assets/img/auto/{a["slug"]}.svg',
             "tags": a.get("tags", []), "date": a["date"],
             "score": a.get("rating", {}).get("score") or 0,
             "url": f'articles/{a["slug"]}.html'} for a in PUBLISHED]

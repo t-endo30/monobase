@@ -461,7 +461,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* 写真は枠で囲む。地の色に近い写真だと、どこまでが写真か分からなく
    なるため。枠は罫線と同じ濃さにして、線が主張しすぎないようにする */
 .card-thumb{
-  position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg-3);
+  position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--bg-3);
   border:1px solid var(--line-2);
 }
 .card-thumb img{width:100%;height:100%;object-fit:cover;}
@@ -627,7 +627,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .row-no.is-n1{background:#c9a227;}
 .row-no.is-n2{background:#9aa0a6;}
 .row-no.is-n3{background:#a9743c;}
-.row-item .thumb{position:relative;aspect-ratio:4/3;overflow:hidden;border:1px solid var(--line-2);background:var(--bg-3);}
+.row-item .thumb{position:relative;aspect-ratio:1/1;overflow:hidden;border:1px solid var(--line-2);background:var(--bg-3);}
 .row-item .thumb img{width:100%;height:100%;object-fit:cover;}
 .row-body{position:relative;}
 .row-item h3{font-size:16px;font-weight:800;line-height:1.65;margin-bottom:6px;}
