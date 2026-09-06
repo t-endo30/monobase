@@ -17,8 +17,8 @@
   <rect x="582" y="256" width="46" height="248" rx="6" fill="#5A5D63" fill-opacity=".65"/>
   <rect x="650" y="282" width="46" height="176" rx="6" fill="#5A5D63" fill-opacity=".55"/>
   <rect x="718" y="312" width="46" height="96"  rx="6" fill="#5A5D63" fill-opacity=".40"/>
-  <text x="600" y="180" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, sans-serif" font-size="54" letter-spacing="10" fill="#5A5D63" fill-opacity=".70">パソコン</text>
-  <text x="600" y="670" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, sans-serif" font-size="96" font-weight="700" fill="#25282D" fill-opacity=".80">Kindle Pa</text>
-  <text x="600" y="780" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, sans-serif" font-size="96" font-weight="700" fill="#25282D" fill-opacity=".80">perwhite </text>
-  <text x="600" y="890" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, sans-serif" font-size="96" font-weight="700" fill="#25282D" fill-opacity=".80">2機種比較</text>
+  <text x="600" y="590" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, sans-serif" font-size="96" font-weight="700" fill="#25282D" fill-opacity=".80">Kindle Pa</text>
+  <text x="600" y="700" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, sans-serif" font-size="96" font-weight="700" fill="#25282D" fill-opacity=".80">perwhite </text>
+  <text x="600" y="810" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, sans-serif" font-size="96" font-weight="700" fill="#25282D" fill-opacity=".80">2機種比較</text>
+  <text x="600" y="922" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, sans-serif" font-size="64" letter-spacing="10" fill="#5A5D63" fill-opacity=".70">パソコン</text>
 </svg>

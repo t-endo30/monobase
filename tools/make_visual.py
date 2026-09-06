@@ -91,16 +91,19 @@ def build(slug, title, category, cat_label, site_name, out_dir):
     fam = ("&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, "
            "&quot;Yu Gothic&quot;, sans-serif")
     text = ""
-    # 上から順に、分野・モチーフ・商品名。重ならないよう場所を分ける。
-    if cat_label:
-        text += (f'\n  <text x="600" y="180" text-anchor="middle" '
-                 f'font-family="{fam}" font-size="54" letter-spacing="10" '
-                 f'fill="{accent}" fill-opacity=".70">{esc(cat_label)}</text>')
-    top = 780 - (len(rows) - 1) * 55
+    # 上から順に、モチーフ・商品名・分野。
+    # 分野は商品名の下に置く。上に離して置くと図形と商品名の間に
+    # 挟まって、どちらの見出しなのか分かりにくかった。
+    top = 700 - (len(rows) - 1) * 55
     for i, line in enumerate(rows):
         text += (f'\n  <text x="600" y="{top + i * 110}" text-anchor="middle" '
                  f'font-family="{fam}" font-size="96" font-weight="700" '
                  f'fill="{LINE}" fill-opacity=".80">{esc(line)}</text>')
+    if cat_label:
+        text += (f'\n  <text x="600" y="{top + (len(rows) - 1) * 110 + 112}" '
+                 f'text-anchor="middle" '
+                 f'font-family="{fam}" font-size="64" letter-spacing="10" '
+                 f'fill="{accent}" fill-opacity=".70">{esc(cat_label)}</text>')
 
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-label="{esc(title)}">
   <defs>
