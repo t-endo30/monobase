@@ -616,7 +616,6 @@
     $('f-updated').value = a.updated || today();
     updatedShown = $('f-updated').value;
     $('f-thumb').value = a.thumb || '';
-    $('f-imageAi').checked = !!a.image_ai;
     ecPreview();
     $('f-published').checked = !!a.published;
     $('f-featured').checked = !!a.featured;
@@ -692,8 +691,6 @@
     var uf = $('f-updated').value;
     a.updated = (uf && uf !== updatedShown) ? uf : today();
     a.thumb = $('f-thumb').value.trim();
-    if ($('f-imageAi').checked && a.thumb) a.image_ai = true;
-    else delete a.image_ai;
     a.published = $('f-published').checked;
     a.featured = $('f-featured').checked;
     a.description = $('f-description').value.trim();
@@ -2079,7 +2076,6 @@
       });
     }).then(function () {
       a.thumb = path;
-      a.image_ai = true;
       return path;
     });
   }
@@ -2123,7 +2119,6 @@
 
   $('btnEcClear').addEventListener('click', function () {
     $('f-thumb').value = '';
-    $('f-imageAi').checked = false;
     ecPreview();
     $('ecNote').textContent = 'アイキャッチを外しました。保存すると反映されます。';
   });
@@ -2147,9 +2142,7 @@
         return putFile(path, b64, null, 'アイキャッチを追加（管理画面より） [skip ci]');
       }).then(function () {
         $('f-thumb').value = path;
-        $('f-imageAi').checked = false;   /* 自分で用意した画像なので断り書きは出さない */
         editing.thumb = path;
-        delete editing.image_ai;
         ecPreview();
         note.innerHTML = '保存しました：<code>' + path + '</code><br>' +
           '<b>記事を保存し、記事一覧の「変更をまとめて公開」でサイトに反映されます。</b>';
@@ -2174,7 +2167,6 @@
       .then(function (img) { return saveImage(editing, img); })
       .then(function (path) {
         $('f-thumb').value = path;
-        $('f-imageAi').checked = true;
         ecPreview();
         note.innerHTML = '作って保存しました：<code>' + path + '</code><br>' +
           '<b>記事を保存し、記事一覧の「変更をまとめて公開」でサイトに反映されます。</b>';
@@ -3477,10 +3469,11 @@
   }
 
   /* アイキャッチを用意する。
-     楽天・Yahoo!のAPIは商品画像のURLを返すが、モールの商品画像は
-     出品者・メーカーに権利があり、当サイトに転載してよいものではない。
-     そのため商品写真は使わず、運営者が決めたプロンプトで作った
-     イメージ画像を置き、記事側に「イメージ（AI生成）」と明示する。 */
+     楽天・Yahoo!のAPIは商品画像のURLを返すが、アイキャッチには使えない。
+     当サイトへ保存して配り直すことは規約でできず、一覧のカードやSNSに出る絵は
+     取得元のモールへのリンクを添えられないため条件を満たさない。
+     そのためアイキャッチは、運営者が決めたプロンプトで作った画像を置く。
+     モールの実物写真は、本文中の商品カードだけで使う（shop_images）。 */
   function ensureEyecatch(a) {
     if (a.thumb) return Promise.resolve(null);       /* すでにある */
     var key = '';
@@ -3489,7 +3482,7 @@
     if (!cfg.token) return Promise.reject(new Error('GitHub未接続のため画像を保存できません'));
     var model = imgModel();
     return genImage(a, key, model).then(function (img) {
-      return saveImage(a, img);                       /* thumb と image_ai を立てる */
+      return saveImage(a, img);                       /* thumb を立てる */
     });
   }
 

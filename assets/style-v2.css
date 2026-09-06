@@ -2682,8 +2682,7 @@ p,li,.card-desc{text-wrap:pretty;}
 .article-body > p{margin-bottom:1.9em;}
 .cta-note,
 .shop-cta + .cta-note,
-.prod-note,
-.eyecatch-note{line-height:1.95;
+.prod-note{line-height:1.95;
   letter-spacing:.02em;}
 .cta-note,
 .shop-cta + .cta-note,
@@ -3611,5 +3610,5 @@ h1,h2,h3,h4,
    （自前のアイキャッチは 16/9 に切り取る .prod-thumb img のまま） */
 .prod-thumb.is-shop{background:#fff;}
 .prod-thumb.is-shop img{object-fit:contain;padding:10px;}
-/* 写真の出どころ。断り書き（.pc-ai）と同じ置き方にそろえる */
+/* 写真の出どころ。商品名のすぐ下に、小さく添える */
 .pc-src{display:block;margin:-4px 0 10px;font-size:11px;color:var(--muted-2);}

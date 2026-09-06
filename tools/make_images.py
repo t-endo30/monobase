@@ -13,7 +13,6 @@ APIキー
 
 作られる画像
   assets/img/gen/<slug>.jpg に保存し、articles.json の thumb を差し替える。
-  あわせて image_ai:true を立て、記事側に「イメージ（AI生成）」と表示する。
 
 プロンプトの方針
   ・写真であることを明示し、カメラとレンズを指定する
@@ -230,7 +229,6 @@ def main():
         with open(path, "wb") as f:
             f.write(img)
         a["thumb"] = f"assets/img/gen/{a['slug']}.jpg"
-        a["image_ai"] = True
         a["image_prompt"] = prompt
         made += 1
         print(f" 完了（{len(img) // 1024} KB）")

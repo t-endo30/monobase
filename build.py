@@ -1835,9 +1835,7 @@ def product_card(a, p, eager=False, with_img=True):
                  f'target="_blank" rel="nofollow sponsored noopener">'
                  f'{icon("cart", "btn-icon")}<span>{e(label)}</span></a>\n')
     lazy = "" if eager else 'loading="lazy" '
-    # 断り書きは自前のAI画像のときだけ。モールの実写真には要らない。
-    note = ("" if ext_url else
-            (a.get("image_ai") and '<span class="pc-ai">イメージ（AI生成）</span>' or ""))
+    note = ""
     if ext_url:
         # 出品者が用意した写真は正方形・白背景が多い。切り取らずに収める。
         # 参照元にページのURLを渡さない（referrerpolicy）。
@@ -2186,12 +2184,8 @@ def render_article(a):
     # アイキャッチは実写真があるときだけ置く。
     # 自動生成の模様を記事冒頭に大きく出しても情報がなく、結論ボックスを押し下げるだけなので出さない。
     if a.get("thumb"):
-        # AIで作った画像は、実物の写真ではないことを画像の下に明記する。
-        note = ('\n          <figcaption class="eyecatch-note">'
-                'イメージ（AI生成）。実際の製品とは異なります。</figcaption>'
-                if a.get("image_ai") else "")
         add(f'''        <figure class="eyecatch has-image">
-          <img src="{p}{e(a["thumb"])}" alt="{e(a["title"])}" width="1200" height="600">{note}
+          <img src="{p}{e(a["thumb"])}" alt="{e(a["title"])}" width="1200" height="600">
         </figure>
 ''')
     elif not top_card:
