@@ -244,19 +244,44 @@ def main():
         return 1
 
     os.makedirs(OUT_DIR, exist_ok=True)
-    made = 0
+    made, failed = 0, 0
     for a in targets:
         prompt = build_prompt(a, site)
         path = os.path.join(OUT_DIR, a["slug"] + ".jpg")
         print(f"生成中: {a['slug']} …", end="", flush=True)
-        try:
-            img = generate(prompt, api_key, model)
-        except urllib.error.HTTPError as ex:
-            print(f" 失敗（HTTP {ex.code}）")
-            print("  " + ex.read().decode("utf-8", "replace")[:300])
+        img = None
+        # 429 は2通りある。混み合っているだけなら待てば通るが、
+        # 利用枠を使い切っている場合は何回叩いても通らない。
+        # 後者で32本ぶん叩き続けても意味がないので、そこで止める。
+        for attempt in (1, 2, 3):
+            try:
+                img = generate(prompt, api_key, model)
+                break
+            except urllib.error.HTTPError as ex:
+                body = ex.read().decode("utf-8", "replace")
+                if ex.code == 429 and "exceeded your current quota" in body:
+                    print(f" 失敗（利用枠の超過）\n  {body[:600]}")
+                    print("\n::error::Geminiの利用枠を使い切っています。"
+                          "枠が戻るまで待つか、課金の設定を確認してください。"
+                          "ここで中断します（叩き続けても通らないため）。")
+                    return 1
+                if ex.code in (429, 500, 502, 503) and attempt < 3:
+                    wait = 20 * attempt
+                    print(f" 混み合い（HTTP {ex.code}）。{wait}秒待って再試行 …",
+                          end="", flush=True)
+                    time.sleep(wait)
+                    continue
+                print(f" 失敗（HTTP {ex.code}）\n  {body[:600]}")
+                break
+            except Exception as ex:                  # noqa: BLE001
+                if attempt < 3:
+                    print(f" 失敗（{ex}）。20秒待って再試行 …", end="", flush=True)
+                    time.sleep(20)
+                    continue
+                print(f" 失敗（{ex}）")
+        if img is None:
+            failed += 1
             continue
-        except Exception as ex:                      # noqa: BLE001
-            print(f" 失敗（{ex}）"); continue
         img = compress(img)
         with open(path, "wb") as f:
             f.write(img)
@@ -272,6 +297,14 @@ def main():
         print(f"\n✅ {made} 枚を作成し、articles.json を更新しました")
         print("   画像は必ず目で確認してから公開してください。")
         print("   $ python3 tools/optimize-images.sh などで圧縮も忘れずに")
+    if failed:
+        print(f"\n::warning::{failed} 本は作れませんでした。")
+    # 1枚も作れなかったときは、手順として失敗させる。
+    # 0 を返すと GitHub Actions が緑で終わり、
+    # 32本まるごと失敗していても気づけない（実際にそうなった）。
+    if targets and not made:
+        print("::error::1枚も作れませんでした。")
+        return 1
     return 0
 
 
