@@ -19,7 +19,7 @@
       "レビュー"
     ],
     "icon": "📱",
-    "thumb": "assets/img/anker-prime-power-bank-20100mah-220w-with-anker-pr-mtp5clbq.webp",
+    "thumb": "assets/img/gen/anker-prime-power-bank-20100mah-220w-with-anker-pr.jpg",
     "asin": "B0FV8PKYCZ",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -235,7 +235,8 @@
     "rakuten_url": "https://item.rakuten.co.jp/anker/a1339/",
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/anker/cabinet/tmb/a1/a1339_normal.jpg?_ex=128x128"
-    }
+    },
+    "image_prompt": "A photograph of Anker Prime Power Bank, which is a モバイルバッテリー, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "gunze-agw112",
@@ -473,7 +474,7 @@
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/marumiyacp/cabinet/hk_260812140032/hk_ov_7b851eb95aeb.jpg?_ex=128x128"
     },
-    "image_prompt": "A photograph of グンゼ AGW112, which is a 靴下, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO logos, brand names, trademarks, model numbers, printed or embossed lettering anywhere on the product — leave those surfaces completely blank. Do not invent, distort or approximate any logo or lettering. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, readable text, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
+    "image_prompt": "A photograph of グンゼ AGW112, which is a 靴下, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "schick-3",
@@ -494,7 +495,7 @@
       "カミソリ"
     ],
     "icon": "💄",
-    "thumb": "assets/img/schick-3-mtn56z3n.webp",
+    "thumb": "assets/img/gen/schick-3.jpg",
     "asin": "B0B4J3ZCSS",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -693,7 +694,8 @@
     "kind": "review",
     "health": {
       "checked": "2026-09-04"
-    }
+    },
+    "image_prompt": "A photograph of シック サロンプラス トーンアップ フェイススムーサー 替刃, which is a カミソリ, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "anua-pdrn-100-50ml",
@@ -715,7 +717,7 @@
       "口コミ"
     ],
     "icon": "💄",
-    "thumb": "assets/img/anua-pdrn-100-50ml-mtk6l9gb.webp",
+    "thumb": "assets/img/gen/anua-pdrn-100-50ml.jpg",
     "asin": "B0F1XZLWLN",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -968,7 +970,8 @@
     "health": {
       "checked": "2026-09-04"
     },
-    "unpublished_reason": "アイキャッチの出どころが確認できないため停止（2026-09-06）"
+    "unpublished_reason": "アイキャッチの出どころが確認できないため停止（2026-09-06）",
+    "image_prompt": "A photograph of ANUA PDRNセラム, which is a 美容液, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "chromelite-ultracush-s",
@@ -990,7 +993,7 @@
       "出張"
     ],
     "icon": "🧳",
-    "thumb": "assets/img/chromelite-ultracush-s-mthg111z.webp",
+    "thumb": "assets/img/gen/chromelite-ultracush-s.jpg",
     "asin": "B0F9VFYC1Z",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -1225,7 +1228,8 @@
     "health": {
       "checked": "2026-09-04"
     },
-    "unpublished_reason": "アイキャッチの出どころが確認できないため停止（2026-09-06）"
+    "unpublished_reason": "アイキャッチの出どころが確認できないため停止（2026-09-06）",
+    "image_prompt": "A photograph of ChromeLite×UltraCush, which is a スーツケース, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "vivcon-s-40l-1-3",
@@ -1248,7 +1252,7 @@
       "Vivcon"
     ],
     "icon": "🧳",
-    "thumb": "assets/img/vivcon-s-40l-1-3-mthfoguj.webp",
+    "thumb": "assets/img/gen/vivcon-s-40l-1-3.jpg",
     "asin": "B0H2V341G5",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -1491,7 +1495,8 @@
     "kind": "review",
     "health": {
       "checked": "2026-09-04"
-    }
+    },
+    "image_prompt": "A photograph of Vivcon キャリーケース 40L, which is a キャリーケース, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "camera-20260830",
@@ -1513,7 +1518,7 @@
       "コスメ"
     ],
     "icon": "📷",
-    "thumb": "assets/img/camera-20260830-mthfup6h.webp",
+    "thumb": "assets/img/gen/camera-20260830.jpg",
     "asin": "B0FM76RYRP",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -1779,7 +1784,8 @@
       "メーカーが説明する仕上がり：ダマにならず柔らかい、自まつ毛風のナチュラルロング、長時間カールキープ",
       "主な成分（公式の全成分表示より）：イソドデカン、パルミチン酸デキストリン、ポリメチルシルセスキオキサン ほか",
       "内容量・カラー展開：公式サイトに記載なし"
-    ]
+    ],
+    "image_prompt": "A photograph of クレーリナ マスカラ, which is a マスカラ, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "beauty-20260830",
@@ -1801,7 +1807,7 @@
       "口コミ"
     ],
     "icon": "💄",
-    "thumb": "assets/img/beauty-20260830-mthg4j5x.webp",
+    "thumb": "assets/img/gen/beauty-20260830.jpg",
     "asin": "B0FM3GRGST",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -2060,7 +2066,8 @@
       "使用方法（公式）：キャップを閉めて5回ほど振る → 筆の両面を容器のフチでしごく → 眉の真ん中から眉尻へ描き、眉頭は薄めに仕上げる",
       "主な成分（公式の全成分表示より）：水、トリシロキサン、シクロペンタシロキサン、タルク、ラウロイルリシン、BG ほか",
       "内容量：公式サイトに記載なし"
-    ]
+    ],
+    "image_prompt": "A photograph of クレーリナ アイブロウ, which is a アイブロウ, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "2way-2-5l-2-type-c-1-8m",
@@ -2083,7 +2090,7 @@
       "選び方"
     ],
     "icon": "📷",
-    "thumb": "assets/img/2way-2-5l-2-type-c-1-8m-mthfych1.webp",
+    "thumb": "assets/img/gen/2way-2-5l-2-type-c-1-8m.jpg",
     "asin": "B0FXG7XPH7",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -2271,7 +2278,8 @@
     ],
     "health": {
       "checked": "2026-09-04"
-    }
+    },
+    "image_prompt": "A photograph of ポータブルシャワー, which is a シャワー, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "anker-621-maggo-battery-review",
@@ -2293,7 +2301,7 @@
       "ワイヤレス充電"
     ],
     "icon": "📱",
-    "thumb": "assets/img/anker-621-maggo-battery-review-mt8k9mf8.webp",
+    "thumb": "assets/img/gen/anker-621-maggo-battery-review.jpg",
     "asin": "",
     "amazon_url": "https://www.amazon.co.jp/s?k=Anker%20621%20MagGo&i=aps",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -2625,7 +2633,8 @@
     "official_url": "https://www.ankerjapan.com/products/a1610",
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/anker/cabinet/tmb/a1/a1610_normal.jpg?_ex=128x128"
-    }
+    },
+    "image_prompt": "A photograph of Anker 621 MagGo, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "iris-kpc-ma4-pressure-cooker-review",
@@ -2647,7 +2656,7 @@
       "KPC-MA4"
     ],
     "icon": "🍳",
-    "thumb": "assets/img/iris-kpc-ma4-pressure-cooker-review-mt8kdvzg.webp",
+    "thumb": "assets/img/gen/iris-kpc-ma4-pressure-cooker-review.jpg",
     "asin": "B08DCQ64N7",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -2990,7 +2999,8 @@
     "official_url": "https://www.irisohyama.co.jp/e-pressure-cooker/4l/",
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/irisplaza-r/cabinet/jishahin45/imgrc0090114068.jpg?_ex=128x128"
-    }
+    },
+    "image_prompt": "A photograph of アイリス電気圧力鍋KPC-MA4, which is a 圧力鍋, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "zojirushi-ck-ax08-kettle-review",
@@ -3012,7 +3022,7 @@
       "CK-AX08"
     ],
     "icon": "🍳",
-    "thumb": "assets/img/zojirushi-ck-ax08-kettle-review-mt8kqtk8.webp",
+    "thumb": "assets/img/gen/zojirushi-ck-ax08-kettle-review.jpg",
     "asin": "",
     "amazon_url": "https://www.amazon.co.jp/s?k=4974305217929&i=aps",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -3377,7 +3387,8 @@
     "official_url": "https://www.zojirushi.co.jp/syohin/pot_kettle/kettle/ck-ax/",
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/bearhomes/cabinet/11773802/cd6806e174c22ad.jpg?_ex=128x128"
-    }
+    },
+    "image_prompt": "A photograph of 象印 CK-AX08, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "led-floodlight-ip66-review",
@@ -3400,7 +3411,7 @@
       "選び方"
     ],
     "icon": "💡",
-    "thumb": "assets/img/led-floodlight-ip66-review-mt84udix.webp",
+    "thumb": "assets/img/gen/led-floodlight-ip66-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "verdict_title": "結論：屋外の常設照明としてコンセント式は使える。ただし「防水等級は本体だけの話」と「コンセントまでの経路」を先に決めてから買う",
     "summary": [
@@ -3591,7 +3602,8 @@
         "q": "賃貸でも設置できますか",
         "a": "屋外コンセントがあり、壁に穴を開けない固定方法（既存の金具やポールへの取り付けなど）が取れるなら設置できます。壁面へのアンカー打ち込みが必要な場合は、事前に管理会社へ確認してください。"
       }
-    ]
+    ],
+    "image_prompt": "A photograph of LED投光器コンセント式, which is a 投光器, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "humidifier-buying-guide",
@@ -3612,7 +3624,7 @@
       "比較"
     ],
     "icon": "🏠",
-    "thumb": "assets/img/humidifier-buying-guide-mt84vioo.webp",
+    "thumb": "assets/img/gen/humidifier-buying-guide.jpg",
     "verdict_title": "結論：手入れの手間をどこまで許せるかで方式を決める。加湿量の数字だけで選ぶと外す",
     "summary": [
       {
@@ -3789,7 +3801,8 @@
         "q": "加湿しすぎると問題がありますか？",
         "a": "窓や壁の結露につながることがあります。湿度センサー付きの機種や、湿度計を別に置いて数値を見ながら使う運用にすると、加湿しすぎを避けやすくなります。"
       }
-    ]
+    ],
+    "image_prompt": "A photograph of 加湿器, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "slug": "amazon-sale-calendar",
@@ -3810,7 +3823,7 @@
       "セール攻略"
     ],
     "icon": "📊",
-    "thumb": "assets/img/amazon-sale-calendar-mt850vd9.webp",
+    "thumb": "assets/img/gen/amazon-sale-calendar.jpg",
     "verdict_title": "結論：Amazonの買い時は「セール名」ではなく「そのセールで下がりやすいカテゴリー」で決める",
     "summary": [
       {
@@ -3962,13 +3975,14 @@
         "q": "楽天市場やYahoo!ショッピングと比べるときのコツはありますか？",
         "a": "送料とポイント還元を含めた総額で並べてください。表示価格だけを比べると、送料別の出品が見かけ上いちばん安く見えます。大型商品や重量物では、この差が大きくなります。"
       }
-    ]
+    ],
+    "image_prompt": "A photograph of Amazonセールの買い時カレンダー, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/ergotron-lx-monitor-arm-review-mt7gl3ya.webp",
+    "thumb": "assets/img/gen/ergotron-lx-monitor-arm-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -4249,13 +4263,14 @@
     ],
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/ergotron/cabinet/images_e/e1r00wv.jpg?_ex=128x128"
-    }
+    },
+    "image_prompt": "A photograph of エルゴトロンLX モニターアーム, which is a モニターアーム, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/benq-screenbar-review-mt7ginn5.webp",
+    "thumb": "assets/img/gen/benq-screenbar-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -4609,13 +4624,14 @@
     "rakuten_url": "https://item.rakuten.co.jp/murauchi-dvd/4544438000455/",
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/murauchi-dvd/cabinet/m2/00975/4544438000455.jpg?_ex=128x128"
-    }
+    },
+    "image_prompt": "A photograph of BenQ ScreenBar, which is a モニターライト, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/anker-568-usbc-dock-review-mt7gftih.webp",
+    "thumb": "assets/img/gen/anker-568-usbc-dock-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-09-05",
@@ -4936,13 +4952,14 @@
       "同梱物：本体、180W ACアダプタ、電源ケーブル、USB4ケーブル(1.0m)、取扱説明書",
       "保証：18か月（Ankerで会員登録すると+6か月）",
       "日本での発売：2023年3月8日"
-    ]
+    ],
+    "image_prompt": "A photograph of Anker 568 ドック, which is a ドッキングステーション, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/mx-master-3s-review-mt7g23w5.webp",
+    "thumb": "assets/img/gen/mx-master-3s-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -5304,13 +5321,14 @@
     ],
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-cutestyle/cabinet/img042/p000000794854_1.jpg?_ex=128x128"
-    }
+    },
+    "image_prompt": "A photograph of ロジクール MX Master 3S, which is a マウス, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/kindle-paperwhite-signature-review-mt7fzr21.webp",
+    "thumb": "assets/img/gen/kindle-paperwhite-signature-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -5596,13 +5614,14 @@
         "q": "同梱物には何が入っていますか",
         "a": "世代や販売構成によって変わるため、この記事では断定しません。ケーブルの有無、電源アダプタが別売かどうか、ワイヤレス充電スタンドが付属するかを、販売ページの同梱物欄で確認してください。"
       }
-    ]
+    ],
+    "image_prompt": "A photograph of Kindle Paperwhite, which is a 電子書籍リーダー, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/switchbot-hub-remote-review-mt7fy6xq.webp",
+    "thumb": "assets/img/gen/switchbot-hub-remote-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -5925,13 +5944,14 @@
     ],
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/switchbot/cabinet/11942346/13750933/13794936/imgrc0108029247.jpg?_ex=128x128"
-    }
+    },
+    "image_prompt": "A photograph of SwitchBot ハブ2, which is a スマートリモコン, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/buffalo-wifi6-ax5400-review-mt7fw487.webp",
+    "thumb": "assets/img/gen/buffalo-wifi6-ax5400-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -6199,13 +6219,14 @@
     "rakuten_url": "https://item.rakuten.co.jp/saino/55089gkk3ym/",
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/saino/cabinet/kimigayopic/systempic077/55089gkk3ym1.jpg?_ex=128x128"
-    }
+    },
+    "image_prompt": "A photograph of バッファロー Wi-Fi6ルーター, which is a ルーター, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/iris-panel-light-ceiling-review-mt7fv20v.webp",
+    "thumb": "assets/img/gen/iris-panel-light-ceiling-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -6522,13 +6543,14 @@
       "メーカーの説明：導光パネルにより天井面まで光が届き、薄型デザインで天井をすっきり見せられる",
       "重要：これはシリーズのページで、個別の型番ではない。適用畳数・全光束（lm）・消費電力・調光と調色の段数・本体サイズ・重量は型番ごとに異なり、確認できていない。これらの数値を書かないこと",
       "読者には、購入する型番の適用畳数と全光束を販売ページで確認するよう促すこと"
-    ]
+    ],
+    "image_prompt": "A photograph of アイリスオーヤマ パネルライト, which is a シーリングライト, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/tower-trash-can-slim-review-mt7fu37e.webp",
+    "thumb": "assets/img/gen/tower-trash-can-slim-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -6857,13 +6879,14 @@
     ],
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/bellevie-harima/cabinet/0000/ymj/ys1/4488_s01.jpg?_ex=128x128"
-    }
+    },
+    "image_prompt": "A photograph of tower トラッシュカン角型ロング, which is a ゴミ箱, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/dc-motor-fan-review-mt7ft526.webp",
+    "thumb": "assets/img/gen/dc-motor-fan-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -7048,13 +7071,14 @@
         "q": "今の扇風機はまだ動きますが、何年で買い替えるべきですか？",
         "a": "年数で機械的に決める必要はありません。異音、異臭、発熱、コードの傷み、回転の引っかかりのいずれかがあれば、そこが買い替え時です。逆にこれらがなく、音にも風量にも不満がなければ、使い続けて問題ありません。"
       }
-    ]
+    ],
+    "image_prompt": "A photograph of DCモーター扇風機, which is a 扇風機, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/ultrawide-34-monitor-review-mt7fs9mp.webp",
+    "thumb": "assets/img/gen/ultrawide-34-monitor-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -7255,13 +7279,14 @@
         "q": "モニターアームは使えますか",
         "a": "VESA規格に対応していれば使えますが、34インチクラスは重量が増えるため、アーム側の耐荷重を超えていないかの確認が要ります。製品ページで本体重量とVESAのネジ穴間隔を調べ、アームの仕様と突き合わせてください。"
       }
-    ]
+    ],
+    "image_prompt": "A photograph of 34インチウルトラワイドモニター, which is a モニター, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/dji-mic-mini-review-mt7frdm2.webp",
+    "thumb": "assets/img/gen/dji-mic-mini-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -7561,7 +7586,8 @@
     ],
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/dji-shop/cabinet/thum/6941565991430_thum.jpg?_ex=128x128"
-    }
+    },
+    "image_prompt": "A photograph of DJI Mic Mini, which is a ピンマイク, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
@@ -7881,7 +7907,7 @@
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/redmi-watch-5-review-mt86mkz8.webp",
+    "thumb": "assets/img/gen/redmi-watch-5-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -8171,13 +8197,14 @@
       "スポーツモード：150種類以上、ランニングモード10種類",
       "日本での発売日：2026年1月23日。発売時の税込価格は14,980円",
       "解像度・バッテリー容量・対応OSのバージョン・充電時間・NFC決済の対応可否は、公式発表の範囲では確認できていない"
-    ]
+    ],
+    "image_prompt": "A photograph of REDMI Watch 5, which is a スマートウォッチ, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/solar-security-camera-review-mtmt56sx.webp",
+    "thumb": "assets/img/gen/solar-security-camera-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -8381,13 +8408,14 @@
         "q": "隣の家が映り込んでも問題ありませんか？",
         "a": "防犯目的の設置は一般に行われていますが、他人の住居や敷地を継続的に撮影する向きに固定するのは避けたほうがよい設置です。角度を下げて自分の敷地内に収める、対応製品ならプライバシーマスク機能で該当範囲を隠す、といった対処があります。"
       }
-    ]
+    ],
+    "image_prompt": "A photograph of ソーラー防犯カメラ, which is a 防犯カメラ, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/tilt-footrest-review-mt7fnrpy.webp",
+    "thumb": "assets/img/gen/tilt-footrest-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -8668,13 +8696,14 @@
     "rakuten_url": "https://item.rakuten.co.jp/applied2/4580742233318-ds/",
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/applied2/cabinet/iwmt/4580742233318.jpg?_ex=128x128"
-    }
+    },
+    "image_prompt": "A photograph of 角度調整フットレスト, which is a フットレスト, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": false,
     "featured": false,
     "amazon_url": "",
-    "thumb": "assets/img/desk-side-rack-review-mtmt47rk.webp",
+    "thumb": "assets/img/gen/desk-side-rack-review.jpg",
     "cta_label": "Amazonで価格と詳細を確認する",
     "date": "2026-08-24",
     "updated": "2026-08-31",
@@ -8978,7 +9007,8 @@
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/a-price/cabinet/mailmaga/08814302/4589946138351.jpg?_ex=128x128"
     },
-    "unpublished_reason": "アイキャッチの出どころが確認できないため停止（2026-09-06）"
+    "unpublished_reason": "アイキャッチの出どころが確認できないため停止（2026-09-06）",
+    "image_prompt": "A photograph of デスクサイドラック, which is a ラック, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
   },
   {
     "published": true,
