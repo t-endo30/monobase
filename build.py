@@ -1376,9 +1376,12 @@ def v2_cat_image(c, p):
     src = (c.get("image") or "").strip()
     if src:
         return f'<img src="{p}{e(src)}" alt="" loading="lazy">'
+    # 代用に使うのは、モールの実物写真だけ。AIの絵はここでも使わない
+    # （分野の顔として、実在しない商品の絵が出てしまう）。
     for a in PUBLISHED:
-        if a.get("category") == c["key"] and a.get("thumb"):
-            return f'<img src="{p}{e(a["thumb"])}" alt="" loading="lazy">'
+        if a.get("category") == c["key"] and shop_thumb(a)[0]:
+            return (f'<img src="{e(shop_thumb(a)[0])}" alt="" loading="lazy" '
+                    f'referrerpolicy="no-referrer">')
     # 写真も記事もまだ無いカテゴリー。空のままだと、写真の並びの中で
     # そこだけ穴が開いて見えるので、ドット絵のアイコンを大きく出しておく。
     # 記事が1本できれば、その写真に自動で入れ替わる。
@@ -1902,11 +1905,12 @@ def product_card(a, p, eager=False, with_img=True):
     # 画像が無いという理由だけで購入導線を落とさない。
     ext_url, ext_href, ext_shop = shop_image(a) if with_img else ("", "", "")
     links_by_shop = {shop: href for shop, _label, href in links}
-    img = a.get("thumb") or a.get("eyecatch") or ""
-    if ext_url:
-        src = e(ext_url)
-    else:
-        src = (p + e(img)) if img else visual_path(a, p)[0]
+    # AIで作った絵はここでは使わない。AIはその商品の実物を知らないので、
+    # 品目だけが合った別の物を描く。商品カードは「この商品を買う」ための
+    # 枠なので、別の物の絵を置くと 読む人を誤らせる。
+    # モールの実物写真が無いときは、記事名を入れた自動生成の絵にする。
+    auto = p + f'assets/img/auto/{a["slug"]}.svg'
+    src = e(ext_url) if ext_url else auto
     # 商品名。無ければ記事タイトルの「｜」より前を使う（後半は補足なので落とす）
     name = a.get("product_name") or a.get("title", "").split("｜")[0].strip()
     first = links[0][2]
@@ -1921,7 +1925,7 @@ def product_card(a, p, eager=False, with_img=True):
         # 出品者が用意した写真は正方形・白背景が多い。切り取らずに収める。
         # 参照元にページのURLを渡さない（referrerpolicy）。
         # 差し替え・削除で消えたときは、記事のアイキャッチに戻す。
-        fallback = (p + e(img)) if img else visual_path(a, p)[0]
+        fallback = auto
         t_cls, t_href = "prod-thumb is-shop", ext_href
         t_img = (f'<img src="{src}" alt="{e(name)}" {lazy}decoding="async" '
                  f'referrerpolicy="no-referrer" '
@@ -2627,7 +2631,11 @@ def render_article(a):
       "mainEntityOfPage": {"@type": "WebPage", "@id": public_url(url)},
       "inLanguage": "ja",
     }
-    oi = og_image(a.get("thumb"))
+    # OGPと構造化データにもAIの絵は出さない。SNSや検索結果に出るのは
+    # 「その記事の商品の写真」として受け取られるため。
+    # モールの写真は使えない（写真の隣にそのモールへのリンクを置けない）。
+    # 実物が無いときは、サイト共通の絵（og-default.jpg）に任せる。
+    oi = ""
     if oi:
         ld["image"] = [oi]
     if a.get("tags"):
@@ -2719,7 +2727,10 @@ def render_article(a):
                 body_class=("is-article has-sticky-cta"
                             if (shop_links(a) and FEAT.get("sticky_cta"))
                             else "is-article"), current_sub=a.get("sub", ""),
-                image=a.get("thumb", ""),
+                # OGPにAIの絵は出さない。SNSや検索結果に出る絵は
+                # 「その商品の写真」として受け取られるため。
+                # 空にすると、サイト共通の og-default.jpg が使われる。
+                image="",
                 crumbs=[("ホーム", f"{p}index.html"),
                         (CAT_LABEL.get(cat, ""), f"{p}category-{cat}.html"),
                         (a.get("list_title") or a["title"], None)])
@@ -2992,7 +3003,8 @@ def build_index():
         "k": a.get("category", ""),
         "s": a["slug"],
         "d": a.get("date", ""),
-        "th": visual_path(a, p)[0],
+        # 今日のピックアップも、出すのは実物写真だけ。AIの絵は使わない。
+        "th": shop_thumb(a)[0] or (p + f'assets/img/auto/{a["slug"]}.svg'),
     } for a in PUBLISHED]
     day = int(datetime.date.today().strftime("%Y%m%d"))
     # RANKING と同じ4枚ならべる（1行に4列）
@@ -3062,7 +3074,7 @@ def build_index():
                     for x in site_ld)
     return page(f"{NAME}｜{SUBTITLE}", f"{SUBTITLE}。{SITE['description']}", "home", p, BASE_URL + "/", body,
                 body_class="is-home", hero_slot=v2_hero(p), extra_js=ld_js,
-                image=(PUBLISHED[0].get("thumb") if PUBLISHED else ""))
+                image="")
 
 
 def v2_sub_nav(c, p, current_sub=""):
@@ -3101,7 +3113,7 @@ def build_category(c):
                 f'{BASE_URL}/category-{c["key"]}.html', body,
                 body_class="is-listing",
                 crumbs=[("ホーム", f"{p}index.html"), (c["label"], None)],
-                image=(items[0].get("thumb") if items else ""),
+                image="",
                 extra_js=breadcrumb_ld([
                     ("ホーム", f"{BASE_URL}/"),
                     (c["label"], f'{BASE_URL}/category-{c["key"]}.html')]))
@@ -3128,7 +3140,7 @@ def build_subcategory(c, sc):
                 crumbs=[("ホーム", f"{p}index.html"),
                         (c["label"], f'{p}category-{c["key"]}.html'),
                         (sc["label"], None)],
-                image=(items[0].get("thumb") if items else ""),
+                image="",
                 extra_js=breadcrumb_ld([
                     ("ホーム", f"{BASE_URL}/"),
                     (c["label"], f'{BASE_URL}/category-{c["key"]}.html'),
