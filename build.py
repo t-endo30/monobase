@@ -234,6 +234,35 @@ def visual_path(a, p):
         return p + a["thumb"], False
     return p + f'assets/img/auto/{a["slug"]}.svg', True
 
+
+# 一覧タイルに出す写真の優先順。
+#
+#   Amazon … 一番きれいな公式写真が多いので本来は最優先。ただし
+#            ライセンス契約 13(n) が「画像へのリンクの保存は最長24時間」と
+#            しているため、HTMLに焼き込めない。ページを開いたときに
+#            取りに行って差し替える形でしか出せないので、ここでは扱わない
+#            （差し替えの入口だけ card_visual() が data 属性で用意する）。
+#   楽天・Yahoo! … 保存期間の制限が無いので、URLをHTMLに焼き込んでよい。
+#   自前の画像 … どれも無いときの受け皿。
+SHOP_THUMB_ORDER = ("rakuten", "yahoo")
+
+
+def card_visual(a, p):
+    """一覧タイル・一覧の行に出す写真を決める。
+
+       返り値は (URL, モールの写真か, ショップ名)。
+
+       モールの写真は**切り取らない**。規約が改変を認めていないため、
+       枠に対して余った部分は地の色で埋める（CSS の .is-shop）。
+       枠の大きさは今までと同じなので、並びは崩れない。"""
+    imgs = a.get("shop_images") or {}
+    for shop in SHOP_THUMB_ORDER:
+        url = str(imgs.get(shop) or "").strip()
+        if url.startswith("http"):
+            return shop_image_size(url, shop), True, shop
+    src, _auto = visual_path(a, p)
+    return src, False, ""
+
 def title_lines(t):
     """「主題｜補足」形式のタイトルを2段に分けて表示する。
        1行に詰めると読みにくいうえ、区切り記号が目立ちすぎるため。"""
@@ -1051,7 +1080,7 @@ def footer(p, sticky_url=None):
         Amazonのアソシエイトとして、{e(NAME)}は適格販売により収入を得ています。
         当サイトは、Amazon・楽天市場・Yahoo!ショッピング等のアフィリエイトプログラムに参加しており、記事内の商品リンクを経由した購入により紹介料を得ることがあります。<br>
         Amazon、Amazon.co.jp およびそれらのロゴは Amazon.com, Inc. またはその関連会社の商標です。当サイトはAmazonの公式サイトではなく、Amazon.com, Inc. およびその関連会社が運営・監修するものではありません。<br>
-        商品情報および商品写真の一部は各モールのAPIから取得しています。楽天市場の商品情報は楽天ウェブサービス（Supported by Rakuten Developers）を利用しています。写真の権利は各出品者・メーカーに帰属します。
+        商品情報および商品写真の一部は各モールのAPIから取得しています。楽天市場の商品情報は<a href="https://www.rakuten.co.jp/" target="_blank" rel="nofollow noopener">楽天市場</a>の楽天ウェブサービス（Supported by Rakuten Developers）を利用しています。写真の権利は各出品者・メーカーに帰属します。
       </p>
       <p class="copyright">&copy; {e(SITE["founded"])} {e(NAME)}</p>
     </div>
@@ -1241,7 +1270,11 @@ def v2_card(a, p, no=None, flags=""):
     """一覧の記事タイル。日付とカテゴリーを1行目に並べ、見出し、一言と続く。
        no を渡すと、順位の札を写真の左上に重ねる（ランキング用）。
        flags="new" なら、写真に出す札を New だけに絞る（新着の区画用）。"""
-    src, _ = visual_path(a, p)
+    src, is_shop, shop = card_visual(a, p)
+    # モールの写真は切り取らない（規約が改変を認めていない）。
+    # 枠の大きさはそのままで、余った分は地の色で埋める。
+    tcls = " is-shop" if is_shop else ""
+    tsrc = f' data-shop="{e(shop)}"' if is_shop else ""
     rank = (f'<span class="row-no is-n{no}">{no:02d}</span>' if no else "")
     title = a.get("list_title") or a["title"]
     cat = CAT_LABEL.get(a.get("category", ""), "")
@@ -1249,7 +1282,7 @@ def v2_card(a, p, no=None, flags=""):
     return (f'<a class="card" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
             f'data-date="{e(a.get("date",""))}"{fl}>'
-            f'<span class="card-thumb"><img src="{e(src)}" alt="" loading="lazy">'
+            f'<span class="card-thumb{tcls}"{tsrc}><img src="{e(src)}" alt="" loading="lazy">'
             f'<span class="card-flags" aria-hidden="true"></span>{rank}</span>'
             f'<span class="card-meta">'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
@@ -1264,7 +1297,9 @@ def v2_card(a, p, no=None, flags=""):
 def v2_row(a, p, numbered=None, detail=False, flags=""):
     """横長の記事タイル。日付とカテゴリーを1行目に並べ、見出し、一言と続く。
        detail=True で、分野の名前をサブ区分まで細かく出す。"""
-    src, _ = visual_path(a, p)
+    src, is_shop, shop = card_visual(a, p)
+    tcls = " is-shop" if is_shop else ""
+    tsrc = f' data-shop="{e(shop)}"' if is_shop else ""
     no = (f'<span class="row-no is-n{numbered}">{numbered:02d}</span>'
           if numbered else "")
     cat = v2_cat_text(a, detail)
@@ -1272,7 +1307,7 @@ def v2_row(a, p, numbered=None, detail=False, flags=""):
     return (f'<a class="row-item" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
             f'data-date="{e(a.get("date",""))}"{fl}>'
-            f'<span class="thumb"><img src="{e(src)}" alt="" loading="lazy">'
+            f'<span class="thumb{tcls}"{tsrc}><img src="{e(src)}" alt="" loading="lazy">'
             f'<span class="card-flags" aria-hidden="true"></span>{no}</span>'
             f'<span class="row-body">'
             f'<span class="row-meta">'
@@ -1434,7 +1469,9 @@ def v2_page_head(title, crumbs=None, lead="", count=None, extra="",
 
 # ============================================================ 部品
 def thumb(a, p):
-    src, _ = visual_path(a, p)
+    src, is_shop, shop = card_visual(a, p)
+    tcls = " is-shop" if is_shop else ""
+    tsrc = f' data-shop="{e(shop)}"' if is_shop else ""
     return (f'<img src="{e(src)}" alt="{e(a.get("list_title") or a["title"])}" '
             f'loading="lazy" width="1200" height="430">')
 
@@ -1604,7 +1641,7 @@ def article_row(a, p, no=None, badge_on_thumb=False):
         f'          <li class="arow" data-cat="{a["category"]}" '
         f'data-slug="{e(a["slug"])}" data-date="{e(a.get("date",""))}">\n'
         f'            <a class="arow-link" href="{p}articles/{e(a["slug"])}.html">\n'
-        f'              <span class="arow-thumb">'
+        f'              <span class="arow-thumb{tcls}"{tsrc}>'
         f'<img src="{e(src)}" alt="" loading="lazy" decoding="async" '
         f'width="1200" height="430">'
         f'<span class="card-flags" aria-hidden="true"></span>{rank}{thumb_badge}</span>\n'
