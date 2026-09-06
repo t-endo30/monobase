@@ -19,10 +19,13 @@ build.py が <img src> にそのまま入れる。
 「取得元へのリンクとともに表示すること」なので、写真だけ楽天・リンク先はAmazon
 という組み合わせは作らない。そのショップのURLが記事に無ければ、写真も入れない。
 
-別の商品の写真を出すのが一番まずいので、次の条件を満たしたものだけ採る。
+別の商品の写真を出すのが一番まずいので、探し方ごとに採否の線を変える。
+
   ・記事に rakuten_url / yahoo_url があるモールだけを対象にする
-  ・JANが記事にあるときは、JAN検索の結果だけを使う（型番が一致するため）
-  ・JANが無いときは、記事に入っている商品ページURLと同じ商品だけを採る
+  ・商品が一つに定まる引き方（JAN・楽天の商品コード）で引けたときは、
+    その結果を採る
+  ・商品名などのあいまいな引き方で引いたときは、記事に入っている
+    商品ページURLと同じ商品だけを採る
   ・どちらでも決まらない記事は飛ばす（商品名の一致だけでは採らない）
 """
 
@@ -64,35 +67,55 @@ def item_key(url):
     return "/".join(parts[:2]).lower() if len(parts) >= 2 else ""
 
 
-def pick_image(hits, article, shop):
+def pick_image(hits, article, shop, exact):
     """検索結果から、この記事の商品に当たるものの写真を選ぶ。
-       記事に入っているURLと同じ商品を最優先。無ければ諦める。"""
+
+       記事に入っているURLと同じ商品が最優先。
+       それが無くても、商品が一つに定まる引き方（exact=True）で引いたなら、
+       返ってきたものはその商品なので先頭を採る。
+       あいまいな引き方のときは、URLが一致しない限り採らない。"""
     want = item_key(article.get(dict(SHOPS)[shop]) or "")
-    for it in hits:
-        if not it.get("image"):
-            continue
+    withimg = [it for it in hits if it.get("image")]
+    for it in withimg:
         if want and item_key(it.get("url")) == want:
             return it["image"], "URLが一致"
+    if exact and withimg:
+        return withimg[0]["image"], "商品コードで特定"
     return "", ""
 
 
-def search(shop, article, keys):
-    """JANがあればJANで、無ければ記事のURLの商品コードを手掛かりに探す。"""
+def attempts(shop, article, keys):
+    """引き方を、確かな順に並べて返す。(呼び出す関数, 一つに定まる引き方か)。
+
+       上から順に試し、写真が採れたところで止める。"""
     jan = str(article.get("jan") or "").strip()
-    if shop == "rakuten":
-        if not keys.get("rk_id"):
-            return []
-        # JANが無いときは、商品ページURLをそのまま検索語にすると
-        # 同じ商品が返ってくることが多い（楽天は商品コードで引ける）。
-        kw = None if jan else (article.get("rakuten_url") or "")
-        return rakuten_search(keys["rk_id"], keys.get("rk_key"),
-                              keyword=kw, jan=jan or None, hits=30)
-    if shop == "yahoo":
-        if not keys.get("yh_id"):
-            return []
-        kw = None if jan else (article.get("yahoo_url") or "")
-        return yahoo_search(keys["yh_id"], query=kw, jan=jan or None, hits=30)
-    return []
+    out = []
+    if shop == "rakuten" and keys.get("rk_id"):
+        rk = lambda **kw: rakuten_search(keys["rk_id"], keys.get("rk_key"),
+                                         hits=30, **kw)
+        if jan:
+            out.append((lambda: rk(jan=jan), True))
+        code = item_key(article.get("rakuten_url") or "")
+        if code:
+            # 「店舗コード/商品コード」で直接引く。その商品だけが返る。
+            out.append((lambda: rk(item_code=code), True))
+            # 刷新後のAPIが itemCode を受けない場合の逃げ道。
+            # あいまいなのでURLが一致したものしか採らない。
+            out.append((lambda: rk(keyword=code.split("/")[-1]), False))
+        name = str(article.get("product") or article.get("title") or "").strip()
+        if name:
+            out.append((lambda: rk(keyword=name), False))
+    if shop == "yahoo" and keys.get("yh_id"):
+        yh = lambda **kw: yahoo_search(keys["yh_id"], hits=30, **kw)
+        if jan:
+            out.append((lambda: yh(jan=jan), True))
+        code = item_key(article.get("yahoo_url") or "")
+        if code:
+            out.append((lambda: yh(query=code.split("/")[-1]), False))
+        name = str(article.get("product") or article.get("title") or "").strip()
+        if name:
+            out.append((lambda: yh(query=name), False))
+    return out
 
 
 def main():
@@ -142,15 +165,19 @@ def main():
         slug = a.get("slug", "")
         got = False
         for shop, key in SHOPS:
-            if not a.get(key):
+            if not a.get(key) or got:
                 continue
-            try:
-                hits = search(shop, a, keys)
-            except Exception as err:                      # noqa: BLE001
-                print(f"  ! {slug} / {shop}：{err}")
-                hits = []
-            time.sleep(PAUSE)
-            url, why = pick_image(hits, a, shop)
+            url, why = "", ""
+            for call, exact in attempts(shop, a, keys):
+                try:
+                    hits = call()
+                except Exception as err:                  # noqa: BLE001
+                    print(f"  ! {slug} / {shop}：{err}")
+                    hits = []
+                time.sleep(PAUSE)
+                url, why = pick_image(hits, a, shop, exact)
+                if url:
+                    break
             if not url:
                 continue
             label = "楽天" if shop == "rakuten" else "Yahoo!"

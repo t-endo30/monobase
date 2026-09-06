@@ -107,9 +107,13 @@ def _rakuten_image(it):
 
 
 def rakuten_search(app_id, access_key=None, genre=None, keyword=None, jan=None,
-                   hits=30, sort="-reviewCount"):
+                   hits=30, sort="-reviewCount", item_code=None):
     """楽天商品検索API。JANを渡すときは keyword に入れる（専用の欄がない）。
-       アクセスキーはURLに載せず、accessKey ヘッダで送る。"""
+       アクセスキーはURLに載せず、accessKey ヘッダで送る。
+
+       item_code は「店舗コード/商品コード」。これを渡すと、その商品だけが
+       返る（検索語での取り違えが起きない）。刷新後のAPIが受け付けない
+       場合は結果が空になるので、呼ぶ側で次の手に進むこと。"""
     q = {
         "applicationId": app_id,
         "format": "json",
@@ -121,9 +125,12 @@ def rakuten_search(app_id, access_key=None, genre=None, keyword=None, jan=None,
     }
     if genre:
         q["genreId"] = genre
-    kw = jan or keyword
-    if kw:
-        q["keyword"] = kw
+    if item_code:
+        q["itemCode"] = item_code
+    else:
+        kw = jan or keyword
+        if kw:
+            q["keyword"] = kw
     # 楽天は、アプリ登録時に届け出たURLと同じ Referer を要求する
     # （無いと REQUEST_CONTEXT_BODY_HTTP_REFERRER_MISSING で弾かれる）。
     head = {"Origin": RAKUTEN_ORIGIN, "Referer": RAKUTEN_ORIGIN + "/"}
