@@ -3100,6 +3100,11 @@ def v2_sub_nav(c, p, current_sub=""):
             f'<div class="sub-chips">{"".join(items)}</div></div>')
 
 
+# 一覧の区画の余白。下を80pxも取ると、すぐ下に続くAmazonの案内との間が
+# 開きすぎる（スマホで、最後の広告からボタンまで152pxあった）。
+LIST_PAD = "padding:40px 0 28px"
+
+
 def build_category(c):
     p = "./"
     items = [a for a in PUBLISHED if a["category"] == c["key"]]
@@ -3107,7 +3112,10 @@ def build_category(c):
                         crumbs=[("ホーム", f"{p}index.html"), (c["label"], None)],
                         lead=c["lead"], count=len(items),
                         extra=v2_sub_nav(c, p))
-    body += v2_section(v2_rows(items, p, detail=True), style="padding:40px 0 80px")
+    # 一覧の末尾に広告を置く。新着・ランキングには入れていたが、
+    # カテゴリーは入れ忘れていた（41ページあり、取りこぼしが大きい）。
+    body += v2_section(v2_rows(items, p, detail=True) + promo_row_slot(),
+                       style=LIST_PAD)
     return page(f'{c["label"]}の記事一覧 - {NAME}',
                 c["lead"][:110], c["key"], p,
                 f'{BASE_URL}/category-{c["key"]}.html', body,
@@ -3171,7 +3179,7 @@ def build_new():
     body = v2_page_head("新着記事",
                         lead="公開の新しい順に並べています。", count=len(items))
     body += v2_section(v2_rows(items, p, flags="new") + promo_row_slot(),
-                       style="padding:40px 0 80px")
+                       style=LIST_PAD)
     return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。利用者の声と公式仕様を突き合わせた商品レビュー・選び方ガイドを、公開の新しい順に並べています。", "new", p,
                 f"{BASE_URL}/new.html", body, body_class="is-listing",
                 crumbs=[("ホーム", f"{p}index.html"), ("新着記事", None)],
@@ -3190,7 +3198,7 @@ def build_ranking():
     body += v2_section('      <div class="rank-page">\n'
                        + rank_panel(p, 10, promo_row_slot("is-rank"))
                        + '      </div>\n',
-                       style="padding:40px 0 80px")
+                       style=LIST_PAD)
     return page(f"よく読まれている記事 - {NAME}",
                 f"{NAME}でよく読まれている記事のランキングです。実際に読まれている順に並べているので、いま関心の集まっている商品から探せます。", "ranking", p,
                 f"{BASE_URL}/ranking.html", body, body_class="is-listing",
