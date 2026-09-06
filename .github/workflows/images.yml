@@ -23,6 +23,13 @@ on:
 permissions:
   contents: write
 
+# 同時に走らせない。どの実行も content/articles.json と生成した
+# ページを書き換えるので、並ぶと push のたびに衝突する。
+# 実際に3本同時に流して1本が rebase の衝突で落ちた。
+concurrency:
+  group: generate-images
+  cancel-in-progress: false
+
 jobs:
   images:
     runs-on: ubuntu-latest
