@@ -165,6 +165,25 @@ jobs:
           python3 tools/check_text.py
           python3 tools/check_images.py
 
+      # 公開の push は review_article.py が済ませているが、それは上の
+      # 「レビューして公開する」の時点。そのあとに埋めた楽天・Yahoo!のURLと
+      # 商品写真、そして生成し直したページは、まだ push されていない。
+      # ここで出さないと、新しい記事の販売ボタンと実物写真が
+      # 毎回すべて捨てられる。
+      - name: 埋めたURLと写真を公開する
+        if: steps.gate.outputs.run == 'true' && steps.gate.outputs.auto_publish == 'true'
+        run: |
+          if git diff --quiet; then
+            echo "埋まったものはありません。"
+            exit 0
+          fi
+          git add content/articles.json articles assets/img/auto
+          git add -u
+          git diff --cached --stat
+          git commit -m "新しい記事に、商品URLと写真を足す（自動）"
+          git pull --rebase origin main
+          git push
+
       # 公開まで自動にしていないときだけ、下書きをPRにして人に渡す。
       # 自動公開のときは、通らなかった記事も published:false のまま main に入り、
       # 管理画面の「下書き」に並ぶ。
@@ -188,4 +207,4 @@ jobs:
             - [ ] 楽天・Yahoo!のリンクが商品ページを指している（検索結果ではない）
             - [ ] 文章に不自然なところがない
 
-            アイキャッチ画像は入っていません。管理画面の「画像」タブから作ってください。
+            アイキャッチ画像は、公開時に自動で作られます。
