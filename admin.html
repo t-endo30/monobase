@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap" media="print" onload="this.media='all';this.onload=null">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap"></noscript>
-<link rel="stylesheet" href="./assets/admin.css?v=42399ac8">
+<link rel="stylesheet" href="./assets/admin.css?v=e0b0789f">
 </head>
 <body>
 
@@ -52,7 +52,6 @@
     <button class="tab is-active" data-panel="p-articles">記事</button>
     <button class="tab" data-panel="p-quickpost">URLから記事を作る</button>
     <button class="tab" data-panel="p-preview">プレビュー</button>
-    <button class="tab" data-panel="p-images">画像</button>
     <button class="tab" data-panel="p-find">商品を探す</button>
     <button class="tab" data-panel="p-settings">サイト設定</button>
     <button class="tab" data-panel="p-analytics">解析・SEO</button>
@@ -113,8 +112,8 @@
       <select id="qpCategory"><option value="">自動判定（商品名から推測）</option></select>
       <div class="note">
         Amazonは商品ページのURL（<code>/dp/</code> など）が必要です。短縮リンク（amzn.to）は使えません。<br>
-        本文の生成には「画像」タブで登録した Gemini または Claude のAPIキーが要ります。
-        アイキャッチ画像はここでは作りません。必要であれば公開後に「記事」タブ・「画像」タブから追加してください。<br>
+        本文の生成には「接続」タブで登録した Gemini または Claude のAPIキーが要ります。
+        アイキャッチ画像はここでは作りません。必要であれば公開後に「記事」タブの編集画面から追加してください。<br>
         GitHubとの接続（「接続」タブ）もあらかじめ済ませておいてください。
       </div>
       <div class="btn-bar">
@@ -140,7 +139,7 @@
       <div class="note" id="genNote">
         <b>「プロンプトで本文を作る」</b>は、<code>docs/article-prompt.md</code> をそのまま送って本文一式を作ります。
         リード・良い点・注意点・場面・スペック表・口コミと対策・まとめ・メタ情報・タグ・サブカテゴリーが埋まります。
-        <b>アイキャッチ画像が無い記事は、あわせて画像も作ります</b>（「画像」タブのプロンプトを使用）。<br>
+        <b>アイキャッチ画像が無い記事は、あわせて画像も作ります</b>（カテゴリーごとの英文プロンプトを自動で組み立てます）。<br>
         できあがったら禁止表現・文字数・使えないタグを自動で検査し、引っかかった点を知らせます。
         <b>そのまま公開せず、必ず内容を読んでから保存してください。</b>
       </div>
@@ -499,98 +498,6 @@
     </div>
   </section>
 
-  <!-- ============================ 画像 ============================ -->
-  <section class="panel" id="p-images">
-    <p class="en-label">Images</p>
-    <div class="card">
-      <h2>AIで記事の画像を作る（Gemini）</h2>
-      <p class="hint">記事のカテゴリーに合わせた英文プロンプトを組み立て、Geminiに写真風の画像を作らせます。作った画像はこの画面から圧縮してGitHubへ保存できます。</p>
-
-      <div class="note">
-        <b>APIキーは「接続」タブにまとめてあります。</b>Gemini のキーが未登録だと生成できません。<br>
-        使うモデルは「サイト設定」タブの<b>「画像の生成」</b>で決めます（手元やGitHub Actionsでの生成と同じ値を使います）。
-      </div>
-
-      <div class="row c2">
-        <div>
-          <label for="gmArticle">対象の記事</label>
-          <select id="gmArticle"></select>
-        </div>
-        <div>
-          <label>&nbsp;</label>
-          <button class="btn btn-primary btn-wide" id="btnGenImage">この記事の画像を作る</button>
-        </div>
-      </div>
-
-      <div class="row c2">
-        <div>
-          <label for="gmTextModel">本文を作るモデル<span class="opt">記事エディタの「プロンプトで本文を作る」で使います</span></label>
-          <select id="gmTextModel">
-            <option value="gemini-3.6-flash">gemini-3.6-flash（無料枠あり・既定）</option>
-            <option value="claude-opus-5">claude-opus-5（Anthropic APIキーが必要）</option>
-            <option value="claude-sonnet-5">claude-sonnet-5（Anthropic APIキーが必要）</option>
-          </select>
-        </div>
-        <div class="note is-end">
-          <b>Claude をサブスクの認証で使う場合、この画面からは実行できません。</b>
-          ブラウザから使える認証はAPIキーだけで、サブスクの認証は取り出せないためです。
-          サブスクで書かせるときは、手元で次を実行してください。<br>
-          <code>python3 tools/write_article.py --drafts</code>
-        </div>
-      </div>
-
-      <label for="gmPrompt">送信するプロンプト<span class="opt">編集できます</span></label>
-      <textarea id="gmPrompt" rows="7"></textarea>
-
-      <div id="gmResult" class="note">記事を選ぶとプロンプトが入ります。</div>
-      <div class="btn-bar">
-        <button class="btn" id="btnUseImage" disabled>この画像を記事に使う（GitHubへ保存）</button>
-      </div>
-      <div class="note warn">
-        <b>画像生成モデルには無料枠がありません。</b>Google Cloud 側で課金を有効にしないと生成できません（1枚あたり数円）。<br>
-        生成画像には「イメージ（AI生成）」の断り書きが記事に入ります。実在の製品写真の代わりにはなりません。
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>画像のアップロード（自動圧縮）</h2>
-      <p class="hint">選んだ画像はブラウザ内で自動的にリサイズ・WebP変換されてからアップロードされます。GitHubの容量制限対策のため、常に圧縮されます。</p>
-
-      <div class="row c3">
-        <div>
-          <label for="imgMaxW">最大の横幅<span class="opt">px</span></label>
-          <input type="number" id="imgMaxW" value="1200" min="400" max="2400" step="100">
-        </div>
-        <div>
-          <label for="imgQuality">画質<span class="opt">0.5〜0.95</span></label>
-          <input type="number" id="imgQuality" value="0.82" min="0.5" max="0.95" step="0.01">
-        </div>
-        <div>
-          <label for="imgFormat">形式</label>
-          <select id="imgFormat">
-            <option value="image/webp">WebP（推奨・最も軽い）</option>
-            <option value="image/jpeg">JPEG（互換性重視）</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="imgdrop" id="imgDrop">
-        画像をここにドラッグ＆ドロップ、またはクリックして選択<br>
-        <small>JPEG / PNG / WebP に対応。複数選択できます。</small>
-      </div>
-      <input type="file" id="imgInput" accept="image/*" multiple class="hidden">
-
-      <div class="imgpreview" id="imgPreview"></div>
-
-      <div class="note warn">
-        圧縮結果を確認してから「GitHubにアップロード」を押してください。アップロード後に表示されるパスを、記事の編集画面にある「アイキャッチ画像」欄に貼り付けます。ふだんは編集画面から直接アップロードするほうが簡単です。
-      </div>
-      <div class="btn-bar">
-        <button class="btn btn-primary" id="btnUploadImages" disabled>GitHubにアップロード</button>
-        <button class="btn btn-ghost" id="btnClearImages">クリア</button>
-      </div>
-    </div>
-  </section>
 
   <!-- ============================ サイト設定 ============================ -->
   <!-- ============================ 商品を探す ============================ -->
@@ -661,7 +568,7 @@
       <div class="note">
         <b>モールの商品写真は使いません。</b>楽天・Yahoo!のAPIは商品画像のURLを返しますが、
         それらは出品者やメーカーに権利があり、当サイトへ転載してよいものではありません。
-        そのため「画像」タブのプロンプトで作ったイメージ画像を置き、記事には
+        そのため、カテゴリーに合わせて作ったイメージ画像を置き、記事には
         <b>「イメージ（AI生成）」</b>と明示します。
       </div>
       <div class="btn-bar">
@@ -881,10 +788,10 @@
     </div>
 
     <!-- 画像生成のモデルはここ1か所だけ。
-         「画像」タブのブラウザ生成も、この値を読む。 -->
+         記事の編集画面からの生成も、この値を読む。 -->
     <div class="card">
       <h2>画像の生成</h2>
-      <p class="hint">アイキャッチをAIで作るときのモデルです。<b>「画像」タブのブラウザからの生成も、手元やGitHub Actionsでの生成も、ここの値を使います。</b></p>
+      <p class="hint">アイキャッチをAIで作るときのモデルです。<b>記事の編集画面の「AIで作る」も、手元やGitHub Actionsでの生成も、ここの値を使います。</b></p>
       <label for="s-imgModel">画像生成に使うモデル</label>
       <select id="s-imgModel">
         <option value="gemini-3.1-flash-image">gemini-3.1-flash-image（標準）</option>
@@ -980,7 +887,7 @@
     </div>
 
     <!-- ブラウザに置く鍵はすべてこの1枚に集める。
-         以前は生成AIのキーだけ「画像」タブにあり、
+         以前は生成AIのキーだけ別のタブにあり、
          同じ localStorage の鍵が2つのタブに分かれていた。 -->
     <div class="card">
       <h2>APIキー</h2>
@@ -1026,6 +933,18 @@
           <label for="clKey">Claude（Anthropic）APIキー<span class="opt">claude-… を使う場合のみ<span class="pill" id="cl-state">未登録</span></span></label>
           <input type="password" id="clKey" placeholder="sk-ant-...">
         </div>
+      </div>
+
+      <label for="gmTextModel">本文を作るモデル<span class="opt">記事の編集画面「プロンプトで本文を作る」で使います</span></label>
+      <select id="gmTextModel">
+        <option value="gemini-3.6-flash">gemini-3.6-flash（無料枠あり・既定）</option>
+        <option value="claude-opus-5">claude-opus-5（Anthropic APIキーが必要）</option>
+        <option value="claude-sonnet-5">claude-sonnet-5（Anthropic APIキーが必要）</option>
+      </select>
+      <div class="note">
+        <b>Claude をサブスクの認証で使う場合、この画面からは実行できません。</b>
+        ブラウザから使える認証はAPIキーだけで、サブスクの認証は取り出せないためです。
+        サブスクで書かせるときは、手元で <code>python3 tools/write_article.py --drafts</code> を実行してください。
       </div>
 
       <div class="btn-bar is-foot">
@@ -1141,6 +1060,6 @@
 
 <div class="toast" id="toast"></div>
 <script src="./assets/vendor/qrcode.min.js"></script>
-<script src="./assets/admin.js?v=42399ac8"></script>
+<script src="./assets/admin.js?v=e0b0789f"></script>
 </body>
 </html>

@@ -18,7 +18,6 @@
      これと変わっていれば、人が意図して直した日付とみなす。
      変わっていなければ、本文を直した日＝今日に繰り上げる。 */
   var updatedShown = '';
-  var pendingImages = [];  // 圧縮済みアップロード待ち
 
   /* ---------------------------------------------------- utils */
   var $ = function (id) { return document.getElementById(id); };
@@ -218,7 +217,6 @@
 
   /* ---------------------------------------------------- 記事一覧 */
   function renderList() {
-    if (typeof fillGmArticles === 'function') fillGmArticles();
     var ul = $('articleList');
     ul.innerHTML = '';
     var cats = {};
@@ -1195,7 +1193,7 @@
   /* ---------------------------------------------------- サイト設定 */
   /* 画像生成のモデル。サイト設定の1か所（content/site.json の images.model）を
      正とし、この画面からのブラウザ生成も、手元やGitHub Actionsでの生成も
-     同じ値を使う。以前は「画像」タブにもう1つ選択欄があり、
+     同じ値を使う。以前は画像タブにもう1つ選択欄があり、
      どちらが効くのか分からなかった。 */
   function imgModel() {
     var el = $('s-imgModel');
@@ -1706,74 +1704,6 @@
 
   function kb(n) { return (n / 1024).toFixed(0) + 'KB'; }
 
-  function handleFiles(files) {
-    var maxW = Number($('imgMaxW').value) || 1200;
-    var q = Number($('imgQuality').value) || 0.82;
-    var mime = $('imgFormat').value;
-    var jobs = Array.prototype.map.call(files, function (f) {
-      return compress(f, maxW, q, mime);
-    });
-    Promise.all(jobs).then(function (list) {
-      pendingImages = pendingImages.concat(list);
-      renderPreviews();
-      var saved = list.reduce(function (s, i) { return s + (i.before - i.after); }, 0);
-      toast(list.length + '枚を圧縮しました（合計 ' + kb(saved) + ' 削減）', 'ok');
-    }).catch(function (e) { toast(e.message, 'err'); });
-  }
-
-  function renderPreviews() {
-    var box = $('imgPreview');
-    box.innerHTML = pendingImages.map(function (i) {
-      return '<figure><img src="' + i.preview + '" alt="">' +
-             i.w + '×' + i.h + '<br>' + kb(i.before) + ' → <b>' + kb(i.after) + '</b></figure>';
-    }).join('');
-    $('btnUploadImages').disabled = pendingImages.length === 0;
-  }
-
-  $('imgDrop').addEventListener('click', function () { $('imgInput').click(); });
-  $('imgInput').addEventListener('change', function () { handleFiles(this.files); this.value = ''; });
-  ['dragenter', 'dragover'].forEach(function (ev) {
-    $('imgDrop').addEventListener(ev, function (e) { e.preventDefault(); this.classList.add('over'); });
-  });
-  ['dragleave', 'drop'].forEach(function (ev) {
-    $('imgDrop').addEventListener(ev, function (e) { e.preventDefault(); this.classList.remove('over'); });
-  });
-  $('imgDrop').addEventListener('drop', function (e) {
-    if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
-  });
-  $('btnClearImages').addEventListener('click', function () {
-    pendingImages = []; renderPreviews();
-  });
-
-  $('btnUploadImages').addEventListener('click', function () {
-    if (!cfg.token) { toast('先に接続タブでGitHubを設定してください', 'err'); return; }
-    toast('アップロード中…');
-    var paths = [];
-    var chain = Promise.resolve();
-    pendingImages.forEach(function (img) {
-      chain = chain.then(function () {
-        return new Promise(function (res, rej) {
-          var fr = new FileReader();
-          fr.onload = function () {
-            var b64 = fr.result.split(',')[1];
-            putFile('assets/img/' + img.name, b64, null, '画像を追加：' + img.name + ' [skip ci]')
-              .then(function () { paths.push('assets/img/' + img.name); res(); })
-              .catch(rej);
-          };
-          fr.onerror = rej;
-          fr.readAsDataURL(img.blob);
-        });
-      });
-    });
-    chain.then(function () {
-      pendingImages = []; renderPreviews();
-      $('imgPreview').innerHTML =
-        '<div class="note"><b>アップロード完了。以下のパスをアイキャッチ欄に貼り付けてください：</b><br>' +
-        paths.map(function (p) { return '<code>' + p + '</code>'; }).join('<br>') + '</div>';
-      toast('アップロードしました', 'ok');
-    }).catch(function (e) { toast(e.message, 'err'); });
-  });
-
   /* ---------------------------------------------------- 接続 */
   function loadCfg() {
     try {
@@ -1956,7 +1886,6 @@
      使う場所より前で宣言しておく。 */
   var GM_KEY = 'mb.geminiKey';
   var CL_KEY = 'mb.claudeKey';
-  var gmBlob = null;
   try {
     var savedKey = localStorage.getItem(GM_KEY);
     if (savedKey && $('gmKey')) $('gmKey').value = savedKey;
@@ -2049,20 +1978,6 @@
     ].join('\n');
   }
 
-  function fillGmArticles() {
-    var sel = $('gmArticle');
-    if (!sel) return;
-    sel.innerHTML = articles.map(function (a, i) {
-      return '<option value="' + i + '">' + (a.thumb ? '　' : '★ ') +
-             (a.list_title || a.title || a.slug) + '</option>';
-    }).join('');
-    sel.onchange = function () {
-      var a = articles[Number(sel.value)];
-      if (a) $('gmPrompt').value = gmPromptFor(a);
-    };
-    sel.onchange();
-  }
-
   function b64ToBlob(b64, mime) {
     var bin = atob(b64), len = bin.length, buf = new Uint8Array(len);
     for (var i = 0; i < len; i++) buf[i] = bin.charCodeAt(i);
@@ -2126,48 +2041,12 @@
     });
   }
 
-  $('btnGenImage').addEventListener('click', function () {
-    var key = ($('gmKey').value || '').trim();
-    if (!key) { toast('Gemini APIキーを入力してください', 'err'); return; }
-    try { localStorage.setItem(GM_KEY, key); } catch (e) {}
-    var a = articles[Number($('gmArticle').value)];
-    if (!a) return;
-    var box = $('gmResult');
-    box.textContent = '生成中…（10〜30秒かかります）';
-    $('btnGenImage').disabled = true;
-    $('btnUseImage').disabled = true;
-
-    genImage(a, key, imgModel(), $('gmPrompt').value).then(function (img) {
-      gmBlob = { img: img, article: a };
-      box.innerHTML = '<img src="' + img.preview + '" alt="" style="max-width:100%;border-radius:8px;">' +
-        '<div style="margin-top:6px;">' + img.w + '×' + img.h + '／' + kb(img.after) + '</div>' +
-        '<div>内容を確認して、問題なければ下のボタンで保存してください。</div>';
-      $('btnUseImage').disabled = false;
-    }).catch(function (e) {
-      box.textContent = '失敗しました：' + e.message;
-    }).then(function () { $('btnGenImage').disabled = false; });
-  });
-
-  $('btnUseImage').addEventListener('click', function () {
-    if (!gmBlob) return;
-    var a = gmBlob.article, img = gmBlob.img;
-    $('btnUseImage').disabled = true;
-    saveImage(a, img).then(function (path) {
-      toast('画像を保存しました。記事を保存して公開すると反映されます', 'ok');
-      $('gmResult').textContent = '保存しました：' + path;
-      renderList();
-    }).catch(function (e) {
-      toast(e.message, 'err');
-      $('btnUseImage').disabled = false;
-    });
-  });
-
   /* 記事の保存時に呼ばれる自動生成。失敗しても保存自体は妨げない。 */
   function autoImage(a) {
     var key = '';
     try { key = localStorage.getItem(GM_KEY) || ''; } catch (e) {}
     if (!key) {
-      toast('画像は作りませんでした（「画像」タブでGemini APIキーを設定すると自動で作ります）');
+      toast('画像は作りませんでした（「接続」タブでGemini APIキーを設定すると自動で作ります）');
       return;
     }
     toast('画像を作っています…', 'ok');
@@ -2185,7 +2064,7 @@
 
   /* ---------------------------------------------------- アイキャッチ */
   /* 記事ごとのアイキャッチを、編集画面の一番上で差し替えられるようにする。
-     圧縮とGitHubへの保存は「画像」タブと同じ処理を使う。 */
+     圧縮とGitHubへの保存は compress() / putFile() をそのまま使う。 */
   function ecPreview() {
     var box = $('ecPreview');
     var path = ($('f-thumb').value || '').trim();
@@ -2244,7 +2123,7 @@
     if (!cfg.token) { toast('先に接続タブでGitHubを設定してください', 'err'); return; }
     var key = '';
     try { key = localStorage.getItem(GM_KEY) || ''; } catch (e) {}
-    if (!key) { toast('「画像」タブでGemini APIキーを設定してください', 'err'); return; }
+    if (!key) { toast('「接続」タブでGemini APIキーを設定してください', 'err'); return; }
     var note = $('ecNote');
     note.textContent = '生成中…（10〜30秒かかります）';
     $('btnEcGen').disabled = true;
@@ -2930,7 +2809,7 @@
                        azAccess: aza, azSecret: azs, azTag: azt });
 
         /* 生成AIのキーも同じボタンで保存する。
-           以前は「画像」タブに別のボタンがあり、同じ localStorage の鍵が
+           以前は画像タブに別のボタンがあり、同じ localStorage の鍵が
            2つのタブに分かれていた。 */
         if ($('gmKey')) {
           var gk = $('gmKey').value.replace(/\s/g, '');
@@ -3587,7 +3466,7 @@
     if (!key) {
       return Promise.reject(new Error(useClaude
         ? 'Claudeを使うにはAnthropicのAPIキーが要ります。サブスクで書かせる場合は、手元で python3 tools/write_article.py --drafts を実行してください'
-        : '画像タブでGemini APIキーを登録してください'));
+        : '「接続」タブでGemini APIキーを登録してください'));
     }
     return loadPrompt().then(function (prompt) {
       var req = articleRequest(a, prompt);
