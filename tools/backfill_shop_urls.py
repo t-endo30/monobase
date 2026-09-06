@@ -203,6 +203,23 @@ def clean_url(u):
     return base + ("?" + "&".join(keep) if keep else "")
 
 
+def safe_keyword(q):
+    """楽天の検索語として通る形に直す。
+
+       刷新後のAPIは1文字の語を弾く（「REDMI Watch 5」の 5 で
+       keyword is not valid になる）。1文字の語は直前の語につなげる。
+       つなげる先が無いときは落とす。"""
+    ws = str(q or "").split()
+    out = []
+    for w in ws:
+        if len(w) == 1 and re.match(r"[0-9a-zA-Z]", w):
+            if out:
+                out[-1] += w
+            continue
+        out.append(w)
+    return " ".join(out)
+
+
 def shorten(name):
     """検索で1件も返らないときに試す、短くした言い方。
        楽天の検索は語をすべて含む商品を探すため、語が多いと0件になる。"""
@@ -220,7 +237,8 @@ def search(shop, keys, jan=None, keyword=None, tries=3):
         try:
             if shop == "rakuten":
                 return rakuten_search(keys["rakuten_id"], keys["rakuten_key"],
-                                      jan=jan, keyword=keyword, hits=20)
+                                      jan=jan, keyword=safe_keyword(keyword),
+                                      hits=20)
             return yahoo_search(keys["yahoo_id"], jan=jan, query=keyword,
                                 hits=20)
         except Exception as ex:                       # noqa: BLE001
@@ -230,7 +248,7 @@ def search(shop, keys, jan=None, keyword=None, tries=3):
             raise
 
 
-def lookup(shop, name, jan, keys, min_score, code=""):
+def lookup(shop, name, jan, keys, min_score, code="", debug=False):
     """1商品ぶんの検索。JANがあればJANで、無ければ商品名で引く。
        0件のときは、商品名を短くして引き直す（楽天は語をすべて含む
        商品を探すため、語が多いと0件になりやすい）。"""
@@ -247,6 +265,10 @@ def lookup(shop, name, jan, keys, min_score, code=""):
             time.sleep(PAUSE)
             continue
         time.sleep(PAUSE)
+        if debug:
+            print(f"      〔{how}:{q}〕{len(cands)} 件")
+            for c in cands[:3]:
+                print(f"        - {str(c.get('name'))[:60]}")
         if not cands:
             continue
         # JANは型番そのものなので、名前の一致は緩めてよい
@@ -356,6 +378,8 @@ def main():
                          "読んで検索語にする")
     ap.add_argument("--include-drafts", action="store_true",
                     help="下書き（published:false）も対象にする")
+    ap.add_argument("--debug", action="store_true",
+                    help="検索語ごとの結果件数と、上位の商品名を出す")
     ap.add_argument("--include-no-asin", action="store_true",
                     help="ASINの無い記事も対象にする（既定は飛ばす）")
     args = ap.parse_args()
@@ -426,7 +450,7 @@ def main():
         print(f"   記事の商品：{name}" + (f"（JAN {jan}）" if jan else ""))
         for shop in need:
             hit, s, how = lookup(shop, name, jan, keys, args.min_score,
-                                 codes.get(a.get('slug'), ''))
+                                 codes.get(a.get('slug'), ''), args.debug)
             label = "楽天" if shop == "rakuten" else "Yahoo!"
             if not hit:
                 print(f"   {label}：見つかりません（最も近い含有率 {s:.2f}）")

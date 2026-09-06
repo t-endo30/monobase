@@ -25,6 +25,11 @@ on:
         description: '商品名の一致度の下限（0〜1）'
         required: false
         default: '0.62'
+      debug:
+        description: '検索語ごとの結果件数と、上位の商品名を出す'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write
@@ -53,6 +58,7 @@ jobs:
           python3 tools/backfill_shop_urls.py \
             --shops "${{ inputs.shops }}" \
             --min-score "${{ inputs.min_score }}" \
+            ${{ inputs.debug && '--debug' || '' }} \
             ${{ inputs.apply && '--apply' || '' }}
 
       - name: サイトを生成して検査する
@@ -70,6 +76,8 @@ jobs:
             echo "変わったところはありません。"
             exit 0
           fi
-          git add -A
+          git add content/articles.json articles assets/img/auto
+          git add -u
+          git diff --cached --stat
           git commit -m "楽天・Yahoo!の商品URLを既存記事に補う（自動）"
           git push
