@@ -160,6 +160,46 @@ def coverage(name, cand):
     return hit / len(ts)
 
 
+# 検索語にしても商品を絞れない語。分野やページの性質を表すだけのもの。
+TAG_NOISE = re.compile(
+    r"^(レビュー|口コミ|選び方|比較|まとめ|特集|おすすめ|人気|"
+    r"ファッション|パソコン|家電|キッチン|美容|コスメ|日用品|雑貨|"
+    r"インテリア|家具|ヘルスケア|スマートフォン|カメラ|AV機器|旅行|"
+    r"トラベル|ペット|防犯|屋外照明|節電|時短)$")
+
+
+def tag_queries(a):
+    """記事のタグから検索語を作る。
+
+       題名に型番もブランドも無い記事がある。これまでは飛ばしていたが、
+       タグにはブランド名と品目が入っていることが多い。
+         schick-3 → ['シェービング','フェイスケア','シック','カミソリ']
+
+       題名にも出てくるタグを、ブランド名とみなして先に置く
+       （「シック」は題名にあるが、「カミソリ」は無い）。
+       それに残りのタグを1つずつ足して組にする。
+       採るかどうかは、これまでどおり含有率で判断する
+       （あいまいな引き方なので、緩めない）。"""
+    title = str(a.get("title") or "")
+    tags = [str(t).strip() for t in (a.get("tags") or []) if str(t).strip()]
+    tags = [t for t in tags if not TAG_NOISE.match(t)]
+    head = [t for t in tags if t and t in title]
+    rest = [t for t in tags if t not in head]
+    out = []
+    for h in head[:2]:
+        for r in rest[:3]:
+            out.append(f"{h} {r}")
+        out.append(h)
+    if not head and len(rest) >= 2:
+        out.append(f"{rest[0]} {rest[1]}")
+    out += rest[:1]
+    seen, uniq = set(), []
+    for q in out:
+        if q and q not in seen:
+            seen.add(q); uniq.append(q)
+    return uniq[:4]          # 1件1.5秒かかるので、試す数を絞る
+
+
 def best_match(name, cands, min_score, code=""):
     """検索結果から、記事の商品といちばん近いものを選ぶ。
        含有率がいちばん高いもの。同じなら安い方を採る。
@@ -263,7 +303,8 @@ def search(shop, keys, jan=None, keyword=None, tries=3):
             raise
 
 
-def lookup(shop, name, jan, keys, min_score, code="", debug=False):
+def lookup(shop, name, jan, keys, min_score, code="", debug=False,
+           extra=()):
     """1商品ぶんの検索。JANがあればJANで、無ければ商品名で引く。
        0件のときは、商品名を短くして引き直す（楽天は語をすべて含む
        商品を探すため、語が多いと0件になりやすい）。"""
@@ -274,6 +315,8 @@ def lookup(shop, name, jan, keys, min_score, code="", debug=False):
     # 「靴下 〈3足組〉アセドロン ショート丈 AGW112」で売られている）。
     # 型番そのものが商品側に入っているかは best_match が必ず確かめる。
     plans += [("code", q) for q in code_queries(name)]
+    # タグから作った検索語。あいまいなので、採否は含有率で判断する。
+    plans += [("keyword", q) for q in extra]
     fallback_s = 0.0
     for how, q in plans:
         try:
@@ -432,6 +475,7 @@ def main():
     missed = []
     vague = []
     codes = {}
+    extra_queries = {}
     done = 0
     for a in targets:
         need = [s for s in shops if not (a.get(f"{s}_url") or "").strip()]
@@ -458,10 +502,17 @@ def main():
                 picked, code = search_name(amazon_title(asin))
                 time.sleep(PAUSE)
             if not picked:
-                print(f"\n・{a.get('slug')}：題名に型番・ブランドが無いため"
-                      f"飛ばします（{name}）")
-                vague.append((a.get("slug"), name))
-                continue
+                # 題名だけでは特定できないが、タグにブランドと品目が
+                # 入っていることがある。それも無ければ諦める。
+                tq = tag_queries(a)
+                if not tq:
+                    print(f"\n・{a.get('slug')}：題名にもタグにも手掛かりが"
+                          f"無いため飛ばします（{name}）")
+                    vague.append((a.get("slug"), name))
+                    continue
+                print(f"\n・{a.get('slug')}")
+                print(f"   題名：{name} → タグからも探します（{', '.join(tq)}）")
+                extra_queries[a.get("slug")] = tq
             print(f"\n・{a.get('slug')}")
             print(f"   題名：{name} → Amazonの商品名から"
                   f"「{picked}」で探します（型番 {code}）")
@@ -471,7 +522,8 @@ def main():
         print(f"   記事の商品：{name}" + (f"（JAN {jan}）" if jan else ""))
         for shop in need:
             hit, s, how = lookup(shop, name, jan, keys, args.min_score,
-                                 codes.get(a.get('slug'), ''), args.debug)
+                                 codes.get(a.get('slug'), ''), args.debug,
+                                 extra_queries.get(a.get('slug'), []))
             label = "楽天" if shop == "rakuten" else "Yahoo!"
             if not hit:
                 print(f"   {label}：見つかりません（最も近い含有率 {s:.2f}）")
