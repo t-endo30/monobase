@@ -2973,7 +2973,10 @@
         "a": "本体は幅約32×奥行約33.4×高さ約23.2cmです。調理中は蒸気が出るため上方向と周囲にも余裕が要るので、設置予定の場所を事前に実測しておくことをおすすめします。"
       }
     ],
-    "official_url": "https://www.irisohyama.co.jp/e-pressure-cooker/4l/"
+    "official_url": "https://www.irisohyama.co.jp/e-pressure-cooker/4l/",
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/irisplaza-r/cabinet/jishahin45/imgrc0090114068.jpg?_ex=128x128"
+    }
   },
   {
     "slug": "zojirushi-ck-ax08-kettle-review",
