@@ -44,6 +44,10 @@ PAUSE = 1.5
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 記事が持つショップURLの項目名と、写真を入れる鍵。
+# Amazonは入れない。PA-APIライセンス契約 13(n) が
+#   「画像で構成される商品関連コンテンツを保存またはキャッシュしてはいけません」
+#   「画像で構成される商品関連コンテンツへのリンクについては最長24時間保存することができます」
+# としており、ビルドしたHTMLを何日も配信するこのサイトでは条件を満たせない。
 SHOPS = [("rakuten", "rakuten_url"), ("yahoo", "yahoo_url")]
 
 

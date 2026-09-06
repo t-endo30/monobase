@@ -701,7 +701,10 @@
      （各モールの規約で、取得した画像の再配信はできない）。
      どのモールの写真かが分からないと「取得元へリンクする」が守れないので、
      ショップ名を鍵にして持つ。 */
-  var SHOP_IMG_ORDER = ['rakuten', 'yahoo', 'amazon'];
+  /* Amazonは入れない。PA-APIライセンス契約 13(n) が画像の保存・キャッシュを
+     禁じ、画像へのリンクの保存も最長24時間としているため、ビルドしたHTMLを
+     何日も配信するこのサイトでは条件を満たせない。 */
+  var SHOP_IMG_ORDER = ['rakuten', 'yahoo'];
 
   function shopImageUrl(a) {
     var imgs = (a && a.shop_images) || {};
@@ -718,7 +721,6 @@
     var u = String(url || '');
     if (/rakuten\.co\.jp/i.test(u)) return 'rakuten';
     if (/yimg\.jp|yahoo\.co\.jp/i.test(u)) return 'yahoo';
-    if (/media-amazon\.com|images-amazon\.com|ssl-images-amazon/i.test(u)) return 'amazon';
     return '';
   }
 
@@ -726,7 +728,7 @@
     if (!url) { delete a.shop_images; return; }
     var shop = shopOfImage(url);
     if (!shop) {
-      toast('商品写真は楽天・Yahoo!・AmazonのURLだけ使えます', 'err');
+      toast('商品写真は楽天・Yahoo!のURLだけ使えます（Amazonは規約上使えません）', 'err');
       return;
     }
     a.shop_images = a.shop_images || {};
@@ -2754,8 +2756,8 @@
       /* モールが返した実物の商品写真。アイキャッチとは別で、
          本文の商品カードにホットリンクで出す。 */
       var si = {};
-      Object.keys(c.shop_images || {}).forEach(function (k) {
-        if (c.shop_images[k]) si[k] = c.shop_images[k];
+      SHOP_IMG_ORDER.forEach(function (k) {
+        if ((c.shop_images || {})[k]) si[k] = c.shop_images[k];
       });
       if (Object.keys(si).length) a.shop_images = si;
       a.published = false;

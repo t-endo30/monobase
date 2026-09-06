@@ -1780,10 +1780,12 @@ def shop_image(a):
        返り値は (画像URL, リンク先, ショップ名)。無ければ空。"""
     imgs = a.get("shop_images") or {}
     links = {s: href for s, _label, href in shop_links(a)}
-    # 楽天を先に見る。楽天ウェブサービスは「楽天へのリンクとともに表示する」
-    # という条件がはっきりしていて、写真の差し替えもこちらで追える。
-    # Amazon（PA-API）は条件が厳しく、審査が落ちると画像も止まるので最後。
-    for shop in ("rakuten", "yahoo", "amazon"):
+    # Amazonは使わない。PA-APIライセンス契約 13(n) が
+    #   「画像で構成される商品関連コンテンツを保存またはキャッシュしてはいけません」
+    #   「画像で構成される商品関連コンテンツへのリンクについては最長24時間保存することができます」
+    # としており、ビルドしたHTMLを何日も配信するこのサイトでは条件を満たせない
+    # （URLをファイルに焼き込んだ時点で24時間を超えて保存することになる）。
+    for shop in ("rakuten", "yahoo"):
         url = str(imgs.get(shop) or "").strip()
         if not url.startswith("http") or shop not in links:
             continue
@@ -1804,7 +1806,6 @@ def shop_image_size(url, shop):
 SHOP_IMAGE_CREDIT = {
     "rakuten": "商品写真：楽天市場",
     "yahoo": "商品写真：Yahoo!ショッピング",
-    "amazon": "商品写真：Amazon.co.jp",
 }
 
 
