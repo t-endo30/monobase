@@ -232,7 +232,10 @@
       "headers": [],
       "rows": []
     },
-    "rakuten_url": "https://item.rakuten.co.jp/anker/a1339/"
+    "rakuten_url": "https://item.rakuten.co.jp/anker/a1339/",
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/anker/cabinet/tmb/a1/a1339_normal.jpg?_ex=128x128"
+    }
   },
   {
     "slug": "gunze-agw112",
@@ -466,7 +469,10 @@
       "headers": [],
       "rows": []
     },
-    "rakuten_url": "https://item.rakuten.co.jp/marumiyacp/161ab647babfad6f6656a8d9b7b46f7e/"
+    "rakuten_url": "https://item.rakuten.co.jp/marumiyacp/161ab647babfad6f6656a8d9b7b46f7e/",
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/marumiyacp/cabinet/hk_260812140032/hk_ov_7b851eb95aeb.jpg?_ex=128x128"
+    }
   },
   {
     "slug": "schick-3",
