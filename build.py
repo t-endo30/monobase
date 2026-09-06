@@ -239,11 +239,34 @@ def amazon_link(a):
     return amazon_tagged(url) if url else ""
 
 
+# 自動生成の絵の版番号。中身から作る。
+# ファイル名は slug のままなので、これが無いと絵を作り直しても
+# ブラウザとCDNが古いものを出し続ける（文字を入れたのに、文字の無い
+# 絵が出続けていた）。main() が絵を作り直したあとに埋める。
+AUTO_V = {}
+
+
+def auto_svg(a, p=""):
+    """自動生成の絵のパス。中身が変わったら版番号も変わる。"""
+    slug = a["slug"] if isinstance(a, dict) else str(a)
+    v = AUTO_V.get(slug)
+    return p + f'assets/img/auto/{slug}.svg' + (f"?v={v}" if v else "")
+
+
+def auto_version(slug, path):
+    """絵の中身から版番号を作る（8文字）。"""
+    try:
+        with open(path, "rb") as f:
+            AUTO_V[slug] = hashlib.md5(f.read()).hexdigest()[:8]
+    except OSError:
+        pass
+
+
 def visual_path(a, p):
     """アイキャッチのパスを返す。実写真が最優先、無ければ自動生成SVG。"""
     if a.get("thumb"):
         return p + a["thumb"], False
-    return p + f'assets/img/auto/{a["slug"]}.svg', True
+    return auto_svg(a, p), True
 
 
 # 一覧タイルに出す写真の優先順。
@@ -283,7 +306,7 @@ def card_visual(a, p):
     url, shop = shop_thumb(a)
     if url:
         return url, True, shop
-    return p + f'assets/img/auto/{a["slug"]}.svg', False, ""
+    return auto_svg(a, p), False, ""
 
 
 def thumb_attrs(a, is_shop, shop):
@@ -1921,7 +1944,7 @@ def product_card(a, p, eager=False, with_img=True):
     # 品目だけが合った別の物を描く。商品カードは「この商品を買う」ための
     # 枠なので、別の物の絵を置くと 読む人を誤らせる。
     # モールの実物写真が無いときは、記事名を入れた自動生成の絵にする。
-    auto = p + f'assets/img/auto/{a["slug"]}.svg'
+    auto = auto_svg(a, p)
     src = e(ext_url) if ext_url else auto
     # 商品名。無ければ記事タイトルの「｜」より前を使う（後半は補足なので落とす）
     name = a.get("product_name") or a.get("title", "").split("｜")[0].strip()
@@ -3016,7 +3039,7 @@ def build_index():
         "s": a["slug"],
         "d": a.get("date", ""),
         # 今日のピックアップも、出すのは実物写真だけ。AIの絵は使わない。
-        "th": shop_thumb(a)[0] or (p + f'assets/img/auto/{a["slug"]}.svg'),
+        "th": shop_thumb(a)[0] or auto_svg(a, p),
     } for a in PUBLISHED]
     day = int(datetime.date.today().strftime("%Y%m%d"))
     # RANKING と同じ4枚ならべる（1行に4列）
@@ -3855,8 +3878,10 @@ def main():
     # ここで作る絵が出る。AIのアイキャッチがあっても関係ない。
     for a in PUBLISHED:
         if not shop_thumb(a)[0]:
-            make_visual(a["slug"], a.get("list_title") or a["title"], a["category"],
-                        CAT_LABEL.get(a["category"], ""), NAME, auto_dir)
+            path = make_visual(a["slug"], a.get("list_title") or a["title"],
+                               a["category"], CAT_LABEL.get(a["category"], ""),
+                               NAME, auto_dir)
+            auto_version(a["slug"], path)
             made += 1
     keep_svg = {a["slug"] + ".svg" for a in PUBLISHED if not shop_thumb(a)[0]}
     for f in os.listdir(auto_dir):
@@ -3911,7 +3936,7 @@ def main():
             "excerpt": a.get("excerpt", ""), "desc": a.get("description", ""),
             "cat": a["category"], "catLabel": CAT_LABEL.get(a["category"], ""),
             "icon": a.get("icon", "📦"),
-            "thumb": shop_thumb(a)[0] or f'assets/img/auto/{a["slug"]}.svg',
+            "thumb": shop_thumb(a)[0] or auto_svg(a),
             "tags": a.get("tags", []), "date": a["date"],
             "score": a.get("rating", {}).get("score") or 0,
             "url": f'articles/{a["slug"]}.html'} for a in PUBLISHED]
