@@ -2771,33 +2771,45 @@ p,li,.card-desc{text-wrap:pretty;}
    PR の表示は残す（広告であることは必ず示す：規約）。
    ============================================================ */
 .promo-group.is-rows{margin:12px 0 0;}
-/* バナーは記事の写真と同じ枠に収める。縦横比はまちまちなので、
-   contain で全体を入れる（絵は切らない）。
-   枠の縦横比はここで決めない。記事の写真（.row-item .thumb）が
-   PCで 4:3、スマホで 1:1 に変わるので、それをそのまま受ける
-   （ここで 4:3 を書くとスマホの 1:1 を打ち消して、広告だけ写真が
-   小さくなり、行の高さもそろわなくなる） */
-.promo-row .thumb{
-  background:none;border:0;
-  display:flex;align-items:center;justify-content:center;
-  position:static;overflow:visible;
-}
+/* 写真の枠は、記事の行のものをそのまま使う（大きさ・境界線・地の色）。
+   縦横比もここでは決めない。記事の写真（.row-item .thumb）が
+   PCで 4:3、スマホで 1:1 に変わるので、それをそのまま受ける。
+
+   打ち消すのは2つだけ。どちらも「行全体を押せるようにする指定」を
+   写真の枠で切り落とさないため。
+     position … relative にすると、擬似要素を広げる基準がここになり、
+                 押せる範囲が写真の大きさで止まる
+     overflow … hidden のままだと、その擬似要素が枠で切られる */
+.promo-row .thumb{position:static;overflow:visible;}
 /* 記事の行は「見出し2行＋一言2行＋閲覧数1行」ぶんを使う。
    広告には一言も閲覧数も無いので、同じだけ場所を取って高さをそろえる */
 .promo-row h3{min-height:3.3em;}
 .promo-row p{min-height:3.7em;}
+/* バナーは枠いっぱいに広げる。縦横比はまちまちなので contain で
+   全体を入れる（配られた絵は切らない・伸ばさない）。
+   境界線は枠（.thumb）が持っている。ここで画像に線を引くと、
+   絵の大きさぶんしか囲まれず、記事の写真より小さな枠に見えてしまう */
 .promo-row .thumb img{
   width:100%;height:100%;object-fit:contain;
-  border:1px solid var(--line-2);
   position:relative;z-index:1;
 }
-/* 計測用の1x1画像は、A8が数えるための画像。隠さず、位置も動かさない */
-.promo-row .thumb img[width="1"]{width:1px;height:1px;border:0;}
+/* 計測用の1x1画像は、A8が成果を数えるための画像。隠さず、読み込ませる。
+   ただし枠の中で1行ぶんの高さを取ってしまい、写真の枠が1px高くなって
+   記事の行と高さがずれるので、流れから外して重ねて置く */
+.promo-row .thumb img[width="1"]{
+  width:1px;height:1px;position:absolute;
+}
 .promo-row h3{word-break:break-word;}
 /* 行全体を押せるようにする。広告コードの中の <a> を擬似要素で広げる。
    配られたコードは書き換えない（押されるのはA8のリンクそのもの） */
 .promo-row{position:relative;}
-.promo-row .thumb a{display:block;}
+/* 配られたコードはバナーを <a> で包んでいる。この包みを枠いっぱいに
+   広げないと、中の画像が本来の大きさのまま縮んで置かれ、記事の写真より
+   小さく見えてしまう。
+   幅は width:100% では伸びない（枠が縦横比で高さを決めているぶん、
+   子から見た横幅が定まらないため）。高さは 100% で決まるので、
+   そこへ枠と同じ縦横比を与えて、横幅を導き出す。 */
+.promo-row .thumb a{display:block;height:100%;aspect-ratio:4 / 3;}
 .promo-row .thumb a::after{content:"";position:absolute;inset:0;z-index:2;}
 /* バナーを読めなかった行は assets/main.js が hidden を付けて隠す。
    .row-item{display:grid} が効いているので、明示的に消す */
@@ -2807,6 +2819,8 @@ p,li,.card-desc{text-wrap:pretty;}
    そのぶんの場所を取って高さをそろえる。
    PC幅では写真（4:3）の高さが行の高さを決めるので、ここは要らない */
 @media (max-width:860px){
+  /* スマホの写真は 1:1（.row-item .thumb）。包みもそれにそろえる */
+  .promo-row .thumb a{aspect-ratio:1 / 1;}
   .promo-row .row-body::after{
     content:"";display:block;
     font-size:11px;line-height:1.5;height:1.5em;margin-top:6px;
