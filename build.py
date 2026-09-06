@@ -2311,7 +2311,7 @@ def render_article(a):
 '''
         cta = shop_buttons(a, price_note(a))
         add(f'''        <section class="summary-box">
-          <div class="summary-head">{a.get("verdict_title","結論")}</div>
+          <div class="summary-head">{mark(a.get("verdict_title","結論"))}</div>
 {rating}          <div class="summary-body">
             <div class="summary-3lines">3行でわかる結論</div>
             <ul class="summary-list">
@@ -2383,7 +2383,7 @@ def render_article(a):
           <div class="notfor-box">
             <div class="notfor-head">{icon("warn", "hd-icon")} 先に読んでください</div>
             <div class="notfor-body">
-              <p>{nf.get("intro","")}</p>
+              <p>{mark(nf.get("intro",""))}</p>
               <ul class="notfor-list">
 {items}              </ul>
             </div>
@@ -2464,7 +2464,7 @@ def render_article(a):
                           for i, v in enumerate(r[1:], start=1))
             rows += f'                <tr><th scope="row">{r[0]}</th>{tds}</tr>\n'
         add(f'''          <h2 id="spec">スペック比較表</h2>
-          <p>{sp.get("intro","")}</p>
+          <p>{mark(sp.get("intro",""))}</p>
           <p class="scroll-hint">← 横にスクロールできます →</p>
           <div class="table-scroll" tabindex="0" role="region" aria-label="スペック比較表">
             <table>
@@ -2541,7 +2541,7 @@ def render_article(a):
     if a.get("personal_note"):
         add(f'''          <div class="personal-note">
             <span class="pn-label">レビューから見えたこと</span>
-            <p>{a["personal_note"]}</p>
+            <p>{mark(a["personal_note"])}</p>
           </div>
 ''')
 
