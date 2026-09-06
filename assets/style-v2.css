@@ -3608,8 +3608,14 @@ h1,h2,h3,h4,
 /* 本文の商品カードに、モールのAPIが返した実物の商品写真を出す場合。
    出品者が用意した写真は正方形・白背景が多いので、切り取らずに収める。
    （自前のアイキャッチは 16/9 に切り取る .prod-thumb img のまま） */
-.prod-thumb.is-shop{background:#fff;}
-.prod-thumb.is-shop img{object-fit:contain;padding:10px;}
+.prod-thumb.is-shop{background:#fff;display:flex;align-items:center;justify-content:center;}
+.prod-thumb.is-shop img{
+  width:auto;height:100%;max-width:100%;max-height:100%;aspect-ratio:1/1;
+  flex:0 0 auto;
+  object-fit:contain;
+  border:1px solid var(--line-2);
+  padding:8px;box-sizing:border-box;
+}
 /* 写真の出どころ。商品名のすぐ下に、小さく添える */
 .pc-src{display:block;margin:-4px 0 10px;font-size:11px;color:var(--muted-2);}
 
@@ -3622,13 +3628,32 @@ h1,h2,h3,h4,
    ========================================================================= */
 .card-thumb.is-shop,
 .arow-thumb.is-shop,
-.row-item .thumb.is-shop{background:var(--bg-2);}
+.row-item .thumb.is-shop{
+  background:var(--bg-2);
+  display:flex;align-items:center;justify-content:center;
+}
+/* 写真は、正方形の台紙の上に置く。
+   出品者の写真は、白い余白を広く取ったものと、端まで被写体が写った
+   ものが混ざる。前者は枠に溶けて見え、後者は写真の縁が線になって出る。
+   同じ一覧に並べたときに、この差がそのままバラつきに見えていた。
+
+   台紙の大きさと枠線は写真によらず同じなので、どちらの写真でも
+   「同じ枠の中に置かれている」ように見える。
+   台紙は正方形。モールの写真は15枚中11枚が正方形で、そこに合わせると
+   ほとんどの写真が台紙とぴったり重なる。
+   正方形でない写真は台紙の中で上下（または左右）が余るだけで、
+   切り取りは起きない（規約が改変を認めていないため）。 */
 .card-thumb.is-shop img,
 .arow-thumb.is-shop img,
 .row-item .thumb.is-shop img{
+  /* 台紙は枠の中に必ず収める。はみ出すと overflow:hidden で
+     切り取られてしまい、規約が認めていない改変になる。 */
+  width:auto;height:100%;max-width:100%;max-height:100%;aspect-ratio:1/1;
+  flex:0 0 auto;
   object-fit:contain;
   background:var(--bg-2);
-  padding:6px;
+  border:1px solid var(--line-2);
+  padding:5px;box-sizing:border-box;
 }
 /* 写真ごと持ち上げる演出は、切り取っていない写真だと枠から浮いて見える */
 .card:hover .card-thumb.is-shop img{transform:none;}
