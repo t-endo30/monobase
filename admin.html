@@ -5,13 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>管理画面 - モノベース</title>
-<link rel="stylesheet" href="./assets/admin.css?v=f0e3f908">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap" media="print" onload="this.media='all';this.onload=null">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap"></noscript>
+<link rel="stylesheet" href="./assets/admin.css?v=e1b5fe49">
 </head>
 <body>
 
 <header class="a-header">
   <div class="wrap">
-    <h1>モノベース 管理画面<span class="sub">記事・サイト設定・画像をブラウザから編集</span></h1>
+    <div class="a-brand">
+      <!-- サイト本体と同じブランドマーク（build.py の logo_svg() と同じ図形）。
+           開いた箱に MB。色は CSS 変数で差し替えられる作りのまま置く。 -->
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<g fill="var(--mk-flap,#ffffff)" stroke="var(--mk-line,#111111)" stroke-width="0.9" stroke-linejoin="round"><path d="M9 22 L24 31 L15.6 32.8 L0.6 23.8 Z"/>
+    <path d="M24 31 L39 22 L47.4 23.8 L32.4 32.8 Z"/></g>
+  <path d="M24 13 L39 22 L24 31 L9 22 Z" fill="var(--mk-inner,#ffffff)" stroke="var(--mk-line,#111111)" stroke-width="0.9" stroke-linejoin="round"/>
+  <path d="M24 22.5 L31 26.5 L24 30.5 L17 26.5 Z" fill="var(--mk-inner2,#1b1b1b)"/>
+  <g fill="var(--mk-flap,#ffffff)" stroke="var(--mk-line,#111111)" stroke-width="0.9" stroke-linejoin="round"><path d="M9 22 L24 13 L21.5 2.5 L6.5 10.5 Z"/>
+    <path d="M24 13 L39 22 L41.5 10.5 L26.5 2.5 Z"/></g>
+  <path d="M9 22 L24 31 L24 44.5 L9 35.5 Z" fill="var(--mk-body,#111111)"/>
+  <path d="M24 31 L39 22 L39 35.5 L24 44.5 Z" fill="var(--mk-body,#111111)"/>
+  <g fill="var(--mk-letter,#ffffff)" font-family="Helvetica Neue,Arial,sans-serif"
+     font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">
+    <text x="16.5" y="23.6" transform="matrix(1,0.6,0,1,0,0)">M</text>
+    <text x="31.5" y="52.4" transform="matrix(1,-0.6,0,1,0,0)">B</text>
+  </g>
+</svg></span>
+      <h1>モノベース 管理画面<span class="sub">Monobase Admin</span></h1>
+    </div>
     <div class="hstat">
       <a class="hchip" id="chipMaint" href="#" title="サイト設定で切り替えます">
         <span class="hchip-k">公開状態</span><b id="maintState">—</b>
@@ -41,6 +64,7 @@
 
   <!-- ============================ 記事一覧 ============================ -->
   <section class="panel is-active" id="p-articles">
+    <p class="en-label">Articles</p>
     <div class="card">
       <h2>記事一覧</h2>
       <p class="hint">公開／下書きの切り替え、編集、削除ができます。<b>編集内容はこのボタンを押すまでサイトに出ません。</b>複数の記事をまとめて公開すれば、ビルドは1回で済みます。</p>
@@ -62,6 +86,7 @@
 
   <!-- ============================ URLから記事を作る ============================ -->
   <section class="panel" id="p-quickpost">
+    <p class="en-label">Quick Post</p>
     <div class="card">
       <h2>URLから記事を作る（そのまま公開）</h2>
       <p class="hint">
@@ -102,6 +127,7 @@
 
   <!-- ============================ 記事編集 ============================ -->
   <section class="panel" id="p-edit">
+    <p class="en-label">Editor</p>
     <div class="card">
       <h2 id="editTitle">記事を編集</h2>
       <div class="edit-actions">
@@ -273,7 +299,7 @@
             <option value="none">途中には置かない</option>
           </select>
         </div>
-        <div class="note" style="align-self:end;">
+        <div class="note is-end">
           商品画像つきのリンクカードは、この3か所とは別枠で本文の後半に自動で入ります。アイキャッチ画像を設定している記事にだけ出ます。
         </div>
       </div>
@@ -292,7 +318,7 @@
       <input type="text" id="f-verdict" placeholder="結論：〜なら「買い」">
       <label>要点<span class="opt">3〜4項目が目安</span></label>
       <div id="r-summary"></div>
-      <button class="btn btn-ghost" data-add="summary" style="min-height:38px;font-size:13px;">＋ 項目を追加</button>
+      <button class="btn btn-ghost btn-sm" data-add="summary">＋ 項目を追加</button>
       <div class="row c2">
         <div>
           <label for="f-score">評価スコア<span class="opt">0にすると非表示</span></label>
@@ -320,14 +346,14 @@
       <textarea id="f-notforAfter" rows="3" placeholder="この5項目のうち、実際に事故が多いのは…"></textarea>
       <label>当てはまる人<span class="opt">3〜4項目が目安</span></label>
       <div id="r-notfor"></div>
-      <button class="btn btn-ghost" data-add="notfor" style="min-height:38px;font-size:13px;">＋ 項目を追加</button>
+      <button class="btn btn-ghost btn-sm" data-add="notfor">＋ 項目を追加</button>
     </div>
 
     <div class="card">
       <h2>2. この商品で変わる「実際の生活シーン」</h2>
       <p class="hint">スペックではなく、購入後にストレスが減る具体的な場面を書きます。3つが基本です。</p>
       <div id="r-scenes"></div>
-      <button class="btn btn-ghost" data-add="scenes" style="min-height:38px;font-size:13px;">＋ シーンを追加</button>
+      <button class="btn btn-ghost btn-sm" data-add="scenes">＋ シーンを追加</button>
     </div>
 
     <div class="card">
@@ -335,10 +361,10 @@
       <p class="hint">デメリットを正直に書くほど成約率は上がります。空欄にするとボックス自体が非表示になります。</p>
       <label>👍 メリット</label>
       <div id="r-pros"></div>
-      <button class="btn btn-ghost" data-add="pros" style="min-height:38px;font-size:13px;">＋ 追加</button>
+      <button class="btn btn-ghost btn-sm" data-add="pros">＋ 追加</button>
       <label>👎 デメリット</label>
       <div id="r-cons"></div>
-      <button class="btn btn-ghost" data-add="cons" style="min-height:38px;font-size:13px;">＋ 追加</button>
+      <button class="btn btn-ghost btn-sm" data-add="cons">＋ 追加</button>
     </div>
 
     <div class="card">
@@ -369,7 +395,7 @@
       <label for="f-voicesIntro">セクションの導入文</label>
       <input type="text" id="f-voicesIntro">
       <div id="r-voices"></div>
-      <button class="btn btn-ghost" data-add="voices" style="min-height:38px;font-size:13px;">＋ 口コミ＋対策を追加</button>
+      <button class="btn btn-ghost btn-sm" data-add="voices">＋ 口コミ＋対策を追加</button>
     </div>
 
     <div class="card">
@@ -389,7 +415,7 @@
       <label for="f-nextIntro">導入文</label>
       <textarea id="f-nextIntro" rows="2"></textarea>
       <div id="r-next"></div>
-      <button class="btn btn-ghost" data-add="next" style="min-height:38px;font-size:13px;">＋ 項目を追加</button>
+      <button class="btn btn-ghost btn-sm" data-add="next">＋ 項目を追加</button>
     </div>
 
     <div class="card">
@@ -409,6 +435,7 @@
 
   <!-- ============================ プレビュー ============================ -->
   <section class="panel" id="p-preview">
+    <p class="en-label">Preview</p>
     <div class="card">
       <h2>サイトプレビュー</h2>
       <p class="hint">
@@ -474,46 +501,24 @@
 
   <!-- ============================ 画像 ============================ -->
   <section class="panel" id="p-images">
+    <p class="en-label">Images</p>
     <div class="card">
       <h2>AIで記事の画像を作る（Gemini）</h2>
       <p class="hint">記事のカテゴリーに合わせた英文プロンプトを組み立て、Geminiに写真風の画像を作らせます。作った画像はこの画面から圧縮してGitHubへ保存できます。</p>
 
-      <label for="gmKey">Gemini APIキー<span class="opt">画像生成と、Geminiで本文を作るときに使います</span></label>
-      <input type="password" id="gmKey" placeholder="AIza...">
-
-      <label for="clKey">Claude（Anthropic）APIキー<span class="opt">この画面から claude-… を使う場合のみ。サブスクなら不要</span></label>
-      <input type="password" id="clKey" placeholder="sk-ant-...">
-      <div class="btn-bar">
-        <button class="btn" id="btnSaveClKey">Claudeのキーを保存</button>
-        <span class="pill" id="cl-state">未登録</span>
-      </div>
       <div class="note">
-        <code>console.anthropic.com</code> で発行します（従量課金）。<b>このブラウザ（localStorage）にだけ保存され、リポジトリには入りません。</b><br>
-        <b>Claude Pro / Max のサブスクをお使いなら、このキーは登録不要です。</b>
-        代わりに手元で <code>python3 tools/write_article.py --drafts</code> を実行すると、
-        Claude Code のログインをそのまま使って本文を書けます（追加の課金なし）。<br>
-        画像生成は Gemini のまま（Claude は画像を作れません）なので、画像も作る場合は Gemini のキーが要ります。
-      </div>
-      <div class="note">
-        キーは <b>localStorage（この端末のブラウザ内）にのみ保存</b>され、GitHubへは送信されません。共有パソコンでは使わないでください。<br>
-        取得：<a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio → Get API key</a>
+        <b>APIキーは「接続」タブにまとめてあります。</b>Gemini のキーが未登録だと生成できません。<br>
+        使うモデルは「サイト設定」タブの<b>「画像の生成」</b>で決めます（手元やGitHub Actionsでの生成と同じ値を使います）。
       </div>
 
-      <div class="row c3">
+      <div class="row c2">
         <div>
           <label for="gmArticle">対象の記事</label>
           <select id="gmArticle"></select>
         </div>
         <div>
-          <label for="gmModel">モデル<span class="opt">画像生成モデルに無料枠はありません</span></label>
-          <select id="gmModel">
-            <option value="gemini-3.1-flash-image">gemini-3.1-flash-image</option>
-            <option value="gemini-3.1-flash-lite-image">gemini-3.1-flash-lite-image</option>
-          </select>
-        </div>
-        <div>
           <label>&nbsp;</label>
-          <button class="btn btn-primary" id="btnGenImage" style="width:100%">この記事の画像を作る</button>
+          <button class="btn btn-primary btn-wide" id="btnGenImage">この記事の画像を作る</button>
         </div>
       </div>
 
@@ -526,7 +531,7 @@
             <option value="claude-sonnet-5">claude-sonnet-5（Anthropic APIキーが必要）</option>
           </select>
         </div>
-        <div class="note" style="align-self:end;">
+        <div class="note is-end">
           <b>Claude をサブスクの認証で使う場合、この画面からは実行できません。</b>
           ブラウザから使える認証はAPIキーだけで、サブスクの認証は取り出せないためです。
           サブスクで書かせるときは、手元で次を実行してください。<br>
@@ -590,6 +595,7 @@
   <!-- ============================ サイト設定 ============================ -->
   <!-- ============================ 商品を探す ============================ -->
   <section class="panel" id="p-find">
+    <p class="en-label">Find Products</p>
     <div class="card">
       <h2>記事にする商品を探す</h2>
       <p class="hint">
@@ -671,6 +677,8 @@
   </section>
 
   <section class="panel" id="p-settings">
+    <p class="en-label">Site Settings</p>
+
     <div class="card" id="maintCard">
       <h2>サイトの公開状態</h2>
       <p class="hint">メンテナンス中にすると、<b>全ページが「準備中」画面（503）に切り替わります</b>。管理画面はそのまま使えるので、ここから戻せます。</p>
@@ -681,10 +689,8 @@
         切り替えは <b>GitHubに保存 → 自動ビルド → 反映</b> の順に進むため、実際に切り替わるまで1〜2分かかります。<br>
         検索エンジンには「一時的な停止」として伝わる形（503）なので、この状態でインデックスされることはありません。
       </div>
-      <div class="btn-bar">
-        <button class="btn btn-primary" id="btnSaveMaint">保存して切り替える</button>
-      </div>
     </div>
+
     <div class="card">
       <h2>トップページの並び</h2>
       <p class="hint">つまんで上下に動かすと、トップに出す区画の順番を変えられます。チェックを外すと、その区画は出なくなります。</p>
@@ -693,8 +699,7 @@
         スマホとPCで共通の並びです。「よく読まれている記事」はスマホでのみ表示されます（PCは右サイドに出ているため）。
       </div>
       <div class="btn-bar">
-        <button class="btn btn-primary" id="btnSaveLayout">並びを保存して反映</button>
-        <button class="btn btn-ghost" id="btnResetLayout">既定の並びに戻す</button>
+        <button class="btn btn-ghost btn-sm" id="btnResetLayout">既定の並びに戻す</button>
       </div>
     </div>
 
@@ -726,21 +731,43 @@
       <div id="catImgList" class="cat-img-list"></div>
       <input type="file" id="catImgFile" accept="image/*" hidden>
       <div class="note" id="catImgNote">選んだ画像は1200px・WebPに圧縮してからGitHubへ保存します。
-        写真を選んだあと、このタブの「GitHubに保存して反映」を押すとサイトに出ます（どのカードのボタンでも構いません）。</div>
+        写真を選んだあと、この画面の下にある「GitHubに保存して反映」を押すとサイトに出ます。</div>
     </div>
 
+    <!-- 3モールのアフィリエイトIDを1枚にまとめる。
+         以前は Amazon だけがここにあり、楽天・Yahoo! は
+         content/site.json を直接書き換えるしかなかった。 -->
     <div class="card">
-      <h2>Amazonアソシエイト</h2>
-      <p class="hint">ここに入れたIDが、ASINを設定している全記事のリンクへ自動で付与されます。</p>
-      <label for="s-assoc">アソシエイトID<span class="opt">例: monobase-22</span></label>
+      <h2>アフィリエイトID</h2>
+      <p class="hint">ここに入れたIDが、記事のショップボタンへ自動で付与されます。<b>空欄のショップは、タグ無しの通常リンクになります。</b>記事ごとに貼り直す必要はありません。</p>
+
+      <label for="s-assoc">Amazon アソシエイトID<span class="opt">例: monobase-22</span></label>
       <input type="text" id="s-assoc" placeholder="monobase-22">
-      <div class="note warn">
-        <b>審査前は空欄のままで構いません。</b>空欄のあいだはタグ無しの通常リンクが生成され、
-        IDを入れた時点で全記事のリンクに一括で付与されます。<br>
-        アソシエイト審査には「180日以内に3件の適格販売」が必要です。記事を数本公開してから申請してください。
+      <div class="note">
+        ASINを設定している全記事のリンクが <code>https://www.amazon.co.jp/dp/{ASIN}?tag={ID}</code> の形になります。<br>
+        <b>審査前は空欄のままで構いません。</b>アソシエイト審査には「180日以内に3件の適格販売」が必要です。記事を数本公開してから申請してください。
       </div>
-      <div class="btn-bar">
-        <button class="btn btn-primary" id="btnSaveAmazon">GitHubに保存して反映</button>
+
+      <label for="s-rkAff">楽天アフィリエイトID<span class="opt">ドット区切りの文字列</span></label>
+      <input type="text" id="s-rkAff" placeholder="56d346a9.eb62e37a.56d346aa.44554a44">
+      <div class="note">
+        楽天アフィリエイトは<b>直接参加</b>です。リンクは <code>hb.afl.rakuten.co.jp/hgc/&lt;ID&gt;/</code> の形に組み立てられます。<br>
+        <b>「接続」タブの楽天アプリケーションIDとは別物です。</b>あちらは商品を検索するための鍵で、報酬には関係しません。
+      </div>
+
+      <div class="row c2">
+        <div>
+          <label for="s-vcSid">Yahoo! バリューコマース sid</label>
+          <input type="text" id="s-vcSid" placeholder="3000000">
+        </div>
+        <div>
+          <label for="s-vcPid">Yahoo! バリューコマース pid</label>
+          <input type="text" id="s-vcPid" placeholder="880000000">
+        </div>
+      </div>
+      <div class="note">
+        Yahoo!ショッピングは<b>バリューコマース経由</b>です。管理画面の広告リンクに出る <code>sid</code> と <code>pid</code> を入れると、
+        <code>ck.jp.ap.valuecommerce.com</code> を通したリンクに変換されます。両方そろって初めて働きます。
       </div>
     </div>
 
@@ -751,14 +778,16 @@
       <div id="contactWrap" class="hidden">
         <label for="s-contactEndpoint">フォームの送信先URL</label>
         <input type="url" id="s-contactEndpoint" placeholder="https://formspree.io/f/xxxxxxxx">
-        <div class="note">GitHub Pages はサーバー処理ができないため、外部サービスの受信URLが必要です。<br>
-          無料で使える代表例：<b>Formspree</b>（月50件まで無料）／<b>Googleフォーム</b>（無制限・デザインは埋め込み）／<b>Cloudflare Workers</b>。<br>
+        <div class="note">サイトは静的ファイルとして配信されるため、送信を受け取る先が別に要ります。<br>
+          無料で使える代表例：<b>Formspree</b>（月50件まで無料）／<b>Googleフォーム</b>（無制限・デザインは埋め込み）。<br>
           未設定のあいだは、フッターのメールリンクだけが表示されます。</div>
       </div>
       <div class="check"><input type="checkbox" id="s-sticky"><label for="s-sticky">スマホ下部に追従するアフィリエイトボタンを表示する</label></div>
       <div class="check"><input type="checkbox" id="s-search"><label for="s-search">サイト内検索を有効にする</label></div>
+    </div>
 
-      <h2 style="margin-top:26px;">広告（Google AdSense）</h2>
+    <div class="card">
+      <h2>広告（Google AdSense）</h2>
       <p class="hint">Googleが配るコードは書き換えません。ここで決めるのは<b>出す・出さない</b>と<b>置き場所</b>だけです。</p>
       <div class="check"><input type="checkbox" id="s-adsOn"><label for="s-adsOn">広告を表示する</label></div>
       <label for="s-adsClient">パブリッシャーID</label>
@@ -780,22 +809,24 @@
           <input type="text" id="s-adsEnd" placeholder="1234567890">
         </div>
       </div>
-      <label for="s-adsSide">PCのサイド（ランキングの下）<span class="opt">スロットID</span></label>
-      <input type="text" id="s-adsSide" placeholder="1234567890">
-      <div class="note">置き場所は「メリット・デメリットの直後」「関連記事の下」「PCサイドの最下部」の3か所です。<b>購入ボタンの近くには置きません</b>（どちらを押したのか分からなくなり、規約上もリスクになるため）。<br>
+      <div class="note">置き場所は「メリット・デメリットの直後」と「関連記事の下」の2か所です。<b>購入ボタンの近くには置きません</b>（どちらを押したのか分からなくなり、規約上もリスクになるため）。<br>
         <code>ads.txt</code> と所有確認のメタタグは、パブリッシャーIDを入れておけば自動で出力されます。</div>
+    </div>
 
-      <h2 style="margin-top:26px;">ASPの広告（A8.net・バリューコマースなど）</h2>
+    <div class="card">
+      <h2>ASPの広告（A8.net・バリューコマースなど）</h2>
       <p class="hint">ASPで取得した広告リンクを<b>そのまま貼る</b>枠です。コードは書き換えません（規約）。決めるのは置き場所と、どのカテゴリーの記事に出すかだけです。</p>
       <div id="r-promos"></div>
-      <button class="btn btn-ghost" id="btnAddPromo" style="min-height:38px;font-size:13px;">＋ 広告を追加</button>
+      <button class="btn btn-ghost btn-sm" id="btnAddPromo">＋ 広告を追加</button>
       <div class="note"><b>複数のバナーを入れ替えたいとき</b>は、コードを続けて貼るだけで構いません（<code>---</code> だけの行で区切ってもOK）。ASPのリンクの始まりを見て自動で1件ずつに分け、表示のたびに1つが選ばれます。<br>
         A8の「広告リンク」ページからまとめて取り出す道具を <code>tools/a8-collect.js</code> に用意しています（開発者ツールのコンソールに貼るだけで、そのページの全コードがクリップボードに入ります）。<b>選ばれなかったコードは画像も計測用の画像も読み込まれない</b>ので、表示回数が水増しされません。<br>
         「PR」の表示は自動で付きます（ステマ規制の対応）。<br>
-        <b>記事の下</b>＝関連記事の下に出ます。<b>PCサイド</b>＝ランキングの下に出ます（スマホでは出ません）。<br>
+        <b>記事の下</b>＝関連記事の下に、四角いバナーだけが3枚並びます。<b>一覧の最後</b>＝新着・ランキングの一覧の末尾に、記事の行と同じ形で並びます。<br>
         対象カテゴリーを選ばないと、<b>すべての記事</b>に出ます。記事の内容と関係のない広告は成果が出にくいので、ジャンルを合わせてください。</div>
+    </div>
 
-      <h2 style="margin-top:26px;">記事の自動作成<span class="pill" id="s-autoState">—</span></h2>
+    <div class="card">
+      <h2>記事の自動作成<span class="pill" id="s-autoState">—</span></h2>
       <p class="hint">毎朝5時にGitHub Actionsが動きます。ここで決めた回数の日だけ、候補集め→本文→レビュー→公開まで進みます。<b>オフのあいだは、手動で動かしても記事は作られません。</b></p>
       <div class="check"><input type="checkbox" id="s-autoOn"><label for="s-autoOn"><b>自動作成を有効にする</b></label></div>
       <div class="row c2">
@@ -839,12 +870,21 @@
         <option value="15">15本たまったら</option>
       </select>
       <div class="note">ここで決めた本数に達したサブカテゴリーは、ビルド時に「特集を作る目安に達したジャンル」として通知されます。特集記事はカテゴリー「特集・まとめ」で作成してください。</div>
+    </div>
 
-      <label for="s-sales">セール日程<span class="opt">1行1件：名前 | 開始 | 終了 | URL</span></label>
+    <div class="card">
+      <h2>セール日程</h2>
+      <p class="hint">ここに入れた期間だけ、サイト上部に「現在○○開催中！」の告知が流れます。期間外は何も表示されません。</p>
+      <label for="s-sales">日程<span class="opt">1行1件：名前 | 開始 | 終了 | URL</span></label>
       <textarea id="s-sales" rows="4" placeholder="Amazon プライムデー | 2026-07-14 | 2026-07-17 | https://www.amazon.co.jp/events/primeday"></textarea>
-      <div class="note">ここに入れた期間だけ、サイト上部に「現在○○開催中！」の告知が流れます。期間外は何も表示されません。<br>
-        Amazonはセール日程を機械的に配布していないため、発表されたら手で追加してください。日付の判定は閲覧時のブラウザが行うので、期間に入れば再ビルドなしで表示されます。</div>
+      <div class="note">Amazonはセール日程を機械的に配布していないため、発表されたら手で追加してください。日付の判定は閲覧時のブラウザが行うので、期間に入れば再ビルドなしで表示されます。</div>
+    </div>
 
+    <!-- 画像生成のモデルはここ1か所だけ。
+         「画像」タブのブラウザ生成も、この値を読む。 -->
+    <div class="card">
+      <h2>画像の生成</h2>
+      <p class="hint">アイキャッチをAIで作るときのモデルです。<b>「画像」タブのブラウザからの生成も、手元やGitHub Actionsでの生成も、ここの値を使います。</b></p>
       <label for="s-imgModel">画像生成に使うモデル</label>
       <select id="s-imgModel">
         <option value="gemini-3.1-flash-image">gemini-3.1-flash-image（標準）</option>
@@ -852,15 +892,18 @@
         <option value="gemini-3-pro-image">gemini-3-pro-image（高品質）</option>
       </select>
       <div class="note warn">
-        <b>APIキーはこの画面には入力しないでください。</b>この管理画面はGitHubへコミットする仕組みのため、
-        入力するとキーが公開リポジトリに残ります。<br>
-        キーは GitHub の Settings → Secrets and variables → Actions に
-        <b>GEMINI_API_KEY</b> として登録してください。ローカルで実行する場合は
-        <code>export GEMINI_API_KEY=...</code> を使います。<br>
-        生成は <code>python3 tools/make_images.py --all</code>、または Actions の
-        「Generate article images」から実行します。
+        <b>APIキーはここには入力しません。</b>この画面の設定はGitHubへコミットされるため、書くとキーが公開リポジトリに残ります。
+        ブラウザから使うキーは「接続」タブへ、GitHub Actions で使うキーは GitHub の
+        Settings → Secrets and variables → Actions に <b>GEMINI_API_KEY</b> として登録してください。<br>
+        手元での生成は <code>python3 tools/make_images.py --all</code>、または Actions の「Generate article images」から実行します。
       </div>
+    </div>
 
+    <!-- 保存はこの1か所だけ。カードごとにボタンを置いていたころは、
+         押した場所によって保存される項目が変わり、別のカードでの
+         編集が黙って消えることがあった。 -->
+    <div class="save-bar">
+      <p class="save-note">このタブの変更は、ここを押すまでサイトに出ません。<b>すべてのカードの内容がまとめて保存されます。</b></p>
       <div class="btn-bar">
         <button class="btn btn-primary" id="btnSaveSettings">GitHubに保存して反映</button>
       </div>
@@ -869,26 +912,29 @@
 
   <!-- ============================ 解析・SEO ============================ -->
   <section class="panel" id="p-analytics">
+    <p class="en-label">Analytics &amp; SEO</p>
+
+    <!-- GA と Search Console は保存経路が同じなので1枚にまとめる。
+         別のカードに分けていたころは、GA側に保存ボタンが無く、
+         GSC側のボタンが両方を保存していた。 -->
     <div class="card">
-      <h2>Google Analytics</h2>
-      <p class="hint">測定IDを入力して保存すると、全ページの &lt;head&gt; に GA4 のタグが自動で挿入されます。</p>
-      <label for="s-ga">測定ID<span class="opt">G- から始まる文字列</span></label>
+      <h2>Googleの計測タグ</h2>
+      <p class="hint">保存すると、全ページの &lt;head&gt; に GA4 のタグと所有権確認の meta タグが自動で挿入されます。</p>
+
+      <label for="s-ga">Google Analytics 測定ID<span class="opt">G- から始まる文字列</span></label>
       <input type="text" id="s-ga" placeholder="G-XXXXXXXXXX">
       <div class="note">
         取得手順：<a href="https://analytics.google.com/" target="_blank" rel="noopener">Google Analytics</a> → 管理 → プロパティを作成 → データストリーム → ウェブ → サイトURLを入力 → 表示される「測定ID」をコピー。
       </div>
-    </div>
 
-    <div class="card">
-      <h2>Google Search Console</h2>
-      <p class="hint">HTMLタグでの所有権確認に使うコードです。保存すると全ページに meta タグが挿入されます。</p>
-      <label for="s-gsc">確認コード<span class="opt">content="..." の中身だけ</span></label>
+      <label for="s-gsc">Search Console 確認コード<span class="opt">content="..." の中身だけ</span></label>
       <input type="text" id="s-gsc" placeholder="abcdefg1234567_HIJKLMN...">
       <div class="note">
         取得手順：<a href="https://search.google.com/search-console" target="_blank" rel="noopener">Search Console</a> → プロパティを追加 → 「URLプレフィックス」を選択 → 所有権の確認で「HTMLタグ」を開く → <code>content="…"</code> の中身をコピー。<br>
         保存・デプロイ後に「確認」を押してください。確認後、サイトマップに <code>sitemap.xml</code> を送信します。
       </div>
-      <div class="btn-bar">
+
+      <div class="btn-bar is-foot">
         <button class="btn btn-primary" id="btnSaveAnalytics">GitHubに保存して反映</button>
       </div>
     </div>
@@ -898,25 +944,26 @@
       <p class="hint">GA4から取り込んだ記事別のアクセス数です（<code>content/ranking.json</code>）。毎日5:00に自動更新され、サイトのランキングとHotバッジもこの値で並びます。</p>
       <div class="btn-bar">
         <button class="btn" id="btnLoadRanking">最新を読み込む</button>
-        <a class="btn" id="lnkGa4" href="https://analytics.google.com/" target="_blank" rel="noopener">GA4を開く</a>
+        <a class="btn btn-ghost" id="lnkGa4" href="https://analytics.google.com/" target="_blank" rel="noopener">GA4を開く</a>
       </div>
       <div id="rankingBox" class="note">「最新を読み込む」を押してください。</div>
     </div>
 
     <div class="card">
       <h2>公開後のチェックリスト</h2>
-      <ul style="font-size:13.5px;line-height:2;">
+      <ul class="checklist">
         <li>Search Console でサイトマップ（<code>sitemap.xml</code>）を送信した</li>
         <li>Analytics のリアルタイムで自分のアクセスが計測された</li>
         <li>Amazonアソシエイトに独自ドメインを登録した</li>
         <li>プライバシーポリシーにアクセス解析の記載がある（自動で入っています）</li>
-        <li>スマホの実機で、追従ボタンとカテゴリナビの表示を確認した</li>
+        <li>スマホの実機で、追従ボタンとカテゴリーの並びの表示を確認した</li>
       </ul>
     </div>
   </section>
 
   <!-- ============================ 接続 ============================ -->
   <section class="panel" id="p-connect">
+    <p class="en-label">Connections</p>
     <div class="card">
       <h2>この画面の鍵</h2>
       <p class="hint">管理画面は <b>Cloudflare Access（Zero Trust）</b> が守っています。認証を通っていない人は、URLを直接開いてもこのページに到達できません。</p>
@@ -932,9 +979,18 @@
       </div>
     </div>
 
+    <!-- ブラウザに置く鍵はすべてこの1枚に集める。
+         以前は生成AIのキーだけ「画像」タブにあり、
+         同じ localStorage の鍵が2つのタブに分かれていた。 -->
     <div class="card">
-      <h2>商品検索API</h2>
-      <p class="hint">「商品を探す」で使います。<b>入力内容はこのブラウザ内（localStorage）にのみ保存され、リポジトリには入りません。</b>楽天・Yahoo!は無料で取得できます。登録したモールだけで動くので、一部だけの登録でもかまいません。</p>
+      <h2>APIキー</h2>
+      <p class="hint">
+        <b>入力内容はこのブラウザ内（localStorage）にのみ保存され、リポジトリには入りません。</b>
+        GitHubへも送信しません。<b>共有パソコンでは使わないでください。</b>
+        登録したものだけで動くので、一部だけの登録でもかまいません。
+      </p>
+
+      <label class="group-label">商品検索<span class="opt">「商品を探す」タブで使います</span></label>
       <div class="row c2">
         <div>
           <label for="k-rakuten">楽天 アプリケーションID<span class="opt">applicationId・UUID形式</span></label>
@@ -959,27 +1015,51 @@
       </div>
       <label for="k-azTag">Amazon アソシエイトタグ<span class="opt">PartnerTag・xxxxx-22</span></label>
       <input type="text" id="k-azTag" placeholder="monobase30-22">
-      <div class="btn-bar">
-        <button class="btn btn-primary" id="btnSaveKeys">保存する</button>
+
+      <label class="group-label">生成AI<span class="opt">本文とアイキャッチ画像を作るときに使います</span></label>
+      <div class="row c2">
+        <div>
+          <label for="gmKey">Gemini APIキー<span class="opt">画像生成と、Geminiでの本文生成</span></label>
+          <input type="password" id="gmKey" placeholder="AIza...">
+        </div>
+        <div>
+          <label for="clKey">Claude（Anthropic）APIキー<span class="opt">claude-… を使う場合のみ<span class="pill" id="cl-state">未登録</span></span></label>
+          <input type="password" id="clKey" placeholder="sk-ant-...">
+        </div>
+      </div>
+
+      <div class="btn-bar is-foot">
+        <button class="btn btn-primary" id="btnSaveKeys">このブラウザに保存する</button>
         <button class="btn" id="btnTestKeys">つながるか試す</button>
         <span class="pill" id="k-state">未登録</span>
       </div>
+
       <div class="note">
-        取得先：<br>
+        <b>取得先</b><br>
         楽天 → <b>楽天ウェブサービス</b> <code>webservice.rakuten.co.jp</code> でアプリを登録すると、
         <b>アプリケーションID</b>（ハイフン区切りのUUID）と<b>アクセスキー</b>（<code>pk_</code> で始まる）が出ます。
         <b>2026年2月のAPI刷新で、この2つが揃わないと認証を通りません。</b>
         <b>ここのIDは商品を検索するためのもので、報酬のリンクに入るアフィリエイトIDとは別物です。</b>
-        アフィリエイトIDは <code>content/site.json</code> の <code>affiliate</code> で管理しています。<br>
-        <b>ここに入れた鍵は、このブラウザの中だけに残ります。</b>記事を自動で作る仕組み（GitHub Actions）は
-        別に <code>RAKUTEN_APP_ID</code> / <code>RAKUTEN_ACCESS_KEY</code> / <code>YAHOO_CLIENT_ID</code> を
-        GitHub の Settings → Secrets and variables → Actions で必要とします。両方に入れてください。<br>
+        アフィリエイトIDは「サイト設定」タブの<b>アフィリエイトID</b>で管理します。<br>
         Yahoo! → <b>Yahoo!デベロッパーネットワーク</b> <code>e.developer.yahoo.co.jp/register</code> でアプリケーションIDを発行します。<br>
         Amazon → <b>Amazonアソシエイト</b> の管理画面 → <b>ツール → Product Advertising API</b> から
         認証キー（アクセスキーとシークレットキー）を発行します。シークレットキーは発行時にしか表示されません。
         アソシエイトタグは <code>-22</code> で終わるトラッキングIDです。
         <b>PA-APIは、直近180日に3件以上の売上がないと使えなくなります。</b>
-        止まっているあいだは楽天・Yahoo!だけで探せます。<br><br>
+        止まっているあいだは楽天・Yahoo!だけで探せます。<br>
+        Gemini → <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio → Get API key</a>。
+        <b>画像生成モデルには無料枠がありません</b>（Google Cloud 側で課金を有効にする必要があります）。<br>
+        Claude → <code>console.anthropic.com</code> で発行します（従量課金）。
+        <b>Claude Pro / Max のサブスクをお使いなら、このキーは登録不要です。</b>
+        代わりに手元で <code>python3 tools/write_article.py --drafts</code> を実行すると、
+        Claude Code のログインをそのまま使って本文を書けます（追加の課金なし）。
+        画像生成は Gemini のまま（Claude は画像を作れません）です。
+      </div>
+      <div class="note">
+        記事を自動で作る仕組み（GitHub Actions）は、このブラウザの鍵とは別に
+        <code>RAKUTEN_APP_ID</code> / <code>RAKUTEN_ACCESS_KEY</code> / <code>YAHOO_CLIENT_ID</code> /
+        <code>GEMINI_API_KEY</code> を GitHub の Settings → Secrets and variables → Actions で必要とします。
+        両方に入れてください。<br><br>
         <b>Yahoo!のAPIはブラウザから直接呼べない</b>ため、このサイトの <code>/api/yahoo</code> を経由します。
         「URLから記事を作る」タブが商品ページを取得する <code>/api/fetch-product</code> も同じ仕組みです。
         どちらの入口も Cloudflare Access を通ったリクエストしか受け付けません。
@@ -1020,7 +1100,7 @@
       <label>診断ログ<span class="opt">通信の結果がここに出ます</span></label>
       <pre id="logBox" class="logbox">まだ通信していません。</pre>
       <div class="btn-bar">
-        <button class="btn btn-ghost" id="btnClearLog" style="min-height:36px;font-size:12.5px;">ログを消す</button>
+        <button class="btn btn-ghost btn-sm" id="btnClearLog">ログを消す</button>
       </div>
     </div>
 
@@ -1061,6 +1141,6 @@
 
 <div class="toast" id="toast"></div>
 <script src="./assets/vendor/qrcode.min.js"></script>
-<script src="./assets/admin.js?v=f0e3f908"></script>
+<script src="./assets/admin.js?v=e1b5fe49"></script>
 </body>
 </html>

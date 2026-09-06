@@ -374,7 +374,6 @@
   function addScene(v) {
     var d = document.createElement('div');
     d.className = 'card';
-    d.style.background = '#FBFCFE';
     d.innerHTML =
       '<label>シーンの見出し</label>' +
       '<input type="text" data-s="title" placeholder="満員電車で、音量を上げずに音楽が聴けるようになる">' +
@@ -402,7 +401,6 @@
   function addNext(v) {
     var d = document.createElement('div');
     d.className = 'card';
-    d.style.background = '#FBFCFE';
     d.innerHTML =
       '<label>次に起きる問題</label>' +
       '<input type="text" data-n="title" placeholder="付属イヤーピースが耳に合わない">' +
@@ -435,7 +433,6 @@
     var box = $('r-voices');
     var d = document.createElement('div');
     d.className = 'card';
-    d.style.background = '#FBFCFE';
     d.innerHTML =
       '<div class="row c2">' +
         '<div><label>見出し</label><input type="text" data-v="heading" placeholder="不満①「〜」"></div>' +
@@ -1125,17 +1122,6 @@
     });
   })();
 
-  if ($('btnSaveLayout')) {
-    $('btnSaveLayout').addEventListener('click', function () {
-      if (!layout.filter(function (x) { return x.on; }).length) {
-        toast('すべて非表示にはできません。1つ以上は出してください', 'err');
-        return;
-      }
-      site.layout = site.layout || {};
-      site.layout.top = layout.map(function (x) { return { key: x.key, on: x.on }; });
-      saveSite('トップページの並びを変更（管理画面より）');
-    });
-  }
   if ($('btnResetLayout')) {
     $('btnResetLayout').addEventListener('click', function () {
       if (!confirm('既定の並びに戻します。よろしいですか？')) return;
@@ -1160,16 +1146,6 @@
     $('maintCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  $('btnSaveMaint').addEventListener('click', function () {
-    var on = $('s-maintenance').checked;
-    if (on && !confirm('サイト全体を「準備中」画面に切り替えます。よろしいですか？')) return;
-    site.features = site.features || {};
-    site.features.maintenance = on;
-    site.maintenance_message = $('s-maintMsg').value.trim();
-    renderMaint();
-    saveSite(on ? 'メンテナンス表示に切り替え（管理画面より）'
-                : 'メンテナンス表示を解除（管理画面より）');
-  });
 
   /* ---------------------------------------------------- ビルド回数 */
   /* 今月ビルドが走った回数の目安。GitHub のコミット数から数える。
@@ -1217,6 +1193,16 @@
   });
 
   /* ---------------------------------------------------- サイト設定 */
+  /* 画像生成のモデル。サイト設定の1か所（content/site.json の images.model）を
+     正とし、この画面からのブラウザ生成も、手元やGitHub Actionsでの生成も
+     同じ値を使う。以前は「画像」タブにもう1つ選択欄があり、
+     どちらが効くのか分からなかった。 */
+  function imgModel() {
+    var el = $('s-imgModel');
+    var v = (el && el.value) || (site.images || {}).model || '';
+    return v || 'gemini-3.1-flash-image';
+  }
+
   function renderSettings() {
     renderMaint();
     loadLayout();
@@ -1244,7 +1230,6 @@
     var sl = ad.slots || {};
     $('s-adsMid').value = sl.article_mid || '';
     $('s-adsEnd').value = sl.article_end || '';
-    $('s-adsSide').value = sl.side || '';
     var au = site.automation || {};
     $('s-autoOn').checked = au.enabled !== false;
     syncAutoState();
@@ -1257,6 +1242,12 @@
     }).join('\n');
     $('contactWrap').classList.toggle('hidden', !f.contact_form);
     $('s-assoc').value = (site.amazon || {}).associate_tag || '';
+    /* 楽天・Yahoo!のアフィリエイトID。以前は content/site.json を
+       直接書き換えるしかなかった。 */
+    var af = site.affiliate || {};
+    $('s-rkAff').value = (af.rakuten || {}).affiliate_id || '';
+    $('s-vcSid').value = (af.yahoo || {}).vc_sid || '';
+    $('s-vcPid').value = (af.yahoo || {}).vc_pid || '';
     var an = site.analytics || {};
     $('s-ga').value = an.ga_measurement_id || '';
     $('s-gsc').value = an.gsc_verification || '';
@@ -1418,43 +1409,101 @@
     if (!el) return;
     var on = $('s-autoOn').checked;
     el.textContent = on ? '有効' : '停止中';
-    el.style.background = on ? 'var(--a-ok)' : 'var(--a-bad)';
-    el.style.color = '#fff';
+    el.style.borderColor = on ? 'var(--ok)' : 'var(--bad)';
+    el.style.color = on ? 'var(--ok)' : 'var(--bad)';
   }
   if ($('s-autoOn')) $('s-autoOn').addEventListener('change', syncAutoState);
 
   /* ---- ASPの広告（A8.netなど） ----
      配られたコードはそのまま持つ。置き場所と対象カテゴリーだけを添える。 */
+  /* 1枠ぶんの編集欄。
+     site.json の1件は {name, kind, where, cats, ads:[{html,title,date,size}]} の形で、
+     ads には広告主名・掲載開始日・バナーの寸法が入っている。
+     ここで扱うのは name / kind / where / cats / コードの5つだけなので、
+     元の1件を _src に持たせたまま編集し、保存時に触っていない項目を
+     そのまま書き戻す（title・date・size を落とさないため）。 */
+  var PM_SEP = '\n---\n';
+
+  function promoCodes(v) {
+    var ads = (v && v.ads) || null;
+    if (ads && ads.length) {
+      return ads.map(function (a) { return String(a.html || '').trim(); })
+        .filter(Boolean).join(PM_SEP);
+    }
+    /* 古い形（html にコードを --- でつないだもの）もそのまま読む */
+    return String((v && v.html) || '').trim();
+  }
+
   function promoRow(v) {
     v = v || {};
     var box = $('r-promos');
     var d = document.createElement('div');
     d.className = 'card';
-    d.style.background = '#FBFCFE';
+    d._src = v;                        /* 触らない項目の持ち主 */
     var cats = (site.categories || []).map(function (c) {
       var on = (v.cats || []).indexOf(c.key) !== -1 ? ' selected' : '';
-      return '<option value="' + c.key + '"' + on + '>' + c.label + '</option>';
+      return '<option value="' + c.key + '"' + on + '>' + esc(c.label) + '</option>';
     }).join('');
+    var n = ((v.ads || []).length) || 0;
     d.innerHTML =
-      '<div class="row c2">' +
+      '<div class="row c3">' +
       '  <div><label>案件の名前<span class="opt">自分用のメモ</span></label>' +
       '    <input type="text" class="pm-name" placeholder="家電レンタル○○"></div>' +
+      '  <div><label>バナーの形</label><select class="pm-kind">' +
+      '    <option value="tile">四角いバナー（300x250など）</option>' +
+      '    <option value="wide">横長バナー（728x90など）</option>' +
+      '    <option value="text">テキストリンク</option>' +
+      '  </select></div>' +
       '  <div><label>出す場所</label><select class="pm-where">' +
-      '    <option value="article_end">記事の下</option>' +
-      '    <option value="side">PCサイド</option>' +
-      '    <option value="none">出さない（下書き）</option>' +
+      '    <option value="article_end">記事の下（関連記事の下）</option>' +
+      '    <option value="list_end">一覧の最後（新着・ランキング）</option>' +
+      '    <option value="none">出さない（しまっておく）</option>' +
       '  </select></div>' +
       '</div>' +
       '<label>対象カテゴリー<span class="opt">選ばなければ全記事に出る／Ctrlキーで複数選択</span></label>' +
       '<select class="pm-cats" multiple size="4">' + cats + '</select>' +
-      '<label>広告リンクのコード<span class="opt">ASPからコピーしたまま貼る／複数入れるときは --- の行で区切る</span></label>' +
+      '<label>広告リンクのコード' +
+      '<span class="opt">ASPからコピーしたまま貼る／複数入れるときは --- だけの行で区切る' +
+      (n ? '<span class="pill">' + n + '件</span>' : '') + '</span></label>' +
       '<textarea class="pm-html" rows="4" placeholder="&lt;a href=&quot;https://px.a8.net/svt/ejp?a8mat=…&quot;&gt;…&lt;/a&gt;"></textarea>' +
-      '<div class="btn-bar"><button type="button" class="btn btn-danger pm-rm" style="min-height:34px;font-size:12px;">この広告を削除</button></div>';
+      '<div class="note pm-note"></div>' +
+      '<div class="btn-bar"><button type="button" class="btn btn-danger btn-sm pm-rm">この枠を削除</button></div>';
     d.querySelector('.pm-name').value = v.name || '';
+    d.querySelector('.pm-kind').value = v.kind || 'tile';
     d.querySelector('.pm-where').value = v.where || 'article_end';
-    d.querySelector('.pm-html').value = v.html || '';
-    d.querySelector('.pm-rm').addEventListener('click', function () { d.remove(); });
+    d.querySelector('.pm-html').value = promoCodes(v);
+    promoNote(d);
+    d.querySelector('.pm-kind').addEventListener('change', function () { promoNote(d); });
+    d.querySelector('.pm-where').addEventListener('change', function () { promoNote(d); });
+    d.querySelector('.pm-rm').addEventListener('click', function () {
+      if (!confirm('この枠の広告コードをすべて消します。よろしいですか？')) return;
+      d.remove();
+    });
     box.appendChild(d);
+  }
+
+  /* 「記事の下」は関連記事と同じ四角いタイルの並びなので、
+     四角いバナー以外を入れても出ない。そのことを枠ごとに知らせる。 */
+  function promoNote(d) {
+    var kind = d.querySelector('.pm-kind').value;
+    var where = d.querySelector('.pm-where').value;
+    var el = d.querySelector('.pm-note');
+    el.className = 'note pm-note';
+    if (where === 'none') {
+      el.textContent = 'この枠は出しません。コードは消さずに残ります。';
+    } else if (where === 'article_end' && kind !== 'tile') {
+      el.className = 'note warn pm-note';
+      el.textContent = '「記事の下」は四角いバナーだけを並べる枠です。'
+        + 'このままではサイトに出ません（コードは残ります）。';
+    } else if (where === 'list_end' && kind !== 'tile') {
+      el.className = 'note warn pm-note';
+      el.textContent = '「一覧の最後」は記事の行と同じ形で並べる枠です。'
+        + '四角いバナー以外はうまく収まりません。';
+    } else {
+      el.textContent = where === 'article_end'
+        ? '関連記事の下に3枚並びます。表示のたびに選び直されます。'
+        : '新着・ランキングの一覧の末尾に、記事の行と同じ形で並びます。';
+    }
   }
 
   function renderPromos() {
@@ -1468,15 +1517,42 @@
     var box = $('r-promos');
     if (!box) return [];
     return Array.prototype.map.call(box.querySelectorAll('.card'), function (d) {
-      var html = d.querySelector('.pm-html').value.trim();
-      if (!html) return null;
-      return {
-        name: d.querySelector('.pm-name').value.trim(),
-        where: d.querySelector('.pm-where').value,
-        cats: Array.prototype.filter.call(d.querySelectorAll('.pm-cats option'),
-          function (o) { return o.selected; }).map(function (o) { return o.value; }),
-        html: html
-      };
+      var src = d._src || {};
+      var text = d.querySelector('.pm-html').value.trim();
+      if (!text) return null;
+
+      /* 元の ads から、コードごとの広告主名・開始日・寸法を引ける表を作る。
+         コードを書き換えていない広告は、この情報がそのまま残る。 */
+      var meta = {};
+      (src.ads || []).forEach(function (a) {
+        meta[String(a.html || '').trim()] = a;
+      });
+
+      var ads = text.split(/\n\s*-{3,}\s*\n/).map(function (code) {
+        code = code.trim();
+        if (!code) return null;
+        var old = meta[code];
+        return {
+          html: code,
+          title: (old && old.title) || '',
+          date: (old && old.date) || '',
+          size: (old && old.size) || ''
+        };
+      }).filter(Boolean);
+      if (!ads.length) return null;
+
+      /* 元の1件を土台にして、この画面で扱う項目だけを上書きする。
+         将来 site.json に項目が増えても、ここで落ちない。 */
+      var out = {};
+      Object.keys(src).forEach(function (k) { out[k] = src[k]; });
+      delete out.html;                 /* 新しい形は ads に一本化する */
+      out.name = d.querySelector('.pm-name').value.trim();
+      out.kind = d.querySelector('.pm-kind').value;
+      out.where = d.querySelector('.pm-where').value;
+      out.cats = Array.prototype.filter.call(d.querySelectorAll('.pm-cats option'),
+        function (o) { return o.selected; }).map(function (o) { return o.value; });
+      out.ads = ads;
+      return out;
     }).filter(Boolean);
   }
 
@@ -1509,11 +1585,11 @@
     site.ads.enabled = $('s-adsOn').checked;
     site.ads.client = $('s-adsClient').value.trim();
     site.ads.mode = $('s-adsMode').value;
-    site.ads.slots = {
-      article_mid: $('s-adsMid').value.trim(),
-      article_end: $('s-adsEnd').value.trim(),
-      side: $('s-adsSide').value.trim()
-    };
+    /* build.py が置くのは記事の中ほどと末尾の2か所。
+       ここに無い枠（過去に使っていた side など）は、値を消さずに残す。 */
+    site.ads.slots = site.ads.slots || {};
+    site.ads.slots.article_mid = $('s-adsMid').value.trim();
+    site.ads.slots.article_end = $('s-adsEnd').value.trim();
 
     /* 自動作成の設定。ワークフローは毎日まわり、tools/schedule_gate.py が
        この値を読んで実行日と本数を決める。 */
@@ -1530,23 +1606,60 @@
       if (!c[0] || !c[1] || !c[2]) return null;
       return { name: c[0], start: c[1], end: c[2], url: c[3] || '', note: '' };
     }).filter(Boolean);
+
+    /* 公開状態。カードごとに保存ボタンを置いていたころは、
+       別のカードのボタンを押すと、こちらの編集が黙って消えていた。 */
+    site.features.maintenance = $('s-maintenance').checked;
+    site.maintenance_message = $('s-maintMsg').value.trim();
+
+    /* トップページの並び */
+    site.layout = site.layout || {};
+    site.layout.top = layout.map(function (x) { return { key: x.key, on: x.on }; });
+
+    /* アフィリエイトID。空欄はそのショップのリンクをタグ無しにする指示なので、
+       キーごと消さずに空文字で持つ（build.py が空を見て通常リンクにする）。 */
+    site.amazon = site.amazon || {};
+    site.amazon.associate_tag = $('s-assoc').value.trim();
+    site.affiliate = site.affiliate || {};
+    site.affiliate.rakuten = site.affiliate.rakuten || {};
+    site.affiliate.rakuten.affiliate_id = $('s-rkAff').value.trim();
+    site.affiliate.yahoo = site.affiliate.yahoo || {};
+    site.affiliate.yahoo.vc_sid = $('s-vcSid').value.trim();
+    site.affiliate.yahoo.vc_pid = $('s-vcPid').value.trim();
+  }
+
+  /* 保存の前に、形が違えば止める。
+     ここを通らなかった値は content/site.json に入らない。 */
+  function checkSettings() {
+    if ($('s-contact').checked && !$('s-contactEndpoint').value.trim()) {
+      return 'フォームを有効にするには送信先URLが必要です';
+    }
+    var tag = $('s-assoc').value.trim();
+    if (tag && !/^[A-Za-z0-9_-]{3,30}$/.test(tag)) {
+      return 'AmazonアソシエイトIDの形式が正しくありません';
+    }
+    var vs = $('s-vcSid').value.trim(), vp = $('s-vcPid').value.trim();
+    if ((vs || vp) && !(vs && vp)) {
+      return 'Yahoo!は sid と pid の両方が必要です';
+    }
+    if (!layout.filter(function (x) { return x.on; }).length) {
+      return 'トップページの区画をすべて非表示にはできません。1つ以上は出してください';
+    }
+    return '';
   }
 
   $('btnSaveSettings').addEventListener('click', function () {
+    var ng = checkSettings();
+    if (ng) { toast(ng, 'err'); return; }
+    /* 公開状態を落とすときだけは、押し間違いを止める */
+    var toMaint = $('s-maintenance').checked && !(site.features || {}).maintenance;
+    if (toMaint && !confirm('サイト全体を「準備中」画面に切り替えます。よろしいですか？')) return;
     collectSettings();
-    if (site.features.contact_form && !site.features.contact_form_endpoint) {
-      toast('フォームを有効にするには送信先URLが必要です', 'err'); return;
-    }
-    saveSite('サイト設定を更新（管理画面より）');
+    renderMaint();
+    saveSite(toMaint ? 'メンテナンス表示に切り替え（管理画面より）'
+                     : 'サイト設定を更新（管理画面より）');
   });
 
-  $('btnSaveAmazon').addEventListener('click', function () {
-    var tag = $('s-assoc').value.trim();
-    if (tag && !/^[A-Za-z0-9_-]{3,30}$/.test(tag)) { toast('アソシエイトIDの形式が正しくありません', 'err'); return; }
-    site.amazon = site.amazon || {};
-    site.amazon.associate_tag = tag;
-    saveSite('アソシエイトIDを更新（管理画面より）');
-  });
 
   $('btnSaveAnalytics').addEventListener('click', function () {
     var ga = $('s-ga').value.trim();
@@ -1838,7 +1951,11 @@
   $('btnLoadRanking').addEventListener('click', loadRanking);
 
   /* ==================================================== 画像の自動生成 */
+  /* ブラウザに置く生成AIの鍵。どちらも localStorage のキー名。
+     この2つは「接続」タブの保存ボタンと、下の読み込みの両方から使うので、
+     使う場所より前で宣言しておく。 */
   var GM_KEY = 'mb.geminiKey';
+  var CL_KEY = 'mb.claudeKey';
   var gmBlob = null;
   try {
     var savedKey = localStorage.getItem(GM_KEY);
@@ -2020,7 +2137,7 @@
     $('btnGenImage').disabled = true;
     $('btnUseImage').disabled = true;
 
-    genImage(a, key, $('gmModel').value, $('gmPrompt').value).then(function (img) {
+    genImage(a, key, imgModel(), $('gmPrompt').value).then(function (img) {
       gmBlob = { img: img, article: a };
       box.innerHTML = '<img src="' + img.preview + '" alt="" style="max-width:100%;border-radius:8px;">' +
         '<div style="margin-top:6px;">' + img.w + '×' + img.h + '／' + kb(img.after) + '</div>' +
@@ -2054,7 +2171,7 @@
       return;
     }
     toast('画像を作っています…', 'ok');
-    genImage(a, key, ($('gmModel') && $('gmModel').value) || 'gemini-3.1-flash-image')
+    genImage(a, key, imgModel())
       .then(function (img) {
         return saveImage(a, img).then(function (path) {
           toast('画像を作って記事に設定しました：' + path, 'ok');
@@ -2131,7 +2248,7 @@
     var note = $('ecNote');
     note.textContent = '生成中…（10〜30秒かかります）';
     $('btnEcGen').disabled = true;
-    genImage(editing, key, ($('gmModel') && $('gmModel').value) || 'gemini-3.1-flash-image')
+    genImage(editing, key, imgModel())
       .then(function (img) { return saveImage(editing, img); })
       .then(function (path) {
         $('f-thumb').value = path;
@@ -2811,8 +2928,24 @@
         if ($('k-azTag')) $('k-azTag').value = azt;
         saveShopKeys({ rakuten: rk, rakutenKey: rkey, yahoo: yh,
                        azAccess: aza, azSecret: azs, azTag: azt });
+
+        /* 生成AIのキーも同じボタンで保存する。
+           以前は「画像」タブに別のボタンがあり、同じ localStorage の鍵が
+           2つのタブに分かれていた。 */
+        if ($('gmKey')) {
+          var gk = $('gmKey').value.replace(/\s/g, '');
+          $('gmKey').value = gk;
+          try { localStorage.setItem(GM_KEY, gk); } catch (e) { /* noop */ }
+        }
+        if ($('clKey')) {
+          var ck = $('clKey').value.replace(/\s/g, '');
+          $('clKey').value = ck;
+          try { localStorage.setItem(CL_KEY, ck); } catch (e) { /* noop */ }
+          if ($('cl-state')) $('cl-state').textContent = ck ? '登録済み' : '未登録';
+        }
+
         wireKeyState();
-        toast('APIのIDを保存しました');
+        toast('このブラウザに保存しました');
       });
     }
     if ($('btnTestKeys')) {
@@ -2820,18 +2953,13 @@
     }
   }
 
-  /* Claudeのキーを保存する。Geminiのキーと同じ扱い（このブラウザだけ）。 */
-  if ($('btnSaveClKey')) {
-    $('btnSaveClKey').addEventListener('click', function () {
-      var k = $('clKey').value.replace(/\s/g, '');
-      try { localStorage.setItem(CL_KEY, k); } catch (e) {}
-      $('cl-state').textContent = k ? '登録済み' : '未登録';
-      toast(k ? 'ClaudeのAPIキーを保存しました' : 'ClaudeのAPIキーを消しました');
-    });
+  /* Claudeのキー。保存は「接続」タブの1つのボタンにまとめたので、
+     ここでは読み込みと状態表示だけを行う。 */
+  if ($('clKey')) {
     try {
       var saved = localStorage.getItem(CL_KEY) || '';
       $('clKey').value = saved;
-      $('cl-state').textContent = saved ? '登録済み' : '未登録';
+      if ($('cl-state')) $('cl-state').textContent = saved ? '登録済み' : '未登録';
     } catch (e) { /* noop */ }
   }
 
@@ -2898,7 +3026,6 @@
      ============================================================ */
   var GM_TEXT_API = 'https://generativelanguage.googleapis.com/v1beta/models/';
   var CL_API = 'https://api.anthropic.com/v1/messages';
-  var CL_KEY = 'mb.claudeKey';
   var promptCache = null;
 
   /* 景品表示法・薬機法・アソシエイト規約のリスクになる断定表現。
@@ -3427,7 +3554,7 @@
     try { key = localStorage.getItem(GM_KEY) || ''; } catch (e) {}
     if (!key) return Promise.reject(new Error('Gemini APIキーが未登録のため画像を作れません'));
     if (!cfg.token) return Promise.reject(new Error('GitHub未接続のため画像を保存できません'));
-    var model = ($('gmModel') && $('gmModel').value) || 'gemini-3.1-flash-image';
+    var model = imgModel();
     return genImage(a, key, model).then(function (img) {
       return saveImage(a, img);                       /* thumb と image_ai を立てる */
     });
