@@ -2611,7 +2611,10 @@
         "a": "同梱されているのはUSB-C & USB-C ケーブル（0.6m）で、充電器は付属しません。Ankerは本製品を最適に充電するにはUSB-C対応12W以上の充電器（別売り）が必要だと案内しているため、手持ちの充電器の出力を事前に確認してください。"
       }
     ],
-    "official_url": "https://www.ankerjapan.com/products/a1610"
+    "official_url": "https://www.ankerjapan.com/products/a1610",
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/anker/cabinet/tmb/a1/a1610_normal.jpg?_ex=128x128"
+    }
   },
   {
     "slug": "iris-kpc-ma4-pressure-cooker-review",
@@ -3360,7 +3363,10 @@
         "a": "象印の公式製品ページには電源コードの長さの記載を確認できませんでした。設置場所とコンセントの距離が近くない場合は、販売ページの仕様欄か取扱説明書で事前に確認してください。"
       }
     ],
-    "official_url": "https://www.zojirushi.co.jp/syohin/pot_kettle/kettle/ck-ax/"
+    "official_url": "https://www.zojirushi.co.jp/syohin/pot_kettle/kettle/ck-ax/",
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/bearhomes/cabinet/11773802/cd6806e174c22ad.jpg?_ex=128x128"
+    }
   },
   {
     "slug": "led-floodlight-ip66-review",
@@ -4589,7 +4595,10 @@
       "重要：上位機種の ScreenBar Pro は別製品（中央照度1000ルクス以上／照射面から50cm、USB Type-C 5V最大1.7A、最大8.5W、自動調光あり）。この記事が扱うのは無印なので、仕様を混ぜないこと",
       "色温度の調整範囲と段数、自動調光の有無、同梱物は、公式の仕様ページから確認できていない"
     ],
-    "rakuten_url": "https://item.rakuten.co.jp/murauchi-dvd/4544438000455/"
+    "rakuten_url": "https://item.rakuten.co.jp/murauchi-dvd/4544438000455/",
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/murauchi-dvd/cabinet/m2/00975/4544438000455.jpg?_ex=128x128"
+    }
   },
   {
     "published": true,
@@ -5281,7 +5290,10 @@
       "対応OS：Windows 10・11以降、macOS 10.15以降、Linux、ChromeOS、iPadOS 14以降、Android 8.0以降",
       "静音性：ロジクールは「静音クリック」と説明している。騒音値（dB）は公表されていない",
       "注意：サイズ・重量・電池持続時間・対応OS・ボタン数は、ロジクールが MX MASTER 3S Bluetooth edition（MX2300CR）について公表した値。同じシリーズだが、購入するSKUによって付属レシーバーと保証期間（1年／2年）が異なる"
-    ]
+    ],
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-cutestyle/cabinet/img042/p000000794854_1.jpg?_ex=128x128"
+    }
   },
   {
     "published": true,
@@ -6173,7 +6185,10 @@
         "a": "型番、有線WAN・LANポートの速度、対応するインターネット接続方式、ブリッジモードの有無の4つです。特に有線ポートの速度は、購入後に変更できない部分なので優先して確認してください。"
       }
     ],
-    "rakuten_url": "https://item.rakuten.co.jp/saino/55089gkk3ym/"
+    "rakuten_url": "https://item.rakuten.co.jp/saino/55089gkk3ym/",
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/saino/cabinet/kimigayopic/systempic077/55089gkk3ym1.jpg?_ex=128x128"
+    }
   },
   {
     "published": true,
@@ -6828,7 +6843,10 @@
       "対応するゴミ袋：30L対応（目安）",
       "持ち手付き。生産国は中国",
       "重要：この記事の販売リンク（Amazon・楽天・Yahoo!）とJANコード 4903208044882 は、いずれも品番4488のこの製品を指している。山崎実業には別に「スリム蓋付きゴミ箱 タワー」（品番5203/5204、35L、W19×D40×H54cm、ポリプロピレン製）があるが、それとは別の製品なので、仕様を混ぜないこと。この製品はスチール製・27L・蓋を載せる構造で、ペダル式ではない"
-    ]
+    ],
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/bellevie-harima/cabinet/0000/ymj/ys1/4488_s01.jpg?_ex=128x128"
+    }
   },
   {
     "published": true,
@@ -8635,7 +8653,10 @@
         "a": "底面の仕様は製品によって異なるため、販売ページで滑り止めやフェルトの有無を確認してください。記載がない場合は、チェアマットや薄手のラグの上に置くことで対処できます。"
       }
     ],
-    "rakuten_url": "https://item.rakuten.co.jp/applied2/4580742233318-ds/"
+    "rakuten_url": "https://item.rakuten.co.jp/applied2/4580742233318-ds/",
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/applied2/cabinet/iwmt/4580742233318.jpg?_ex=128x128"
+    }
   },
   {
     "published": true,
@@ -8941,7 +8962,10 @@
         "a": "この価格帯は木目調のプリント材が中心で、利用者の声としては写真と現物の色味の差に触れるものがあります。厳密に揃えるのは難しいため、あえて色を離す配色にするか、利用者の声の投稿写真を参考に判断してください。"
       }
     ],
-    "rakuten_url": "https://item.rakuten.co.jp/a-price/4589946138351/"
+    "rakuten_url": "https://item.rakuten.co.jp/a-price/4589946138351/",
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/a-price/cabinet/mailmaga/08814302/4589946138351.jpg?_ex=128x128"
+    }
   },
   {
     "published": true,
@@ -10106,6 +10130,9 @@
       "カラー：ホワイト／カーキ／ブラック",
       "上記は不二貿易の公式情報と販売ページの表記が一致している値。生産国は確認できていない"
     ],
-    "rakuten_url": "https://item.rakuten.co.jp/kankapro/20240602080328_138/"
+    "rakuten_url": "https://item.rakuten.co.jp/kankapro/20240602080328_138/",
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kankapro/cabinet/r_2024060245/20240602080328_138_1.jpg?_ex=128x128"
+    }
   }
 ]
