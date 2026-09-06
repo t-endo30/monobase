@@ -79,9 +79,21 @@ jobs:
           fi
           # この実行の最中に別の作業が main へ入っていると push は弾かれる。
           # 作った画像がそのまま消えるので、取り込んでから出し直す。
+          # 取り込みが衝突したまま止まると、次の試行が必ず失敗する。
+          # やり直す前に、中断した取り込みを片付ける。
           for i in 1 2 3; do
-            git pull --rebase origin main && git push && exit 0
+            git push && exit 0
             echo "push が弾かれました（$i回目）。取り込んで出し直します"
+            git rebase --abort 2>/dev/null || true
+            git fetch -q origin main
+            if ! git rebase -X theirs origin/main; then
+              git rebase --abort 2>/dev/null || true
+              continue
+            fi
+            python3 build.py >/dev/null
+            git add assets/img/gen content/articles.json articles assets/img/auto
+            git add -u
+            git diff --cached --quiet || git commit -q --amend --no-edit
           done
           echo "::error::push できませんでした"
           exit 1

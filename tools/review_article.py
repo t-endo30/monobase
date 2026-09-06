@@ -353,9 +353,14 @@ def finish(publish_slugs, do_push):
             print("  ✓ コミットして push しました")
             return 0
         print(f"  … push が弾かれました（{attempt}回目）。取り込んで出し直します")
-        code, out = run(["git", "pull", "--rebase", "origin", "main"])
+        # 途中で止まった取り込みが残っていると、次の試行が必ず失敗する
+        run(["git", "rebase", "--abort"])
+        run(["git", "fetch", "-q", "origin", "main"])
+        # 衝突するのは生成したHTMLだけなので、こちらの側を採る
+        code, out = run(["git", "rebase", "-X", "theirs", "origin/main"])
         if code != 0:
-            print(f"  ✗ git pull --rebase\n{out}")
+            run(["git", "rebase", "--abort"])
+            print(f"  ✗ git rebase\n{out}")
             return 1
     print("  ✗ git push（3回とも弾かれました）")
     return 1

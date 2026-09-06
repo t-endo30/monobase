@@ -198,9 +198,25 @@ jobs:
             git diff --cached --stat
             git commit -m "新しい記事に、商品URLと写真を足す（自動）"
           fi
+          # 取り込みが衝突したまま止まると、次の試行が「まだ rebase の
+          # 途中です」で必ず失敗する。実際それで3回とも空振りした。
+          # やり直す前に、必ず中断した取り込みを片付ける。
+          #
+          # 衝突するのは生成したHTMLの ?v= スタンプ行だけなので、
+          # こちらの側を採ってから build.py で計算し直す。
           for i in 1 2 3; do
-            git pull --rebase origin main && git push && exit 0
+            git push && exit 0
             echo "push が弾かれました（$i回目）。取り込んで出し直します"
+            git rebase --abort 2>/dev/null || true
+            git fetch -q origin main
+            if ! git rebase -X theirs origin/main; then
+              git rebase --abort 2>/dev/null || true
+              continue
+            fi
+            python3 build.py >/dev/null
+            git add content/articles.json articles assets/img/auto assets/img/gen
+            git add -u
+            git diff --cached --quiet || git commit -q --amend --no-edit
           done
           echo "::error::push できませんでした"
           exit 1
