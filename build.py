@@ -1890,6 +1890,7 @@ def product_card(a, p, eager=False, with_img=True):
     # それも無ければカード一覧と同じ自動生成SVGを使う。
     # 画像が無いという理由だけで購入導線を落とさない。
     ext_url, ext_href, ext_shop = shop_image(a) if with_img else ("", "", "")
+    links_by_shop = {shop: href for shop, _label, href in links}
     img = a.get("thumb") or a.get("eyecatch") or ""
     if ext_url:
         src = e(ext_url)
@@ -1920,8 +1921,15 @@ def product_card(a, p, eager=False, with_img=True):
         t_cls, t_href = "prod-thumb", first
         t_img = (f'<img src="{src}" alt="{e(name)}" {lazy}decoding="async" '
                  f'width="800" height="450">')
+    # ページを開いたあと、assets/main.js がAmazonの写真へ差し替える。
+    # 差し替わったら、写真のリンク先もAmazonへ移す（写真は、その写真を
+    # 出したところへリンクする決まりのため）。
+    asin = str(a.get("asin") or "").strip()
+    amz = links_by_shop.get("amazon", "")
+    t_at = (f' data-asin="{e(asin)}"' if asin else "")
+    t_at += (f' data-amz="{e(amz)}"' if asin and amz else "")
     thumb = f'''
-          <a class="{t_cls}" href="{e(t_href)}" target="_blank" rel="nofollow sponsored noopener">
+          <a class="{t_cls}" href="{e(t_href)}"{t_at} target="_blank" rel="nofollow sponsored noopener">
             {t_img}
           </a>''' if with_img else ""
     cls = "prod-card" if with_img else "prod-card is-noimg"
@@ -2242,23 +2250,14 @@ def render_article(a):
     # 商品カード（写真つきの購入リンク）は結論の上に置く。
     # 読者が最初に見る位置に、商品そのものと買える場所を出す。
     # 特集（複数商品の比較）は商品を1つに絞れないので、上には置かない。
-    # 写真を出すのは、アイキャッチが無いとき。すぐ上に同じ絵が並ぶと、
-    # スマホでは同じ画像が2枚重なって見えるため。
-    # ただしモールの実物写真があるときは別の絵なので、アイキャッチが
-    # あっても出す（実物を見せるのがこのカードの役目）。
-    card_img = (not a.get("thumb")) or bool(shop_image(a)[0])
+    # 記事の冒頭にアイキャッチは置かない。
+    # すぐ下の商品カードに、モールの実物写真が楽天・Amazonのボタンと
+    # 並んで出るため、同じ役目の絵が2枚続くことになる。
+    card_img = True
     top_card = (product_card(a, p, eager=True, with_img=card_img)
                 if kind_of(a) == "review" else "")
-
-    # アイキャッチは実写真があるときだけ置く。
-    # 自動生成の模様を記事冒頭に大きく出しても情報がなく、結論ボックスを押し下げるだけなので出さない。
-    if a.get("thumb"):
-        add(f'''        <figure class="eyecatch has-image">
-          <img src="{p}{e(a["thumb"])}" alt="{e(a["title"])}" width="1200" height="600">
-        </figure>
-''')
-    elif not top_card:
-        # 写真も商品カードも無いときだけ、色帯で見出しと本文を分ける
+    if not top_card:
+        # 商品カードが無い記事（選び方・特集）だけ、色帯で見出しと本文を分ける
         add('        <div class="article-accent" aria-hidden="true"></div>\n')
 
     add(top_card)

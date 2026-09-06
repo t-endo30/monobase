@@ -1389,6 +1389,10 @@ document.addEventListener('touchstart', function () {}, { passive: true });
          （規約が改変を認めていないため）。CSS は .is-shop と共通。 */
       el.classList.add('is-shop');
       el.setAttribute('data-shop', 'amazon');
+      /* 写真は、その写真を出したところへリンクする。楽天の写真を楽天へ
+         張っていた枠は、Amazonの写真に変わった時点でリンク先も移す。 */
+      var amz = el.getAttribute('data-amz');
+      if (amz && el.tagName === 'A') el.href = amz;
     };
     probe.referrerPolicy = 'no-referrer';
     probe.src = url;
