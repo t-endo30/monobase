@@ -1050,7 +1050,8 @@ def footer(p, sticky_url=None):
       <p class="assoc-note">
         Amazonのアソシエイトとして、{e(NAME)}は適格販売により収入を得ています。
         当サイトは、Amazon・楽天市場・Yahoo!ショッピング等のアフィリエイトプログラムに参加しており、記事内の商品リンクを経由した購入により紹介料を得ることがあります。<br>
-        Amazon、Amazon.co.jp およびそれらのロゴは Amazon.com, Inc. またはその関連会社の商標です。当サイトはAmazonの公式サイトではなく、Amazon.com, Inc. およびその関連会社が運営・監修するものではありません。
+        Amazon、Amazon.co.jp およびそれらのロゴは Amazon.com, Inc. またはその関連会社の商標です。当サイトはAmazonの公式サイトではなく、Amazon.com, Inc. およびその関連会社が運営・監修するものではありません。<br>
+        商品情報および商品写真の一部は各モールのAPIから取得しています。楽天市場の商品情報は楽天ウェブサービス（Supported by Rakuten Developers）を利用しています。写真の権利は各出品者・メーカーに帰属します。
       </p>
       <p class="copyright">&copy; {e(SITE["founded"])} {e(NAME)}</p>
     </div>
@@ -1765,6 +1766,38 @@ def shop_buttons(a, note=""):
             + (f'        <p class="cta-note">{e(note)}</p>\n' if note else ""))
 
 
+def shop_image(a):
+    """本文の商品カードに出す「実物の商品写真」。
+
+       モールのAPIが返した画像URLを、そのまま参照して表示する（ホットリンク）。
+       自サイトへ保存して配り直すことはしない（各モールの規約で不可）。
+
+       規約上、画像は取得元のモールへのリンクとともに出す必要がある。
+       写真だけ楽天・リンク先はAmazon、という組み合わせにならないよう、
+       写真とリンク先を必ず組にして返す。そのショップのボタンが
+       出ていない記事では、写真も使わない。
+
+       返り値は (画像URL, リンク先, ショップ名)。無ければ空。"""
+    imgs = a.get("shop_images") or {}
+    links = {s: href for s, _label, href in shop_links(a)}
+    # 楽天を先に見る。楽天ウェブサービスは「楽天へのリンクとともに表示する」
+    # という条件がはっきりしていて、写真の差し替えもこちらで追える。
+    # Amazon（PA-API）は条件が厳しく、審査が落ちると画像も止まるので最後。
+    for shop in ("rakuten", "yahoo", "amazon"):
+        url = str(imgs.get(shop) or "").strip()
+        if not url.startswith("http") or shop not in links:
+            continue
+        return url, links[shop], shop
+    return "", "", ""
+
+
+SHOP_IMAGE_CREDIT = {
+    "rakuten": "商品写真：楽天市場",
+    "yahoo": "商品写真：Yahoo!ショッピング",
+    "amazon": "商品写真：Amazon.co.jp",
+}
+
+
 def product_card(a, p, eager=False, with_img=True):
     """商品画像つきのリンクカード。写真・商品名・販売先ボタンをまとめる。
        本文中のボタン3か所とは別枠なので、数には数えない。
@@ -1774,10 +1807,15 @@ def product_card(a, p, eager=False, with_img=True):
     links = shop_links(a)
     if not links:
         return ""
-    # 実写真が最優先。無ければカード一覧と同じ自動生成SVGを使う。
+    # モールが返した実物の商品写真が最優先。次に記事のアイキャッチ、
+    # それも無ければカード一覧と同じ自動生成SVGを使う。
     # 画像が無いという理由だけで購入導線を落とさない。
+    ext_url, ext_href, ext_shop = shop_image(a) if with_img else ("", "", "")
     img = a.get("thumb") or a.get("eyecatch") or ""
-    src = (p + e(img)) if img else visual_path(a, p)[0]
+    if ext_url:
+        src = e(ext_url)
+    else:
+        src = (p + e(img)) if img else visual_path(a, p)[0]
     # 商品名。無ければ記事タイトルの「｜」より前を使う（後半は補足なので落とす）
     name = a.get("product_name") or a.get("title", "").split("｜")[0].strip()
     first = links[0][2]
@@ -1787,10 +1825,27 @@ def product_card(a, p, eager=False, with_img=True):
                  f'target="_blank" rel="nofollow sponsored noopener">'
                  f'{icon("cart", "btn-icon")}<span>{e(label)}</span></a>\n')
     lazy = "" if eager else 'loading="lazy" '
-    note = a.get("image_ai") and '<span class="pc-ai">イメージ（AI生成）</span>' or ""
+    # 断り書きは自前のAI画像のときだけ。モールの実写真には要らない。
+    note = ("" if ext_url else
+            (a.get("image_ai") and '<span class="pc-ai">イメージ（AI生成）</span>' or ""))
+    if ext_url:
+        # 出品者が用意した写真は正方形・白背景が多い。切り取らずに収める。
+        # 参照元にページのURLを渡さない（referrerpolicy）。
+        # 差し替え・削除で消えたときは、記事のアイキャッチに戻す。
+        fallback = (p + e(img)) if img else visual_path(a, p)[0]
+        t_cls, t_href = "prod-thumb is-shop", ext_href
+        t_img = (f'<img src="{src}" alt="{e(name)}" {lazy}decoding="async" '
+                 f'referrerpolicy="no-referrer" '
+                 f'onerror="this.onerror=null;this.src=\'{fallback}\';'
+                 f'this.closest(\'.prod-thumb\').classList.remove(\'is-shop\')">')
+        note = f'<span class="pc-src">{e(SHOP_IMAGE_CREDIT.get(ext_shop, ""))}</span>'
+    else:
+        t_cls, t_href = "prod-thumb", first
+        t_img = (f'<img src="{src}" alt="{e(name)}" {lazy}decoding="async" '
+                 f'width="800" height="450">')
     thumb = f'''
-          <a class="prod-thumb" href="{e(first)}" target="_blank" rel="nofollow sponsored noopener">
-            <img src="{src}" alt="{e(name)}" {lazy}decoding="async" width="800" height="450">
+          <a class="{t_cls}" href="{e(t_href)}" target="_blank" rel="nofollow sponsored noopener">
+            {t_img}
           </a>''' if with_img else ""
     cls = "prod-card" if with_img else "prod-card is-noimg"
     return f'''        <div class="{cls}">{thumb}

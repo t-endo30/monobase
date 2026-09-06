@@ -626,6 +626,9 @@
     $('f-amazon').value = a.amazon_url || '';
     $('f-rakuten').value = a.rakuten_url || '';
     $('f-yahoo').value = a.yahoo_url || '';
+    /* 本文の商品カードに出す実写真。ショップ別に持っているので、
+       build.py と同じ順（楽天→Yahoo!→Amazon）で先に見つかったものを出す。 */
+    $('f-shopImg').value = shopImageUrl(a);
     $('f-ctapos').value = a.cta_position || 'spec';
     $('f-asin').value = a.asin || '';
     $('f-jan').value = a.jan || '';
@@ -697,11 +700,51 @@
     a.excerpt = $('f-excerpt').value.trim();
     a.tags = $('f-tags').value.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
     a.amazon_url = $('f-amazon').value.trim();
-    /* 空欄のショップは項目ごと消す（ボタンを出さないため） */
+    /* 商品カードに出す実写真。URLだけを持ち、画像は自サイトへ保存しない
+     （各モールの規約で、取得した画像の再配信はできない）。
+     どのモールの写真かが分からないと「取得元へリンクする」が守れないので、
+     ショップ名を鍵にして持つ。 */
+  var SHOP_IMG_ORDER = ['rakuten', 'yahoo', 'amazon'];
+
+  function shopImageUrl(a) {
+    var imgs = (a && a.shop_images) || {};
+    for (var i = 0; i < SHOP_IMG_ORDER.length; i++) {
+      var u = imgs[SHOP_IMG_ORDER[i]];
+      if (u) return u;
+    }
+    return '';
+  }
+
+  /* URLからどのモールの写真かを見分ける。分からないものは受け取らない
+     （出どころが不明なままリンク先を決められないため）。 */
+  function shopOfImage(url) {
+    var u = String(url || '');
+    if (/rakuten\.co\.jp/i.test(u)) return 'rakuten';
+    if (/yimg\.jp|yahoo\.co\.jp/i.test(u)) return 'yahoo';
+    if (/media-amazon\.com|images-amazon\.com|ssl-images-amazon/i.test(u)) return 'amazon';
+    return '';
+  }
+
+  function saveShopImage(a, url) {
+    if (!url) { delete a.shop_images; return; }
+    var shop = shopOfImage(url);
+    if (!shop) {
+      toast('商品写真は楽天・Yahoo!・AmazonのURLだけ使えます', 'err');
+      return;
+    }
+    a.shop_images = a.shop_images || {};
+    /* 1記事につき1枚だけ持つ。複数あっても出るのは1枚なので、
+       古いショップの写真が残って迷わないようにする。 */
+    SHOP_IMG_ORDER.forEach(function (k) { if (k !== shop) delete a.shop_images[k]; });
+    a.shop_images[shop] = url;
+  }
+
+  /* 空欄のショップは項目ごと消す（ボタンを出さないため） */
     var rk = $('f-rakuten').value.trim();
     var yh = $('f-yahoo').value.trim();
     if (rk) a.rakuten_url = rk; else delete a.rakuten_url;
     if (yh) a.yahoo_url = yh; else delete a.yahoo_url;
+    saveShopImage(a, $('f-shopImg').value.trim());
     /* 中間ボタンの位置。既定（spec）のときは項目を持たせない */
     var cp = $('f-ctapos').value;
     if (cp && cp !== 'spec') a.cta_position = cp; else delete a.cta_position;
@@ -2577,6 +2620,7 @@
           if (e.reviews > hit.reviews) hit.reviews = e.reviews;
           if (e.price < hit.price) hit.price = e.price;
           if (!hit.image) hit.image = e.image;
+          if (e.image && !hit.shop_images[e.shop]) hit.shop_images[e.shop] = e.image;
           return;
         }
 
@@ -2585,6 +2629,9 @@
           name: name, jan: jan, category: cat,
           reviews: e.reviews, rating: e.rating, price: e.price,
           image: e.image,
+          /* 本文の商品カードに出す実写真。URLだけを持ち、画像は自サイトへ
+             保存しない（各モールの規約で再配信は不可）。 */
+          shop_images: e.image ? (function () { var o = {}; o[e.shop] = e.image; return o; }()) : {},
           rakuten_url: e.shop === 'rakuten' ? e.url : '',
           yahoo_url: e.shop === 'yahoo' ? e.url : '',
           amazon_url: e.shop === 'amazon' ? e.url : '',
@@ -2712,6 +2759,13 @@
       if (c.amazon_url) a.amazon_url = c.amazon_url;
       if (c.rakuten_url) a.rakuten_url = c.rakuten_url;
       if (c.yahoo_url) a.yahoo_url = c.yahoo_url;
+      /* モールが返した実物の商品写真。アイキャッチとは別で、
+         本文の商品カードにホットリンクで出す。 */
+      var si = {};
+      Object.keys(c.shop_images || {}).forEach(function (k) {
+        if (c.shop_images[k]) si[k] = c.shop_images[k];
+      });
+      if (Object.keys(si).length) a.shop_images = si;
       a.published = false;
       articles.unshift(a);
     });

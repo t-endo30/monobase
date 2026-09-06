@@ -3605,3 +3605,11 @@ h1,h2,h3,h4,
   }
   .row-item .card-views{font-size:10px;margin-top:3px;}
 }
+
+/* 本文の商品カードに、モールのAPIが返した実物の商品写真を出す場合。
+   出品者が用意した写真は正方形・白背景が多いので、切り取らずに収める。
+   （自前のアイキャッチは 16/9 に切り取る .prod-thumb img のまま） */
+.prod-thumb.is-shop{background:#fff;}
+.prod-thumb.is-shop img{object-fit:contain;padding:10px;}
+/* 写真の出どころ。断り書き（.pc-ai）と同じ置き方にそろえる */
+.pc-src{display:block;margin:-4px 0 10px;font-size:11px;color:var(--muted-2);}

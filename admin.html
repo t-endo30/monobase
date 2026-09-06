@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap" media="print" onload="this.media='all';this.onload=null">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap"></noscript>
-<link rel="stylesheet" href="./assets/admin.css?v=e0b0789f">
+<link rel="stylesheet" href="./assets/admin.css?v=ff973ef6">
 </head>
 <body>
 
@@ -284,6 +284,18 @@
           <label for="f-yahoo">Yahoo!ショッピングの商品ページURL<span class="opt">空ならボタンを出しません</span></label>
           <input type="url" id="f-yahoo" placeholder="https://store.shopping.yahoo.co.jp/…">
         </div>
+      </div>
+
+      <label for="f-shopImg">商品カードに出す実物の写真<span class="opt">モールのAPIが返した画像URL。空ならアイキャッチを使います</span></label>
+      <input type="url" id="f-shopImg" placeholder="https://thumb.image.rakuten.co.jp/…">
+      <div class="note">
+        「商品を探す」から下書きを作ると自動で入ります。手で入れる場合は、
+        <b>そのモールの商品ページに出ている画像のURL</b>を貼ってください。<br>
+        <b>画像は当サイトに保存せず、モールのURLをそのまま参照して表示します。</b>
+        各モールの規約で、取得した画像を自サイトへ保存して配り直すことはできないためです。
+        そのため写真は<b>取得元のモールへのリンク</b>になり、そのショップのURLが空の記事では出ません。
+        出品者が画像を差し替え・削除すると消えるので、消えたときはアイキャッチに自動で戻ります。<br>
+        アイキャッチ（記事の顔・一覧のカード・SNSの絵）には使いません。ここは本文の商品カード専用です。
       </div>
       <div class="row c2">
         <div>
@@ -1060,6 +1072,6 @@
 
 <div class="toast" id="toast"></div>
 <script src="./assets/vendor/qrcode.min.js"></script>
-<script src="./assets/admin.js?v=e0b0789f"></script>
+<script src="./assets/admin.js?v=ff973ef6"></script>
 </body>
 </html>
