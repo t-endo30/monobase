@@ -4229,7 +4229,10 @@
         "q": "可動域や対応重量の具体的な数値はどこで確認できますか",
         "a": "この記事では、公式仕様の裏取りが取れていないため数値を記載していません。シリーズ内に複数のバリエーションがあるため、購入予定の販売ページの仕様欄と、メーカー公式の製品ページの両方で確認してください。"
       }
-    ]
+    ],
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/ergotron/cabinet/images_e/e1r00wv.jpg?_ex=128x128"
+    }
   },
   {
     "published": true,
@@ -5896,7 +5899,10 @@
       "JANコード：0850046603174（この記事の販売リンクと一致している）",
       "重要：SwitchBot には別に「ハブミニ」（温湿度計・光センサーを持たない下位モデル）がある。この記事が扱うのはハブ2なので、ハブミニの仕様と混ぜないこと",
       "本体サイズ・重量・電源・Wi-Fiの対応周波数・赤外線の到達距離・温湿度計の測定範囲と精度・保証期間・同梱物は、公式ページから確認できていない。数値は書かないこと"
-    ]
+    ],
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/switchbot/cabinet/11942346/13750933/13794936/imgrc0108029247.jpg?_ex=128x128"
+    }
   },
   {
     "published": true,
@@ -7523,7 +7529,10 @@
       "ノイズキャンセリング：搭載（公式仕様に詳細の記載はない）",
       "録音形式・内蔵ストレージの有無・防水性・対応機器の一覧は、公式仕様ページから確認できていない。数値や対応可否を断定しないこと",
       "参考：DJI Mic 2 のトランスミッターは28g。Mic Mini の10gはその比較で軽い"
-    ]
+    ],
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/dji-shop/cabinet/thum/6941565991430_thum.jpg?_ex=128x128"
+    }
   },
   {
     "published": true,
