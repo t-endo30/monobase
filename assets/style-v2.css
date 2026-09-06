@@ -1448,6 +1448,9 @@ body.has-sticky-cta .fab{bottom:96px;}
   #pickGrid .card-title{
     display:block;font-size:11.5px;line-height:1.55;
     -webkit-line-clamp:3;min-height:0;max-height:4.65em;
+    /* 1件あたりが狭く、行の折り返しがそろわない。中央に寄せると
+       3件の見出しが1つのまとまりに見える */
+    text-align:center;
   }
   /* 1件あたりが狭いので、日付・分野・一言・閲覧数は出さない。
      見出しと写真だけに絞る。 */
