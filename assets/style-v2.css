@@ -1428,43 +1428,32 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card-cat{margin-top:4px;font-size:10px;}
   .card-cat::before{width:10px;}
 
-  /* ホームの PICK UP だけは、横に送る形にする。
+  /* ホームの PICK UP だけは、3件を横に並べる。
      縦に積むと、上にある新着・ランキングと同じ並びが続いて見分けが
-     つかない。横に送る枠にすると、そこだけ別の役目だと分かる。
-     出すのは3件。指で送れる範囲に収める。 */
+     つかない。横に並べると、そこだけ別の役目だと分かる。
+     指で送る形にはしない。送れることに気づかれないと、2件目から先が
+     読まれないため。3件とも同時に見せる。 */
   #pickGrid{
-    flex-direction:row;gap:12px;
-    overflow-x:auto;overscroll-behavior-x:contain;
-    scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;
-    scrollbar-width:none;padding-bottom:2px;
-    /* 枠の外まで送れるようにして、右端で切れているのを見せる */
-    margin-right:-14px;padding-right:14px;
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:8px;overflow:visible;margin:0;padding:0;
   }
-  #pickGrid::-webkit-scrollbar{display:none;}
-  /* 中身は縦積みに戻す。横長のままだと1件で画面幅を使い切る */
-  #pickGrid > .card{
-    flex:0 0 62%;display:block;padding:0 0 12px;
-    scroll-snap-align:start;
+  /* 中身は縦積み。スマホの .card は写真と文字を横に置く2列組みなので、
+     そのままだと1件が画面幅を使い切る。 */
+  #pickGrid > .card{display:block;padding:0 0 10px;}
+  #pickGrid > .card > :not(.card-thumb){padding-left:8px;padding-right:8px;}
+  /* 写真の枠は span。display を指定しないと inline のままで縦横比が
+     効かない（タイルを block に変えたため、grid の子として自動で
+     block にはならない）。 */
+  #pickGrid .card-thumb{display:block;aspect-ratio:1/1;margin:0 0 8px;}
+  #pickGrid .card-title{
+    display:block;font-size:11.5px;line-height:1.55;
+    -webkit-line-clamp:3;min-height:0;max-height:4.65em;
   }
-  #pickGrid > .card > :not(.card-thumb){padding-left:12px;padding-right:12px;}
-  /* 写真の枠は span なので、display を指定しないと inline のままで
-     縦横比が効かない（タイルを display:block に変えたため、grid の
-     子として自動で block にはならない）。 */
-  #pickGrid .card-thumb{display:block;aspect-ratio:1/1;margin:0 0 10px;}
-  #pickGrid .card-title{display:block;}
-  /* 日付と分野は1行に並べる。スマホの縦積みでは block に戻していたので、
-     そのままだと2つがくっついて重なって見える。 */
-  #pickGrid .card-meta{
-    display:flex;align-items:baseline;justify-content:space-between;
-    gap:8px;margin:0 0 4px;
-  }
-  #pickGrid .card-cat{margin-top:0;text-align:right;}
-  /* 閲覧数は横に送る枠では出さない。1件あたりの縦を短くする */
-  #pickGrid .card-views{display:none !important;}
-  #pickGrid .card-title{font-size:13.5px;min-height:3.2em;max-height:3.2em;}
-  /* 一言は入れない。横に送る枠では、見出しまで読めれば足りる */
+  /* 1件あたりが狭いので、日付・分野・一言・閲覧数は出さない。
+     見出しと写真だけに絞る。 */
+  #pickGrid .card-meta,
   #pickGrid .card-note{display:none;}
-  #pickGrid .card-meta{margin:0 0 3px;}
+  #pickGrid .card-views{display:none !important;}
   /* 4件目から先は出さない */
   #pickGrid > .card:nth-child(n+4){display:none;}
 
