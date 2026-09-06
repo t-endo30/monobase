@@ -14,6 +14,11 @@ on:
         description: '1回に作る枚数の上限'
         required: false
         default: '5'
+      force:
+        description: 'すでに画像がある記事も作り直す（プロンプトを変えたとき）'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write
@@ -39,14 +44,18 @@ jobs:
             echo "::error::GEMINI_API_KEY が未登録です。Settings → Secrets で登録してください。"
             exit 1
           fi
+          FORCE=""
+          if [ "${{ inputs.force }}" = "true" ]; then FORCE="--force"; fi
           if [ -n "${{ inputs.slug }}" ]; then
-            python3 tools/make_images.py --slug "${{ inputs.slug }}"
+            python3 tools/make_images.py --slug "${{ inputs.slug }}" $FORCE
           else
-            python3 tools/make_images.py --all --limit "${{ inputs.limit }}"
+            python3 tools/make_images.py --all --limit "${{ inputs.limit }}" $FORCE
           fi
 
-      - name: Check image size
-        run: python3 tools/check_images.py
+      - name: サイトを生成して検査する
+        run: |
+          python3 build.py
+          python3 tools/check_images.py
 
       - name: Commit
         run: |
@@ -55,6 +64,7 @@ jobs:
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/img/gen content/articles.json
+          git add assets/img/gen content/articles.json articles assets/img/auto
+          git add -u
           git commit -m "記事の画像をAIで生成"
           git push

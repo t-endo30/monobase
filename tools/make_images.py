@@ -106,17 +106,22 @@ def product_of(a):
     t = str(a.get("product_name") or a.get("title") or "")
     t = re.split(r"[｜|]", t)[0]
     t = re.sub(r"[（(\[【][^）)\]】]*[）)\]】]", " ", t)
-    t = re.sub(r"(の)?(口コミ|レビュー|評価|選び方|比較|仕様分析)\s*$", "", t)
-    return re.sub(r"\s+", " ", t).strip()
+    t = re.sub(r"(の)?(口コミ|レビュー|評価|選び方|比較|仕様分析|徹底比較).*$", "", t)
+    # 「◯◯の電気代と静音性」のような、記事の切り口までは被写体ではない
+    t = re.sub(r"の(電気代|静音性|選び方|比較|違い|注意点|使い方|評判|実力|効果|設置条件|向き不向き).*$", "", t)
+    return re.sub(r"\\s+", " ", t).strip()
 
 
 def build_prompt(a, site):
     """記事1本ぶんの英文プロンプトを組み立てる。"""
     key = (a.get("category", ""), a.get("sub", ""))
     subject, _setting = SUBJECT.get(key, DEFAULT_SUBJECT)
+    # 商品名が分かるときは、それだけを渡す。分野ごとの被写体を添えると
+    # 食い違うことがある（Anker PowerConf S360 はスピーカーフォンなのに、
+    # AV分野の被写体は「ラベリアマイク」だった）。
     prod = product_of(a)
     if prod:
-        subject = f"{prod} ({subject})"
+        subject = prod
     # SUBJECT の置き場所（_setting）は使わない。背景は SETTING に固定する。
     return (
         f"A photograph of {subject}, placed on {SETTING}. "
