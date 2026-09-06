@@ -423,14 +423,66 @@ SYSTEM = ("あなたは日本語の商品レビュー記事を書くライター
           "最初の文字は { で、最後の文字は } です。")
 
 
+# 認証の予備。1本目が期限切れや上限に当たっても、記事の作成を止めない。
+#   CLAUDE_CODE_OAUTH_TOKEN     … これまでどおりの1本目
+#   CLAUDE_CODE_OAUTH_TOKEN_2〜5 … 予備
+#   CLAUDE_CODE_OAUTH_TOKENS    … まとめて書く場合（改行かカンマ区切り）
+# 認証が理由の失敗と、中身の無い失敗のときだけ次へ移る。
+# 書き方が悪くて落ちているときに移っても、同じところで落ちるだけなので移らない。
+AUTH_FAIL = re.compile(
+    r"oauth|unauthor|authentication|invalid.{0,12}token|expired|"
+    r"credit|quota|usage limit|40[13]", re.I)
+
+
+def oauth_tokens():
+    """使える認証を、書いてある順に並べて返す。重複は落とす。"""
+    out, seen = [], set()
+    for raw in [os.environ.get("CLAUDE_CODE_OAUTH_TOKENS", "")]:
+        for t in re.split(r"[,\s]+", raw):
+            if t and t not in seen:
+                seen.add(t); out.append(t)
+    names = ["CLAUDE_CODE_OAUTH_TOKEN"] + \
+            [f"CLAUDE_CODE_OAUTH_TOKEN_{i}" for i in range(2, 6)]
+    for n in names:
+        t = os.environ.get(n, "").strip()
+        if t and t not in seen:
+            seen.add(t); out.append(t)
+    return out
+
+
+TOKENS = oauth_tokens()
+TOKEN_AT = 0
+
+
 def run_claude(prompt, model, timeout):
     """`claude -p` に渡して、返ってきたJSONを読む。
+       認証を複数もらっているときは、駄目なものを飛ばして次を試す。"""
+    global TOKEN_AT
+    while True:
+        try:
+            return call_claude(prompt, model, timeout,
+                               TOKENS[TOKEN_AT] if TOKENS else "")
+        except RuntimeError as ex:
+            nxt = TOKEN_AT + 1
+            msg = str(ex)
+            if nxt >= len(TOKENS) or not (AUTH_FAIL.search(msg)
+                                          or TRANSIENT.search(msg)):
+                raise
+            TOKEN_AT = nxt
+            print(f"認証を{nxt + 1}本目に切り替え … ", end="", flush=True)
+
+
+def call_claude(prompt, model, timeout, token=""):
+    """1本の認証で1回だけ呼ぶ。
        プロンプトが長いので、引数ではなく標準入力から渡す。"""
     cmd = ["claude", "-p", "--output-format", "json", "--model", model,
            "--append-system-prompt", SYSTEM]
+    env = os.environ.copy()
+    if token:
+        env["CLAUDE_CODE_OAUTH_TOKEN"] = token
     try:
         p = subprocess.run(cmd, input=prompt, capture_output=True,
-                           text=True, timeout=timeout)
+                           text=True, timeout=timeout, env=env)
     except FileNotFoundError:
         raise RuntimeError(
             "claude コマンドが見つかりません。Claude Code をインストールして、"

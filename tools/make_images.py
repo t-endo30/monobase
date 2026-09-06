@@ -21,7 +21,7 @@ APIキー
   ・人物は全身を写さない。商品が主役
   ・ブランド名やロゴは出さない（商標・実物との誤認を避けるため）
 """
-import argparse, base64, io, json, os, sys, time, urllib.error, urllib.request
+import argparse, base64, io, json, os, re, sys, time, urllib.error, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 A_PATH = os.path.join(ROOT, "content", "articles.json")
@@ -100,10 +100,23 @@ NEGATIVE = ("Do not produce: illustration, 3D render, CGI, cartoon or anime styl
             "floating or physically impossible arrangements, cluttered background.")
 
 
+def product_of(a):
+    """記事が扱っている商品の名前。分野ごとの当たり障りない被写体だけを
+       渡すと、記事と違う形の物が出てくるため、商品名も添える。"""
+    t = str(a.get("product_name") or a.get("title") or "")
+    t = re.split(r"[｜|]", t)[0]
+    t = re.sub(r"[（(\[【][^）)\]】]*[）)\]】]", " ", t)
+    t = re.sub(r"(の)?(口コミ|レビュー|評価|選び方|比較|仕様分析)\s*$", "", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
 def build_prompt(a, site):
     """記事1本ぶんの英文プロンプトを組み立てる。"""
     key = (a.get("category", ""), a.get("sub", ""))
     subject, _setting = SUBJECT.get(key, DEFAULT_SUBJECT)
+    prod = product_of(a)
+    if prod:
+        subject = f"{prod} ({subject})"
     # SUBJECT の置き場所（_setting）は使わない。背景は SETTING に固定する。
     return (
         f"A photograph of {subject}, placed on {SETTING}. "
@@ -115,7 +128,14 @@ def build_prompt(a, site):
         f"{CAMERA}, background softly blurred so the product stays sharp. "
         f"{LIGHT}. "
         f"{QUALITY}. "
-        f"The product is generic and unbranded with no logos or lettering of any kind. "
+        # 商品の形は実物どおりに、ロゴだけを外す。
+        # 「一般的な製品として描け」だけでは、モデルがそれらしいロゴを
+        # 勝手に足す（ANKERの綴りが左右反転した絵が出ていた）。
+        f"Render the product's real shape, proportions, colour, materials and the "
+        f"placement of its buttons and ports faithfully. "
+        f"Show NO logos, brand names, trademarks, model numbers, printed or embossed "
+        f"lettering anywhere on the product — leave those surfaces completely blank. "
+        f"Do not invent, distort or approximate any logo or lettering. "
         f"Landscape orientation, 16:9. "
         f"{NEGATIVE}"
     )

@@ -104,7 +104,11 @@ jobs:
       - name: 本文を書かせる（レビューまで通す）
         if: steps.gate.outputs.run == 'true'
         env:
+          # 予備を Secrets に入れておくと、1本目が期限切れや上限に
+          # 当たったとき、次のものへ自動で移る（tools/write_article.py）。
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_2: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_2 }}
+          CLAUDE_CODE_OAUTH_TOKEN_3: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_3 }}
         run: |
           python3 tools/write_article.py --drafts \
             --model "${{ inputs.model || 'opus' }}"
@@ -121,6 +125,10 @@ jobs:
         id: review
         if: steps.gate.outputs.run == 'true' && steps.gate.outputs.auto_publish == 'true'
         continue-on-error: true
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_2: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_2 }}
+          CLAUDE_CODE_OAUTH_TOKEN_3: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_3 }}
         run: |
           python3 tools/review_article.py --new --publish --push \
             --model "${{ inputs.model || 'opus' }}"
@@ -128,6 +136,10 @@ jobs:
       - name: レビューして直す（公開はしない）
         if: steps.gate.outputs.run == 'true' && steps.gate.outputs.auto_publish != 'true'
         continue-on-error: true
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_CODE_OAUTH_TOKEN_2: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_2 }}
+          CLAUDE_CODE_OAUTH_TOKEN_3: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_3 }}
         run: |
           python3 tools/review_article.py --new \
             --model "${{ inputs.model || 'opus' }}"

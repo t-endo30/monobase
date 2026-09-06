@@ -25,12 +25,47 @@ def load(path):
     return json.load(io.open(os.path.join(ROOT, path), encoding="utf-8"))
 
 
+# 商品名に混ざる売り文句。楽天・Yahoo!の商品名は、検索に当てるため
+# 飾りが長く付く。題名とURLに使う前に、ここを落とす。
+PROMO = (r"送料無料|ポイント\s*[0-9０-９]+\s*倍|最大[0-9０-９]+[%％]\s*(OFF|オフ)?|"
+         r"[0-9０-９]+[%％]\s*(OFF|オフ)|半額|クーポン|セール|SALE|あす楽|即納|"
+         r"限定|正規品|国内正規|新品|未使用|公式|メーカー保証|[0-9０-９]+年保証|"
+         r"ランキング[0-9０-９]*[位週]?|[0-9０-９]+冠|レビュー特典|"
+         r"楽天スーパー(SALE|セール)?|[0-9０-９]+週?[0-9０-９]*位|"
+         r"期間限定|実施中|[0-9０-９]+/[0-9０-９]+まで|"
+         r"タイムセール|買い回り|お買い物マラソン|"
+         r"最新(バージョン|モデル)?|大容量|翌日配送|当日出荷|プレゼント|"
+         r"母の日|父の日|敬老の日|お歳暮|お中元|ギフト|ラッピング")
+
+
 def clean_name(s):
-    """商品名から飾りを落とす。【送料無料】【ポイント10倍】など。"""
-    s = re.sub(r"[【\[（(][^】\]）)]{0,20}"
-               r"(送料無料|ポイント|クーポン|セール|限定|正規品|あす楽)"
-               r"[^】\]）)]{0,20}[】\]）)]", "", str(s or ""))
-    return re.sub(r"\s+", " ", s).strip()
+    """商品名から売り文句を落として、題名に使える形にする。
+
+       楽天の商品名は検索に当てるための飾りが長い。
+         【ケノン 公式 楽天スーパーSALE！3年保証】（最新バージョン）脱毛器 ランキング58週1位
+       この形のまま題名にすると読めないので、括弧の中身と売り文句を落とす。
+       ただし括弧を丸ごと消すと、ブランド名や型番まで消えることがあるため、
+       括弧の中は「売り文句だけで出来ているとき」に限って落とす。"""
+    s = str(s or "")
+
+    def drop(m):
+        inner = m.group(1)
+        # 中身から売り文句を抜いても何か残るなら、それは商品の情報なので残す。
+        rest = re.sub(PROMO, "", inner)
+        rest = re.sub(r"[\s　!！・/／、,]+", "", rest)
+        return "" if len(rest) <= 2 else " " + inner + " "
+
+    for _ in range(3):          # 入れ子の括弧を順にほどく
+        s2 = re.sub(r"[【\[]([^】\]]*)[】\]]", drop, s)
+        s2 = re.sub(r"[（(]([^）)]*)[）)]", drop, s2)
+        if s2 == s:
+            break
+        s = s2
+    s = re.sub(PROMO, " ", s)
+    # 売り文句を抜いたあとに残る記号と、区切りだけの並び
+    s = re.sub(r"[／|｜/]{1,}", " ", s)
+    s = re.sub(r"[!！]{1,}", " ", s)
+    return re.sub(r"[\s　]+", " ", s).strip(" 　-・,、")
 
 
 def amazon_search_url(name, jan=""):
@@ -54,11 +89,23 @@ def amazon_search_url(name, jan=""):
             + urllib.parse.quote(q, safe="") + "&i=aps")
 
 
+# URLに使わない語。数字だけ・単位つき・売り文句は、商品を指さない。
+SLUG_DROP = re.compile(
+    r"^(?:[0-9]+(?:ml|l|g|kg|cm|mm|m|w|v|a|ah|mah|inch|型|枚|本|個|台|点|"
+    r"set|pcs|p)?|off|sale|new|pro?|plus|set|no|vol|ver)$")
+
+
 def draft_slug(name, cat, taken):
-    """商品名からURLを作る。日本語だけの名前だと英数字が拾えないので、
-       その場合はカテゴリー＋日付にして、あとで直せる形にする。"""
+    """商品名からURLを作る。
+
+       ブランドと型番にあたる語だけを拾う。値段・枚数・割引率まで拾うと
+       「sale-3-587-1-vio-ipl-9」のような、何の記事か分からないURLになる。
+       拾える語が無いときはカテゴリー＋日付にして、あとで直せる形にする。"""
     latin = re.findall(r"[a-z0-9][a-z0-9\-]*", str(name).lower())
-    base = re.sub(r"-+", "-", "-".join(latin)).strip("-")[:50]
+    keep = [w for w in latin if not SLUG_DROP.match(w)]
+    # 数字だけの語は、前の語につながっているときだけ意味がある（watch 5 など）
+    keep = [w for w in keep if not w.isdigit() or len(w) >= 3]
+    base = re.sub(r"-+", "-", "-".join(keep[:6])).strip("-")[:50]
     if len(base) < 3:
         base = f"{cat}-{time.strftime('%Y%m%d')}"
     slug, n = base, 2
