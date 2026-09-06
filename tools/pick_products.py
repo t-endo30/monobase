@@ -288,12 +288,43 @@ def known_products(arts):
     return jans, asins
 
 
+def item_key(url):
+    """商品ページURLから、店舗と商品コードの部分だけを取り出す。
+       クエリやアフィリエイトの飾りが付いても、同じ商品だと分かる。
+
+       楽天  https://item.rakuten.co.jp/<店舗>/<商品コード>/
+       Yahoo https://store.shopping.yahoo.co.jp/<店舗>/<商品コード>.html"""
+    u = urllib.parse.urlsplit(str(url or ""))
+    if not u.netloc:
+        return ""
+    path = re.sub(r"\.html?$", "", u.path.strip("/"))
+    parts = [x for x in path.split("/") if x]
+    if len(parts) < 2:
+        return ""
+    return u.netloc.lower() + "/" + "/".join(parts[:2]).lower()
+
+
+def known_items(arts):
+    """すでに記事にした商品ページ。JANの無い商品は、これでしか見分けが
+       つかない。実際、JANの無い商品で同じ記事が2本できた。
+       題名どうしの比較では防げない（記事の題名とモールの商品名は別物で、
+       先頭20文字が一致しない）。"""
+    keys = set()
+    for a in arts:
+        for k in ("rakuten_url", "yahoo_url", "amazon_url"):
+            key = item_key(a.get(k))
+            if key:
+                keys.add(key)
+    return keys
+
+
 def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                      limit, per_category):
     arts = json.load(io.open(os.path.join(ROOT, "content", "articles.json"),
                              encoding="utf-8"))
     seen_jan, _ = known_products(arts)
     seen_names = {clean_name(a.get("title", ""))[:20] for a in arts}
+    seen_items = known_items(arts)
 
     out = []
     for cat in categories:
@@ -341,6 +372,11 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                 continue
             if not (MIN_PRICE <= e["price"] <= MAX_PRICE):
                 continue
+            # 同じ商品ページを指す商品は採らない。JANの無い商品では、
+            # これが唯一の確かな手がかりになる。
+            ikey = item_key(e.get("url"))
+            if ikey and ikey in seen_items:
+                continue
             name = clean_name(e["name"])
             if name[:20] in seen_names:
                 continue
@@ -380,6 +416,12 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                 seen_jan.add(jan)
 
             seen_names.add(name[:20])
+            if ikey:
+                seen_items.add(ikey)
+            for v in shops.values():
+                k2 = item_key(v.get("url"))
+                if k2:
+                    seen_items.add(k2)
             out.append({
                 "name": name,
                 "jan": jan,

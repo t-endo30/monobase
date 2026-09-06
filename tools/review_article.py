@@ -394,7 +394,18 @@ def main():
     if args.all:
         targets = list(arts)
     elif args.new:
-        targets = [a for a in arts if not a.get("published")]
+        # 人が意図して下げた記事は対象にしない。
+        # unpublished_reason は「なぜ下げたか」を書いた印で、これが
+        # 付いている記事を「まだ公開していない新しい記事」と見なすと、
+        # 下げたそばから公開に戻してしまう。実際、出どころが確認
+        # できないとして下げた3本が、記事作成の実行で再公開された。
+        held = [a for a in arts
+                if not a.get("published") and a.get("unpublished_reason")]
+        for a in held:
+            print(f"・{a.get('slug')}：下げた記事なので対象にしません"
+                  f"（{a.get('unpublished_reason')}）")
+        targets = [a for a in arts
+                   if not a.get("published") and not a.get("unpublished_reason")]
     else:
         want = set(args.slugs)
         targets = [a for a in arts if a.get("slug") in want]
