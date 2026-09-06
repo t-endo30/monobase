@@ -3253,6 +3253,12 @@ p,li,.card-desc{text-wrap:pretty;}
   display:block;width:100%;height:100%;max-width:100%;
   object-fit:cover;aspect-ratio:16/9;transition:transform .4s ease;
 }
+/* 自動生成の絵は正方形で、中に商品名と分野の文字が入っている。
+   16:9 で切り取ると上下が4割以上削られ、文字が欠ける。
+   切り取らずに正方形のまま置く。 */
+.prod-thumb:not(.is-shop) img{
+  aspect-ratio:1/1;object-fit:contain;background:var(--bg-3);
+}
 .prod-card:hover .prod-thumb img{transform:scale(1.03);}
 
 /* 検索の件数表示 */
