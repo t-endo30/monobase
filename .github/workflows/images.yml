@@ -59,12 +59,22 @@ jobs:
 
       - name: Commit
         run: |
-          if git diff --quiet; then
-            echo "変更なし"; exit 0
-          fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch -q origin main
+          if git diff --quiet && [ -z "$(git log origin/main..HEAD --oneline)" ]; then
+            echo "変更なし"; exit 0
+          fi
           git add assets/img/gen content/articles.json articles assets/img/auto
           git add -u
-          git commit -m "記事の画像をAIで生成"
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m "記事の画像をAIで生成"
+          fi
+          # この実行の最中に別の作業が main へ入っていると push は弾かれる。
+          # 作った画像がそのまま消えるので、取り込んでから出し直す。
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            echo "push が弾かれました（$i回目）。取り込んで出し直します"
+          done
+          echo "::error::push できませんでした"
+          exit 1
