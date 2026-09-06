@@ -2812,8 +2812,13 @@ p,li,.card-desc{text-wrap:pretty;}
    小さく見えてしまう。
    幅は width:100% では伸びない（枠が縦横比で高さを決めているぶん、
    子から見た横幅が定まらないため）。高さは 100% で決まるので、
-   そこへ枠と同じ縦横比を与えて、横幅を導き出す。 */
-.promo-row .thumb a{display:block;height:100%;aspect-ratio:4 / 3;}
+   そこへ枠と同じ縦横比を与えて、横幅を導き出す。
+
+   枠は 1:1（.row-item .thumb）。ここを枠と違う比にすると、包みが枠より
+   横に広がって、右にある見出しへかぶる。実際 4:3 のまま残していて
+   広告の行だけ崩れた。枠の比を変えるときは、ここも一緒に変える。 */
+.promo-row .thumb a{display:block;height:100%;aspect-ratio:1 / 1;
+  max-width:100%;}
 .promo-row .thumb a::after{content:"";position:absolute;inset:0;z-index:2;}
 /* バナーを読めなかった行は assets/main.js が hidden を付けて隠す。
    .row-item{display:grid} が効いているので、明示的に消す */
@@ -2821,10 +2826,8 @@ p,li,.card-desc{text-wrap:pretty;}
 /* 写真の右に文字を積む幅では、行の高さを文字の側が決める。
    記事の行はいちばん下に閲覧数（VIEW : n）が1行入るが、広告には無い。
    そのぶんの場所を取って高さをそろえる。
-   PC幅では写真（4:3）の高さが行の高さを決めるので、ここは要らない */
+   PC幅では写真（1:1）の高さが行の高さを決めるので、ここは要らない */
 @media (max-width:860px){
-  /* スマホの写真は 1:1（.row-item .thumb）。包みもそれにそろえる */
-  .promo-row .thumb a{aspect-ratio:1 / 1;}
   .promo-row .row-body::after{
     content:"";display:block;
     font-size:11px;line-height:1.5;height:1.5em;margin-top:6px;
