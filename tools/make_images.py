@@ -94,7 +94,8 @@ QUALITY = ("photorealistic, natural material texture — visible plastic grain, 
            "accurate white balance, fine surface detail, no digital smoothing")
 NEGATIVE = ("Do not produce: illustration, 3D render, CGI, cartoon or anime style, "
             "heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, "
-            "brand logos, readable text, watermarks, full human figures or faces, "
+            "brand logos, any text or lettering, icons, pictograms, symbols, "
+            "button markings, watermarks, full human figures or faces, "
             "distorted or extra fingers, warped straight edges, duplicated objects, "
             "props or decorative objects, patterned or coloured walls, "
             "floating or physically impossible arrangements, cluttered background.")
@@ -198,9 +199,15 @@ def build_prompt(a, site):
         # 勝手に足す（ANKERの綴りが左右反転した絵が出ていた）。
         f"Render the product's real shape, proportions, colour, materials and the "
         f"placement of its buttons and ports faithfully. "
-        f"Show NO logos, brand names, trademarks, model numbers, printed or embossed "
-        f"lettering anywhere on the product — leave those surfaces completely blank. "
-        f"Do not invent, distort or approximate any logo or lettering. "
+        # 文字も記号も、AIはうまく描けない。崩れた綴りや読めない記号が
+        # 残ると、実物と違う物に見えて信用を損なう。中途半端に入れるより
+        # 何も無いほうがよいので、印字のたぐいは一切描かせない。
+        f"Show NO lettering, numbers, logos, brand names, trademarks, model "
+        f"numbers, icons, pictograms, symbols or button markings anywhere — "
+        f"not on the product, not on its buttons, not in the background. "
+        f"Leave every such surface completely blank and unmarked: a plain "
+        f"button is correct, a button with any mark on it is wrong. "
+        f"Do not invent, distort or approximate any of them. "
         f"Landscape orientation, 16:9. "
         f"{NEGATIVE}"
     )
