@@ -763,7 +763,10 @@
         "a": "どちらでも取り扱いがあります。枚数・香りのバリエーション・出品者が同じ構成かを見比べ、送料を含めた条件で選ぶのが基本です。同じ商品名でも出品者によって枚数構成が違うことがあるため、注文前に内容量の表記を確認してください。"
       }
     ],
-    "unpublished_reason": "同じ商品の記事が既にあるため停止（2026-09-07）"
+    "unpublished_reason": "同じ商品の記事が既にあるため停止（2026-09-07）",
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luire/cabinet/plus04/mask26a-2_off50.jpg?_ex=128x128"
+    }
   },
   {
     "slug": "sd-iphone17-1tb-usb-type-c-lightning-2",
@@ -1301,6 +1304,9 @@
     ],
     "health": {
       "checked": "2026-09-06"
+    },
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luire/cabinet/plus04/mask26a-2_off50.jpg?_ex=128x128"
     }
   },
   {
@@ -1825,6 +1831,9 @@
     ],
     "health": {
       "checked": "2026-09-06"
+    },
+    "shop_images": {
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/wtw-cctv-camera/cabinet/tokusyu/imgrc0195844605.jpg?_ex=128x128"
     }
   },
   {
