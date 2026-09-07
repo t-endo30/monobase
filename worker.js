@@ -441,6 +441,24 @@ export default {
       return Response.redirect(new URL("/admin", url).toString(), 301);
     }
 
+    // /foo.html を /foo へ寄せる。Cloudflare の html_handling
+    // （auto-trailing-slash）にも同じ機能があるが、307（一時的）で
+    // 返ってくる。canonical・サイトマップは拡張子なしの1本に統一して
+    // いるのに、実際のリダイレクトが一時的だと検索エンジンが正規化の
+    // 指示として信頼しにくく、.html 側とページ本体の2本が別々に
+    // インデックスされてしまう（実際にGoogleのインデックスで発生）。
+    // ここで恒久的な 301 を明示して、1本に寄せる。
+    if (path === "/index.html") {
+      const dest = new URL(url.toString());
+      dest.pathname = "/";
+      return Response.redirect(dest.toString(), 301);
+    }
+    if (path.endsWith(".html")) {
+      const dest = new URL(url.toString());
+      dest.pathname = path.slice(0, -5) || "/";
+      return Response.redirect(dest.toString(), 301);
+    }
+
     // メンテナンス表示
     if (MAINTENANCE && !MAINT_ALLOW.some((p) => path === p || path.startsWith(p))) {
       const res = await env.ASSETS.fetch(new URL("/maintenance.html", url));
