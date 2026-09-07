@@ -455,6 +455,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
             '</span>' +
             '<h3>' + titleHtml(it.title) + '</h3>' +
             (it.excerpt ? '<p>' + esc(it.excerpt) + '</p>' : '') +
+            '<span class="card-views" hidden></span>' +
           '</span>' +
         '</a>';
     }).join('');
@@ -467,6 +468,9 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     var box = el.closest('.rank-box');
     var limit = Number(box && box.getAttribute('data-rank-limit')) || 10;
     el.innerHTML = rows(limit);
+    /* 組み立てたのはここなので、閲覧数もこの場で入れる
+       （枠の外の views() は、この行より前に一度走り終えている） */
+    views(el);
   });
 
   /* 並び順の説明文は出さない（画面を説明で埋めない） */

@@ -3061,10 +3061,18 @@ def build_index():
         + "".join(v2_card(a, p, flags="new") for a in latest) + "</div>\n"
         + v2_sec_more(f"{p}new.html"), tinted=True)
 
+    # ランキングの並びは、ランキングのページ（assets/main.js）と同じ規則で
+    # 決める。直近の閲覧数があればそれを、無ければ累計を使い、同数なら
+    # 新しい順。ここを PUBLISHED の頭から取ると、新着と同じ並びになる。
+    rank_base = RANKING_RECENT or RANKING
+    top = sorted(PUBLISHED,
+                 key=lambda a: (rank_base.get(a["slug"], 0), a.get("date", "")),
+                 reverse=True)[:6]
+
     body += v2_section(
         v2_sec_head("RANKING", "よく読まれている記事")
         + '      <div class="card-grid">'
-        + "".join(v2_card(a, p, no=i + 1) for i, a in enumerate(PUBLISHED[:6]))
+        + "".join(v2_card(a, p, no=i + 1) for i, a in enumerate(top))
         + "</div>\n"
         + v2_sec_more(f"{p}ranking.html"))
 

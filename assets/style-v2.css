@@ -3640,13 +3640,46 @@ h1,h2,h3,h4,
   color:var(--muted-2);
 }
 @media (max-width:599px){
-  /* スマホのタイルは写真の右に文字を積む形なので、浮かせると一言に
-     かぶる。流れの中に置いて、最後の行として右端にそろえる。 */
-  .card .card-views{
-    position:static;display:block;text-align:right;
-    margin-top:3px;font-size:10.5px;
+  /* スマホでは、閲覧数をタイルの右上へ。日付・カテゴリーと同じ1行に
+     並べ、その行の右端に置く（カテゴリーはその左）。下の行から
+     抜けるぶん、タイルは1行ぶん低くなる。
+
+     並びは、写真の右の列を［日付＋カテゴリー｜VIEW］の2列に割り、
+     見出しと一言はその2列にまたがらせて作る。 */
+  .card,.row-item .row-body{align-items:start;}
+
+  .card{grid-template-columns:96px minmax(0,1fr) auto;column-gap:8px;}
+  .card .card-thumb{grid-column:1;grid-row:1 / span 3;margin-right:6px;}
+  .card .card-meta{grid-column:2;grid-row:1;}
+  .card .card-views{grid-column:3;grid-row:1;}
+  .card .card-title{grid-column:2 / span 2;grid-row:2;}
+  .card .card-note{grid-column:2 / span 2;grid-row:3;}
+
+  .row-item .row-body{
+    display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;
   }
-  .row-item .card-views{font-size:10px;margin-top:3px;}
+  .row-item .row-meta{grid-column:1;grid-row:1;}
+  .row-item .card-views{grid-column:2;grid-row:1;}
+  .row-item h3{grid-column:1 / span 2;grid-row:2;}
+  .row-item p{grid-column:1 / span 2;grid-row:3;}
+
+  /* 1行目の3つ（日付・カテゴリー・VIEW）は、字の大きさが違っても
+     同じ高さの器に入れて、上下の中心でそろえる。字送りだけで
+     そろえると、行の高さが字の大きさぶんずれて段差が出る。 */
+  .card .card-meta,.card .card-views,
+  .row-item .row-meta,.row-item .card-views{
+    height:18px;margin:0 0 3px;
+    display:flex;align-items:center;
+  }
+  .card .card-views,.row-item .card-views{
+    position:static;justify-content:flex-end;
+    font-size:10px;white-space:nowrap;
+  }
+  .card .card-date,.card .card-cat,
+  .row-item .meta,.row-item .row-cat{line-height:1;}
+  /* カテゴリーは VIEW のすぐ左。字が長い分野名でも、VIEW を
+     押し出さないように、余った幅の中で「…」に切る */
+  .card .card-cat,.row-item .row-cat{margin-left:8px;}
 }
 
 /* 本文の商品カードに、モールのAPIが返した実物の商品写真を出す場合。
