@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
 <rect width="64" height="64" fill="#fff"/>
 <g stroke="#9a9a9a" stroke-width=".9" stroke-linejoin="round">
-  <path d="M32 14 10 26 3 17 30 4Z" fill="#f2f2f2"/>
-  <path d="M32 14 54 26 61 17 34 4Z" fill="#f2f2f2"/>
-  <path d="M10 26 32 14l22 12-22 12Z" fill="#c9c9c9"/>
-  <path d="M10 26v20l22 12V38Z" fill="#3d3d3d"/>
-  <path d="M54 26v20L32 58V38Z" fill="#2a2a2a"/>
-  <path d="M10 26 32 38l-6 5L4 31Z" fill="#f7f7f7"/>
-  <path d="M54 26 32 38l6 5 22-12Z" fill="#f7f7f7"/>
+  <path d="M32 11 10 23 3 14 30 1Z" fill="#f2f2f2"/>
+  <path d="M32 11 54 23 61 14 34 1Z" fill="#f2f2f2"/>
+  <path d="M10 23 32 11l22 12-22 12Z" fill="#c9c9c9"/>
+  <path d="M10 23v26l22 12V35Z" fill="#3d3d3d"/>
+  <path d="M54 23v26L32 61V35Z" fill="#2a2a2a"/>
+  <path d="M10 23 32 35l-6 5L4 28Z" fill="#f7f7f7"/>
+  <path d="M54 23 32 35l6 5 22-12Z" fill="#f7f7f7"/>
 </g>
 <g fill="#fff" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="central">
-  <text x="21" y="29.4" transform="matrix(1,.6,0,1,0,0)">M</text>
-  <text x="43" y="67.8" transform="matrix(1,-.6,0,1,0,0)">B</text>
+  <text x="21" y="32.4" transform="matrix(1,.6,0,1,0,0)">M</text>
+  <text x="43" y="70.8" transform="matrix(1,-.6,0,1,0,0)">B</text>
 </g>
 </svg>
