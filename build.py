@@ -2306,14 +2306,14 @@ def render_article(a):
     add = b.append
 
     add('      <article class="card-surface" id="review">\n')
-    add(f'''        <div class="article-meta">
+    add(f'''{pr_note(a)}        <div class="article-meta">
           <span class="badge badge-cat">{e(CAT_LABEL.get(cat,""))}</span>{sub_badge(a)}
           {kind_badge(a)}
           <span class="article-date">{e(jp_date(a.get("updated") or a["date"]))} 更新</span>
         </div>
 
         <h1 class="article-title">{title_lines(a["title"])}</h1>
-{pr_note(a)}''')
+''')
 
     # 商品カード（写真つきの購入リンク）は結論の上に置く。
     # 読者が最初に見る位置に、商品そのものと買える場所を出す。
