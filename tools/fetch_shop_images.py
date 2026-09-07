@@ -150,6 +150,8 @@ def main():
                     help="すでに写真が入っている記事も調べ直す")
     ap.add_argument("--limit", type=int, default=0,
                     help="調べる記事数の上限（0で全部）")
+    ap.add_argument("--debug", action="store_true",
+                    help="検索語ごとの件数と、返ってきた商品を出す")
     args = ap.parse_args()
 
     keys = {
@@ -198,6 +200,12 @@ def main():
                     print(f"  ! {slug} / {shop}：{err}")
                     hits = []
                 time.sleep(PAUSE)
+                if args.debug:
+                    want = item_key(a.get(dict(SHOPS)[shop]) or "")
+                    print(f"      〔{len(hits)}件〕探しているURL: {want}")
+                    for it in hits[:5]:
+                        print(f"        {item_key(it.get('url')):38} "
+                              f"{str(it.get('name'))[:40]}")
                 url, why = pick_image(hits, a, shop, exact)
                 if url:
                     break

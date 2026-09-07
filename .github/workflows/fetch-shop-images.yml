@@ -30,6 +30,11 @@ on:
         description: '調べる記事数の上限（0で全部）'
         required: false
         default: '0'
+      debug:
+        description: '検索語ごとの件数と、返ってきた商品を出す'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write
@@ -59,6 +64,7 @@ jobs:
             --limit "${{ inputs.limit }}" \
             ${{ inputs.slug && format('--slug {0}', inputs.slug) || '' }} \
             ${{ inputs.force && '--force' || '' }} \
+            ${{ inputs.debug && '--debug' || '' }} \
             ${{ inputs.apply && '--apply' || '' }}
 
       - name: サイトを生成して検査する
