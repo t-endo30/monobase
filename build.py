@@ -939,6 +939,8 @@ def _header_count_text():
 # ここに入ったのでやめた）。
 V2_NAV = [
     ("HOME", "ホーム", "index.html"),
+    ("NEW", "新着記事", "new.html"),
+    ("RANKING", "ランキング", "ranking.html"),
     ("CATEGORY", "カテゴリー", "categories.html"),
     ("ABOUT", "モノベースについて", "about.html"),
     ("POLICY", "運営方針", "editorial-policy.html"),
@@ -984,6 +986,10 @@ def header(current, p, crumbs=None, current_sub="", band=""):
     for en, ja, href in V2_NAV:
         cur = ""
         if en == "HOME" and current in ("", "home"):
+            cur = ' aria-current="page"'
+        elif en == "NEW" and current == "new":
+            cur = ' aria-current="page"'
+        elif en == "RANKING" and current == "ranking":
             cur = ' aria-current="page"'
         elif en == "CATEGORY" and current in CAT_LABEL:
             cur = ' aria-current="page"'
