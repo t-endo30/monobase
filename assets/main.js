@@ -384,9 +384,13 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       }
     });
   }
-  /* ---- タイルの右下に閲覧数を出す ----
+  /* ---- タイルに閲覧数を出す ----
      出すのは content/ranking.json（GA4 の実数）があるときだけ。
-     端末ごとの記録は、その人だけの回数なので出さない。 */
+     端末ごとの記録は、その人だけの回数なので出さない。
+
+     出す数は、並び替えに使ったもの（rankBase）と同じにする。累計を
+     出しつつ直近で並べると、ランキングの数字が降順に並ばず、
+     順位の根拠が読めなくなるため。 */
   function views(root) {
     /* content/ranking.json がまだ空でも、枠だけ消えると欠けて見えるので
        0 として出す。端末ごとの記録は「その人だけの回数」なので使わない。 */
@@ -395,7 +399,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       var card = el.closest('[data-slug]');
       if (!card) return;
       /* GA4 は閲覧のあった記事しか返さないので、無い記事は 0 として出す */
-      var n = siteViews[card.getAttribute('data-slug')] || 0;
+      var n = rankBase[card.getAttribute('data-slug')] || 0;
       el.textContent = 'VIEW : ' + n.toLocaleString('en-US');
       el.hidden = false;
     });

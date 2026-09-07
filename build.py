@@ -53,9 +53,10 @@ ASSET_V = _asset_version()
 # アクセスランキング用のデータ。
 # content/ranking.json に実データ（GA4等）があればそれを使い、
 # 無ければ閲覧者自身の端末に記録した閲覧回数で並べる（assets/main.js）。
-# views は開設からの累計（タイルに出す VIEW）、views_recent は直近ぶん
-# （ランキングの並び順と Hot の札）。分けているのは、累計だけで並べると
-# 古い記事が上に張り付き、直近だけで出すと VIEW が日ごとに減るため。
+# views は開設からの累計、views_recent は直近ぶん。並び順・Hot の札・
+# タイルに出す VIEW は、いずれも直近ぶん（無ければ累計）でそろえる。
+# 累計だけで並べると古い記事が上に張り付き、並びと違う数字を出すと
+# ランキングの数字が降順にならず、順位の根拠が読めなくなる。
 try:
     _rank_file = json.load(io.open(os.path.join(ROOT, "content", "ranking.json"),
                                    encoding="utf-8"))

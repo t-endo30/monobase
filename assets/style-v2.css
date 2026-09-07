@@ -3624,7 +3624,7 @@ h1,h2,h3,h4,
   .btn-line:hover{animation:none;}
 }
 
-/* ---- タイルの右下に出す閲覧数 ----
+/* ---- タイルに出す閲覧数（PCは右下、スマホは右上） ----
    日付（.card-date / .row-item .meta）と同じ字体・大きさ・色にそろえる。
    数字は assets/main.js が GA4 の実数から入れる。 */
 .card{position:relative;}
