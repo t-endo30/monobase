@@ -6,6 +6,7 @@
 
 作るもの（すべて assets/img/ へ）:
     favicon.svg           ブラウザのタブ（拡大しても粗くならないSVG）
+    favicon.ico           サイト直下。ブックマーク一覧などが直接取りに来る
     favicon-32.png        SVGを読まないブラウザ向けの控え
     apple-touch-icon.png  iOSのホーム画面（角丸はiOS側が付けるので四角のまま）
     og-default.jpg        SNSに貼られたときの既定の画像
@@ -142,7 +143,18 @@ def main():
     shot(tile_svg(), 180, 180, apple, ch)
     print(f"  {os.path.relpath(apple, ROOT)}  180×180")
 
-    # 4) OGP。JPEGにしたいので、一度PNGで撮ってから変換する
+    # 4) /favicon.ico。ブックマーク一覧やRSSリーダーなど、HTMLを読まずに
+    #    サイト直下の favicon.ico を取りに来るものがあるので、置いておく。
+    ico = os.path.join(ROOT, "favicon.ico")
+    with tempfile.TemporaryDirectory() as d:
+        tmp = os.path.join(d, "i.png")
+        shot(tile_svg(), 64, 64, tmp, ch)
+        from PIL import Image
+        Image.open(tmp).convert("RGB").save(
+            ico, "ICO", sizes=[(16, 16), (32, 32), (48, 48)])
+    print(f"  {os.path.relpath(ico, ROOT)}  16/32/48")
+
+    # 5) OGP。JPEGにしたいので、一度PNGで撮ってから変換する
     og = os.path.join(OUT, "og-default.jpg")
     with tempfile.TemporaryDirectory() as d:
         tmp = os.path.join(d, "og.png")
