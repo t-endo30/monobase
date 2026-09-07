@@ -6,8 +6,13 @@ name: Write new articles
 #   ① 楽天・Yahoo!から商品の候補を集める      tools/pick_products.py
 #   ② 上位N件を下書きにする                   tools/make_drafts.py
 #   ③ Claude に本文を書かせる                 tools/write_article.py
-#   ④ レビューして直す・公開する               tools/review_article.py
-#   ⑤ 通らなかったものはプルリクエストで残す
+#   ④ 楽天・Yahoo!のURLと商品写真を埋める     tools/backfill_shop_urls.py / fetch_shop_images.py
+#   ⑤ レビューして直す・公開する               tools/review_article.py（commit・pushはここで1回）
+#   ⑥ 通らなかったものはプルリクエストで残す
+#
+# ④を⑤より前に済ませることで、何本まとめて作る日でも
+# push（＝サイトのビルド）は1回にまとまる。以前は④が⑤のあとにあり、
+# 埋めた分を別途pushしていたため、1回の実行でビルドが2回走っていた。
 #
 # 頻度（週に何回）と本数（1回に何本）は content/site.json の automation で決める。
 # 管理画面の「サイト設定」から変えられる。ここでは毎日まわし、⓪で間引く。
@@ -135,8 +140,40 @@ jobs:
           git config user.name  "monobase-bot"
           git config user.email "monobase.site@gmail.com"
 
-      # レビューを通ったものは published:true にして push する。
-      # 通らなかったものは下書きのまま残り、次のステップでPRになる。
+      # 候補集めの段階で楽天・Yahoo!のURLが取れていない商品がある。
+      # そのまま公開すると、そのモールの販売ボタンが出ない＝収益経路が無い。
+      # ここで検索APIから引き直して埋める（見つからなければ空のまま）。
+      #
+      # レビュー・公開（次のステップ）より前に済ませる。以前は公開の
+      # あとに埋めていたため、1回の実行で「公開のpush」と「埋めた分の
+      # push」の2回に分かれ、ビルドが2回走っていた。ここで先に埋めて
+      # おけば、次のレビュー・公開の1回のcommit・push・ビルドに
+      # まとまる（10本まとめて作る日でも、ビルドは1回で済む）。
+      - name: 抜けている楽天・Yahoo!の商品URLを埋める
+        if: steps.gate.outputs.run == 'true'
+        continue-on-error: true          # 埋まらなくても公開は進める
+        env:
+          RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
+          RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
+          YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
+        run: python3 tools/backfill_shop_urls.py --apply --include-drafts
+
+      # 本文の商品カードに出す「実物の商品写真」を、同じ検索APIから拾う。
+      # 保存するのはURLだけで、画像は当サイトへ持ってこない（各モールの規約）。
+      # 上のステップで楽天・Yahoo!のURLが埋まった直後に走らせる
+      # （写真は、そのモールのボタンが出ている記事にしか入れないため）。
+      - name: 商品カードの写真を拾う
+        if: steps.gate.outputs.run == 'true'
+        continue-on-error: true          # 拾えなくても公開は進める
+        env:
+          RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
+          RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
+          YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
+        run: python3 tools/fetch_shop_images.py --apply
+
+      # レビューを通ったものは published:true にして push する
+      # （build.py もこの中で1回だけ走る）。通らなかったものは
+      # 下書きのまま残り、次のステップでPRになる。
       - name: レビューして公開する
         id: review
         if: steps.gate.outputs.run == 'true' && steps.gate.outputs.auto_publish == 'true'
@@ -160,31 +197,6 @@ jobs:
           python3 tools/review_article.py --new \
             --model "${{ inputs.model || 'opus' }}"
 
-      # 候補集めの段階で楽天・Yahoo!のURLが取れていない商品がある。
-      # そのまま公開すると、そのモールの販売ボタンが出ない＝収益経路が無い。
-      # ここで検索APIから引き直して埋める（見つからなければ空のまま）。
-      - name: 抜けている楽天・Yahoo!の商品URLを埋める
-        if: steps.gate.outputs.run == 'true'
-        continue-on-error: true          # 埋まらなくても公開は進める
-        env:
-          RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
-          RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
-          YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
-        run: python3 tools/backfill_shop_urls.py --apply --include-drafts
-
-      # 本文の商品カードに出す「実物の商品写真」を、同じ検索APIから拾う。
-      # 保存するのはURLだけで、画像は当サイトへ持ってこない（各モールの規約）。
-      # 上のステップで楽天・Yahoo!のURLが埋まった直後に走らせる
-      # （写真は、そのモールのボタンが出ている記事にしか入れないため）。
-      - name: 商品カードの写真を拾う
-        if: steps.gate.outputs.run == 'true'
-        continue-on-error: true          # 拾えなくても公開は進める
-        env:
-          RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
-          RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
-          YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
-        run: python3 tools/fetch_shop_images.py --apply
-
       - name: サイトを生成して検査する
         if: steps.gate.outputs.run == 'true'
         run: |
@@ -193,12 +205,12 @@ jobs:
           python3 tools/check_text.py
           python3 tools/check_images.py
 
-      # 公開の push は review_article.py が済ませているが、それは上の
-      # 「レビューして公開する」の時点。そのあとに埋めた楽天・Yahoo!のURLと
-      # 商品写真、そして生成し直したページは、まだ push されていない。
-      # ここで出さないと、新しい記事の販売ボタンと実物写真が
-      # 毎回すべて捨てられる。
-      - name: 埋めたURLと写真を公開する
+      # ここまでの push は「レビューして公開する」の1回で済んでいる
+      # はずだが、そのpushが弾かれて取りこぼした場合や、直前の
+      # 「サイトを生成して検査する」で画像最適化などの差分が出た場合に
+      # 備えて、残っていれば出し直す（通常は「出すものはありません」で
+      # 何もしない）。
+      - name: 残っていれば出し直す
         if: steps.gate.outputs.run == 'true' && steps.gate.outputs.auto_publish == 'true'
         run: |
           # 作業中の変更が無くても、前の手順が commit だけ済ませて push に
@@ -212,7 +224,7 @@ jobs:
           git add -u
           if ! git diff --cached --quiet; then
             git diff --cached --stat
-            git commit -m "新しい記事に、商品URLと写真を足す（自動）"
+            git commit -m "取りこぼした分を出し直す（自動）"
           fi
           # 取り込みが衝突したまま止まると、次の試行が「まだ rebase の
           # 途中です」で必ず失敗する。実際それで3回とも空振りした。
