@@ -14,8 +14,12 @@ name: Write new articles
 # push（＝サイトのビルド）は1回にまとまる。以前は④が⑤のあとにあり、
 # 埋めた分を別途pushしていたため、1回の実行でビルドが2回走っていた。
 #
-# 頻度（週に何回）と本数（1回に何本）は content/site.json の automation で決める。
+# 頻度（週に何回）と本数（1日に合計何本）は content/site.json の automation で決める。
 # 管理画面の「サイト設定」から変えられる。ここでは毎日まわし、⓪で間引く。
+#
+# 1日の本数が多いと1回のジョブが90分のタイムアウトに近づくため、
+# 1回のジョブは最大5本までとし、それを超える分は下のcronに並べた
+# 2回目の実行に回す（⓪が github.event.schedule を見て何本作るか決める）。
 #
 # ③は手元で叩くのと同じスクリプトを、同じ `claude` コマンドで動かす。
 # 認証は Claude のサブスク（CLAUDE_CODE_OAUTH_TOKEN）を使うので、
@@ -26,7 +30,8 @@ name: Write new articles
 # 出したくない記事は、公開後に管理画面で下書きに戻す。
 on:
   schedule:
-    - cron: '0 20 * * *'      # 毎日 5:00 JST（UTC 20:00）。実行日かは⓪で判定
+    - cron: '0 20 * * *'      # 1回目 毎日 5:00 JST（UTC 20:00）。実行日かは⓪で判定
+    - cron: '0 4 * * *'       # 2回目 毎日 13:00 JST（UTC 4:00）。1日6本以上のときだけ⓪が実行する
   workflow_dispatch:
     inputs:
       count:
@@ -71,6 +76,7 @@ jobs:
         id: gate
         run: |
           python3 tools/schedule_gate.py \
+            --schedule "${{ github.event.schedule }}" \
             ${{ (github.event_name == 'workflow_dispatch' && inputs.force) && '--force' || '' }}
 
       - uses: actions/setup-node@v4
