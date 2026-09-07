@@ -57,12 +57,12 @@
   </url>
   <url>
     <loc>https://monobase.site/category-health</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-kitchen</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -126,14 +126,34 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://monobase.site/category-health-measure</loc>
+    <lastmod>2026-09-07</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/category-kitchen-appliance</loc>
-    <lastmod>2026-08-31</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-furniture-chair</loc>
     <lastmod>2026-09-07</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/salonia</loc>
+    <lastmod>2026-09-07</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/recolte-rsy-2</loc>
+    <lastmod>2026-09-07</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/tanita-fs-101-fs101</loc>
+    <lastmod>2026-09-07</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://monobase.site/articles/p10-yunth-c-c</loc>
