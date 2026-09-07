@@ -1863,7 +1863,8 @@ def pr_note(a):
     if not shop_links(a):
         return ""
     return ('        <p class="cta-note cta-note-top">'
-            f'本ページには広告（アフィリエイトリンク）が含まれます。Amazonのアソシエイトとして、{e(NAME)}は適格販売により収入を得ています。'
+            '本ページには広告（アフィリエイトリンク）が含まれます。<br>'
+            f'Amazonのアソシエイトとして、{e(NAME)}は適格販売により収入を得ています。'
             f'<a href="../advertising.html">広告掲載について</a></p>\n')
 
 
