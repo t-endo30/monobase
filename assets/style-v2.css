@@ -2294,6 +2294,14 @@ p,li,.card-desc{text-wrap:pretty;}
 @media (max-width:599px){
   /* スマホは記事の題名（主題・補足とも）を中央寄せにする */
   .article-page .article-title{text-align:center;}
+  /* 見出し直下の広告表記は、.card-surface の左右パディングぶんだけ
+     外へ張り出させて、使える横幅を広げる（折り返しの位置を右へ
+     伸ばし、「によ／り」のような語の途中での改行を避けやすくする）。 */
+  .cta-note-top{
+    margin-left:calc(-1 * clamp(14px,4vw,28px));
+    margin-right:calc(-1 * clamp(14px,4vw,28px));
+    padding-left:4px;padding-right:4px;
+  }
 }
 .notice-marquee{flex:1;min-width:0;overflow:hidden;}
 .notice-marquee p{margin:0;
