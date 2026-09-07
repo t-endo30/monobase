@@ -1359,12 +1359,13 @@ def v2_card(a, p, no=None, flags=""):
             f'<span class="card-flags" aria-hidden="true"></span>{rank}</span>'
             f'<span class="card-meta">'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
+            # 閲覧数は GA4 の実数（content/ranking.json）を assets/main.js が入れる。
+            # 数字が無いあいだは空のまま隠しておく。日付のすぐ右に置き、
+            # カテゴリーは行の右端に残す（日付→VIEW→カテゴリーの順）。
+            f'<span class="card-views" hidden></span>'
             f'<span class="card-cat">{e(cat)}</span></span>'
             f'<span class="card-title">{v2_title(title)}</span>'
-            f'<span class="card-note">{e(v2_appeal(a))}</span>'
-            # 閲覧数は GA4 の実数（content/ranking.json）を assets/main.js が入れる。
-            # 数字が無いあいだは空のまま隠しておく。
-            f'<span class="card-views" hidden></span></a>')
+            f'<span class="card-note">{e(v2_appeal(a))}</span></a>')
 
 
 def v2_row(a, p, numbered=None, detail=False, flags=""):
@@ -1385,10 +1386,11 @@ def v2_row(a, p, numbered=None, detail=False, flags=""):
             f'<span class="row-body">'
             f'<span class="row-meta">'
             f'<span class="meta">{e(a.get("date",""))}</span>'
+            # 日付→VIEW→カテゴリーの順。閲覧数は assets/main.js が入れる。
+            f'<span class="card-views" hidden></span>'
             f'<span class="row-cat">{e(cat)}</span></span>'
             f'<h3>{v2_title(a["title"])}</h3>'
-            f'<p>{e(v2_appeal(a))}</p>'
-            f'<span class="card-views" hidden></span></span></a>')
+            f'<p>{e(v2_appeal(a))}</p></span></a>')
 
 
 def v2_rows(items, p, numbered=False, narrow=False, detail=False, flags=""):
@@ -3224,11 +3226,16 @@ def build_categories():
 
 
 def build_new():
-    """新着一覧。トップの NEW からの行き先。"""
+    """新着一覧。トップの NEW からの行き先。
+       掲載から1週間以内の記事だけを出す。「新着」という名前のページに
+       何ヶ月も前の記事まで並ぶと、更新が止まっているサイトに見える。"""
     p = "./"
-    items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)
+    cutoff = (datetime.date.today() - datetime.timedelta(days=7)).isoformat()
+    items = sorted(
+        [a for a in PUBLISHED if a.get("date", "") >= cutoff],
+        key=lambda a: a.get("date", ""), reverse=True)
     body = v2_page_head("新着記事",
-                        lead="公開の新しい順に並べています。", count=len(items))
+                        lead="掲載から1週間以内の記事を、新しい順に並べています。", count=len(items))
     body += v2_section(v2_rows(items, p, flags="new") + promo_row_slot(),
                        style=LIST_PAD)
     return page(f"新着記事 - {NAME}", f"{NAME}の新着記事一覧です。利用者の声と公式仕様を突き合わせた商品レビュー・選び方ガイドを、公開の新しい順に並べています。", "new", p,

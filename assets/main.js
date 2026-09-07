@@ -455,11 +455,11 @@ document.addEventListener('touchstart', function () {}, { passive: true });
           '<span class="row-body">' +
             '<span class="row-meta">' +
               '<span class="meta">' + esc(d) + '</span>' +
+              '<span class="card-views" hidden></span>' +
               '<span class="row-cat">' + esc(it.cat) + '</span>' +
             '</span>' +
             '<h3>' + titleHtml(it.title) + '</h3>' +
             (it.excerpt ? '<p>' + esc(it.excerpt) + '</p>' : '') +
-            '<span class="card-views" hidden></span>' +
           '</span>' +
         '</a>';
     }).join('');
@@ -1000,10 +1000,10 @@ document.addEventListener('touchstart', function () {}, { passive: true });
         '<span class="card-flags" aria-hidden="true"></span></span>' +
       '<span class="card-meta">' +
         '<span class="card-date">' + esc(a.d) + '</span>' +
+        '<span class="card-views" hidden></span>' +
         '<span class="card-cat">' + esc(a.c) + '</span></span>' +
       '<span class="card-title">' + titleHtml(a.t) + '</span>' +
-      '<span class="card-note">' + esc(a.x) + '</span>' +
-      '<span class="card-views" hidden></span></a>';
+      '<span class="card-note">' + esc(a.x) + '</span></a>';
   }).join('');
   /* 差し替えた札と閲覧数は、ここで組み直したぶんにも付ける */
   document.dispatchEvent(new CustomEvent('mb:cards', { detail: grid }));

@@ -485,7 +485,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* 写真の下は「日付＋カテゴリー」で1行、次に見出し、その次に一言。
    すべての記事タイルでこの並びにそろえる */
 .card-meta{
-  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  display:flex;align-items:baseline;gap:10px;
   margin:12px 0 6px;
 }
 .card-date{
@@ -507,9 +507,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
   overflow:hidden;max-height:3.6em;
 }
-/* カテゴリーは日付と同じ行の右端に置く */
+/* カテゴリーは日付・VIEWと同じ行の右端に置く（左に margin:auto で寄せる） */
 .card-cat{
-  flex:0 1 auto;min-width:0;text-align:right;
+  flex:0 1 auto;min-width:0;text-align:right;margin-left:auto;
   font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);
   line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
@@ -637,11 +637,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .row-item .meta{flex:0 0 auto;font-family:var(--font-en);font-size:11px;letter-spacing:.1em;color:var(--muted-2);}
 /* 横長のタイルも、縦のタイルと同じ「日付＋カテゴリー／見出し／一言」の並び */
 .row-meta{
-  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  display:flex;align-items:baseline;gap:10px;
   margin-bottom:6px;
 }
 .row-cat{
-  flex:0 1 auto;min-width:0;text-align:right;
+  flex:0 1 auto;min-width:0;text-align:right;margin-left:auto;
   font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);
   line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
@@ -3626,56 +3626,21 @@ h1,h2,h3,h4,
   .btn-line:hover{animation:none;}
 }
 
-/* ---- タイルに出す閲覧数（PCは右下、スマホは右上） ----
+/* ---- タイルに出す閲覧数 ----
+   日付のすぐ右、カテゴリーの左に置く（PC・スマホとも同じ並び：
+   日付→VIEW→カテゴリー）。.card-meta / .row-meta の中の1項目として
+   並ぶだけなので、独立した位置指定は不要。
    日付（.card-date / .row-item .meta）と同じ字体・大きさ・色にそろえる。
    数字は assets/main.js が GA4 の実数から入れる。 */
 .card{position:relative;}
-.card .card-views{
-  position:absolute;right:14px;bottom:14px;
-  padding:0;
+.card-views{
+  flex:0 0 auto;
   font-family:var(--font-en);font-size:11px;letter-spacing:.1em;
-  color:var(--muted-2);
-}
-.row-item .card-views{
-  display:block;margin-top:6px;text-align:right;
-  font-family:var(--font-en);font-size:11px;letter-spacing:.1em;
-  color:var(--muted-2);
+  color:var(--muted-2);white-space:nowrap;
 }
 @media (max-width:599px){
-  /* スマホでは、閲覧数をタイルの右上へ。日付・カテゴリーと同じ1行に
-     並べ、その行の右端に置く（カテゴリーはその左）。下の行から
-     抜けるぶん、タイルは1行ぶん低くなる。
-
-     並びは、写真の右の列を［日付＋カテゴリー｜VIEW］の2列に割り、
-     見出しと一言はその2列にまたがらせて作る。 */
   .card,.row-item .row-body{align-items:start;}
 
-  .card{grid-template-columns:96px minmax(0,1fr) auto;column-gap:8px;}
-  .card .card-thumb{grid-column:1;grid-row:1 / span 3;margin-right:6px;}
-  .card .card-meta{grid-column:2;grid-row:1;}
-  .card .card-views{grid-column:3;grid-row:1;}
-  .card .card-title{grid-column:2 / span 2;grid-row:2;}
-  .card .card-note{grid-column:2 / span 2;grid-row:3;}
-
-  .row-item .row-body{
-    display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;
-  }
-  .row-item .row-meta{grid-column:1;grid-row:1;}
-  .row-item .card-views{grid-column:2;grid-row:1;}
-  .row-item h3{grid-column:1 / span 2;grid-row:2;}
-  .row-item p{grid-column:1 / span 2;grid-row:3;}
-
-  /* 1行目の3つ（日付・カテゴリー・VIEW）は、字の大きさが違っても
-     同じ高さの器に入れて、上下の中心でそろえる。字送りだけで
-     そろえると、行の高さが字の大きさぶんずれて段差が出る。 */
-  .card .card-meta,.card .card-views,
-  .row-item .row-meta,.row-item .card-views{
-    height:18px;margin:0 0 3px;
-    display:flex;align-items:center;
-  }
-  .card .card-views,.row-item .card-views{
-    position:static;justify-content:flex-end;white-space:nowrap;
-  }
   /* 日付・VIEW は欧文（--font-en）、カテゴリーは和文。同じ字の大きさに
      すると、和文のほうが字面いっぱいに描かれるぶん背が高く見える。
      字の高さがそろって見えるところまで、欧文だけ大きさを上げる
@@ -3683,9 +3648,6 @@ h1,h2,h3,h4,
   .card .card-date,.row-item .meta,
   .card .card-views,.row-item .card-views{font-size:11.5px;line-height:1;}
   .card .card-cat,.row-item .row-cat{font-size:8.5px;line-height:1;}
-  /* カテゴリーは VIEW のすぐ左。字が長い分野名でも、VIEW を
-     押し出さないように、余った幅の中で「…」に切る */
-  .card .card-cat,.row-item .row-cat{margin-left:8px;}
 }
 
 /* 本文の商品カードに、モールのAPIが返した実物の商品写真を出す場合。
