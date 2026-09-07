@@ -451,6 +451,8 @@ def main():
     ap.add_argument("--per-category", type=int, default=30,
                     help="カテゴリーごとに取得する件数")
     ap.add_argument("--out", default="content/candidates.json")
+    ap.add_argument("--require-rakuten", action="store_true",
+                    help="楽天の商品ページが取れた商品だけを候補にする")
     args = ap.parse_args()
 
     rakuten_id = os.environ.get("RAKUTEN_APP_ID", "").strip()
@@ -474,6 +476,15 @@ def main():
 
     cands = build_candidates(rakuten_id, rakuten_key, yahoo_id, cats,
                              args.limit, args.per_category)
+
+    if args.require_rakuten:
+        # 楽天の商品ページが取れた商品だけに絞る。
+        # 一覧に出す実物写真は、そのページから引いてくるため。
+        # 取れない商品は記事にしても、写真が自動生成の絵のままになる。
+        before = len(cands)
+        cands = [c for c in cands if (c.get("rakuten_url") or "").strip()]
+        print(f"楽天の商品ページがあるものだけに絞りました："
+              f"{before} → {len(cands)} 件")
 
     path = os.path.join(ROOT, args.out)
     payload = {
