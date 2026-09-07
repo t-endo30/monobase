@@ -1,16 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-<rect width="64" height="64" fill="#fff"/>
-<g stroke="#9a9a9a" stroke-width=".9" stroke-linejoin="round">
-  <path d="M32 11 10 23 3 14 30 1Z" fill="#f2f2f2"/>
-  <path d="M32 11 54 23 61 14 34 1Z" fill="#f2f2f2"/>
-  <path d="M10 23 32 11l22 12-22 12Z" fill="#c9c9c9"/>
-  <path d="M10 23v26l22 12V35Z" fill="#3d3d3d"/>
-  <path d="M54 23v26L32 61V35Z" fill="#2a2a2a"/>
-  <path d="M10 23 32 35l-6 5L4 28Z" fill="#f7f7f7"/>
-  <path d="M54 23 32 35l6 5 22-12Z" fill="#f7f7f7"/>
+<rect width="64" height="64" fill="#ffffff"/>
+<g stroke="#9a9a9a" stroke-width="0.9" stroke-linejoin="round">
+  <path d="M32 11 L10 23 L3 14 L30 1 Z" fill="#f2f2f2"/>
+  <path d="M32 11 L54 23 L61 14 L34 1 Z" fill="#f2f2f2"/>
+  <path d="M10 23 L32 11 L54 23 L32 35 Z" fill="#c9c9c9"/>
+  <path d="M10 23 L10 49 L32 61 L32 35 Z" fill="#3d3d3d"/>
+  <path d="M54 23 L54 49 L32 61 L32 35 Z" fill="#2a2a2a"/>
+  <path d="M10 23 L32 35 L26 40 L4 28 Z" fill="#f7f7f7"/>
+  <path d="M54 23 L32 35 L38 40 L60 28 Z" fill="#f7f7f7"/>
 </g>
-<g fill="#fff" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="central">
-  <text x="21" y="34.9" transform="matrix(1,.6,0,1,0,0)">M</text>
-  <text x="43" y="73.3" transform="matrix(1,-.6,0,1,0,0)">B</text>
+<g fill="#ffffff" font-family="Helvetica Neue,Helvetica,Arial,sans-serif"
+   font-size="13" font-weight="700" text-anchor="middle" dominant-baseline="central">
+  <text x="21" y="34.9" transform="matrix(1,0.6,0,1,0,0)">M</text>
+  <text x="43" y="73.3" transform="matrix(1,-0.6,0,1,0,0)">B</text>
 </g>
 </svg>
