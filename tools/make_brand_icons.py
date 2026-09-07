@@ -8,7 +8,8 @@
     favicon.svg           ブラウザのタブ（拡大しても粗くならないSVG）
     favicon.ico           サイト直下。ブックマーク一覧などが直接取りに来る
     favicon-32.png        SVGを読まないブラウザ向けの控え
-    apple-touch-icon.png  iOSのホーム画面（角丸はiOS側が付けるので四角のまま）
+    apple-touch-icon.png  iOSのホーム画面とブックマーク（角丸はiOS側が付ける）
+                          サイト直下にも同じものを2つ置く（Safariの決め打ち対策）
     og-default.jpg        SNSに貼られたときの既定の画像
 
 マークは build.py の logo_svg() と同じ形・同じ色。ヘッダーに出ている
@@ -143,7 +144,15 @@ def main():
     shot(tile_svg(), 180, 180, apple, ch)
     print(f"  {os.path.relpath(apple, ROOT)}  180×180")
 
-    # 4) /favicon.ico。ブックマーク一覧やRSSリーダーなど、HTMLを読まずに
+    # 4) サイト直下の apple-touch-icon。iOSのSafariは、ブックマークや
+    #    ホーム画面のアイコンを HTML の link ではなく、サイト直下の
+    #    決め打ちの名前で取りに来ることがある。precomposed の側は
+    #    「iOS側で光沢を足すな」の意味で、古い端末向けの控え。
+    for name in ("apple-touch-icon.png", "apple-touch-icon-precomposed.png"):
+        shutil.copyfile(apple, os.path.join(ROOT, name))
+        print(f"  {name}  180×180")
+
+    # 5) /favicon.ico。ブックマーク一覧やRSSリーダーなど、HTMLを読まずに
     #    サイト直下の favicon.ico を取りに来るものがあるので、置いておく。
     ico = os.path.join(ROOT, "favicon.ico")
     with tempfile.TemporaryDirectory() as d:
@@ -154,7 +163,7 @@ def main():
             ico, "ICO", sizes=[(16, 16), (32, 32), (48, 48)])
     print(f"  {os.path.relpath(ico, ROOT)}  16/32/48")
 
-    # 5) OGP。JPEGにしたいので、一度PNGで撮ってから変換する
+    # 6) OGP。JPEGにしたいので、一度PNGで撮ってから変換する
     og = os.path.join(OUT, "og-default.jpg")
     with tempfile.TemporaryDirectory() as d:
         tmp = os.path.join(d, "og.png")

@@ -680,7 +680,7 @@ def head(title, desc, current, p, canonical, extra="", body_class="", image="",
 <link rel="alternate" type="application/rss+xml" title="{e(NAME)}" href="{BASE_URL}/feed.xml">
 <link rel="icon" href="{p}assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="{p}assets/img/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="{p}assets/img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="{p}assets/img/apple-touch-icon.png">\n<link rel="apple-touch-icon-precomposed" sizes="180x180" href="{p}assets/img/apple-touch-icon.png">
 {gsc}{norobots}{ads_meta()}<meta property="og:type" content="website">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
