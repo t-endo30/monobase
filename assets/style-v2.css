@@ -2291,6 +2291,10 @@ p,li,.card-desc{text-wrap:pretty;}
   color:var(--text-sub);
   letter-spacing:.01em;}
 .article-title .t-sub{font-size:.62em;line-height:1.6;margin-top:.45em;}
+@media (max-width:599px){
+  /* スマホは記事の題名（主題・補足とも）を中央寄せにする */
+  .article-page .article-title{text-align:center;}
+}
 .notice-marquee{flex:1;min-width:0;overflow:hidden;}
 .notice-marquee p{margin:0;
   white-space:nowrap;
@@ -3334,7 +3338,8 @@ h1,h2,h3,h4,
 .scene-title,.hl-title,.fix-title,.goodfor-t,.notfor-t,
 .side-heading,.page-head h1,.hp-title,
 .li-t,.next-title,.callout-label,.pn-label,.voice-title,.prod-title,
-.faq-item .q,.toc a,.hero-point .h3{
+.faq-item .q,.toc a,.hero-point .h3,
+.cta-note{
   word-break:auto-phrase;
   overflow-wrap:normal;
   text-wrap:pretty;
