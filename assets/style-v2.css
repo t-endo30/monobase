@@ -2295,6 +2295,7 @@ p,li,.card-desc{text-wrap:pretty;}
   color:var(--text-sub);
   letter-spacing:.01em;}
 .article-title .t-sub{font-size:.62em;line-height:1.6;margin-top:.45em;}
+.cta-note-top{text-align:center;}
 @media (max-width:599px){
   /* スマホは記事の題名（主題・補足とも）を中央寄せにする */
   .article-page .article-title{text-align:center;}
