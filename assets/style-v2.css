@@ -3672,11 +3672,15 @@ h1,h2,h3,h4,
     display:flex;align-items:center;
   }
   .card .card-views,.row-item .card-views{
-    position:static;justify-content:flex-end;
-    font-size:10px;white-space:nowrap;
+    position:static;justify-content:flex-end;white-space:nowrap;
   }
-  .card .card-date,.card .card-cat,
-  .row-item .meta,.row-item .row-cat{line-height:1;}
+  /* 日付・VIEW は欧文（--font-en）、カテゴリーは和文。同じ字の大きさに
+     すると、和文のほうが字面いっぱいに描かれるぶん背が高く見える。
+     字の高さがそろって見えるところまで、欧文だけ大きさを上げる
+     （実測で、和文8.5px と 欧文11.5px の字面がほぼ同じ高さ）。 */
+  .card .card-date,.row-item .meta,
+  .card .card-views,.row-item .card-views{font-size:11.5px;line-height:1;}
+  .card .card-cat,.row-item .row-cat{font-size:8.5px;line-height:1;}
   /* カテゴリーは VIEW のすぐ左。字が長い分野名でも、VIEW を
      押し出さないように、余った幅の中で「…」に切る */
   .card .card-cat,.row-item .row-cat{margin-left:8px;}
