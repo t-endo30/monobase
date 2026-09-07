@@ -1219,9 +1219,15 @@
     page(1).then(function () {
       var chip = $('chipDeploy');
       $('deployCount').textContent = total + (capped ? '回以上' : ' 回');
-      chip.className = 'hchip' + (total >= 900 ? ' is-danger' : total >= 600 ? ' is-warn' : '');
-      chip.title = '今月ビルドが走った回数の目安（' + total + ' 回）。毎月1日に0へ戻ります。\n'
+      /* 無料枠の上限は月500回。超えると新しいpushがビルドされなくなる
+         （サイトは最後に成功したビルドのまま配信され続けるので、
+         見た目には気づきにくい）。手前で気づけるよう、危険色は
+         上限そのもの、警告色はその8割に置く。 */
+      chip.className = 'hchip' + (total >= 500 ? ' is-danger' : total >= 400 ? ' is-warn' : '');
+      chip.title = '今月ビルドが走った回数の目安（' + total + ' 回 / 上限500回）。毎月1日に0へ戻ります。\n'
                  + '画像だけのコミットはビルドを起こさないので数えていません。\n'
+                 + '上限を超えると、新しいpushがビルドされなくなります'
+                 + '（サイトは最後に成功した状態のまま配信され続けます）。\n'
                  + '実際の残量は Cloudflare ダッシュボードで確認してください。';
     }).catch(function () {});
   }
