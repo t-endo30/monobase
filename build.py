@@ -139,25 +139,24 @@ def _logo_path_d(cells):
 
 
 def logo_svg(size="100%"):
-    """ブランドマーク。ヘッダー・フッター・favicon/OGP の生成で共用する。
-       assets/img/hero-box.webp（開いた箱に MB）の等角図をそのまま図形に
-       起こしたもの。箱の2面・開口部・4枚のフタという写真の構成を保つので、
-       トップのヒーロー写真と並べても同じものに見える。
+    """ブランドマーク。ヘッダーとフッターで共用する。
+       favicon.svg（assets/img/favicon.svg）と同じ絵柄で、開いた箱を
+       等角図で起こしたもの。箱の2面・開口部・4枚のフタという構成は
+       トップのヒーロー写真（hero-box.webp）と揃えてある。
        色は CSS 変数で外から差し替える（暗いフッターでは白黒を入れ替える）。"""
-    return f'''<svg viewBox="0 0 48 48" width="{size}" height="{size}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<g fill="var(--mk-flap,#ffffff)" stroke="var(--mk-line,#111111)" stroke-width="0.9" stroke-linejoin="round"><path d="M9 22 L24 31 L15.6 32.8 L0.6 23.8 Z"/>
-    <path d="M24 31 L39 22 L47.4 23.8 L32.4 32.8 Z"/></g>
-  <path d="M24 13 L39 22 L24 31 L9 22 Z" fill="var(--mk-inner,#ffffff)" stroke="var(--mk-line,#111111)" stroke-width="0.9" stroke-linejoin="round"/>
-  <path d="M24 22.5 L31 26.5 L24 30.5 L17 26.5 Z" fill="var(--mk-inner2,#1b1b1b)"/>
-  <g fill="var(--mk-flap,#ffffff)" stroke="var(--mk-line,#111111)" stroke-width="0.9" stroke-linejoin="round"><path d="M9 22 L24 13 L21.5 2.5 L6.5 10.5 Z"/>
-    <path d="M24 13 L39 22 L41.5 10.5 L26.5 2.5 Z"/></g>
-  <path d="M9 22 L24 31 L24 44.5 L9 35.5 Z" fill="var(--mk-body,#111111)"/>
-  <path d="M24 31 L39 22 L39 35.5 L24 44.5 Z" fill="var(--mk-body,#111111)"/>
-  <g fill="var(--mk-letter,#ffffff)" font-family="Helvetica Neue,Arial,sans-serif"
-     font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="central">
-    <text x="16.5" y="23.6" transform="matrix(1,0.6,0,1,0,0)">M</text>
-    <text x="31.5" y="52.4" transform="matrix(1,-0.6,0,1,0,0)">B</text>
-  </g>
+    return f'''<svg viewBox="0 0 64 64" width="{size}" height="{size}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<g stroke="var(--mk-line,#9a9a9a)" stroke-width="0.9" stroke-linejoin="round">
+  <path d="M32 14 L10 26 L10 15 L32 3 Z" fill="var(--mk-flap,#f2f2f2)"/>
+  <path d="M32 14 L54 26 L54 15 L32 3 Z" fill="var(--mk-flap,#f2f2f2)"/>
+  <path d="M10 26 L32 14 L54 26 L32 38 Z" fill="var(--mk-inner,#c9c9c9)"/>
+  <path d="M10 26 L10 46 L32 58 L32 38 Z" fill="var(--mk-body,#3d3d3d)"/>
+  <path d="M54 26 L54 46 L32 58 L32 38 Z" fill="var(--mk-body2,#2a2a2a)"/>
+  <path d="M10 26 L32 38 L26 43 L4 31 Z" fill="var(--mk-flap2,#f7f7f7)"/>
+  <path d="M54 26 L32 38 L38 43 L60 31 Z" fill="var(--mk-flap2,#f7f7f7)"/>
+</g>
+<text x="32" y="52" font-family="Helvetica Neue,Helvetica,Arial,sans-serif"
+      font-size="11" font-weight="700" text-anchor="middle"
+      fill="var(--mk-letter,#ffffff)">MB</text>
 </svg>'''
 
 

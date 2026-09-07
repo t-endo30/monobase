@@ -836,12 +836,13 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
 .v2-footer .brand-en{color:#8f8f8b;}
 .v2-footer .brand-sub{color:#9d9d99;}
 .v2-footer .brand-mark{
-  --mk-body:#ffffff;    /* 箱の面 */
-  --mk-flap:#111111;    /* フタ（フッターの地に沈める） */
+  --mk-body:#ffffff;    /* 箱の左面 */
+  --mk-body2:#e2e2e2;   /* 箱の右面 */
+  --mk-flap:#111111;    /* 奥のフタ（フッターの地に沈める） */
+  --mk-flap2:#111111;   /* 手前のフタ */
   --mk-line:#ffffff;    /* フタの輪郭 */
   --mk-letter:#111111;  /* 頭文字 */
   --mk-inner:#111111;   /* 箱の内側 */
-  --mk-inner2:#ffffff;  /* 箱の底 */
 }
 /* フッターは中央揃え。カテゴリーはヘッダーのドロップダウンと
    引き出しメニューにあるので、ここには置かない */
