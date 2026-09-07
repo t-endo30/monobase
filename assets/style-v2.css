@@ -1791,7 +1791,7 @@ body.has-sticky-cta .fab{bottom:96px;}
 .cta-wrap{margin:26px 0;text-align:center;}
 .cta-note{font-size:12px;
   color:var(--text-sub);
-  margin:10px 0 0;
+  margin:0 0 10px;
   line-height:1.7;}
 /* 記事冒頭の広告表記だけ、文節ごとの塊（.nowrap-ph）に分けている。
    塊の中では折り返さず、塊と塊の間でだけ折り返るので、画面幅が
