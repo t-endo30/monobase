@@ -1224,8 +1224,8 @@
       "_note": "楽天アフィリエイトのID（直参加）。ドット区切りの文字列。hb.afl.rakuten.co.jp/hgc/<ID>/ の形でリンクを組み立てる。"
     },
     "yahoo": {
-      "vc_sid": "",
-      "vc_pid": "",
+      "vc_sid": "3780530",
+      "vc_pid": "892693700",
       "_note": "Yahoo!ショッピングはバリューコマース経由。管理画面の広告リンクに出る sid と pid を入れると ck.jp.ap.valuecommerce.com 経由になる。空のあいだは通常リンク。"
     }
   },
