@@ -101,6 +101,27 @@ def product_name(article):
     return re.sub(r"\s+", " ", t).strip()
 
 
+def shorter(name):
+    """短くした言い方をいくつか返す。
+
+       商品名が長いと、モールの検索は0件になりやすい。
+       「PLuS プラセンタモイスチュアマスク70枚」で0件でも、
+       数量表記を落とした「PLuS プラセンタモイスチュアマスク」なら
+       当たることがある。"""
+    out = []
+    # 末尾の数量・容量（70枚・800ml・2個セットなど）を落とす
+    q = re.sub(r"[0-9０-９]+\s*(枚|個|本|入り?|セット|ml|L|g|kg|cm|m)\s*$",
+               "", name).strip()
+    if q and q != name:
+        out.append(q)
+    ws = name.split()
+    for n in (2, 1):
+        t = " ".join(ws[:n])
+        if t and t != name and t not in out:
+            out.append(t)
+    return out
+
+
 def attempts(shop, article, keys):
     """引き方を、確かな順に並べて返す。(呼び出す関数, 一つに定まる引き方か)。
 
@@ -121,10 +142,9 @@ def attempts(shop, article, keys):
         name = product_name(article)
         if name:
             out.append((lambda: rk(keyword=name), False))
-            # 語が多いと0件になりやすい。前から2語だけでも引いてみる。
-            short = " ".join(name.split()[:2])
-            if short and short != name:
-                out.append((lambda: rk(keyword=short), False))
+            # 語が多いと0件になりやすい。短くした言い方でも引いてみる。
+            for q in shorter(name):
+                out.append((lambda q=q: rk(keyword=q), False))
     if shop == "yahoo" and keys.get("yh_id"):
         yh = lambda **kw: yahoo_search(keys["yh_id"], hits=30, **kw)
         if jan:
@@ -135,9 +155,8 @@ def attempts(shop, article, keys):
         name = product_name(article)
         if name:
             out.append((lambda: yh(query=name), False))
-            short = " ".join(name.split()[:2])
-            if short and short != name:
-                out.append((lambda: yh(query=short), False))
+            for q in shorter(name):
+                out.append((lambda q=q: yh(query=q), False))
     return out
 
 
