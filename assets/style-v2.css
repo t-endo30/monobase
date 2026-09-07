@@ -453,6 +453,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* タイルは白い面。背景に敷いた写真の上に置くので、文字が写真に
    直接乗らないようにする */
 .card{display:flex;flex-direction:column;background:var(--bg-2);padding-bottom:38px;}
+/* ホームなどの記事タイル（<a class="card">）は、以前はこの下の余白に
+   閲覧数（VIEW）を右下に重ねて出していた。VIEWを日付の右へ移した今は
+   ただの空きなので、一行ぶん詰める（検索結果のタイル <article class="card">
+   は「詳細を見る」のボタンで終わるため、こちらは38pxのまま）。
+   スマホの並び（@media max-width:860px）は別途 padding を指定して
+   いるので、ここは横幅に余裕のあるPCだけに絞る。 */
+@media (min-width:861px){
+  a.card{padding-bottom:16px;}
+}
 .card-thumb{margin:14px 14px 0;}
 .card > :not(.card-thumb){padding-left:14px;padding-right:14px;}
 /* 文字で終わると下が詰まって見えるので、タイルの下に一行ぶん空ける。
