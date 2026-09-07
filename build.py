@@ -1851,7 +1851,8 @@ def shop_buttons_mid(a, where, idx=0, note=""):
 
 def pr_note(a):
     """記事内の広告開示。販売先リンク（アフィリエイト）を持つ記事にだけ、
-       本文のいちばん上――最初の購入リンクより前――に1行だけ置く。
+       冒頭の商品カード（最初の購入リンク）の直後、結論ボックスより前に
+       1行だけ置く。
 
        景品表示法の「一般消費者が広告であることを判別できる表示」と、
        Amazonアソシエイト運営規約が求めるアソシエイト表記の両方を、
@@ -2306,7 +2307,7 @@ def render_article(a):
     add = b.append
 
     add('      <article class="card-surface" id="review">\n')
-    add(f'''{pr_note(a)}        <div class="article-meta">
+    add(f'''        <div class="article-meta">
           <span class="badge badge-cat">{e(CAT_LABEL.get(cat,""))}</span>{sub_badge(a)}
           {kind_badge(a)}
           <span class="article-date">{e(jp_date(a.get("updated") or a["date"]))} 更新</span>
@@ -2329,6 +2330,7 @@ def render_article(a):
         add('        <div class="article-accent" aria-hidden="true"></div>\n')
 
     add(top_card)
+    add(pr_note(a))
 
     # 結論ボックス（結論ファースト：評価・3行まとめ・GOOD/BAD・購入ボタンを冒頭に凝縮）
     if a.get("summary"):
