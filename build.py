@@ -1862,10 +1862,17 @@ def pr_note(a):
        （購入ボタンは記事内に最大3か所あるが、そこには繰り返さない）。"""
     if not shop_links(a):
         return ""
-    return ('        <p class="cta-note cta-note-top">'
-            '本ページには広告（アフィリエイトリンク）が含まれます。<br>'
-            f'Amazonのアソシエイトとして、{e(NAME)}は適格販売により収入を得ています。'
-            f'<a href="../advertising.html">広告掲載について</a></p>\n')
+    # 自動改行任せだと「適格販売によ／り」のように文節の途中で折り返る
+    # ことがある（word-break:auto-phrase は対応していない環境だと効かない）。
+    # 文節ごとに white-space:nowrap の塊にして、どの画面幅でも
+    # 塊の中では絶対に割れない・塊と塊の間でだけ折り返るようにする。
+    chunks = ["本ページには広告（アフィリエイトリンク）が含まれます。", "<br>",
+              "Amazonのアソシエイトとして、", f"{e(NAME)}は", "適格販売により",
+              "収入を得ています。",
+              '<a href="../advertising.html">広告掲載について</a>']
+    body = "".join(c if c == "<br>" else f'<span class="nowrap-ph">{c}</span>'
+                   for c in chunks)
+    return f'        <p class="cta-note cta-note-top">{body}</p>\n'
 
 
 def price_note(a):

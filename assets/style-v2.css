@@ -1793,6 +1793,10 @@ body.has-sticky-cta .fab{bottom:96px;}
   color:var(--text-sub);
   margin:10px 0 0;
   line-height:1.7;}
+/* 記事冒頭の広告表記だけ、文節ごとの塊（.nowrap-ph）に分けている。
+   塊の中では折り返さず、塊と塊の間でだけ折り返るので、画面幅が
+   どれだけ狭くても文節の途中で切れない */
+.nowrap-ph{white-space:nowrap;}
 .btn-sub{display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -3670,6 +3674,12 @@ h1,h2,h3,h4,
   .card .card-date,.row-item .meta,
   .card .card-views,.row-item .card-views{font-size:11.5px;line-height:1;}
   .card .card-cat,.row-item .row-cat{font-size:8.5px;line-height:1;}
+
+  /* スマホの一覧タイルだけ並びを変える：VIEW→カテゴリー→日付（右端）。
+     PCは日付→VIEW→カテゴリーのまま。 */
+  .card .card-views,.row-item .card-views{order:1;}
+  .card .card-cat,.row-item .row-cat{order:2;margin-left:0;}
+  .card .card-date,.row-item .meta{order:3;margin-left:auto;}
 }
 
 /* 本文の商品カードに、モールのAPIが返した実物の商品写真を出す場合。
