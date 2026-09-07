@@ -669,35 +669,7 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function collect() {
-    var a = editing;
-    a.title = $('f-title').value.trim();
-    a.list_title = $('f-listTitle').value.trim() || a.title;
-    /* 空欄なら商品名から作る。日本語だけのタイトルでも
-       時刻の数字が並んだURLにならないよう draftSlug に任せる。 */
-    var taken = {};
-    articles.forEach(function (x) { if (x !== a && x.slug) taken[x.slug] = true; });
-    a.slug = ($('f-slug').value.trim() || draftSlug(a.title, a.category, taken));
-    a.category = $('f-category').value;
-    a.sub = $('f-sub').value;
-    a.kind = $('f-kind').value;
-    a.icon = $('f-icon').value.trim() || '📦';
-    a.date = $('f-date').value || today();
-    /* 更新日は、欄を触っていなければ今日に繰り上げる。
-       サイトマップの <lastmod> はこの値をそのまま出しているので、
-       ここが古いままだと、本文を直しても検索エンジンには
-       「変わっていない」と伝わってしまう。
-       欄を明示的に直したときは、その日付を尊重する。 */
-    var uf = $('f-updated').value;
-    a.updated = (uf && uf !== updatedShown) ? uf : today();
-    a.thumb = $('f-thumb').value.trim();
-    a.published = $('f-published').checked;
-    a.featured = $('f-featured').checked;
-    a.description = $('f-description').value.trim();
-    a.excerpt = $('f-excerpt').value.trim();
-    a.tags = $('f-tags').value.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
-    a.amazon_url = $('f-amazon').value.trim();
-    /* 商品カードに出す実写真。URLだけを持ち、画像は自サイトへ保存しない
+  /* 商品カードに出す実写真。URLだけを持ち、画像は自サイトへ保存しない
      （各モールの規約で、取得した画像の再配信はできない）。
      どのモールの写真かが分からないと「取得元へリンクする」が守れないので、
      ショップ名を鍵にして持つ。 */
@@ -738,7 +710,35 @@
     a.shop_images[shop] = url;
   }
 
-  /* 空欄のショップは項目ごと消す（ボタンを出さないため） */
+  function collect() {
+    var a = editing;
+    a.title = $('f-title').value.trim();
+    a.list_title = $('f-listTitle').value.trim() || a.title;
+    /* 空欄なら商品名から作る。日本語だけのタイトルでも
+       時刻の数字が並んだURLにならないよう draftSlug に任せる。 */
+    var taken = {};
+    articles.forEach(function (x) { if (x !== a && x.slug) taken[x.slug] = true; });
+    a.slug = ($('f-slug').value.trim() || draftSlug(a.title, a.category, taken));
+    a.category = $('f-category').value;
+    a.sub = $('f-sub').value;
+    a.kind = $('f-kind').value;
+    a.icon = $('f-icon').value.trim() || '📦';
+    a.date = $('f-date').value || today();
+    /* 更新日は、欄を触っていなければ今日に繰り上げる。
+       サイトマップの <lastmod> はこの値をそのまま出しているので、
+       ここが古いままだと、本文を直しても検索エンジンには
+       「変わっていない」と伝わってしまう。
+       欄を明示的に直したときは、その日付を尊重する。 */
+    var uf = $('f-updated').value;
+    a.updated = (uf && uf !== updatedShown) ? uf : today();
+    a.thumb = $('f-thumb').value.trim();
+    a.published = $('f-published').checked;
+    a.featured = $('f-featured').checked;
+    a.description = $('f-description').value.trim();
+    a.excerpt = $('f-excerpt').value.trim();
+    a.tags = $('f-tags').value.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    a.amazon_url = $('f-amazon').value.trim();
+    /* 空欄のショップは項目ごと消す（ボタンを出さないため） */
     var rk = $('f-rakuten').value.trim();
     var yh = $('f-yahoo').value.trim();
     if (rk) a.rakuten_url = rk; else delete a.rakuten_url;
