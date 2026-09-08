@@ -31,7 +31,7 @@ from write_article import (GEN_FIELDS, NG_WORDS, MIN_CHARS, MAX_CHARS,
                            MIN_CHARS_UNBACKED,
                            FAKE_EXPERIENCE, FAKE_REVIEW_NUM, AMAZON_MISLEAD,
                            VAGUE_RIVAL, CARE_CLAIM, AI_PHRASE, AI_PHRASE_LIMIT,
-                           NEGATION, save_article, TRANSIENT)
+                           NEGATION, save_article, delete_article, TRANSIENT)
 
 # ---------------------------------------------------------------- 機械検査
 # 断定・保証の表現。tools/check_text.py と同じ基準。
@@ -226,7 +226,8 @@ OUT_SHAPE = '''{
             "editorial_quality": 0, "template_avoidance": 0,
             "purchase_helpfulness": 0, "legal_safety": 0,
             "amazon_compliance": 0, "total": 0, "notes": "低い項目の理由を1〜2文"},
-  "blockers": ["85点以上でも公開できない理由があれば書く。無ければ空配列"]
+  "blockers": ["85点以上でも公開できない理由があれば書く。無ければ空配列"],
+  "discard": "題名・本文のどこにもメーカー名・型番が無く、リンク先の製品を特定できないときだけ理由を書く。特定できるなら空文字"
 }'''
 
 
@@ -262,6 +263,10 @@ def build_prompt(a, rules, hits):
         "（架空情報・架空レビュー・架空体験・未確認スペック・誤った商品情報・"
         "医療的効果の断定・Amazonとの関係を誤認させる表現・根拠のない評価・"
         "商品名を入れ替えれば他の記事にも使える文章）があれば書く。",
+        "・discard は、題名・本文のどこにもメーカー名も型番も出てこず、"
+        "リンク先の製品を特定できないときだけ理由を書く。校閲では製品名を"
+        "補えない（捏造になる）ため、その記事は下書きにも残さず破棄する。"
+        "製品を特定できるなら、たとえ題名が弱くても空文字にする。",
         f"・本文の合計は {MIN_CHARS}〜{MAX_CHARS - 500} 文字の範囲を保つ。"
         f"ただし公式仕様が確認できず rating と spec を省いている記事は、"
         f"{MIN_CHARS_UNBACKED} 文字まで短くてよい。水増しで伸ばさない。",
@@ -314,8 +319,9 @@ def run(cmd):
     return p.returncode, out.strip()
 
 
-def finish(publish_slugs, do_push):
+def finish(publish_slugs, do_push, discarded=None):
     """サイトを生成し、CIと同じ検査を通す。通ったら公開・push まで。"""
+    discarded = discarded or []
     print("\nサイトを生成して検査します …")
     for cmd in (["python3", "build.py"],
                 ["python3", "tools/check_articles.py"],
@@ -331,7 +337,12 @@ def finish(publish_slugs, do_push):
     if not do_push:
         return 0
 
-    msg = "記事をレビューして公開（" + "、".join(publish_slugs) + "）"
+    parts = []
+    if publish_slugs:
+        parts.append("公開 " + "、".join(publish_slugs))
+    if discarded:
+        parts.append("破棄 " + "、".join(discarded))
+    msg = "記事をレビューして" + "／".join(parts) if parts else "記事をレビュー"
     # 入れるのは記事のデータと、そこから生成したページだけ。
     # git add -A だと、たまたま手元にある別の作業まで巻き込む。
     for cmd in (["git", "add", "content/articles.json", "articles",
@@ -418,7 +429,7 @@ def main():
 
     print(f"{len(targets)} 本をレビューします\n")
     cost = 0.0
-    ok, ng = [], []
+    ok, ng, discarded = [], [], []
 
     for i, a in enumerate(targets, 1):
         slug = a.get("slug", "?")
@@ -470,6 +481,14 @@ def main():
                 print(f"    ● {f.get('where','')}：{f.get('problem','')}"
                       f"（{f.get('rule','')}）")
             score, blockers = res.get("score") or {}, res.get("blockers") or []
+
+            discard = (res.get("discard") or "").strip()
+            if discard:
+                print(f"    ✗ 破棄：{discard}")
+                if not args.dry_run:
+                    discarded.append(slug)
+                break
+
             if args.dry_run:
                 break
 
@@ -486,6 +505,9 @@ def main():
                 break
             if r == args.rounds:
                 print("    △ 指摘が残ったまま上限に達しました")
+
+        if slug in discarded:
+            continue
 
         hits = scan(a)
         # 機械検査が通っても、採点と公開不可の理由が残っていれば公開しない。
@@ -525,17 +547,23 @@ def main():
         # 丸ごと書き戻すと、実行中に別の場所が入れた変更を消す。
         # write_article.py と同じく、対象の記事だけを差し替える。
         for a in targets:
+            if a.get("slug") in discarded:
+                continue
             save_article(a)
+        for s in discarded:
+            delete_article(s)
         print("\ncontent/articles.json を更新しました。")
 
-    print(f"\n合格 {len(ok)} 本 / 要確認 {len(ng)} 本"
+    print(f"\n合格 {len(ok)} 本 / 要確認 {len(ng)} 本 / 破棄 {len(discarded)} 本"
           + (f" / 参考コスト ${cost:.2f}" if cost else ""))
     if ng:
         print("要確認：" + "、".join(ng))
+    if discarded:
+        print("破棄（製品を特定できず）：" + "、".join(discarded))
 
     code = 0
-    if args.publish and ok and not args.dry_run:
-        code = finish(ok, args.push)
+    if args.publish and (ok or discarded) and not args.dry_run:
+        code = finish(ok, args.push, discarded)
     return 1 if (ng or code) else 0
 
 

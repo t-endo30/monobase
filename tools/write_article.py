@@ -106,6 +106,22 @@ def save_article(a):
         json.dump(latest, f, ensure_ascii=False, indent=1)
 
 
+def delete_article(slug):
+    """記事を articles.json から丸ごと消す。
+       題名・本文のどこにもメーカー名・型番が無く、リンク先の製品を
+       特定できない下書きは、直しようがない（製品名を補うと捏造になる）。
+       要確認として残すと毎回レビューに掛かるだけなので、破棄する。
+       save_article と同じく、保存のたびに読み直してから消す。"""
+    path = os.path.join(ROOT, ARTICLES)
+    latest = json.load(io.open(path, encoding="utf-8"))
+    kept = [x for x in latest if x.get("slug") != slug]
+    if len(kept) == len(latest):
+        return False
+    with io.open(path, "w", encoding="utf-8") as f:
+        json.dump(kept, f, ensure_ascii=False, indent=1)
+    return True
+
+
 # 記事タイプごとに「使ってよい枠」。docs/article-prompt.md の【1.】と同じ内容を、
 # その記事ぶんだけ抜き出して渡す。全部の型を毎回読ませるより取り違えが減る。
 KIND_FRAMES = {
