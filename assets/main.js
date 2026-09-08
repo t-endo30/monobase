@@ -991,12 +991,19 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
-  /* 形は build.py の v2_card() と同じ。ここだけ別の見た目にしない */
+  /* 形は build.py の v2_card() と同じ。ここだけ別の見た目にしない。
+     is-shop と data-shop / data-asin を落とすと、モールの写真が
+     object-fit:cover で切り取られ（規約が改変を認めていない）、
+     台紙の見た目も新着とずれるので、必ず一緒に組む */
   grid.innerHTML = pick.map(function (a) {
+    var tcls = a.sh ? ' is-shop' : '';
+    var tattr = (a.sh && a.sp ? ' data-shop="' + esc(a.sp) + '"' : '') +
+                (a.as ? ' data-asin="' + esc(a.as) + '"' : '');
     return '<a class="card" href="' + esc(a.u) + '"' +
       ' data-cat="' + esc(a.k) + '" data-slug="' + esc(a.s) + '"' +
       ' data-date="' + esc(a.d) + '">' +
-      '<span class="card-thumb"><img src="' + esc(a.th) + '" alt="" loading="lazy">' +
+      '<span class="card-thumb' + tcls + '"' + tattr + '>' +
+        '<img src="' + esc(a.th) + '" alt="" loading="lazy">' +
         '<span class="card-flags" aria-hidden="true"></span></span>' +
       '<span class="card-meta">' +
         '<span class="card-date">' + esc(a.d) + '</span>' +

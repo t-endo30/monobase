@@ -3050,17 +3050,27 @@ def build_index():
     # ピックアップは「その日のおすすめ」。全記事から3本を日替わりで選ぶ。
     # ビルドは公開のたびにしか走らないので、選び直しはブラウザ側で行う
     # （assets/main.js）。ここで入れておく3本は、JSが動かないときの中身。
-    pool = [{
-        "u": f'{p}articles/{a["slug"]}.html',
-        "t": a.get("list_title") or a["title"],
-        "x": v2_appeal(a),
-        "c": CAT_LABEL.get(a.get("category", ""), ""),
-        "k": a.get("category", ""),
-        "s": a["slug"],
-        "d": a.get("date", ""),
-        # 今日のピックアップも、出すのは実物写真だけ。AIの絵は使わない。
-        "th": shop_thumb(a)[0] or auto_svg(a, p),
-    } for a in PUBLISHED]
+    # モールの写真かどうか（sh）と出どころ（sp）・ASIN も渡す。
+    # これが無いと、assets/main.js が組み直したタイルから is-shop が落ち、
+    # モールの写真が object-fit:cover で切り取られてしまう
+    # （規約が改変を認めていない）。台紙の見た目も新着とずれる。
+    pool = []
+    for a in PUBLISHED:
+        shop_url, shop = shop_thumb(a)
+        pool.append({
+            "u": f'{p}articles/{a["slug"]}.html',
+            "t": a.get("list_title") or a["title"],
+            "x": v2_appeal(a),
+            "c": CAT_LABEL.get(a.get("category", ""), ""),
+            "k": a.get("category", ""),
+            "s": a["slug"],
+            "d": a.get("date", ""),
+            # 今日のピックアップも、出すのは実物写真だけ。AIの絵は使わない。
+            "th": shop_url or auto_svg(a, p),
+            "sh": bool(shop_url),
+            "sp": shop,
+            "as": str(a.get("asin") or "").strip(),
+        })
     day = int(datetime.date.today().strftime("%Y%m%d"))
     # RANKING と同じ4枚ならべる（1行に4列）
     picks = [PUBLISHED[(day * 7 + i * 13) % len(PUBLISHED)] for i in range(4)] if PUBLISHED else []
