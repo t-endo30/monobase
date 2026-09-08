@@ -227,8 +227,32 @@ OUT_SHAPE = '''{
             "purchase_helpfulness": 0, "legal_safety": 0,
             "amazon_compliance": 0, "total": 0, "notes": "低い項目の理由を1〜2文"},
   "blockers": ["85点以上でも公開できない理由があれば書く。無ければ空配列"],
-  "discard": "題名・本文のどこにもメーカー名・型番が無く、リンク先の製品を特定できないときだけ理由を書く。特定できるなら空文字"
+  "discard": "題名・本文のどこにもメーカー名・型番が無く、リンク先の製品を特定できないときだけ理由を書く。特定できるなら空文字",
+  "category": "記事の内容と現在のカテゴリー指定が明らかに食い違うときだけ、正しいカテゴリーのキーを書く。合っていれば空文字"
 }'''
+
+
+# サイトのカテゴリー一覧。記事の内容と指定カテゴリーが食い違うとき、
+# 校閲側で正しいキーに直せるようにする（pick_products は取得元ジャンルで
+# 決め打ちするだけで、書き上がった記事とは突き合わせない）。
+def _category_map():
+    try:
+        s = json.load(io.open(os.path.join(ROOT, "content", "site.json"),
+                              encoding="utf-8"))
+    except Exception:                                        # noqa: BLE001
+        return {}
+    out = {}
+    for c in s.get("categories", []):
+        key = c.get("key")
+        if not key:
+            continue
+        subs = c.get("subs") or c.get("sub") or []
+        sub_keys = [x.get("key") if isinstance(x, dict) else x for x in subs]
+        out[key] = {"label": c.get("label", ""), "subs": [k for k in sub_keys if k]}
+    return out
+
+
+CATEGORY_MAP = _category_map()
 
 
 def build_prompt(a, rules, hits):
@@ -244,6 +268,16 @@ def build_prompt(a, rules, hits):
         "================ 機械検査で先に見つかった問題 ================",
         found,
         "上の指摘はすべて直してください。ほかにも基準に反する箇所があれば、あわせて直します。",
+        "",
+        "================ カテゴリー ================",
+        f"現在の指定：{a.get('category','')}",
+        "選べるキー（記事内容と食い違うときだけ category に正しいキーを書く）：",
+        "\n".join(f"・{k}（{v['label']}）"
+                  for k, v in CATEGORY_MAP.items()),
+        "※ヘアアイロン・ドライヤー・シェーバー・電動歯ブラシ・美顔器は beauty。"
+        "クレンジング・美容液・シャンプー・パックなどのコスメも beauty。"
+        "衣類スチーマー・アイロン（衣類用）は appliance。"
+        "調理家電・鍋・食器は kitchen。",
         "",
         "================ 記事（JSON） ================",
         json.dumps(body, ensure_ascii=False, indent=1),
@@ -263,6 +297,8 @@ def build_prompt(a, rules, hits):
         "（架空情報・架空レビュー・架空体験・未確認スペック・誤った商品情報・"
         "医療的効果の断定・Amazonとの関係を誤認させる表現・根拠のない評価・"
         "商品名を入れ替えれば他の記事にも使える文章）があれば書く。",
+        "・category は、記事が扱う製品の分野が現在の指定と明らかに違うときだけ"
+        "正しいキーに直す。合っているか、迷う程度なら空文字にする。",
         "・discard は、題名・本文のどこにもメーカー名も型番も出てこず、"
         "リンク先の製品を特定できないときだけ理由を書く。校閲では製品名を"
         "補えない（捏造になる）ため、その記事は下書きにも残さず破棄する。"
@@ -488,6 +524,14 @@ def main():
                 if not args.dry_run:
                     discarded.append(slug)
                 break
+
+            newcat = (res.get("category") or "").strip()
+            if (newcat and newcat in CATEGORY_MAP
+                    and newcat != a.get("category")):
+                print(f"    ✎ カテゴリー：{a.get('category')} → {newcat}")
+                a["category"] = newcat
+                if a.get("sub") and a["sub"] not in CATEGORY_MAP[newcat]["subs"]:
+                    a["sub"] = ""
 
             if args.dry_run:
                 break

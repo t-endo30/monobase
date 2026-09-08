@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-kitchen</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-07</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -127,6 +127,11 @@
   </url>
   <url>
     <loc>https://monobase.site/category-beauty-makeup</loc>
+    <lastmod>2026-09-08</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/category-beauty-device</loc>
     <lastmod>2026-09-08</lastmod>
     <priority>0.6</priority>
   </url>
