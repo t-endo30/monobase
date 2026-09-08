@@ -127,7 +127,7 @@ CATEGORY_MAP = {
     "av":         {"rakuten_genre": 211742, "words": ["オーディオ"]},
     "camera":     {"rakuten_genre": 204040, "words": ["カメラ"]},
     "smartphone": {"rakuten_genre": 565004, "words": ["スマートフォン アクセサリ"]},
-    "kitchen":    {"rakuten_genre": 100939, "words": ["キッチン家電"]},
+    "kitchen":    {"rakuten_genre": 100644, "words": ["キッチン家電"]},
     "health":     {"rakuten_genre": 100938, "words": ["健康計測"]},
     "beauty":     {"rakuten_genre": 100939, "words": ["美容家電"]},
     "pet":        {"rakuten_genre": 101213, "words": ["ペット用品"]},
