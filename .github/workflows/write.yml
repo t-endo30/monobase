@@ -138,8 +138,10 @@ jobs:
         continue-on-error: true
         timeout-minutes: 80
         env:
-          # 予備を Secrets に入れておくと、1本目が期限切れや上限に
-          # 当たったとき、次のものへ自動で移る（tools/write_article.py）。
+          # 予備を Secrets に入れておくと、1本目が駄目なとき次のものへ
+          # 自動で移る（tools/write_article.py）。ただし利用上限は
+          # アカウント単位なので、3本が同じアカウントのトークンなら
+          # 切り替えても回避できない。予備は別アカウントで用意すること。
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           CLAUDE_CODE_OAUTH_TOKEN_2: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_2 }}
           CLAUDE_CODE_OAUTH_TOKEN_3: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_3 }}
@@ -150,7 +152,7 @@ jobs:
 
       # write_article.py の exit 1 には2種類ある：
       #   (a) 書けたが一部がレビュー基準を落ちた … 後続の救済で拾える。問題なし
-      #   (b) 1本も書けなかった（多くは CLAUDE_CODE_OAUTH_TOKEN の期限切れ）
+      #   (b) 1本も書けなかった（認証の失敗か、サブスクの利用上限）
       # (a) は continue-on-error で流してよいが、(b) は流すと「毎日 success
       # なのに記事が増えない」状態に気づけない（2026-09-08 の2回目の枠で発生）。
       # (b) のときだけ Issue を立ててジョブを赤にする。
@@ -162,12 +164,26 @@ jobs:
         run: |
           if grep -qE '完了 0 本 / 失敗 [1-9]' /tmp/write.log; then
             echo "empty=true" >> "$GITHUB_OUTPUT"
-            AUTH=""
-            if grep -qE 'oauth|unauthor|authentication|invalid.{0,12}token|expired|認証を[0-9]+本目' /tmp/write.log; then
-              AUTH=$'\n\n認証（CLAUDE_CODE_OAUTH_TOKEN / _2 / _3）の期限切れの可能性が高い。'
-              AUTH="$AUTH"$'\n`claude setup-token` で取り直して Secrets を更新してください。'
+            # 原因を決めつけない。見分けられるのは次の2つだけ。
+            #   ・認証の失敗 … claude が実際にその旨を返している
+            #   ・利用上限   … 正常終了なのに API を呼んでいない
+            #                  （duration_api_ms:0 かつ output_tokens:0）
+            # 「認証をN本目に切り替え」は write_article.py 自身の
+            # ヒューリスティックで、認証が拒否された証拠ではない。
+            # ここを根拠に入れると誤診する（2026-09-08 に実際に誤診した）。
+            CAUSE=""
+            if grep -qE 'oauth|unauthor|authentication|invalid.{0,12}token|expired' /tmp/write.log; then
+              CAUSE=$'\n\n【原因】claude が認証を拒否しています。'
+              CAUSE="$CAUSE"$'\n`claude setup-token` で取り直して Secrets を更新してください。'
+            elif grep -qE '"duration_api_ms":0' /tmp/write.log; then
+              CAUSE=$'\n\n【原因】claude は正常終了しているのに API を呼んでいません'
+              CAUSE="$CAUSE"$'（duration_api_ms:0 / output_tokens:0）。'
+              CAUSE="$CAUSE"$'\nサブスクの利用上限に当たった可能性が高いです。'
+              CAUSE="$CAUSE"$'\n直前に長い実行が続いていないか確認し、時間を置いてから'
+              CAUSE="$CAUSE"$'手動実行（workflow_dispatch）で試してください。'
+              CAUSE="$CAUSE"$'\n予備トークンが同じアカウントのものなら、切り替えても回避できません。'
             fi
-            BODY="自動記事作成で本文が1本も書けませんでした（run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}）。${AUTH}"
+            BODY="自動記事作成で本文が1本も書けませんでした（run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}）。${CAUSE}"
             EXIST=$(gh issue list --state open --label auto-write-failure --json number -q '.[0].number')
             if [ -n "$EXIST" ]; then
               gh issue comment "$EXIST" --body "$BODY"
@@ -175,7 +191,7 @@ jobs:
               gh label create auto-write-failure --color B60205 --force >/dev/null 2>&1 || true
               gh issue create --title "自動記事作成：本文が書けていません" --label auto-write-failure --body "$BODY"
             fi
-            echo "::error::本文が1本も書けませんでした。$AUTH"
+            echo "::error::本文が1本も書けませんでした。$CAUSE"
           else
             echo "一部が未完成なだけ。後続の救済工程で拾います。"
           fi
