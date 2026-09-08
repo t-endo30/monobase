@@ -135,23 +135,40 @@ def main():
         print(f"::warning::直近{args.days}日の取得に失敗しました（{ex}）。")
         recent = dict(prev.get("views_recent") or {})
 
+    # 日間・週間・月間。ランキングのページのタブと、ホームの
+    # 「よく読まれている記事」（週間）が、この3つを使い分ける。
+    # 取れなかった期間は前回の値を残す（表示が空にならないように）。
     live = slugs()
+    periods = {}
+    for name, days in (("day", 1), ("week", 7), ("month", 30)):
+        try:
+            got = fetch(prop, f"{days}daysAgo", "today")
+        except Exception as ex:                  # noqa: BLE001
+            print(f"::warning::{name}（直近{days}日）の取得に失敗しました（{ex}）。")
+            got = dict((prev.get("periods") or {}).get(name) or {})
+        got = {k: v for k, v in got.items() if k in live}
+        periods[name] = dict(sorted(got.items(), key=lambda x: -x[1]))
+
     recent = {k: v for k, v in recent.items() if k in live}
     # 累計は下書きに戻した記事のぶんも消さずに持っておく。公開し直した
     # ときに 0 から数え直しにならないようにするため。
     data = {
         "_note": "tools/fetch_ranking.py が GA4 から自動生成します。手で編集しても、"
                  "次回の実行で上書きされます。views は開設からの累計、"
-                 "views_recent は直近の集計期間ぶん。",
+                 "views_recent は直近の集計期間ぶん、periods は"
+                 "日間（1日）・週間（7日）・月間（30日）。",
         "updated": today.isoformat(),
         "counted_through": through or "",
         "range_days": args.days,
         "views": dict(sorted(totals.items(), key=lambda x: -x[1])),
         "views_recent": dict(sorted(recent.items(), key=lambda x: -x[1])),
+        "periods": periods,
     }
     json.dump(data, io.open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     print(f"✅ 累計 {len(totals)} 記事 / 直近{args.days}日 {len(recent)} 記事を書き出しました"
           f"（{len(added)} 記事ぶんを加算、{through} まで）")
+    print("   日間 {day} 記事 / 週間 {week} 記事 / 月間 {month} 記事".format(
+        **{k: len(v) for k, v in periods.items()}))
     for slug, n in list(data["views"].items())[:5]:
         print(f"   {n:>6}  {slug}")
     return 0

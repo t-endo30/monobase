@@ -3292,6 +3292,29 @@ p,li,.card-desc{text-wrap:pretty;}
 .rank-list{border-top:0;}
 .rank-note{margin-top:16px;font-size:11.5px;color:var(--muted-2);text-align:center;}
 
+/* ---- 集計期間の切り替え（日間・週間・月間）----
+   絞り込みの札（.sub-chip）と同じ形にして、同じ操作だと分かるようにする。
+   並べ替えと、行に出す VIEW の数字は assets/main.js が入れ替える。 */
+.rank-tabs{
+  display:flex;justify-content:center;gap:8px;
+  margin:0 0 20px;
+}
+.rank-tab{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:76px;padding:7px 16px;
+  border:1px solid var(--line-2);background:var(--bg-2);color:var(--ink-2);
+  font-size:12.5px;font-weight:700;line-height:1.4;letter-spacing:.04em;
+  border-radius:var(--r2);cursor:pointer;
+  transition:background .18s ease,color .18s ease,border-color .18s ease;
+}
+.rank-tab:hover{border-color:var(--muted-2);}
+.rank-tab:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+.rank-tab.is-on{background:var(--ink);border-color:var(--ink);color:#fff;}
+@media (max-width:860px){
+  .rank-tabs{gap:6px;margin-bottom:14px;}
+  .rank-tab{min-width:0;flex:1 1 0;padding:8px 6px;font-size:12px;}
+}
+
 /* ---- 枠の中の見出しと段落は、地の文の間隔をそのまま持ち込まない ----
    .article-body h3 / p に付けた大きな余白が、カードの中の見出しにも
    当たっていた。番号の丸と見出しの高さがそろわず、枠の下も無駄に

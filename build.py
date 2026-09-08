@@ -62,9 +62,19 @@ try:
                                    encoding="utf-8"))
     RANKING = _rank_file.get("views") or {}
     RANKING_RECENT = _rank_file.get("views_recent") or {}
+    # 日間（1日）・週間（7日）・月間（30日）。ランキングのページはタブで
+    # 切り替え、ホームの「よく読まれている記事」は週間を使う。
+    _periods = _rank_file.get("periods") or {}
 except (FileNotFoundError, ValueError):
     RANKING = {}
     RANKING_RECENT = {}
+    _periods = {}
+
+RANKING_DAY = _periods.get("day") or {}
+RANKING_WEEK = _periods.get("week") or {}
+RANKING_MONTH = _periods.get("month") or {}
+# 週間がまだ無い（GA4 の取得前）ときは、これまでどおり直近ぶん→累計に落とす
+RANKING_HOME = RANKING_WEEK or RANKING_RECENT or RANKING
 
 # セール告知に使う日程。JSON をそのまま埋め込み、表示の可否は
 # 閲覧時点の日付でブラウザ側が判断する（再ビルド不要にするため）。
@@ -92,6 +102,11 @@ def rank_json(p):
     data = {
         "views": RANKING,
         "recent": RANKING_RECENT,
+        # 日間・週間・月間。ランキングのページのタブが使う。
+        # 既定（ホーム・タイルに出す VIEW）は週間。
+        "day": RANKING_DAY,
+        "week": RANKING_WEEK,
+        "month": RANKING_MONTH,
         "items": [rank_item(a, p) for a in PUBLISHED],
     }
     return html.escape(json.dumps(data, ensure_ascii=False), quote=True)
@@ -778,17 +793,41 @@ def today_panel(cls=""):
             f'    </section>\n')
 
 
-def rank_panel(p, limit=10, extra=""):
+RANK_PERIODS = (("day", "日間"), ("week", "週間"), ("month", "月間"))
+RANK_DEFAULT_PERIOD = "week"     # ホームのランキングと同じ期間を既定にする
+
+
+def rank_tabs():
+    """日間・週間・月間の切り替え。並べ替えは assets/main.js が行う。
+       JSが動かない場合でも、下の一覧は既定（週間）で出る。"""
+    btns = ""
+    for key, label in RANK_PERIODS:
+        on = key == RANK_DEFAULT_PERIOD
+        btns += ('        <button type="button" class="rank-tab'
+                 + (" is-on" if on else "")
+                 + f'" role="tab" data-period="{key}"'
+                 + f' aria-selected="{"true" if on else "false"}"'
+                 + ("" if on else ' tabindex="-1"')
+                 + f'>{label}</button>\n')
+    return ('      <div class="rank-tabs" role="tablist"'
+            ' aria-label="ランキングの集計期間">\n' + btns + '      </div>\n')
+
+
+def rank_panel(p, limit=10, extra="", tabs=False):
     """アクセスランキングの枠。中身は assets/main.js が入れる。
        サイト全体の実データ（content/ranking.json）があればそれを、
        無ければ閲覧者自身の端末に記録された閲覧回数で並べる。
+
+       tabs=True で、一覧の上に日間・週間・月間の切り替えを置く。
 
        extra は一覧の後ろに続けて置くもの（広告）。この枠の中に入れないと、
        .rank-box の max-width と土台の余白が効かず、広告の行だけ横に
        広がってしまう。なお .rank-list は assets/main.js が中身を
        丸ごと書き換えるので、そこには入れられない。"""
-    return (f'    <section class="rank-box" data-rank-limit="{limit}">\n'
-            f'      <div class="row-list rank-list"></div>\n'
+    return (f'    <section class="rank-box" data-rank-limit="{limit}"'
+            f' data-rank-period="{RANK_DEFAULT_PERIOD}">\n'
+            + (rank_tabs() if tabs else "")
+            + f'      <div class="row-list rank-list"></div>\n'
             f'{extra}'
             f'      <p class="rank-note"></p>\n'
             f'    </section>\n')
@@ -3095,7 +3134,8 @@ def build_index():
     # ランキングの並びは、ランキングのページ（assets/main.js）と同じ規則で
     # 決める。直近の閲覧数があればそれを、無ければ累計を使い、同数なら
     # 新しい順。ここを PUBLISHED の頭から取ると、新着と同じ並びになる。
-    rank_base = RANKING_RECENT or RANKING
+    # ホームのランキングは「週間」で並べる（ランキングのページの既定タブと同じ）
+    rank_base = RANKING_HOME
     top = sorted(PUBLISHED,
                  key=lambda a: (rank_base.get(a["slug"], 0), a.get("date", "")),
                  reverse=True)[:10]
@@ -3293,7 +3333,7 @@ def build_ranking():
     # 広告は一覧と同じ器（.rank-page）の中に入れる。外に出すと、
     # ランキングの枠だけ幅が狭いぶん、広告の行だけ横に広くなってしまう。
     body += v2_section('      <div class="rank-page">\n'
-                       + rank_panel(p, 10, promo_row_slot("is-rank"))
+                       + rank_panel(p, 10, promo_row_slot("is-rank"), tabs=True)
                        + '      </div>\n',
                        style=LIST_PAD)
     return page(f"よく読まれている記事 - {NAME}",

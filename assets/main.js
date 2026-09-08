@@ -328,7 +328,22 @@ document.addEventListener('touchstart', function () {}, { passive: true });
      recent は直近ぶん（並び順と Hot の札）。 */
   var siteViews = data.views || {};
   var recentViews = data.recent || {};
-  var rankBase = Object.keys(recentViews).length ? recentViews : siteViews;
+  /* 日間・週間・月間。ランキングのページはタブで切り替える。
+     ホームと記事タイルに出す VIEW は既定の「週間」。
+     まだ GA4 から取れていない期間は、直近ぶん→累計の順に落とす。 */
+  var periods = {
+    day: data.day || {},
+    week: data.week || {},
+    month: data.month || {}
+  };
+  function baseFor(period) {
+    var m = periods[period];
+    if (m && Object.keys(m).length) return m;
+    if (Object.keys(recentViews).length) return recentViews;
+    return siteViews;
+  }
+  var DEFAULT_PERIOD = 'week';
+  var rankBase = baseFor(DEFAULT_PERIOD);
   var hasSiteViews = Object.keys(rankBase).length > 0;
 
   /* ---- この端末の閲覧回数を数える ---- */
@@ -345,13 +360,23 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     }
   }
 
-  /* ---- 並び順を決める ---- */
-  var counts = hasSiteViews ? rankBase : mine;
-  var ranked = items.slice().sort(function (a, b) {
-    var d = (counts[b.slug] || 0) - (counts[a.slug] || 0);
-    if (d) return d;
-    return (b.date || '').localeCompare(a.date || '');   /* 同数なら新しい順 */
-  });
+  /* ---- 並び順を決める ----
+     期間ごとに数える対象が変わるので、期間を受け取って並べ直せる形にする。
+     サイト全体の実数が無いときは、その端末の閲覧回数で並べる。 */
+  function countsFor(period) {
+    var base = baseFor(period);
+    return Object.keys(base).length ? base : mine;
+  }
+  function rankedFor(period) {
+    var c = countsFor(period);
+    return items.slice().sort(function (a, b) {
+      var d = (c[b.slug] || 0) - (c[a.slug] || 0);
+      if (d) return d;
+      return (b.date || '').localeCompare(a.date || '');   /* 同数なら新しい順 */
+    });
+  }
+  var counts = countsFor(DEFAULT_PERIOD);
+  var ranked = rankedFor(DEFAULT_PERIOD);
   var hot = {};
   ranked.slice(0, 10).forEach(function (it) {
     if ((counts[it.slug] || 0) > 0) hot[it.slug] = true;
@@ -391,15 +416,19 @@ document.addEventListener('touchstart', function () {}, { passive: true });
      出す数は、並び替えに使ったもの（rankBase）と同じにする。累計を
      出しつつ直近で並べると、ランキングの数字が降順に並ばず、
      順位の根拠が読めなくなるため。 */
-  function views(root) {
+  function views(root, base) {
     /* content/ranking.json がまだ空でも、枠だけ消えると欠けて見えるので
-       0 として出す。端末ごとの記録は「その人だけの回数」なので使わない。 */
+       0 として出す。端末ごとの記録は「その人だけの回数」なので使わない。
+       base を渡すと、その期間の数字で出す（ランキングのページのタブ）。
+       渡さなければ既定の週間。並び順と数字は必ず同じものにする——
+       違うと順位の数字が降順に並ばず、順位の根拠が読めなくなる。 */
+    var b = base || rankBase;
     var t = (root || document).querySelectorAll('.card-views');
     Array.prototype.forEach.call(t, function (el) {
       var card = el.closest('[data-slug]');
       if (!card) return;
       /* GA4 は閲覧のあった記事しか返さないので、無い記事は 0 として出す */
-      var n = rankBase[card.getAttribute('data-slug')] || 0;
+      var n = b[card.getAttribute('data-slug')] || 0;
       el.textContent = 'VIEW : ' + n.toLocaleString('en-US');
       el.hidden = false;
     });
@@ -438,8 +467,8 @@ document.addEventListener('touchstart', function () {}, { passive: true });
      そろえてあるので、一覧ページやトップの並びと見た目が一致する。
      順位は写真の左上に重ねる（独立した列にすると、写真と見出しの
      位置がランキングのときだけずれるため）。 */
-  function rows(limit) {
-    return ranked.slice(0, limit).map(function (it, i) {
+  function rows(limit, list) {
+    return (list || ranked).slice(0, limit).map(function (it, i) {
       var no = ('0' + (i + 1)).slice(-2);
       var d = String(it.date || '').slice(0, 10);
       return '<a class="row-item" href="' + it.url + '"' +
@@ -471,10 +500,37 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   Array.prototype.forEach.call(lists, function (el) {
     var box = el.closest('.rank-box');
     var limit = Number(box && box.getAttribute('data-rank-limit')) || 10;
-    el.innerHTML = rows(limit);
-    /* 組み立てたのはここなので、閲覧数もこの場で入れる
-       （枠の外の views() は、この行より前に一度走り終えている） */
-    views(el);
+
+    /* 期間を指定して描き直す。並び順と、行に出す VIEW の数字は
+       必ず同じ期間のものにする（違うと順位の根拠が読めなくなる）。 */
+    function draw(period) {
+      el.innerHTML = rows(limit, rankedFor(period));
+      /* 組み立てたのはここなので、閲覧数もこの場で入れる
+         （枠の外の views() は、この行より前に一度走り終えている） */
+      views(el, countsFor(period));
+    }
+
+    var tabs = box ? box.querySelectorAll('.rank-tab') : [];
+    var period = (box && box.getAttribute('data-rank-period')) || DEFAULT_PERIOD;
+    draw(period);
+
+    if (!tabs.length) return;
+    Array.prototype.forEach.call(tabs, function (tab) {
+      tab.addEventListener('click', function () {
+        var next = tab.getAttribute('data-period') || DEFAULT_PERIOD;
+        if (next === period) return;
+        period = next;
+        if (box) box.setAttribute('data-rank-period', period);
+        Array.prototype.forEach.call(tabs, function (t) {
+          var on = t === tab;
+          t.classList.toggle('is-on', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          if (on) t.removeAttribute('tabindex');
+          else t.setAttribute('tabindex', '-1');
+        });
+        draw(period);
+      });
+    });
   });
 
   /* 並び順の説明文は出さない（画面を説明で埋めない） */
