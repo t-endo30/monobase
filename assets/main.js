@@ -1152,13 +1152,13 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   if (!rails.length) return;
 
   Array.prototype.forEach.call(rails, function (rail) {
-    var track = rail.querySelector('.cat-grid');
+    var track = rail.querySelector('.cat-grid, .card-grid');
     var prev = rail.querySelector('.rail-btn.is-prev');
     var next = rail.querySelector('.rail-btn.is-next');
     if (!track || !prev || !next) return;
 
     function step() {
-      var cell = track.querySelector('.cat-cell');
+      var cell = track.querySelector('.cat-cell, .card');
       if (!cell) return track.clientWidth * 0.8;
       var gap = parseFloat(getComputedStyle(track).columnGap) || 16;
       return cell.getBoundingClientRect().width + gap;

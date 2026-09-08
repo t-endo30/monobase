@@ -1252,6 +1252,7 @@ body.has-sticky-cta .fab{bottom:96px;}
    送りは1枠ずつ。指やマウスでそのまま引くこともできる。
    ========================================================================= */
 .cat-rail{position:relative;}
+.card-rail{position:relative;}
 .cat-grid.is-rail{
   display:flex;gap:16px;
   overflow-x:auto;scroll-snap-type:x mandatory;
@@ -1312,7 +1313,9 @@ body.has-sticky-cta .fab{bottom:96px;}
     mask-image:linear-gradient(180deg,#000 34%,transparent 100%);
   }
   .cat-grid.is-rail > .cat-cell:nth-child(n+7){display:none;}
-  .rail-btn{display:none;}
+  /* このブロックの送りボタンはカテゴリー帯のもの。スマホでは
+     カテゴリーは2列に戻すので隠す。ランキングの card-rail には掛けない */
+  .cat-rail .rail-btn{display:none;}
 }
 
 /* =========================================================================
@@ -1449,12 +1452,18 @@ body.has-sticky-cta .fab{bottom:96px;}
   }
   /* 中身は縦積み。スマホの .card は写真と文字を横に置く2列組みなので、
      そのままだと1件が画面幅を使い切る。 */
-  #pickGrid > .card{display:block;padding:0 0 10px;}
-  #pickGrid > .card > :not(.card-thumb){padding-left:8px;padding-right:8px;}
+  /* タイルの地と枠を見せる。写真で枠いっぱいを埋めると、3枚が
+     ただ並んだ写真に見えてタイルだと分からない。内側に余白を取り、
+     写真も一回り小さくする（1:1 → 5:4）。 */
+  #pickGrid > .card{
+    display:block;padding:7px 7px 10px;
+    background:var(--bg-2);border:1px solid var(--line);
+  }
+  #pickGrid > .card > :not(.card-thumb){padding-left:5px;padding-right:5px;}
   /* 写真の枠は span。display を指定しないと inline のままで縦横比が
      効かない（タイルを block に変えたため、grid の子として自動で
      block にはならない）。 */
-  #pickGrid .card-thumb{display:block;aspect-ratio:1/1;margin:0 0 8px;}
+  #pickGrid .card-thumb{display:block;aspect-ratio:5/4;margin:0 0 7px;}
   #pickGrid .card-title{
     display:block;font-size:11.5px;line-height:1.55;
     -webkit-line-clamp:3;min-height:0;max-height:4.65em;
@@ -1469,6 +1478,48 @@ body.has-sticky-cta .fab{bottom:96px;}
   #pickGrid .card-views{display:none !important;}
   /* 4件目から先は出さない */
   #pickGrid > .card:nth-child(n+4){display:none;}
+
+  /* ホームの RANKING は、スマホでは横並びのカルーセルにする。
+     縦積みだと新着と同じ並びが続いて見分けがつかない。
+     最大10件・左右を見切れさせ・送りボタンを出す。 */
+  .card-rail{margin-top:2px;}
+  .card-grid.is-rank{
+    display:flex;flex-direction:row;gap:12px;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    scrollbar-width:none;-ms-overflow-style:none;
+    margin:0;padding:2px 0 6px;
+    /* 左右が切れていることを、ぼかしでも示す */
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 5%,#000 95%,transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 5%,#000 95%,transparent 100%);
+  }
+  .card-grid.is-rank::-webkit-scrollbar{display:none;}
+  .card-grid.is-rank.is-end{-webkit-mask-image:none;mask-image:none;}
+  .card-grid.is-rank.is-dragging{scroll-snap-type:none;cursor:grabbing;}
+  .card-grid.is-rank.is-dragging a{pointer-events:none;}
+  /* 1枠は画面の62%。両隣が必ず見切れる */
+  .card-grid.is-rank > .card{
+    flex:0 0 62%;scroll-snap-align:start;
+    display:block;padding:0 0 10px;
+    background:var(--bg-2);border:1px solid var(--line);
+  }
+  .card-grid.is-rank > .card > :not(.card-thumb){padding-left:10px;padding-right:10px;}
+  .card-grid.is-rank > .card .card-thumb{display:block;aspect-ratio:4/3;margin:0 0 8px;}
+  .card-grid.is-rank > .card .card-meta{margin:0 0 3px;}
+  .card-grid.is-rank > .card .card-note{
+    -webkit-line-clamp:2;min-height:0;max-height:3.4em;
+  }
+  /* 縦積み用の「5枚目以降は隠す／6枚目は切る」を打ち消し、10件まで出す */
+  .card-grid.is-rank > .card:nth-child(n+5){display:block;}
+  .card-grid.is-rank > .card:nth-child(6){
+    max-height:none;overflow:visible;padding:0 0 10px;
+    pointer-events:auto;-webkit-mask-image:none;mask-image:none;
+  }
+  .card-grid.is-rank > .card:nth-child(n+11){display:none;}
+  /* 送りボタンはランキングでは出す（カテゴリー帯とは別扱い）。
+     :not([hidden]) を付けて、端まで来たとき JS が付ける hidden を殺さない */
+  .card-rail .rail-btn:not([hidden]){display:grid;}
+  .card-rail .rail-btn.is-prev{left:-6px;}
+  .card-rail .rail-btn.is-next{right:-6px;}
 
   /* 5本目までを読ませ、6本目はわざと切る。続きが下の VIEW ALL にあることを、
      枠の数ではなく見た目で伝える */

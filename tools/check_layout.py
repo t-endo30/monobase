@@ -92,9 +92,14 @@ window.addEventListener('load', function () { setTimeout(function () {
      記事とで変わるが、いまのスマホは横に並べず縦に積むので、そろって
      いなくても階段状には見えない。写真の大きさだけは、そろっていないと
      一覧がガタついて見える。
-     6枚目はわざと切って「続きがある」ことを示す枠なので、ここでは外す */
+     6枚目はわざと切って「続きがある」ことを示す枠なので、ここでは外す。
+     PICK UP と RANKING（is-rank）は縦積みではなく横並びで、写真の
+     大きさもその区画ごとに決めているので、ここの比較からは外す */
   var cards = document.querySelectorAll(
-    '.card-grid .card:not(.is-lead):not(:nth-child(n+6)) .card-thumb');
+    '.card-grid:not(.is-rank) .card:not(.is-lead):not(:nth-child(n+6)) .card-thumb');
+  cards = Array.prototype.filter.call(cards, function (c) {
+    return !c.closest('#pickGrid');
+  });
   if (cards.length > 1) {
     var hs = Array.prototype.map.call(cards, function (c) {
       return Math.round(c.getBoundingClientRect().height);

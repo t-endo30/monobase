@@ -3086,13 +3086,22 @@ def build_index():
     rank_base = RANKING_RECENT or RANKING
     top = sorted(PUBLISHED,
                  key=lambda a: (rank_base.get(a["slug"], 0), a.get("date", "")),
-                 reverse=True)[:6]
+                 reverse=True)[:10]
 
+    # スマホでは横並びのカルーセルにする（最大10件・左右見切れ・送りボタン）。
+    # PCはこれまでどおり card-grid の並び（is-rail JS はスマホ幅のときだけ
+    # ボタンを出す＝track が overflow-x:auto のときだけ）。
     body += v2_section(
         v2_sec_head("RANKING", "よく読まれている記事")
-        + '      <div class="card-grid">'
+        + '      <div class="card-rail" data-rail>\n'
+        + '        <button type="button" class="rail-btn is-prev" '
+        'aria-label="前の記事" hidden><span aria-hidden="true"></span></button>\n'
+        + '        <div class="card-grid is-rank">'
         + "".join(v2_card(a, p, no=i + 1) for i, a in enumerate(top))
         + "</div>\n"
+        + '        <button type="button" class="rail-btn is-next" '
+        'aria-label="次の記事" hidden><span aria-hidden="true"></span></button>\n'
+        + '      </div>\n'
         + v2_sec_more(f"{p}ranking.html"))
 
     if picks:
