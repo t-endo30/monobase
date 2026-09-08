@@ -983,7 +983,8 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     var j = Math.floor(rnd() * (i + 1));
     var t = pick[i]; pick[i] = pick[j]; pick[j] = t;
   }
-  pick = pick.slice(0, 4);
+  /* 出す本数は build.py の PICK_N と同じ。横カルーセルで送って見せる */
+  pick = pick.slice(0, 10);
 
   function esc(v) {
     return String(v == null ? '' : v)

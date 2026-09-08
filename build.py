@@ -3072,15 +3072,17 @@ def build_index():
             "as": str(a.get("asin") or "").strip(),
         })
     day = int(datetime.date.today().strftime("%Y%m%d"))
-    # RANKING と同じ4枚ならべる（1行に4列）
-    picks = [PUBLISHED[(day * 7 + i * 13) % len(PUBLISHED)] for i in range(4)] if PUBLISHED else []
+    # RANKING と同じ10枚ならべる（スマホは同じ形の横カルーセル、PCは4列）
+    PICK_N = 10
+    picks = [PUBLISHED[(day * 7 + i * 13) % len(PUBLISHED)]
+             for i in range(PICK_N)] if PUBLISHED else []
     seen, uniq = set(), []
     for a in picks + PUBLISHED:
         if a["slug"] in seen:
             continue
         seen.add(a["slug"])
         uniq.append(a)
-        if len(uniq) >= 4:
+        if len(uniq) >= PICK_N:
             break
     picks = uniq
 
@@ -3114,12 +3116,20 @@ def build_index():
         + '      </div>\n'
         + v2_sec_more(f"{p}ranking.html"))
 
+    # ピックアップもランキングと同じ横カルーセル（スマホ）。枠を同じ
+    # 大きさにすると3列では収まらないため、送って見せる形にそろえる。
     if picks:
         body += v2_section(
             v2_sec_head("PICK UP", "今日のピックアップ")
-            + '      <div class="card-grid" id="pickGrid" data-pool=\''
+            + '      <div class="card-rail" data-rail>\n'
+            + '        <button type="button" class="rail-btn is-prev" '
+            'aria-label="前の記事" hidden><span aria-hidden="true"></span></button>\n'
+            + '        <div class="card-grid" id="pickGrid" data-pool=\''
             + html.escape(json.dumps(pool, ensure_ascii=False), quote=True) + '\'>'
-            + "".join(v2_card(a, p) for a in picks) + "</div>\n")
+            + "".join(v2_card(a, p) for a in picks) + "</div>\n"
+            + '        <button type="button" class="rail-btn is-next" '
+            'aria-label="次の記事" hidden><span aria-hidden="true"></span></button>\n'
+            + '      </div>\n')
 
     # 横長バナーの帯はホームに置かない（promo_band は残してある）。
     # サイトの顔にあたる場所で、古い規格のバナーが浮くため。
