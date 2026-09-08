@@ -541,12 +541,16 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 }
 /* 左上の三角は左上の外へ、右下の三角は右下の外へ退けておく。
    対角線はちょうどで切らず、1%ずつ重ねる。ぴったりで合わせると
-   合わせ目に細い筋（描き分けの隙間）が出るため */
+   合わせ目に細い筋（描き分けの隙間）が出るため。
+
+   退避は 100% ではなく 101% 動かす。切り抜きを 1% はみ出させている
+   ぶん、100% しか動かさないと差の 1% が枠の中に残り、角に黒い点が
+   出たままになる（タイルに余白があると地の上で目立つ）。 */
 .card::before,.row-item::before,.cat-cell::before{
-  clip-path:polygon(0 0,101% 0,0 101%);transform:translate(-100%,-100%);
+  clip-path:polygon(0 0,101% 0,0 101%);transform:translate(-101%,-101%);
 }
 .card::after,.row-item::after,.cat-cell::after{
-  clip-path:polygon(100% -1%,100% 100%,-1% 100%);transform:translate(100%,100%);
+  clip-path:polygon(100% -1%,100% 100%,-1% 100%);transform:translate(101%,101%);
 }
 /* 黒い面の上では文字を白に。見出しだけ薄くしていた指定も打ち消す。
    白のまま白い面に乗る時間を減らしたいので、切り替えは面がほぼ
@@ -1507,18 +1511,28 @@ body.has-sticky-cta .fab{bottom:96px;}
     /* 横だけスクロール。縦のスワイプはページに渡す（縦に動かない） */
     overflow-x:auto;overflow-y:hidden;
     touch-action:pan-x;overscroll-behavior-x:contain;
-    scroll-snap-type:x mandatory;scroll-padding:0 12%;
+    scroll-snap-type:x mandatory;
     scrollbar-width:none;-ms-overflow-style:none;
-    /* 左右12%の余白で、1件目がちょうど画面の中央に来る */
-    margin:0;padding:2px 12% 6px;
+    margin:0;padding:2px 0 6px;
     -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 10%,#000 90%,transparent 100%);
     mask-image:linear-gradient(90deg,transparent 0,#000 10%,#000 90%,transparent 100%);
   }
   .card-grid.is-rank::-webkit-scrollbar{display:none;}
   .card-grid.is-rank.is-dragging{scroll-snap-type:none;}
-  /* 1枠は画面の76%。中央スナップで、1件目は中央・2件目が右に見切れる */
+  /* 1件目を中央に置くための前後の空き。帯そのものに padding を持たせず、
+     枠と同じ「帯の内側の幅」を基準にした空の伸縮枠で作る。
+     ・padding を % にすると、枠の flex-basis の % が縮んだ内側の幅に対して
+       解かれてしまい、掛け算になって中央からずれる。
+     ・vw にするとスクロールバーのぶんだけずれる（vw は帯を含む画面幅）。
+     空き 23% ＋ 枠 54% ＋ 空き 23% で、1件目はちょうど帯の中央に来る。
+     すきま（gap）も1つぶん挟まるので、その 12px を空きから引く。 */
+  .card-grid.is-rank::before,
+  .card-grid.is-rank::after{
+    content:"";flex:0 0 calc(23% - 12px);
+  }
+  /* 1枠は帯の54%。中央スナップで、1件目は中央・2件目が右に見切れる */
   .card-grid.is-rank > .card{
-    flex:0 0 76%;scroll-snap-align:center;
+    flex:0 0 54%;scroll-snap-align:center;
   }
   /* 縦積み用の「5枚目以降は隠す／6枚目は切る」を打ち消し、10件まで出す */
   .card-grid.is-rank > .card:nth-child(n+5){display:block;}
