@@ -133,6 +133,7 @@ jobs:
       # continue-on-error があるので、打ち切っても後続の
       # 公開・ビルド・push は続く。
       - name: 本文を書かせる（レビューまで通す）
+        id: write
         if: steps.gate.outputs.run == 'true'
         continue-on-error: true
         timeout-minutes: 80
@@ -143,8 +144,41 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN_2: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_2 }}
           CLAUDE_CODE_OAUTH_TOKEN_3: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_3 }}
         run: |
+          set -o pipefail
           python3 tools/write_article.py --drafts \
-            --model "${{ inputs.model || 'opus' }}"
+            --model "${{ inputs.model || 'opus' }}" 2>&1 | tee /tmp/write.log
+
+      # write_article.py の exit 1 には2種類ある：
+      #   (a) 書けたが一部がレビュー基準を落ちた … 後続の救済で拾える。問題なし
+      #   (b) 1本も書けなかった（多くは CLAUDE_CODE_OAUTH_TOKEN の期限切れ）
+      # (a) は continue-on-error で流してよいが、(b) は流すと「毎日 success
+      # なのに記事が増えない」状態に気づけない（2026-09-08 の2回目の枠で発生）。
+      # (b) のときだけ Issue を立ててジョブを赤にする。
+      - name: 本文が1本も書けなかったら知らせる
+        id: writefail
+        if: steps.gate.outputs.run == 'true' && steps.write.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if grep -qE '完了 0 本 / 失敗 [1-9]' /tmp/write.log; then
+            echo "empty=true" >> "$GITHUB_OUTPUT"
+            AUTH=""
+            if grep -qE 'oauth|unauthor|authentication|invalid.{0,12}token|expired|認証を[0-9]+本目' /tmp/write.log; then
+              AUTH=$'\n\n認証（CLAUDE_CODE_OAUTH_TOKEN / _2 / _3）の期限切れの可能性が高い。'
+              AUTH="$AUTH"$'\n`claude setup-token` で取り直して Secrets を更新してください。'
+            fi
+            BODY="自動記事作成で本文が1本も書けませんでした（run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}）。${AUTH}"
+            EXIST=$(gh issue list --state open --label auto-write-failure --json number -q '.[0].number')
+            if [ -n "$EXIST" ]; then
+              gh issue comment "$EXIST" --body "$BODY"
+            else
+              gh label create auto-write-failure --color B60205 --force >/dev/null 2>&1 || true
+              gh issue create --title "自動記事作成：本文が書けていません" --label auto-write-failure --body "$BODY"
+            fi
+            echo "::error::本文が1本も書けませんでした。$AUTH"
+          else
+            echo "一部が未完成なだけ。後続の救済工程で拾います。"
+          fi
 
       - name: git の名前を決める
         if: steps.gate.outputs.run == 'true'
@@ -285,3 +319,12 @@ jobs:
             - [ ] 文章に不自然なところがない
 
             アイキャッチ画像は、公開時に自動で作られます。
+
+      # 救済工程（公開・PR化）をすべて通したうえで、本文が1本も
+      # 書けていなかった実行は最後に赤くする。緑のまま放置されると
+      # 「毎日動いているのに記事が増えない」ことに気づけない。
+      - name: 本文ゼロならジョブを失敗させる
+        if: always() && steps.writefail.outputs.empty == 'true'
+        run: |
+          echo "::error::この実行では本文が1本も書けませんでした。Issue（ラベル auto-write-failure）を確認してください。"
+          exit 1
