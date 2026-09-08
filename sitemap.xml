@@ -117,7 +117,12 @@
   </url>
   <url>
     <loc>https://monobase.site/category-beauty-skincare</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-08</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/category-beauty-haircare</loc>
+    <lastmod>2026-09-08</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -144,6 +149,31 @@
     <loc>https://monobase.site/category-furniture-chair</loc>
     <lastmod>2026-09-07</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/kitchen-20260908-2</loc>
+    <lastmod>2026-09-08</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/d-d-d-angfa-pu5</loc>
+    <lastmod>2026-09-08</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/salonia-salonia-2way-hk-2way-slall</loc>
+    <lastmod>2026-09-08</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/mjcare-mijin-apm24-cica</loc>
+    <lastmod>2026-09-08</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/bramone-basic-volume-tu-hacci</loc>
+    <lastmod>2026-09-08</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://monobase.site/articles/appliance-20260908</loc>
