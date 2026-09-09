@@ -282,7 +282,9 @@ jobs:
             echo "出すものはありません。"
             exit 0
           fi
-          git add content/articles.json articles assets/img/auto assets/img/gen
+          # category-*.html は、新しいサブカテゴリーのページが
+          # 生まれたときに拾うため（git add -u は新規を拾わない）
+          git add content/articles.json articles assets/img/auto assets/img/gen 'category-*.html'
           git add -u
           if ! git diff --cached --quiet; then
             git diff --cached --stat
@@ -304,7 +306,9 @@ jobs:
               continue
             fi
             python3 build.py >/dev/null
-            git add content/articles.json articles assets/img/auto assets/img/gen
+            # category-*.html は、新しいサブカテゴリーのページが
+          # 生まれたときに拾うため（git add -u は新規を拾わない）
+          git add content/articles.json articles assets/img/auto assets/img/gen 'category-*.html'
             git add -u
             git diff --cached --quiet || git commit -q --amend --no-edit
           done

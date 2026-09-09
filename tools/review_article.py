@@ -405,8 +405,13 @@ def finish(publish_slugs, do_push, discarded=None):
     msg = "記事をレビューして" + "／".join(parts) if parts else "記事をレビュー"
     # 入れるのは記事のデータと、そこから生成したページだけ。
     # git add -A だと、たまたま手元にある別の作業まで巻き込む。
+    # category-*.html を入れるのは、記事を公開した拍子に build.py が
+    # 新しいサブカテゴリーのページを作ることがあるため。git add -u は
+    # 追跡済みのファイルしか拾わないので、これが無いと一覧やサイト
+    # マップからリンクだけ張られて、ページ自体が配信されない
+    # （実際 category-pet-dog.html がその状態で取り残された）。
     for cmd in (["git", "add", "content/articles.json", "articles",
-                 "assets/img/auto", "assets/img/gen"],
+                 "assets/img/auto", "assets/img/gen", "category-*.html"],
                 ["git", "add", "-u"],
                 ["git", "commit", "-m", msg]):
         code, out = run(cmd)
