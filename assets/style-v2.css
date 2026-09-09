@@ -1461,14 +1461,17 @@ body.has-sticky-cta .fab{bottom:96px;}
     display:flex;flex-direction:row;gap:12px;
     /* 横だけスクロール。縦のスワイプはページに渡す（縦に動かない） */
     overflow-x:auto;overflow-y:hidden;
-    touch-action:pan-x;overscroll-behavior-x:contain;
-    /* mandatory だと、指を上下に動かし始めた瞬間も「まだ横に
-       スナップしていない」とブラウザが判断し、そのぶん縦スワイプの
-       受け渡しが遅れて、タップとして扱われてしまうことがあった
-       （scroll-snap-type:x mandatory + touch-action:pan-x の既知の
-       組み合わせ）。proximity は近くまで送ったときだけスナップする
-       ぶん、指を離す判定を急がないので、縦スワイプが素直にページの
-       スクロールへ渡る。1件を中央に置く見え方そのものは変わらない。 */
+    /* touch-action:pan-x を付けていたが、逆効果だった。
+       「このエリアは横方向しか受け付けない」という制約になり、
+       縦にスワイプしてもページへ渡らず、このエリアごと固まって
+       動かせなくなっていた（実機で確認）。overflow-y:hidden で
+       このエリア自身は縦に動けないので、指定を外して標準の
+       向き判定に任せれば、縦の動きは自然と外側のページへ渡る。 */
+    overscroll-behavior-x:contain;
+    /* mandatory だと、指を離す判定をブラウザが急いで確定させようと
+       するため、縦方向への切り替えも遅れがちになる。proximity なら
+       近くまで送ったときだけスナップするので、向きの切り替えを
+       急がない。1件目を中央に置く見え方そのものは変わらない。 */
     scroll-snap-type:x proximity;
     scrollbar-width:none;-ms-overflow-style:none;
     margin:0;padding:2px 0 6px;
