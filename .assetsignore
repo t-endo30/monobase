@@ -18,3 +18,11 @@ __pycache__
 .wrangler
 _layout_check.html
 articles/_layout_check.html
+preview
+_a8
+_vc
+*.csv
+Retail.OrderHistory*
+orders*.json
+.amazon-titles.json
+.dev.vars

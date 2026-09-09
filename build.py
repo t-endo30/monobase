@@ -4235,6 +4235,23 @@ def main():
         # 別のURLで検索エンジンに拾われる。.gitignore にも入れてある。
         "_layout_check.html",
         "articles/_layout_check.html",
+        # デザイン更改案の確認用（.gitignore と同じ理由）。
+        # コミットしない＝デプロイに乗せない、という前提が git 連携の
+        # 自動デプロイでは成立していたが、`wrangler deploy` は手元の
+        # ディスクをそのまま配るため、この一覧に無いと漏れる。
+        "preview",
+        # A8.net／バリューコマースの作業ファイル置き場。
+        # 広告コードに自分のアカウント固有のトークンが入るため、
+        # 実際に `wrangler deploy` で公開されて閲覧できる状態になった
+        # ことがある（2026-09-09）。
+        "_a8",
+        "_vc",
+        # Amazon注文履歴CSVなど、個人情報を含む可能性があるファイル。
+        "*.csv",
+        "Retail.OrderHistory*",
+        "orders*.json",
+        ".amazon-titles.json",
+        ".dev.vars",
         "",
     ]))
     written.append(".assetsignore")
