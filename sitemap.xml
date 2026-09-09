@@ -67,12 +67,12 @@
   </url>
   <url>
     <loc>https://monobase.site/category-daily</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-fashion</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -151,8 +151,13 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://monobase.site/category-daily-bath</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/category-fashion-wear</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -164,6 +169,26 @@
     <loc>https://monobase.site/category-furniture-bed</loc>
     <lastmod>2026-09-09</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/furniture-20260909</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/3type</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/bramone-basic-natural-3way-tu-hacci</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/mj-lt</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://monobase.site/articles/wifi-dc23-mq53-dc53b-dc55b-secustation</loc>
