@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://monobase.site/</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://monobase.site/new</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://monobase.site/ranking</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://monobase.site/categories</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -47,7 +47,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-camera</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-kitchen</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -77,12 +77,12 @@
   </url>
   <url>
     <loc>https://monobase.site/category-furniture</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-pet</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -113,6 +113,11 @@
   <url>
     <loc>https://monobase.site/category-av-mic</loc>
     <lastmod>2026-08-31</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/category-camera-body</loc>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -157,8 +162,28 @@
   </url>
   <url>
     <loc>https://monobase.site/category-furniture-bed</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/wifi-dc23-mq53-dc53b-dc55b-secustation</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/rsy-2-recolte</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/a034</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/pet-20260908</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://monobase.site/articles/s-m-l-ll-zootie</loc>
@@ -462,37 +487,37 @@
   </url>
   <url>
     <loc>https://monobase.site/about</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/editorial-policy</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/advertising</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/privacy</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/disclaimer</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/sitemap</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/contact</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <priority>0.3</priority>
   </url>
 </urlset>
