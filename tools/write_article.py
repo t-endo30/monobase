@@ -488,6 +488,33 @@ def run_claude(prompt, model, timeout):
             print(f"認証を{nxt + 1}本目に切り替え … ", end="", flush=True)
 
 
+def cli_error(p):
+    """`claude` が異常終了したときの、人が読める理由。
+
+       異常終了でも標準出力にはJSONの封筒が出ることがある。
+       そのまま先頭400字を出すと usage・session_id だけが並び、
+       肝心の理由（上限に達した／認証が切れた）が切り落とされる。
+       実際それで、原因の分からない失敗が何日も続いた。
+       封筒が読めるなら、理由に当たるキーだけを取り出す。"""
+    out = (p.stdout or "").strip()
+    err = (p.stderr or "").strip()
+    try:
+        env = json.loads(out)
+    except (json.JSONDecodeError, TypeError):
+        return (err or out)[:400] or f"claude が異常終了しました（終了コード {p.returncode}）"
+    if not isinstance(env, dict):
+        return (err or out)[:400]
+    bits = []
+    for k in ("result", "error", "subtype", "api_error_status",
+              "stop_reason", "terminal_reason"):
+        v = env.get(k)
+        if v not in (None, "", "success"):
+            bits.append(f"{k}={str(v)[:300]}")
+    if err:
+        bits.append("stderr=" + err[:200])
+    return (f"終了コード {p.returncode}｜" + "｜".join(bits))[:900]
+
+
 def call_claude(prompt, model, timeout, token=""):
     """1本の認証で1回だけ呼ぶ。
        プロンプトが長いので、引数ではなく標準入力から渡す。"""
@@ -507,7 +534,7 @@ def call_claude(prompt, model, timeout, token=""):
         raise RuntimeError(f"{timeout} 秒で応答がありませんでした")
 
     if p.returncode != 0:
-        raise RuntimeError((p.stderr or p.stdout or "").strip()[:400])
+        raise RuntimeError(cli_error(p))
 
     try:
         env = json.loads(p.stdout)

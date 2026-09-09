@@ -19,7 +19,7 @@
 認証は write_article.py と同じ。Claude Code のログイン（サブスク）を使うので、
 APIの従量課金は発生しない。--check-only なら `claude` コマンド自体が要らない。
 """
-import json, io, os, re, sys, time, argparse, subprocess
+import json, io, os, re, sys, time, argparse, subprocess, hashlib
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -348,6 +348,30 @@ RETRIES = 4
 BACKOFF = (20, 60, 150)
 
 
+def content_rev(a):
+    """本文の指紋。レビューを通したときの中身と同じかどうかを見るために使う。
+       販売先URLや画像の差し替えでは変わらないよう、本文の項目だけを見る。"""
+    body = {k: a[k] for k in GEN_FIELDS if k in a}
+    raw = json.dumps(body, ensure_ascii=False, sort_keys=True)
+    return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:16]
+
+
+def already_reviewed(a):
+    """この本文のまま、すでにレビューを通っているか。
+
+       記事作成の流れでは、write_article.py が書いた直後にレビューを
+       済ませ、そのあと「レビューして公開する」でもう一度 --new で
+       同じ記事を見ていた。同じ本文を同じ基準で2回opusに掛けるだけで、
+       1回の実行で使う量がおよそ1.5倍になり、その分レビューの途中で
+       使用量の上限に当たって、書けた記事が下書きのまま残っていた。
+       通ったときの指紋を残しておき、本文が変わっていなければ
+       2回目の呼び出しを省く。機械検査は省かずに毎回やり直す。"""
+    st = a.get("reviewed")
+    if not isinstance(st, dict):
+        return None
+    return st if st.get("rev") == content_rev(a) else None
+
+
 # ---------------------------------------------------------------- 仕上げ
 def run(cmd):
     p = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
@@ -430,6 +454,8 @@ def main():
     ap.add_argument("--push", action="store_true",
                     help="コミットして push まで行う（--publish と併用）")
     ap.add_argument("--dry-run", action="store_true", help="書き込まない")
+    ap.add_argument("--force", action="store_true",
+                    help="レビュー済みの印を無視して、もう一度見直す")
     ap.add_argument("--keep-updated", action="store_true",
                     help="更新日（updated）を元のまま動かさない。既存記事の手直し用")
     args = ap.parse_args()
@@ -466,6 +492,8 @@ def main():
     print(f"{len(targets)} 本をレビューします\n")
     cost = 0.0
     ok, ng, discarded = [], [], []
+    empty = 0        # 中身の無い失敗が続いた回数
+    dead = False     # 呼び出しそのものが通らない状態
 
     for i, a in enumerate(targets, 1):
         slug = a.get("slug", "?")
@@ -482,18 +510,36 @@ def main():
                 print("    ✓ 指摘なし")
             continue
 
-        for r in range(1, args.rounds + 1):
+        # 同じ本文ですでにレビューを通っていれば、呼び直さない。
+        # 機械検査（hits）は上でやり直しているので、そこは省かない。
+        done = None if args.force else already_reviewed(a)
+        if done and not hits:
+            reviewed = True
+            score = done.get("score") or {}
+            print(f"    ✓ レビュー済み（{done.get('at','')}）。"
+                  "本文が変わっていないので呼び直しません")
+
+        # レビュー済みなら見直しの回は0回（機械検査と公開判定だけ通す）
+        for r in range(1, (0 if reviewed else args.rounds) + 1):
             # 中身のない失敗（出力0トークン）は通信やレートの問題。
             # ここで諦めると、その記事はレビューを受けないまま要確認として
             # 残るので、間を空けて数回やり直す。記事を書いた直後に続けて
             # 呼ぶと、この失敗がまとまって出ることがあった。
             res = None
+            # 認証をすべて使い切ったあとは、残りの記事も同じように
+            # 落ちる。1本あたり230秒の待ちを積み上げても通らないので、
+            # 待たずに「レビューできていない」として次へ送る。
+            if dead:
+                print("    ✗ レビューを呼び出せない状態が続いています。"
+                      "この実行では見送ります")
+                break
             for attempt in range(1, RETRIES + 1):
                 try:
                     out, c = run_claude(build_prompt(a, rules, hits),
                                         args.model, args.timeout)
                     cost += c
                     res = parse_json(out)
+                    empty = 0
                     break
                 except RuntimeError as ex:
                     if attempt < RETRIES and TRANSIENT.search(str(ex)):
@@ -503,6 +549,14 @@ def main():
                         time.sleep(wait)
                         continue
                     print(f"    ✗ レビューできませんでした：{ex}")
+                    # 中身の無い失敗だけを数える。記事ごとの事情
+                    # （JSONが読めない等）は、次の記事には関係しない。
+                    if TRANSIENT.search(str(ex)):
+                        empty += 1
+                        if empty >= 2:
+                            dead = True
+                    else:
+                        empty = 0
                     break
             if res is None:
                 break
@@ -583,6 +637,12 @@ def main():
         else:
             ok.append(slug)
             print("    ✓ 基準を満たしました")
+            if not (args.check_only or args.dry_run):
+                # 次の手順（--new での見直し）が同じ本文を
+                # もう一度opusに掛けないよう、通った印を残す。
+                a["reviewed"] = {"at": time.strftime("%Y-%m-%d"),
+                                 "rev": content_rev(a),
+                                 "score": score if isinstance(score, dict) else {}}
             if args.publish and not args.dry_run:
                 a["published"] = True
                 print("    → published: true")
