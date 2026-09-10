@@ -840,6 +840,9 @@
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luckyspread/cabinet/07240546/10248259/imgrc0078419063.jpg?_ex=128x128"
+  },
+  "health": {
+   "checked": "2026-09-10"
   }
  },
  {
@@ -1125,6 +1128,9 @@
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/importshopaqua/cabinet/zoom_b/omk1/10/rclt-cc.jpg?_ex=128x128"
+  },
+  "health": {
+   "checked": "2026-09-10"
   }
  },
  {
@@ -1407,6 +1413,9 @@
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/hotch-potch/cabinet/kago_img11/00014257.jpg?_ex=128x128"
+  },
+  "health": {
+   "checked": "2026-09-10"
   }
  },
  {
@@ -1693,6 +1702,9 @@
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/d-ray/cabinet/09802265/10566858/260902_th_fdn.jpg?_ex=128x128"
+  },
+  "health": {
+   "checked": "2026-09-10"
   }
  },
  {
@@ -1984,6 +1996,9 @@
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-kit/cabinet/description/ek-kbmr01mcl/ek-kbmr01_1.jpg?_ex=128x128"
+  },
+  "health": {
+   "checked": "2026-09-10"
   }
  },
  {
@@ -2276,6 +2291,9 @@
     "total": 90,
     "notes": "公式仕様が無い状態で rating と spec をキーごと省き、寸法・吸収量を断定していない点は適切。template_avoidance がやや低いのは、薄型対厚型という切り口自体は他の薄型シーツ記事にも流用しやすいため。ただし『交換頻度で評価が割れる』『袋を置く場所を4か所探す』といったこの商品固有の分析が入っており、置き換え可能な文章には至っていない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-10"
   }
  },
  {
@@ -2561,6 +2579,9 @@
     "total": 90,
     "notes": "公式仕様が無い前提で rating と spec をキーごと省き、数値の断定を避けて「販売ページで確認すべき項目」に振り替えているため減点材料は少ない。template_avoidance がやや低いのは、三層構造の役割分担の説明が他の三層敷布団にも流用できる一般論に寄っているため。"
    }
+  },
+  "health": {
+   "checked": "2026-09-10"
   }
  },
  {
@@ -5144,7 +5165,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -5415,7 +5436,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -5661,7 +5682,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -5949,7 +5970,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -6168,7 +6189,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/shuuemura/cabinet/12824584/13204797/13525001/new.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -6429,7 +6450,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/angfa/cabinet/2025/item/1080_packsd_rakuten2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -6677,7 +6698,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/1st_thum/main-salo3.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -6973,7 +6994,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/apm24/cabinet/mjcare/imgrc0086590428.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -7210,7 +7231,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tu-hacci/cabinet/bero/90368r_main_20.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -7442,7 +7463,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/next-online/cabinet/06938766/08787750/samune20251016.jpg?_ex=128x128"
@@ -7719,7 +7740,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/thum/bota-01_20off.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -7994,7 +8015,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/attenir/cabinet/thum/166011_main_2609.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -8266,7 +8287,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/1st_thum/main-salo6.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -8555,7 +8576,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/maxshare/cabinet/master/1st/a05750_sale.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -10437,7 +10458,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/darkangel/cabinet/12863863/13830759/2536-main-260901-4.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -12805,7 +12826,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/wtw-cctv-camera/cabinet/tokusyu/imgrc0195844605.jpg?_ex=128x128"
@@ -13050,7 +13071,7 @@
   },
   "image_prompt": "A photograph of Anker Prime Power Bank, which is a モバイルバッテリー, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -13291,7 +13312,7 @@
   },
   "image_prompt": "A photograph of グンゼ AGW112, which is a 靴下, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   }
  },
  {
@@ -13511,7 +13532,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   },
   "image_prompt": "A photograph of シック サロンプラス トーンアップ フェイススムーサー 替刃, which is a カミソリ, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "rakuten_url": "https://item.rakuten.co.jp/e-konekuto/4891228313807/",
@@ -14320,7 +14341,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-09"
+   "checked": "2026-09-10"
   },
   "image_prompt": "A photograph of Vivcon キャリーケース 40L, which is a キャリーケース, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
  },
@@ -14600,7 +14621,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-09"
+   "checked": "2026-09-10"
   },
   "official_url": "https://creerina.co.jp/items/airycurlmascara/",
   "facts": [
@@ -14881,7 +14902,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-09"
+   "checked": "2026-09-10"
   },
   "official_url": "https://creerina.co.jp/items/powderyliquideyebrow/",
   "facts": [
@@ -15103,7 +15124,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-09"
+   "checked": "2026-09-10"
   },
   "image_prompt": "A photograph of ポータブルシャワー, which is a シャワー, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
  },
@@ -15407,7 +15428,7 @@
    "注意：メーカーの対応表記は iPhone 14/13/12 シリーズ。それより新しい機種での動作は公式に確認できていないので、断定しないこと"
   ],
   "health": {
-   "checked": "2026-09-09"
+   "checked": "2026-09-10"
   },
   "good_for": {
    "intro": "次のような使い方をする人なら、この製品の設計と噛み合います。",
@@ -18099,7 +18120,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/logicool/4943765058380.html",
   "jan": "4943765058380",
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   },
   "good_for": {
    "intro": "次のような環境・使い方の人には、この構成が素直に効きます。",
@@ -18416,7 +18437,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   },
   "good_for": {
    "intro": "利用者の声から読み取れる評価の傾向と、Kindle Paperwhite というジャンルの性質を突き合わせると、次のような人に向きます。",
@@ -18735,7 +18756,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/switchbot/w3202100.html",
   "jan": "0850046603174",
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   },
   "good_for": {
    "intro": "次のどれかに当てはまるなら、ハブ2の機能が余らずに使い切れます。",
@@ -19025,7 +19046,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   },
   "good_for": {
    "intro": "次のいずれかに当てはまる環境なら、このクラスを選ぶ理由がはっきりします。",
@@ -19345,7 +19366,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   },
   "good_for": {
    "intro": "導光板シーリングライトが向くのは、明るさの数値より「光の質感」と「天井の見え方」に価値を感じる人だ。具体的にはこういう使い方の人が該当する。",
@@ -19677,7 +19698,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/e-alamode/27-3910.html",
   "jan": "4903208044882",
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   },
   "good_for": {
    "intro": "この製品が力を発揮するのは、床面積のほうが天井高より貴重な部屋です。",
@@ -19897,7 +19918,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   },
   "good_for": {
    "intro": "モノベースでは、DCモーター扇風機への買い替えは次のような人に向くと評価します。",
@@ -20101,7 +20122,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   },
   "good_for": {
    "intro": "34インチウルトラワイドが向くのは、画面の広さを「同時に見る枚数」に変換できる使い方をしている人です。",
@@ -20393,7 +20414,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/dji-store/6941565991430.html",
   "jan": "6941565991430",
   "health": {
-   "checked": "2026-09-08"
+   "checked": "2026-09-10"
   },
   "good_for": {
    "intro": "次のような使い方・環境なら、Mic Mini の軽さと運用のシンプルさがそのまま効きます。",
