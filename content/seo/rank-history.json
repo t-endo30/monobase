@@ -1,0 +1,4 @@
+{
+  "_note": "tools/fetch_gsc_ranks.py が --append のたびに entries へ追記します。追記専用（過去の記録は書き換えない）。",
+  "entries": []
+}

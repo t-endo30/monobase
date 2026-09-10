@@ -25,6 +25,9 @@ tools/check_layout.py    画面の崩れ検査（Chromeで実際に描画して�
 tools/maintain_articles.py 公開中の記事の見回り（リンク切れ・鮮度）
 tools/schedule_gate.py   自動作成の実行日と本数を決める
 tools/backfill_shop_urls.py 抜けている楽天・Yahoo!の商品URLを検索APIで埋める
+tools/fetch_gsc_ranks.py Search Consoleから検索順位・表示回数・クリック数を取る
+content/seo/              SEO順位watchのデータ（監視ワード・順位履歴・改善記録）
+.claude/skills/seo-rank-watch/ 検索順位を継続改善するスキル（週次で自動実行）
 docs/review-rules.md     レビューの判定基準
 .github/workflows/       push すると自動でビルド＆デプロイ
 ```
@@ -376,6 +379,49 @@ pip install google-analytics-data
 export GA4_PROPERTY_ID=123456789
 export GOOGLE_APPLICATION_CREDENTIALS=~/ga4-sa.json
 python3 tools/fetch_ranking.py --days 28
+```
+
+## SEO順位watch（Search Console）
+
+`.claude/skills/seo-rank-watch` が、監視中キーワードの検索順位を測り、
+1位に近いものを1つ選んで改善し、7日間観察する……を毎週1回（月曜 6:00 JST）
+繰り返します。判断はClaude自身が行い、`content/seo/*.json` に記録します。
+
+- `content/seo/watchwords.json` — 監視するキーワードと対象ページ
+- `content/seo/rank-history.json` — 順位・表示回数・クリック数の履歴（追記専用）
+- `content/seo/improvement-log.json` — 改善内容とstatus（active / observing / achieved）
+
+### Search Console と接続する手順
+
+1. **サービスアカウントを作る**（GA4と別に用意する。権限を分けるため）
+   Google Cloud コンソール → IAMとサービスアカウント → サービスアカウントを作成 →
+   鍵（JSON）を作成してダウンロード。
+
+2. **Search Console に閲覧権限を与える**
+   Search Console → 設定 → ユーザーと権限 → 1 で作ったサービスアカウントの
+   メールアドレスを「制限付き」で追加（読み取りだけなのでこれで足ります）。
+
+3. **GitHub に登録する**
+   リポジトリの Settings → Secrets and variables → Actions で登録します。
+
+   | Secret 名 | 中身 |
+   |---|---|
+   | `GSC_SA_KEY` | 1 でダウンロードしたJSONの中身をそのまま貼り付け |
+   | `GSC_SITE_URL` | （任意）Search Consoleのプロパティ URL。未設定なら `content/site.json` の `domain` から組み立てる |
+
+4. あとは毎週月曜 6:00（JST）に `.github/workflows/seo-rank-watch.yml` が
+   動きます。手動で動かす場合は Actions タブから「SEO rank watch」を
+   実行してください。
+
+Secret が未設定でも、ワークフローは警告を出して終了するだけで失敗しません。
+ローカルで試す場合は次のとおりです。
+
+```bash
+pip install google-api-python-client google-auth
+export GOOGLE_APPLICATION_CREDENTIALS=~/gsc-sa.json
+python3 tools/fetch_gsc_ranks.py --append          # 監視中キーワードを測る
+python3 tools/fetch_gsc_ranks.py --days 7          # 改善レビュー用
+python3 tools/fetch_gsc_ranks.py --discover        # 未登録の有望クエリを探す
 ```
 
 ## 記事の画像をAIで作る

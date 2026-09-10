@@ -1,0 +1,83 @@
+name: SEO rank watch
+
+# .claude/skills/seo-rank-watch を毎週1回まわす。
+#
+#   ① 監視中キーワードの順位をSearch Consoleで測る
+#   ② 7日間の観察期間を終えた改善を実測でレビューする
+#   ③ 1位に近いキーワードを1つだけ選び、検索ニーズに応じた改善を1つ行う
+#   ④ content/seo/*.json とビルド結果をコミットしてpush
+#
+# 判断（どのキーワードを選ぶか・何を直すか）はClaude自身が
+# .claude/skills/seo-rank-watch/SKILL.md の手順に沿って行う。無人実行なので
+# noindexや大きな構造変更は提案止まりにし、レポートに残すよう
+# スキル側で指示している。
+on:
+  schedule:
+    - cron: '0 21 * * 1'      # 毎週月曜 6:00 JST（UTC 月 21:00）
+  workflow_dispatch:
+    inputs:
+      model:
+        description: 'opus / sonnet'
+        required: false
+        default: 'opus'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: seo-rank-watch
+  cancel-in-progress: false
+
+jobs:
+  seo-rank-watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Search Console client
+        run: pip install --quiet google-api-python-client google-auth
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Claude Code を入れる
+        run: npm install -g @anthropic-ai/claude-code
+
+      # サービスアカウントの鍵を一時ファイルに書き出す。
+      # そのアカウントは事前にSearch Consoleへ「制限付き」ユーザーとして
+      # 追加しておく（読み取りだけなので閲覧者権限で足りる）。
+      - name: Write service account key
+        id: key
+        env:
+          GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
+        run: |
+          if [ -z "$GSC_SA_KEY" ]; then
+            echo "::warning::GSC_SA_KEY が未設定のため、SEO順位watchを実行できません。GitHub の Settings → Secrets に GSC_SA_KEY（サービスアカウントのJSON）を登録し、そのアカウントをSearch Consoleに「制限付き」ユーザーとして追加してください。"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          printf '%s' "$GSC_SA_KEY" > "$RUNNER_TEMP/gsc-sa.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/gsc-sa.json" >> "$GITHUB_ENV"
+
+      - name: git のユーザーを設定
+        if: steps.key.outputs.skip != 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: SEO Rank Watch を実行
+        if: steps.key.outputs.skip != 'true'
+        timeout-minutes: 55
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+        run: |
+          claude -p "/seo-rank-watch を実行してください。手順は .claude/skills/seo-rank-watch/SKILL.md のとおりです。測定・レビュー・改善（あれば）・記録・git commit & push まで、このセッションの中で完結させてください。無人実行なので、承認が要る変更（noindex・大きな構造変更）は行わず提案として最後の報告に残してください。" \
+            --model "${{ inputs.model || 'opus' }}" \
+            --permission-mode bypassPermissions
