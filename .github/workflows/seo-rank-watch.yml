@@ -71,13 +71,31 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+      # write.yml の記事生成と同じ CLAUDE_CODE_OAUTH_TOKEN を使うため、
+      # 週の利用上限にそちらが先に達していることがある。write_article.py
+      # と同じく、複数トークンを順番に試して最初に通ったものを使う。
       - name: SEO Rank Watch を実行
         if: steps.key.outputs.skip != 'true'
         timeout-minutes: 55
         env:
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          TOKEN_1: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          TOKEN_2: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_2 }}
+          TOKEN_3: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_3 }}
           GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
         run: |
-          claude -p "/seo-rank-watch を実行してください。手順は .claude/skills/seo-rank-watch/SKILL.md のとおりです。測定・レビュー・改善（あれば）・記録・git commit & push まで、このセッションの中で完結させてください。無人実行なので、承認が要る変更（noindex・大きな構造変更）は行わず提案として最後の報告に残してください。" \
-            --model "${{ inputs.model || 'opus' }}" \
-            --permission-mode bypassPermissions
+          PROMPT="/seo-rank-watch を実行してください。手順は .claude/skills/seo-rank-watch/SKILL.md のとおりです。測定・レビュー・改善（あれば）・記録・git commit & push まで、このセッションの中で完結させてください。無人実行なので、承認が要る変更（noindex・大きな構造変更）は行わず提案として最後の報告に残してください。"
+          ok=false
+          for TOKEN in "$TOKEN_1" "$TOKEN_2" "$TOKEN_3"; do
+            [ -z "$TOKEN" ] && continue
+            if CLAUDE_CODE_OAUTH_TOKEN="$TOKEN" claude -p "$PROMPT" \
+                --model "${{ inputs.model || 'opus' }}" \
+                --permission-mode bypassPermissions; then
+              ok=true
+              break
+            fi
+            echo "::warning::このトークンでは実行できませんでした（週の利用上限など）。次のトークンを試します。"
+          done
+          if [ "$ok" != "true" ]; then
+            echo "::error::すべてのトークンで実行に失敗しました。"
+            exit 1
+          fi
