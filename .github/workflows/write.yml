@@ -98,12 +98,6 @@ jobs:
           python3 tools/pick_products.py --limit 30 \
             ${{ inputs.rakuten_only && '--require-rakuten' || '' }}
 
-      - name: 下書きを作る
-        if: steps.gate.outputs.run == 'true'
-        run: |
-          python3 tools/make_drafts.py \
-            --take "${{ inputs.count || steps.gate.outputs.count }}"
-
       # 口コミの件数と平均評価を、販売APIから取っておく。
       # これがあると、記事は「レビュー1,284件・平均4.3」と数字で書ける。
       # 無いときは、今までどおり数字を書かせない。
@@ -116,23 +110,27 @@ jobs:
           YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
         run: python3 tools/fetch_reviews.py
 
-      # 書き終えると、そのまま tools/review_article.py のレビューまで走る
-      # （--no-review を付けない限り）。禁止表現・架空の星評価・比較表の
-      # 未確認値は書かせた直後の出力に高い割合で混ざるため。
-      # write_article.py は、書いた記事がレビュー基準を満たさなかった
-      # だけでも exit 1 で終わる（機械検査に禁止表現が残った・API側の
-      # 一時的な失敗でレビューをやり直せなかった、など）。ここに
-      # continue-on-error が無いと、1本でも通らないだけでジョブ全体が
-      # 止まり、後続の「レビューして公開する」や「下書きをPRにする」
-      # （通らなかった記事を人に渡す救済策）まで実行されなくなる
-      # （実際に2026-09-07の実行でこれが起きた）。続く工程は
-      # published:true にしない限り公開されないので、続行して安全。
-      # 80分で打ち切る。書けた分は1本ごとに保存済みなので、
-      # 間に合わなかった分は下書きのまま残る（次回の実行か
-      # 「下書きをプルリクエストにする」で拾われる）。
-      # continue-on-error があるので、打ち切っても後続の
-      # 公開・ビルド・push は続く。
-      - name: 本文を書かせる（レビューまで通す）
+      # 下書きを作る → 本文を書かせる → レビューまで通す、を目標本数に
+      # 届くまで繰り返す。1回の候補選びで足りるとは限らない。型番・
+      # メーカー名を特定できない商品ばかりが選ばれた日は、書いても
+      # レビューで全部破棄されて公開が0本になっていた
+      # （実際 2026-09-10 に発生。5本書いて5本とも破棄）。
+      #
+      # 破棄された候補は tools/write_article.py の delete_article が
+      # content/candidates.rejected.json に記録し、次のラウンドの
+      # tools/make_drafts.py がそれを見て選び直さない（下書きにも
+      # 残さず破棄したものを、また同じものとして選び直しても無駄なため）。
+      #
+      # 候補（「商品の候補を集める」が集めた最大30件）を使い切ったら、
+      # それ以上は無理に選ばせずそこで打ち切る。1回の実行で試す本数の
+      # 上限は目標の3倍まで（コストが際限なく増えないように）。
+      #
+      # continue-on-error があるので、途中で打ち切っても（80分の
+      # タイムアウトや、認証の失敗が続く場合）後続の公開・ビルド・push
+      # は続く。書けた分は1本ごとに保存済みなので、間に合わなかった分は
+      # 下書きのまま残る（次回の実行か「下書きをプルリクエストにする」
+      # で拾われる）。
+      - name: 下書きを作って本文を書かせる（目標本数まで再試行する）
         id: write
         if: steps.gate.outputs.run == 'true'
         continue-on-error: true
@@ -146,55 +144,94 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN_2: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_2 }}
           CLAUDE_CODE_OAUTH_TOKEN_3: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_3 }}
         run: |
-          set -o pipefail
-          python3 tools/write_article.py --drafts \
-            --model "${{ inputs.model || 'opus' }}" 2>&1 | tee /tmp/write.log
+          set +e
+          rm -f content/candidates.rejected.json
+          TARGET="${{ inputs.count || steps.gate.outputs.count }}"
+          MODEL="${{ inputs.model || 'opus' }}"
+          MAX_TRIES=$((TARGET * 3))
+          TRIED=0
+          : > /tmp/write.log
+          # タイムアウトで打ち切られたときも 0 を記録として残す
+          # （最後まで走れば下の行が上書きする）。
+          echo "have=0" >> "$GITHUB_OUTPUT"
 
-      # write_article.py の exit 1 には2種類ある：
-      #   (a) 書けたが一部がレビュー基準を落ちた … 後続の救済で拾える。問題なし
-      #   (b) 1本も書けなかった（認証の失敗か、サブスクの利用上限）
-      # (a) は continue-on-error で流してよいが、(b) は流すと「毎日 success
-      # なのに記事が増えない」状態に気づけない（2026-09-08 の2回目の枠で発生）。
-      # (b) のときだけ Issue を立ててジョブを赤にする。
+          have() {
+            python3 -c "import json; arts = json.load(open('content/articles.json', encoding='utf-8')); print(sum(1 for a in arts if not a.get('published') and isinstance(a.get('reviewed'), dict)))"
+          }
+
+          while :; do
+            HAVE=$(have)
+            NEED=$((TARGET - HAVE))
+            echo "=== 到達 $HAVE / 目標 $TARGET 本（試した候補 $TRIED / 上限 $MAX_TRIES）===" \
+              | tee -a /tmp/write.log
+            if [ "$NEED" -le 0 ]; then
+              echo "目標に到達しました。" | tee -a /tmp/write.log
+              break
+            fi
+            if [ "$TRIED" -ge "$MAX_TRIES" ]; then
+              echo "候補を $MAX_TRIES 件試しても届きませんでした。今回はここまでにします。" \
+                | tee -a /tmp/write.log
+              break
+            fi
+            TAKE=$NEED
+            if [ $((TRIED + TAKE)) -gt "$MAX_TRIES" ]; then
+              TAKE=$((MAX_TRIES - TRIED))
+            fi
+
+            MD_OUT=$(python3 tools/make_drafts.py --take "$TAKE" 2>&1)
+            echo "$MD_OUT" | tee -a /tmp/write.log
+            if ! echo "$MD_OUT" | grep -q "本作りました"; then
+              echo "選べる候補がもうありません。今回はここまでにします。" | tee -a /tmp/write.log
+              break
+            fi
+            TRIED=$((TRIED + TAKE))
+
+            python3 tools/write_article.py --drafts --model "$MODEL" 2>&1 | tee -a /tmp/write.log
+          done
+
+          echo "have=$(have)" >> "$GITHUB_OUTPUT"
+
+      # 認証の失敗やサブスクの利用上限に当たると、何ラウンド試しても
+      # 1本も書けない（have=0）。「毎日 success なのに記事が増えない」
+      # 状態に気づけるよう、そのときだけ Issue を立ててジョブを赤にする
+      # （2026-09-08 の2回目の枠で、気づけずに放置していたことがある）。
+      # 一部だけ足りない（have>0だが目標未満）のは、候補を使い切った・
+      # タイムアウトに近づいたなどの理由でよく起きるので知らせない。
       - name: 本文が1本も書けなかったら知らせる
         id: writefail
-        if: steps.gate.outputs.run == 'true' && steps.write.outcome == 'failure'
+        if: steps.gate.outputs.run == 'true' && steps.write.outputs.have == '0'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if grep -qE '完了 0 本 / 失敗 [1-9]' /tmp/write.log; then
-            echo "empty=true" >> "$GITHUB_OUTPUT"
-            # 原因を決めつけない。見分けられるのは次の2つだけ。
-            #   ・認証の失敗 … claude が実際にその旨を返している
-            #   ・利用上限   … 正常終了なのに API を呼んでいない
-            #                  （duration_api_ms:0 かつ output_tokens:0）
-            # 「認証をN本目に切り替え」は write_article.py 自身の
-            # ヒューリスティックで、認証が拒否された証拠ではない。
-            # ここを根拠に入れると誤診する（2026-09-08 に実際に誤診した）。
-            CAUSE=""
-            if grep -qE 'oauth|unauthor|authentication|invalid.{0,12}token|expired' /tmp/write.log; then
-              CAUSE=$'\n\n【原因】claude が認証を拒否しています。'
-              CAUSE="$CAUSE"$'\n`claude setup-token` で取り直して Secrets を更新してください。'
-            elif grep -qE '"duration_api_ms":0' /tmp/write.log; then
-              CAUSE=$'\n\n【原因】claude は正常終了しているのに API を呼んでいません'
-              CAUSE="$CAUSE"$'（duration_api_ms:0 / output_tokens:0）。'
-              CAUSE="$CAUSE"$'\nサブスクの利用上限に当たった可能性が高いです。'
-              CAUSE="$CAUSE"$'\n直前に長い実行が続いていないか確認し、時間を置いてから'
-              CAUSE="$CAUSE"$'手動実行（workflow_dispatch）で試してください。'
-              CAUSE="$CAUSE"$'\n予備トークンが同じアカウントのものなら、切り替えても回避できません。'
-            fi
-            BODY="自動記事作成で本文が1本も書けませんでした（run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}）。${CAUSE}"
-            EXIST=$(gh issue list --state open --label auto-write-failure --json number -q '.[0].number')
-            if [ -n "$EXIST" ]; then
-              gh issue comment "$EXIST" --body "$BODY"
-            else
-              gh label create auto-write-failure --color B60205 --force >/dev/null 2>&1 || true
-              gh issue create --title "自動記事作成：本文が書けていません" --label auto-write-failure --body "$BODY"
-            fi
-            echo "::error::本文が1本も書けませんでした。$CAUSE"
-          else
-            echo "一部が未完成なだけ。後続の救済工程で拾います。"
+          echo "empty=true" >> "$GITHUB_OUTPUT"
+          # 原因を決めつけない。見分けられるのは次の2つだけ。
+          #   ・認証の失敗 … claude が実際にその旨を返している
+          #   ・利用上限   … 正常終了なのに API を呼んでいない
+          #                  （duration_api_ms:0 かつ output_tokens:0）
+          # 「認証をN本目に切り替え」は write_article.py 自身の
+          # ヒューリスティックで、認証が拒否された証拠ではない。
+          # ここを根拠に入れると誤診する（2026-09-08 に実際に誤診した）。
+          CAUSE=""
+          if grep -qE 'oauth|unauthor|authentication|invalid.{0,12}token|expired' /tmp/write.log; then
+            CAUSE=$'\n\n【原因】claude が認証を拒否しています。'
+            CAUSE="$CAUSE"$'\n`claude setup-token` で取り直して Secrets を更新してください。'
+          elif grep -qE '"duration_api_ms":0' /tmp/write.log; then
+            CAUSE=$'\n\n【原因】claude は正常終了しているのに API を呼んでいません'
+            CAUSE="$CAUSE"$'（duration_api_ms:0 / output_tokens:0）。'
+            CAUSE="$CAUSE"$'\nサブスクの利用上限に当たった可能性が高いです。'
+            CAUSE="$CAUSE"$'\n直前に長い実行が続いていないか確認し、時間を置いてから'
+            CAUSE="$CAUSE"$'手動実行（workflow_dispatch）で試してください。'
+            CAUSE="$CAUSE"$'\n予備トークンが同じアカウントのものなら、切り替えても回避できません。'
           fi
+          BODY="自動記事作成で本文が1本も書けませんでした（run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}）。${CAUSE}"
+          EXIST=$(gh issue list --state open --label auto-write-failure --json number -q '.[0].number')
+          if [ -n "$EXIST" ]; then
+            gh issue comment "$EXIST" --body "$BODY"
+          else
+            gh label create auto-write-failure --color B60205 --force >/dev/null 2>&1 || true
+            gh issue create --title "自動記事作成：本文が書けていません" --label auto-write-failure --body "$BODY"
+          fi
+          echo "::error::本文が1本も書けませんでした。$CAUSE"
 
       - name: git の名前を決める
         if: steps.gate.outputs.run == 'true'

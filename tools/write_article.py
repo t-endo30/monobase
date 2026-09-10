@@ -106,6 +106,31 @@ def save_article(a):
         json.dump(latest, f, ensure_ascii=False, indent=1)
 
 
+REJECTED_PATH = "content/candidates.rejected.json"
+
+
+def record_rejected(a):
+    """製品を特定できず破棄した商品を record する。
+
+       1回の実行の中で tools/make_drafts.py がこれを読み、同じ候補を
+       下書きに選び直さないようにする（目標本数まで再試行するとき、
+       さっき破棄したばかりの商品をまた選んでは意味が無い）。
+       日をまたいだ除外はしない。実行のたびに checkout し直すCIでは
+       ファイル自体が残らないので、勝手に消える。"""
+    jan = str(a.get("jan") or "").strip()
+    title = str(a.get("title") or a.get("list_title") or "")
+    if not jan and not title:
+        return
+    path = os.path.join(ROOT, REJECTED_PATH)
+    try:
+        items = json.load(io.open(path, encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        items = []
+    items.append({"jan": jan, "title": title})
+    with io.open(path, "w", encoding="utf-8") as f:
+        json.dump(items, f, ensure_ascii=False)
+
+
 def delete_article(slug):
     """記事を articles.json から丸ごと消す。
        題名・本文のどこにもメーカー名・型番が無く、リンク先の製品を
@@ -114,9 +139,12 @@ def delete_article(slug):
        save_article と同じく、保存のたびに読み直してから消す。"""
     path = os.path.join(ROOT, ARTICLES)
     latest = json.load(io.open(path, encoding="utf-8"))
+    removed = next((x for x in latest if x.get("slug") == slug), None)
     kept = [x for x in latest if x.get("slug") != slug]
     if len(kept) == len(latest):
         return False
+    if removed is not None:
+        record_rejected(removed)
     with io.open(path, "w", encoding="utf-8") as f:
         json.dump(kept, f, ensure_ascii=False, indent=1)
     return True

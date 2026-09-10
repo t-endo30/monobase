@@ -252,6 +252,18 @@ def main():
     seen_jan = {str(a.get("jan")) for a in arts if a.get("jan")}
     seen_name = {clean_name(a.get("title", ""))[:20] for a in arts}
 
+    # 同じ実行の中で製品を特定できず破棄された候補（tools/write_article.py
+    # の delete_article が書き出す）は選び直さない。破棄された記事は
+    # articles.json から消えているので、上のチェックだけでは弾けない。
+    rejected_path = os.path.join(ROOT, "content", "candidates.rejected.json")
+    if os.path.exists(rejected_path):
+        for r in json.load(io.open(rejected_path, encoding="utf-8")):
+            if r.get("jan"):
+                seen_jan.add(str(r["jan"]))
+            nm = clean_name(r.get("title", ""))[:20]
+            if nm:
+                seen_name.add(nm)
+
     made = []
     for c in cands:
         if len(made) >= args.take:
