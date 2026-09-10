@@ -125,6 +125,37 @@ def looks_like_ad(name):
     return bool(AD_COPY.search(str(name or "")))
 
 
+# Bluetooth6.0 / Android16 / 64GB のような仕様の型番風の数字は、
+# 商品を特定する手がかりにならない。SPEC_TOKEN に当たるトークンは
+# looks_identifiable での判定から除く。
+SPEC_TOKEN = re.compile(
+    r"^(Bluetooth|BT|Wi-?Fi[0-9]*|USB(-?C)?|HDMI|Android|iOS|iPhone|iPad|"
+    r"Widevine|IPX?|4K|8K|HD|LED|Type-?C)[0-9.\-]*$"
+    r"|^[0-9]+(\.[0-9]+)?(GB|TB|MB|K|W|V|L|cm|mm|kg|mAh|インチ|型|畳|人|枚|点|冠|週|位)$",
+    re.I)
+
+
+# 商品名に型番らしき文字列（英字と数字が混ざる3文字以上のトークンで、
+# 仕様の記載ではないもの）が無く、出品も公式ストアでない商品。記事に
+# しても「メーカー名・型番を特定できない」としてレビュー
+# （docs/review-rules.md 5-1）で必ず破棄される。ここで除外はせず
+# 並び順を後ろに回すだけにする。判定の精度は目安どまり（「純」の
+# ような製品固有名は拾えない）なので、除外すると書ける商品まで
+# 取りこぼす。実際、2026-09-10 はレビュー件数の多い順に並んだ上位
+# 5件がすべてこの型で、本文を書いてから5本とも破棄され、その日の
+# 公開が0本になった。
+def looks_identifiable(name, shops):
+    """メーカー名・型番で読者・校閲が商品を特定できそうか（目安）。"""
+    if any(is_official(v) for v in (shops or {}).values()):
+        return True
+    for t in re.split(r"[\s　/／・,、()（）\[\]【】.]+", str(name or "")):
+        if len(t) < 3 or SPEC_TOKEN.match(t):
+            continue
+        if re.search(r"[A-Za-z]", t) and re.search(r"[0-9]", t):
+            return True
+    return False
+
+
 # 候補として扱う下限。ここを下回る商品は、記事の土台になるレビューが足りない。
 MIN_REVIEWS = 30
 MIN_RATING = 3.6
@@ -453,8 +484,12 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                           for k, v in shops.items()},
             })
 
-    # レビュー件数の多い順。記事の土台になる材料が多い商品から並べる。
-    out.sort(key=lambda c: (-c["reviews"], -c["rating"]))
+    # まず型番・メーカー名を特定できそうな商品を前に、そのうえで
+    # レビュー件数の多い順（記事の土台になる材料が多い商品から並べる）。
+    # 特定できなそうな商品を除外はしない。判定の目安が外れることも
+    # あるため、後ろに回すだけにして候補からは消さない。
+    out.sort(key=lambda c: (not looks_identifiable(c["name"], c["shops"]),
+                            -c["reviews"], -c["rating"]))
     return out[:limit]
 
 
