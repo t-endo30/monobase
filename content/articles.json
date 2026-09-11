@@ -1811,18 +1811,6 @@
     {
      "title": "クッションフロアの補修方法",
      "text": "すでにへこみができている場合は、床材の種類ごとに対処法が異なります。マットは今後の予防であって、既存の跡への対処とは切り分けて考えてください。"
-    },
-    {
-     "title": "冷蔵庫マット全体の選び方を確認したい",
-     "text": "必要性の判断からサイズ・素材の選び方まで、判断の手順を1本にまとめたガイドです。",
-     "link_url": "articles/fridge-mat-guide.html",
-     "link_label": "冷蔵庫マットの選び方ガイドを見る"
-    },
-    {
-     "title": "そもそも冷蔵庫マットは必要か、まだ迷っている場合",
-     "text": "必要性の判断基準とデメリットを整理した記事です。",
-     "link_url": "articles/fridge-mat-is-it-necessary.html",
-     "link_label": "冷蔵庫マットの必要性とデメリットを見る"
     }
    ]
   },
@@ -23066,8 +23054,8 @@
   "category": "feature",
   "sub": "guide",
   "kind": "guide",
-  "published": true,
-  "featured": true,
+  "published": false,
+  "featured": false,
   "title": "冷蔵庫マットの選び方｜必要性・サイズ・素材の比較ポイント",
   "list_title": "冷蔵庫マットの選び方",
   "description": "冷蔵庫マットが必要かどうかの判断基準、サイズの測り方、PVCとポリカーボネートの素材の違いを整理。賃貸の原状回復・床暖房・洗濯機との違いまで、購入前に確認すべき項目をまとめました。",
@@ -23277,7 +23265,7 @@
   "category": "daily",
   "sub": "storage",
   "kind": "guide",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "冷蔵庫マットはいらない？必要性とデメリットを床への影響から整理",
   "list_title": "冷蔵庫マットの必要性とデメリット",
@@ -23469,7 +23457,7 @@
   "category": "daily",
   "sub": "storage",
   "kind": "guide",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "冷蔵庫マットのサイズの選び方｜測る場所とはみ出したときの影響",
   "list_title": "冷蔵庫マットのサイズ",
@@ -23649,7 +23637,7 @@
   "category": "daily",
   "sub": "storage",
   "kind": "guide",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "冷蔵庫マットの素材比較｜PVCとポリカーボネートの違い",
   "list_title": "PVCとポリカーボネートの違い",
