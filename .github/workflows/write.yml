@@ -56,6 +56,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 concurrency:
   group: write-articles
@@ -196,9 +197,20 @@ jobs:
       # （2026-09-08 の2回目の枠で、気づけずに放置していたことがある）。
       # 一部だけ足りない（have>0だが目標未満）のは、候補を使い切った・
       # タイムアウトに近づいたなどの理由でよく起きるので知らせない。
+      #
+      # continue-on-error を付ける（2026-09-11 追加）。このステップは
+      # 「知らせる」ことだけが役目で、公開・push を続けるかどうかを
+      # 左右してはいけない。ここが素の失敗のまま残っていたため、
+      # gh issue create が権限不足（issues: write が無かった）で落ちると
+      # 後続の「レビューして公開する」以降が丸ごとスキップされ、
+      # 実際に書けていた記事（本文だけは完成していた分）ごと
+      # 握りつぶされていた。permissions に issues: write を足して
+      # 権限そのものも直したが、通知の失敗が起きても公開経路は
+      # 止めないよう、二重に防ぐ。
       - name: 本文が1本も書けなかったら知らせる
         id: writefail
         if: steps.gate.outputs.run == 'true' && steps.write.outputs.have == '0'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
