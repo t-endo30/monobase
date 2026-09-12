@@ -187,6 +187,18 @@ jobs:
             TRIED=$((TRIED + TAKE))
 
             python3 tools/write_article.py --drafts --model "$MODEL" 2>&1 | tee -a /tmp/write.log
+            WRITE_RC=${PIPESTATUS[0]}
+            # 終了コード2は「認証切れ・利用上限で呼び出しそのものが
+            # 通らない」の意味（tools/write_article.py）。候補を替えても
+            # 同じ状態なので、そこで打ち切る。打ち切らないと、90分の
+            # タイムアウトまで候補を替えて呼び直し続けるだけになる
+            # （実際 2026-09-11 に発生。session limit のまま1時間以上
+            # 候補を替えて呼び直し続け、1本も書けなかった）。
+            if [ "$WRITE_RC" -eq 2 ]; then
+              echo "認証・利用上限で呼び出せない状態です。今回はここまでにします。" \
+                | tee -a /tmp/write.log
+              break
+            fi
           done
 
           echo "have=$(have)" >> "$GITHUB_OUTPUT"
@@ -223,7 +235,13 @@ jobs:
           # ヒューリスティックで、認証が拒否された証拠ではない。
           # ここを根拠に入れると誤診する（2026-09-08 に実際に誤診した）。
           CAUSE=""
-          if grep -qE 'oauth|unauthor|authentication|invalid.{0,12}token|expired' /tmp/write.log; then
+          if grep -qiE 'session limit|weekly limit|usage limit' /tmp/write.log; then
+            LIMITLINE=$(grep -oiE '(session|weekly|usage) limit[^"｜]*' /tmp/write.log | tail -1)
+            CAUSE=$'\n\n【原因】サブスクの利用上限（'"$LIMITLINE"$'）に当たっています。'
+            CAUSE="$CAUSE"$'\n予備トークンが同じアカウントのものなら、切り替えても回避できません。'
+            CAUSE="$CAUSE"$'\n上限のリセット後（本文中の resets 表記を参照）に、'
+            CAUSE="$CAUSE"$'手動実行（workflow_dispatch）で試してください。'
+          elif grep -qE 'oauth|unauthor|authentication|invalid.{0,12}token|expired' /tmp/write.log; then
             CAUSE=$'\n\n【原因】claude が認証を拒否しています。'
             CAUSE="$CAUSE"$'\n`claude setup-token` で取り直して Secrets を更新してください。'
           elif grep -qE '"duration_api_ms":0' /tmp/write.log; then

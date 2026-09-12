@@ -475,7 +475,7 @@ SYSTEM = ("あなたは日本語の商品レビュー記事を書くライター
 # 書き方が悪くて落ちているときに移っても、同じところで落ちるだけなので移らない。
 AUTH_FAIL = re.compile(
     r"oauth|unauthor|authentication|invalid.{0,12}token|expired|"
-    r"credit|quota|usage limit|40[13]", re.I)
+    r"credit|quota|usage limit|weekly limit|session limit|40[13]", re.I)
 
 
 def oauth_tokens():
@@ -909,9 +909,15 @@ def main():
 
     cost = 0.0
     done, failed = 0, 0
+    empty = 0        # 中身の無い失敗が続いた回数
+    dead = False     # 呼び出しそのものが通らない状態（認証切れ・利用上限）
     written = []            # 書けた記事。このあとレビューに回す
     for i, a in enumerate(targets, 1):
         slug = a.get("slug", "?")
+        if dead:
+            print(f"[{i}/{len(targets)}] {slug} … 呼び出せない状態が続いているので見送ります")
+            failed += 1
+            continue
         print(f"[{i}/{len(targets)}] {slug} … ", end="", flush=True)
         t0 = time.time()
         # 直前に読み直す。前の1本を書いている間に足された
@@ -947,6 +953,16 @@ def main():
                     continue
                 print(f"失敗\n    {ex}")
                 failed += 1
+                # 認証をすべて使い切ったあとは、残りの候補も同じように
+                # 落ちる。1本あたり数十秒〜数分の待ちを候補の数だけ
+                # 積み上げても通らないので、続けて2本落ちたらそこで
+                # 諦める（tools/review_article.py と同じ考え方）。
+                if TRANSIENT.search(msg):
+                    empty += 1
+                    if empty >= 2:
+                        dead = True
+                else:
+                    empty = 0
                 break
         if gen is None:
             continue
@@ -960,6 +976,7 @@ def main():
             warns = audit(a)
 
         done += 1
+        empty = 0
         if not args.dry_run:
             written.append(slug)
         print(f"完了（{time.time() - t0:.0f}秒 / {body_chars(gen):,}字）")
@@ -1002,6 +1019,12 @@ def main():
         print("  1. 内容を読む（スペック表の数値はメーカー公式で裏を取る）")
         print("  2. python3 build.py && python3 tools/check_articles.py")
         print("  3. 問題なければコミットして push")
+    if dead:
+        # 呼び出しそのものが通らない状態（認証切れ・利用上限）。
+        # 終了コード2で返し、呼び出し側（write.ymlのwhileループ）が
+        # 候補を替えて何度も呼び直さないようにする。同じ状態なので
+        # 呼び直しても通らず、90分のタイムアウトまで無駄に待つだけになる。
+        return 2
     return 0 if not failed else 1
 
 
