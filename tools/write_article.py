@@ -872,8 +872,9 @@ def main():
     ap.add_argument("slugs", nargs="*", help="対象の記事slug")
     ap.add_argument("--drafts", action="store_true",
                     help="本文が空の下書きをすべて対象にする")
-    ap.add_argument("--model", default="opus",
-                    help="opus / sonnet（既定は opus。今ある記事と同じ）")
+    ap.add_argument("--model", default="sonnet",
+                    help="opus / sonnet（既定は sonnet。session limitに早く"
+                         "当たるopusより枠を長く保てる）")
     ap.add_argument("--timeout", type=int, default=900,
                     help="1本あたりの待ち時間（秒）")
     ap.add_argument("--dry-run", action="store_true",

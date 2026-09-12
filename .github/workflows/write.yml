@@ -41,7 +41,7 @@ on:
       model:
         description: 'opus / sonnet'
         required: false
-        default: 'opus'
+        default: 'sonnet'
       force:
         description: '曜日の判定を無視して実行する'
         type: boolean
@@ -147,7 +147,7 @@ jobs:
           set +e
           rm -f content/candidates.rejected.json
           TARGET="${{ inputs.count || steps.gate.outputs.count }}"
-          MODEL="${{ inputs.model || 'opus' }}"
+          MODEL="${{ inputs.model || 'sonnet' }}"
           MAX_TRIES=$((TARGET * 3))
           TRIED=0
           : > /tmp/write.log
@@ -311,7 +311,7 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN_2: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_2 }}
         run: |
           python3 tools/review_article.py --new --publish --push \
-            --model "${{ inputs.model || 'opus' }}"
+            --model "${{ inputs.model || 'sonnet' }}"
 
       - name: レビューして直す（公開はしない）
         if: steps.gate.outputs.run == 'true' && steps.gate.outputs.auto_publish != 'true'
@@ -321,7 +321,7 @@ jobs:
           CLAUDE_CODE_OAUTH_TOKEN_2: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN_2 }}
         run: |
           python3 tools/review_article.py --new \
-            --model "${{ inputs.model || 'opus' }}"
+            --model "${{ inputs.model || 'sonnet' }}"
 
       - name: サイトを生成して検査する
         if: steps.gate.outputs.run == 'true'

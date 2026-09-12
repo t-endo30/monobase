@@ -448,7 +448,7 @@ def main():
     ap.add_argument("--new", action="store_true",
                     help="未公開（published:false）の記事をすべて対象にする")
     ap.add_argument("--all", action="store_true", help="公開中の記事も含めて全部")
-    ap.add_argument("--model", default="opus", help="opus / sonnet")
+    ap.add_argument("--model", default="sonnet", help="opus / sonnet")
     ap.add_argument("--rounds", type=int, default=2,
                     help="直してから見直す回数の上限")
     ap.add_argument("--timeout", type=int, default=900)
