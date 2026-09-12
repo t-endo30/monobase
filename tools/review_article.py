@@ -77,7 +77,7 @@ def texts(v, path=""):
             yield from texts(x, f"{path}.{k}" if path else k)
 
 
-SKIP = ("review_stats", "article_type",
+SKIP = ("review_stats", "article_type", "reviewed",
         "slug", "thumb", "amazon_url", "rakuten_url", "yahoo_url", "asin",
         "jan", "date", "updated", "category", "sub", "image_prompt", "facts")
 
