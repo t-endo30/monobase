@@ -25,6 +25,13 @@ def load(path):
     return json.load(io.open(os.path.join(ROOT, path), encoding="utf-8"))
 
 
+def url_key(u):
+    """商品URLから、アフィリエイトのトラッキング用クエリ（?rafcid=…等）を
+       落とした比較用の値を作る。同じ商品を rafcid だけ変えて再取得すると
+       名前だけの重複チェックをすり抜けるため、こちらで見る。"""
+    return (u or "").split("?", 1)[0].rstrip("/")
+
+
 # 商品名に混ざる売り文句。楽天・Yahoo!の商品名は、検索に当てるため
 # 飾りが長く付く。題名とURLに使う前に、ここを落とす。
 PROMO = (r"送料無料|ポイント\s*[0-9０-９]+\s*倍|最大[0-9０-９]+[%％]\s*(OFF|オフ)?|"
@@ -251,6 +258,13 @@ def main():
     taken = {a.get("slug") for a in arts if a.get("slug")}
     seen_jan = {str(a.get("jan")) for a in arts if a.get("jan")}
     seen_name = {clean_name(a.get("title", ""))[:20] for a in arts}
+    # 商品名は write_article.py が書き上げる際に記事の題名へ書き換えて
+    # しまうため、書いたあとは元の商品名と一致しなくなる。楽天・Yahoo!の
+    # 商品URLは書き換えないので、こちらも見て同じ商品の再選定を防ぐ
+    # （実際 2026-09-10 に、同じ「ハグモッチ 枕」が furniture-20260910 と
+    # furniture-20260910-2 の2本になって両方公開されていた）。
+    seen_url = {url_key(a.get(k)) for a in arts for k in ("rakuten_url", "yahoo_url")
+                if a.get(k)}
 
     # 同じ実行の中で製品を特定できず破棄された候補（tools/write_article.py
     # の delete_article が書き出す）は選び直さない。破棄された記事は
@@ -271,14 +285,20 @@ def main():
         name = clean_name(c.get("name", ""))
         if not name:
             continue
-        # すでに書いた商品は飛ばす。JANが無い場合は名前の頭で見る。
+        # すでに書いた商品は飛ばす。JANが無い場合は名前の頭かURLで見る。
         if c.get("jan") and str(c["jan"]) in seen_jan:
             continue
         if name[:20] in seen_name:
             continue
+        if any(url_key(c.get(k)) in seen_url for k in ("rakuten_url", "yahoo_url")
+               if c.get(k)):
+            continue
         seen_name.add(name[:20])
         if c.get("jan"):
             seen_jan.add(str(c["jan"]))
+        for k in ("rakuten_url", "yahoo_url"):
+            if c.get(k):
+                seen_url.add(url_key(c[k]))
         made.append(make_draft(c, load("content/site.json"), taken))
 
     if not made:
