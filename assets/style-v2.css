@@ -1343,6 +1343,7 @@ body.has-sticky-cta .fab{bottom:96px;}
   .home-featwrap{display:flex;align-items:flex-start;gap:28px;}
   .home-featwrap > .card-rail{flex:1 1 auto;min-width:0;}
   .home-featwrap > .card-grid{flex:1 1 auto;min-width:0;}
+  .home-featwrap > .promo-group{flex:1 1 auto;min-width:0;margin-top:0;}
   .home-feat-ad{
     display:flex;flex-direction:column;align-items:center;gap:8px;
     flex:0 0 160px;
@@ -1529,13 +1530,14 @@ body.has-sticky-cta .fab{bottom:96px;}
   #pickGrid::before,#pickGrid::after,
   .card-grid.is-rank::before,
   .card-grid.is-rank::after{
-    content:"";flex:0 0 calc(23% - 12px);
+    content:"";flex:0 0 calc(28% - 12px);
   }
-  /* 1枠は帯の54%。中央スナップで、1件目は中央・2件目が右に見切れる。
+  /* 1枠は帯の44%（新着記事のタイルに近い大きさにそろえた）。
+     中央スナップで、1件目は中央・2件目が右に見切れる。
      タイルは枠と地のある器で、その「中に」写真と見出しを置く。 */
   #pickGrid > .card,
   .card-grid.is-rank > .card{
-    flex:0 0 54%;scroll-snap-align:center;
+    flex:0 0 44%;scroll-snap-align:center;
     display:block;padding:9px 9px 12px;
     background:var(--bg-2);border:1px solid var(--line);
   }

@@ -3249,10 +3249,15 @@ def build_index():
 
     # ピックアップもランキングと同じ横カルーセル（スマホ）。枠を同じ
     # 大きさにすると3列では収まらないため、送って見せる形にそろえる。
+    # PCは新着・ランキングと同じく、左にバナーを1本添えて3列にそろえる
+    # （バナーぶん幅が狭くなる分、タイルの大きさも新着・ランキングと
+    # そろう）。
     if picks:
         body += v2_section(
-            v2_sec_head("PICK UP", "今日のピックアップ")
-            + '      <div class="card-rail" data-rail>\n'
+            v2_sec_head("PICK UP", "今日のピックアップ", cls="has-feat-ad")
+            + '      <div class="home-featwrap">'
+            + home_feat_ad("home_pick")
+            + '<div class="card-rail" data-rail>\n'
             + '        <button type="button" class="rail-btn is-prev" '
             'aria-label="前の記事" hidden><span aria-hidden="true"></span></button>\n'
             + '        <div class="card-grid" id="pickGrid" data-pool=\''
@@ -3260,16 +3265,21 @@ def build_index():
             + "".join(v2_card(a, p) for a in picks) + "</div>\n"
             + '        <button type="button" class="rail-btn is-next" '
             'aria-label="次の記事" hidden><span aria-hidden="true"></span></button>\n'
-            + '      </div>\n')
+            + '      </div></div>\n')
 
     # スマホのホームは「新着記事」「ランキング」が横並び（.home-featwrap）に
     # ならず広告を置く余地が無いので、ピックアップの下に広告を3件挟む。
     # 周りが記事タイル（.card-grid）なので、一覧末尾の横長の行
     # （promo_row_slot）ではなく、記事と同じ正方形寄りのタイルで
-    # そろえる（promo_slot と同じ card-grid.is-3）。
+    # そろえる（promo_slot と同じ card-grid.is-3）。他の段と同じく
+    # 見出し（PR ----）を立て、PCは左にバナーを1本添える。
     home_ad = promo_slot("list_end")
     if home_ad.strip():
-        body += v2_section(home_ad)
+        body += v2_section(
+            v2_sec_head("PR", "気になる商品・キャンペーン", cls="has-feat-ad")
+            + '      <div class="home-featwrap">'
+            + home_feat_ad("home_pr")
+            + home_ad + '</div>\n')
 
     # 横長バナーの帯はホームに置かない（promo_band は残してある）。
     # サイトの顔にあたる場所で、古い規格のバナーが浮くため。
