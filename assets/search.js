@@ -119,7 +119,7 @@ function titleHtml(t) {
      結果が出たのかどうかが分からない。件数の行を画面の上に出す。 */
   function stickyTop() {
     var h = 0;
-    ['.site-header', '.tab-bar'].forEach(function (sel) {
+    ['.v2-header', '.tab-bar'].forEach(function (sel) {
       var el = document.querySelector(sel);
       if (!el) return;
       var pos = getComputedStyle(el).position;
