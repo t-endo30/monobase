@@ -1352,10 +1352,20 @@ body.has-sticky-cta .fab{bottom:96px;}
   }
   .card-grid.is-home6{
     grid-template-columns:repeat(3,minmax(0,1fr));
-    max-width:800px;margin:0 auto;
   }
   .card-grid.is-home6 > .card:nth-child(n+5){display:grid;}
   .card-grid.is-home6 > .card:nth-child(n+7){display:none;}
+  /* 見出しの帯（NEW/RANKING の "----" 罫線）は、下の広告バナーぶんを
+     含めない、記事タイルだけの幅に合わせる。バナー＋隙間ぶんだけ
+     左を空ける */
+  .sec-head.has-feat-ad{margin-left:calc(160px + 28px);}
+
+  /* ピックアップも新着・ランキングと同じ3列にする。もとは10件を
+     JS の並べ替え用に渡しているので、4件目から先を隠す
+     （スマホのカルーセルは #pickGrid を display:flex で上書きして
+     いるため、ここの指定は効かない＝10件そのまま横スクロールできる） */
+  #pickGrid{grid-template-columns:repeat(3,minmax(0,1fr));}
+  #pickGrid > .card:nth-child(n+4){display:none;}
 }
 
 @media (max-width:1080px){
@@ -3327,6 +3337,26 @@ p,li,.card-desc{text-wrap:pretty;}
 }
 /* 記事の器。見出しからの流れに合わせて中央に置く */
 .article-page{max-width:900px;margin:0 auto;padding:8px 0 72px;}
+/* 記事ページの縦長バナー（.article-side-ad）。
+   本文は900pxで中央寄せ、器（.container）は1200pxなので、左右に
+   150pxずつ余白がある。そこへ120幅のバナーを1本だけ置く。
+   余白が150pxしか無い（1200px幅の器の中でしか置き場がない）ため、
+   viewportが1200pxを超えて広くなっても器自体は広がらず、この余白の
+   広さは変わらない＝どの画面幅でもはみ出さない。
+   狭い画面（記事の左右に余白が無い）では出さない */
+.article-side-ad{display:none;}
+.container:has(> .article-side-ad){position:relative;}
+@media (min-width:1300px){
+  .article-side-ad{
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    position:absolute;top:8px;width:120px;
+    left:calc(50% - 450px - 20px - 120px);
+  }
+  .article-side-ad-label{
+    font-size:10.5px;letter-spacing:.06em;color:var(--muted);
+  }
+  .article-side-ad img{max-width:100%;height:auto;}
+}
 .crumbs.is-article{text-align:center;padding:24px 0 0;}
 
 /* 記事の見出し欄。写真より前に置く情報なので、必要な分だけの高さにする */

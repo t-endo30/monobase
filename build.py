@@ -12,7 +12,7 @@ Kurashi Pick - 静的サイトジェネレーター
         search.html / about.html / privacy.html / disclaimer.html /
         404.html / search.json / sitemap.xml / robots.txt
 """
-import json, io, os, re, html, shutil, sys, datetime, hashlib, urllib.parse
+import json, io, os, re, html, random, shutil, sys, datetime, hashlib, urllib.parse
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tools'))
 from make_visual import build as make_visual
 
@@ -525,7 +525,11 @@ def home_feat_ad(where):
 
        幅の広いPC（.home-featwrap が横並びになる幅）でしか出さないので、
        記事タイルの見出し等は持たせず、バナーとPR表記だけの軽い箱にする
-       （スマホでは assets/style-v2.css 側で display:none にする）。"""
+       （スマホでは assets/style-v2.css 側で display:none にする）。
+
+       複数割り当てておけば、ビルドのたびに1本を選び直す（サイトの
+       再生成は日に何度もあるので、毎回同じ広告が固定で出続けることは
+       ない。閲覧のたびに変わるものではない＝表示回数の水増しにはならない）。"""
     items = [x for x in (PROMOS.get("items") or [])
              if str(x.get("where") or "") == where]
     ads = [a for x in items for a in promo_ads(x)]
@@ -534,7 +538,7 @@ def home_feat_ad(where):
     label = e(str(PROMOS.get("label") or "PR"))
     return (f'<aside class="home-feat-ad" aria-label="広告">'
             f'<span class="home-feat-ad-label">{label}</span>'
-            f'{ads[0]["html"]}'
+            f'{random.choice(ads)["html"]}'
             f'</aside>')
 
 
@@ -657,6 +661,43 @@ def promo_mid(cat):
     ad = [a for x in items for a in promo_ads(x)][0]
     return (f'          <aside class="promo-mid" aria-label="広告">'
             f'<span class="promo-mid-label">{label}</span>{ad["html"]}</aside>\n')
+
+
+def promo_mid2(cat):
+    """記事の前半（生活シーンの直後）に挟む横長バナー1本。
+       promo_mid（口コミ後）と同じ形だが、where を分けて別の案件が出る
+       ようにしてある。"""
+    items = [x for x in (PROMOS.get("items") or [])
+             if str(x.get("where") or "") == "article_mid2" and promo_ads(x)]
+    if cat:
+        fit = [x for x in items if not x.get("cats") or cat in (x.get("cats") or [])]
+        if fit:
+            items = fit
+    if not items:
+        return ""
+    label = e(str(PROMOS.get("label") or "PR"))
+    ad = [a for x in items for a in promo_ads(x)][0]
+    return (f'          <aside class="promo-mid" aria-label="広告">'
+            f'<span class="promo-mid-label">{label}</span>{ad["html"]}</aside>\n')
+
+
+def promo_side(slug):
+    """記事ページの、幅の広いPCだけに出る縦長バナー。
+
+       本文（.article-page）は900pxで中央寄せ、器（.container）は
+       1200pxなので、左右に150pxずつ余白がある。そこへ120x600クラスの
+       縦長バナーを1本だけ置く（幅の狭い画面では assets/style-v2.css
+       側で display:none にする）。複数あれば記事ごとに1本、順番に回す
+       （毎回同じ記事に同じ広告ばかりでは、他の案件の出番が無いため）。"""
+    items = [x for x in (PROMOS.get("items") or [])
+             if str(x.get("where") or "") == "article_side" and promo_ads(x)]
+    ads = [a for x in items for a in promo_ads(x)]
+    if not ads:
+        return ""
+    ad = ads[sum(map(ord, slug)) % len(ads)]
+    label = e(str(PROMOS.get("label") or "PR"))
+    return (f'    <aside class="article-side-ad" aria-label="広告">'
+            f'<span class="article-side-ad-label">{label}</span>{ad["html"]}</aside>\n')
 
 
 def ad_slot(name, cls=""):
@@ -1345,8 +1386,9 @@ def v2_section(inner, tinted=False, style=""):
             + inner + '    </div>\n  </section>\n')
 
 
-def v2_sec_head(en, ja):
-    return (f'      <div class="sec-head"><span class="rule"></span>'
+def v2_sec_head(en, ja, cls=""):
+    c = f" {cls}" if cls else ""
+    return (f'      <div class="sec-head{c}"><span class="rule"></span>'
             f'<span class="titles"><span class="en">{en}</span><br>'
             f'<span class="ja">{e(ja)}</span></span><span class="rule"></span></div>\n')
 
@@ -2554,6 +2596,10 @@ def render_article(a):
 ''')
         add('          </div>\n')
         add(paras(a.get("scenes_after")))
+        # 記事の前半にも1本。口コミ後の広告（promo_mid）とは別の案件が
+        # 出るよう、where を分けてある（article_mid2）。
+        if len(re.sub(r"<[^>]+>", "", "".join(b))) > 1800:
+            add(promo_mid2(cat))
 
     # メリット / デメリット
     if a.get("pros") or a.get("cons"):
@@ -2846,7 +2892,8 @@ def render_article(a):
     # 記事の中身（商品表・購入リンク・広告枠）は組み方を変えず、
     # 器だけ新デザインに合わせる。中身を作り直すと、収益に関わる部分が
     # 黙って壊れるおそれがあるため。
-    body_html = ('  <div class="container">\n    <div class="article-page">\n'
+    body_html = ('  <div class="container">\n' + promo_side(slug)
+                 + '    <div class="article-page">\n'
                  + body_html + '    </div>\n  </div>\n'
                  + share_fab(a, url))
 
@@ -3166,7 +3213,7 @@ def build_index():
     picks = uniq
 
     body = v2_section(
-        v2_sec_head("NEW", "新着記事")
+        v2_sec_head("NEW", "新着記事", cls="has-feat-ad")
         + '      <div class="home-featwrap">'
         + home_feat_ad("home_new")
         + '<div class="card-grid is-home6">'
@@ -3186,7 +3233,7 @@ def build_index():
     # PCはこれまでどおり card-grid の並び（is-rail JS はスマホ幅のときだけ
     # ボタンを出す＝track が overflow-x:auto のときだけ）。
     body += v2_section(
-        v2_sec_head("RANKING", "よく読まれている記事")
+        v2_sec_head("RANKING", "よく読まれている記事", cls="has-feat-ad")
         + '      <div class="home-featwrap">'
         + home_feat_ad("home_rank")
         + '<div class="card-rail" data-rail>\n'
@@ -3216,11 +3263,13 @@ def build_index():
             + '      </div>\n')
 
     # スマホのホームは「新着記事」「ランキング」が横並び（.home-featwrap）に
-    # ならず広告を置く余地が無いので、ピックアップの下に横長タイル1本を
-    # 挟む（新着・ランキングのページ末尾と同じ promo_row_slot）。
-    row_ad = promo_row_slot()
-    if row_ad.strip():
-        body += v2_section(row_ad)
+    # ならず広告を置く余地が無いので、ピックアップの下に広告を3件挟む。
+    # 周りが記事タイル（.card-grid）なので、一覧末尾の横長の行
+    # （promo_row_slot）ではなく、記事と同じ正方形寄りのタイルで
+    # そろえる（promo_slot と同じ card-grid.is-3）。
+    home_ad = promo_slot("list_end")
+    if home_ad.strip():
+        body += v2_section(home_ad)
 
     # 横長バナーの帯はホームに置かない（promo_band は残してある）。
     # サイトの顔にあたる場所で、古い規格のバナーが浮くため。
