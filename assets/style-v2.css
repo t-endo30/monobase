@@ -450,6 +450,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    （スマホでは6本目をわざと切って「続きがある」ことを示す） */
 .card-grid > .card:nth-child(n+5){display:none;}
 .card-grid.is-3{grid-template-columns:repeat(3,minmax(0,1fr));}
+/* ホーム（新着記事・ランキング）の左に置く縦長バナー。
+   幅の広いPCでしか横に並べる余地が無いので、既定では隠しておき、
+   下の @media (min-width:1081px) でだけ横並びにする */
+.home-featwrap{display:block;}
+.home-feat-ad{display:none;}
 /* タイルは白い面。背景に敷いた写真の上に置くので、文字が写真に
    直接乗らないようにする */
 .card{display:flex;flex-direction:column;background:var(--bg-2);padding-bottom:38px;}
@@ -1331,6 +1336,28 @@ body.has-sticky-cta .fab{bottom:96px;}
 /* =========================================================================
    画面幅ごとの調整
    ========================================================================= */
+/* ホームの新着記事・ランキングだけ、幅が十分あるPCで3列×2行に減らし、
+   空いた左に縦長バナーを1本並べる。1080px以下は元の並び（.card-grid が
+   3列になる）に戻すため、ここより狭い画面には出さない */
+@media (min-width:1081px){
+  .home-featwrap{display:flex;align-items:flex-start;gap:28px;}
+  .home-featwrap > .card-rail{flex:1 1 auto;min-width:0;}
+  .home-featwrap > .card-grid{flex:1 1 auto;min-width:0;}
+  .home-feat-ad{
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    flex:0 0 160px;
+  }
+  .home-feat-ad-label{
+    font-size:11px;letter-spacing:.05em;color:var(--muted);
+  }
+  .card-grid.is-home6{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    max-width:800px;margin:0 auto;
+  }
+  .card-grid.is-home6 > .card:nth-child(n+5){display:grid;}
+  .card-grid.is-home6 > .card:nth-child(n+7){display:none;}
+}
+
 @media (max-width:1080px){
   :root{--gut:28px;}
   .v2-nav > ul{gap:26px;}
@@ -3035,6 +3062,19 @@ p,li,.card-desc{text-wrap:pretty;}
    .card{display:flex} が付いているため、そのままでは[hidden]の display:none
    （ブラウザ既定）が負けて隠れない。ここで明示的に消す */
 .promo-slot[hidden]{display:none !important;}
+/* ============================================================
+   長い記事の途中に挟む広告（.promo-mid）
+   ------------------------------------------------------------
+   AdSenseの帯（.promo-band-ad）と同じ、本文の途中に置く横長の
+   バナー1本。PRラベル→バナーの順に、中央寄せで置く。
+   ============================================================ */
+.promo-mid{display:block;text-align:center;
+  margin:clamp(20px,4vw,32px) 0;padding:16px 0 0;
+  border-top:1px dashed var(--border);}
+.promo-mid-label{display:block;font-size:10.5px;font-weight:600;
+  letter-spacing:.12em;color:var(--muted);margin-bottom:10px;}
+.promo-mid img{display:inline-block;max-width:100%;height:auto;}
+.promo-mid img[width="1"]{width:1px;height:1px;}
 /* 記事のタイルには一言（.card-note）が2行ぶん入る。広告には出す文が
    無いので、以前は同じだけ空けて高さをそろえていた。しかし広告は
    3枚が横に並んで独立した行を作るので、記事のタイルと高さをそろえる

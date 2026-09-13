@@ -1669,7 +1669,7 @@
    {
     "name": "四角いバナー／260914_レノボ・ショッピング　【フル・カスタマイズ可能】_300x250（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "list_end",
     "cats": [],
     "ads": [
      {
@@ -1795,7 +1795,7 @@
    {
     "name": "四角いバナー／260914_セカンドストリート（販売）_300x250（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "list_end",
     "cats": [],
     "ads": [
      {
@@ -1991,7 +1991,7 @@
    {
     "name": "四角いバナー／260914_じゃらんnet_160x600（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "home_new",
     "cats": [],
     "ads": [
      {
@@ -2005,7 +2005,7 @@
    {
     "name": "四角いバナー／260914_Yahoo!ショッピング(ヤフー ショッピング)_300x250（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "list_end",
     "cats": [],
     "ads": [
      {
@@ -2257,7 +2257,7 @@
    {
     "name": "四角いバナー／260914_マホロバ・マインズ三浦_300x250（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "list_end",
     "cats": [],
     "ads": [
      {
@@ -2481,7 +2481,7 @@
    {
     "name": "四角いバナー／260914_Yahoo!ショッピング(ヤフー ショッピング)_160x600（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "home_rank",
     "cats": [],
     "ads": [
      {
@@ -2775,7 +2775,7 @@
    {
     "name": "四角いバナー／260914_AliExpress_300x250（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "article_mid",
     "cats": [],
     "ads": [
      {

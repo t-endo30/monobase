@@ -520,6 +520,24 @@ def promo_row_slot(cls=""):
             f'      </aside>\n')
 
 
+def home_feat_ad(where):
+    """ホームの「新着記事」「ランキング」の横に置く、縦長のバナー1枠。
+
+       幅の広いPC（.home-featwrap が横並びになる幅）でしか出さないので、
+       記事タイルの見出し等は持たせず、バナーとPR表記だけの軽い箱にする
+       （スマホでは assets/style-v2.css 側で display:none にする）。"""
+    items = [x for x in (PROMOS.get("items") or [])
+             if str(x.get("where") or "") == where]
+    ads = [a for x in items for a in promo_ads(x)]
+    if not ads:
+        return ""
+    label = e(str(PROMOS.get("label") or "PR"))
+    return (f'<aside class="home-feat-ad" aria-label="広告">'
+            f'<span class="home-feat-ad-label">{label}</span>'
+            f'{ads[0]["html"]}'
+            f'</aside>')
+
+
 def promo_band(where="top"):
     """横長バナーを、1本の帯として出す枠。
 
@@ -621,6 +639,24 @@ def promo_slot(where, cat="", cls=""):
             f'        <div class="card-grid is-3">\n{slots}        </div>\n'
             + tpl +
             f'      </aside>\n')
+
+
+def promo_mid(cat):
+    """長い記事だけ、口コミ欄のあとに挟む横長バナー1本。
+       article_end と同じ「カテゴリーに合えばそちらを優先」だが、
+       枠は1つだけなので3件そろわなくても出す。"""
+    items = [x for x in (PROMOS.get("items") or [])
+             if str(x.get("where") or "") == "article_mid" and promo_ads(x)]
+    if cat:
+        fit = [x for x in items if not x.get("cats") or cat in (x.get("cats") or [])]
+        if fit:
+            items = fit
+    if not items:
+        return ""
+    label = e(str(PROMOS.get("label") or "PR"))
+    ad = [a for x in items for a in promo_ads(x)][0]
+    return (f'          <aside class="promo-mid" aria-label="広告">'
+            f'<span class="promo-mid-label">{label}</span>{ad["html"]}</aside>\n')
 
 
 def ad_slot(name, cls=""):
@@ -2630,6 +2666,10 @@ def render_article(a):
         add(paras(a.get("voices_after")))
         add(shop_buttons_mid(a, "voices",
                              price_note(a)))
+        # 長い記事だけ、ここまで読んだ人向けに広告を1本挟む。短い記事に
+        # まで挟むと、本文に対して広告の比重が重くなりすぎるため。
+        if len(re.sub(r"<[^>]+>", "", "".join(b))) > 3500:
+            add(promo_mid(cat))
 
     # 6. 運営者の実体験コラム
     if a.get("personal_note"):
@@ -3127,8 +3167,10 @@ def build_index():
 
     body = v2_section(
         v2_sec_head("NEW", "新着記事")
-        + '      <div class="card-grid">'
-        + "".join(v2_card(a, p, flags="new") for a in latest) + "</div>\n"
+        + '      <div class="home-featwrap">'
+        + home_feat_ad("home_new")
+        + '<div class="card-grid is-home6">'
+        + "".join(v2_card(a, p, flags="new") for a in latest) + "</div></div>\n"
         + v2_sec_more(f"{p}new.html"), tinted=True)
 
     # ランキングの並びは、ランキングのページ（assets/main.js）と同じ規則で
@@ -3145,15 +3187,17 @@ def build_index():
     # ボタンを出す＝track が overflow-x:auto のときだけ）。
     body += v2_section(
         v2_sec_head("RANKING", "よく読まれている記事")
-        + '      <div class="card-rail" data-rail>\n'
+        + '      <div class="home-featwrap">'
+        + home_feat_ad("home_rank")
+        + '<div class="card-rail" data-rail>\n'
         + '        <button type="button" class="rail-btn is-prev" '
         'aria-label="前の記事" hidden><span aria-hidden="true"></span></button>\n'
-        + '        <div class="card-grid is-rank">'
+        + '        <div class="card-grid is-rank is-home6">'
         + "".join(v2_card(a, p, no=i + 1) for i, a in enumerate(top))
         + "</div>\n"
         + '        <button type="button" class="rail-btn is-next" '
         'aria-label="次の記事" hidden><span aria-hidden="true"></span></button>\n'
-        + '      </div>\n'
+        + '      </div></div>\n'
         + v2_sec_more(f"{p}ranking.html"))
 
     # ピックアップもランキングと同じ横カルーセル（スマホ）。枠を同じ
@@ -3170,6 +3214,13 @@ def build_index():
             + '        <button type="button" class="rail-btn is-next" '
             'aria-label="次の記事" hidden><span aria-hidden="true"></span></button>\n'
             + '      </div>\n')
+
+    # スマホのホームは「新着記事」「ランキング」が横並び（.home-featwrap）に
+    # ならず広告を置く余地が無いので、ピックアップの下に横長タイル1本を
+    # 挟む（新着・ランキングのページ末尾と同じ promo_row_slot）。
+    row_ad = promo_row_slot()
+    if row_ad.strip():
+        body += v2_section(row_ad)
 
     # 横長バナーの帯はホームに置かない（promo_band は残してある）。
     # サイトの顔にあたる場所で、古い規格のバナーが浮くため。
