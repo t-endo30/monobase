@@ -703,21 +703,40 @@ def promo_side(slug):
 def ad_slot(name, cls=""):
     """広告ユニット1枠。mode=auto のときは何も置かない
        （どこに出すかはGoogle側が決めるため）。
-       枠の高さをあらかじめ空けておき、読み込みで文章が飛ばないようにする。"""
+       枠の高さをあらかじめ空けておき、読み込みで文章が飛ばないようにする。
+
+       広告ユニットの種類（ディスプレイ／インフィード／記事内）によって
+       Google が発行するコードの属性が変わるので、content/site.json の
+       ads.slots[name] にその種類ぶんの情報（id・format・layout・
+       layout_key）を持たせ、ここで組み立てる。古い形（文字列だけ）が
+       残っていても空扱いにする。"""
     if not ads_on() or str(ADS.get("mode", "manual")) != "manual":
         return ""
-    slot = str((ADS.get("slots") or {}).get(name) or "").strip()
+    conf = (ADS.get("slots") or {}).get(name)
+    if not isinstance(conf, dict):
+        return ""
+    slot = str(conf.get("id") or "").strip()
     if not slot:
         return ""
     label = e(str(ADS.get("label") or "スポンサーリンク"))
     c = f" {cls}" if cls else ""
+
+    attrs = [f'data-ad-client="{e(ADS["client"].strip())}"',
+             f'data-ad-slot="{e(slot)}"']
+    fmt = str(conf.get("format") or "auto").strip()
+    attrs.append(f'data-ad-format="{e(fmt)}"')
+    if conf.get("responsive"):
+        attrs.append('data-full-width-responsive="true"')
+    if conf.get("layout"):
+        attrs.append(f'data-ad-layout="{e(str(conf["layout"]))}"')
+    if conf.get("layout_key"):
+        attrs.append(f'data-ad-layout-key="{e(str(conf["layout_key"]))}"')
+    attrs_html = "\n               ".join(attrs)
+
     return (f'        <aside class="ad-slot{c}" aria-label="広告">\n'
             f'          <span class="ad-label">{label}</span>\n'
             f'          <ins class="adsbygoogle" style="display:block"\n'
-            f'               data-ad-client="{e(ADS["client"].strip())}"\n'
-            f'               data-ad-slot="{e(slot)}"\n'
-            f'               data-ad-format="auto"\n'
-            f'               data-full-width-responsive="true"></ins>\n'
+            f'               {attrs_html}></ins>\n'
             f'          <script>(adsbygoogle = window.adsbygoogle || []).push({{}});</script>\n'
             f'        </aside>\n')
 

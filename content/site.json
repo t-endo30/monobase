@@ -3753,9 +3753,21 @@
   "mode": "manual",
   "label": "スポンサーリンク",
   "slots": {
-   "article_mid": "",
-   "article_end": "",
-   "side": ""
+   "article_mid": {
+    "id": "8070870122",
+    "format": "fluid",
+    "layout": "in-article"
+   },
+   "article_end": {
+    "id": "5580438157",
+    "format": "fluid",
+    "layout_key": "-gp+h-26-6e+jw"
+   },
+   "top": {
+    "id": "7363458968",
+    "format": "auto",
+    "responsive": true
+   }
   }
  },
  "automation": {
