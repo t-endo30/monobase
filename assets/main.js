@@ -1533,3 +1533,46 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     }
   }, true);
 })();
+
+/* ホームのバナー広告（NEW/RANKING/PICK UP/PR）を、ページを開くたびに
+   ランダムに選び直す。ビルド時に build.py が候補をまるごとJSONで
+   埋め込んでいるので（home-feat-ad-pool）、ここではその中から
+   毎回シャッフルして選ぶだけ。JSが動かない環境ではビルド時に
+   選ばれた表示のままになる（フォールバック）。 */
+(function () {
+  'use strict';
+  function itemHtml(html, label) {
+    return '<span class="home-feat-ad-item">' +
+      '<span class="home-feat-ad-item-media">' + html + '</span>' +
+      '<span class="home-feat-ad-item-label">' + label + '</span>' +
+      '</span>';
+  }
+  function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+  document.querySelectorAll('script.home-feat-ad-pool').forEach(function (script) {
+    var target = document.getElementById(script.getAttribute('data-for') || '');
+    if (!target) return;
+    var pool;
+    try {
+      pool = JSON.parse(script.textContent);
+    } catch (ex) {
+      return;
+    }
+    if (!pool || !pool.length) return;
+    var n = parseInt(target.getAttribute('data-ad-n'), 10) || 1;
+    var label = target.getAttribute('data-ad-label') || 'PR';
+    var picks = shuffle(pool.slice()).slice(0, Math.min(n, pool.length));
+    while (picks.length < n) {
+      picks.push(pool[Math.floor(Math.random() * pool.length)]);
+    }
+    var itemsHtml = picks.map(function (h) { return itemHtml(h, label); }).join('');
+    target.innerHTML = n >= 2
+      ? '<span class="home-feat-ad-items">' + itemsHtml + '</span>'
+      : itemsHtml;
+  });
+})();

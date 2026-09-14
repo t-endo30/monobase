@@ -532,10 +532,11 @@ def home_feat_ad(where, n=1):
        バナーより高さが揃う。ピックアップ・PRは1行しか無いので1本
        （n=1）のまま。
 
-       割り当てを複数（nより多く）しておけば、ビルドのたびに選び直す
-       （サイトの再生成は日に何度もあるので、毎回同じ広告が固定で
-       出続けることはない。閲覧のたびに変わるものではない＝表示回数の
-       水増しにはならない）。"""
+       割り当てを複数（nより多く）しておけば、ビルドのたびに選び直す。
+       それだけだと「同じビルドの間はずっと同じ」ままなので、候補を
+       すべてJSONで埋め込んでおき、閲覧時にJS（main.js）が毎回
+       ランダムに選び直して差し替える。ここでの出力はJS無効時の
+       フォールバック・初期表示用。"""
     items = [x for x in (PROMOS.get("items") or [])
              if str(x.get("where") or "") == where]
     ads = [a for x in items for a in promo_ads(x)]
@@ -544,20 +545,30 @@ def home_feat_ad(where, n=1):
     label = e(str(PROMOS.get("label") or "PR"))
     random.shuffle(ads)
     picks = ads[:n] if len(ads) >= n else [random.choice(ads) for _ in range(n)]
+
+    def item_html(html_):
+        return (f'<span class="home-feat-ad-item">'
+                f'<span class="home-feat-ad-item-media">{html_}</span>'
+                f'<span class="home-feat-ad-item-label">{label}</span>'
+                f'</span>')
+
     # PR表記は枠の上ではなく、バナー1本ずつの下に付ける
     # （記事タイルと同じく、それぞれが独立した1枚として見えるように）
-    banners = "".join(
-        f'<span class="home-feat-ad-item">'
-        f'<span class="home-feat-ad-item-media">{a["html"]}</span>'
-        f'<span class="home-feat-ad-item-label">{label}</span>'
-        f'</span>'
-        for a in picks)
+    banners = "".join(item_html(a["html"]) for a in picks)
     # 2本以上のときは、記事タイルの上端に揃えられるよう、バナーだけを
     # 別の入れ物にまとめる
     cls = "home-feat-ad is-double" if len(picks) >= 2 else "home-feat-ad"
     body = (f'<span class="home-feat-ad-items">{banners}</span>'
             if len(picks) >= 2 else banners)
-    return f'<aside class="{cls}" aria-label="広告">{body}</aside>'
+    uid = f"home-feat-ad-{where}"
+    # 候補をまるごとJSONで埋め込む。</script を含みうるHTMLなので
+    # スクリプト終了タグとして解釈されないようにエスケープする
+    pool_json = (json.dumps([a["html"] for a in ads], ensure_ascii=False)
+                 .replace("</", "<\\/"))
+    return (f'<aside class="{cls}" aria-label="広告" id="{uid}" '
+            f'data-ad-n="{len(picks)}" data-ad-label="{label}">{body}</aside>'
+            f'<script type="application/json" class="home-feat-ad-pool" '
+            f'data-for="{uid}">{pool_json}</script>')
 
 
 def promo_band(where="top"):
