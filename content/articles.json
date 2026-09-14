@@ -31862,5 +31862,475 @@
     "shop_images": {
       "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tea-life/cabinet/goods/refa/15638_thumb_r.jpg?_ex=128x128"
     }
+  },
+  {
+    "slug": "feature-beauty-skincare-1",
+    "category": "feature",
+    "sub": "compare",
+    "published": false,
+    "featured": false,
+    "feature_of": "beauty/skincare",
+    "feature_stage": 1,
+    "feature_covers": [
+      "mjcare-mijin-apm24-cica",
+      "kitchen-20260908",
+      "beauty-20260906-2",
+      "beauty-20260906",
+      "p10-yunth-c-c"
+    ],
+    "asin": "",
+    "amazon_url": "",
+    "banner": "",
+    "title": "スキンケアのおすすめ5選｜どんな場合にどれを選ぶか",
+    "list_title": "スキンケアのおすすめ5選",
+    "description": "スキンケアのレビュー記事6本から5製品を選び、どんな条件のときにどれが向くかを整理しました。",
+    "excerpt": "スキンケアの5製品を、選ぶ条件ごとに整理しました。",
+    "date": "2026-09-15",
+    "updated": "2026-09-15",
+    "tags": [
+      "比較",
+      "スキンケア"
+    ],
+    "icon": "📊",
+    "thumb": "",
+    "cta_label": "Amazonで価格と詳細を確認する",
+    "verdict_title": "結論：条件で選ぶものが変わる",
+    "summary": [
+      "スキンケアのレビュー6本のうち、比較軸が揃う5製品を選定",
+      "（公開前に記入）どれを選ぶかの分かれ目",
+      "（公開前に記入）価格差が意味を持つ条件"
+    ],
+    "rating": {
+      "score": 0,
+      "breakdown": ""
+    },
+    "lead": "スキンケアについて公開しているレビューが6本になりました。ここでは比較しやすい5製品を並べ、<strong>どんな条件のときにどれを選ぶか</strong>を整理します。",
+    "not_for": {
+      "intro": "（公開前に記入）この記事が役に立たない人",
+      "items": []
+    },
+    "scenes": [],
+    "pros": [],
+    "cons": [],
+    "spec": {
+      "intro": "選定した記事の要点です。表は横にスクロールできます。",
+      "headers": [
+        "記事",
+        "結論",
+        "向いている人"
+      ],
+      "rows": [
+        [
+          "<a href=\"mjcare-mijin-apm24-cica.html\">MJCARE エッセンスマスク口コミ</a>",
+          "毎日1枚のデイリー用にまとめ買いしたい人には合う。1枚ごとの仕上がりを吟味したい人は少量から",
+          "シートマスクを月に数回しか使わない人…"
+        ],
+        [
+          "<a href=\"kitchen-20260908.html\">アテニア スキンクリア クレンズ オイル</a>",
+          "クレンジング後の洗顔をやめて工程を1つ減らしたい人には候補。無香料と成分表の事前確認を条件にする人は、販売ページを読んでから決めるべき",
+          "無香料であることを条件にしている人…"
+        ],
+        [
+          "<a href=\"beauty-20260906-2.html\">PLuS プラセンタマスク70枚 口コミ</a>",
+          "毎日シートマスクを使う習慣がある人には合う。香り付きが苦手な人・肌が敏感で少量から試したい人は別の選択を",
+          "スキンケアの香りが苦手な人・無香料を条件にしている人…"
+        ],
+        [
+          "<a href=\"beauty-20260906.html\">PLuS プラセンタマスク70枚 口コミ</a>",
+          "毎日貼る前提で大容量を探している人には合う。1枚ずつ吟味したい人・香りに敏感な人は別を",
+          "肌に合うか分からない段階で大量に持ちたくない人…"
+        ],
+        [
+          "<a href=\"p10-yunth-c-c.html\">Yunth 生ビタミンC美容液</a>",
+          "使い切りの個包装でビタミンCを試したい人には向く。量を気にせず毎日たっぷり使いたいなら別を",
+          "顔だけでなく首・デコルテ・手の甲まで、広い範囲に毎日使いたい人…"
+        ]
+      ]
+    },
+    "voices_intro": "",
+    "voices": [],
+    "personal_note": "",
+    "next_problem": {
+      "intro": "",
+      "items": []
+    },
+    "conclusion_title": "まとめ",
+    "conclusion": "（公開前に記入）"
+  },
+  {
+    "slug": "feature-beauty-makeup-1",
+    "category": "feature",
+    "sub": "compare",
+    "published": false,
+    "featured": false,
+    "feature_of": "beauty/makeup",
+    "feature_stage": 1,
+    "feature_covers": [
+      "camera-20260830",
+      "beauty-20260830",
+      "bb-bb-uv",
+      "d-d-ray",
+      "led-n2"
+    ],
+    "asin": "",
+    "amazon_url": "",
+    "banner": "",
+    "title": "メイクのおすすめ5選｜どんな場合にどれを選ぶか",
+    "list_title": "メイクのおすすめ5選",
+    "description": "メイクのレビュー記事5本から5製品を選び、どんな条件のときにどれが向くかを整理しました。",
+    "excerpt": "メイクの5製品を、選ぶ条件ごとに整理しました。",
+    "date": "2026-09-15",
+    "updated": "2026-09-15",
+    "tags": [
+      "比較",
+      "メイク"
+    ],
+    "icon": "📊",
+    "thumb": "",
+    "cta_label": "Amazonで価格と詳細を確認する",
+    "verdict_title": "結論：条件で選ぶものが変わる",
+    "summary": [
+      "メイクのレビュー5本のうち、比較軸が揃う5製品を選定",
+      "（公開前に記入）どれを選ぶかの分かれ目",
+      "（公開前に記入）価格差が意味を持つ条件"
+    ],
+    "rating": {
+      "score": 0,
+      "breakdown": ""
+    },
+    "lead": "メイクについて公開しているレビューが5本になりました。ここでは比較しやすい5製品を並べ、<strong>どんな条件のときにどれを選ぶか</strong>を整理します。",
+    "not_for": {
+      "intro": "（公開前に記入）この記事が役に立たない人",
+      "items": []
+    },
+    "scenes": [],
+    "pros": [],
+    "cons": [],
+    "spec": {
+      "intro": "選定した記事の要点です。表は横にスクロールできます。",
+      "headers": [
+        "記事",
+        "結論",
+        "向いている人"
+      ],
+      "rows": [
+        [
+          "<a href=\"camera-20260830.html\">クレーリナ エアリーカールマスカラ</a>",
+          "お湯オフでナチュラルな長さを足したい人には合う。ボリュームや強いカール矯正を求めるなら別を",
+          "ボリューム重視で、まつ毛を太く濃く見せたい人…"
+        ],
+        [
+          "<a href=\"beauty-20260830.html\">クレーリナ アイブロウ 口コミ</a>",
+          "眉尻を細く描いて夕方まで残したい人には買い。ぼかして仕上げたい人は別のタイプを",
+          "ぼかしてふんわり仕上げたい人…"
+        ],
+        [
+          "<a href=\"bb-bb-uv.html\">レステモ 美白BBクリーム35g</a>",
+          "ナチュラルな仕上がりで時短したい人には候補。成分表示やSPF値を先に確定させたい人は、販売ページを読んでから判断を",
+          "成分表示とSPF/PA値を、買う前に確定させたい人…"
+        ],
+        [
+          "<a href=\"d-d-ray.html\">d-ray D-クリア ファンデ 12g 確認点</a>",
+          "軽いつけ心地のパウダーを重ねて使いたい人には候補。成分表示と色番を事前に確認できる人向け",
+          "全成分表示を確認せずに買いたい人…"
+        ],
+        [
+          "<a href=\"led-n2.html\">剥がせるベースジェル スターターセットn2 口コミ</a>",
+          "自宅で気軽に始めて、休日ごとに塗り替えたい初心者には合う。長持ちと発色の均一さを最優先するなら別の構成を",
+          "2〜3週間つけっぱなしにしたい人…"
+        ]
+      ]
+    },
+    "voices_intro": "",
+    "voices": [],
+    "personal_note": "",
+    "next_problem": {
+      "intro": "",
+      "items": []
+    },
+    "conclusion_title": "まとめ",
+    "conclusion": "（公開前に記入）"
+  },
+  {
+    "slug": "feature-kitchen-appliance-1",
+    "category": "feature",
+    "sub": "compare",
+    "published": false,
+    "featured": false,
+    "feature_of": "kitchen/appliance",
+    "feature_stage": 1,
+    "feature_covers": [
+      "iris-kpc-ma4-pressure-cooker-review",
+      "zojirushi-ck-ax08-kettle-review",
+      "recolte-capsule-cutter-bonne-rcp-3",
+      "rcp-3-recolte-capsule-cutter-bonne",
+      "recolte-rcp-7"
+    ],
+    "asin": "",
+    "amazon_url": "",
+    "banner": "",
+    "title": "調理家電のおすすめ5選｜どんな場合にどれを選ぶか",
+    "list_title": "調理家電のおすすめ5選",
+    "description": "調理家電のレビュー記事8本から5製品を選び、どんな条件のときにどれが向くかを整理しました。",
+    "excerpt": "調理家電の5製品を、選ぶ条件ごとに整理しました。",
+    "date": "2026-09-15",
+    "updated": "2026-09-15",
+    "tags": [
+      "比較",
+      "調理家電"
+    ],
+    "icon": "📊",
+    "thumb": "",
+    "cta_label": "Amazonで価格と詳細を確認する",
+    "verdict_title": "結論：条件で選ぶものが変わる",
+    "summary": [
+      "調理家電のレビュー8本のうち、比較軸が揃う5製品を選定",
+      "（公開前に記入）どれを選ぶかの分かれ目",
+      "（公開前に記入）価格差が意味を持つ条件"
+    ],
+    "rating": {
+      "score": 0,
+      "breakdown": ""
+    },
+    "lead": "調理家電について公開しているレビューが8本になりました。ここでは比較しやすい5製品を並べ、<strong>どんな条件のときにどれを選ぶか</strong>を整理します。",
+    "not_for": {
+      "intro": "（公開前に記入）この記事が役に立たない人",
+      "items": []
+    },
+    "scenes": [],
+    "pros": [],
+    "cons": [],
+    "spec": {
+      "intro": "選定した記事の要点です。表は横にスクロールできます。",
+      "headers": [
+        "記事",
+        "結論",
+        "向いている人"
+      ],
+      "rows": [
+        [
+          "<a href=\"iris-kpc-ma4-pressure-cooker-review.html\">アイリス 電気圧力鍋KPC-MA4</a>",
+          "2〜3人分の煮込みを「放っておいて作りたい」人には買い。大鍋で作り置きしたい人は容量で外す",
+          "4〜5人分以上を一度に作り置きしたい人…"
+        ],
+        [
+          "<a href=\"zojirushi-ck-ax08-kettle-review.html\">象印 CK-AX08 電気ケトル</a>",
+          "置き場所の蒸気が悩みで、1〜2人ぶんを沸かす人には買い。大容量や軽さ最優先なら別を",
+          "一度に3人ぶん以上を沸かしたい人…"
+        ],
+        [
+          "<a href=\"recolte-capsule-cutter-bonne-rcp-3.html\">レコルト RCP-3 口コミ</a>",
+          "毎日の少量の下ごしらえを短縮したい台所には買い。まとめて大量に仕込む用途なら別を",
+          "4人分以上をまとめて仕込む人…"
+        ],
+        [
+          "<a href=\"rcp-3-recolte-capsule-cutter-bonne.html\">レコルト ボンヌ RCP-3 口コミ</a>",
+          "離乳食・介護食を1食分ずつ少量で作りたい人には有力。大容量調理や業務用の粉砕力を求める人には別機種が向く",
+          "家族4人以上の離乳食や介護食をまとめて作り置きしたい人…"
+        ],
+        [
+          "<a href=\"recolte-rcp-7.html\">レコルト RCP-7 口コミ</a>",
+          "離乳食・薬味・少量調理をコードなしで片付けたい人には向く。毎日まとまった量を仕込む人は据え置き型を",
+          "一度に家族分をまとめて仕込みたい人…"
+        ]
+      ]
+    },
+    "voices_intro": "",
+    "voices": [],
+    "personal_note": "",
+    "next_problem": {
+      "intro": "",
+      "items": []
+    },
+    "conclusion_title": "まとめ",
+    "conclusion": "（公開前に記入）"
+  },
+  {
+    "slug": "feature-fashion-wear-1",
+    "category": "feature",
+    "sub": "compare",
+    "published": false,
+    "featured": false,
+    "feature_of": "fashion/wear",
+    "feature_stage": 1,
+    "feature_covers": [
+      "gunze-agw112",
+      "3type",
+      "coolify",
+      "s-m-l-ll-zootie",
+      "bramone-basic-natural-3way-tu-hacci"
+    ],
+    "asin": "",
+    "amazon_url": "",
+    "banner": "",
+    "title": "衣類のおすすめ5選｜どんな場合にどれを選ぶか",
+    "list_title": "衣類のおすすめ5選",
+    "description": "衣類のレビュー記事6本から5製品を選び、どんな条件のときにどれが向くかを整理しました。",
+    "excerpt": "衣類の5製品を、選ぶ条件ごとに整理しました。",
+    "date": "2026-09-15",
+    "updated": "2026-09-15",
+    "tags": [
+      "比較",
+      "衣類"
+    ],
+    "icon": "📊",
+    "thumb": "",
+    "cta_label": "Amazonで価格と詳細を確認する",
+    "verdict_title": "結論：条件で選ぶものが変わる",
+    "summary": [
+      "衣類のレビュー6本のうち、比較軸が揃う5製品を選定",
+      "（公開前に記入）どれを選ぶかの分かれ目",
+      "（公開前に記入）価格差が意味を持つ条件"
+    ],
+    "rating": {
+      "score": 0,
+      "breakdown": ""
+    },
+    "lead": "衣類について公開しているレビューが6本になりました。ここでは比較しやすい5製品を並べ、<strong>どんな条件のときにどれを選ぶか</strong>を整理します。",
+    "not_for": {
+      "intro": "（公開前に記入）この記事が役に立たない人",
+      "items": []
+    },
+    "scenes": [],
+    "pros": [],
+    "cons": [],
+    "spec": {
+      "intro": "選定した記事の要点です。表は横にスクロールできます。",
+      "headers": [
+        "記事",
+        "結論",
+        "向いている人"
+      ],
+      "rows": [
+        [
+          "<a href=\"gunze-agw112.html\">グンゼ AGW112 口コミ｜アセドロンショート丈の評価</a>",
+          "汗による足元のベタつきやニオイ対策を求める人には買い。防寒や厚手のクッション性を重視するなら別の選択肢を",
+          "冬場の防寒や厚手の保温性を求めている人…"
+        ],
+        [
+          "<a href=\"3type.html\">選べる3TYPEラク伸びストレッチスキニーパンツ 口コミ</a>",
+          "ラクさ優先で毎日穿く普段着パンツを探している人には合う。生地の厚みや実寸を事前に確かめられない人は避けたほうがいい",
+          "オフィスのドレスコードが厳しい職場で穿きたい人…"
+        ],
+        [
+          "<a href=\"coolify.html\">冷感とろみワイドパンツ 口コミ</a>",
+          "室内〜近所の夏の普段着として、丈と裾幅を数字で確認できる人には買い。ハリのあるきれいめパンツを求めるなら別を",
+          "オフィスや来客対応で着たい人…"
+        ],
+        [
+          "<a href=\"s-m-l-ll-zootie.html\">zootie エアパンツ 口コミ</a>",
+          "締めつけの少ないスキニーを普段着に探している人には合う。かっちりしたシルエットや厚手のデニム感を求めるなら別を",
+          "厚手・硬めのデニムらしい風合いを求める人…"
+        ],
+        [
+          "<a href=\"bramone-basic-natural-3way-tu-hacci.html\">tu-hacci BRAmone Basic 口コミ</a>",
+          "締め付けの少ない部屋着インナーを綿素材で探している人には候補。ホールド力と補整を求めるならワイヤー入りを選ぶべき",
+          "バストを寄せて上げたい人…"
+        ]
+      ]
+    },
+    "voices_intro": "",
+    "voices": [],
+    "personal_note": "",
+    "next_problem": {
+      "intro": "",
+      "items": []
+    },
+    "conclusion_title": "まとめ",
+    "conclusion": "（公開前に記入）"
+  },
+  {
+    "slug": "feature-furniture-bed-2",
+    "category": "feature",
+    "sub": "compare",
+    "published": false,
+    "featured": false,
+    "feature_of": "furniture/bed",
+    "feature_stage": 2,
+    "feature_covers": [
+      "granfort-justright",
+      "furniture-20260908",
+      "furniture-20260910-4",
+      "furniture-20260910-3",
+      "gokubuto"
+    ],
+    "asin": "",
+    "amazon_url": "",
+    "banner": "",
+    "title": "寝具のおすすめ5選｜どんな場合にどれを選ぶか",
+    "list_title": "寝具のおすすめ5選",
+    "description": "寝具のレビュー記事10本から5製品を選び、どんな条件のときにどれが向くかを整理しました。",
+    "excerpt": "寝具の5製品を、選ぶ条件ごとに整理しました。",
+    "date": "2026-09-15",
+    "updated": "2026-09-15",
+    "tags": [
+      "比較",
+      "寝具"
+    ],
+    "icon": "📊",
+    "thumb": "",
+    "cta_label": "Amazonで価格と詳細を確認する",
+    "verdict_title": "結論：条件で選ぶものが変わる",
+    "summary": [
+      "寝具のレビュー10本のうち、比較軸が揃う5製品を選定",
+      "（公開前に記入）どれを選ぶかの分かれ目",
+      "（公開前に記入）価格差が意味を持つ条件"
+    ],
+    "rating": {
+      "score": 0,
+      "breakdown": ""
+    },
+    "lead": "寝具について公開しているレビューが10本になりました。ここでは比較しやすい5製品を並べ、<strong>どんな条件のときにどれを選ぶか</strong>を整理します。",
+    "not_for": {
+      "intro": "（公開前に記入）この記事が役に立たない人",
+      "items": []
+    },
+    "scenes": [],
+    "pros": [],
+    "cons": [],
+    "spec": {
+      "intro": "選定した記事の要点です。表は横にスクロールできます。",
+      "headers": [
+        "記事",
+        "結論",
+        "向いている人"
+      ],
+      "rows": [
+        [
+          "<a href=\"granfort-justright.html\">GRANFORT ジャストライト敷布団</a>",
+          "フローリング敷きで、家族のサイズを一枚単位で揃えたい人には有力。厚みや反発の数値で選びたい人は販売ページの実寸確認が先",
+          "厚み・密度・反発力の数値を比較して決めたい人…"
+        ],
+        [
+          "<a href=\"furniture-20260908.html\">フェザー素材の布団セット7点・9点</a>",
+          "入居日や来客に間に合わせる「一式そろえ」には向く。羽毛布団の暖かさや、毎日長く使う主寝具を求めるなら別を検討",
+          "羽毛布団（ダウン）の軽さと暖かさを求める人…"
+        ],
+        [
+          "<a href=\"furniture-20260910-4.html\">脚付きマットレス 口コミ｜一体型</a>",
+          "ワンルームに寝る場所を最短で用意したい人には有力。寝心地を細かく詰めたい人は別の選び方を",
+          "隣で寝る人の寝返りで起きたくない人（二人で使う場合）…"
+        ],
+        [
+          "<a href=\"furniture-20260910-3.html\">日本製 布団6点セット シングルの口コミ</a>",
+          "来客用・新生活用にひと通り揃えたい人には買い。毎晩の主寝具として腰をしっかり支えたい人は敷き布団の仕様を確認してから",
+          "フローリングに直敷きして、毎晩の主寝具にする予定の人…"
+        ],
+        [
+          "<a href=\"gokubuto.html\">GOKUBUTO 五層敷布団の口コミ</a>",
+          "フローリング直敷きの底付き感を消したい人には買い。押し入れの奥行きが浅い家と、ベッドへの重ね敷きを考えている人は別を",
+          "押し入れの中段が浅い、または高さが足りない住居の人…"
+        ]
+      ]
+    },
+    "voices_intro": "",
+    "voices": [],
+    "personal_note": "",
+    "next_problem": {
+      "intro": "",
+      "items": []
+    },
+    "conclusion_title": "まとめ",
+    "conclusion": "（公開前に記入）"
   }
 ]

@@ -1599,7 +1599,7 @@
    {
     "name": "四角いバナー／260912_セカンドストリート（販売）_300x250（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "home_pick",
     "cats": [],
     "ads": [
      {
@@ -2285,7 +2285,7 @@
    {
     "name": "四角いバナー／260914_Yahoo!ショッピング(ヤフー ショッピング)_300x300（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "home_rank",
     "cats": [],
     "ads": [
      {
@@ -2481,7 +2481,7 @@
    {
     "name": "四角いバナー／260912_AliExpress_300x250_2（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "home_new",
     "cats": [],
     "ads": [
      {
@@ -2803,7 +2803,7 @@
    {
     "name": "四角いバナー／260914_じゃらんnet_300x300（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "home_pr",
     "cats": [],
     "ads": [
      {
@@ -2817,7 +2817,7 @@
    {
     "name": "四角いバナー／260914_Ugreen_200x200（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "home_pick",
     "cats": [],
     "ads": [
      {
@@ -2985,7 +2985,7 @@
    {
     "name": "四角いバナー／260914_SHEIN_300x250（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "home_new",
     "cats": [],
     "ads": [
      {
@@ -2999,7 +2999,7 @@
    {
     "name": "四角いバナー／260914_レノボ・ショッピング　【フル・カスタマイズ可能】_200x200（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "home_pr",
     "cats": [],
     "ads": [
      {
@@ -3279,7 +3279,7 @@
    {
     "name": "四角いバナー／260913_Renta！（定額報酬）_336x280（1件）",
     "kind": "tile",
-    "where": "none",
+    "where": "home_rank",
     "cats": [],
     "ads": [
      {
