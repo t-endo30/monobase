@@ -1353,11 +1353,12 @@ body.has-sticky-cta .fab{bottom:96px;}
   }
   /* バナー1枚＝1枚の記事タイルと同じ考え方の箱。上端は記事タイルの
      上端にそのまま揃う（枠に余計な上パディングを持たせない）。
-     PR表記は画像の下に付ける */
+     PR表記は画像の下に付ける。画像自体は箱の縁にくっつかないよう
+     上にも余白を空ける */
   .home-feat-ad-item{
     display:flex;flex-direction:column;align-items:center;
     width:100%;
-    background:var(--bg-2);padding:0 12px 12px;
+    background:var(--bg-2);padding:14px 12px 12px;
     box-shadow:0 2px 10px rgba(0,0,0,.08);
   }
   .home-feat-ad-item-media{display:block;width:100%;}
