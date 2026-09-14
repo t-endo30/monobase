@@ -3747,24 +3747,24 @@
   "typewriter": true
  },
  "ads": {
-  "_note": "Google AdSense。enabled を true にすると読み込みタグが入る。コードは書き換えず、置き場所だけこちらで決める（規約）。mode=auto は自動広告、manual は下の slots に入れた広告ユニットIDの位置だけに出す。",
+  "_note": "Google AdSense。enabled を true にすると読み込みタグが入る。コードは書き換えず、置き場所だけこちらで決める（規約）。mode=auto は自動広告、manual は下の slots に入れた広告ユニットIDの位置だけに出す。（2026-09-14: AdSense審査待ちのため一時的にid欄を空にして非表示中。審査完了後、記憶している各IDを戻せば再開できる）",
   "enabled": true,
   "client": "ca-pub-4017242913861863",
   "mode": "manual",
   "label": "スポンサーリンク",
   "slots": {
    "article_mid": {
-    "id": "8070870122",
+    "id": "",
     "format": "fluid",
     "layout": "in-article"
    },
    "article_end": {
-    "id": "5580438157",
+    "id": "",
     "format": "fluid",
     "layout_key": "-gp+h-26-6e+jw"
    },
    "top": {
-    "id": "7363458968",
+    "id": "",
     "format": "auto",
     "responsive": true
    }
