@@ -544,18 +544,20 @@ def home_feat_ad(where, n=1):
     label = e(str(PROMOS.get("label") or "PR"))
     random.shuffle(ads)
     picks = ads[:n] if len(ads) >= n else [random.choice(ads) for _ in range(n)]
-    banners = "".join(f'<span class="home-feat-ad-item">{a["html"]}</span>'
-                      for a in picks)
-    # 2本以上のときは、タイル2段の上端・下端にそれぞれ寄せて
-    # 間を離すため、バナーだけを別の入れ物にまとめる
-    # （PRラベルは動かさず、いつも一番上に固定する）
+    # PR表記は枠の上ではなく、バナー1本ずつの下に付ける
+    # （記事タイルと同じく、それぞれが独立した1枚として見えるように）
+    banners = "".join(
+        f'<span class="home-feat-ad-item">'
+        f'<span class="home-feat-ad-item-media">{a["html"]}</span>'
+        f'<span class="home-feat-ad-item-label">{label}</span>'
+        f'</span>'
+        for a in picks)
+    # 2本以上のときは、記事タイルの上端に揃えられるよう、バナーだけを
+    # 別の入れ物にまとめる
     cls = "home-feat-ad is-double" if len(picks) >= 2 else "home-feat-ad"
     body = (f'<span class="home-feat-ad-items">{banners}</span>'
             if len(picks) >= 2 else banners)
-    return (f'<aside class="{cls}" aria-label="広告">'
-            f'<span class="home-feat-ad-label">{label}</span>'
-            f'{body}'
-            f'</aside>')
+    return f'<aside class="{cls}" aria-label="広告">{body}</aside>'
 
 
 def promo_band(where="top"):
