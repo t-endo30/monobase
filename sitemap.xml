@@ -27,7 +27,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-appliance</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-av</loc>
-    <lastmod>2026-09-11</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -57,7 +57,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-health</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -92,7 +92,12 @@
   </url>
   <url>
     <loc>https://monobase.site/category-appliance-aircon</loc>
-    <lastmod>2026-09-11</lastmod>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/category-appliance-laundry</loc>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -113,6 +118,11 @@
   <url>
     <loc>https://monobase.site/category-pc-storage</loc>
     <lastmod>2026-09-06</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/category-av-headphone</loc>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -196,7 +206,37 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://monobase.site/articles/usb-wifi-5ghz-sd-mf45a-secustation</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/bluetooth-bluetooth-iphone-android-siri-ll03</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/rsy-2-recolte-2</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/pc-20260914</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/articles/royallife</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/appliance-20260914</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/office-windows11-a4-core-i5-8gb</loc>
     <lastmod>2026-09-14</lastmod>
     <priority>0.9</priority>
   </url>
@@ -207,6 +247,16 @@
   </url>
   <url>
     <loc>https://monobase.site/articles/ldk-wifi-xb53k-tb53k-secustation</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/relaxia-no1</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/xrs-d010</loc>
     <lastmod>2026-09-14</lastmod>
     <priority>0.9</priority>
   </url>
