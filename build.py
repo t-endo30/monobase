@@ -546,9 +546,15 @@ def home_feat_ad(where, n=1):
     picks = ads[:n] if len(ads) >= n else [random.choice(ads) for _ in range(n)]
     banners = "".join(f'<span class="home-feat-ad-item">{a["html"]}</span>'
                       for a in picks)
-    return (f'<aside class="home-feat-ad" aria-label="広告">'
+    # 2本以上のときは、タイル2段の上端・下端にそれぞれ寄せて
+    # 間を離すため、バナーだけを別の入れ物にまとめる
+    # （PRラベルは動かさず、いつも一番上に固定する）
+    cls = "home-feat-ad is-double" if len(picks) >= 2 else "home-feat-ad"
+    body = (f'<span class="home-feat-ad-items">{banners}</span>'
+            if len(picks) >= 2 else banners)
+    return (f'<aside class="{cls}" aria-label="広告">'
             f'<span class="home-feat-ad-label">{label}</span>'
-            f'{banners}'
+            f'{body}'
             f'</aside>')
 
 
@@ -2235,16 +2241,38 @@ def paras(v, cls=""):
 def official_link(a):
     """メーカー公式の製品ページへの参照リンク。
        販売リンク（アフィリエイト）ではないので sponsored は付けず、
-       nofollow の通常リンクとして出す。仕様の一次情報の出どころを示す。"""
+       nofollow の通常リンクとして出す。仕様の一次情報の出どころを示す。
+       公式ページの og:title / og:image が取れていれば、LINEやSlackの
+       リンクプレビューと同じ考え方でカード表示にする
+       （サイト側が共有・引用向けに公開している値なので、これは
+       スクリーンショットの無断転載とは別物）。取れていなければ
+       これまで通りのテキストリンクにフォールバックする。"""
     url = (a.get("official_url") or "").strip()
     if not (url.startswith("http://") or url.startswith("https://")):
         return ""
     label = e(a.get("official_label") or "メーカー公式サイトで仕様を確認する")
+    note = ('<span class="official-ref-note">'
+            '（この記事の仕様は公式の公表値を基にしています）</span>')
+    img = (a.get("official_ogp_image") or "").strip()
+    title = (a.get("official_ogp_title") or "").strip()
+    if img.startswith("http://") or img.startswith("https://"):
+        try:
+            host = urllib.parse.urlparse(url).netloc
+        except ValueError:
+            host = ""
+        return (f'          <a class="official-ogp" href="{e(url)}" '
+                f'target="_blank" rel="nofollow noopener">'
+                f'<span class="official-ogp-thumb">'
+                f'<img src="{e(img)}" alt="" loading="lazy" decoding="async"></span>'
+                f'<span class="official-ogp-body">'
+                f'<span class="official-ogp-title">{e(title) or label}</span>'
+                f'<span class="official-ogp-host">{e(host)} '
+                f'<span aria-hidden="true">↗</span></span></span></a>\n'
+                f'          <p class="official-ref-note-only">{note}</p>\n')
     return (f'          <p class="official-ref">'
             f'<a href="{e(url)}" target="_blank" rel="nofollow noopener">'
             f'{label} <span aria-hidden="true">↗</span></a>'
-            f'<span class="official-ref-note">'
-            f'（この記事の仕様は公式の公表値を基にしています）</span></p>\n')
+            f'{note}</p>\n')
 
 
 # ---- 過去に書いた記事への差し込みリンク ----------------------

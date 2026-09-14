@@ -17,8 +17,8 @@ Claude で書くときは、この手元のツールを使う。
 書き終えたら content/articles.json を更新し、build.py を回すところまでやる。
 コミットはしない（内容を読んでから、いつもの手順で公開する）。
 """
-import json, io, os, re, sys, time, argparse, subprocess
-import urllib.request, urllib.error
+import json, io, os, re, sys, time, argparse, subprocess, html
+import urllib.request, urllib.error, urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -412,9 +412,8 @@ def reviews_block(a):
             "レビュー本文は取得していないので、特定の投稿を引用しない。")
 
 
-def fetch_text(url, limit=6000):
-    """メーカー公式ページの本文テキストをざっくり抜く。
-       自動取得なので、数値は「参考」。断定の根拠にはしない。"""
+def fetch_html(url):
+    """URLの生HTMLを取る。取れなければ空文字。"""
     try:
         req = urllib.request.Request(url, headers={
             "User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -423,9 +422,16 @@ def fetch_text(url, limit=6000):
         with urllib.request.urlopen(req, timeout=15) as r:
             raw = r.read(2_000_000)
             enc = r.headers.get_content_charset() or "utf-8"
-        htmltext = raw.decode(enc, "replace")
+        return raw.decode(enc, "replace")
     except (urllib.error.URLError, ValueError, TimeoutError, OSError) as ex:
         print(f"（公式ページを取得できませんでした: {ex}）", end="", flush=True)
+        return ""
+
+
+def html_to_text(htmltext, limit=6000):
+    """HTMLから本文テキストをざっくり抜く。
+       自動取得なので、数値は「参考」。断定の根拠にはしない。"""
+    if not htmltext:
         return ""
     htmltext = re.sub(r"(?is)<(script|style|noscript|svg|header|footer|nav)[^>]*>.*?</\1>",
                       " ", htmltext)
@@ -436,8 +442,49 @@ def fetch_text(url, limit=6000):
     return text[:limit]
 
 
+def fetch_text(url, limit=6000):
+    """互換用。fetch_html + html_to_text をまとめて呼ぶだけ。"""
+    return html_to_text(fetch_html(url), limit)
+
+
+_OGP_RE = re.compile(
+    r'(?is)<meta\s+[^>]*property=["\']og:(title|image|description)["\']'
+    r'[^>]*content=["\']([^"\']*)["\']')
+_OGP_RE_REV = re.compile(
+    r'(?is)<meta\s+[^>]*content=["\']([^"\']*)["\']'
+    r'[^>]*property=["\']og:(title|image|description)["\']')
+
+
+def extract_ogp(htmltext, base_url):
+    """公式ページのHTMLから og:title / og:image を拾う。
+       LINEやSlackのリンクプレビューと同じ仕組みで、サイト側が
+       他サイトからの引用・共有を想定して公開している値。
+       取れなければ空dict（呼び出し側はカードにせずテキストリンクへ戻す）。"""
+    if not htmltext:
+        return {}
+    found = {}
+    for m in _OGP_RE.finditer(htmltext):
+        found.setdefault(m.group(1), html.unescape(m.group(2)).strip())
+    for m in _OGP_RE_REV.finditer(htmltext):
+        found.setdefault(m.group(2), html.unescape(m.group(1)).strip())
+    out = {}
+    title = found.get("title") or ""
+    # リンク切れ・404ページのタイトルをカードにしない
+    if title and not re.search(r"(?i)404|not\s*found|ページが見つかりません|エラーが発生", title):
+        out["title"] = title[:120]
+    img = found.get("image")
+    if img:
+        try:
+            out["image"] = urllib.parse.urljoin(base_url, img)
+        except ValueError:
+            pass
+    return out
+
+
 def official_block(a, do_fetch=True):
-    """メーカー公式ページのURLと、（任意で）自動取得した本文。"""
+    """メーカー公式ページのURLと、（任意で）自動取得した本文。
+       ついでに og:title / og:image が拾えれば a に書き込む
+       （build.py 側でOGPカードとして出す）。"""
     url = (a.get("official_url") or "").strip()
     if not re.match(r"https?://", url):
         return ""
@@ -445,7 +492,13 @@ def official_block(a, do_fetch=True):
            "・この製品の一次情報。仕様・スペック表は公式の公表値を優先する。",
            "・記事にはこのURLを本文へ書かない（サイト側が参照リンクとして表示する）。"]
     if do_fetch:
-        body = fetch_text(url)
+        htmltext = fetch_html(url)
+        ogp = extract_ogp(htmltext, url)
+        if ogp.get("title"):
+            a["official_ogp_title"] = ogp["title"]
+        if ogp.get("image"):
+            a["official_ogp_image"] = ogp["image"]
+        body = html_to_text(htmltext)
         if body:
             out.append("\n― 公式ページから自動抽出（参考。文字化け・古い情報を含むことがある。"
                        "数値はここだけを根拠に断定せず、facts と突き合わせる）―\n"
