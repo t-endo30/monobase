@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap" media="print" onload="this.media='all';this.onload=null">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap"></noscript>
-<link rel="stylesheet" href="./assets/admin.css?v=67784b34">
+<link rel="stylesheet" href="./assets/admin.css?v=0e444c9f">
 </head>
 <body>
 
@@ -44,6 +44,18 @@
       </a>
       <span class="conn"><span class="dot" id="connDot"></span><span id="connText">未接続</span></span>
     </div>
+  </div>
+  <!-- 自動記事作成の進捗。articles.json の date が今日の記事数と、
+       サイト設定の1日の目標本数（automation.articles_per_run）から出す。
+       GitHub Actionsの実行状況そのものは見ていない（管理画面のトークンに
+       Actionsの閲覧権限を持たせたくないため。articles.json は元々読んで
+       いるデータなので、それだけで作れる進捗に留めている）。 -->
+  <div class="wrap a-progress-wrap" id="writeProgressWrap" hidden>
+    <div class="a-progress-label">
+      <span>本日の自動記事作成</span>
+      <b id="writeProgressText">—</b>
+    </div>
+    <div class="a-progress-bar"><div class="a-progress-fill" id="writeProgressFill"></div></div>
   </div>
 </header>
 
@@ -1075,6 +1087,6 @@
 
 <div class="toast" id="toast"></div>
 <script src="./assets/vendor/qrcode.min.js"></script>
-<script src="./assets/admin.js?v=67784b34"></script>
+<script src="./assets/admin.js?v=0e444c9f"></script>
 </body>
 </html>

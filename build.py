@@ -1412,10 +1412,11 @@ def v2_sec_head(en, ja, cls=""):
             f'<span class="ja">{e(ja)}</span></span><span class="rule"></span></div>\n')
 
 
-def v2_sec_more(href, label="VIEW ALL"):
+def v2_sec_more(href, label="VIEW ALL", cls=""):
     """一覧へ送る導線は、見出しの横ではなくタイルの下の中央に置く。
        スマホでは6件目をわざと切って、続きがここにあることを示す。"""
-    return f'      <div class="sec-more"><a href="{e(href)}">{label}</a></div>\n'
+    c = f" {cls}" if cls else ""
+    return f'      <div class="sec-more{c}"><a href="{e(href)}">{label}</a></div>\n'
 
 
 def v2_appeal(a):
@@ -3237,7 +3238,7 @@ def build_index():
         + home_feat_ad("home_new")
         + '<div class="card-grid is-home6">'
         + "".join(v2_card(a, p, flags="new") for a in latest) + "</div></div>\n"
-        + v2_sec_more(f"{p}new.html"), tinted=True)
+        + v2_sec_more(f"{p}new.html", cls="has-feat-ad"), tinted=True)
 
     # ランキングの並びは、ランキングのページ（assets/main.js）と同じ規則で
     # 決める。直近の閲覧数があればそれを、無ければ累計を使い、同数なら
@@ -3264,7 +3265,7 @@ def build_index():
         + '        <button type="button" class="rail-btn is-next" '
         'aria-label="次の記事" hidden><span aria-hidden="true"></span></button>\n'
         + '      </div></div>\n'
-        + v2_sec_more(f"{p}ranking.html"))
+        + v2_sec_more(f"{p}ranking.html", cls="has-feat-ad"))
 
     # ピックアップもランキングと同じ横カルーセル（スマホ）。枠を同じ
     # 大きさにすると3列では収まらないため、送って見せる形にそろえる。

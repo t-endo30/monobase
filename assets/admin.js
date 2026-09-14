@@ -1876,9 +1876,40 @@
 
   var findWired = false;
 
+  /* 本日の自動記事作成の進捗。GitHub Actionsの実行状況そのものは
+     見ず（管理画面のトークンにActionsの閲覧権限まで持たせたくない
+     ため）、既に読み込んでいる articles.json から「今日の日付が
+     付いた記事が何本あるか」を数えるだけにする。tools/make_drafts.py
+     は下書きを作った時点で date に今日を入れるので、公開前でも
+     この時点でカウントに乗る。 */
+  function renderWriteProgress() {
+    var wrap = $('writeProgressWrap');
+    if (!wrap) return;
+    var au = (site && site.automation) || {};
+    if (au.enabled === false) { wrap.hidden = true; return; }
+    var target = parseInt(au.articles_per_run, 10);
+    if (!target || target < 1) target = 5;
+    target = Math.min(10, Math.max(1, target));
+
+    var today = new Date();
+    var todayStr = today.getFullYear() + '-'
+      + String(today.getMonth() + 1).padStart(2, '0') + '-'
+      + String(today.getDate()).padStart(2, '0');
+    var todays = (articles || []).filter(function (a) { return a.date === todayStr; });
+    var done = todays.filter(function (a) { return a.published; }).length;
+    var pct = Math.min(100, Math.round((done / target) * 100));
+
+    wrap.hidden = false;
+    $('writeProgressFill').style.width = pct + '%';
+    var extra = todays.length > done
+      ? '（下書き ' + (todays.length - done) + ' 本を含む）' : '';
+    $('writeProgressText').textContent = done + ' / ' + target + ' 本' + extra;
+  }
+
   function renderAll() {
     renderList();
     renderSettings();
+    renderWriteProgress();
     /* カテゴリーの一覧は site.json が読めてからでないと作れない */
     if (!findWired && site && site.categories) { wireFind(); findWired = true; }
     if (typeof window.fillQpCategory === 'function') window.fillQpCategory();
