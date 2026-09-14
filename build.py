@@ -520,25 +520,35 @@ def promo_row_slot(cls=""):
             f'      </aside>\n')
 
 
-def home_feat_ad(where):
-    """ホームの「新着記事」「ランキング」の横に置く、縦長のバナー1枠。
+def home_feat_ad(where, n=1):
+    """ホームの「新着記事」「ランキング」の横に置くバナー枠。
 
        幅の広いPC（.home-featwrap が横並びになる幅）でしか出さないので、
        記事タイルの見出し等は持たせず、バナーとPR表記だけの軽い箱にする
        （スマホでは assets/style-v2.css 側で display:none にする）。
 
-       複数割り当てておけば、ビルドのたびに1本を選び直す（サイトの
-       再生成は日に何度もあるので、毎回同じ広告が固定で出続けることは
-       ない。閲覧のたびに変わるものではない＝表示回数の水増しにはならない）。"""
+       新着・ランキングは記事タイルが3列×2行（2段ぶん）の高さがあるので、
+       正方形寄りのバナーを縦に2本（n=2）並べたほうが、1本の縦長
+       バナーより高さが揃う。ピックアップ・PRは1行しか無いので1本
+       （n=1）のまま。
+
+       割り当てを複数（nより多く）しておけば、ビルドのたびに選び直す
+       （サイトの再生成は日に何度もあるので、毎回同じ広告が固定で
+       出続けることはない。閲覧のたびに変わるものではない＝表示回数の
+       水増しにはならない）。"""
     items = [x for x in (PROMOS.get("items") or [])
              if str(x.get("where") or "") == where]
     ads = [a for x in items for a in promo_ads(x)]
     if not ads:
         return ""
     label = e(str(PROMOS.get("label") or "PR"))
+    random.shuffle(ads)
+    picks = ads[:n] if len(ads) >= n else [random.choice(ads) for _ in range(n)]
+    banners = "".join(f'<span class="home-feat-ad-item">{a["html"]}</span>'
+                      for a in picks)
     return (f'<aside class="home-feat-ad" aria-label="広告">'
             f'<span class="home-feat-ad-label">{label}</span>'
-            f'{random.choice(ads)["html"]}'
+            f'{banners}'
             f'</aside>')
 
 
@@ -3235,7 +3245,7 @@ def build_index():
     body = v2_section(
         v2_sec_head("NEW", "新着記事", cls="has-feat-ad")
         + '      <div class="home-featwrap">'
-        + home_feat_ad("home_new")
+        + home_feat_ad("home_new", n=2)
         + '<div class="card-grid is-home6">'
         + "".join(v2_card(a, p, flags="new") for a in latest) + "</div></div>\n"
         + v2_sec_more(f"{p}new.html", cls="has-feat-ad"), tinted=True)
@@ -3255,7 +3265,7 @@ def build_index():
     body += v2_section(
         v2_sec_head("RANKING", "よく読まれている記事", cls="has-feat-ad")
         + '      <div class="home-featwrap">'
-        + home_feat_ad("home_rank")
+        + home_feat_ad("home_rank", n=2)
         + '<div class="card-rail" data-rail>\n'
         + '        <button type="button" class="rail-btn is-prev" '
         'aria-label="前の記事" hidden><span aria-hidden="true"></span></button>\n'
