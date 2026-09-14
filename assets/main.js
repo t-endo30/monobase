@@ -1497,3 +1497,39 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     run();
   }
 })();
+
+/* ============================================================
+   アフィリエイトリンクのクリック計測
+   ------------------------------------------------------------
+   これまでGA4にクリックイベントを送っておらず、記事内の
+   「Amazonで見る」等のボタンが実際にどれだけ押されているか
+   分からなかった。ボタンの種類（.btn-shop / .btn-amazon）を
+   まとめて拾い、どのモールのボタンが押されたかだけを送る
+   （target=_blank で別タブに開くボタンなので、遷移を止めずに
+   計測できる）。
+   ============================================================ */
+(function () {
+  'use strict';
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest('a.btn-shop, a.btn-amazon');
+    if (!a || !a.href) return;
+    var shop = 'other';
+    var m = a.className.match(/is-(amazon|rakuten|yahoo)/);
+    if (m) {
+      shop = m[1];
+    } else if (/amazon\.co\.jp/.test(a.href)) {
+      shop = 'amazon';
+    } else if (/rakuten\.co\.jp/.test(a.href)) {
+      shop = 'rakuten';
+    } else if (/yahoo\.co\.jp/.test(a.href)) {
+      shop = 'yahoo';
+    }
+    if (typeof gtag === 'function') {
+      gtag('event', 'affiliate_click', {
+        shop: shop,
+        link_url: a.href,
+        page_path: location.pathname
+      });
+    }
+  }, true);
+})();
