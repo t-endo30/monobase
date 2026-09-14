@@ -11,6 +11,11 @@
 
   1. カテゴリーごとに、レビュー件数の多い順で商品を集める
      （当サイトの記事はレビューの読み込みが土台なので、まず件数で絞る）
+     あわせて楽天のジャンル別ランキングAPIから「今売れている」商品も
+     取り、レビュー件数の少ない新商品も拾えるようにする（--no-trending
+     で止められる）。ランキング由来と通常の候補は交互に並べて出すので、
+     1回の実行で作る本数が少なくても、話題のものと定番のものが
+     両方混ざる（片方だけに偏らせない）。
   2. すでに書いた商品を、JANコードとASINで突き合わせて落とす
   3. 同じJANの商品を3モール横断で照合し、モールごとの最安店舗を選ぶ
      （送料込みで比べる。送料別の見かけ上の最安に引っかからないため）
@@ -210,6 +215,49 @@ def _rakuten_image(it):
     return first if isinstance(first, str) else (first.get("imageUrl") or "")
 
 
+def rakuten_ranking(app_id, access_key=None, genre=None, hits=10):
+    """楽天ジャンル別ランキングAPI。売れ筋の実際の順位を取る。
+
+       商品検索API（IchibaItem/Search）と同じ楽天ウェブサービスの
+       ファミリーなので、URLの形・認証（Origin/Referer・accessKey）は
+       商品検索と同じにしてある。2026年2月の刷新でエンドポイントの
+       ドメインが変わった経緯があるため、ここが弾かれるようになったら
+       まずURLのバージョン・ドメインを商品検索API側の最新と見比べる
+       こと（呼び出し側は失敗しても検索結果だけで動けるようにしてある）。
+
+       「話題性」までは分からないが、レビュー件数（=これまでの累計）
+       とは別の切り口で、直近の売れ行きを拾える。"""
+    q = {
+        "applicationId": app_id,
+        "format": "json",
+        "formatVersion": 2,
+    }
+    if genre:
+        q["genreId"] = genre
+    head = {"Origin": RAKUTEN_ORIGIN, "Referer": RAKUTEN_ORIGIN + "/"}
+    if access_key:
+        head["accessKey"] = access_key
+    url = RAKUTEN_API.replace("IchibaItem/Search", "IchibaItem/Ranking")
+    data = get_json(url + "?" + urllib.parse.urlencode(q), head)
+    out = []
+    for w in (data.get("Items") or data.get("items") or [])[:hits]:
+        it = w.get("Item") or w.get("item") or w
+        price = int(it.get("itemPrice") or 0)
+        out.append({
+            "shop": "rakuten",
+            "name": it.get("itemName", ""),
+            "url": it.get("itemUrl", ""),
+            "price": price,
+            "postage_included": int(it.get("postageFlag") or 0) == 0,
+            "reviews": int(it.get("reviewCount") or 0),
+            "rating": float(it.get("reviewAverage") or 0),
+            "shop_name": it.get("shopName", ""),
+            "image": _rakuten_image(it),
+            "rank": int(w.get("rank") or it.get("rank") or 0),
+        })
+    return out
+
+
 def rakuten_search(app_id, access_key=None, genre=None, keyword=None, jan=None,
                    hits=30, sort="-reviewCount", item_code=None):
     """楽天商品検索API。JANを渡すときは keyword に入れる（専用の欄がない）。
@@ -365,7 +413,7 @@ def known_items(arts):
 
 
 def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
-                     limit, per_category):
+                     limit, per_category, trending=True):
     arts = json.load(io.open(os.path.join(ROOT, "content", "articles.json"),
                              encoding="utf-8"))
     seen_jan, _ = known_products(arts)
@@ -382,6 +430,21 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
         # 登録されているモールを両方とも検索して結果を合わせる。
         # 片方だけを見ると、そのモールにしか無い商品を取りこぼす。
         found = []
+        if trending and rakuten_id:
+            # 売れ筋ランキングを先に取る。レビュー件数（累計の人気）とは
+            # 別に「今の売れ行き」を反映する枠。新しく伸びている商品は
+            # レビューがまだ少ないことがあるので、ランキング由来の商品は
+            # 後段の MIN_REVIEWS を免除する。
+            try:
+                rank = rakuten_ranking(rakuten_id, rakuten_key,
+                                       genre=conf["rakuten_genre"], hits=10)
+                for e in rank:
+                    e["trending"] = True
+                found += rank
+            except Exception as ex:                          # noqa: BLE001
+                print(f"::warning::楽天ランキングの取得に失敗（{cat}）: {ex}",
+                      file=sys.stderr)
+            time.sleep(PAUSE)
         if rakuten_id:
             try:
                 found += rakuten_search(rakuten_id, rakuten_key,
@@ -414,7 +477,13 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
         found.sort(key=lambda e: -e["reviews"])
 
         for e in found:
-            if e["reviews"] < MIN_REVIEWS or e["rating"] < MIN_RATING:
+            # ランキング由来（今売れている）の商品は、レビュー件数の
+            # 下限を免除する。伸びている新商品ほどレビューが少ないため、
+            # ここで弾くと「話題のものを優先する」意味が無くなる。
+            # 評価（星）の下限は、粗悪品を混ぜないために外さない。
+            if not e.get("trending") and e["reviews"] < MIN_REVIEWS:
+                continue
+            if e["rating"] and e["rating"] < MIN_RATING:
                 continue
             if not (MIN_PRICE <= e["price"] <= MAX_PRICE):
                 continue
@@ -479,6 +548,7 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                 "rakuten_url": (shops.get("rakuten") or {}).get("url", ""),
                 "yahoo_url": (shops.get("yahoo") or {}).get("url", ""),
                 "amazon_url": "",       # PA-API承認後にここを埋める
+                "trending": bool(e.get("trending")),
                 "shops": {k: {"price": v["price"], "shop_name": v["shop_name"],
                               "postage_included": v["postage_included"]}
                           for k, v in shops.items()},
@@ -488,9 +558,24 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
     # レビュー件数の多い順（記事の土台になる材料が多い商品から並べる）。
     # 特定できなそうな商品を除外はしない。判定の目安が外れることも
     # あるため、後ろに回すだけにして候補からは消さない。
-    out.sort(key=lambda c: (not looks_identifiable(c["name"], c["shops"]),
-                            -c["reviews"], -c["rating"]))
-    return out[:limit]
+    def rank_key(c):
+        return (not looks_identifiable(c["name"], c["shops"]),
+                -c["reviews"], -c["rating"])
+
+    # ランキング由来（今売れている）と、レビュー件数由来（定番）を
+    # それぞれ別に並べてから交互に混ぜる。ランキング由来だけを先頭に
+    # 固めると、1回のバッチが少ない本数（今は1回2本）のとき、
+    # 話題の商品ばかりに偏ってしまうため（実際にそう指摘があった）。
+    # 交互にすることで、上から順に take しても両方が混ざって出てくる。
+    trend = sorted((c for c in out if c["trending"]), key=rank_key)
+    normal = sorted((c for c in out if not c["trending"]), key=rank_key)
+    mixed = []
+    for a, b in zip(trend, normal):
+        mixed.append(a)
+        mixed.append(b)
+    mixed += trend[len(normal):]
+    mixed += normal[len(trend):]
+    return mixed[:limit]
 
 
 def main():
@@ -503,6 +588,8 @@ def main():
     ap.add_argument("--out", default="content/candidates.json")
     ap.add_argument("--require-rakuten", action="store_true",
                     help="楽天の商品ページが取れた商品だけを候補にする")
+    ap.add_argument("--no-trending", action="store_true",
+                    help="楽天ランキングAPIを使わない（レビュー件数だけで選ぶ、従来どおりの動き）")
     args = ap.parse_args()
 
     rakuten_id = os.environ.get("RAKUTEN_APP_ID", "").strip()
@@ -522,10 +609,12 @@ def main():
     cats = args.category or list(CATEGORY_MAP)
     print(f"カテゴリー {len(cats)} 件から候補を探します"
           f"（楽天={'あり' if rakuten_id else 'なし'} / "
-          f"Yahoo!={'あり' if yahoo_id else 'なし'}）")
+          f"Yahoo!={'あり' if yahoo_id else 'なし'} / "
+          f"ランキング={'なし' if args.no_trending else 'あり'}）")
 
     cands = build_candidates(rakuten_id, rakuten_key, yahoo_id, cats,
-                             args.limit, args.per_category)
+                             args.limit, args.per_category,
+                             trending=not args.no_trending)
 
     if args.require_rakuten:
         # 楽天の商品ページが取れた商品だけに絞る。
@@ -550,7 +639,8 @@ def main():
     for c in cands[:10]:
         shops = "/".join(k for k in ("amazon", "rakuten", "yahoo")
                          if c.get(k + "_url"))
-        print(f"  ・{c['name'][:44]}")
+        mark = "🔥話題 " if c.get("trending") else ""
+        print(f"  ・{mark}{c['name'][:44]}")
         print(f"     {c['category']} / ￥{c['price']:,} / "
               f"レビュー{c['reviews']:,}件 ★{c['rating']:.1f} / {shops or '—'}")
     if len(cands) > 10:
