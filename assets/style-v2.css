@@ -1350,25 +1350,28 @@ body.has-sticky-cta .fab{bottom:96px;}
   .home-feat-ad{
     display:flex;flex-direction:column;align-items:center;gap:8px;
     flex:0 0 130px;
-    align-self:stretch;
-    background:var(--bg-2);padding:14px 12px 16px;
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
+    padding:14px 0 0;
   }
   .home-feat-ad-label{
     font-size:11px;letter-spacing:.05em;color:var(--muted);
   }
   .home-feat-ad img{max-width:100%;height:auto;}
-  /* NEW/RANKINGのようにバナー2枚を縦積みするときは、タイル2段の
-     枠の上端・下端にそれぞれ合わせ、間はくっつけずに離す。
-     PRラベルは動かさず上端に固定し、バナー2枚だけを space-between で
-     引き伸ばす */
-  .home-feat-ad.is-double{
-    flex:0 0 160px;
+  /* 単体バナー（PICK UP/PR）は、これまで通り1枚を白い箱に収める */
+  .home-feat-ad:not(.is-double){
+    background:var(--bg-2);padding:14px 12px 16px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
   }
+  /* NEW/RANKINGはバナー2枚を、1本の縦長箱に押し込めず、
+     それぞれ独立した箱（PRタイルが2枚並ぶイメージ）として分け、
+     間にすき間を空ける */
   .home-feat-ad.is-double .home-feat-ad-items{
-    display:flex;flex-direction:column;justify-content:space-between;
-    align-items:center;
-    flex:1 1 auto;width:100%;gap:20px;
+    display:flex;flex-direction:column;align-items:center;
+    gap:24px;width:100%;
+  }
+  .home-feat-ad.is-double .home-feat-ad-item{
+    display:block;width:100%;
+    background:var(--bg-2);padding:14px 12px 16px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
   }
   .card-grid.is-home6{
     grid-template-columns:repeat(3,minmax(0,1fr));
