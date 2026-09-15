@@ -220,6 +220,45 @@ def kind_block(a):
     return "\n".join(out)
 
 
+def feature_covers_block(a):
+    """まとめ記事（roundup）が束ねている個別レビューの要点を渡す。
+
+       tools/feature_plan.py が feature_covers（対象記事のslug配列）を
+       付けて下書きを作る。ここで元記事の結論・向いている人・向いて
+       いない人を渡さないと、生成AIが中身を知らないまま一般論で
+       比較表を書いてしまう（実際そうなりかけた）。"""
+    covers = a.get("feature_covers") or []
+    if not covers:
+        return ""
+    try:
+        all_arts = load(ARTICLES)
+    except (OSError, ValueError):
+        return ""
+    by_slug = {x.get("slug"): x for x in all_arts}
+    out = ["\n【比較する個別レビューの要点（このサイト内の既存記事）】",
+           "・この記事は、下の各商品についてすでに書いた個別レビューをもとに、"
+           "比較・使い分けとしてまとめる特集記事です。",
+           "・下の情報だけを根拠にする。ここに無い数値・仕様を作らない。",
+           "・spec の各行は、この商品一覧の順に対応させる。"]
+    for slug in covers:
+        src = by_slug.get(slug)
+        if not src:
+            continue
+        title = src.get("list_title") or src.get("title") or slug
+        verdict = (src.get("verdict_title") or "").replace("結論：", "")
+        good_for = [x.get("title") for x in (src.get("good_for") or {}).get("items", [])
+                    if x.get("title")]
+        not_for = [x.get("title") for x in (src.get("not_for") or {}).get("items", [])
+                   if x.get("title")]
+        lines = [f"・{title}（{slug}.html）", f"  結論：{verdict or '不明'}"]
+        if good_for:
+            lines.append("  向いている人：" + "／".join(good_for[:2]))
+        if not_for:
+            lines.append("  向いていない人：" + "／".join(not_for[:2]))
+        out.extend(lines)
+    return "\n".join(out)
+
+
 def build_prompt(a, site, prompt_md, fetch_official=True):
     cat = next((c for c in site.get("categories", [])
                 if c.get("key") == a.get("category")), {})
@@ -243,6 +282,7 @@ def build_prompt(a, site, prompt_md, fetch_official=True):
         f'JANコード：{a.get("jan") or "不明"}',
         f'買えるモール：{"、".join(shops) or "不明"}',
         kind_block(a),
+        feature_covers_block(a),
         facts_block(a),
         reviews_block(a),
         official_block(a, do_fetch=fetch_official),
