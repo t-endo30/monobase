@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://monobase.site/</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://monobase.site/new</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://monobase.site/ranking</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://monobase.site/categories</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -42,17 +42,17 @@
   </url>
   <url>
     <loc>https://monobase.site/category-av</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-camera</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-beauty</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-kitchen</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -72,7 +72,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-fashion</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -111,6 +111,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://monobase.site/category-pc-laptop</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/category-pc-monitor</loc>
     <lastmod>2026-08-31</lastmod>
     <priority>0.6</priority>
@@ -122,7 +127,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-av-headphone</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -132,12 +137,12 @@
   </url>
   <url>
     <loc>https://monobase.site/category-camera-body</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-beauty-skincare</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -162,7 +167,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-kitchen-appliance</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -172,7 +177,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-fashion-wear</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -204,6 +209,21 @@
     <loc>https://monobase.site/category-travel-luggage</loc>
     <lastmod>2026-09-13</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/h70ft-h70ft-h70ft-bac06wh</loc>
+    <lastmod>2026-09-15</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/mi-tune01-bluetooth-enc-hi-fi-android</loc>
+    <lastmod>2026-09-15</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/rcp-7-recolte</loc>
+    <lastmod>2026-09-15</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://monobase.site/articles/usb-wifi-5ghz-sd-mf45a-secustation</loc>
@@ -261,6 +281,16 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://monobase.site/articles/rsy-2-recolte-auto-cooking-pot-ok</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/wtw-ptz-wifi-ip</loc>
+    <lastmod>2026-09-15</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/articles/rcp-3-recolte-capsule-cutter-bonne</loc>
     <lastmod>2026-09-14</lastmod>
     <priority>0.9</priority>
@@ -276,6 +306,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://monobase.site/articles/win11-web-8gb-32gb-ssd-256gb</loc>
+    <lastmod>2026-09-12</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/articles/cd-cx-3</loc>
     <lastmod>2026-09-13</lastmod>
     <priority>0.9</priority>
@@ -283,6 +318,21 @@
   <url>
     <loc>https://monobase.site/articles/hubath-makuake-sm64</loc>
     <lastmod>2026-09-13</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/pn015-s-m-l-ll</loc>
+    <lastmod>2026-09-15</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/uv-big-spf50-2</loc>
+    <lastmod>2026-09-15</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/u-v-2way-t-t-t-2</loc>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
@@ -722,37 +772,37 @@
   </url>
   <url>
     <loc>https://monobase.site/about</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/editorial-policy</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/advertising</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/privacy</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/disclaimer</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/sitemap</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/contact</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-15</lastmod>
     <priority>0.3</priority>
   </url>
 </urlset>
