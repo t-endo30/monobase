@@ -872,16 +872,27 @@ def apply_generated(a, gen, keep_updated=False):
     # 上書きしかしないと前の版の値が残り、根拠のない点数と比較表が生き続ける。
     # 実際、書き直した記事に「（一般）」を比較対象にした古い表が残っていた。
     # 省かれた＝出さないという判断なので、こちらでも落とす。
+    #
+    # ただし特集記事（roundup）の spec は例外。tools/feature_plan.py が
+    # 束ねる商品ごとに個別レビューへのリンクを埋めて作った比較表であり、
+    # 生成AIの根拠ではなく機械的に作った導線。生成AIがここを省いても、
+    # 消すと特集記事から商品への導線がゼロになる（実際その事故が起きた）。
+    is_roundup = kind_of(a) == "roundup"
     for k in ("rating", "spec"):
+        if k == "spec" and is_roundup:
+            continue
         if gen.get(k) in (None, "", [], {}) and k in a:
             a.pop(k)
 
     # 公式仕様の裏づけが無いなら、生成AIが出していても落とす。
+    # （roundup の spec は上と同じ理由で対象外）
     facts = a.get("facts") or []
     if isinstance(facts, str):
         facts = [facts]
     if not (facts or (a.get("official_url") or "").strip()):
         for k in ("rating", "spec"):
+            if k == "spec" and is_roundup:
+                continue
             a.pop(k, None)
 
     # 記事タイプで使わない枠も、前の版の値が残ることがある。

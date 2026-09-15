@@ -131,12 +131,12 @@ def draft(pl, site):
     heads = ["記事", "結論", "向いている人"]
     rows = []
     for a in picked:
-        not_for_items = (a.get("not_for") or {}).get("items") or []
-        not_for_title = (not_for_items[0].get("title") or "") if not_for_items else ""
+        good_for_items = (a.get("good_for") or {}).get("items") or []
+        good_for_title = (good_for_items[0].get("title") or "") if good_for_items else ""
         rows.append([
             f'<a href="{a["slug"]}.html">{a.get("list_title") or a["title"]}</a>',
             (a.get("verdict_title") or "").replace("結論：", "") or "—",
-            (not_for_title[:40] + "…") if not_for_title else "—",
+            (good_for_title[:40] + "…") if good_for_title else "—",
         ])
     today = date.today().isoformat()
     return {
