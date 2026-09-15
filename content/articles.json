@@ -29938,7 +29938,7 @@
     "review_stats": {
       "rakuten": {
         "count": 1,
-        "average": 4.0,
+        "average": 4,
         "shops": 1
       },
       "checked": "2026-09-15"
@@ -34722,7 +34722,7 @@
     "slug": "feature-beauty-skincare-1",
     "category": "feature",
     "sub": "compare",
-    "published": false,
+    "published": true,
     "featured": false,
     "feature_of": "beauty/skincare",
     "feature_stage": 1,
@@ -34903,7 +34903,7 @@
     "slug": "feature-beauty-makeup-1",
     "category": "beauty",
     "sub": "",
-    "published": false,
+    "published": true,
     "featured": false,
     "feature_of": "beauty/makeup",
     "feature_stage": 1,
@@ -35065,7 +35065,7 @@
     "slug": "feature-kitchen-appliance-1",
     "category": "feature",
     "sub": "compare",
-    "published": false,
+    "published": true,
     "featured": false,
     "feature_of": "kitchen/appliance",
     "feature_stage": 1,
@@ -35229,7 +35229,7 @@
     "slug": "feature-fashion-wear-1",
     "category": "feature",
     "sub": "compare",
-    "published": false,
+    "published": true,
     "featured": false,
     "feature_of": "fashion/wear",
     "feature_stage": 1,
@@ -35398,7 +35398,7 @@
     "slug": "feature-furniture-bed-2",
     "category": "feature",
     "sub": "compare",
-    "published": false,
+    "published": true,
     "featured": false,
     "feature_of": "furniture/bed",
     "feature_stage": 2,
