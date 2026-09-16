@@ -56,6 +56,18 @@ DARK = [
     ("偽造広告",   r"広告では(?:あり)?ません"),
 ]
 
+# 本文が自分で「メーカー名・型番を特定できない」と認めている表現。
+# discard の判定は校閲LLMに任せているが、見落としたときの保険として
+# 機械的にも拾う（2026-09-16、bluetooth5-enc-bluetooth-ipx7-iphone-android
+# で discard が出ないまま公開されたことがある。詳細は
+# docs/review-rules.md 5-1「題名に型番もメーカー名も無い」）。
+ADMIT_UNIDENTIFIABLE = re.compile(
+    r"型番(?:が|は)?(?:確認|特定)できな"
+    r"|型番不明"
+    r"|型番(?:が|も)?(?:明示|記載)されな"
+    r"|メーカー名(?:や|も)型番(?:が|も)?(?:確認|特定|明示)できな"
+)
+
 # 使ってよいHTMLタグ以外が混ざっていないか
 OK_TAG = re.compile(r'</?(?:strong|em)>|<span class="mark-[ox]">|</span>')
 ANY_TAG = re.compile(r"</?[a-zA-Z][^>]*>")
@@ -302,7 +314,11 @@ def build_prompt(a, rules, hits):
         "・discard は、題名・本文のどこにもメーカー名も型番も出てこず、"
         "リンク先の製品を特定できないときだけ理由を書く。校閲では製品名を"
         "補えない（捏造になる）ため、その記事は下書きにも残さず破棄する。"
-        "製品を特定できるなら、たとえ題名が弱くても空文字にする。",
+        "製品を特定できるなら、たとえ題名が弱くても空文字にする。"
+        "本文が「型番不明」「メーカー名や型番が確認できない」と自分で"
+        "書いているのに discard を空にしてはいけない（それ自体が特定"
+        "できない証拠）。2026-09-16、Bluetoothイヤホンの記事で"
+        "この判断を誤り、型番不明のまま公開してしまったことがある。",
         f"・本文の合計は {MIN_CHARS}〜{MAX_CHARS - 500} 文字の範囲を保つ。"
         f"ただし公式仕様が確認できず rating と spec を省いている記事は、"
         f"{MIN_CHARS_UNBACKED} 文字まで短くてよい。水増しで伸ばさない。",
@@ -370,6 +386,24 @@ def already_reviewed(a):
     if not isinstance(st, dict):
         return None
     return st if st.get("rev") == content_rev(a) else None
+
+
+def looks_unidentifiable(a):
+    """discard 判定の保険。校閲LLMが見落としても、本文自身が
+       「メーカー名・型番を特定できない」と書いているなら機械的に拾う。
+       ADMIT_UNIDENTIFIABLE 参照。"""
+    parts = [str(a.get(k) or "") for k in
+             ("title", "list_title", "description", "excerpt")]
+    lead = a.get("lead")
+    if isinstance(lead, list):
+        parts.extend(str(x) for x in lead)
+    elif isinstance(lead, str):
+        parts.append(lead)
+    for sect in ("summary",):
+        for it in a.get(sect) or []:
+            if isinstance(it, dict):
+                parts.append(str(it.get("text") or ""))
+    return bool(ADMIT_UNIDENTIFIABLE.search(" ".join(parts)))
 
 
 # ---------------------------------------------------------------- 仕上げ
@@ -578,6 +612,9 @@ def main():
             score, blockers = res.get("score") or {}, res.get("blockers") or []
 
             discard = (res.get("discard") or "").strip()
+            if not discard and looks_unidentifiable(a):
+                discard = ("本文が自分で「メーカー名・型番を特定できない」と"
+                           "認めている（機械検査。校閲の discard 判定への保険）")
             if discard:
                 print(f"    ✗ 破棄：{discard}")
                 if not args.dry_run:
@@ -608,6 +645,14 @@ def main():
                 break
             if r == args.rounds:
                 print("    △ 指摘が残ったまま上限に達しました")
+
+        if slug not in discarded and looks_unidentifiable(a):
+            discard = ("本文が自分で「メーカー名・型番を特定できない」と"
+                       "認めている（機械検査。既存のレビュー結果を再利用した"
+                       "ときも含めて毎回かける保険）")
+            print(f"    ✗ 破棄：{discard}")
+            if not args.dry_run:
+                discarded.append(slug)
 
         if slug in discarded:
             continue
