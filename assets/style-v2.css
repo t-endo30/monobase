@@ -3434,6 +3434,13 @@ p,li,.card-desc{text-wrap:pretty;}
     display:grid;grid-template-columns:150px 900px 150px;
   }
   .article-side-ad{display:block;}
+  /* HTMLの並びは「左バナー→右バナー→本文」（promo_side が2本続けて
+     出すため）で、グリッドの自動配置に任せると並び順どおり
+     1列目・2列目・3列目に入ってしまい、本文が右端の150pxへ押し込まれる。
+     並び順に関係なく列を固定する。 */
+  .article-side-ad.is-left{grid-column:1;}
+  .article-side-ad.is-right{grid-column:3;}
+  .container:has(> .article-side-ad) > .article-page{grid-column:2;}
   .article-side-ad-inner{
     display:flex;flex-direction:column;align-items:center;gap:8px;
     position:sticky;top:calc(var(--header-h) + 12px);width:120px;
