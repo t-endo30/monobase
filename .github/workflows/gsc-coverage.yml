@@ -1,0 +1,44 @@
+name: GSC coverage check
+
+# sitemap.xml の全URLのうち、Search Consoleで一度も表示（インプレッション）が
+# 付いていないものを洗い出す。結果はこのワークフローのログにだけ出す
+# （何かをコミット・pushすることはない、見るだけの診断）。
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: '集計期間（日数）'
+        required: false
+        default: '90'
+
+permissions:
+  contents: read
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Search Console client
+        run: pip install --quiet google-api-python-client google-auth
+
+      - name: Write service account key
+        env:
+          GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
+        run: |
+          if [ -z "$GSC_SA_KEY" ]; then
+            echo "::error::GSC_SA_KEY が未設定です。"
+            exit 1
+          fi
+          printf '%s' "$GSC_SA_KEY" > "$RUNNER_TEMP/gsc-sa.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/gsc-sa.json" >> "$GITHUB_ENV"
+
+      - name: カバレッジを確認
+        env:
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+        run: python3 tools/check_gsc_coverage.py --days "${{ inputs.days || '90' }}"
