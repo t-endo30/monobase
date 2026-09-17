@@ -46,6 +46,23 @@ def main():
         return 0
 
     service = get_service()
+
+    try:
+        sm = service.sitemaps().get(siteUrl=prop,
+                                     feedpath=f"{prop.rstrip('/')}/sitemap.xml").execute()
+        print("--- sitemap.xml の提出状況（Search Console）---")
+        print(f"最終取得: {sm.get('lastSubmitted')} / 最終ダウンロード: {sm.get('lastDownloaded')}")
+        for c in sm.get("contents", []):
+            print(f"  種別:{c.get('type')} 送信済み:{c.get('submitted')} "
+                  f"インデックス済み:{c.get('indexed')}")
+        errs = sm.get("errors") or []
+        warns = sm.get("warnings") or []
+        if errs or warns:
+            print(f"  エラー:{errs} 警告:{warns}")
+        print()
+    except Exception as ex:                                    # noqa: BLE001
+        print(f"::warning::sitemap.xml の提出状況を取得できませんでした: {ex}\n")
+
     start, end = date_range(args.days)
     rows = query(service, prop, start, end, dimensions=["page"], row_limit=5000)
     seen = {}
