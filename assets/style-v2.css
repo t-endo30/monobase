@@ -1388,6 +1388,11 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* VIEW ALL も見出しと同じく、バナーぶんを除いた記事タイルの
      幅の中央に合わせる */
   .sec-more.has-feat-ad{margin-left:calc(160px + 28px);}
+  /* NEW/RANKINGは右にも130px幅のPR枠があるぶん、記事タイルの
+     右端も詰まっている。左だけでなく右も差し引かないと、見出しと
+     VIEW ALLが3枚（実質2枚目＝真ん中）の中心からずれる */
+  .sec-head.has-side-ad{margin-right:calc(130px + 28px);}
+  .sec-more.has-side-ad{margin-right:calc(130px + 28px);}
 
   /* ピックアップも新着・ランキングと同じ3列にする。もとは10件を
      JS の並べ替え用に渡しているので、4件目から先を隠す
