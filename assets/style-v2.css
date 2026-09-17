@@ -3413,19 +3413,33 @@ p,li,.card-desc{text-wrap:pretty;}
 .article-page{max-width:900px;margin:0 auto;padding:8px 0 72px;}
 /* 記事ページの縦長バナー（.article-side-ad）。
    本文は900pxで中央寄せ、器（.container）は1200pxなので、左右に
-   150pxずつ余白がある。そこへ120幅のバナーを1本だけ置く。
+   150pxずつ余白がある。そこへ120幅のバナーを左右1本ずつ置く。
    余白が150pxしか無い（1200px幅の器の中でしか置き場がない）ため、
    viewportが1200pxを超えて広くなっても器自体は広がらず、この余白の
    広さは変わらない＝どの画面幅でもはみ出さない。
-   狭い画面（記事の左右に余白が無い）では出さない */
+   狭い画面（記事の左右に余白が無い）では出さない。
+
+   器を3列グリッド（左余白150px・本文900px・右余白150px）にし、
+   左右の列を「本文と同じ高さの領域」にする。その中の -inner だけを
+   position:sticky にすることで、読み進めても視界から外れず、かつ
+   本文より長く残ってフッターに重なることもない（sticky は自分の
+   属する領域＝本文と同じ高さの列の中でしか止まらないため）。 */
 .article-side-ad{display:none;}
-.container:has(> .article-side-ad){position:relative;}
 @media (min-width:1300px){
-  .article-side-ad{
-    display:flex;flex-direction:column;align-items:center;gap:8px;
-    position:absolute;top:8px;width:120px;
-    left:calc(50% - 450px - 20px - 120px);
+  .container:has(> .article-side-ad){
+    /* align-items は既定の stretch のまま。.article-side-ad（外側）を
+       本文と同じ高さまで伸ばしてこそ、中の -inner が sticky で
+       その範囲いっぱいに動ける（start にすると内容ぶんの高さしか
+       持たず、途中で追従が止まってしまう）。 */
+    display:grid;grid-template-columns:150px 900px 150px;
   }
+  .article-side-ad{display:block;}
+  .article-side-ad-inner{
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    position:sticky;top:calc(var(--header-h) + 12px);width:120px;
+  }
+  .article-side-ad.is-left .article-side-ad-inner{margin-left:10px;}
+  .article-side-ad.is-right .article-side-ad-inner{margin-left:20px;}
   .article-side-ad-label{
     font-size:10.5px;letter-spacing:.06em;color:var(--muted);
   }

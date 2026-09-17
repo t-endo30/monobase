@@ -717,18 +717,34 @@ def promo_side(slug):
 
        本文（.article-page）は900pxで中央寄せ、器（.container）は
        1200pxなので、左右に150pxずつ余白がある。そこへ120x600クラスの
-       縦長バナーを1本だけ置く（幅の狭い画面では assets/style-v2.css
-       側で display:none にする）。複数あれば記事ごとに1本、順番に回す
-       （毎回同じ記事に同じ広告ばかりでは、他の案件の出番が無いため）。"""
+       縦長バナーを、スクロールに追従させて左右1本ずつ置く
+       （幅の狭い画面では assets/style-v2.css 側で display:none にする）。
+       複数あれば記事ごとに順番を回して2本選ぶ（左右で同じ広告が
+       並ばないよう、右は左の次の候補にする。1件しか無ければ同じ
+       広告が両側に出る）。"""
     items = [x for x in (PROMOS.get("items") or [])
              if str(x.get("where") or "") == "article_side" and promo_ads(x)]
     ads = [a for x in items for a in promo_ads(x)]
     if not ads:
         return ""
-    ad = ads[sum(map(ord, slug)) % len(ads)]
+    i = sum(map(ord, slug)) % len(ads)
     label = e(str(PROMOS.get("label") or "PR"))
-    return (f'    <aside class="article-side-ad" aria-label="広告">'
-            f'<span class="article-side-ad-label">{label}</span>{ad["html"]}</aside>\n')
+
+    def aside(ad, side):
+        # 外側（.article-side-ad）は記事と同じ高さのただの領域（グリッドの
+        # 1列）で、内側（-inner）だけを position:sticky にする。
+        # 外も内も同じ要素で sticky にすると、記事の縦幅ぶんの高さを
+        # 自分自身が持ってしまい、天面がその高さぶん下がってしまう
+        # （左右のバナーを2本とも並べたときに高さがずれる原因になった）。
+        return (f'    <aside class="article-side-ad is-{side}" aria-label="広告">'
+                f'<span class="article-side-ad-inner">'
+                f'<span class="article-side-ad-label">{label}</span>{ad["html"]}'
+                f'</span></aside>\n')
+
+    out = aside(ads[i], "left")
+    if len(ads) > 1:
+        out += aside(ads[(i + 1) % len(ads)], "right")
+    return out
 
 
 def ad_slot(name, cls=""):
