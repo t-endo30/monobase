@@ -30,6 +30,14 @@
 
   「止める」は最後の手段です。リンクを1本外せば読める記事を、
   丸ごと引っ込めてしまうと、それまでの検索評価も失われます。
+
+【重複記事】
+  同じ商品ページ（楽天・Yahoo!のURL、Amazonのasin）を指す記事が
+  2本以上あれば、最後に更新した1本だけ残して残りを丸ごと削除します。
+  候補選びの段階（pick_products.py の known_items）でも弾いていますが、
+  後からURL（販売先）を貼り替えて偶然重なることがあるため、こちらは
+  budget に関係なく毎回・全件見ます（通信を伴わずローカルだけで
+  分かるため、記事が増えても重くならない）。
 """
 import argparse, io, json, os, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor
@@ -39,6 +47,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from check_links import fetch, LIVE, WORKERS      # 疎通の判定は1か所にまとめる
+from pick_products import item_key                # 同一商品の判定も1か所にまとめる
 
 SHOPS = [("asin", "Amazon"), ("amazon_url", "Amazon"),
          ("rakuten_url", "楽天市場"), ("yahoo_url", "Yahoo!")]
@@ -92,6 +101,53 @@ def days_since(iso):
     return (date.today() - d).days
 
 
+def dup_keys(a):
+    """1本の記事が指す商品の鍵。Amazonはasin、楽天・Yahoo!は
+       item_key（店舗＋商品コード）で揃える。"""
+    keys = []
+    asin = (a.get("asin") or "").strip().upper()
+    if asin:
+        keys.append(f"amazon:{asin}")
+    for k in ("rakuten_url", "yahoo_url"):
+        ik = item_key(a.get(k))
+        if ik:
+            keys.append(ik)
+    return keys
+
+
+def find_duplicates(arts):
+    """公開中の記事どうしで、同じ商品ページを指しているものをまとめる。
+       候補選びの段階（pick_products.py の known_items）でも弾いているが、
+       後からURL（販売先）を貼り替えた記事どうしが偶然重なることもある。
+       同じ鍵を持つ記事は推移的に1つの組にまとめ、最後に更新した1本を
+       残して残りを重複として返す。"""
+    pub = [a for a in arts if a.get("published") and a.get("slug")]
+    parent = {a["slug"]: a["slug"] for a in pub}
+
+    def find(s):
+        while parent[s] != s:
+            s = parent[s]
+        return s
+
+    def union(a, b):
+        ra, rb = find(a), find(b)
+        if ra != rb:
+            parent[ra] = rb
+
+    key_to_slugs = {}
+    for a in pub:
+        for k in dup_keys(a):
+            key_to_slugs.setdefault(k, []).append(a["slug"])
+    for slugs in key_to_slugs.values():
+        for s in slugs[1:]:
+            union(slugs[0], s)
+
+    groups = {}
+    for a in pub:
+        groups.setdefault(find(a["slug"]), []).append(a)
+    return [g for g in groups.values() if len(g) > 1]
+
+
 def pick(arts, budget, slugs):
     """今回見る記事を選ぶ。指定が無ければ「久しく見ていない順」に budget 本。"""
     pub = [a for a in arts if a.get("published")]
@@ -139,10 +195,33 @@ def main():
     args = ap.parse_args()
 
     arts = load("content/articles.json")
+
+    # 重複記事（同じ商品ページを指す記事が2本以上）は、通信を伴わず
+    # ローカルだけで分かるので、budget に関係なく毎回・全件見る。
+    dup_dropped = []
+    for group in find_duplicates(arts):
+        group.sort(key=lambda a: (a.get("updated") or a.get("date") or "",
+                                  -len(a["slug"])),
+                   reverse=True)
+        keeper, losers = group[0], group[1:]
+        dup_dropped += [(a["slug"], keeper["slug"]) for a in losers]
+    if dup_dropped:
+        drop_slugs = {slug for slug, _ in dup_dropped}
+        for slug, keeper in dup_dropped:
+            print(f"::warning::{slug}: {keeper} と同じ商品ページのため、"
+                  "重複記事として削除します")
+        if args.apply:
+            arts[:] = [a for a in arts if a.get("slug") not in drop_slugs]
+
     targets = pick(arts, args.budget, set(args.slug))
     published = [a for a in arts if a.get("published")]
 
     if not targets:
+        if dup_dropped and args.apply:
+            with io.open(os.path.join(ROOT, "content", "articles.json"),
+                         "w", encoding="utf-8") as f:
+                json.dump(arts, f, ensure_ascii=False, indent=1)
+            print("content/articles.json を更新しました（重複記事の削除のみ）。")
         print("見る記事がありません。")
         return 0
 
@@ -243,6 +322,7 @@ def main():
         print(f"::notice::{slug}: 最後の更新から {old} 日。内容の見直しどきです")
 
     print(f"\n所要 {dt:.1f} 秒 / 確認 {len(targets)} 本 / "
+          f"重複削除 {len(dup_dropped)} 本 / "
           f"リンクを外す {len(dropped)} 本 / 様子見 {len(warned)} 本 / "
           f"公開停止 {len(stopped)} 本 / "
           f"古い記事 {len(stale)} 本")
@@ -267,7 +347,8 @@ def main():
             print(f"::error::{cmd[-1]} で止まりました\n{out}")
             return 1
 
-    msg = (f"記事の見回り：リンク切れ {len(dropped)} 本・"
+    msg = (f"記事の見回り：重複削除 {len(dup_dropped)} 本・"
+           f"リンク切れ {len(dropped)} 本・"
            f"公開停止 {len(stopped)} 本（自動）")
     for cmd in (["git", "add", "-A"], ["git", "commit", "-m", msg],
                 ["git", "push"]):

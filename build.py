@@ -3288,10 +3288,10 @@ def build_index():
     body = v2_section(
         v2_sec_head("NEW", "新着記事", cls="has-feat-ad")
         + '      <div class="home-featwrap">'
-        + home_feat_ad("home_new", n=2)
+        + home_feat_ad("home_new", n=4)
         + '<div class="card-grid is-home6">'
         + "".join(v2_card(a, p, flags="new") for a in latest) + "</div>"
-        + home_feat_ad("home_new", n=2, slot="_r", extra_cls="is-right") + '</div>\n'
+        + home_feat_ad("article_side", n=1, slot="_r", extra_cls="is-right") + '</div>\n'
         + v2_sec_more(f"{p}new.html", cls="has-feat-ad"), tinted=True)
 
     # ランキングの並びは、ランキングのページ（assets/main.js）と同じ規則で
@@ -3309,7 +3309,7 @@ def build_index():
     body += v2_section(
         v2_sec_head("RANKING", "よく読まれている記事", cls="has-feat-ad")
         + '      <div class="home-featwrap">'
-        + home_feat_ad("home_rank", n=2)
+        + home_feat_ad("home_rank", n=4)
         + '<div class="card-rail" data-rail>\n'
         + '        <button type="button" class="rail-btn is-prev" '
         'aria-label="前の記事" hidden><span aria-hidden="true"></span></button>\n'
@@ -3319,7 +3319,7 @@ def build_index():
         + '        <button type="button" class="rail-btn is-next" '
         'aria-label="次の記事" hidden><span aria-hidden="true"></span></button>\n'
         + '      </div>'
-        + home_feat_ad("home_rank", n=2, slot="_r", extra_cls="is-right") + '</div>\n'
+        + home_feat_ad("article_side", n=1, slot="_r2", extra_cls="is-right") + '</div>\n'
         + v2_sec_more(f"{p}ranking.html", cls="has-feat-ad"))
 
     # ピックアップもランキングと同じ横カルーセル（スマホ）。枠を同じ
