@@ -37,12 +37,12 @@
   </url>
   <url>
     <loc>https://monobase.site/category-pc</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-av</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-09-17</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -126,6 +126,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://monobase.site/category-pc-peripheral</loc>
+    <lastmod>2026-09-17</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/category-pc-storage</loc>
     <lastmod>2026-09-16</lastmod>
     <priority>0.6</priority>
@@ -133,6 +138,11 @@
   <url>
     <loc>https://monobase.site/category-av-headphone</loc>
     <lastmod>2026-09-16</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/category-av-speaker</loc>
+    <lastmod>2026-09-17</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -214,6 +224,16 @@
     <loc>https://monobase.site/category-travel-luggage</loc>
     <lastmod>2026-09-13</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/sd-4in1-iphone17-1tb-usb-c-type-c</loc>
+    <lastmod>2026-09-17</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/vgp2023-funlogy-sound3-bluetooth-iphone-tv</loc>
+    <lastmod>2026-09-17</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://monobase.site/articles/fotopro-digi-204</loc>
