@@ -1,4 +1,19 @@
 {
   "_note": "SEO Rank Watch が改善のたびに items へ記録します。status: active(改善候補) / observing(改善後7日観察中) / achieved(1位達成・監視のみ)。",
-  "items": []
+  "items": [
+    {
+      "keyword": "anker 621 magnetic battery",
+      "targetPath": "/articles/anker-621-maggo-battery-review.html",
+      "status": "observing",
+      "nextReviewDate": "2026-09-24",
+      "actions": [
+        {
+          "date": "2026-09-17",
+          "rankAtAction": 15.5,
+          "needs": "Anker公式の英語正式名称「Anker 621 Magnetic Battery (MagGo)」をそのまま検索する人向けに、記事タイトル・meta descriptionが「MagGo」表記のみで正式名称の完全一致フレーズを含んでおらず、検索語との一致度・SERPでの強調表示が弱かった。",
+          "done": "title / description に正式名称「Anker 621 Magnetic Battery(MagGo)」をMagGo表記と併記する形で追加。加えてFAQの先頭に「Anker 621 Magnetic BatteryとAnker 621 MagGoは同じ製品か」を新設し、表記ゆれで製品を特定できない読者の疑問に回答（捏造データなし、既存の公式名称のみを使用）。build.py再生成済み。"
+        }
+      ]
+    }
+  ]
 }

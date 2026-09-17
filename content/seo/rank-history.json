@@ -1,4 +1,15 @@
 {
   "_note": "tools/fetch_gsc_ranks.py が --append のたびに entries へ追記します。追記専用（過去の記録は書き換えない）。",
-  "entries": []
+  "entries": [
+    {
+      "date": "2026-09-17",
+      "keyword": "anker 621 magnetic battery",
+      "targetPath": "/articles/anker-621-maggo-battery-review.html",
+      "days": 28,
+      "rank": 15.5,
+      "impressions": 2,
+      "clicks": 0,
+      "page": "https://monobase.site/articles/anker-621-maggo-battery-review"
+    }
+  ]
 }

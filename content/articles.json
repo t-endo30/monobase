@@ -26470,9 +26470,9 @@
   "sub": "charger",
   "published": true,
   "featured": false,
-  "title": "Anker 621 MagGo 口コミ｜薄さ11.5mmが合う人",
+  "title": "Anker 621 Magnetic Battery(MagGo) 口コミ｜薄さ11.5mmが合う人",
   "list_title": "Anker 621 MagGo 口コミ分析",
-  "description": "Anker 621 MagGo の仕様と口コミを整理。厚さ約11.5mm・5000mAh・ワイヤレス7.5Wという構成が、どんな使い方に合うのかを公式情報から分析します。",
+  "description": "Anker 621 Magnetic Battery（MagGo）の仕様と口コミを整理。厚さ約11.5mm・5000mAh・ワイヤレス7.5Wという構成が、どんな使い方に合うのかを公式情報から分析します。",
   "excerpt": "厚さ約11.5mmのMagSafe対応バッテリー。7.5W・5000mAhが合う人と合わない人を整理。",
   "date": "2026-08-25",
   "updated": "2026-09-14",
@@ -26791,6 +26791,10 @@
    ]
   },
   "faq": [
+   {
+    "q": "「Anker 621 Magnetic Battery」と「Anker 621 MagGo」は同じ製品ですか？",
+    "a": "同じ製品です。「Anker 621 Magnetic Battery (MagGo)」がAnker公式の正式名称で、「MagGo」はAnkerのマグネット式ワイヤレス充電シリーズの名称、「621」が型番です。販売ページによって英語表記のままだったり「MagGo」だけで略されていたりしますが、指しているのはこの記事で扱っている製品と同一です。"
+   },
    {
     "q": "iPhone 15 や 16 でも使えますか？",
     "a": "Ankerの公式仕様ページに記載されている対応機種は iPhone 14 / 13 / 12 の各シリーズで、それ以降の機種は明記されていません。この記事では動作を断定しません。新しい機種で使う前提なら、対応機種が明記された製品を選ぶか、販売ページの対応表記を購入前に確認してください。"
