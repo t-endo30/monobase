@@ -1370,6 +1370,8 @@ body.has-sticky-cta .fab{bottom:96px;}
      それぞれ独立した箱（記事タイルが2枚並ぶイメージ）として分け、
      間にすき間を空ける */
   .home-feat-ad.is-double{flex:0 0 160px;}
+  /* 右側に追加した枠は左より少し狭くし、記事タイルの縮み幅を抑える */
+  .home-feat-ad.is-right{flex:0 0 130px;}
   .home-feat-ad.is-double .home-feat-ad-items{
     display:flex;flex-direction:column;align-items:center;
     gap:24px;width:100%;

@@ -520,7 +520,7 @@ def promo_row_slot(cls=""):
             f'      </aside>\n')
 
 
-def home_feat_ad(where, n=1):
+def home_feat_ad(where, n=1, slot="", extra_cls=""):
     """ホームの「新着記事」「ランキング」の横に置くバナー枠。
 
        幅の広いPC（.home-featwrap が横並びになる幅）でしか出さないので、
@@ -558,9 +558,11 @@ def home_feat_ad(where, n=1):
     # 2本以上のときは、記事タイルの上端に揃えられるよう、バナーだけを
     # 別の入れ物にまとめる
     cls = "home-feat-ad is-double" if len(picks) >= 2 else "home-feat-ad"
+    if extra_cls:
+        cls += f" {extra_cls}"
     body = (f'<span class="home-feat-ad-items">{banners}</span>'
             if len(picks) >= 2 else banners)
-    uid = f"home-feat-ad-{where}"
+    uid = f"home-feat-ad-{where}{slot}"
     # 候補をまるごとJSONで埋め込む。</script を含みうるHTMLなので
     # スクリプト終了タグとして解釈されないようにエスケープする
     pool_json = (json.dumps([a["html"] for a in ads], ensure_ascii=False)
@@ -3288,7 +3290,8 @@ def build_index():
         + '      <div class="home-featwrap">'
         + home_feat_ad("home_new", n=2)
         + '<div class="card-grid is-home6">'
-        + "".join(v2_card(a, p, flags="new") for a in latest) + "</div></div>\n"
+        + "".join(v2_card(a, p, flags="new") for a in latest) + "</div>"
+        + home_feat_ad("home_new", n=2, slot="_r", extra_cls="is-right") + '</div>\n'
         + v2_sec_more(f"{p}new.html", cls="has-feat-ad"), tinted=True)
 
     # ランキングの並びは、ランキングのページ（assets/main.js）と同じ規則で
@@ -3315,7 +3318,8 @@ def build_index():
         + "</div>\n"
         + '        <button type="button" class="rail-btn is-next" '
         'aria-label="次の記事" hidden><span aria-hidden="true"></span></button>\n'
-        + '      </div></div>\n'
+        + '      </div>'
+        + home_feat_ad("home_rank", n=2, slot="_r", extra_cls="is-right") + '</div>\n'
         + v2_sec_more(f"{p}ranking.html", cls="has-feat-ad"))
 
     # ピックアップもランキングと同じ横カルーセル（スマホ）。枠を同じ
