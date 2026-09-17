@@ -7,6 +7,22 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>山善YOH-200 たこ焼き器</title>
+    <link>https://monobase.site/articles/yoh-200-yamazen</link>
+    <guid isPermaLink="true">https://monobase.site/articles/yoh-200-yamazen</guid>
+    <description>20穴・着脱式プレートの山善YOH-200を公開情報から解説。向く人・向かない人を整理しました。</description>
+    <category>キッチン</category>
+    <pubDate>Thu, 17 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>TP-Link Tapo C200 口コミ</title>
+    <link>https://monobase.site/articles/tp-link-tapo-c200-amazon-alexa</link>
+    <guid isPermaLink="true">https://monobase.site/articles/tp-link-tapo-c200-amazon-alexa</guid>
+    <description>首振り自動追跡と双方向音声の室内見守りカメラ。口コミと注意点を整理。</description>
+    <category>カメラ</category>
+    <pubDate>Thu, 17 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>W STYLE 4in1カードリーダー</title>
     <link>https://monobase.site/articles/sd-4in1-iphone17-1tb-usb-c-type-c</link>
     <guid isPermaLink="true">https://monobase.site/articles/sd-4in1-iphone17-1tb-usb-c-type-c</guid>
@@ -149,22 +165,6 @@
     <description>寝具5点を「敷く場所」「使う頻度」で比較し、用途別に選び方を整理</description>
     <category>特集・まとめ</category>
     <pubDate>Tue, 15 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>レコルト ボンヌ RCP-7 口コミ</title>
-    <link>https://monobase.site/articles/rcp-7-recolte</link>
-    <guid isPermaLink="true">https://monobase.site/articles/rcp-7-recolte</guid>
-    <description>コードレスで氷も砕けるカプセル交換式。離乳食から介護食まで使える設計か確認しました。</description>
-    <category>キッチン</category>
-    <pubDate>Tue, 15 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>SecuSTATION MF45A 口コミ</title>
-    <link>https://monobase.site/articles/usb-wifi-5ghz-sd-mf45a-secustation</link>
-    <guid isPermaLink="true">https://monobase.site/articles/usb-wifi-5ghz-sd-mf45a-secustation</guid>
-    <description>小型防犯カメラMF45Aの機能と、購入前に確認したい注意点を整理。</description>
-    <category>カメラ</category>
-    <pubDate>Mon, 14 Sep 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
 </rss>
