@@ -3442,10 +3442,15 @@ p,li,.card-desc{text-wrap:pretty;}
   /* HTMLの並びは「左バナー→右バナー→本文」（promo_side が2本続けて
      出すため）で、グリッドの自動配置に任せると並び順どおり
      1列目・2列目・3列目に入ってしまい、本文が右端の150pxへ押し込まれる。
-     並び順に関係なく列を固定する。 */
-  .article-side-ad.is-left{grid-column:1;}
-  .article-side-ad.is-right{grid-column:3;}
-  .container:has(> .article-side-ad) > .article-page{grid-column:2;}
+     並び順に関係なく列を固定する。
+     grid-row も明示する。列だけ指定して行は auto のままにすると、
+     右バナー（3列目＝最終列）を置いた時点で自動配置カーソルが
+     2行目へ繰り上がり、本文（2列目）がその2行目に落ちて、1行目
+     （バナーの高さぶん）が本文の上にまるごと空くという不具合が
+     実際に起きた。3つとも1行目に固定して防ぐ。 */
+  .article-side-ad.is-left{grid-column:1;grid-row:1;}
+  .article-side-ad.is-right{grid-column:3;grid-row:1;}
+  .container:has(> .article-side-ad) > .article-page{grid-column:2;grid-row:1;}
   .article-side-ad-inner{
     display:flex;flex-direction:column;align-items:center;gap:8px;
     position:sticky;top:calc(var(--header-h) + 12px);width:120px;
