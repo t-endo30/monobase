@@ -116,17 +116,27 @@ def record_rejected(a):
        下書きに選び直さないようにする（目標本数まで再試行するとき、
        さっき破棄したばかりの商品をまた選んでは意味が無い）。
        日をまたいだ除外はしない。実行のたびに checkout し直すCIでは
-       ファイル自体が残らないので、勝手に消える。"""
+       ファイル自体が残らないので、勝手に消える。
+
+       ここで見るタイトルは、この時点までに write_article.py が
+       生成した記事タイトルへ書き換わっており、pick_products.py が
+       付けた元の商品名とはもう一致しない。メーカー名・型番を特定
+       できず破棄される商品はJANも無いことが多いため、jan/titleの
+       一致だけでは make_drafts.py が同じ商品を弾けない（実際に
+       2026-09-16、同じ2商品を3ラウンド選び直し続けて0本のまま
+       終わった）。楽天・Yahoo!の商品URLは書き換わらないので、
+       これも記録して照合に使う。"""
     jan = str(a.get("jan") or "").strip()
     title = str(a.get("title") or a.get("list_title") or "")
-    if not jan and not title:
+    urls = [a[k] for k in ("rakuten_url", "yahoo_url", "amazon_url") if a.get(k)]
+    if not jan and not title and not urls:
         return
     path = os.path.join(ROOT, REJECTED_PATH)
     try:
         items = json.load(io.open(path, encoding="utf-8"))
     except (FileNotFoundError, json.JSONDecodeError):
         items = []
-    items.append({"jan": jan, "title": title})
+    items.append({"jan": jan, "title": title, "urls": urls})
     with io.open(path, "w", encoding="utf-8") as f:
         json.dump(items, f, ensure_ascii=False)
 

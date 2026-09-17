@@ -277,6 +277,14 @@ def main():
             nm = clean_name(r.get("title", ""))[:20]
             if nm:
                 seen_name.add(nm)
+            # 破棄時点の title は write_article.py が書き上げた記事タイトルに
+            # 書き換わっており、元の商品名と一致しない。メーカー名・型番を
+            # 特定できず破棄される商品はJANも無いことが多く、jan/nameの
+            # 一致だけでは同じ商品をまた選んでしまう（2026-09-16に実際発生、
+            # 同じ2商品を3ラウンド選び直し続けて0本のまま終わった）。
+            # 楽天・Yahoo!のURLは書き換わらないのでこれも見る。
+            for u in r.get("urls", []):
+                seen_url.add(url_key(u))
 
     made = []
     for c in cands:
