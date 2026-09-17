@@ -3331,7 +3331,7 @@ def build_index():
         body += v2_section(
             v2_sec_head("PICK UP", "今日のピックアップ", cls="has-feat-ad")
             + '      <div class="home-featwrap">'
-            + home_feat_ad("home_pick")
+            + home_feat_ad("home_pick", n=2)
             + '<div class="card-rail" data-rail>\n'
             + '        <button type="button" class="rail-btn is-prev" '
             'aria-label="前の記事" hidden><span aria-hidden="true"></span></button>\n'
@@ -3351,9 +3351,8 @@ def build_index():
     home_ad = promo_slot("list_end")
     if home_ad.strip():
         body += v2_section(
-            v2_sec_head("PR", "気になる商品・キャンペーン", cls="has-feat-ad")
+            v2_sec_head("PR", "気になる商品・キャンペーン")
             + '      <div class="home-featwrap">'
-            + home_feat_ad("home_pr")
             + home_ad + '</div>\n')
 
     # 横長バナーの帯はホームに置かない（promo_band は残してある）。
