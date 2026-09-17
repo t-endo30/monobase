@@ -19,7 +19,7 @@ on:
       model:
         description: 'opus / sonnet'
         required: false
-        default: 'opus'
+        default: 'sonnet'
 
 permissions:
   contents: write
@@ -87,7 +87,7 @@ jobs:
           for TOKEN in "$TOKEN_1" "$TOKEN_2"; do
             [ -z "$TOKEN" ] && continue
             if CLAUDE_CODE_OAUTH_TOKEN="$TOKEN" claude -p "$PROMPT" \
-                --model "${{ inputs.model || 'opus' }}" \
+                --model "${{ inputs.model || 'sonnet' }}" \
                 --permission-mode bypassPermissions; then
               ok=true
               break
