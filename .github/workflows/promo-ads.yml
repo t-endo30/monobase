@@ -1,0 +1,39 @@
+name: Check promo ad banners
+
+# ホーム・記事下に出しているPRタイル（content/site.json の promos）の
+# バナー画像がまだ生きているかを確かめる。広告主がキャンペーンを終えると
+# コードは残ったままバナー画像だけ404になり、空箱のPRタイルが残り続ける。
+#
+# links.yml（販売先リンク）とは別物：あちらは報告専用、こちらは
+# 続けて2回死んでいたら自動で site.json から外し、ビルドしてpushまでする
+# （広告枠の入れ替えなので、記事の公開停止より取り返しが利く）。
+on:
+  schedule:
+    - cron: '0 20 * * 4'      # 毎週木曜 5:00 JST（UTC 木 20:00）
+  workflow_dispatch:           # 手動実行も可
+
+permissions:
+  contents: write
+
+concurrency:
+  group: promo-ads
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: git の名前を決める
+        run: |
+          git config user.name  "monobase-bot"
+          git config user.email "monobase.site@gmail.com"
+
+      - name: PRタイルのバナー画像を確認し、死んでいれば外す
+        run: python3 tools/check_promo_ads.py --apply --push
