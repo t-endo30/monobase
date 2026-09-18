@@ -8,7 +8,9 @@ name: Check shop links
 # ここは報告専用。落ちたリンクは Actions のサマリーに警告として出す。
 on:
   schedule:
-    - cron: '0 21 * * 1'      # 毎週月曜 6:00 JST（UTC 月 21:00）
+    # 0分ちょうどは避ける（GitHubのscheduled workflowが毎時0分に混雑し、
+    # 負荷次第でトリガーが飛ばされることがある）。
+    - cron: '9 21 * * 1'      # 毎週月曜 6:09 JST（UTC 月 21:09）
   workflow_dispatch:           # 手動実行も可
 
 permissions:

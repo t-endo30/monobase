@@ -9,7 +9,9 @@ name: Check promo ad banners
 # （広告枠の入れ替えなので、記事の公開停止より取り返しが利く）。
 on:
   schedule:
-    - cron: '0 20 * * 4'      # 毎週木曜 5:00 JST（UTC 木 20:00）
+    # 0分ちょうどは避ける（GitHubのscheduled workflowが毎時0分に混雑し、
+    # 負荷次第でトリガーが飛ばされることがある）。
+    - cron: '17 20 * * 4'      # 毎週木曜 5:17 JST（UTC 木 20:17）
   workflow_dispatch:           # 手動実行も可
 
 permissions:

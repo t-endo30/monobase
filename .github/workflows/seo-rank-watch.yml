@@ -13,7 +13,9 @@ name: SEO rank watch
 # スキル側で指示している。
 on:
   schedule:
-    - cron: '0 21 * * 1'      # 毎週月曜 6:00 JST（UTC 月 21:00）
+    # 0分ちょうどは避ける（GitHubのscheduled workflowが毎時0分に混雑し、
+    # 負荷次第でトリガーが飛ばされることがある）。
+    - cron: '26 21 * * 1'      # 毎週月曜 6:26 JST（UTC 月 21:26）
   workflow_dispatch:
     inputs:
       model:

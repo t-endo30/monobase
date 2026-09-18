@@ -4,7 +4,9 @@ name: Update access ranking
 # 変更があればコミットし、デプロイのワークフローが走って反映される。
 on:
   schedule:
-    - cron: '0 20 * * *'      # 毎日 5:00 JST（UTC 20:00）
+    # 0分ちょうどは避ける（GitHubのscheduled workflowが毎時0分に混雑し、
+    # 負荷次第でトリガーが飛ばされることがある）。
+    - cron: '3 20 * * *'      # 毎日 5:03 JST（UTC 20:03）
   workflow_dispatch:           # 手動実行も可
 
 permissions:

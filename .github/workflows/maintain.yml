@@ -11,7 +11,10 @@ name: Maintain articles
 # 記事1000本・1日40本なら25日で一周する計算。増えたら budget を上げる。
 on:
   schedule:
-    - cron: '30 19 * * *'      # 毎日 4:30 JST（記事作成の前に済ませる）
+    # 分は0・30ちょうどを避ける（GitHubのscheduled workflowは毎時0分・30分に
+    # 混雑し、負荷次第でトリガーが飛ばされることがある。2026-09-18、
+    # write.yml のUTC 1:00枠が実際に見送られた事故を受けて全体を見直した）。
+    - cron: '23 19 * * *'      # 毎日 4:23 JST（記事作成 5:07 JST の前に済ませる）
   workflow_dispatch:
     inputs:
       budget:
