@@ -1526,12 +1526,15 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card-cat{margin-top:4px;font-size:10px;}
   .card-cat::before{width:10px;}
 
-  /* ホームの PICK UP と RANKING は、スマホでは同じ形にする。
-     枠をランキングと同じ大きさにすると3列では収まらないので、
-     ピックアップも横並びのカルーセルにする。
-     最大10件・1件目を中央に置き2件目以降を見切れさせる・送りボタンを出す。 */
+  /* ホームの PICK UP は、スマホでは新着記事と同じ縦積みの並びにする
+     （#pickGrid も .card-grid なので、下の is-rank 専用の指定を外せば
+     既定の縦積みスタイルにそのまま乗る）。3件に固定し、4件目以降は
+     JSが並べ替えたぶんも含めて常に隠す。 */
   .card-rail{margin-top:2px;}
-  #pickGrid,
+  #pickGrid > .card:nth-child(n+4){display:none;}
+
+  /* RANKING はスマホでも横並びのカルーセルのまま。
+     最大10件・2件目以降を見切れさせる・送りボタンを出す。 */
   .card-grid.is-rank{
     display:flex;flex-direction:row;gap:12px;
     /* 横だけスクロール。縦のスワイプはページに渡す（縦に動かない） */
@@ -1546,39 +1549,33 @@ body.has-sticky-cta .fab{bottom:96px;}
     /* mandatory だと、指を離す判定をブラウザが急いで確定させようと
        するため、縦方向への切り替えも遅れがちになる。proximity なら
        近くまで送ったときだけスナップするので、向きの切り替えを
-       急がない。1件目を中央に置く見え方そのものは変わらない。 */
+       急がない。 */
     scroll-snap-type:x proximity;
     scrollbar-width:none;-ms-overflow-style:none;
     margin:0;padding:2px 0 6px;
-    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 10%,#000 90%,transparent 100%);
-    mask-image:linear-gradient(90deg,transparent 0,#000 10%,#000 90%,transparent 100%);
+    /* 1件目は中央寄せをやめて左端にそのまま出すので、左はぼかさない
+       （ぼかすと1件目の左側が見切れて見える）。右だけ、続きがある
+       合図にぼかしを残す。 */
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 90%,transparent 100%);
+    mask-image:linear-gradient(90deg,#000 0,#000 90%,transparent 100%);
   }
-  #pickGrid::-webkit-scrollbar,
   .card-grid.is-rank::-webkit-scrollbar{display:none;}
-  #pickGrid.is-dragging,
   .card-grid.is-rank.is-dragging{scroll-snap-type:none;}
-  /* 1件目を中央に置くための前後の空き。帯そのものに padding を持たせず、
-     枠と同じ「帯の内側の幅」を基準にした空の伸縮枠で作る。
-     ・padding を % にすると、枠の flex-basis の % が縮んだ内側の幅に対して
-       解かれてしまい、掛け算になって中央からずれる。
-     ・vw にするとスクロールバーのぶんだけずれる（vw は帯を含む画面幅）。
-     空き 23% ＋ 枠 54% ＋ 空き 23% で、1件目はちょうど帯の中央に来る。
-     すきま（gap）も1つぶん挟まるので、その 12px を空きから引く。 */
-  #pickGrid::before,#pickGrid::after,
-  .card-grid.is-rank::before,
+  /* 以前は前後に28%ずつ空き枠を作って1件目を帯の中央に置いていたが、
+     それが「左側の余白」に見えてしまうため取りやめ、1件目は
+     コンテナの余白（--gut）にそのまま接する位置に置く。
+     送った先で最後の1枚が見切れて止まれるよう、後ろの空きだけ残す。 */
   .card-grid.is-rank::after{
     content:"";flex:0 0 calc(28% - 12px);
   }
   /* 1枠は帯の44%（新着記事のタイルに近い大きさにそろえた）。
-     中央スナップで、1件目は中央・2件目が右に見切れる。
+     左端スナップで、1件目はそのまま見え、2件目が右に見切れる。
      タイルは枠と地のある器で、その「中に」写真と見出しを置く。 */
-  #pickGrid > .card,
   .card-grid.is-rank > .card{
-    flex:0 0 44%;scroll-snap-align:center;
+    flex:0 0 44%;scroll-snap-align:start;
     display:block;padding:9px 9px 12px;
     background:var(--bg-2);border:1px solid var(--line);
   }
-  #pickGrid > .card > :not(.card-thumb),
   .card-grid.is-rank > .card > :not(.card-thumb){padding-left:4px;padding-right:4px;}
   /* サムネイルはタイルの内側いっぱいまで広げる。タイル側の padding が
      そのまま写真のまわりの余白になるので、「タイルの中に写真がある」
@@ -1586,7 +1583,6 @@ body.has-sticky-cta .fab{bottom:96px;}
      枠の大きさは 1:1 で固定なので、どの記事でも同じ寸法にそろう。
      写真の内側の台紙（1px枠＋5px余白）は新着記事と同じものを使う
      （ここで打ち消すとフチの太さが新着とずれるので上書きしない）。 */
-  #pickGrid .card-thumb,
   .card-grid.is-rank > .card .card-thumb{
     display:block;width:100%;margin:0 auto 8px;
     aspect-ratio:1/1;
@@ -1594,43 +1590,35 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* 写真の下は「VIEW を左・カテゴリーを右」の1行だけ。
      .card-cat は margin-left:auto を持っているので、日付を消せば
      残る2つが両端に分かれる。 */
-  #pickGrid .card-meta,
   .card-grid.is-rank > .card .card-meta{
     display:flex;align-items:baseline;gap:8px;margin:0 0 4px;
   }
-  #pickGrid .card-date,
   .card-grid.is-rank > .card .card-date{display:none;}
-  #pickGrid .card-views,
   .card-grid.is-rank > .card .card-views{
     flex:0 0 auto;order:1;text-align:left;
   }
   /* 右寄せは、通常のタイルでは行の最後にある日付（margin-left:auto）が
-     担っている（下の @media (max-width:599px) の並び替え）。この2つの帯は
+     担っている（下の @media (max-width:599px) の並び替え）。この帯は
      日付を出さないので、カテゴリー自身に右寄せを持たせ直す。
      あちらは .card .card-cat（クラス2つ）なので、ここは必ずそれより
      強い指定にしておく。 */
-  #pickGrid .card-cat,
   .card-grid.is-rank > .card .card-cat{
     order:2;margin-left:auto;text-align:right;
   }
-  #pickGrid .card-title,
   .card-grid.is-rank > .card .card-title{display:block;}
   /* 一言コメントは出さない */
-  #pickGrid .card-note,
   .card-grid.is-rank > .card .card-note{display:none;}
   /* 縦積み用の「5枚目以降は隠す／6枚目は切る」を打ち消し、10件まで出す */
-  #pickGrid > .card:nth-child(n+4),
-  #pickGrid > .card:nth-child(n+5),
   .card-grid.is-rank > .card:nth-child(n+5){display:block;}
-  #pickGrid > .card:nth-child(6),
   .card-grid.is-rank > .card:nth-child(6){
     max-height:none;overflow:visible;padding:9px 9px 12px;
     pointer-events:auto;-webkit-mask-image:none;mask-image:none;
   }
-  #pickGrid > .card:nth-child(n+11),
   .card-grid.is-rank > .card:nth-child(n+11){display:none;}
-  /* 送りボタンはこの2つの帯では出す（カテゴリー帯とは別扱い）。
-     :not([hidden]) を付けて、端まで来たとき JS が付ける hidden を殺さない */
+  /* 送りボタンはこの帯では出す（カテゴリー帯とは別扱い）。
+     :not([hidden]) を付けて、端まで来たとき JS が付ける hidden を殺さない。
+     PICK UP側（#pickGrid）は横に送らないので、JS が overflowX を見て
+     常に hidden のままにする＝ここは自然と出ない。 */
   .card-rail .rail-btn:not([hidden]){display:grid;}
   .card-rail .rail-btn.is-prev{left:-4px;}
   .card-rail .rail-btn.is-next{right:-4px;}

@@ -3345,7 +3345,7 @@ def build_index():
     # そろう）。
     if picks:
         body += v2_section(
-            v2_sec_head("PICK UP", "今日のピックアップ", cls="has-feat-ad")
+            v2_sec_head("PICK UP", "今日のピックアップ", cls="has-feat-ad has-side-ad")
             + '      <div class="home-featwrap">'
             + home_feat_ad("home_pick", n=2)
             + '<div class="card-rail" data-rail>\n'
@@ -3356,7 +3356,8 @@ def build_index():
             + "".join(v2_card(a, p) for a in picks) + "</div>\n"
             + '        <button type="button" class="rail-btn is-next" '
             'aria-label="次の記事" hidden><span aria-hidden="true"></span></button>\n'
-            + '      </div></div>\n')
+            + '      </div>'
+            + home_feat_ad("article_side", n=1, slot="_r3", extra_cls="is-right") + '</div>\n')
 
     # スマホのホームは「新着記事」「ランキング」が横並び（.home-featwrap）に
     # ならず広告を置く余地が無いので、ピックアップの下に広告を3件挟む。
