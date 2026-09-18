@@ -19,6 +19,9 @@ asin を埋めれば、商品ページへの直リンクに切り替わる。
 import json, io, os, re, sys, time, argparse, urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from pick_products import model_codes            # 型番の判定を1か所にまとめる
 
 
 def load(path):
@@ -265,6 +268,13 @@ def main():
     # furniture-20260910-2 の2本になって両方公開されていた）。
     seen_url = {url_key(a.get(k)) for a in arts for k in ("rakuten_url", "yahoo_url")
                 if a.get(k)}
+    # 型番での突き合わせ。seen_name は記事題名の先頭20文字と商品名を
+    # 比べるだけなので、店舗ごとに言い回しが違うとすり抜ける
+    # （2026-09-18、「レコルトRSY-2」が別ショップのURL違いで6本に
+    # なった事故を受けて追加）。型番はどちらの文字列にも残りやすい。
+    seen_models = set()
+    for a in arts:
+        seen_models |= model_codes(a.get("title", ""))
 
     # 同じ実行の中で製品を特定できず破棄された候補（tools/write_article.py
     # の delete_article が書き出す）は選び直さない。破棄された記事は
@@ -301,7 +311,10 @@ def main():
         if any(url_key(c.get(k)) in seen_url for k in ("rakuten_url", "yahoo_url")
                if c.get(k)):
             continue
+        if model_codes(name) & seen_models:
+            continue
         seen_name.add(name[:20])
+        seen_models |= model_codes(name)
         if c.get("jan"):
             seen_jan.add(str(c["jan"]))
         for k in ("rakuten_url", "yahoo_url"):

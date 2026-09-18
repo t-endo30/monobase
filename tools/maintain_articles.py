@@ -47,7 +47,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from check_links import fetch, LIVE, WORKERS      # 疎通の判定は1か所にまとめる
-from pick_products import item_key                # 同一商品の判定も1か所にまとめる
+from pick_products import item_key, model_codes   # 同一商品の判定も1か所にまとめる
 
 SHOPS = [("asin", "Amazon"), ("amazon_url", "Amazon"),
          ("rakuten_url", "楽天市場"), ("yahoo_url", "Yahoo!")]
@@ -103,7 +103,13 @@ def days_since(iso):
 
 def dup_keys(a):
     """1本の記事が指す商品の鍵。Amazonはasin、楽天・Yahoo!は
-       item_key（店舗＋商品コード）で揃える。"""
+       item_key（店舗＋商品コード）で揃える。
+
+       それに加えて、題名から拾った型番も鍵に含める。同じ商品でも
+       別ショップの別リスティングURLを貼ると item_key は一致しない
+       （2026-09-18、「レコルトRSY-2」が6本の別記事になっていた事故が
+       これで見逃されていた）。型番だけでの一致は他分野との偶然の
+       衝突を避けるため、category も鍵に含めて絞る。"""
     keys = []
     asin = (a.get("asin") or "").strip().upper()
     if asin:
@@ -112,6 +118,9 @@ def dup_keys(a):
         ik = item_key(a.get(k))
         if ik:
             keys.append(ik)
+    cat = a.get("category") or ""
+    for code in model_codes(a.get("title", "")):
+        keys.append(f"model:{cat}:{code}")
     return keys
 
 

@@ -28,6 +28,27 @@ const MAINTENANCE = __MAINTENANCE__;
 // メンテナンス中でも通すもの（準備中の画面が崩れないように）
 const MAINT_ALLOW = ["/assets/", "/maintenance.html", "/maintenance", "/admin"];
 
+// 重複記事を統合したときの旧URL → 生き残った記事の正規URL（拡張子なし）。
+// 2026-09-18、レコルトRSY-2ほかの重複整理で追加。
+const ARTICLE_REDIRECTS = {
+  "/articles/rsy-2-recolte.html": "/articles/rsy-2-recolte-3",
+  "/articles/rsy-2-recolte": "/articles/rsy-2-recolte-3",
+  "/articles/recolte-rsy-2.html": "/articles/rsy-2-recolte-3",
+  "/articles/recolte-rsy-2": "/articles/rsy-2-recolte-3",
+  "/articles/recolte-rsy-2-2.html": "/articles/rsy-2-recolte-3",
+  "/articles/recolte-rsy-2-2": "/articles/rsy-2-recolte-3",
+  "/articles/rsy-2-recolte-2.html": "/articles/rsy-2-recolte-3",
+  "/articles/rsy-2-recolte-2": "/articles/rsy-2-recolte-3",
+  "/articles/rsy-2-recolte-auto-cooking-pot-ok.html": "/articles/rsy-2-recolte-3",
+  "/articles/rsy-2-recolte-auto-cooking-pot-ok": "/articles/rsy-2-recolte-3",
+  "/articles/rcp-7-recolte.html": "/articles/recolte-rcp-7",
+  "/articles/rcp-7-recolte": "/articles/recolte-rcp-7",
+  "/articles/recolte-capsule-cutter-bonne-rcp-3.html": "/articles/rcp-3-recolte-capsule-cutter-bonne",
+  "/articles/recolte-capsule-cutter-bonne-rcp-3": "/articles/rcp-3-recolte-capsule-cutter-bonne",
+  "/articles/salonia-hk-slall.html": "/articles/salonia",
+  "/articles/salonia-hk-slall": "/articles/salonia",
+};
+
 // 中継してよい問い合わせ先。ここに無いものは通さない。
 const YAHOO_ENDPOINT =
   "https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch";
@@ -439,6 +460,15 @@ export default {
     // Access は /admin を見張っているので、ここへ寄せれば必ず認証を通る。
     if (path === "/admin.html" || path === "/admin/") {
       return Response.redirect(new URL("/admin", url).toString(), 301);
+    }
+
+    // 同じ商品を指す重複記事を1本に統合したときの旧URL。
+    // 2026-09-18、型番の突き合わせ漏れで同一商品が最大6本の別記事に
+    // なっていたのを1本ずつに統合した（詳しくは tools/maintain_articles.py
+    // の dup_keys）。読者のブックマークや検索エンジンに残った旧URLを
+    // 404にせず、生き残った記事へ301で寄せる。
+    if (path in ARTICLE_REDIRECTS) {
+      return Response.redirect(new URL(ARTICLE_REDIRECTS[path], url).toString(), 301);
     }
 
     // /foo.html を /foo へ寄せる。Cloudflare の html_handling

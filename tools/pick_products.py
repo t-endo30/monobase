@@ -398,6 +398,22 @@ def item_key(url):
     return u.netloc.lower() + "/" + "/".join(parts[:2]).lower()
 
 
+# 型番らしいトークン（英字+ハイフン+英数字、数字を含む）を拾う。
+# 「レコルト RSY-2」のように、店舗ごとに商品名の言い回しが違っても
+# 型番の表記だけはほぼ共通して残ることを利用して、同一商品の判定に使う。
+# USB-C・Wi-Fi のような規格名は数字を含まないため拾わない。
+_MODEL_CODE_RE = re.compile(r"[A-Za-z]{1,8}-[A-Za-z0-9]{1,8}")
+
+
+def model_codes(text):
+    """商品名・記事題名から型番コードを抜き出す（大文字に揃えて返す）。
+       2026-09-18、同じ「レコルトRSY-2」が別ショップのURL違いで
+       6本も記事化される事故があり、item_key（URL単位）だけでは
+       同一商品を見分けられないと分かったため追加した。"""
+    return {m.upper() for m in _MODEL_CODE_RE.findall(str(text or ""))
+            if any(ch.isdigit() for ch in m)}
+
+
 def known_items(arts):
     """すでに記事にした商品ページ。JANの無い商品は、これでしか見分けが
        つかない。実際、JANの無い商品で同じ記事が2本できた。
@@ -419,6 +435,14 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
     seen_jan, _ = known_products(arts)
     seen_names = {clean_name(a.get("title", ""))[:20] for a in arts}
     seen_items = known_items(arts)
+    # 記事の題名から拾った型番の集合。seen_names は自分たちが書いた
+    # 題名の先頭20文字と、モールの生の商品名を比べているだけなので、
+    # 言い回しが違うとすり抜ける（実際にすり抜けて同一商品が6本
+    # できた）。型番はどちらの文字列にも残りやすいので、もう1段
+    # 別の切り口で見る。
+    seen_models = set()
+    for a in arts:
+        seen_models |= model_codes(a.get("title", ""))
 
     out = []
     for cat in categories:
@@ -495,6 +519,8 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
             name = clean_name(e["name"])
             if name[:20] in seen_names:
                 continue
+            if model_codes(name) & seen_models:
+                continue
             # 名前が売り文句になっている商品と、分野が合わない商品は採らない。
             # ここで落としておかないと、題名もURLも作れない記事になる。
             if looks_like_ad(name) or not fits_category(name, cat):
@@ -531,6 +557,7 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                 seen_jan.add(jan)
 
             seen_names.add(name[:20])
+            seen_models |= model_codes(name)
             if ikey:
                 seen_items.add(ikey)
             for v in shops.values():

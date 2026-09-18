@@ -32,6 +32,7 @@ from write_article import (GEN_FIELDS, NG_WORDS, MIN_CHARS, MAX_CHARS,
                            FAKE_EXPERIENCE, FAKE_REVIEW_NUM, AMAZON_MISLEAD,
                            VAGUE_RIVAL, CARE_CLAIM, AI_PHRASE, AI_PHRASE_LIMIT,
                            NEGATION, save_article, delete_article, TRANSIENT)
+from pick_products import model_codes             # 同一商品（型番）の判定
 
 # ---------------------------------------------------------------- 機械検査
 # 断定・保証の表現。tools/check_text.py と同じ基準。
@@ -267,10 +268,13 @@ def _category_map():
 CATEGORY_MAP = _category_map()
 
 
-def build_prompt(a, rules, hits):
+def build_prompt(a, rules, hits, arts=()):
     """レビュー用のプロンプト。記事の全文と、機械検査の結果を渡す。"""
     found = "\n".join(f"・[{k}] {p}：{d}" for k, p, d in hits) or "（機械検査での指摘はありません）"
     body = {k: a[k] for k in GEN_FIELDS if k in a}
+    siblings = [x.get("title", "") for x in arts
+                if x.get("slug") != a.get("slug") and x.get("published")
+                and (x.get("category") or "") == (a.get("category") or "")]
     return "\n".join([
         "次の記事を、下のレビュー基準に照らして点検し、問題があれば直してください。",
         "",
@@ -290,6 +294,19 @@ def build_prompt(a, rules, hits):
         "クレンジング・美容液・シャンプー・パックなどのコスメも beauty。"
         "衣類スチーマー・アイロン（衣類用）は appliance。"
         "調理家電・鍋・食器は kitchen。",
+        "",
+        "================ 同じカテゴリーの公開済み記事の題名 ================",
+        ("\n".join(f"・{t}" for t in siblings) if siblings
+         else "（このカテゴリーにはまだ他の記事がありません）"),
+        "2026-09-18、同じ商品（レコルトRSY-2）が別ショップのURL違いで"
+        "6本の別記事として公開されていた事故があった。上の一覧はすべて"
+        "公開済みで、この記事より先に世に出ている。この記事と同じ"
+        "ブランド・同じ型番（表記ゆれや欄外の型番も含めて実質同一の製品）"
+        "を扱っている題名が上の一覧に無いか必ず確認する。あれば、文章が"
+        "違っていても discard に理由を書いてこの記事を破棄する（先に"
+        "公開されている側を残す）。型番が無い商品名（「1億円座椅子」の"
+        "ような通称のみの商品）でも、通称と特徴的な仕様（容量・段数・"
+        "サイズ等）が一致するなら同一商品とみなす。",
         "",
         "================ 記事（JSON） ================",
         json.dumps(body, ensure_ascii=False, indent=1),
@@ -404,6 +421,28 @@ def looks_unidentifiable(a):
             if isinstance(it, dict):
                 parts.append(str(it.get("text") or ""))
     return bool(ADMIT_UNIDENTIFIABLE.search(" ".join(parts)))
+
+
+def duplicate_of(a, arts):
+    """同じ型番をすでに扱っている公開済み記事があれば、そのslugを返す。
+       discard 判定と同じ「保険」の考え方。校閲LLMに重複の判断を任せると
+       見落とすことがあり、実際に2026-09-18、レコルトRSY-2が別ショップの
+       URL違いをすり抜けて6本の別記事になっていた（候補選び・下書き作りの
+       各段でも同種のチェックを入れたが、ここでも念のため機械的に見る）。
+       型番だけでの一致は他分野との偶然の衝突を避けるため category も
+       合わせて絞る（tools/maintain_articles.py の dup_keys と同じ考え方）。"""
+    codes = model_codes(a.get("title", ""))
+    if not codes:
+        return ""
+    cat = a.get("category") or ""
+    for x in arts:
+        if x.get("slug") == a.get("slug") or not x.get("published"):
+            continue
+        if (x.get("category") or "") != cat:
+            continue
+        if model_codes(x.get("title", "")) & codes:
+            return x["slug"]
+    return ""
 
 
 # ---------------------------------------------------------------- 仕上げ
@@ -574,7 +613,7 @@ def main():
                 break
             for attempt in range(1, RETRIES + 1):
                 try:
-                    out, c = run_claude(build_prompt(a, rules, hits),
+                    out, c = run_claude(build_prompt(a, rules, hits, arts),
                                         args.model, args.timeout)
                     cost += c
                     res = parse_json(out)
@@ -615,6 +654,11 @@ def main():
             if not discard and looks_unidentifiable(a):
                 discard = ("本文が自分で「メーカー名・型番を特定できない」と"
                            "認めている（機械検査。校閲の discard 判定への保険）")
+            if not discard:
+                dup = duplicate_of(a, arts)
+                if dup:
+                    discard = (f"同じ型番を扱っている公開済み記事（{dup}）が"
+                               "すでにあるため、重複記事として破棄（機械検査）")
             if discard:
                 print(f"    ✗ 破棄：{discard}")
                 if not args.dry_run:
@@ -653,6 +697,17 @@ def main():
             print(f"    ✗ 破棄：{discard}")
             if not args.dry_run:
                 discarded.append(slug)
+
+        if slug not in discarded:
+            dup = duplicate_of(a, arts)
+            if dup:
+                discard = (f"同じ型番を扱っている公開済み記事（{dup}）が"
+                           "すでにあるため、重複記事として破棄（機械検査。"
+                           "既存のレビュー結果を再利用したときも含めて"
+                           "毎回かける保険）")
+                print(f"    ✗ 破棄：{discard}")
+                if not args.dry_run:
+                    discarded.append(slug)
 
         if slug in discarded:
             continue
