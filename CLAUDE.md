@@ -103,6 +103,24 @@
   拾えない言い回しなら `ADMIT_UNIDENTIFIABLE` を拡張する。
 - ダークパターン・煽り表現・架空レビューなどの機械検査は `tools/check_text.py`
   と `review_article.py` の `scan()` 側の正規表現が共通の基準。
+- **楽天・Yahoo!のURLはあるのに商品写真を一意に特定できない記事も、
+  同じ考え方で機械的に破棄する（2026-09-18導入、`lacks_shop_photo()`）。**
+  `tools/fetch_shop_images.py` は誤って別商品の写真を出す事故を避けるため、
+  JAN・商品コードで一意に決まらない限り検索結果を採用しない設計。
+  そのため一部の記事は shop_images が最後まで空のまま、一覧に汎用アイコンが
+  出続ける。2026-09-18に3本（`p10-windows11-office-corei5-windows11-office` /
+  `ymh-400-yamazen-votre` / `bluetooth-bluetooth-iphone-android-siri-ll03`）が
+  この状態で公開されているのに気づかず手動で削除した。以後は
+  `review_article.py` の discard 判定にこの機械検査を組み込み、公開前に
+  止めるようにした。**Amazonのみの記事は対象外**（Amazonの商品画像は
+  ライセンス上ビルド時に焼き込めず、記事ページを開いたときにJSが取りに
+  行く方式なので、shop_images が空なのが正常）。楽天・Yahoo!の両方に
+  リンクがあり、片方だけ写真が入っている記事も対象外（そちらの写真を
+  一覧に出せるため）。
+  あわせて `.github/workflows/fetch-shop-images.yml` に毎日4:48 JSTの
+  定期実行を追加した（もとは手動実行専用で、`write.yml` 内の取得は
+  `continue-on-error: true` のため、レート制限等で失敗した記事を誰も
+  拾い直していなかった）。
 
 ## 4. 外部連携・アフィリエイト経路
 

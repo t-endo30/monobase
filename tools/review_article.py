@@ -423,6 +423,32 @@ def looks_unidentifiable(a):
     return bool(ADMIT_UNIDENTIFIABLE.search(" ".join(parts)))
 
 
+def lacks_shop_photo(a):
+    """discard 判定の保険その2。楽天・Yahoo!の商品ページURLがあるのに、
+       検索APIでは商品コード・JANのどちらでも一意に特定できず、実物の
+       商品写真が1枚も入らなかった記事。誤って別商品の写真を出す事故を
+       避けるための保守的な設計（tools/fetch_shop_images.py）が理由なので、
+       あとから待っても直らない。一覧に汎用アイコンのまま出すのは質が
+       低いため、破棄する。
+
+       Amazonしかリンクが無い記事は対象外（Amazonの商品画像はライセンス上
+       ビルド時に焼き込めず、記事を開いたときにJSが取りに行く方式なので、
+       shop_images が空なのが正常）。楽天・Yahoo!の両方にリンクがあり、
+       片方だけ写真が入っている記事も対象外（そちらの写真を一覧に出せる
+       ため、汎用アイコンにはならない）。
+
+       2026-09-18、この理由で表示できない記事が3本、汎用アイコンのまま
+       公開されているのに気づかず、手動で見つけて削除した。以後は
+       公開前にここで止める。"""
+    urls = {shop: a.get(key) for shop, key in
+            (("rakuten", "rakuten_url"), ("yahoo", "yahoo_url"))}
+    linked = [shop for shop, url in urls.items() if str(url or "").strip()]
+    if not linked:
+        return False
+    imgs = a.get("shop_images") or {}
+    return not any(str(imgs.get(shop) or "").strip() for shop in linked)
+
+
 def duplicate_of(a, arts):
     """同じ型番をすでに扱っている公開済み記事があれば、そのslugを返す。
        discard 判定と同じ「保険」の考え方。校閲LLMに重複の判断を任せると
@@ -654,6 +680,11 @@ def main():
             if not discard and looks_unidentifiable(a):
                 discard = ("本文が自分で「メーカー名・型番を特定できない」と"
                            "認めている（機械検査。校閲の discard 判定への保険）")
+            if not discard and lacks_shop_photo(a):
+                discard = ("楽天・Yahoo!のURLはあるが、商品写真を一意に"
+                           "特定できず取得できていない（機械検査。誤って"
+                           "別商品の写真を出す事故を避けるため、あとから"
+                           "待っても直らない）")
             if not discard:
                 dup = duplicate_of(a, arts)
                 if dup:
@@ -694,6 +725,14 @@ def main():
             discard = ("本文が自分で「メーカー名・型番を特定できない」と"
                        "認めている（機械検査。既存のレビュー結果を再利用した"
                        "ときも含めて毎回かける保険）")
+            print(f"    ✗ 破棄：{discard}")
+            if not args.dry_run:
+                discarded.append(slug)
+
+        if slug not in discarded and lacks_shop_photo(a):
+            discard = ("楽天・Yahoo!のURLはあるが、商品写真を一意に"
+                       "特定できず取得できていない（機械検査。既存の"
+                       "レビュー結果を再利用したときも含めて毎回かける保険）")
             print(f"    ✗ 破棄：{discard}")
             if not args.dry_run:
                 discarded.append(slug)
