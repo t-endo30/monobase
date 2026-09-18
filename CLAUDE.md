@@ -125,6 +125,46 @@
   `content/site.json` の該当 `ads.slots.*.id` に書き戻して `build.py` を
   流すだけで再開できる（コード側の変更は不要）。
 
+## 4.5 商品カード写真・広告バナーの欠落（2026-09-18に調査・修正）
+
+- **「楽天から取ってきているのにサムネイルが出ない」記事が繰り返し発生する件**：
+  原因は `tools/fetch_shop_images.py` を呼ぶ `.github/workflows/fetch-shop-images.yml`
+  が `workflow_dispatch` 専用で、**定期実行（cron）が無かった**こと。
+  `write.yml` の公開直前にも1回呼んでいるが `continue-on-error: true`
+  （拾えなくても公開は進める設計）なので、検索APIの一時失敗・レート制限に
+  当たった記事は shop_images が空のまま誰も拾い直さず永久に残っていた。
+  → `fetch-shop-images.yml` に毎日 4:48 JST の cron を追加し、未取得分だけ
+  （`--force` 無し）を毎日自動で拾い直すようにした。
+  それでも埋まらない記事が残ることがある：`fetch_shop_images.py` は
+  「別の商品の写真を出す」誤爆を避けるため、JANコード・商品コードで
+  一意に決まらない限り検索結果を採用しない設計（意図的な保守的挙動）。
+  商品名があいまいでJANも無い記事は、この仕組みでは原理的に埋まらない
+  （2026-09-18時点で3本：`p10-windows11-office-corei5-windows11-office` /
+  `ymh-400-yamazen-votre` / `bluetooth-bluetooth-iphone-android-siri-ll03`）。
+- **Yahoo!ショッピング経由の記事が写真を一切取得できない、が起きうる件**：
+  2026-09-18の調査で `YAHOO_CLIENT_ID` が **GitHub Secretsに登録されて
+  いなかった**（リポジトリ・Environment のどちらにも存在しなかった）ことが
+  判明。ユーザーの認識では以前設定したはずだったが、実際には反映されて
+  いなかった。同日ユーザーがYahoo!デベロッパーネットワークの管理画面で
+  値を確認し、`gh secret set YAHOO_CLIENT_ID` で登録し直して解消。
+  **教訓**：Secretsの有無は `gh secret list` で見た目上は分からない
+  （値の中身は見えないが、キー自体が無ければ即座に分かる）。「前に設定した
+  はず」の外部連携が動いていないときは、まずここを疑って一覧を見る。
+- **ホームの「NEW/RANKING/PICK UP」枠の広告が、バナー無しで「PR」の
+  文字だけ空枠のまま出ることがある件**：原因は `assets/main.js` の
+  home-feat-ad ローテーション処理に、バナー画像の読み込み失敗を検知する
+  仕組みが無かったこと。記事下のタイル・帯バナー（`.promo-group` /
+  `.promo-band-ad`）には既に `watch()`/`fill()` という「読めなかったら
+  次の候補に差し替え、候補が尽きたら枠を隠す」仕組みがあったが、home-feat-ad
+  だけ素朴にHTMLを差し込むだけで、広告主のキャンペーン終了でバナー画像が
+  404になると空枠がそのまま残っていた。同じ考え方の watch/差し替えを
+  home-feat-ad 側にも実装して修正済み（2026-09-18）。
+  サーバー側の定期チェック（`.github/workflows/promo-ads.yml`、毎週木曜、
+  `tools/check_promo_ads.py`）は死んだ広告をsite.jsonから外す仕組みだが、
+  週1回・2回連続で死んでいたときだけ外す設計なので、キャンペーン終了直後
+  ～最大2週間は死んだバナーが残りうる。上記のJS側の即時フォールバックは
+  その間のギャップを埋めるためのもの。
+
 ## 5. 進行中・予定されている変更
 
 - monobase.site のドメインを **お名前.com から Cloudflare Registrar へ移管予定**
