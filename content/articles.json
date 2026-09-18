@@ -20368,7 +20368,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "count": 6594,
+    "count": 6595,
     "average": 4.34,
     "shops": 1
    },
@@ -20917,7 +20917,7 @@
   },
   "review_stats": {
    "yahoo": {
-    "count": 3977,
+    "count": 3978,
     "average": 4.61,
     "shops": 1
    },
@@ -28152,9 +28152,9 @@
     "shops": 1
    },
    "yahoo": {
-    "count": 5,
-    "average": 3.6,
-    "shops": 2
+    "count": 4,
+    "average": 4.5,
+    "shops": 1
    },
    "checked": "2026-09-18"
   },
@@ -28792,11 +28792,6 @@
     "count": 1976,
     "average": 4.61,
     "shops": 2
-   },
-   "yahoo": {
-    "count": 40,
-    "average": 4.7,
-    "shops": 1
    },
    "checked": "2026-09-18"
   },
