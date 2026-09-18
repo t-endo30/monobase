@@ -3459,8 +3459,17 @@ def build_category(c):
                     (c["label"], f'{BASE_URL}/category-{c["key"]}.html')]))
 
 
+SUBCAT_NOINDEX_MIN = 3   # これ未満の一覧ページは実質1〜2件の中身しかなく、
+                         # AdSenseの審査で「有用性の低いコンテンツ」として
+                         # サイト全体の評価を引き下げる薄いページになりやすい
+                         # （2026-09-18、審査不合格を受けて追加）。
+                         # noindex,follow にしてインデックスからは外すが、
+                         # リンクは辿らせるのでクロール自体は妨げない。
+
+
 def build_subcategory(c, sc):
-    """サブカテゴリーの一覧ページ。記事が1本以上あるときだけ作る。"""
+    """サブカテゴリーの一覧ページ。記事が1本以上あるときだけ作る。
+       記事数が少ないページは noindex にして、検索結果や審査からは隠す。"""
     p = "./"
     items = [a for a in PUBLISHED
              if a["category"] == c["key"] and a.get("sub") == sc["key"]]
@@ -3480,7 +3489,7 @@ def build_subcategory(c, sc):
                 crumbs=[("ホーム", f"{p}index.html"),
                         (c["label"], f'{p}category-{c["key"]}.html'),
                         (sc["label"], None)],
-                image="",
+                image="", noindex=len(items) < SUBCAT_NOINDEX_MIN,
                 extra_js=breadcrumb_ld([
                     ("ホーム", f"{BASE_URL}/"),
                     (c["label"], f'{BASE_URL}/category-{c["key"]}.html'),
