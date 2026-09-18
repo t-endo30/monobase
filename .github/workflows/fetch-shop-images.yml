@@ -9,7 +9,19 @@ name: Fetch shop images
 # APIの鍵は Secrets にしか無いため、手元ではなくここで実行する。
 # まず apply を外して（下見）実行し、ログに並んだ商品名とURLを見てから
 # apply を付けて実行し直す。別の商品の写真を掴んでいないかの確認は人がやる。
+#
+# write.yml の中でも公開直前に1回呼んでいるが、そこは continue-on-error
+# （拾えなくても公開は進める）なので、検索APIの一時的な失敗やレート制限に
+# 当たった記事はサムネイル無しのまま永久に残ってしまう（2026-09-18に、
+# 楽天・Yahoo!のURLを持つのに shop_images が空の記事が10本溜まっているのを
+# 確認した：再試行する仕組みがこのworkflow_dispatch専用ジョブしか無く、
+# 誰かが手動で回さない限り拾い直されなかったのが原因）。
+# 未取得の記事だけを毎日拾い直す下の cron で、取りこぼしを自動で埋める。
 on:
+  schedule:
+    # 分は0・30ちょうどを避ける（GitHubのscheduled workflowは毎時0分・30分に
+    # 混雑し、負荷次第でトリガーが飛ばされることがある）。
+    - cron: '48 19 * * *'      # 毎日 4:48 JST（記事作成 5:07 JST の前に済ませる）
   workflow_dispatch:
     inputs:
       apply:
@@ -61,14 +73,14 @@ jobs:
           YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
         run: |
           python3 tools/fetch_shop_images.py \
-            --limit "${{ inputs.limit }}" \
+            --limit "${{ inputs.limit || '0' }}" \
             ${{ inputs.slug && format('--slug {0}', inputs.slug) || '' }} \
             ${{ inputs.force && '--force' || '' }} \
             ${{ inputs.debug && '--debug' || '' }} \
-            ${{ inputs.apply && '--apply' || '' }}
+            ${{ (github.event_name == 'schedule' || inputs.apply) && '--apply' || '' }}
 
       - name: サイトを生成して検査する
-        if: inputs.apply
+        if: github.event_name == 'schedule' || inputs.apply
         run: |
           python3 build.py
           python3 tools/check_articles.py
@@ -76,7 +88,7 @@ jobs:
       # 触るのは記事のデータと、そこから生成したページだけ。
       # 何が入ったのかログに残す。
       - name: 変更をコミットする
-        if: inputs.apply
+        if: github.event_name == 'schedule' || inputs.apply
         run: |
           git config user.name  "monobase-bot"
           git config user.email "monobase.site@gmail.com"

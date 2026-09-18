@@ -1538,7 +1538,14 @@ document.addEventListener('touchstart', function () {}, { passive: true });
    ランダムに選び直す。ビルド時に build.py が候補をまるごとJSONで
    埋め込んでいるので（home-feat-ad-pool）、ここではその中から
    毎回シャッフルして選ぶだけ。JSが動かない環境ではビルド時に
-   選ばれた表示のままになる（フォールバック）。 */
+   選ばれた表示のままになる（フォールバック）。
+
+   選んだ広告主のキャンペーンが終わっていてバナー画像が404だと、
+   枠ごと空のまま（PRの文字だけ）が出ていた（2026-09-18に発見。
+   記事下のタイル・帯バナーには読み込み失敗を見張って引き直す
+   仕組み（watch/fill、上のIIFE）が既にあるのに、ここには無かった
+   のが原因）。同じ考え方で、読み込みに失敗したら残りの候補から
+   引き直す。候補が尽きたら、その枠だけ引っ込める。 */
 (function () {
   'use strict';
   function itemHtml(html, label) {
@@ -1554,6 +1561,35 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     }
     return arr;
   }
+  /* 差し込んだ枠のバナーを見張る。読めなかったら onfail を呼ぶ */
+  function watch(item, onfail) {
+    var imgs = item.querySelectorAll('.home-feat-ad-item-media img');
+    var banner = null;
+    for (var i = 0; i < imgs.length; i++) {
+      if (imgs[i].getAttribute('width') !== '1') { banner = imgs[i]; break; }
+    }
+    if (!banner) { onfail(); return; }
+    var done = false;
+    function fail() { if (!done) { done = true; onfail(); } }
+    if (banner.complete) {
+      if (!banner.naturalWidth) fail();
+      return;
+    }
+    banner.addEventListener('error', fail);
+    banner.addEventListener('load', function () { done = true; });
+    setTimeout(function () {
+      if (!banner.complete || !banner.naturalWidth) fail();
+    }, 20000);
+  }
+  /* 枠1つぶんを差し込み、読み込みを見張る。失敗したら pool から
+     次を引いて入れ直し、pool が尽きたら枠ごと隠す。 */
+  function place(item, label, pool) {
+    if (!pool.length) { item.remove(); return; }
+    var h = pool.shift();
+    item.innerHTML = '<span class="home-feat-ad-item-media">' + h + '</span>' +
+      '<span class="home-feat-ad-item-label">' + label + '</span>';
+    watch(item, function () { place(item, label, pool); });
+  }
   document.querySelectorAll('script.home-feat-ad-pool').forEach(function (script) {
     var target = document.getElementById(script.getAttribute('data-for') || '');
     if (!target) return;
@@ -1566,7 +1602,8 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     if (!pool || !pool.length) return;
     var n = parseInt(target.getAttribute('data-ad-n'), 10) || 1;
     var label = target.getAttribute('data-ad-label') || 'PR';
-    var picks = shuffle(pool.slice()).slice(0, Math.min(n, pool.length));
+    pool = shuffle(pool.slice());
+    var picks = pool.slice(0, Math.min(n, pool.length));
     while (picks.length < n) {
       picks.push(pool[Math.floor(Math.random() * pool.length)]);
     }
@@ -1574,5 +1611,16 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     target.innerHTML = n >= 2
       ? '<span class="home-feat-ad-items">' + itemsHtml + '</span>'
       : itemsHtml;
+    /* 差し込んだ分は候補から外し、余りだけを引き直し用に残す */
+    var used = {};
+    picks.forEach(function (h) { used[h] = (used[h] || 0) + 1; });
+    var spare = pool.filter(function (h) {
+      if (used[h] > 0) { used[h]--; return false; }
+      return true;
+    });
+    var items = target.querySelectorAll('.home-feat-ad-item');
+    Array.prototype.forEach.call(items, function (item) {
+      watch(item, function () { place(item, label, spare); });
+    });
   });
 })();
