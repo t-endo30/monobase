@@ -22,6 +22,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from pick_products import model_codes            # 型番の判定を1か所にまとめる
+from pick_products import looks_identifiable     # 製品を特定できそうかの目安
 
 
 def load(path):
@@ -242,6 +243,8 @@ def main():
     ap.add_argument("--take", type=int, default=5, help="下書きにする件数")
     ap.add_argument("--from", dest="src", default="content/candidates.json")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--allow-unidentifiable", action="store_true",
+                    help="メーカー名・型番を特定できない候補も下書きにする")
     ap.add_argument("--fill-existing", action="store_true",
                     help="すでにある記事のうち、Amazonへの導線が無いものを埋める")
     args = ap.parse_args()
@@ -297,11 +300,24 @@ def main():
                 seen_url.add(url_key(u))
 
     made = []
+    unidentifiable = []
     for c in cands:
         if len(made) >= args.take:
             break
         name = clean_name(c.get("name", ""))
         if not name:
+            continue
+        # メーカー名・型番が名前から読み取れない商品は、本文を書いても
+        # 校閲でほぼ確実に破棄される（docs/review-rules.md 5-1）。
+        # 以前は「判定を外すと書ける商品まで取りこぼす」として並び順を
+        # 後ろに回すだけにしていたが、2026-09-18〜19 の実行では選ばれた
+        # 候補6件すべてがこの型で、6本とも本文を書いたうえで破棄され、
+        # 1本も公開できないまま40分と数ドルを使った。書いてから捨てる
+        # 方が高くつくので、ここで落とす。取りこぼしが問題になるときは
+        # --allow-unidentifiable を付ける。
+        if not args.allow_unidentifiable and not looks_identifiable(
+                name, c.get("shops")):
+            unidentifiable.append(name)
             continue
         # すでに書いた商品は飛ばす。JANが無い場合は名前の頭かURLで見る。
         if c.get("jan") and str(c["jan"]) in seen_jan:
@@ -322,8 +338,15 @@ def main():
                 seen_url.add(url_key(c[k]))
         made.append(make_draft(c, load("content/site.json"), taken))
 
+    if unidentifiable:
+        print(f"メーカー名・型番を特定できない候補 {len(unidentifiable)} 件は"
+              "飛ばしました（書いても校閲で破棄されるため）。")
+        for n in unidentifiable[:5]:
+            print(f"   ・{n[:50]}")
+
     if not made:
-        print("下書きにできる候補がありませんでした（すべて既出です）。")
+        print("下書きにできる候補がありませんでした"
+              "（すべて既出、または製品を特定できないものでした）。")
         return 0
 
     for a in made:

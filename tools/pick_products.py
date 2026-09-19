@@ -445,6 +445,7 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
         seen_models |= model_codes(a.get("title", ""))
 
     out = []
+    ranking_failed = []
     for cat in categories:
         conf = CATEGORY_MAP.get(cat)
         if not conf:
@@ -459,15 +460,31 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
             # 別に「今の売れ行き」を反映する枠。新しく伸びている商品は
             # レビューがまだ少ないことがあるので、ランキング由来の商品は
             # 後段の MIN_REVIEWS を免除する。
+            rank = []
             try:
                 rank = rakuten_ranking(rakuten_id, rakuten_key,
                                        genre=conf["rakuten_genre"], hits=10)
-                for e in rank:
-                    e["trending"] = True
-                found += rank
-            except Exception as ex:                          # noqa: BLE001
-                print(f"::warning::楽天ランキングの取得に失敗（{cat}）: {ex}",
-                      file=sys.stderr)
+            except Exception:                                # noqa: BLE001
+                # 2026年2月の刷新後、ランキングAPI（IchibaItem/Ranking）は
+                # 新しいドメインに存在せず、全カテゴリーが404を返す状態が
+                # 続いている（2026-09-19に確認。版・パスを変えても404）。
+                # ランキングが取れないと「今売れている枠」が丸ごと空になり、
+                # 候補がレビュー件数順（=レビュー件数を売り文句にした
+                # 無名品）だけで埋まる。実際それで2026-09-18〜19の自動
+                # 記事作成が「候補6件すべて型番不明で破棄・0本」になった。
+                # 代わりに楽天の既定の並び（standard＝楽天側の総合順）で
+                # 引く。売れ筋に近く、型番のある製品が入りやすい。
+                ranking_failed.append(cat)
+                try:
+                    rank = rakuten_search(rakuten_id, rakuten_key,
+                                          genre=conf["rakuten_genre"],
+                                          hits=10, sort="standard")
+                except Exception as ex2:                     # noqa: BLE001
+                    print(f"::warning::楽天の総合順の取得に失敗（{cat}）: {ex2}",
+                          file=sys.stderr)
+            for e in rank:
+                e["trending"] = True
+            found += rank
             time.sleep(PAUSE)
         if rakuten_id:
             try:
@@ -580,6 +597,12 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                               "postage_included": v["postage_included"]}
                           for k, v in shops.items()},
             })
+
+    if ranking_failed:
+        # カテゴリーごとに同じ警告を12本出しても読めないので1行にまとめる。
+        print("::warning::楽天ランキングAPIが使えないため総合順で代用しました"
+              f"（{len(ranking_failed)}カテゴリー: {'、'.join(ranking_failed)}）",
+              file=sys.stderr)
 
     # まず型番・メーカー名を特定できそうな商品を前に、そのうえで
     # レビュー件数の多い順（記事の土台になる材料が多い商品から並べる）。
