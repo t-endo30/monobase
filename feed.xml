@@ -7,6 +7,22 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>富士通LIFEBOOK A574/M 中古PC</title>
+    <link>https://monobase.site/articles/windows10-pc-lifebook-a574-m-core</link>
+    <guid isPermaLink="true">https://monobase.site/articles/windows10-pc-lifebook-a574-m-core</guid>
+    <description>SSD換装済み中古ノートの実用性とWindows10サポート終了の注意点を整理。</description>
+    <category>パソコン</category>
+    <pubDate>Sat, 19 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>エンドゲームギア EM-C PLUS 評価</title>
+    <link>https://monobase.site/articles/endgame-gear-em-c-x-x-egg-emc-500-blk</link>
+    <guid isPermaLink="true">https://monobase.site/articles/endgame-gear-em-c-x-x-egg-emc-500-blk</guid>
+    <description>500×500mm・厚さ3mmの大判パッド。確認できない仕様は明記し、購入前の確認点を整理しました。</description>
+    <category>パソコン</category>
+    <pubDate>Sat, 19 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>ミヨシ NS-06BK 置くだけスタンド</title>
     <link>https://monobase.site/articles/pc-ns-06bk</link>
     <guid isPermaLink="true">https://monobase.site/articles/pc-ns-06bk</guid>
@@ -148,22 +164,6 @@
     <guid isPermaLink="true">https://monobase.site/articles/celeron-cpu-windows11-ssd-windows11-lan</guid>
     <description>第10世代Celeron搭載、Office付きのおまかせ中古PC。価格重視で選びたい人向けの口コミ解説。</description>
     <category>パソコン</category>
-    <pubDate>Tue, 15 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>WINTEN WT-156H2-BS モニター</title>
-    <link>https://monobase.site/articles/winten-fhd-ips-pc-switch-iphone</link>
-    <guid isPermaLink="true">https://monobase.site/articles/winten-fhd-ips-pc-switch-iphone</guid>
-    <description>15.6型モバイルモニターWT-156H2-BSの特徴と購入前の確認点</description>
-    <category>パソコン</category>
-    <pubDate>Tue, 15 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>FUNLOGY Portable 口コミ・仕様分析</title>
-    <link>https://monobase.site/articles/vgp2022-bluetooth-funlogy-portable-tws-ip67</link>
-    <guid isPermaLink="true">https://monobase.site/articles/vgp2022-bluetooth-funlogy-portable-tws-ip67</guid>
-    <description>IP67防水とTWSが光る小型スピーカー、購入前の確認点を整理</description>
-    <category>AV機器</category>
     <pubDate>Tue, 15 Sep 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>

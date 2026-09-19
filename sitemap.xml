@@ -117,12 +117,17 @@
   </url>
   <url>
     <loc>https://monobase.site/category-pc-laptop</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-pc-monitor</loc>
     <lastmod>2026-09-15</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/category-pc-input</loc>
+    <lastmod>2026-09-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -224,6 +229,16 @@
     <loc>https://monobase.site/category-travel-luggage</loc>
     <lastmod>2026-09-13</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/windows10-pc-lifebook-a574-m-core</loc>
+    <lastmod>2026-09-19</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/endgame-gear-em-c-x-x-egg-emc-500-blk</loc>
+    <lastmod>2026-09-19</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://monobase.site/articles/pc-ns-06bk</loc>
