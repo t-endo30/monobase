@@ -21,7 +21,7 @@
   "icon": "🧺",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E4%B8%B8%E5%B1%B1%E3%82%BF%E3%82%AA%E3%83%AB%20%E3%81%B5%E3%82%8F%E3%83%AA%E3%83%83%E3%83%81%20%E4%BB%8A%E6%B2%BB%E8%A3%BD%20%E7%84%A1%E6%92%9A%E7%B3%B8%20%E3%83%90%E3%82%B9%20%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%82%BF%E3%82%AA%E3%83%AB%20%E3%82%BB%E3%83%83%E3%83%88%20IMF-470%20%E8%B4%88%E3%82%8A%E7%89%A9%20%E8%B4%88%E7%AD%94%20%E5%8C%85%E8%A3%85%20%E7%86%A8%E6%96%97%20%E3%81%AE%E3%81%97%20%E7%84%A1%E6%96%99&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：ギフト用途で熨斗・包装の手間を省きたい人向け。肌触りの数値的な裏付けを求める人は販売ページでの確認が前提",
   "summary": [
@@ -201,6 +201,12 @@
     "total": 86,
     "notes": "公式仕様が無いことを一貫して明示し、rating/specも出していない点は適切。独自分析（無撚糸・今治表示の意味づけ）はやや一般論寄りでtemplate_avoidanceが伸び悩む。"
    }
+  },
+  "health": {
+   "checked": "2026-09-19",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E4%B8%B8%E5%B1%B1%E3%82%BF%E3%82%AA%E3%83%AB%20%E3%81%B5%E3%82%8F%E3%83%AA%E3%83%83%E3%83%81%20%E4%BB%8A%E6%B2%BB%E8%A3%BD%20%E7%84%A1%E6%92%9A%E7%B3%B8%20%E3%83%90%E3%82%B9%20%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%82%BF%E3%82%AA%E3%83%AB%20%E3%82%BB%E3%83%83%E3%83%88%20IMF-470%20%E8%B4%88%E3%82%8A%E7%89%A9%20%E8%B4%88%E7%AD%94%20%E5%8C%85%E8%A3%85%20%E7%86%A8%E6%96%97%20%E3%81%AE%E3%81%97%20%E7%84%A1%E6%96%99&i=aps"
+   ]
   }
  },
  {
@@ -225,7 +231,7 @@
   "icon": "🪑",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%AA%E3%83%BC%E3%83%87%E3%83%AA%E3%83%83%E3%82%AF%20OD361234MLR%20%E3%83%A9%E3%83%B3%E3%83%97%E5%88%A5%E6%A2%B1%20%E3%83%80%E3%82%A6%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%88%20%CF%86100%20%E9%9D%9E%E8%AA%BF%E5%85%89%20LED%E3%83%A9%E3%83%B3%E3%83%97%20%E9%9B%BB%E7%90%83%E8%89%B2%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：電気工事士に施工を任せてφ100・黒枠・電球色でそろえたい人向け。調光を求める人には別型番を",
   "summary": [
@@ -415,6 +421,12 @@
     "total": 90,
     "notes": "公式仕様が無いことを正しく開示し、rating/specも捏造せず省いている。独自分析（ランプ別梱・黒枠の見え方）はあるが、やや一般論寄り。"
    }
+  },
+  "health": {
+   "checked": "2026-09-19",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%AA%E3%83%BC%E3%83%87%E3%83%AA%E3%83%83%E3%82%AF%20OD361234MLR%20%E3%83%A9%E3%83%B3%E3%83%97%E5%88%A5%E6%A2%B1%20%E3%83%80%E3%82%A6%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%88%20%CF%86100%20%E9%9D%9E%E8%AA%BF%E5%85%89%20LED%E3%83%A9%E3%83%B3%E3%83%97%20%E9%9B%BB%E7%90%83%E8%89%B2%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF&i=aps"
+   ]
   }
  },
  {
@@ -439,7 +451,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=Thermal%20Grizzly%20Intel%201700%20CPU%20%E3%82%B3%E3%83%B3%E3%82%BF%E3%82%AF%E3%83%88%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%20LT%20TG-CF-i1700-LT%20PC%20PC%E3%83%91%E3%83%BC%E3%83%84%20CPU%E3%82%AF%E3%83%BC%E3%83%A9%E3%83%BC%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%20%E9%9D%9E%E5%B0%8E%E9%9B%BB%E6%80%A7%20%E3%82%B5%E3%83%BC%E3%83%9E%E3%83%AB%E3%82%B0%E3%83%AA%E3%82%BA%E3%83%AA%E3%83%BC%2012%E4%B8%96%E4%BB%A3%2013%E4%B8%96%E4%BB%A3%2014%E4%B8%96%E4%BB%A3%201700%20LGA1700%20Intel%20%E8%87%AA%E4%BD%9CPC&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：LGA1700の反りが気になる人には検討価値、温度に不満が無い人には不要",
   "summary": [
@@ -626,6 +638,12 @@
     "total": 88,
     "notes": "公式仕様・口コミデータ不在を正しく開示しrating/specも適切に省いている。独自分析はソケット互換性や購入前チェックリストにとどまり、突出した独自性ではないが最低限は満たす。aside見出しと本文の食い違いのみ修正した。"
    }
+  },
+  "health": {
+   "checked": "2026-09-19",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=Thermal%20Grizzly%20Intel%201700%20CPU%20%E3%82%B3%E3%83%B3%E3%82%BF%E3%82%AF%E3%83%88%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%20LT%20TG-CF-i1700-LT%20PC%20PC%E3%83%91%E3%83%BC%E3%83%84%20CPU%E3%82%AF%E3%83%BC%E3%83%A9%E3%83%BC%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%20%E9%9D%9E%E5%B0%8E%E9%9B%BB%E6%80%A7%20%E3%82%B5%E3%83%BC%E3%83%9E%E3%83%AB%E3%82%B0%E3%83%AA%E3%82%BA%E3%83%AA%E3%83%BC%2012%E4%B8%96%E4%BB%A3%2013%E4%B8%96%E4%BB%A3%2014%E4%B8%96%E4%BB%A3%201700%20LGA1700%20Intel%20%E8%87%AA%E4%BD%9CPC&i=aps"
+   ]
   }
  },
  {
@@ -650,7 +668,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=Inspiron%2014-5458%2011.1V%2066Wh%20dell%20%E3%83%87%E3%83%AB%20%E3%83%8E%E3%83%BC%E3%83%88%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E4%BA%A4%E6%8F%9B%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%20%E3%83%AA%E3%83%81%E3%82%A6%E3%83%A0%E3%82%A4%E3%82%AA%E3%83%B3%20%E5%85%85%E9%9B%BB%E6%B1%A0&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：純正バッテリーが手に入らずInspiron 14-5458を延命したい人には検討の余地あり。型番の一致を自分で確認できない人には勧めにくい",
   "summary": [
@@ -893,6 +911,12 @@
     "total": 90,
     "notes": "rating・specは根拠が無いため正しく省かれている。口コミは件数・平均を主張せず「利用者の声」の傾向としてのみ扱われており、型番照合という独自の切り口も一貫している。'だと言えます'が1箇所あるが許容範囲内。"
    }
+  },
+  "health": {
+   "checked": "2026-09-19",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=Inspiron%2014-5458%2011.1V%2066Wh%20dell%20%E3%83%87%E3%83%AB%20%E3%83%8E%E3%83%BC%E3%83%88%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E4%BA%A4%E6%8F%9B%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%20%E3%83%AA%E3%83%81%E3%82%A6%E3%83%A0%E3%82%A4%E3%82%AA%E3%83%B3%20%E5%85%85%E9%9B%BB%E6%B1%A0&i=aps"
+   ]
   }
  },
  {
@@ -917,7 +941,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E4%B8%AD%E5%8F%A4%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20Windows10%20%E3%83%8E%E3%83%BC%E3%83%88PC%20%E4%B8%80%20%E5%AF%8C%E5%A3%AB%E9%80%9A%20LIFEBOOK%20A574%20M%20Core%20i3-4000M%202.4GHz%20MEM%3A8GB%20SSD%3A240GB%20DVD%E3%83%9E%E3%83%AB%E3%83%81%20%E7%84%A1%E7%B7%9ALAN%20%E3%83%86%E3%83%B3%E3%82%AD%E3%83%BC%20Win10Pr&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：サブ機・事務用の割り切り用途なら選択肢、Windows11移行やゲーム用途には不向き",
   "summary": [
@@ -1157,6 +1181,12 @@
     "total": 88,
     "notes": "公式仕様が無いことを正しくrating/specの省略で処理できている点は良いが、Windows10終了リスクの説明がsections・not_for・conclusionで繰り返され、独自分析はやや定型的。"
    }
+  },
+  "health": {
+   "checked": "2026-09-19",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E4%B8%AD%E5%8F%A4%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20Windows10%20%E3%83%8E%E3%83%BC%E3%83%88PC%20%E4%B8%80%20%E5%AF%8C%E5%A3%AB%E9%80%9A%20LIFEBOOK%20A574%20M%20Core%20i3-4000M%202.4GHz%20MEM%3A8GB%20SSD%3A240GB%20DVD%E3%83%9E%E3%83%AB%E3%83%81%20%E7%84%A1%E7%B7%9ALAN%20%E3%83%86%E3%83%B3%E3%82%AD%E3%83%BC%20Win10Pr&i=aps"
+   ]
   }
  },
  {
@@ -1181,7 +1211,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%A8%E3%83%B3%E3%83%89%E3%82%B2%E3%83%BC%E3%83%A0%E3%82%AE%E3%82%A2%20Endgame%20Gear%20EM-C%20PLUS%20%E3%82%A4%E3%83%BC%E3%82%A8%E3%83%A0%E3%82%B7%E3%83%BC%20%E3%82%B2%E3%83%BC%E3%83%9F%E3%83%B3%E3%82%B0%20%E3%83%9E%E3%82%A6%E3%82%B9%E3%83%91%E3%83%83%E3%83%89%20500%20x%20500%20x%203mm%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20EGG-EMC-500-BLK&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：大判・薄型のシンプルな黒パッドを探す人向け。表面素材や保証は購入前に商品ページで要確認",
   "summary": [
@@ -1376,6 +1406,12 @@
     "total": 89,
     "notes": "rating・specを外した判断は妥当で減点していない。修正前は未確認の素材物性（折り曲げ・丸め）を断定していた点と、ブランドの製品ラインアップに関する未確認の事実が主な減点要因。修正後は妥当な水準。"
    }
+  },
+  "health": {
+   "checked": "2026-09-19",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%A8%E3%83%B3%E3%83%89%E3%82%B2%E3%83%BC%E3%83%A0%E3%82%AE%E3%82%A2%20Endgame%20Gear%20EM-C%20PLUS%20%E3%82%A4%E3%83%BC%E3%82%A8%E3%83%A0%E3%82%B7%E3%83%BC%20%E3%82%B2%E3%83%BC%E3%83%9F%E3%83%B3%E3%82%B0%20%E3%83%9E%E3%82%A6%E3%82%B9%E3%83%91%E3%83%83%E3%83%89%20500%20x%20500%20x%203mm%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20EGG-EMC-500-BLK&i=aps"
+   ]
   }
  },
  {
@@ -1399,7 +1435,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%83%8A%E3%82%AB%E3%83%90%E3%83%A4%E3%82%B7%20%E3%83%9F%E3%83%A8%E3%82%B7%E7%BD%AE%E3%81%8F%E3%81%A0%E3%81%91%E3%83%8E%E3%83%BC%E3%83%88PC%E7%94%A8%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%89%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20NS-06BK%201%E7%B5%84&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：組み立て不要の手軽さを最優先する人には買い。角度を細かく調整したい人には別の選択肢を",
   "summary": [
@@ -1628,6 +1664,12 @@
     "total": 88,
     "notes": "断定語・実体験の示唆・定型結びの反復を修正済み。rating/specを裏づけ無しに出しておらず、Amazonレビューも不使用。独自分析（評価が分かれる理由）はあるがやや簡潔で、template_avoidanceは平均的評価に留まる。"
    }
+  },
+  "health": {
+   "checked": "2026-09-19",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%83%8A%E3%82%AB%E3%83%90%E3%83%A4%E3%82%B7%20%E3%83%9F%E3%83%A8%E3%82%B7%E7%BD%AE%E3%81%8F%E3%81%A0%E3%81%91%E3%83%8E%E3%83%BC%E3%83%88PC%E7%94%A8%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%89%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20NS-06BK%201%E7%B5%84&i=aps"
+   ]
   }
  },
  {
@@ -4816,10 +4858,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/secupcs/cabinet/1st-img/red/db74.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E7%A9%B4%E3%81%82%E3%81%91%E4%B8%8D%E8%A6%81%20%E3%81%8B%E3%82%93%E3%81%9F%E3%82%93%E8%A8%AD%E7%BD%AE%20%E9%98%B2%E7%8A%AF%E3%82%AB%E3%83%A1%E3%83%A9%20%E3%82%BD%E3%83%BC%E3%83%A9%E3%83%BC%E5%AF%BE%E5%BF%9C%20%E5%B7%A5%E4%BA%8B%E4%B8%8D%E8%A6%81%20%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%AC%E3%82%B9%20%E7%84%A1%E7%B7%9A%20%E5%B1%8B%E5%A4%96%20%E5%AE%B6%E5%BA%AD%E7%94%A8%20%E9%9B%BB%E6%BA%90%E4%B8%8D%E8%A6%81%20%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%20%E5%85%85%E9%9B%BB%E5%BC%8F%20%E3%82%BD%E3%83%BC%E3%83%A9%E3%83%BC%E3%83%91%E3%83%8D%E3%83%AB%20%E5%A4%9C%E9%96%93%E3%82%AB%E3%83%A9%E3%83%BC%20%E4%BC%9A%E8%A9%B1%20%E3%82%B9%E3%83%9E%E3%83%9B%20%E9%81%A0%E9%9A%94%E7%9B%A3%E8%A6%96%20%E9%8C%B2%E7%94%BB%20%E4%BA%BA%E4%BD%93%E6%A4%9C%E7%9F%A5%20%E5%B8%B8%E6%99%82%E9%8C%B2%E7%94%BB%20%E9%9B%A8%E3%81%A9%E3%81%84%20%E3%83%9D%E3%83%BC%E3%83%AB%20%E8%A8%AD%E7%BD%AE%20%E3%81%86%E3%81%AD%E3%81%86%E3%81%AD%E3%81%8F%E3%82%93%20DB74%20SecuSTATION%20%E3%82%BB%E3%82%AD%E3%83%A5%E3%82%AC%E3%83%BC%E3%83%89&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -5058,10 +5097,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/roomy/cabinet/500cart_all/500cart_11g/p10n-4/ide2006-kx027-1_gt01.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E5%9C%A8%E5%BA%AB%E9%99%90%E3%82%8A%202%E5%A4%A7%E7%89%B9%E5%85%B8%E4%BB%98%E3%81%8D%20BRUNO%20%E3%83%96%E3%83%AB%E3%83%BC%E3%83%8E%20%E6%B7%B1%E9%8D%8B%E3%82%BB%E3%83%83%E3%83%88%20%E3%82%AB%E3%83%A9%E3%83%BC%20%E3%83%9B%E3%83%83%E3%83%88%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%20%E9%8D%8B%20%E6%B7%B1%E9%8D%8B%20%E3%81%9F%E3%81%93%E7%84%BC%E3%81%8D%E5%99%A8%20%E7%84%BC%E8%82%89%20%E7%84%BC%E3%81%8D%E8%82%89%20%E3%81%9F%E3%81%93%E7%84%BC%E3%81%8D%20%E3%81%8A%E9%8D%8B%20%E3%81%AA%E3%81%B9%20%E3%81%8A%E5%A5%BD%E3%81%BF%E7%84%BC%E3%81%8D%20%E3%81%9F%E3%81%93%E7%84%BC%E3%81%8D%E6%A9%9F%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20BOE021%20%E3%83%AC%E3%82%B7%E3%83%94%20%EF%BC%BB%20BRUNO%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%E3%83%9B%E3%83%83%E3%83%88%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%20%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%83%E3%82%AF%E3%82%B3%E3%83%BC%E3%83%88%E9%8D%8B%20%E3%82%BB%E3%83%83%E3%83%88%20%EF%BC%BD&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -5284,10 +5320,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/upc1114/cabinet/10717283/10717549/imgrc0120486871.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E6%8A%95%E7%A8%BF%20MS%20Office%202024%20H%26B%20%E6%90%AD%E8%BC%89%20%E4%B8%AD%E5%8F%A4%E3%83%8E%E3%83%BC%E3%83%88%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20Windows11%20Core%20i5%20%E7%AC%AC8%E4%B8%96%E4%BB%A3%20%E3%83%A1%E3%83%A2%E3%83%AA%208GB%20SSD%20256GB%20FHD%201%2C920%C3%971%2C080%20WEB%E3%82%AB%E3%83%A1%E3%83%A9%20%E3%83%86%E3%83%B3%E3%82%AD%E3%83%BC%20DVD%20%E6%90%AD%E8%BC%89%20%E5%BA%97%E9%95%B7%E5%8E%B3%E9%81%B8%20Dynabook%2015.6%E5%9E%8B%20Bluetooth%20HDMI%20Wi-Fi%20%E4%B8%AD%E5%8F%A4%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E4%B8%AD%E5%8F%A4PC%20Office%E4%BB%98%E3%81%8D&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -9978,7 +10011,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   }
  },
  {
@@ -10229,7 +10262,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   }
  },
  {
@@ -10999,10 +11032,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E8%A3%8F%E8%B5%B7%E6%AF%9B%20%E3%83%88%E3%83%83%E3%83%97%E3%82%B9%20%E3%83%AC%E3%83%87%E3%82%A3%E3%83%BC%E3%82%B9%20%E6%9A%96%E3%81%8B%20%E8%A3%8F%E8%B5%B7%E6%AF%9B%E3%82%AB%E3%83%83%E3%83%88%E3%82%BD%E3%83%BC%20%E3%82%BF%E3%83%BC%E3%83%88%E3%83%AB%E3%83%8D%E3%83%83%E3%82%AF%20U%E3%83%8D%E3%83%83%E3%82%AF%20V%E3%83%8D%E3%83%83%E3%82%AF%202way%20%E3%83%AD%E3%83%B3t%20t%E3%82%B7%E3%83%A3%E3%83%84%20%E3%82%A4%E3%83%B3%E3%83%8A%E3%83%BC%20%E3%82%AB%E3%83%83%E3%83%88%E3%82%BD%E3%83%BC%20%E3%83%92%E3%83%BC%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%20%E9%95%B7%E8%A2%96%20%E3%83%8F%E3%82%A4%E3%83%8D%E3%83%83%E3%82%AF%20T%E3%82%B7%E3%83%A3%E3%83%84&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -11307,10 +11337,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%83%AC%E3%82%B9%E3%83%86%E3%83%A2%20%E7%BE%8E%E7%99%BD%20%E3%82%B2%E3%83%AB%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%20%E3%82%B7%E3%83%AB%E3%82%AF%E5%A7%89%E6%84%9B%E7%94%A8%20500g%E3%83%9C%E3%83%88%E3%83%AB%E4%BB%98%20%E3%82%AA%E3%83%BC%E3%83%AB%E3%82%A4%E3%83%B3%E3%83%AF%E3%83%B3%20%E3%82%AA%E3%83%BC%E3%83%AB%E3%82%A4%E3%83%B3%E3%83%AF%E3%83%B3%E3%82%B8%E3%82%A7%E3%83%AB%20%E3%83%9D%E3%83%B3%E3%83%97%20%E3%82%AA%E3%83%BC%E3%83%AB%E3%82%A4%E3%83%B3%E3%83%AF%E3%83%B3%E3%82%B2%E3%83%AB%20%E7%BE%8E%E7%99%BD%E3%82%B2%E3%83%AB%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%20%E3%82%B2%E3%83%AB%20%E5%8C%96%E7%B2%A7%E6%B0%B4%20%E4%B9%B3%E6%B6%B2%20%E7%BE%8E%E5%AE%B9%E6%B6%B2%20%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%20%E5%8C%96%E7%B2%A7%E4%B8%8B%E5%9C%B0%20%E3%82%B7%E3%83%9F%20%E4%B9%BE%E7%87%A5%E8%82%8C%20%E4%BD%8E%E5%88%BA%E6%BF%80%20%E4%BF%9D%E6%B9%BF%20%E3%81%97%E3%81%BF%20%E6%95%8F%E6%84%9F%E8%82%8C%20%E3%82%B9%E3%82%AD%E3%83%B3%E3%82%B1%E3%82%A2%20%E5%B0%8F%E3%81%98%E3%82%8F&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -11621,10 +11648,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%82%AA%E3%83%BC%E3%83%AB%E3%82%A4%E3%83%B3%E3%83%AF%E3%83%B3%20%E7%BE%8E%E7%99%BD%20%E3%82%B2%E3%83%AB%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%20%E8%A9%B0%E3%82%81%E6%9B%BF%E3%81%88%20500g%20%E3%83%AC%E3%82%B9%E3%83%86%E3%83%A2%20%E3%82%AA%E3%83%BC%E3%83%AB%E3%82%A4%E3%83%B3%E3%83%AF%E3%83%B3%E3%82%B8%E3%82%A7%E3%83%AB%20%E3%82%AA%E3%83%BC%E3%83%AB%E3%82%A4%E3%83%B3%E3%83%AF%E3%83%B3%E3%82%B2%E3%83%AB%20%E7%BE%8E%E5%AE%B9%E6%B6%B2%20%E5%8C%96%E7%B2%A7%E6%B0%B4%20%E4%B9%B3%E6%B6%B2%20%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%20%E5%8C%96%E7%B2%A7%E4%B8%8B%E5%9C%B0%20%E3%81%AB%20%E3%82%B7%E3%83%9F%20%E4%B9%BE%E7%87%A5%E8%82%8C%20%E4%BF%9D%E6%B9%BF%20%E6%95%8F%E6%84%9F%E8%82%8C%20%E5%AF%BE%E7%AD%96%E3%81%AE%20%E7%BE%8E%E7%99%BD%E3%82%B2%E3%83%AB%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%20%E3%82%B9%E3%82%AD%E3%83%B3%E3%82%B1%E3%82%A2%20%E3%82%B8%E3%82%A7%E3%83%AB%20%E3%81%B3%E3%81%AF%E3%81%8F%20%E3%81%97%E3%81%BF%20%E5%B0%8F%E3%81%98%E3%82%8F&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -11913,10 +11937,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=TIMESALE%20980%E5%86%86%E3%80%9C%20%E6%A5%BD%E5%A4%A9%20%E2%98%85%E3%83%86%E3%83%AC%E3%83%93%E7%B4%B9%E4%BB%8B%20%E3%83%8F%E3%83%B3%E3%83%87%E3%82%A3%E3%83%95%E3%82%A1%E3%83%B3%20%E5%86%B7%E5%8D%B4%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%20120%E6%AE%B5%E9%9A%8E%20%E6%90%BA%E5%B8%AF%E6%89%87%E9%A2%A8%E6%A9%9F%205000mAh%203200mAh%20%E3%82%AF%E3%83%BC%E3%83%A9%E3%83%BC%20%E5%86%B7%E5%8D%B4%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%20%E5%BC%B7%E9%A2%A8%20%E5%86%B7%E5%8D%B4%E3%83%A2%E3%83%BC%E3%83%89%20%E6%89%87%E9%A2%A8%E6%A9%9F%20%E5%8D%93%E4%B8%8A%20%E5%B0%8F%E5%9E%8B%E6%89%87%E9%A2%A8%E6%A9%9F%20%E3%83%8F%E3%83%B3%E3%83%87%E3%82%A3%E6%89%87%E9%A2%A8%E6%A9%9F%20%E6%89%8B%E6%8C%81%E3%81%A1%E6%89%87%E9%A2%A8%E6%A9%9F%20%E8%85%B0%E6%8E%9B%E3%81%91%E6%89%87%E9%A2%A8%E6%A9%9F%20usb%E5%85%85%E9%9B%BB%E5%BC%8F%20%E6%89%87%E9%A2%A8%E6%A9%9F%20usb%20%E3%83%8D%E3%83%83%E3%82%AF%E3%82%AF%E3%83%BC%E3%83%A9%E3%83%BC&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -12219,10 +12240,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E5%90%B8%E5%8F%8E%C3%97W%E6%B6%88%E8%87%AD%20Famy%20%E3%83%9A%E3%83%83%E3%83%88%E3%82%B7%E3%83%BC%E3%83%84%20%E3%83%95%E3%82%A1%E3%83%9F%E3%83%BC%20JPPMA%E8%AA%8D%E8%A8%BC%20%E3%81%86%E3%81%99%E5%9E%8B%20%E8%96%84%E5%9E%8B%201%E5%9B%9E%E4%BD%BF%E3%81%84%E5%88%87%E3%82%8A%20%E3%83%AC%E3%82%AE%E3%83%A5%E3%83%A9%E3%83%BC%20800%E6%9E%9A%20%E3%83%AF%E3%82%A4%E3%83%89%20400%E6%9E%9A%20%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%83%AF%E3%82%A4%E3%83%89%20204%E6%9E%9A%20%E5%8E%9A%E5%9E%8B%203%E5%9B%9E%E5%90%B8%E5%8F%8E%20%E3%83%AC%E3%82%AE%E3%83%A5%E3%83%A9%E3%83%BC%20400%E6%9E%9A%20%E3%83%AF%E3%82%A4%E3%83%89%20200%E6%9E%9A%20%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%83%AF%E3%82%A4%E3%83%89%20104%E6%9E%9A%20%E3%83%9A%E3%83%83%E3%83%88%E3%82%B7%E3%83%BC%E3%83%88%20%E3%83%88%E3%82%A4%E3%83%AC%E3%82%B7%E3%83%BC%E3%83%88%20%E7%8A%AC%20%E7%8C%AB%20W%E6%B6%88%E8%87%AD%20%E9%81%B8%E3%81%B9%E3%82%8B6%E7%A8%AE%E9%A1%9E&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -13040,10 +13058,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=2560%E5%86%86%20%E5%9B%BD%E7%94%A3%20%E3%83%AC%E3%82%B9%E3%83%86%E3%83%A2%20%E3%82%B7%E3%83%AB%E3%82%AF%E5%A7%89%E3%81%95%E3%82%93%E6%84%9B%E7%94%A8%20%E7%BE%8E%E7%99%BD%20BB%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%2035g%20%E3%83%A1%E3%83%A9%E3%83%8B%E3%83%B3%E3%81%AB%E3%82%88%E3%82%8B%20%E3%82%B7%E3%83%9F%20%E3%81%9D%E3%81%B0%E3%81%8B%E3%81%99%20%E3%82%92%E9%98%B2%E3%81%8E%2030%E7%A7%92%E3%81%A7%20%E3%81%97%E3%81%BF%20%E3%82%B7%E3%83%AF%20%E3%82%92%E9%9A%A0%E3%81%99%20%E3%82%AB%E3%83%90%E3%83%BC%E5%8A%9B%20%E3%83%95%E3%82%A1%E3%83%B3%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%20%E3%83%AA%E3%82%AD%E3%83%83%E3%83%89%E3%83%95%E3%82%A1%E3%83%B3%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%20%E7%BE%8E%E7%99%BDBB%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%20%E6%97%A5%E7%84%BC%E3%81%91%E6%AD%A2%E3%82%81%20uv%20%E7%99%BD%E6%B5%AE%E3%81%8D%E3%81%97%E3%81%AA%E3%81%84%20%E5%8C%96%E7%B2%A7%E4%B8%8B%E5%9C%B0%20%E3%81%97%E3%82%8F%20%E3%83%8E%E3%83%B3%E3%82%B1%E3%83%9F%E3%82%AB%E3%83%AB&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -13320,10 +13335,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%83%9E%E3%83%83%E3%83%88%E3%83%AC%E3%82%B9%20%E9%AB%98%E5%8F%8D%E7%99%BA%20%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%20%E4%B8%89%E3%81%A4%E6%8A%98%E3%82%8A%E3%83%9E%E3%83%83%E3%83%88%E3%83%AC%E3%82%B9%20%E6%95%B7%E5%B8%83%E5%9B%A3%20%E6%95%B7%E3%81%8D%E5%B8%83%E5%9B%A3%20%E4%B8%89%E3%81%A4%E6%8A%98%E3%82%8A%20%E9%AB%98%E5%8F%8D%E7%99%BA%E3%83%9E%E3%83%83%E3%83%88%E3%83%AC%E3%82%B9%20%E3%82%BB%E3%83%9F%E3%83%80%E3%83%96%E3%83%AB%20%E3%83%80%E3%83%96%E3%83%AB%20%E6%A5%B5%E5%8E%9A10cm%203%E3%81%A4%E6%8A%98%E3%82%8A%20%E6%B6%88%E8%87%AD%20%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E7%94%9F%E5%9C%B0%20%E3%83%99%E3%83%83%E3%83%89%E3%83%9E%E3%83%83%E3%83%88%E3%83%AC%E3%82%B9%20%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%E3%83%9E%E3%83%83%E3%83%88%E3%83%AC%E3%82%B9%20%E3%82%BB%E3%83%9F%E3%83%80%E3%83%96%E3%83%AB%E3%83%9E%E3%83%83%E3%83%88%E3%83%AC%E3%82%B9&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -18493,7 +18505,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   }
  },
  {
@@ -18764,7 +18776,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   }
  },
  {
@@ -19010,7 +19022,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   }
  },
  {
@@ -19298,7 +19310,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   }
  },
  {
@@ -22732,10 +22744,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-15",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%83%98%E3%82%A2%E3%82%A2%E3%82%A4%E3%83%AD%E3%83%B3%20SALONIA%20%E3%82%B5%E3%83%AD%E3%83%8B%E3%82%A2%20%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%83%88%E3%82%A2%E3%82%A4%E3%83%AD%E3%83%B3%20%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%83%88%20%E3%82%A2%E3%82%A4%E3%83%AD%E3%83%B3%20%E3%82%B3%E3%83%86%2015mm%2024mm%2035mm%20%E5%AE%B6%E9%9B%BB&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -23007,10 +23016,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-15",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=4904785814646&i=aps"
-   ]
+   "checked": "2026-09-19"
   },
   "review_stats": {
    "yahoo": {
@@ -23823,10 +23829,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/low-ya/cabinet/img4/zaisu/vg-pola_01_.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-15",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=9%204%2020%3A00-9%2011%201%3A59%20%E5%BA%A7%E6%A4%85%E5%AD%90%2042%E6%AE%B5%E3%82%AE%E3%82%A2%E6%90%AD%E8%BC%89%20%E2%98%85%201%E5%84%84%E5%86%86%E5%BA%A7%E6%A4%85%E5%AD%90%20%E4%BD%8E%E5%8F%8D%E7%99%BA%20%E3%83%AA%E3%82%AF%E3%83%A9%E3%82%A4%E3%83%8B%E3%83%B3%E3%82%B0%20%E3%83%81%E3%82%A7%E3%82%A2%20%E6%A4%85%E5%AD%90%20%E3%83%8F%E3%82%A4%E3%83%90%E3%83%83%E3%82%AF%201%E4%BA%BA%E6%8E%9B%E3%81%91%20%E4%B8%80%E4%BA%BA%20%E3%82%BD%E3%83%95%E3%82%A1%20%E3%83%AD%E3%83%BC%E3%82%BD%E3%83%95%E3%82%A1%20%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E8%BB%BD%E9%87%8F%20%E4%B8%80%E4%BA%BA%E6%9A%AE%E3%82%89%E3%81%97%20%E3%81%8B%E3%82%8F%E3%81%84%E3%81%84%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%81%93%E3%81%9F%E3%81%A4%20%E3%83%86%E3%83%AC%E3%83%AF%E3%83%BC%E3%82%AF&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -24045,10 +24048,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/attenir/cabinet/thum/166013_main_2608-2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-15",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=9%E6%9C%884%E6%97%A520%3A00%E3%80%9C9%E6%9C%8811%E6%97%A51%3A59%20%E3%82%B9%E3%82%AD%E3%83%B3%E3%82%AF%E3%83%AA%E3%82%A2%20%E3%82%AF%E3%83%AC%E3%83%B3%E3%82%BA%20%E3%82%AA%E3%82%A4%E3%83%AB%20350mL%20%E3%83%9C%E3%83%88%E3%83%AB%20%E3%81%A4%E3%82%81%E3%81%8B%E3%81%88%E7%94%A8%20%E3%82%AF%E3%83%AC%E3%83%B3%E3%82%B8%E3%83%B3%E3%82%B0%20%E3%82%AF%E3%83%AC%E3%83%B3%E3%82%B8%E3%83%B3%E3%82%B0%E3%82%AA%E3%82%A4%E3%83%AB%20%E3%83%A1%E3%82%A4%E3%82%AF%E8%90%BD%E3%81%A8%E3%81%97%20%E6%AF%9B%E7%A9%B4%20%E3%81%8F%E3%81%99%E3%81%BF%20%E3%82%A8%E3%82%A4%E3%82%B8%E3%83%B3%E3%82%B0%E3%82%B1%E3%82%A2%20%E6%B4%97%E9%A1%94%20%E8%A7%92%E6%A0%93%20%E8%A7%92%E8%B3%AA%20%E7%9A%AE%E8%84%82%20%E8%A9%B0%E3%82%81%E6%9B%BF%E3%81%88%20%E3%83%80%E3%83%96%E3%83%AB%E6%B4%97%E9%A1%94%E4%B8%8D%E8%A6%81%20%E3%82%A2%E3%83%86%E3%83%8B%E3%82%A2&i=aps"
-   ]
+   "checked": "2026-09-19"
   }
  },
  {
@@ -25321,7 +25321,7 @@
   },
   "image_prompt": "A photograph of グンゼ AGW112, which is a 靴下, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   }
  },
  {
@@ -29620,7 +29620,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/logicool/4943765058380.html",
   "jan": "4943765058380",
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   },
   "good_for": {
    "intro": "次のような環境・使い方の人には、この構成が素直に効きます。",
@@ -30267,7 +30267,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/switchbot/w3202100.html",
   "jan": "0850046603174",
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   },
   "good_for": {
    "intro": "次のどれかに当てはまるなら、ハブ2の機能が余らずに使い切れます。",
@@ -31215,7 +31215,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/e-alamode/27-3910.html",
   "jan": "4903208044882",
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   },
   "good_for": {
    "intro": "この製品が力を発揮するのは、床面積のほうが天井高より貴重な部屋です。",
@@ -31442,7 +31442,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   },
   "good_for": {
    "intro": "モノベースでは、DCモーター扇風機への買い替えは次のような人に向くと評価します。",
@@ -31646,7 +31646,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   },
   "good_for": {
    "intro": "34インチウルトラワイドが向くのは、画面の広さを「同時に見る枚数」に変換できる使い方をしている人です。",
@@ -31938,7 +31938,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/dji-store/6941565991430.html",
   "jan": "6941565991430",
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-19"
   },
   "good_for": {
    "intro": "次のような使い方・環境なら、Mic Mini の軽さと運用のシンプルさがそのまま効きます。",
@@ -33952,7 +33952,7 @@
   "updated": "2026-09-18",
   "kind": "review",
   "health": {
-   "checked": "2026-09-15"
+   "checked": "2026-09-19"
   },
   "official_url": "https://www.fujiboeki.jp/products/86078/",
   "facts": [
@@ -34704,7 +34704,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-15"
+   "checked": "2026-09-19"
   }
  },
  {
@@ -34904,7 +34904,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-15"
+   "checked": "2026-09-19"
   }
  },
  {
@@ -35106,7 +35106,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-15"
+   "checked": "2026-09-19"
   }
  },
  {
@@ -35313,7 +35313,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-15"
+   "checked": "2026-09-19"
   }
  },
  {
@@ -35513,7 +35513,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-15"
+   "checked": "2026-09-19"
   }
  }
 ]
