@@ -65,6 +65,22 @@ def run_days(n):
     return sorted({round(i * 7 / n) % 7 for i in range(n)})
 
 
+def published_today(today):
+    """今日の日付で公開できている記事の本数。
+
+       枠を何回まわしたかではなく、実際に掲載できた本数を数える。
+       本文が書けても校閲で破棄されれば記事は articles.json から
+       消えるので、ここには出てこない＝残りとして数え直される。"""
+    path = os.path.join(ROOT, "content", "articles.json")
+    try:
+        arts = json.load(io.open(path, encoding="utf-8"))
+    except (OSError, ValueError):
+        return 0
+    stamp = today.isoformat()
+    return sum(1 for a in arts
+               if a.get("published") and str(a.get("date", "")) == stamp)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--force", action="store_true",
@@ -89,17 +105,27 @@ def main():
     # 管理画面でオフにしたつもりが裏で動いていた、という状態を作らないため。
     is_run_day = enabled and (args.force or today.weekday() in days)
 
-    # 1日の合計本数を BATCH_SIZE 本ずつに割り、何回目の枠かで
-    # 今回作る本数を決める。枠が余っている（総本数を使い切っている）
-    # ときは、その回は何もしない。
+    # 今回作る本数は「今日まだ公開できていない本数」から決める。
+    #
+    # 以前は「何回目の枠か × BATCH_SIZE」で機械的に割り振っていたが、
+    # それだと前の枠が0本で終わっても取り返せなかった。実際
+    # 2026-09-18〜19は、候補がすべて校閲で破棄されて0本のまま
+    # 枠だけが消化され、その日の掲載が0本で終わっていた。
+    #
+    # 実際に公開できた本数を数えて残りを出せば、空振りした枠の分は
+    # そのまま次の枠（5時間後）に繰り越され、指定本数に届くまで
+    # 自動で作り直される。全部うまくいった日の挙動は今までと同じ。
     import math
     batches = max(1, math.ceil(total / BATCH_SIZE))
     try:
         slot = SCHEDULE_SLOTS.index(args.schedule) if args.schedule else 0
     except ValueError:
         slot = 0  # 知らない cron 式（手動実行など）は1回目扱い
-    run = is_run_day and slot < batches
-    count = min(BATCH_SIZE, total - slot * BATCH_SIZE) if run else 0
+
+    done = published_today(today)
+    remaining = max(0, total - done)
+    run = is_run_day and remaining > 0
+    count = min(BATCH_SIZE, remaining) if run else 0
 
     names = "月火水木金土日"
     print(f"週 {n} 回（{'・'.join(names[d] for d in days)}）/ 1日合計 {total} 本"
@@ -111,9 +137,11 @@ def main():
     elif not is_run_day:
         print(f"今日は {names[today.weekday()]}曜日 → 実行しません")
     elif not run:
-        print(f"{slot + 1}回目の枠ですが、今日の分は前の枠で作り切っています → 実行しません")
+        print(f"{slot + 1}回目の枠ですが、今日はすでに {done} 本"
+              f"（目標 {total} 本）公開済みです → 実行しません")
     else:
-        print(f"今日は {names[today.weekday()]}曜日、{slot + 1}回目の枠 → {count} 本作ります")
+        print(f"今日は {names[today.weekday()]}曜日、{slot + 1}回目の枠 / "
+              f"今日の公開 {done} 本・残り {remaining} 本 → {count} 本作ります")
 
     out = os.environ.get("GITHUB_OUTPUT")
     if out:

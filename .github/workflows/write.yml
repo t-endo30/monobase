@@ -166,8 +166,18 @@ jobs:
           TRIED=0
           : > /tmp/write.log
           # タイムアウトで打ち切られたときも 0 を記録として残す
-          # （最後まで走れば下の行が上書きする）。
+          # （以降、1ラウンド終わるごとに書き直す。GITHUB_OUTPUT は
+          # 追記式で最後の行が採られるため、途中で打ち切られても
+          # 「そこまでに書けた本数」が残る）。
           echo "have=0" >> "$GITHUB_OUTPUT"
+
+          # このステップの持ち時間は timeout-minutes: 80。1本書くのに
+          # 3〜5分、校閲まで含めると1ラウンド10〜13分かかるので、
+          # 残り時間が足りないのに次のラウンドを始めると、書き上げた
+          # 分の校閲・公開まで行けずに打ち切られる。残り時間を見て、
+          # 1ラウンド分（余裕を見て18分）取れないなら始めない。
+          STARTED=$(date +%s)
+          DEADLINE=$((80 - 18))
 
           have() {
             python3 -c "import json; arts = json.load(open('content/articles.json', encoding='utf-8')); print(sum(1 for a in arts if not a.get('published') and isinstance(a.get('reviewed'), dict)))"
@@ -184,6 +194,12 @@ jobs:
             fi
             if [ "$TRIED" -ge "$MAX_TRIES" ]; then
               echo "候補を $MAX_TRIES 件試しても届きませんでした。今回はここまでにします。" \
+                | tee -a /tmp/write.log
+              break
+            fi
+            ELAPSED=$(( ($(date +%s) - STARTED) / 60 ))
+            if [ "$ELAPSED" -ge "$DEADLINE" ]; then
+              echo "開始から $ELAPSED 分。次のラウンドを終える時間が無いので、ここまでにします（残りは次の枠で作ります）。" \
                 | tee -a /tmp/write.log
               break
             fi
@@ -213,6 +229,7 @@ jobs:
                 | tee -a /tmp/write.log
               break
             fi
+            echo "have=$(have)" >> "$GITHUB_OUTPUT"
           done
 
           echo "have=$(have)" >> "$GITHUB_OUTPUT"
