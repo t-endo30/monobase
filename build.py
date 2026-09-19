@@ -4112,10 +4112,42 @@ def static_pages():
     return out
 
 # ============================================================ 出力
+
+# サイト内リンクの href から .html を落とすための目印。
+# 外部URL（http/https）・mailto・プロトコル相対・アンカーだけのものは触らない。
+INTERNAL_HTML_HREF = re.compile(
+    r'href="(?!https?:|mailto:|tel:|//|#)([^"]*?)\.html((?:#|\?)[^"]*)?"')
+
+
+def clean_links(html):
+    """サイト内リンクを拡張子なしの正規URLに揃える。
+
+       worker.js は /foo.html を /foo へ恒久301で寄せている（canonical と
+       sitemap を拡張子なしの1本に統一するため）。ところが生成HTMLのリンクは
+       .html 付きのままだったので、Googlebot はサイト内を辿るたびに必ず301を
+       踏み、Search Console の「ページにリダイレクトがあります」が
+       いつまでも消えなかった（2026-09-17に修正リクエストが未解決で返った）。
+       リンク自体を最初から正規URLで出して、301を踏ませない。
+
+       出力するファイル名は .html のまま。変えるのはリンクの書き方だけ。"""
+    if not SITE.get("hosting", {}).get("clean_urls", True):
+        return html
+
+    def sub(m):
+        base, tail = m.group(1), m.group(2) or ""
+        if base.endswith("index") and (base == "index" or base.endswith("/index")):
+            base = base[: -len("index")] or "./"
+        return f'href="{base}{tail}"'
+
+    return INTERNAL_HTML_HREF.sub(sub, html)
+
+
 def write(path, content):
     d = os.path.dirname(path)
     if d:
         os.makedirs(d, exist_ok=True)
+    if path.endswith(".html"):
+        content = clean_links(content)
     io.open(path, "w", encoding="utf-8").write(content)
 
 LD_RE = re.compile(

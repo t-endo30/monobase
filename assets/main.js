@@ -353,7 +353,9 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 
   var article = document.querySelector('article.card-surface');
   if (article) {
-    var m = location.pathname.match(/articles\/([^/]+)\.html$/);
+    /* 正規URLは拡張子なし（/articles/slug）。.html 付きで開かれることも
+       あるので、どちらでもスラッグを取れるようにする。 */
+    var m = location.pathname.match(/articles\/([^/]+?)(?:\.html)?$/);
     if (m) {
       mine[m[1]] = (mine[m[1]] || 0) + 1;
       try { localStorage.setItem(VIEW_KEY, JSON.stringify(mine)); } catch (e) {}
