@@ -141,6 +141,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://monobase.site/category-pc-parts</loc>
+    <lastmod>2026-09-19</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/category-av-headphone</loc>
     <lastmod>2026-09-16</lastmod>
     <priority>0.6</priority>
@@ -229,6 +234,16 @@
     <loc>https://monobase.site/category-travel-luggage</loc>
     <lastmod>2026-09-13</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/thermal-grizzly-intel-cpu-lt-tg-cf-i1700-lt</loc>
+    <lastmod>2026-09-19</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/inspiron-14-5458-66wh-dell</loc>
+    <lastmod>2026-09-19</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://monobase.site/articles/windows10-pc-lifebook-a574-m-core</loc>

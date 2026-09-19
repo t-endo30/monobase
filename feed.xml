@@ -7,6 +7,22 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>サーマルグリズリー コンタクトフレームLT</title>
+    <link>https://monobase.site/articles/thermal-grizzly-intel-cpu-lt-tg-cf-i1700-lt</link>
+    <guid isPermaLink="true">https://monobase.site/articles/thermal-grizzly-intel-cpu-lt-tg-cf-i1700-lt</guid>
+    <description>LGA1700の反り対策パーツ、TG-CF-i1700-LTの特徴と確認点</description>
+    <category>パソコン</category>
+    <pubDate>Sat, 19 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>Dell Inspiron 14-5458 電池</title>
+    <link>https://monobase.site/articles/inspiron-14-5458-66wh-dell</link>
+    <guid isPermaLink="true">https://monobase.site/articles/inspiron-14-5458-66wh-dell</guid>
+    <description>純正バッテリー切れのInspiron 14-5458を延命。型番照合のコツと注意点</description>
+    <category>パソコン</category>
+    <pubDate>Sat, 19 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>富士通LIFEBOOK A574/M 中古PC</title>
     <link>https://monobase.site/articles/windows10-pc-lifebook-a574-m-core</link>
     <guid isPermaLink="true">https://monobase.site/articles/windows10-pc-lifebook-a574-m-core</guid>
@@ -149,22 +165,6 @@
     <description>Office同梱の中古Dynabookノート、向く人と確認すべき3点</description>
     <category>パソコン</category>
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>薄型ペットシーツ業務用ケース</title>
-    <link>https://monobase.site/articles/p10</link>
-    <guid isPermaLink="true">https://monobase.site/articles/p10</guid>
-    <description>レギュラー800枚など大容量ケースの選び方と購入前の注意点を解説。</description>
-    <category>ペット</category>
-    <pubDate>Tue, 15 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>おまかせ中古PC(Celeron)口コミ</title>
-    <link>https://monobase.site/articles/celeron-cpu-windows11-ssd-windows11-lan</link>
-    <guid isPermaLink="true">https://monobase.site/articles/celeron-cpu-windows11-ssd-windows11-lan</guid>
-    <description>第10世代Celeron搭載、Office付きのおまかせ中古PC。価格重視で選びたい人向けの口コミ解説。</description>
-    <category>パソコン</category>
-    <pubDate>Tue, 15 Sep 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
 </rss>
