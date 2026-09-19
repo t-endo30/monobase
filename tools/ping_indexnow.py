@@ -43,17 +43,65 @@ def public_url(base, path, clean):
     return u[:-len(".html")] if clean and u.endswith(".html") else u
 
 
+# 中身が変わっていなくても、ビルドのたびに書き換わる部分。
+# ここだけの違いは「更新」として通知しない。
+#   data-rank … GA4のアクセス数を全記事の <body> に焼き込んでいるため、
+#               ランキングを取り直すたびに全記事のHTMLが変わる。
+#   ?v=       … 静的ファイルのキャッシュ避けスタンプ。
+VOLATILE = (
+    (re.compile(r"data-rank='[^']*'"), "data-rank=''"),
+    (re.compile(r"\?v=[0-9a-zA-Z]+"), "?v="),
+)
+
+
+def _stable(text):
+    """毎回変わる部分を取り除いた中身。"""
+    for pat, rep in VOLATILE:
+        text = pat.sub(rep, text)
+    return text
+
+
+def _at(rev, path):
+    """あるコミット時点のファイルの中身（無ければ None）。"""
+    r = subprocess.run(["git", "show", f"{rev}:{path}"],
+                       cwd=ROOT, capture_output=True, text=True)
+    return r.stdout if r.returncode == 0 else None
+
+
 def changed_paths(rev):
-    """直前のコミットで変わったHTMLを拾う。
-       最初のコミットなど、比較先が無いときは空を返す。"""
+    """直前のコミットで中身が変わったHTMLを拾う。
+       最初のコミットなど、比較先が無いときは空を返す。
+
+       git の差分そのままでは使えない。全記事の <body> にアクセス数
+       （data-rank）を焼き込んでいるため、ランキングを取り直すだけで
+       126本ぜんぶが「変わった」ことになり、記事を1本出しただけで
+       全URLを IndexNow に送り直していた（2026-09-19に判明）。
+       毎回変わる部分を取り除いて突き合わせ、本当に中身が変わった
+       ものだけを返す。"""
     try:
         out = subprocess.run(
             ["git", "diff", "--name-only", "--diff-filter=ACMR", rev, "HEAD"],
             cwd=ROOT, capture_output=True, text=True, check=True).stdout
     except subprocess.CalledProcessError:
         return []
-    return [ln.strip() for ln in out.splitlines()
-            if ln.strip().endswith(".html")]
+    paths = [ln.strip() for ln in out.splitlines()
+             if ln.strip().endswith(".html")]
+
+    real, cosmetic = [], 0
+    for path in paths:
+        before, after = _at(rev, path), _at("HEAD", path)
+        # 新しく増えたページ（比較先が無い）は、そのまま通知する。
+        if before is None or after is None:
+            real.append(path)
+            continue
+        if _stable(before) == _stable(after):
+            cosmetic += 1
+            continue
+        real.append(path)
+    if cosmetic:
+        print(f"（アクセス数・キャッシュ避けの書き換えだけの {cosmetic} 件は"
+              "通知しません）")
+    return real
 
 
 def submit(endpoint, host, key, key_url, urls, dry):
