@@ -589,6 +589,15 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                 "rating": max(v["rating"] for v in shops.values()),
                 "price": min(v["price"] for v in shops.values()),
                 "image": e.get("image", ""),
+                # モールごとの商品写真。ここに入るのは「その _url が
+                # 指している商品そのもの」の写真で、検索し直して名前で
+                # 突き合わせたものではないため、別商品を掴む心配が無い。
+                # これを下書きに引き継げば、fetch_shop_images.py が
+                # 商品コード・JANで一意に特定できず写真を諦める記事でも、
+                # 一覧に実物写真を出せる（2026-09-19、型番のある商品が
+                # 「写真を特定できない」だけで破棄されていたため追加）。
+                "images": {k: v.get("image", "") for k, v in shops.items()
+                           if v.get("image")},
                 "rakuten_url": (shops.get("rakuten") or {}).get("url", ""),
                 "yahoo_url": (shops.get("yahoo") or {}).get("url", ""),
                 "amazon_url": "",       # PA-API承認後にここを埋める

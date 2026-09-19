@@ -192,6 +192,22 @@ def make_draft(c, site, taken):
             a[key] = c[key]
     if c.get("asin"):
         a["asin"] = c["asin"]
+    # 候補集めの時点で掴んでいる商品写真を引き継ぐ。これは商品名で
+    # 検索し直したものではなく、上で入れた _url が指している商品
+    # そのものの写真なので、別商品を掴む心配が無い。
+    #
+    # fetch_shop_images.py は、誤って別商品の写真を出す事故を避けるため
+    # 商品コード・JANで一意に決まらない限り検索結果を採らない。その
+    # 結果、型番のある実在ブランドの商品でも写真が最後まで空になり、
+    # 「写真を特定できない」という理由だけで校閲に破棄されていた
+    # （2026-09-19の実行で、破棄3本のうち2本がこれ）。先に手元の写真を
+    # 入れておけば、その取りこぼしが無くなる。
+    # 1記事につき1枚だけ持つ（fetch_shop_images.py と同じ決まり）。
+    for shop, key in (("rakuten", "rakuten_url"), ("yahoo", "yahoo_url")):
+        img = str((c.get("images") or {}).get(shop) or "").strip()
+        if img and a.get(key):
+            a["shop_images"] = {shop: img}
+            break
     # Amazonへの導線は必ず1本入れる。商品ページが分からないときは検索結果へ。
     if not (a.get("asin") or a.get("amazon_url")):
         a["amazon_url"] = amazon_search_url(name, c.get("jan"))
