@@ -7,6 +7,22 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>サンワサプライ ケーブルカバー10個</title>
+    <link>https://monobase.site/articles/ca-r70gyx10-dvi-hdmi-vga-dvd-usb</link>
+    <guid isPermaLink="true">https://monobase.site/articles/ca-r70gyx10-dvi-hdmi-vga-dvd-usb</guid>
+    <description>グレーのケーブルカバー1m×10本セット。デスク下や壁際の配線整理に使える構成と注意点を確認します。</description>
+    <category>パソコン</category>
+    <pubDate>Sat, 19 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>ASUS UX433FN 互換バッテリー選び方</title>
+    <link>https://monobase.site/articles/zenbook-ux433fn-a5021r-50wh-asus-pc</link>
+    <guid isPermaLink="true">https://monobase.site/articles/zenbook-ux433fn-a5021r-50wh-asus-pc</guid>
+    <description>ZenBook UX433FN-A5021R向け互換バッテリーの選び方と確認点をまとめました。</description>
+    <category>パソコン</category>
+    <pubDate>Sat, 19 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>丸山タオル ふわリッチ IMF-470</title>
     <link>https://monobase.site/articles/imf-470</link>
     <guid isPermaLink="true">https://monobase.site/articles/imf-470</guid>
@@ -149,22 +165,6 @@
     <description>スマホホルダー付きの入門三脚。耐荷重や雲台は購入前に要確認。</description>
     <category>カメラ</category>
     <pubDate>Thu, 17 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>リトポラ キッズカメラ 口コミ点検</title>
-    <link>https://monobase.site/articles/32gb</link>
-    <guid isPermaLink="true">https://monobase.site/articles/32gb</guid>
-    <description>32GBカード付きキッズカメラを口コミから点検。強みと注意点、選び方を整理。</description>
-    <category>カメラ</category>
-    <pubDate>Thu, 17 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>防犯カメラDB74 口コミ・レビュー</title>
-    <link>https://monobase.site/articles/db74-secustation</link>
-    <guid isPermaLink="true">https://monobase.site/articles/db74-secustation</guid>
-    <description>工事不要のソーラー防犯カメラDB74。設置方式と口コミから向き不向きを整理。</description>
-    <category>カメラ</category>
-    <pubDate>Wed, 16 Sep 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
 </rss>
