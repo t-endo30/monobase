@@ -220,6 +220,9 @@
     "total": 87,
     "notes": "紫シャンプーという一般カテゴリー知識の反復が多く、テンプレート回避（template_avoidance）と独自分析（original_analysis）がやや弱い。公式仕様が無いこと自体は減点していない。voices/voices_intro の空キー残置以外は事実の扱い・薬機法・ダークパターンの観点で問題なし。"
    }
+  },
+  "health": {
+   "checked": "2026-09-20"
   }
  },
  {
@@ -455,6 +458,9 @@
     "total": 89,
     "notes": "rating・specを裏づけ無く出さず適切に省いている点は減点しない。加筆はrelated目的の水増しではなく配布先の数え方・型番照合・交換発想の類推など具体的な判断材料を足した。"
    }
+  },
+  "health": {
+   "checked": "2026-09-20"
   }
  },
  {
@@ -654,6 +660,9 @@
     "total": 87,
     "notes": "断定を避けて「とされる」「可能性がある」を適切に使い分けており、rating/specも裏づけが無いため正しく省かれている。voicesも実データが無いため空のままにしており捏造なし。タッチ非対応機での紙感覚フィルムという独自視点はあるが、口コミ傾向など編集部分析をもう一段厚くできる余地はある。"
    }
+  },
+  "health": {
+   "checked": "2026-09-20"
   }
  },
  {
@@ -879,6 +888,9 @@
     "total": 88,
     "notes": "aside_labelの矛盾を修正済み。rating/specを裏づけ無しに出しておらず、口コミも無理に埋めていない点は評価できる一方、互換アクセサリー記事としての構成はやや定型的。"
    }
+  },
+  "health": {
+   "checked": "2026-09-20"
   }
  },
  {
@@ -1117,6 +1129,9 @@
     "total": 87,
     "notes": "FAQと結論部で「〜とみられます」の言い回しがやや繰り返され、テンプレート感がわずかに残る点で template_avoidance と original_analysis をやや抑えた。"
    }
+  },
+  "health": {
+   "checked": "2026-09-20"
   }
  },
  {
@@ -1324,6 +1339,9 @@
     "total": 89,
     "notes": "在庫僅少の煽り表現を修正済み。それ以外は一次情報が無いことを一貫して明示し、rating/specを裏づけ無く出す誤りも無い。独自分析（RAIDとバックアップの違い、実効容量、2.5GbEの前提条件）はあるが、NAS系レビューとしてはやや定型的な構成にとどまる。"
    }
+  },
+  "health": {
+   "checked": "2026-09-20"
   }
  },
  {
@@ -1543,6 +1561,9 @@
     "total": 90,
     "notes": "禁止語3件とvoicesの疑似口コミを修正・削除した後は、確認できない情報を明示的に区別しつつ具体的な分析ができている。voices除去で情報源の信頼性は保たれる。"
    }
+  },
+  "health": {
+   "checked": "2026-09-20"
   }
  },
  {
@@ -1762,6 +1783,9 @@
     "total": 88,
     "notes": "禁止語「必ず」を2か所修正済み。公式仕様が無いため rating/spec を最初から省いており、この振る舞いは正しいので減点していない。純正/互換の区別を軸にした独自の切り口があるが、分析の深さはやや平板。"
    }
+  },
+  "health": {
+   "checked": "2026-09-20"
   }
  },
  {
@@ -1981,6 +2005,9 @@
     "total": 89,
     "notes": "rating/specは公式仕様が無いため正しく省かれており、断定表現・ダークパターン・Amazon関連の抵触は見当たらない。independent analysis(1m×10本の構成読解、グレーの中間色分析)があり、事実と推測の書き分けも一貫している。template_avoidanceをやや抑えたのは、色・太さ・屋外対応など『確認できない』の列挙パターンが他の未確認仕様記事と構造的に似ているため。"
    }
+  },
+  "health": {
+   "checked": "2026-09-20"
   }
  },
  {
@@ -2201,6 +2228,9 @@
     "total": 89,
     "notes": "original_analysisは型番違いの互換性リスクとPSE確認の指摘に留まり、口コミとの食い違いなど当サイト独自の分析要素は薄め。template_avoidanceは注意喚起の構成がやや定型的。"
    }
+  },
+  "health": {
+   "checked": "2026-09-20"
   }
  },
  {
@@ -15815,10 +15845,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%AC%E3%82%B9%E3%82%A4%E3%83%A4%E3%83%9B%E3%83%B3%20%E5%AE%8C%E5%85%A8%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%AC%E3%82%B9%20Bluetooth5.3%20IPX7%E9%98%B2%E6%B0%B4%20%E8%87%AA%E5%8B%95%E3%83%9A%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0%20AAC%E3%82%B3%E3%83%BC%E3%83%87%E3%83%83%E3%82%AF%20%E3%83%8E%E3%82%A4%E3%82%BA%E3%82%AD%E3%83%A3%E3%83%B3%E3%82%BB%E3%83%AA%E3%83%B3%E3%82%B0%20120%E6%99%82%E9%96%93%E5%86%8D%E7%94%9F%202500mAh%E5%85%85%E9%9B%BB%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%BF%E3%83%83%E3%83%81%E6%93%8D%E4%BD%9C%20%E3%83%9E%E3%82%A4%E3%82%AF%E4%BB%98%E3%81%8D%20%E7%89%87%E8%80%B3%20%E4%B8%A1%E8%80%B3%20%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84%20%E9%80%9A%E5%8B%A4%20%E9%80%9A%E8%A9%B1%20%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E6%AE%8B%E9%87%8F%E8%A1%A8%E7%A4%BA%20iphone&i=aps"
-   ]
+   "checked": "2026-09-20"
   }
  },
  {
@@ -16079,10 +16106,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E2%97%86%E6%A5%BD%E5%A4%A9%E7%B7%8F%E5%90%88%20%E7%8D%B2%E5%BE%97%E2%97%86%E3%83%95%E3%83%BC%E3%83%89%E3%83%97%E3%83%AD%E3%82%BB%E3%83%83%E3%82%B5%E3%83%BC%20%E3%83%AC%E3%82%B3%E3%83%AB%E3%83%88%20%E3%82%B3%E3%83%BC%E3%83%89%E3%83%AC%E3%82%B9%20%E3%82%AB%E3%83%97%E3%82%BB%E3%83%AB%E3%82%AB%E3%83%83%E3%82%BF%E3%83%BC%E3%83%9C%E3%83%B3%E3%83%8C%20%E3%83%96%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%20%E3%83%9F%E3%82%AD%E3%82%B5%E3%83%BC%20recolte%20%E9%9B%BB%E5%8B%95%20%E5%A4%A7%E6%A0%B9%E3%81%8A%E3%82%8D%E3%81%97%20%E6%B0%B7%E3%82%82%E7%A0%95%E3%81%91%E3%82%8B%20%E5%B0%8F%E5%9E%8B%20%E3%83%95%E3%83%BC%E3%83%89%E3%82%AB%E3%83%83%E3%82%BF%E3%83%BC%20%E9%9B%A2%E4%B9%B3%E9%A3%9F%20%E3%82%B9%E3%83%A0%E3%83%BC%E3%82%B8%E3%83%BC%20%E5%85%85%E9%9B%BB%E5%BC%8F%20%E3%81%BF%E3%81%98%E3%82%93%E5%88%87%E3%82%8A%20%E6%B3%A1%E7%AB%8B%E3%81%A6%20%E3%82%AC%E3%83%A9%E3%82%B9%E5%AE%B9%E5%99%A8%20500ml%20RCP-7&i=aps"
-   ]
+   "checked": "2026-09-20"
   }
  },
  {
@@ -16379,10 +16403,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E8%84%9A%E4%BB%98%E3%81%8D%E3%83%9E%E3%83%83%E3%83%88%E3%83%AC%E3%82%B9%20%E3%83%99%E3%83%83%E3%83%89%20%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%E3%83%99%E3%83%83%E3%83%89%20%E3%83%AD%E3%83%BC%E3%83%AB%20%E8%84%9A%E4%BB%98%E3%81%8D%E3%83%9E%E3%83%83%E3%83%88%E3%83%AC%E3%82%B9%E3%83%99%E3%83%83%E3%83%89%20%E4%B8%80%E4%BD%93%E5%9E%8B%20%E4%BD%93%E5%9C%A7%E5%88%86%E6%95%A3%20%E3%82%BB%E3%83%9F%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%E3%83%99%E3%83%83%E3%83%89%20%E3%82%BB%E3%83%9F%E3%83%80%E3%83%96%E3%83%AB%E3%83%99%E3%83%83%E3%83%89%20%E3%83%80%E3%83%96%E3%83%AB%E3%83%99%E3%83%83%E3%83%89%20%E3%82%BB%E3%83%9F%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%20%E3%82%BB%E3%83%9F%E3%83%80%E3%83%96%E3%83%AB%20%E3%83%80%E3%83%96%E3%83%AB%20%E3%83%9C%E3%83%B3%E3%83%8D%E3%83%AB%E3%82%B3%E3%82%A4%E3%83%AB%20%E3%83%9E%E3%83%83%E3%83%88%E3%83%AC%E3%82%B9%20%E5%8E%9A%E3%81%9515cm&i=aps"
-   ]
+   "checked": "2026-09-20"
   }
  },
  {
@@ -16674,10 +16695,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E6%9C%AC%E6%97%A5%E5%85%A8%E5%93%81P5%E5%80%8D%20%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC14000%E4%BB%B6%E7%AA%81%E7%A0%B4%20%E5%B8%83%E5%9B%A36%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%20%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%20%E6%97%A5%E6%9C%AC%E8%A3%BD%20%E6%8E%9B%E3%81%91%E5%B8%83%E5%9B%A3%20%E6%95%B7%E3%81%8D%E5%B8%83%E5%9B%A3%20%E6%9E%95%20%E5%B8%83%E5%9B%A3%E3%82%AB%E3%83%90%E3%83%BC%20%E6%8A%97%E8%8F%8C%20%E9%98%B2%E8%87%AD%20%E9%98%B2%E3%83%80%E3%83%8B%20%E7%B5%84%E5%B8%83%E5%9B%A3%20%E5%B8%83%E5%9B%A3%E3%82%BB%E3%83%83%E3%83%88%20%E5%AF%9D%E5%85%B7%E3%82%BB%E3%83%83%E3%83%88%20%E6%8E%9B%E3%81%91%E6%95%B7%E3%81%8D%E6%9E%95%20%E3%82%A6%E3%83%AC%E3%82%BF%E3%83%B3%E5%85%A5%E3%82%8A%20%E3%83%80%E3%83%8B%E9%98%B2%E6%AD%A2%20%E9%98%B2%E3%83%80%E3%83%8B%E5%B8%83%E5%9B%A3%20%E6%8A%97%E8%8F%8C%E5%B8%83%E5%9B%A3%20%E6%97%A5%E6%9C%AC%E8%A3%BD%E5%B8%83%E5%9B%A3%20%E5%B8%83%E5%9B%A3%20%E3%81%B5%E3%81%A8%E3%82%93%20%E3%83%94%E3%83%AD%E3%83%BC%20%E5%AF%9D%E5%85%B7%20%E5%9B%BD%E7%94%A3%20%E6%9D%A5%E5%AE%A2%E7%94%A8&i=aps"
-   ]
+   "checked": "2026-09-20"
   }
  },
  {
@@ -16957,10 +16975,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E6%97%A5%E6%9C%AC%E8%A3%BD%20%E6%95%B7%E5%B8%83%E5%9B%A3%20%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%20%E6%A5%B5%E5%A4%AA9cm%E3%80%9C11cm%20%E8%B6%85%E6%A5%B5%E5%A4%AA13cm%E3%80%9C15cm%20%E4%BA%94%E5%B1%A4%E6%A7%8B%E9%80%A0%20%E6%A5%B5%E5%8E%9A%20%E8%85%B0%E3%81%AE%E8%B2%A0%E6%8B%85%E3%82%92%E8%BB%BD%E6%B8%9B%20%E3%83%9E%E3%83%83%E3%83%88%20%E9%AB%98%E5%8F%8D%E7%99%BA%20%E6%95%B7%E3%81%8D%E5%B8%83%E5%9B%A3%20%E9%98%B2%E3%83%80%E3%83%8B%20%E6%8A%97%E8%8F%8C%20%E9%98%B2%E8%87%AD%20%E6%B6%88%E8%87%AD%20%E3%83%97%E3%83%A9%E3%83%81%E3%83%8A%E7%B9%8A%E7%B6%AD%20%E3%83%99%E3%83%83%E3%83%89%20%E7%95%B3%20%E6%8A%98%E3%82%8A%E3%81%9F%E3%81%9F%E3%81%BF%20%E4%B8%89%E3%81%A4%E6%8A%98%E3%82%8A%20%E5%8F%8E%E7%B4%8D%20%E5%B0%91%E3%81%97%20%E7%A1%AC%E3%82%81%20%E8%BB%BD%E3%81%84%20%E8%85%B0%E7%97%9B%20%E8%82%A9%E3%81%93%E3%82%8A%20%E4%BD%93%E5%9C%A7%E5%88%86%E6%95%A3%20%E5%9B%BD%E7%94%A3%20GOKUBUTO&i=aps"
-   ]
+   "checked": "2026-09-20"
   }
  },
  {
@@ -20148,10 +20163,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E5%B8%83%E5%9B%A3%E3%82%BB%E3%83%83%E3%83%88%207%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%20%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%20%E4%B8%AD%E7%B6%BF%E5%A2%97%E9%87%8F1.6kg%20%E5%9B%BA%E7%B6%BF%E5%85%A5%E3%82%8A%20%E6%95%B7%E3%81%8D%E5%B8%83%E5%9B%A3%20%E6%8E%9B%E3%81%91%E5%B8%83%E5%9B%A3%20%E6%9E%95%20%E6%8E%9B%E3%81%91%E5%B8%83%E5%9B%A3%E3%82%AB%E3%83%90%E3%83%BC%20%E6%95%B7%E3%81%8D%E5%B8%83%E5%9B%A3%E3%82%AB%E3%83%90%E3%83%BC%20%E5%8F%8E%E7%B4%8D%E8%A2%8B%E4%BB%98%E3%81%8D%20%E6%8A%97%E8%8F%8C%20%E9%98%B2%E8%87%AD%20%E9%98%B2%E3%82%AB%E3%83%93%20%E5%B8%83%E5%9B%A3%20%E5%AF%9D%E5%85%B7%20%E5%B8%83%E5%9B%A37%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%20%E6%8E%9B%E6%95%B7%E3%82%BB%E3%83%83%E3%83%88%20%E5%AE%89%E5%BF%83%20%E6%B8%85%E6%BD%94%20A034&i=aps"
-   ]
+   "checked": "2026-09-20"
   }
  },
  {
@@ -20445,10 +20457,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E7%B4%843.8%E5%86%86%20%E6%9E%9A%EF%BD%9E%209%2014%208%3A59%E3%81%BE%E3%81%A7SALE%E4%BE%A1%E6%A0%BC%20%E8%B6%85%E8%96%84%E5%9E%8B%20%E3%83%9A%E3%83%83%E3%83%88%E3%82%B7%E3%83%BC%E3%83%84%20%E3%83%AC%E3%82%AE%E3%83%A5%E3%83%A9%E3%83%BC%201200%E6%9E%9A%20300%E6%9E%9A%C3%974%E8%A2%8B%20%E3%83%AF%E3%82%A4%E3%83%89%20600%E6%9E%9A%20150%E6%9E%9A%C3%974%E8%A2%8B%20%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%83%AF%E3%82%A4%E3%83%89%20300%E6%9E%9A%2075%C3%974%E8%A2%8B%20%E3%83%9A%E3%83%83%E3%83%88%E3%82%B7%E3%83%BC%E3%83%84%E5%B0%82%E9%96%80%E5%BA%97%20%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%83%97%E3%83%A9%E3%82%B9%20%E3%82%AA%E3%83%AA%E3%82%B8%E3%83%8A%E3%83%AB&i=aps"
-   ]
+   "checked": "2026-09-20"
   }
  },
  {
@@ -21733,7 +21742,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/shuuemura/cabinet/12824584/13204797/13525001/new.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   }
  },
  {
@@ -21994,7 +22003,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/angfa/cabinet/2025/item/1080_packsd_rakuten2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   }
  },
  {
@@ -26528,10 +26537,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luire/cabinet/plus04/mask26a-2_off50.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%83%91%E3%83%83%E3%82%AF%20%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%83%91%E3%83%83%E3%82%AF%20%E3%82%B7%E3%83%BC%E3%83%88%E3%83%9E%E3%82%B9%E3%82%AF%2070%E6%9E%9A%2035%E6%9E%9A%C3%972%20%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%83%9E%E3%82%B9%E3%82%AF%20%E9%A1%94%E3%83%91%E3%83%83%E3%82%AF%20%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B7%E3%83%A3%E3%83%AB%20%E7%84%A1%E9%A6%99%E6%96%99%20%E4%BF%9D%E6%B9%BF%20%E7%BE%8E%E5%AE%B9%E6%B6%B2%E3%83%9E%E3%82%B9%E3%82%AF%20%E9%87%91%E6%9C%A8%E7%8A%80%E3%81%AE%E9%A6%99%E3%82%8A%20%E3%82%AD%E3%83%B3%E3%83%A2%E3%82%AF%E3%82%BB%E3%82%A4%20%E6%97%A5%E6%9C%AC%E8%A3%BD%2035%E6%9E%9A%E5%85%A5%C3%972%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%20PLuS%20%E3%83%97%E3%83%AA%E3%83%A5%20%E3%83%97%E3%83%A9%E3%82%BB%E3%83%B3%E3%82%BF%20%E3%83%A2%E3%82%A4%E3%82%B9%E3%83%81%E3%83%A5%E3%82%A2%E3%83%9E%E3%82%B9%E3%82%AF%20ZZ&i=aps"
-   ]
+   "checked": "2026-09-20"
   }
  },
  {
@@ -26799,10 +26805,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/starfocus/cabinet/sm/rakuten_sale/ifd/ifd_15.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-16",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=SD%E3%82%AB%E3%83%BC%E3%83%89%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC%20iPhone17%20%E5%AF%BE%E5%BF%9C%201TB%20%E5%86%99%E7%9C%9F%20%E5%8B%95%E7%94%BB%20%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%20%E3%83%87%E3%83%BC%E3%82%BF%20%E7%A7%BB%E8%A1%8C%20%E4%BF%9D%E5%AD%98%20%E5%A4%96%E4%BB%98%E3%81%91%20USB%E3%83%A1%E3%83%A2%E3%83%AA%20%E5%B0%82%E7%94%A8%E3%82%A2%E3%83%97%E3%83%AA%E4%B8%8D%E8%A6%81%20%E3%82%B9%E3%83%9E%E3%83%9B%20Type-C%20Lightning%20%E3%83%A9%E3%82%A4%E3%83%88%E3%83%8B%E3%83%B3%E3%82%B0%20%E3%82%BF%E3%82%A4%E3%83%97C%20Android%20iPad%20%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%8F%96%E8%AA%AC%E4%BB%98%20%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A9%E3%83%BC%E3%82%AB%E3%82%B9%202025%E6%A5%BD%E5%A4%A9%E5%B9%B4%E9%96%93&i=aps"
-   ]
+   "checked": "2026-09-20"
   }
  },
  {
@@ -27283,7 +27286,7 @@
   },
   "image_prompt": "A photograph of Anker Prime Power Bank, which is a モバイルバッテリー, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-20"
   },
   "yahoo_url": "https://store.shopping.yahoo.co.jp/lifestyle-007/61439.html"
  },
@@ -27745,7 +27748,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-20"
   },
   "image_prompt": "A photograph of シック サロンプラス トーンアップ フェイススムーサー 替刃, which is a カミソリ, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "rakuten_url": "https://item.rakuten.co.jp/e-konekuto/4891228313807/",
@@ -28017,7 +28020,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "image_prompt": "A photograph of Vivcon キャリーケース 40L, which is a キャリーケース, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
  },
@@ -28297,7 +28300,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "official_url": "https://creerina.co.jp/items/airycurlmascara/",
   "facts": [
@@ -28580,7 +28583,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "official_url": "https://creerina.co.jp/items/powderyliquideyebrow/",
   "facts": [
@@ -28804,7 +28807,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "image_prompt": "A photograph of ポータブルシャワー, which is a シャワー, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
  },
@@ -29480,7 +29483,7 @@
    "質量・内なべの素材・保温／予約機能の詳細は、確認できた公式情報の範囲では未確認"
   ],
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "good_for": {
    "intro": "モノベースでは、次のような使い方をする人に噛み合う機種だと評価します。",
@@ -30103,7 +30106,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "good_for": {
    "intro": "コンセント式のLED投光器が向くのは、次のような条件がそろっている人です。",
@@ -30302,7 +30305,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "good_for": {
    "intro": "「どの方式が向くか」は、部屋と生活のパターンで決まります。次のどれかに当てはまるなら、対応する方式から探すと失敗しにくくなります。",
@@ -30497,7 +30500,7 @@
   ],
   "kind": "sale",
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "faq": [
    {
@@ -30761,7 +30764,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/synnex/e1r00wv.html",
   "jan": "0698833073829",
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "good_for": {
    "intro": "利用者の声の傾向と、この種のガススプリング式アームの構造から見て、次の条件に当てはまる人は満足側に入りやすいです。",
@@ -32148,7 +32151,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-20"
   },
   "good_for": {
    "intro": "利用者の声から読み取れる評価の傾向と、Kindle Paperwhite というジャンルの性質を突き合わせると、次のような人に向きます。",
@@ -32763,7 +32766,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-20"
   },
   "good_for": {
    "intro": "次のいずれかに当てはまる環境なら、このクラスを選ぶ理由がはっきりします。",
@@ -33084,7 +33087,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-16"
+   "checked": "2026-09-20"
   },
   "good_for": {
    "intro": "導光板シーリングライトが向くのは、明るさの数値より「光の質感」と「天井の見え方」に価値を感じる人だ。具体的にはこういう使い方の人が該当する。",
@@ -34473,7 +34476,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "good_for": {
    "intro": "次の条件に当てはまるなら、S360は素直に働きます。",
@@ -34766,7 +34769,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "good_for": {
    "intro": "次のような使い方・環境なら、この構成で目的を達成しやすいとモノベースは評価します。",
@@ -35001,7 +35004,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "good_for": {
    "intro": "ソーラー防犯カメラが向くのは、「電源を引けない場所を撮りたい」という条件が先にある人です。具体的にはこうした状況が当てはまります。",
@@ -35285,7 +35288,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "good_for": {
    "intro": "次のいずれかに当てはまるなら、角度調整フットレストは投資に見合います。",
@@ -35506,7 +35509,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-20"
   },
   "good_for": {
    "intro": "スチーム式は、次のような条件の人と噛み合います。",
