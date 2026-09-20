@@ -7,6 +7,22 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>ThinkPad T14s 保護3点セット</title>
+    <link>https://monobase.site/articles/lenovo-thinkpad-t14s-gen-pc</link>
+    <guid isPermaLink="true">https://monobase.site/articles/lenovo-thinkpad-t14s-gen-pc</guid>
+    <description>T14s Gen 6互換の保護3点セット、対応確認と選び方のポイント</description>
+    <category>パソコン</category>
+    <pubDate>Sun, 20 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>Eufy X8/X10対応ダストバッグ10枚</title>
+    <link>https://monobase.site/articles/eufy-x8-x10-omni</link>
+    <guid isPermaLink="true">https://monobase.site/articles/eufy-x8-x10-omni</guid>
+    <description>純正の紙パック代を抑えたい人向け。適合確認は自己判断が前提です。</description>
+    <category>家電</category>
+    <pubDate>Sun, 20 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>ミルボン カラーガジェット紫シャンプー</title>
     <link>https://monobase.site/articles/p10-milbon-color-gadget</link>
     <guid isPermaLink="true">https://monobase.site/articles/p10-milbon-color-gadget</guid>
@@ -149,22 +165,6 @@
     <description>体重2〜7kgの超小型犬向け低カロリー歯磨きガムの選び方と注意点。</description>
     <category>ペット</category>
     <pubDate>Fri, 18 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>タイガー KAE-G13N 口コミ</title>
-    <link>https://monobase.site/articles/kae-g13n</link>
-    <guid isPermaLink="true">https://monobase.site/articles/kae-g13n</guid>
-    <description>タイガー魔法瓶KAE-G13Nの特徴と購入前の確認点をまとめました。</description>
-    <category>キッチン</category>
-    <pubDate>Thu, 17 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>レコルト RSY-2 自動調理ポット</title>
-    <link>https://monobase.site/articles/rsy-2-recolte-3</link>
-    <guid isPermaLink="true">https://monobase.site/articles/rsy-2-recolte-3</guid>
-    <description>スープ・豆乳・離乳食に対応するレコルトRSY-2。購入前に確認したい項目を整理。</description>
-    <category>キッチン</category>
-    <pubDate>Thu, 17 Sep 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
 </rss>
