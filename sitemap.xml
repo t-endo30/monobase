@@ -101,22 +101,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://monobase.site/category-appliance-clean</loc>
-    <lastmod>2026-09-20</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-appliance-laundry</loc>
-    <lastmod>2026-09-14</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://monobase.site/category-appliance-light</loc>
-    <lastmod>2026-09-18</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-smartphone-charger</loc>
     <lastmod>2026-09-18</lastmod>
     <priority>0.6</priority>
   </url>
@@ -151,21 +136,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://monobase.site/category-av-headphone</loc>
-    <lastmod>2026-09-16</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-av-speaker</loc>
-    <lastmod>2026-09-17</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-av-mic</loc>
-    <lastmod>2026-08-31</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://monobase.site/category-camera-body</loc>
     <lastmod>2026-09-17</lastmod>
     <priority>0.6</priority>
@@ -183,11 +153,6 @@
   <url>
     <loc>https://monobase.site/category-beauty-makeup</loc>
     <lastmod>2026-09-16</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-beauty-device</loc>
-    <lastmod>2026-09-15</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -211,33 +176,13 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://monobase.site/category-furniture-chair</loc>
-    <lastmod>2026-09-18</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-furniture-shelf</loc>
-    <lastmod>2026-09-13</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://monobase.site/category-furniture-bed</loc>
-    <lastmod>2026-09-16</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-pet-dog</loc>
     <lastmod>2026-09-16</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-pet-care</loc>
     <lastmod>2026-09-18</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/category-travel-luggage</loc>
-    <lastmod>2026-09-13</lastmod>
     <priority>0.6</priority>
   </url>
   <url>

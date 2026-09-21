@@ -4316,7 +4316,10 @@ def main():
     # 載せないだけで、ページは今までどおり作られ、ヘッダーからも辿れる。
     # 検索エンジンが見に来ることも妨げない（noindex にはしない）。
     SITEMAP_MIN_MAIN = 1      # 大分類は1本でも載せる（サイトの骨格のため）
-    SITEMAP_MIN_SUB = 2       # 小分類は2本から
+    # 小分類は noindex にならない本数から。ずらすと「noindex なのに sitemap に
+    # 載っている」ページが生まれ、Search Console の登録リクエストが
+    # 「ライブテスト中に問題が見つかりました」で失敗し続ける（2026-09-21）。
+    SITEMAP_MIN_SUB = SUBCAT_NOINDEX_MIN
 
     def n_arts(key, sub=None):
         return sum(1 for a in PUBLISHED
