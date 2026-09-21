@@ -21,7 +21,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%83%96%E3%83%AB%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%20%E7%9D%80%E8%84%B1%E5%BC%8F%20Lenovo%20L27-41%20%E3%83%97%E3%83%AD%E3%83%86%E3%82%AF%E3%82%BF%E3%83%BC%20%E5%85%89%E6%B2%A2%20%E3%83%96%E3%83%AB%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC%20%E7%9D%80%E8%84%B1%E7%B0%A1%E5%8D%98%20%E7%94%BB%E9%9D%A2%E4%BF%9D%E8%AD%B7%E3%83%A2%E3%83%8B%E3%82%BF%E3%83%BC&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：Lenovo「L27-41」の画面を傷・指紋から守りたい人向け。映り込みを最優先する人には不向き",
   "summary": [
@@ -256,6 +256,12 @@
     "total": 90,
     "notes": "禁止語「必ず」を修正済み。公式仕様が無いことを rating/spec を出さずに正しく扱えており減点対象にしていない。独自分析（光沢/非光沢のトレードオフ、着脱式特有の浮きリスク）はあるがやや一般論寄りで満点には届かない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%83%96%E3%83%AB%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%20%E7%9D%80%E8%84%B1%E5%BC%8F%20Lenovo%20L27-41%20%E3%83%97%E3%83%AD%E3%83%86%E3%82%AF%E3%82%BF%E3%83%BC%20%E5%85%89%E6%B2%A2%20%E3%83%96%E3%83%AB%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC%20%E7%9D%80%E8%84%B1%E7%B0%A1%E5%8D%98%20%E7%94%BB%E9%9D%A2%E4%BF%9D%E8%AD%B7%E3%83%A2%E3%83%8B%E3%82%BF%E3%83%BC&i=aps"
+   ]
   }
  },
  {
@@ -477,6 +483,9 @@
     "total": 87,
     "notes": "公式仕様が無い中でrating/specを正しく省き、断定を避けた誠実な作りだが、独自分析は「同ジャンルの一般的な確認点」の域に留まり、他の詰め替えシャンプー記事にも転用しやすい構成のため original_analysis と template_avoidance をやや控えめに評価した。"
    }
+  },
+  "health": {
+   "checked": "2026-09-21"
   }
  },
  {
@@ -501,7 +510,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%B5%E3%83%B3%E3%83%AF%E3%82%B5%E3%83%97%E3%83%A9%E3%82%A4%20%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E5%88%87%E6%9B%BF%E5%99%A8%20%E3%83%9F%E3%83%8BD-sub%20HD%2015pin%E7%94%A8%20%E3%83%BB4%E5%9B%9E%E8%B7%AF%20SW-EV4N2%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：VGA出力機器を複数台まとめて1台のディスプレイに映したい人には買い。HDMI環境の代替にはならない",
   "summary": [
@@ -739,6 +748,12 @@
     "total": 89,
     "notes": "禁止語3件を修正すれば大きな瑕疵はない。rating/specを裏づけなしに出しておらず適切に省略できている。独自分析（手動式とKVMの比較、口コミの分かれ方の考察）もあり、テンプレート感は低め"
    }
+  },
+  "health": {
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%B5%E3%83%B3%E3%83%AF%E3%82%B5%E3%83%97%E3%83%A9%E3%82%A4%20%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E5%88%87%E6%9B%BF%E5%99%A8%20%E3%83%9F%E3%83%8BD-sub%20HD%2015pin%E7%94%A8%20%E3%83%BB4%E5%9B%9E%E8%B7%AF%20SW-EV4N2%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF&i=aps"
+   ]
   }
  },
  {
@@ -763,7 +778,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%A8%E3%83%8D%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%A8%E3%82%AF%E3%82%B7%E3%82%A2%20%E5%86%8D%E7%94%9F%E3%83%88%E3%83%8A%E3%83%BC%20%E3%83%AA%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%83%88%E3%83%8A%E3%83%BC%20%E3%82%AB%E3%83%BC%E3%83%88%E3%83%AA%E3%83%83%E3%82%B8%20PR-L7700C-19%20K%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E3%83%BBAV%E6%A9%9F%E5%99%A8%E9%96%A2%E9%80%A3%20PC%E3%83%BB%E6%90%BA%E5%B8%AF%E9%96%A2%E9%80%A3&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：型番が完全一致する事業所には価格面の選択肢。品質・保証を最優先するなら純正一択",
   "summary": [
@@ -956,6 +971,12 @@
     "total": 88,
     "notes": "禁止表現「必ず」を2箇所修正済み。公式仕様・口コミが無い前提を明示し、rating/specも省いており、事実の扱いは丁寧。独自分析（何を新規に作り直していないか、段階導入の考え方）はあるがやや一般論寄りで満点にはしない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%A8%E3%83%8D%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%A8%E3%82%AF%E3%82%B7%E3%82%A2%20%E5%86%8D%E7%94%9F%E3%83%88%E3%83%8A%E3%83%BC%20%E3%83%AA%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%83%88%E3%83%8A%E3%83%BC%20%E3%82%AB%E3%83%BC%E3%83%88%E3%83%AA%E3%83%83%E3%82%B8%20PR-L7700C-19%20K%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E3%83%BBAV%E6%A9%9F%E5%99%A8%E9%96%A2%E9%80%A3%20PC%E3%83%BB%E6%90%BA%E5%B8%AF%E9%96%A2%E9%80%A3&i=aps"
+   ]
   }
  },
  {
@@ -981,7 +1002,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=j5%20Create%20iPad%20iPhone%20to%20Windows%20PC%20%E3%82%AF%E3%83%AD%E3%82%B9%E3%83%AA%E3%83%B3%E3%82%AF%E3%83%8F%E3%83%96%20JCH422%201%E5%80%8B%20JCH422%20j5%20Create%20%23&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：クラウド経由の受け渡しをやめたい人には候補になるが、対応機種の確認が前提",
   "summary": [
@@ -1189,6 +1210,12 @@
     "total": 86,
     "notes": "rating/specを裏づけなく出す事故は無く、確認不可を正直に書けている点は良い。ただし本文の大半が『クロスリンク系ハブ』という製品カテゴリー一般の説明で、JCH422固有の確認済み事実がほぼ無いため、template_avoidanceとoriginal_analysisはやや低め。"
    }
+  },
+  "health": {
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=j5%20Create%20iPad%20iPhone%20to%20Windows%20PC%20%E3%82%AF%E3%83%AD%E3%82%B9%E3%83%AA%E3%83%B3%E3%82%AF%E3%83%8F%E3%83%96%20JCH422%201%E5%80%8B%20JCH422%20j5%20Create%20%23&i=aps"
+   ]
   }
  },
  {
@@ -1213,7 +1240,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E4%BA%BA%E6%B0%97%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E8%B4%88%E7%AD%94%20%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%20%E5%BF%98%E5%B9%B4%E4%BC%9A%20%E5%AE%9A%E7%95%AA%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E5%9C%9F%E7%94%A3%20%E5%B9%B4%E6%9C%AB%20%E6%AD%A3%E6%9C%88%2010%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%20YAZAWA%20%E9%9B%B7%E3%82%AC%E3%83%BC%E3%83%89%E4%BB%982AC2USB2.1A1.5m%20%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%20Y02K4015WH2UX10%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E6%A9%9F%E5%99%A8%20%E9%96%A2%E9%80%A3%EF%BC%9Atype%20%E3%83%8F%E3%83%96%20usb%E3%83%A1%E3%83%A2%E3%83%AA%20%E3%82%A2%E3%83%80%E3%83%97%E3%82%BF%20%E5%85%85%E9%9B%BB%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%B3%E3%83%88%20%E5%A4%89%E6%8F%9B%20%E5%BB%B6%E9%95%B7%20%E5%85%85%E9%9B%BB%E5%99%A8&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：忘年会や贈答用にまとめて配りたい人には買い、単品での高機能を求めるなら他機種も検討を",
   "summary": [
@@ -1399,6 +1426,12 @@
     "total": 88,
     "notes": "禁止語2件を修正した以外は基準に沿っている。公式仕様未確認のため rating/spec を省いた判断は適切で、口コミ未確認も voices を空にして正直に扱えている。独自分析（AC2口+10個セットが「1人1個配布」前提の設計だとする考察）はあるが、やや薄い"
    }
+  },
+  "health": {
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E4%BA%BA%E6%B0%97%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E8%B4%88%E7%AD%94%20%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%20%E5%BF%98%E5%B9%B4%E4%BC%9A%20%E5%AE%9A%E7%95%AA%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E5%9C%9F%E7%94%A3%20%E5%B9%B4%E6%9C%AB%20%E6%AD%A3%E6%9C%88%2010%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%20YAZAWA%20%E9%9B%B7%E3%82%AC%E3%83%BC%E3%83%89%E4%BB%982AC2USB2.1A1.5m%20%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%20Y02K4015WH2UX10%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E6%A9%9F%E5%99%A8%20%E9%96%A2%E9%80%A3%EF%BC%9Atype%20%E3%83%8F%E3%83%96%20usb%E3%83%A1%E3%83%A2%E3%83%AA%20%E3%82%A2%E3%83%80%E3%83%97%E3%82%BF%20%E5%85%85%E9%9B%BB%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%B3%E3%83%88%20%E5%A4%89%E6%8F%9B%20%E5%BB%B6%E9%95%B7%20%E5%85%85%E9%9B%BB%E5%99%A8&i=aps"
+   ]
   }
  },
  {
@@ -1424,7 +1457,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E4%B8%AD%E5%8F%A4%20%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E5%BC%8F%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%AC%E3%82%B9PC%E3%82%B3%E3%83%B3%E3%83%88%E3%83%AD%E3%83%BC%E3%83%A9%E3%83%BC%20VictrixTURTLE%20BEACH%20%E3%82%BF%E3%83%BC%E3%83%88%E3%83%AB%E3%83%93%E3%83%BC%E3%83%81TBC-5101-85%20K51018CP3500089%E3%82%B3%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%A9%E3%83%B3%E3%82%AF%20%E5%95%86%E5%93%81%20No.85-0&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：モジュール式の交換パーツを安く試したい人には候補になりますが、メーカー保証や付属品一式を求めるなら新品を検討すべきです",
   "summary": [
@@ -1605,6 +1638,12 @@
     "total": 86,
     "notes": "違反表現・ダークパターン・未確認specやratingの水増しは見つからず、事実の帰属も一貫して「出品ページで確認」の形で正しく留保されている。ただしその留保フレーズが各節・FAQ・結論で繰り返され、独自性とテンプレート回避の点数をやや下げている。"
    }
+  },
+  "health": {
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E4%B8%AD%E5%8F%A4%20%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E5%BC%8F%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%AC%E3%82%B9PC%E3%82%B3%E3%83%B3%E3%83%88%E3%83%AD%E3%83%BC%E3%83%A9%E3%83%BC%20VictrixTURTLE%20BEACH%20%E3%82%BF%E3%83%BC%E3%83%88%E3%83%AB%E3%83%93%E3%83%BC%E3%83%81TBC-5101-85%20K51018CP3500089%E3%82%B3%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%A9%E3%83%B3%E3%82%AF%20%E5%95%86%E5%93%81%20No.85-0&i=aps"
+   ]
   }
  },
  {
@@ -1812,6 +1851,9 @@
     "total": 87,
     "notes": "公式仕様・口コミが無い前提を一貫して守り、rating/specを省いている点は適切。独自性は「隠す→置く」という切り口とUSB分配の注意点にとどまり、深さはやや平板。"
    }
+  },
+  "health": {
+   "checked": "2026-09-21"
   }
  },
  {
@@ -1825,7 +1867,7 @@
   "description": "ThinkPad T14s Gen 6(2025)向け互換ケース・ブルーライトカットフィルム・キーボードカバー3点セットの特徴と購入前の確認点をまとめました。",
   "excerpt": "T14s Gen 6互換の保護3点セット、対応確認と選び方のポイント",
   "date": "2026-09-20",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "tags": [
    "ThinkPad",
    "T14s Gen 6",
@@ -1836,7 +1878,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=Lenovo%20ThinkPad%20T14s%20Gen%206%202025%E5%B9%B4%E7%89%88%2014%E3%82%A4%E3%83%B3%E3%83%81%20%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%AB%E3%83%90%E3%83%BC%20%E8%A1%9D%E6%92%83%E5%90%B8%E5%8F%8E%20PC%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%81%A8%20%E3%83%96%E3%83%AB%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%E6%B6%B2%E6%99%B6%E4%BF%9D%E8%AD%B7%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%20%E3%81%A8%20%E3%82%B7%E3%83%AA%E3%82%B3%E3%83%B3%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%82%AB%E3%83%90%E3%83%BC%20%E3%81%AE3%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF%20%E4%BA%92%E6%8F%9B%E5%93%81&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：ThinkPad T14s Gen 6(2025)の保護グッズをまとめて揃えたい人向け。装着前の型番一致確認が前提",
   "summary": [
@@ -2035,6 +2077,12 @@
     "total": 88,
     "notes": "公式仕様が無いため rating/spec を正しく省いており、断定を避けた記述もできている。独自性はThinkPadの世代差・TrackPoint形状の言及にとどまり、average的な水準（template_avoidance/original_analysisをやや抑えた）。"
    }
+  },
+  "health": {
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=Lenovo%20ThinkPad%20T14s%20Gen%206%202025%E5%B9%B4%E7%89%88%2014%E3%82%A4%E3%83%B3%E3%83%81%20%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%AB%E3%83%90%E3%83%BC%20%E8%A1%9D%E6%92%83%E5%90%B8%E5%8F%8E%20PC%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%81%A8%20%E3%83%96%E3%83%AB%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%E6%B6%B2%E6%99%B6%E4%BF%9D%E8%AD%B7%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%20%E3%81%A8%20%E3%82%B7%E3%83%AA%E3%82%B3%E3%83%B3%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%82%AB%E3%83%90%E3%83%BC%20%E3%81%AE3%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF%20%E4%BA%92%E6%8F%9B%E5%93%81&i=aps"
+   ]
   }
  },
  {
@@ -2048,7 +2096,7 @@
   "description": "Eufy X8 Pro・X10 Pro Omni対応の互換ダストバッグ10枚セットを、口コミと販売ページの情報から向き・不向きを整理して解説します。",
   "excerpt": "純正の紙パック代を抑えたい人向け。適合確認は自己判断が前提です。",
   "date": "2026-09-20",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "tags": [
    "Eufy",
    "X8 Pro",
@@ -2060,7 +2108,7 @@
   "icon": "🏠",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E5%AF%BE%E5%BF%9CEufy%20%E3%83%A6%E3%83%BC%E3%83%95%E3%82%A3%20X8%20Pro%20X10%20Pro%20Omni%20%E4%BA%A4%E6%8F%9B%E7%94%A8%E3%83%80%E3%82%B9%E3%83%88%E3%83%90%E3%83%83%E3%82%B0%2010%E6%9E%9A%20%E3%83%AD%E3%83%9C%E3%83%83%E3%83%88%E6%8E%83%E9%99%A4%E6%A9%9F%20%E4%BA%A4%E6%8F%9B%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%20%E3%83%80%E3%82%B9%E3%83%88%E3%83%91%E3%83%83%E3%82%AF%20%E7%B4%99%E3%83%91%E3%83%83%E3%82%AF%20%E6%B6%88%E8%80%97%E5%93%81&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：純正のランニングコストを抑えたい人には有力な選択肢。適合確認を自分でできない人は避けたほうがよい",
   "summary": [
@@ -2268,6 +2316,12 @@
     "total": 89,
     "notes": "公式仕様が無いことを正しくratingとspecの省略で処理できており減点していない。禁止語「必ず」の2箇所を修正済み。他に架空情報・架空レビュー・ダークパターンは見当たらない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E5%AF%BE%E5%BF%9CEufy%20%E3%83%A6%E3%83%BC%E3%83%95%E3%82%A3%20X8%20Pro%20X10%20Pro%20Omni%20%E4%BA%A4%E6%8F%9B%E7%94%A8%E3%83%80%E3%82%B9%E3%83%88%E3%83%90%E3%83%83%E3%82%B0%2010%E6%9E%9A%20%E3%83%AD%E3%83%9C%E3%83%83%E3%83%88%E6%8E%83%E9%99%A4%E6%A9%9F%20%E4%BA%A4%E6%8F%9B%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%20%E3%83%80%E3%82%B9%E3%83%88%E3%83%91%E3%83%83%E3%82%AF%20%E7%B4%99%E3%83%91%E3%83%83%E3%82%AF%20%E6%B6%88%E8%80%97%E5%93%81&i=aps"
+   ]
   }
  },
  {
@@ -6687,7 +6741,7 @@
   "description": "レコルトの自動調理ポットRSY-2について、商品ページの表記をもとにスープ・豆乳・離乳食など対応メニューと購入前に確認すべき点を整理しました。公式仕様は未確認のため確認方法もあわせて解説します。",
   "excerpt": "スープ・豆乳・離乳食に対応するレコルトRSY-2。購入前に確認したい項目を整理。",
   "date": "2026-09-17",
-  "updated": "2026-09-17",
+  "updated": "2026-09-21",
   "tags": [
    "レコルト",
    "RSY-2",
@@ -6698,7 +6752,7 @@
   "icon": "🍳",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%83%AC%E3%82%B3%E3%83%AB%E3%83%88%20%E8%87%AA%E5%8B%95%E8%AA%BF%E7%90%86%E3%83%9D%E3%83%83%E3%83%88%20RSY-2%20%E8%B1%AA%E8%8F%AF2%E5%A4%A7%E7%89%B9%E5%85%B8%2B30%E5%93%81%E3%83%AC%E3%82%B7%E3%83%94%E6%9C%AC%20%E3%82%B9%E3%83%BC%E3%83%97%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%20600ml%20%E8%B1%86%E4%B9%B3%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%20%E8%87%AA%E5%8B%95%E8%AA%BF%E7%90%86%E5%99%A8%20%E3%83%9F%E3%82%AD%E3%82%B5%E3%83%BC%20%E3%82%B8%E3%83%A5%E3%83%BC%E3%82%B5%E3%83%BC%20%E3%83%96%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%20%E9%9B%A2%E4%B9%B3%E9%A3%9F%20%E3%82%B8%E3%83%A5%E3%83%BC%E3%82%B9%20%E3%83%9D%E3%82%BF%E3%83%BC%E3%82%B8%E3%83%A5%20%E5%85%A8%E8%87%AA%E5%8B%95%E3%82%B9%E3%83%BC%E3%83%97%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%20%E6%99%82%E7%9F%AD%E8%AA%BF%E7%90%86%20recolte%20%E8%87%AA%E5%8B%95%E8%AA%BF%E7%90%86%E3%83%9D%E3%83%83%E3%83%88&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：鍋とミキサーを1台にまとめたい人には検討価値があり、公式スペックを事前に細かく詰めたい人は販売ページでの確認が先",
   "summary": [
@@ -6892,7 +6946,10 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-goods/cabinet/th/ry1103674_th.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%83%AC%E3%82%B3%E3%83%AB%E3%83%88%20%E8%87%AA%E5%8B%95%E8%AA%BF%E7%90%86%E3%83%9D%E3%83%83%E3%83%88%20RSY-2%20%E8%B1%AA%E8%8F%AF2%E5%A4%A7%E7%89%B9%E5%85%B8%2B30%E5%93%81%E3%83%AC%E3%82%B7%E3%83%94%E6%9C%AC%20%E3%82%B9%E3%83%BC%E3%83%97%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%20600ml%20%E8%B1%86%E4%B9%B3%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%20%E8%87%AA%E5%8B%95%E8%AA%BF%E7%90%86%E5%99%A8%20%E3%83%9F%E3%82%AD%E3%82%B5%E3%83%BC%20%E3%82%B8%E3%83%A5%E3%83%BC%E3%82%B5%E3%83%BC%20%E3%83%96%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%20%E9%9B%A2%E4%B9%B3%E9%A3%9F%20%E3%82%B8%E3%83%A5%E3%83%BC%E3%82%B9%20%E3%83%9D%E3%82%BF%E3%83%BC%E3%82%B8%E3%83%A5%20%E5%85%A8%E8%87%AA%E5%8B%95%E3%82%B9%E3%83%BC%E3%83%97%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%20%E6%99%82%E7%9F%AD%E8%AA%BF%E7%90%86%20recolte%20%E8%87%AA%E5%8B%95%E8%AA%BF%E7%90%86%E3%83%9D%E3%83%83%E3%83%88&i=aps"
+   ]
   }
  },
  {
@@ -7117,7 +7174,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/rcmdin/cabinet/eb06/eb-4582226844157.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -7131,7 +7188,7 @@
   "description": "レコルト ソロブレンダー シエル RSB-4の口コミ傾向と、公式仕様が未確認な中で購入前に確認すべき点をまとめました。",
   "excerpt": "一人分専用ミキサーRSB-4、口コミから見える向き不向きを整理",
   "date": "2026-09-17",
-  "updated": "2026-09-17",
+  "updated": "2026-09-21",
   "tags": [
    "レコルト",
    "ソロブレンダー",
@@ -7142,7 +7199,7 @@
   "icon": "🍳",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%83%AC%E3%82%B3%E3%83%AB%E3%83%88%20%E3%82%BD%E3%83%AD%E3%83%96%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%20%E3%82%B7%E3%82%A8%E3%83%AB%20RSB-4%20recolte%20%E3%83%9F%E3%82%AD%E3%82%B5%E3%83%BC%20%E3%83%96%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%20%E3%82%B8%E3%83%A5%E3%83%BC%E3%82%B5%E3%83%BC%20%E3%82%B9%E3%83%A0%E3%83%BC%E3%82%B8%E3%83%BC%20%E3%83%95%E3%83%AD%E3%83%BC%E3%82%BA%E3%83%B3%20%E9%9B%A2%E4%B9%B3%E9%A3%9F%20%E3%82%B9%E3%83%BC%E3%83%97%20%E3%83%AC%E3%82%B7%E3%83%94%E4%BB%98%E3%81%8D%20%E3%82%B9%E3%83%83%E3%82%AD%E3%83%AA%E5%8F%8E%E7%B4%8D%20%E5%B0%8F%E5%9E%8B%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%82%BF%E3%83%B3%E3%83%96%E3%83%A9%E3%83%BC%20%E8%93%8B%E3%81%A4%E3%81%8D&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：一人分をコップのまま仕上げたい人向き。容量やパワーを重視するなら販売ページで仕様を要確認",
   "summary": [
@@ -7383,7 +7440,10 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/aimere/cabinet/00785232/03220785/imgrc0121669408.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%83%AC%E3%82%B3%E3%83%AB%E3%83%88%20%E3%82%BD%E3%83%AD%E3%83%96%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%20%E3%82%B7%E3%82%A8%E3%83%AB%20RSB-4%20recolte%20%E3%83%9F%E3%82%AD%E3%82%B5%E3%83%BC%20%E3%83%96%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%20%E3%82%B8%E3%83%A5%E3%83%BC%E3%82%B5%E3%83%BC%20%E3%82%B9%E3%83%A0%E3%83%BC%E3%82%B8%E3%83%BC%20%E3%83%95%E3%83%AD%E3%83%BC%E3%82%BA%E3%83%B3%20%E9%9B%A2%E4%B9%B3%E9%A3%9F%20%E3%82%B9%E3%83%BC%E3%83%97%20%E3%83%AC%E3%82%B7%E3%83%94%E4%BB%98%E3%81%8D%20%E3%82%B9%E3%83%83%E3%82%AD%E3%83%AA%E5%8F%8E%E7%B4%8D%20%E5%B0%8F%E5%9E%8B%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%82%BF%E3%83%B3%E3%83%96%E3%83%A9%E3%83%BC%20%E8%93%8B%E3%81%A4%E3%81%8D&i=aps"
+   ]
   }
  },
  {
@@ -7397,7 +7457,7 @@
   "description": "USB3.0とType-Cの両方に対応する外付けDVDドライブ『常連』を、販売ページの表記から解説。向く人・確認すべき仕様・注意点をまとめました。",
   "excerpt": "Type-C対応の外付けDVDドライブ『常連』。購入前に確認すべき仕様と向く使い方をまとめました。",
   "date": "2026-09-17",
-  "updated": "2026-09-17",
+  "updated": "2026-09-21",
   "tags": [
    "外付けDVDドライブ",
    "USB3.0",
@@ -7408,7 +7468,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%EF%BC%BC%E6%84%9F%E8%AC%9D%E3%83%87%E3%82%A3%E3%83%BC%E7%89%B9%E4%BE%A1%20%E3%80%8E%E5%B8%B8%E9%80%A3%20%E3%80%8F%20DVD%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E5%A4%96%E4%BB%98%E3%81%91%20USB3.0%20Type-C%20%E4%B8%A1%E6%96%B9%E5%AF%BE%E5%BF%9C%20dvd%20cd%20%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E5%A4%96%E4%BB%98%E3%81%91%20dvd%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E5%A4%96%E4%BB%98%E3%81%91dvd%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20cd%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E6%9B%B8%E8%BE%BC%E3%81%BF%20%E8%AA%AD%E8%BE%BC%E3%81%BF%20CD%20DVD-RW%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20Mac%20Windows11%E5%AF%BE%E5%BF%9C%20%E3%82%B3%E3%83%8D%E3%82%AF%E3%82%BF%E3%83%BC&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：Type-C機とUSB-A機を1台で使い回したい人には買い。型番表記の乏しさが気になる人は購入前の確認を",
   "summary": [
@@ -7603,7 +7663,10 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/maxtop/cabinet/13761012/imgrc0128441258.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%EF%BC%BC%E6%84%9F%E8%AC%9D%E3%83%87%E3%82%A3%E3%83%BC%E7%89%B9%E4%BE%A1%20%E3%80%8E%E5%B8%B8%E9%80%A3%20%E3%80%8F%20DVD%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E5%A4%96%E4%BB%98%E3%81%91%20USB3.0%20Type-C%20%E4%B8%A1%E6%96%B9%E5%AF%BE%E5%BF%9C%20dvd%20cd%20%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E5%A4%96%E4%BB%98%E3%81%91%20dvd%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E5%A4%96%E4%BB%98%E3%81%91dvd%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20cd%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E6%9B%B8%E8%BE%BC%E3%81%BF%20%E8%AA%AD%E8%BE%BC%E3%81%BF%20CD%20DVD-RW%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20Mac%20Windows11%E5%AF%BE%E5%BF%9C%20%E3%82%B3%E3%83%8D%E3%82%AF%E3%82%BF%E3%83%BC&i=aps"
+   ]
   }
  },
  {
@@ -7617,7 +7680,7 @@
   "description": "山善のたこ焼き器YOH-200(20穴・着脱式プレート)について、公開情報から向き不向きを整理。購入前に確認したい点も解説します。",
   "excerpt": "20穴・着脱式プレートの山善YOH-200を公開情報から解説。向く人・向かない人を整理しました。",
   "date": "2026-09-17",
-  "updated": "2026-09-17",
+  "updated": "2026-09-21",
   "tags": [
    "山善",
    "YOH-200",
@@ -7628,7 +7691,7 @@
   "icon": "🍳",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%81%9F%E3%81%93%E7%84%BC%E3%81%8D%E5%99%A8%20%E3%81%9F%E3%81%93%E7%84%BC%E3%81%8D%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%20%E7%9D%80%E8%84%B1%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E5%BC%8F%20%E7%9D%80%E8%84%B1%E5%BC%8F%2020%E7%A9%B4%20YOH-200%20%E3%82%BF%E3%82%B3%E7%84%BC%E3%81%8D%E5%99%A8%20%E3%81%9F%E3%81%93%E7%84%BC%E3%81%8D%E6%A9%9F%20%E3%82%B9%E3%83%AA%E3%83%A0%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E5%8D%93%E4%B8%8A%20%E3%83%9B%E3%83%83%E3%83%88%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%20%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%20%E4%B8%80%E4%BA%BA%E6%9A%AE%E3%82%89%E3%81%97%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E5%B1%B1%E5%96%84%20YAMAZEN&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：少人数でたこ焼きを楽しみたい一人暮らし向け。大人数の宴会用途や多用途調理を求める人には別のモデルが向く",
   "summary": [
@@ -7832,7 +7895,10 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-kurashi/cabinet/main-img/012/main-r4f13.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%81%9F%E3%81%93%E7%84%BC%E3%81%8D%E5%99%A8%20%E3%81%9F%E3%81%93%E7%84%BC%E3%81%8D%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%20%E7%9D%80%E8%84%B1%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E5%BC%8F%20%E7%9D%80%E8%84%B1%E5%BC%8F%2020%E7%A9%B4%20YOH-200%20%E3%82%BF%E3%82%B3%E7%84%BC%E3%81%8D%E5%99%A8%20%E3%81%9F%E3%81%93%E7%84%BC%E3%81%8D%E6%A9%9F%20%E3%82%B9%E3%83%AA%E3%83%A0%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E5%8D%93%E4%B8%8A%20%E3%83%9B%E3%83%83%E3%83%88%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%20%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%20%E4%B8%80%E4%BA%BA%E6%9A%AE%E3%82%89%E3%81%97%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E5%B1%B1%E5%96%84%20YAMAZEN&i=aps"
+   ]
   }
  },
  {
@@ -7846,7 +7912,7 @@
   "description": "TP-Link Tapo C200の口コミ・評判を整理。首振り自動追跡や双方向音声の特徴、クラウド保存とSDカード運用の注意点、購入前に確認すべき点をまとめました。",
   "excerpt": "首振り自動追跡と双方向音声の室内見守りカメラ。口コミと注意点を整理。",
   "date": "2026-09-17",
-  "updated": "2026-09-17",
+  "updated": "2026-09-21",
   "tags": [
    "TP-Link",
    "Tapo C200",
@@ -7857,7 +7923,7 @@
   "icon": "📷",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E5%B9%B4%E9%96%93%E8%B2%A9%E5%A3%B2%E5%8F%B0%E6%95%B0No.1%E2%98%85%20%E9%98%B2%E7%8A%AF%E3%82%AB%E3%83%A1%E3%83%A9%20%E5%AE%A4%E5%86%85%20%E3%83%9A%E3%83%83%E3%83%88%E3%82%AB%E3%83%A1%E3%83%A9%20%E3%83%99%E3%83%93%E3%83%BC%E3%83%A2%E3%83%8B%E3%82%BF%E3%83%BC%20%E8%A6%8B%E5%AE%88%E3%82%8A%20%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%AC%E3%82%B9%20200%E4%B8%87%E7%94%BB%E7%B4%A0%20%E9%AB%98%E7%94%BB%E8%B3%AA%20360%C2%B0%E9%A6%96%E6%8C%AF%E3%82%8A%20%E8%87%AA%E5%8B%95%E8%BF%BD%E8%B7%A1%E8%BF%BD%E5%B0%BE%20%E3%83%99%E3%83%93%E3%83%BC%E3%82%AB%E3%83%A1%E3%83%A9%20%E3%83%8A%E3%82%A4%E3%83%88%E3%83%93%E3%82%B8%E3%83%A7%E3%83%B3%20%E5%8F%8C%E6%96%B9%E5%90%91%E9%9F%B3%E5%A3%B0%20%E7%95%99%E5%AE%88%20%E5%8B%95%E4%BD%9C%E6%A4%9C%E7%9F%A5%20%E3%82%B9%E3%83%9E%E3%83%9B%E9%80%9A%E7%9F%A5%20TP-Link%20Tapo%20C200%20Amazon%20Alexa%20%E8%AA%8D%E5%AE%9A%E5%8F%96%E5%BE%97&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：手軽な室内見守りを試したい人向け。長期クラウド保存にこだわるなら条件を先に確認",
   "summary": [
@@ -8097,7 +8163,10 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tplinkdirect/cabinet/06321509/tapo-c200.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E5%B9%B4%E9%96%93%E8%B2%A9%E5%A3%B2%E5%8F%B0%E6%95%B0No.1%E2%98%85%20%E9%98%B2%E7%8A%AF%E3%82%AB%E3%83%A1%E3%83%A9%20%E5%AE%A4%E5%86%85%20%E3%83%9A%E3%83%83%E3%83%88%E3%82%AB%E3%83%A1%E3%83%A9%20%E3%83%99%E3%83%93%E3%83%BC%E3%83%A2%E3%83%8B%E3%82%BF%E3%83%BC%20%E8%A6%8B%E5%AE%88%E3%82%8A%20%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%AC%E3%82%B9%20200%E4%B8%87%E7%94%BB%E7%B4%A0%20%E9%AB%98%E7%94%BB%E8%B3%AA%20360%C2%B0%E9%A6%96%E6%8C%AF%E3%82%8A%20%E8%87%AA%E5%8B%95%E8%BF%BD%E8%B7%A1%E8%BF%BD%E5%B0%BE%20%E3%83%99%E3%83%93%E3%83%BC%E3%82%AB%E3%83%A1%E3%83%A9%20%E3%83%8A%E3%82%A4%E3%83%88%E3%83%93%E3%82%B8%E3%83%A7%E3%83%B3%20%E5%8F%8C%E6%96%B9%E5%90%91%E9%9F%B3%E5%A3%B0%20%E7%95%99%E5%AE%88%20%E5%8B%95%E4%BD%9C%E6%A4%9C%E7%9F%A5%20%E3%82%B9%E3%83%9E%E3%83%9B%E9%80%9A%E7%9F%A5%20TP-Link%20Tapo%20C200%20Amazon%20Alexa%20%E8%AA%8D%E5%AE%9A%E5%8F%96%E5%BE%97&i=aps"
+   ]
   }
  },
  {
@@ -8111,7 +8180,7 @@
   "description": "W STYLEのSDカードリーダー4in1は、Lightning・USB-C・USB-AでiPhone/Android/PCをまとめる製品。専用アプリ不要の使い勝手と、購入前に確認すべき点を整理した。",
   "excerpt": "iPhone・Android・PCを1台でつなぐSDカードリーダーの口コミと確認点",
   "date": "2026-09-17",
-  "updated": "2026-09-17",
+  "updated": "2026-09-21",
   "tags": [
    "SDカードリーダー",
    "iPhoneデータ移行",
@@ -8122,7 +8191,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=SD%E3%82%AB%E3%83%BC%E3%83%89%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC%204in1%20iPhone17%E5%AF%BE%E5%BF%9C%20%E6%9C%80%E5%A4%A71TB%E5%AF%BE%E5%BF%9C%20%E5%86%99%E7%9C%9F%E3%83%BB%E5%8B%95%E7%94%BB%E4%BF%9D%E5%AD%98%20%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%20%E3%83%87%E3%83%BC%E3%82%BF%E8%BB%A2%E9%80%81%20%E5%B0%82%E7%94%A8%E3%82%A2%E3%83%97%E3%83%AA%E4%B8%8D%E8%A6%81%20%E3%82%B9%E3%83%9E%E3%83%9B%20USB-C%20Type-C%20Lightning%20%E3%83%A9%E3%82%A4%E3%83%88%E3%83%8B%E3%83%B3%E3%82%B0%20Android%20iPad%20PC%20SD%20microSD%20%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%8F%96%E8%AA%AC%E4%BB%98%20W%20STYLE&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：複数端末でSDカードを使うなら候補、細かな仕様は購入前に販売ページで要確認",
   "summary": [
@@ -8329,7 +8398,10 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/hiromifashionhouse/cabinet/12169031/12169034/dn063.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=SD%E3%82%AB%E3%83%BC%E3%83%89%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC%204in1%20iPhone17%E5%AF%BE%E5%BF%9C%20%E6%9C%80%E5%A4%A71TB%E5%AF%BE%E5%BF%9C%20%E5%86%99%E7%9C%9F%E3%83%BB%E5%8B%95%E7%94%BB%E4%BF%9D%E5%AD%98%20%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%20%E3%83%87%E3%83%BC%E3%82%BF%E8%BB%A2%E9%80%81%20%E5%B0%82%E7%94%A8%E3%82%A2%E3%83%97%E3%83%AA%E4%B8%8D%E8%A6%81%20%E3%82%B9%E3%83%9E%E3%83%9B%20USB-C%20Type-C%20Lightning%20%E3%83%A9%E3%82%A4%E3%83%88%E3%83%8B%E3%83%B3%E3%82%B0%20Android%20iPad%20PC%20SD%20microSD%20%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%8F%96%E8%AA%AC%E4%BB%98%20W%20STYLE&i=aps"
+   ]
   }
  },
  {
@@ -8343,7 +8415,7 @@
   "description": "FUNLOGY Sound3の口コミ・評判をもとに、テレビの声の聞き取りやすさやBluetooth活用、壁掛け設置で確認すべき点を整理しました。",
   "excerpt": "口コミから見るFUNLOGY Sound3の強みと、購入前に確認すべき注意点。",
   "date": "2026-09-17",
-  "updated": "2026-09-17",
+  "updated": "2026-09-21",
   "tags": [
    "FUNLOGY",
    "サウンドバー",
@@ -8354,7 +8426,7 @@
   "icon": "🎧",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=VGP2023%E5%8F%97%E8%B3%9E%20%E3%82%B5%E3%82%A6%E3%83%B3%E3%83%89%E3%83%90%E3%83%BC%20FUNLOGY%20Sound3%20%E7%B7%8F%E5%90%8880W%20%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC%20%E3%83%86%E3%83%AC%E3%83%93%E7%94%A8%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC%20bluetooth%20%E3%82%B7%E3%82%A2%E3%82%BF%E3%83%BC%E3%83%90%E3%83%BC%20%E3%83%86%E3%83%AC%E3%83%93%E7%94%A8%20%E3%82%B9%E3%83%86%E3%83%AC%E3%82%AA%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC%20%E3%82%B9%E3%83%9E%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%B3%20%E5%A3%81%E6%8E%9B%E3%81%91%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E3%82%B9%E3%83%9E%E3%83%9B%20iPhone%20TV%20TV%E7%94%A8%20pc%202.1ch%20%E9%AB%98%E9%9F%B3%E8%B3%AA%20%E3%83%9B%E3%83%BC%E3%83%A0%E3%82%B7%E3%82%A2%E3%82%BF%E3%83%BC&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：テレビの声を聞き取りやすくしたい人向け。重低音の迫力や多機能を求めるなら他機種の検討を",
   "summary": [
@@ -8604,7 +8676,10 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_sound3/slide/samune_ver2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=VGP2023%E5%8F%97%E8%B3%9E%20%E3%82%B5%E3%82%A6%E3%83%B3%E3%83%89%E3%83%90%E3%83%BC%20FUNLOGY%20Sound3%20%E7%B7%8F%E5%90%8880W%20%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC%20%E3%83%86%E3%83%AC%E3%83%93%E7%94%A8%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC%20bluetooth%20%E3%82%B7%E3%82%A2%E3%82%BF%E3%83%BC%E3%83%90%E3%83%BC%20%E3%83%86%E3%83%AC%E3%83%93%E7%94%A8%20%E3%82%B9%E3%83%86%E3%83%AC%E3%82%AA%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC%20%E3%82%B9%E3%83%9E%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%B3%20%E5%A3%81%E6%8E%9B%E3%81%91%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E3%82%B9%E3%83%9E%E3%83%9B%20iPhone%20TV%20TV%E7%94%A8%20pc%202.1ch%20%E9%AB%98%E9%9F%B3%E8%B3%AA%20%E3%83%9B%E3%83%BC%E3%83%A0%E3%82%B7%E3%82%A2%E3%82%BF%E3%83%BC&i=aps"
+   ]
   }
  },
  {
@@ -8819,7 +8894,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/photolink/cabinet/fotopro/4906238810830_nnv11.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -8833,7 +8908,7 @@
   "description": "リトポラのキッズカメラを口コミと商品ページの情報から点検。32GBカード付属やロック機能の強み、画質・耐久性の注意点、ゲームあり/なしの選び方を紹介する。",
   "excerpt": "32GBカード付きキッズカメラを口コミから点検。強みと注意点、選び方を整理。",
   "date": "2026-09-17",
-  "updated": "2026-09-17",
+  "updated": "2026-09-21",
   "tags": [
    "キッズカメラ",
    "トイカメラ",
@@ -8844,7 +8919,7 @@
   "icon": "📷",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%AD%E3%83%83%E3%82%BA%E3%82%AB%E3%83%A1%E3%83%A9%E2%98%85%E6%97%A5%E6%9C%AC%20%E2%98%85%E3%83%AA%E3%83%88%E3%83%9D%E3%83%A9%202026%20%E6%A5%BD%E5%A4%A9%E5%8F%97%E8%B3%9E%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97%2032GB%E3%82%AB%E3%83%BC%E3%83%89%E4%BB%98%E3%81%8D%20%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AA%E3%81%97%20%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%82%E3%82%8A%20%E3%83%AD%E3%83%83%E3%82%AF%E6%A9%9F%E8%83%BD%E4%BB%98%E3%81%8D%20%E8%87%AA%E6%92%AE%E3%82%8A%20%E5%86%99%E7%9C%9F%20%E5%8B%95%E7%94%BB%20%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%20%E3%83%88%E3%82%A4%E3%82%AB%E3%83%A1%E3%83%A9%20%E5%AD%90%E4%BE%9B%E7%94%A8%E3%82%AB%E3%83%A1%E3%83%A9%20%E3%81%8B%E3%82%8F%E3%81%84%E3%81%84%20%E8%AA%95%E7%94%9F%E6%97%A5%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E7%94%B7%E3%81%AE%E5%AD%90%20%E5%A5%B3%E3%81%AE%E5%AD%90%20%E5%B0%8F%E5%AD%A6%E7%94%9F%20%E5%A4%8F%E4%BC%91%E3%81%BF&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：初めての「自分専用カメラ」の入門機。画質や耐久性に高性能を求める人には別を",
   "summary": [
@@ -9093,7 +9168,10 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/growder/cabinet/littlepolacamera/imgrc0139403507.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%AD%E3%83%83%E3%82%BA%E3%82%AB%E3%83%A1%E3%83%A9%E2%98%85%E6%97%A5%E6%9C%AC%20%E2%98%85%E3%83%AA%E3%83%88%E3%83%9D%E3%83%A9%202026%20%E6%A5%BD%E5%A4%A9%E5%8F%97%E8%B3%9E%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97%2032GB%E3%82%AB%E3%83%BC%E3%83%89%E4%BB%98%E3%81%8D%20%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AA%E3%81%97%20%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%82%E3%82%8A%20%E3%83%AD%E3%83%83%E3%82%AF%E6%A9%9F%E8%83%BD%E4%BB%98%E3%81%8D%20%E8%87%AA%E6%92%AE%E3%82%8A%20%E5%86%99%E7%9C%9F%20%E5%8B%95%E7%94%BB%20%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%20%E3%83%88%E3%82%A4%E3%82%AB%E3%83%A1%E3%83%A9%20%E5%AD%90%E4%BE%9B%E7%94%A8%E3%82%AB%E3%83%A1%E3%83%A9%20%E3%81%8B%E3%82%8F%E3%81%84%E3%81%84%20%E8%AA%95%E7%94%9F%E6%97%A5%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E7%94%B7%E3%81%AE%E5%AD%90%20%E5%A5%B3%E3%81%AE%E5%AD%90%20%E5%B0%8F%E5%AD%A6%E7%94%9F%20%E5%A4%8F%E4%BC%91%E3%81%BF&i=aps"
+   ]
   }
  },
  {
@@ -11487,7 +11565,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/secupcs/cabinet/1st-img/pb/mf45a_pb.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -11721,7 +11799,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -11960,7 +12038,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/orlando/cabinet/notepc/couponthumb/th/plw12-wgth-c10.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -12215,7 +12293,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -12485,7 +12563,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -12722,7 +12800,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/bonz/cabinet/03957598/micro32_main02.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -12985,7 +13063,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/secupcs/cabinet/1st-img/red/xbtb.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -13246,7 +13324,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -13467,7 +13545,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -24522,7 +24600,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/1st_thum/main-salo3.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -24818,7 +24896,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/apm24/cabinet/mjcare/imgrc0086590428.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -25055,7 +25133,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tu-hacci/cabinet/bero/90368r_main_20.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -25287,7 +25365,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/next-online/cabinet/06938766/08787750/samune20251016.jpg?_ex=128x128"
@@ -25564,7 +25642,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/thum/bota-01_20off.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -29312,7 +29390,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/wtw-cctv-camera/cabinet/tokusyu/imgrc0195844605.jpg?_ex=128x128"
@@ -33400,7 +33478,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   },
   "good_for": {
    "intro": "モノベースでは、次のような条件が揃っている人に向くと評価します。",
@@ -33734,7 +33812,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-21"
   },
   "good_for": {
    "intro": "次のような使い方・環境なら、このドックの構成がそのまま効きます。",
@@ -38073,7 +38151,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-21"
   },
   "good_for": {
    "intro": "収納付き玄関ベンチが効くのは、次のような条件がそろっている場合です。座りたいという動機だけで選ぶと、置けるかどうかの壁にぶつかります。",
@@ -38717,7 +38795,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   }
  },
  {
@@ -38964,7 +39042,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-17"
+   "checked": "2026-09-21"
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tea-life/cabinet/goods/refa/15638_thumb_r.jpg?_ex=128x128"
