@@ -249,6 +249,9 @@
     "total": 87,
     "notes": "original_analysis と template_avoidance がやや控えめ：装着感の「軽さ」と「側圧」を分けて考える独自分析はあるが、他は口コミの一般的な整理に留まる。修正後は禁止語なし、rating/spec は元々未使用で整合。"
    }
+  },
+  "health": {
+   "checked": "2026-09-22"
   }
  },
  {
@@ -500,6 +503,9 @@
     "total": 88,
     "notes": "公式仕様が無い中で rating/spec を出さず、利用者の声と出品ページ情報を編集部分析と明確に分けて書けている。口コミの評価が分かれる理由（適合確認の精度）という独自分析もあり、テンプレ感はやや残るが大きな減点要素はない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-22"
   }
  },
  {
@@ -755,6 +761,9 @@
     "total": 88,
     "notes": "「とみられます」「利用者の声では」が繰り返し多用されておりテンプレート感がやや強い。事実と推測の区別・rating/specの適切な省略・出典明記は良好。"
    }
+  },
+  "health": {
+   "checked": "2026-09-22"
   }
  },
  {
@@ -983,6 +992,9 @@
     "total": 86,
     "notes": "公式仕様なしを断定調で書かず適切に留保している点は良いが、各見出しの構成が『特徴の説明→ただし確認できていない』のパターン反復で独自性がやや弱い。"
    }
+  },
+  "health": {
+   "checked": "2026-09-22"
   }
  },
  {
@@ -1188,6 +1200,9 @@
     "total": 89,
     "notes": "公式仕様未確認を理由に減点はしていない。修正前のasideが「レビューを読み込んだ」と実態と異なる示唆をしていた点のみ減点材料だったが修正済み。独自分析はQVL確認・保証の位置づけの整理に留まり、やや厚みが欲しい。"
    }
+  },
+  "health": {
+   "checked": "2026-09-22"
   }
  },
  {
@@ -1433,6 +1448,9 @@
     "total": 90,
     "notes": "出品ページの説明・利用者の声・当サイト分析を一貫して帰属付きで書き分けており、断定表現やダークパターン、Amazonレビュー引用も見当たらない。rating/specは未確認のため正しく省かれている。"
    }
+  },
+  "health": {
+   "checked": "2026-09-22"
   }
  },
  {
@@ -1654,6 +1672,9 @@
     "total": 88,
     "notes": "禁止語『期間限定』とラベルの情報源誤認を修正済み。良い点(good_for/highlights/scenes)と注意点(not_for/cons)の分量がほぼ同程度で、基準の7:3よりやや注意点寄りだが、公式仕様が無い商品の性質上、確認事項の丁寧な列挙自体は妥当なため大きくは減点しない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-22"
   }
  },
  {
@@ -1883,6 +1904,9 @@
     "total": 87,
     "notes": "禁止語の混入と未使用voicesキーの残存以外は概ね良好。公式仕様が無い制約下で断定を避け、情報源を区別できている。独自分析はMacBook世代差の指摘にとどまり、もう一段踏み込めると加点できる。"
    }
+  },
+  "health": {
+   "checked": "2026-09-22"
   }
  },
  {
@@ -2127,6 +2151,9 @@
     "total": 88,
     "notes": "禁止語・比較対象表現を修正すれば法令面の懸念はほぼ解消。公式仕様が取れない中でrating/specを出さず、利用者の声と編集部分析で構成した誠実な作り。"
    }
+  },
+  "health": {
+   "checked": "2026-09-22"
   }
  },
  {
@@ -2367,6 +2394,9 @@
     "total": 88,
     "notes": "事実と口コミ・推測の分離、フックの一貫性、ダークパターン該当語なしと概ね良好。scenesの空枠が唯一の実害あるミスで、その他は独自性(original_analysis)がやや平板な程度。"
    }
+  },
+  "health": {
+   "checked": "2026-09-22"
   }
  },
  {
@@ -8866,7 +8896,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -9097,7 +9127,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tiger-online/cabinet/kae-g13n_ra260710.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -12490,7 +12520,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/iampet/cabinet/img/ps_600w.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -12755,7 +12785,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/mantubiz/cabinet/05873262/2105/2105-20260622/imgrc0155749112.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -12975,7 +13005,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -13211,7 +13241,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_portable/slide/samune_black.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -13428,7 +13458,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/pika831/cabinet/00176847/12211284/0624_h70ft_snbaaa.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -13664,7 +13694,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/milink-inc/cabinet/sn/tune01bk.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -16131,7 +16161,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -16393,7 +16423,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/roomy/cabinet/500cart_all/500cart_11g/p10n-4/win2006-mt005-1_gt01.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -16695,7 +16725,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -17481,7 +17511,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -17689,7 +17719,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -21980,7 +22010,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luckyspread/cabinet/07240546/10248259/imgrc0078419063.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -22269,7 +22299,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/d-ray/cabinet/09802265/10566858/260902_th_fdn.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -22564,7 +22594,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-kit/cabinet/description/ek-kbmr01mcl/ek-kbmr01_1.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -22859,7 +22889,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -23147,7 +23177,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -23392,7 +23422,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tansu/cabinet/00323179/13810084_10aa.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -23683,7 +23713,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/galstar/cabinet/item/1017/101707_r1_4.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -23982,7 +24012,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tu-hacci/cabinet/bero/90389r_dtrc_clr.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -24276,7 +24306,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/toucher-home/cabinet/image02/hsls201w_01x.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -24570,7 +24600,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -28287,7 +28317,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/attenir/cabinet/thum/166011_main_2609.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -28576,7 +28606,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/maxshare/cabinet/master/1st/a05750_sale.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -28855,7 +28885,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   },
   "review_stats": {
    "rakuten": {
@@ -29404,7 +29434,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   },
   "review_stats": {
    "yahoo": {
@@ -30230,7 +30260,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/darkangel/cabinet/12863863/13830759/2536-main-260901-4.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   }
  },
  {
@@ -33834,7 +33864,7 @@
    "注意：メーカーの対応表記は iPhone 14/13/12 シリーズ。それより新しい機種での動作は公式に確認できていないので、断定しないこと"
   ],
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   },
   "good_for": {
    "intro": "次のような使い方をする人なら、この製品の設計と噛み合います。",
@@ -34609,7 +34639,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-18"
+   "checked": "2026-09-22"
   },
   "good_for": {
    "intro": "モノベースは、次のような条件が当てはまる人に向くと評価します。",
