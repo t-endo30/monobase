@@ -27,7 +27,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-appliance</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -97,7 +97,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-appliance-aircon</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -127,6 +127,11 @@
   </url>
   <url>
     <loc>https://monobase.site/category-pc-storage</loc>
+    <lastmod>2026-09-23</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/category-pc-network</loc>
     <lastmod>2026-09-23</lastmod>
     <priority>0.6</priority>
   </url>
@@ -189,6 +194,16 @@
     <loc>https://monobase.site/category-pet-care</loc>
     <lastmod>2026-09-18</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/fz-w45hf-fz-w45hf-kc-450y3-kc-45y2-kc-w45-kc-w45y</loc>
+    <lastmod>2026-09-23</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/7lan-kb-t7-02wn</loc>
+    <lastmod>2026-09-23</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://monobase.site/articles/transcend-hdd-2tb-ps5-ps4-usb3</loc>
