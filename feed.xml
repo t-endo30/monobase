@@ -7,6 +7,22 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>東芝 A665-S6056 互換バッテリー</title>
+    <link>https://monobase.site/articles/satellite-a665-s6056-95wh-toshiba-pc</link>
+    <guid isPermaLink="true">https://monobase.site/articles/satellite-a665-s6056-95wh-toshiba-pc</guid>
+    <description>型番の一致がカギ。古いSatellite A665系ノートPCを延命する交換用バッテリー</description>
+    <category>パソコン</category>
+    <pubDate>Thu, 24 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>サンワサプライ SW-KVM2LUN2 口コミ</title>
+    <link>https://monobase.site/articles/sw-kvm2lun2</link>
+    <guid isPermaLink="true">https://monobase.site/articles/sw-kvm2lun2</guid>
+    <description>2台のPCを1組のモニター・キーボードで使い分けたい人向けの確認ポイント</description>
+    <category>パソコン</category>
+    <pubDate>Thu, 24 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>エレコムTK-FDM109MBK 口コミ</title>
     <link>https://monobase.site/articles/tk-fdm109mbk</link>
     <guid isPermaLink="true">https://monobase.site/articles/tk-fdm109mbk</guid>
@@ -149,22 +165,6 @@
     <description>純正入手が難しいThinkPad Edge14を延命する互換バッテリーの口コミと注意点</description>
     <category>パソコン</category>
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>オーディオテクニカ ATH-SR30BT 口コミ</title>
-    <link>https://monobase.site/articles/ath-sr30bt-gy-bluetooth-ath</link>
-    <guid isPermaLink="true">https://monobase.site/articles/ath-sr30bt-gy-bluetooth-ath</guid>
-    <description>70時間再生とマイク内蔵の実力を、口コミと商品ページ情報から検証。</description>
-    <category>AV機器</category>
-    <pubDate>Tue, 22 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>ASUS T100HA 交換用バッテリー</title>
-    <link>https://monobase.site/articles/t100ha-30wh-asus</link>
-    <guid isPermaLink="true">https://monobase.site/articles/t100ha-30wh-asus</guid>
-    <description>ASUS T100HAの互換バッテリーの口コミと、購入前の適合確認ポイントをまとめました。</description>
-    <category>パソコン</category>
-    <pubDate>Tue, 22 Sep 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
 </rss>
