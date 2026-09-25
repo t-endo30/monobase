@@ -7,6 +7,22 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>PC3-8500E ECC 2GB</title>
+    <link>https://monobase.site/articles/39shop-ddr3-pc3-8500e-ecc-unbuffered-dimm</link>
+    <guid isPermaLink="true">https://monobase.site/articles/39shop-ddr3-pc3-8500e-ecc-unbuffered-dimm</guid>
+    <description>A3E1066-2G/D3E1066対応表記のECC UDIMM互換メモリー。規格違いの誤発注に注意。</description>
+    <category>パソコン</category>
+    <pubDate>Fri, 25 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>エレコムLD-CTT爪折れ防止LAN10本</title>
+    <link>https://monobase.site/articles/lan-cat5e-ld-ctt-bu50x10-usb-pc</link>
+    <guid isPermaLink="true">https://monobase.site/articles/lan-cat5e-ld-ctt-bu50x10-usb-pc</guid>
+    <description>爪折れ防止のCat5E LANケーブルが10本セット。オフィスや教室の一括更新に向く構成です。</description>
+    <category>パソコン</category>
+    <pubDate>Fri, 25 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>EPSON TML90UE431 レビュー</title>
     <link>https://monobase.site/articles/epson-usb-lan-tml90ue431</link>
     <guid isPermaLink="true">https://monobase.site/articles/epson-usb-lan-tml90ue431</guid>
@@ -147,22 +163,6 @@
     <link>https://monobase.site/articles/7lan-kb-t7-02wn</link>
     <guid isPermaLink="true">https://monobase.site/articles/7lan-kb-t7-02wn</guid>
     <description>カテゴリ7LANケーブル2m(KB-T7-02WN)の確認すべき点と向く使い方をまとめました。</description>
-    <category>パソコン</category>
-    <pubDate>Wed, 23 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>Transcend TS2TSJ25H3B</title>
-    <link>https://monobase.site/articles/transcend-hdd-2tb-ps5-ps4-usb3</link>
-    <guid isPermaLink="true">https://monobase.site/articles/transcend-hdd-2tb-ps5-ps4-usb3</guid>
-    <description>PS5/PS4向け2TB外付けHDDの表記と、輸入品ならではの確認ポイントを整理。</description>
-    <category>パソコン</category>
-    <pubDate>Wed, 23 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>サンワサプライ USB-C DP変換アダプタ</title>
-    <link>https://monobase.site/articles/usb-type-c-displayport-4k-120hz-hdr</link>
-    <guid isPermaLink="true">https://monobase.site/articles/usb-type-c-displayport-4k-120hz-hdr</guid>
-    <description>USB-C→DisplayPort変換の対応条件と購入前の確認点を整理</description>
     <category>パソコン</category>
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0900</pubDate>
   </item>
