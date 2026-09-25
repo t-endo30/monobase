@@ -21,7 +21,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=Pavilion%20x360%2015-br018na%2011.4V%2048Wh%20hp%20%E3%83%92%E3%83%A5%E3%83%BC%E3%83%AC%E3%83%83%E3%83%88%E3%83%91%E3%83%83%E3%82%AB%E3%83%BC%E3%83%89%20%E3%83%8E%E3%83%BC%E3%83%88%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E4%BA%A4%E6%8F%9B%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%20%E3%83%AA%E3%83%81%E3%82%A6%E3%83%A0%E3%82%A4%E3%82%AA%E3%83%B3%20%E5%85%85%E9%9B%BB%E6%B1%A0&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：型番一致の確認が最優先、純正か互換かは販売ページで見極めてから",
   "summary": [
@@ -241,6 +241,12 @@
     "total": 89,
     "notes": "rating・specを裏づけが無いため省いている判断は適切。事実・利用者の声・編集部分析の帰属もほぼ一貫して分けられている。減点は「効いてくる」等の言い回しの繰り返しによるテンプレ感がわずかにある程度。"
    }
+  },
+  "health": {
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=Pavilion%20x360%2015-br018na%2011.4V%2048Wh%20hp%20%E3%83%92%E3%83%A5%E3%83%BC%E3%83%AC%E3%83%83%E3%83%88%E3%83%91%E3%83%83%E3%82%AB%E3%83%BC%E3%83%89%20%E3%83%8E%E3%83%BC%E3%83%88%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E4%BA%A4%E6%8F%9B%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%20%E3%83%AA%E3%83%81%E3%82%A6%E3%83%A0%E3%82%A4%E3%82%AA%E3%83%B3%20%E5%85%85%E9%9B%BB%E6%B1%A0&i=aps"
+   ]
   }
  },
  {
@@ -265,7 +271,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=2025%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E3%82%B9%E3%83%9E%E3%83%9B%20pc%20%E6%A9%9F%E5%99%A8%20%E3%83%91%E3%83%BC%E3%83%84%20%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%89%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%20%E9%83%A8%E5%93%81%20%E3%83%9E%E3%82%A6%E3%82%B9%20%E3%83%91%E3%83%83%E3%83%88%20WEB%20LAN%20%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%20%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E9%96%A2%E9%80%A3%205%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%E3%82%A8%E3%83%AC%E3%82%B3%E3%83%A0%20%E9%9B%BB%E6%BA%90%E3%82%BF%E3%83%83%E3%83%97%20%E9%9B%B7%E3%82%AC%E3%83%BC%E3%83%89%E4%BB%98%E3%81%8D%20T-KS02-2430WH%20T-KS02-2430WHX5&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：複数箇所に電源タップをまとめて配置したい人には有力候補。個口数などの細部は販売ページで要確認",
   "summary": [
@@ -468,6 +474,12 @@
     "total": 90,
     "notes": "修正前は禁止語「必ず」「永久に」が複数箇所に残っていた点のみが減点対象。公式仕様の欠落は正しくrating/specを省く形で処理済みで減点していない。独自分析（5個セット時の影響波及、商品名のキーワード羅列の読み解き）はあるが競合記事と比べ突出した切り口ではないためtemplate_avoidanceとoriginal_analysisはやや控えめ。"
    }
+  },
+  "health": {
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=2025%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E3%82%B9%E3%83%9E%E3%83%9B%20pc%20%E6%A9%9F%E5%99%A8%20%E3%83%91%E3%83%BC%E3%83%84%20%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%89%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%20%E9%83%A8%E5%93%81%20%E3%83%9E%E3%82%A6%E3%82%B9%20%E3%83%91%E3%83%83%E3%83%88%20WEB%20LAN%20%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%20%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E9%96%A2%E9%80%A3%205%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%E3%82%A8%E3%83%AC%E3%82%B3%E3%83%A0%20%E9%9B%BB%E6%BA%90%E3%82%BF%E3%83%83%E3%83%97%20%E9%9B%B7%E3%82%AC%E3%83%BC%E3%83%89%E4%BB%98%E3%81%8D%20T-KS02-2430WH%20T-KS02-2430WHX5&i=aps"
+   ]
   }
  },
  {
@@ -492,7 +504,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=39shop%20DDR3%E2%98%85PC3-8500E%20ECC%20Unbuffered%20DIMM%20A3E1066-2G%20D3E1066%E5%AF%BE%E5%BF%9C%E4%BA%92%E6%8F%9B%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%BC&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：A3E1066-2G/D3E1066対応機の増設に絞るなら候補、規格違いの誤発注に要注意",
   "summary": [
@@ -699,6 +711,12 @@
     "total": 88,
     "notes": "独自分析はUnbuffered/Registeredの違いと型番照合という実務的な着眼点があるがやや薄め。比較対象の指摘以外は事実の帰属・仕様省略の扱いとも適切。"
    }
+  },
+  "health": {
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=39shop%20DDR3%E2%98%85PC3-8500E%20ECC%20Unbuffered%20DIMM%20A3E1066-2G%20D3E1066%E5%AF%BE%E5%BF%9C%E4%BA%92%E6%8F%9B%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%BC&i=aps"
+   ]
   }
  },
  {
@@ -724,7 +742,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E4%BA%BA%E6%B0%97%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E8%B4%88%E7%AD%94%20%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%20%E5%BF%98%E5%B9%B4%E4%BC%9A%20%E5%AE%9A%E7%95%AA%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E5%9C%9F%E7%94%A3%20%E5%B9%B4%E6%9C%AB%20%E6%AD%A3%E6%9C%88%2010%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%20%E3%82%A8%E3%83%AC%E3%82%B3%E3%83%A0%20%E3%83%84%E3%83%A1%E6%8A%98%E3%82%8C%E9%98%B2%E6%AD%A2LAN%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20Cat5E%20LD-CTT%20BU50X10%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20%E9%96%A2%E9%80%A3%E5%8D%98%E8%AA%9E%20%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%20usb%20PC%20%E5%91%A8%E8%BE%BA%E6%A9%9F%E5%99%A8%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%20%E8%BB%A2%E9%80%81%20%E4%BF%A1%E5%8F%B7%20DVI%20%E5%A4%89%E6%8F%9B%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20HDMI%20VGA&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：LANケーブルをまとめて用意したい人には買い。10GBASE-T等の高速規格が要る人には別を",
   "summary": [
@@ -913,6 +931,12 @@
     "total": 89,
     "notes": "公式仕様が無いことを一貫して「読み取れます」「確認できていません」と明示しており、断定や捏造は見当たらない。original_analysisがやや平均的（Cat5Eの用途判断は他のLANケーブル記事でも書ける内容）で伸びしろがある程度。"
    }
+  },
+  "health": {
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E4%BA%BA%E6%B0%97%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E8%B4%88%E7%AD%94%20%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%20%E5%BF%98%E5%B9%B4%E4%BC%9A%20%E5%AE%9A%E7%95%AA%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E5%9C%9F%E7%94%A3%20%E5%B9%B4%E6%9C%AB%20%E6%AD%A3%E6%9C%88%2010%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%20%E3%82%A8%E3%83%AC%E3%82%B3%E3%83%A0%20%E3%83%84%E3%83%A1%E6%8A%98%E3%82%8C%E9%98%B2%E6%AD%A2LAN%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20Cat5E%20LD-CTT%20BU50X10%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20%E9%96%A2%E9%80%A3%E5%8D%98%E8%AA%9E%20%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%20usb%20PC%20%E5%91%A8%E8%BE%BA%E6%A9%9F%E5%99%A8%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%20%E8%BB%A2%E9%80%81%20%E4%BF%A1%E5%8F%B7%20DVI%20%E5%A4%89%E6%8F%9B%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20HDMI%20VGA&i=aps"
+   ]
   }
  },
  {
@@ -937,7 +961,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=EPSON%20%E3%82%A8%E3%83%97%E3%82%BD%E3%83%B3%20%E7%B4%8D%E6%9C%9F%E3%81%94%E6%B3%A8%E6%96%87%E5%BE%8C%E7%B4%847%E3%82%AB%E6%9C%88%20%E3%82%B5%E3%83%BC%E3%83%9E%E3%83%AB%E3%83%AC%E3%82%B7%E3%83%BC%E3%83%88%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF%E3%83%BC%2080mm%20USB%E3%83%BB%E6%9C%89%E7%B7%9A%E3%83%BB%E7%84%A1%E7%B7%9ALAN%20%E3%83%A9%E3%83%99%E3%83%AB%E5%8D%B0%E5%88%B7%E5%AF%BE%E5%BF%9C%20TML90UE431%20%E5%8D%98%E5%93%81%E8%B3%BC%E5%85%A5%E3%81%AE%E3%81%BF%E5%8F%AF%20%E5%90%8C%E4%B8%80%E5%95%86%E5%93%81%E3%81%A7%E3%81%82%E3%82%8C%E3%81%B0%E8%A4%87%E6%95%B0%E8%B3%BC%E5%85%A5%E5%8F%AF%20%E3%82%AF%E3%83%AC%E3%82%B8%E3%83%83%E3%83%88%E3%82%AB%E3%83%BC%E3%83%89%E6%B1%BA%E6%B8%88%20%E4%BB%A3%E9%87%91%E5%BC%95%E6%8F%9B%E6%B1%BA%E6%B8%88%E3%81%AE%E3%81%BF&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：数カ月先の導入を見込んで計画的に発注できる事業者向け。今すぐ稼働させたい人には不向き",
   "summary": [
@@ -1141,6 +1165,12 @@
     "total": 89,
     "notes": "納期・決済条件という他サイトが書かない切り口を軸にしており独自性は高い。裏づけのない数値（rating/spec）を出しておらず、口コミも実在しない前提でvoicesを削るのが正しい処理。全体が注意点寄り（sectionsが3つとも制約の話）でeditorial_qualityはやや抑えた。"
    }
+  },
+  "health": {
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=EPSON%20%E3%82%A8%E3%83%97%E3%82%BD%E3%83%B3%20%E7%B4%8D%E6%9C%9F%E3%81%94%E6%B3%A8%E6%96%87%E5%BE%8C%E7%B4%847%E3%82%AB%E6%9C%88%20%E3%82%B5%E3%83%BC%E3%83%9E%E3%83%AB%E3%83%AC%E3%82%B7%E3%83%BC%E3%83%88%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF%E3%83%BC%2080mm%20USB%E3%83%BB%E6%9C%89%E7%B7%9A%E3%83%BB%E7%84%A1%E7%B7%9ALAN%20%E3%83%A9%E3%83%99%E3%83%AB%E5%8D%B0%E5%88%B7%E5%AF%BE%E5%BF%9C%20TML90UE431%20%E5%8D%98%E5%93%81%E8%B3%BC%E5%85%A5%E3%81%AE%E3%81%BF%E5%8F%AF%20%E5%90%8C%E4%B8%80%E5%95%86%E5%93%81%E3%81%A7%E3%81%82%E3%82%8C%E3%81%B0%E8%A4%87%E6%95%B0%E8%B3%BC%E5%85%A5%E5%8F%AF%20%E3%82%AF%E3%83%AC%E3%82%B8%E3%83%83%E3%83%88%E3%82%AB%E3%83%BC%E3%83%89%E6%B1%BA%E6%B8%88%20%E4%BB%A3%E9%87%91%E5%BC%95%E6%8F%9B%E6%B1%BA%E6%B8%88%E3%81%AE%E3%81%BF&i=aps"
+   ]
   }
  },
  {
@@ -1165,7 +1195,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E5%8F%8D%E5%B0%84%E9%98%B2%E6%AD%A2%E6%B6%B2%E6%99%B6%E4%BF%9D%E8%AD%B7%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%20%E3%81%A8%20%E3%82%B7%E3%83%AA%E3%82%B3%E3%83%B3%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%82%AB%E3%83%90%E3%83%BC%20%E3%81%AE3%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%2013.3%E3%82%A4%E3%83%B3%E3%83%81%20Lenovo%20IdeaPad%20Flex%20560i%20Chromebook%202021%E5%B9%B4%E7%89%88%20%E5%AF%BE%E5%BF%9C%20%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%AB%E3%83%90%E3%83%BC%20%E8%A1%9D%E6%92%83%E5%90%B8%E5%8F%8E%20PC%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%81%A8%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF%20%E4%BA%92%E6%8F%9B%E5%93%81&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：IdeaPad Flex 560iを傷・指紋・キー汚れから守りたい人向け。純正品同等の精度を求める人には不向き",
   "summary": [
@@ -1398,6 +1428,12 @@
     "total": 87,
     "notes": "禁止語「必ず」2箇所と裏づけのない横断トレンド主張を修正。公式仕様欠如は減点していない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E5%8F%8D%E5%B0%84%E9%98%B2%E6%AD%A2%E6%B6%B2%E6%99%B6%E4%BF%9D%E8%AD%B7%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%20%E3%81%A8%20%E3%82%B7%E3%83%AA%E3%82%B3%E3%83%B3%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%82%AB%E3%83%90%E3%83%BC%20%E3%81%AE3%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%2013.3%E3%82%A4%E3%83%B3%E3%83%81%20Lenovo%20IdeaPad%20Flex%20560i%20Chromebook%202021%E5%B9%B4%E7%89%88%20%E5%AF%BE%E5%BF%9C%20%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%AB%E3%83%90%E3%83%BC%20%E8%A1%9D%E6%92%83%E5%90%B8%E5%8F%8E%20PC%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%81%A8%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF%20%E4%BA%92%E6%8F%9B%E5%93%81&i=aps"
+   ]
   }
  },
  {
@@ -1423,7 +1459,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%81%BE%E3%81%A8%E3%82%81%20%E3%83%A9%E3%82%A4%E3%82%AA%E3%83%B3%E4%BA%8B%E5%8B%99%E5%99%A8%E6%B6%B2%E6%99%B6%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E7%94%A8%E6%8C%81%E5%87%BA%E3%81%97%E9%98%B2%E6%AD%A2%E3%83%AD%E3%83%83%E3%82%AF%20MB-25NE%201%E3%83%91%E3%83%83%E3%82%AF%20%C3%972%E3%82%BB%E3%83%83%E3%83%88%20%E4%BB%A3%E5%BC%95%E4%B8%8D%E5%8F%AF&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：複数台のディスプレイをまとめて防犯対策したい担当者向け。仕様は発注前に要確認",
   "summary": [
@@ -1628,6 +1664,12 @@
     "total": 87,
     "notes": "確認できない仕様を断定せず、rating/specも正しく省いている。独自性はやや弱く、「確認できていません」の言い回しがやや反復的でテンプレ感が出ている。"
    }
+  },
+  "health": {
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%81%BE%E3%81%A8%E3%82%81%20%E3%83%A9%E3%82%A4%E3%82%AA%E3%83%B3%E4%BA%8B%E5%8B%99%E5%99%A8%E6%B6%B2%E6%99%B6%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E7%94%A8%E6%8C%81%E5%87%BA%E3%81%97%E9%98%B2%E6%AD%A2%E3%83%AD%E3%83%83%E3%82%AF%20MB-25NE%201%E3%83%91%E3%83%83%E3%82%AF%20%C3%972%E3%82%BB%E3%83%83%E3%83%88%20%E4%BB%A3%E5%BC%95%E4%B8%8D%E5%8F%AF&i=aps"
+   ]
   }
  },
  {
@@ -1652,7 +1694,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E8%A6%81%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%2009%2025%2024%E6%99%82%E9%96%93%20%E5%BD%93%E9%81%B8%E7%A2%BA%E7%8E%872%E5%88%86%E3%81%AE1%201%E7%AD%89%20%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%83%90%E3%83%83%E3%82%AF%20%E3%82%A2%E3%82%A4%E3%83%BB%E3%82%AA%E3%83%BC%E3%83%BB%E3%83%87%E3%83%BC%E3%82%BF%E6%A9%9F%E5%99%A8%20DDR5%20PC5-4800%20PC5-38400%20%E5%AF%BE%E5%BF%9C%20%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%94%A8%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%BC%208GB%20D5R4800-8G&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：DDR5対応PCの容量を手堅く増やしたい人向け。対応規格の確認は購入前に必須",
   "summary": [
@@ -1856,6 +1898,12 @@
     "total": 85,
     "notes": "公式仕様が無い前提を一貫して明示し、断定を避けている点は良好。独自分析(口コミ傾向や競合比較)がやや薄く、国内メーカーの安心感の下りはやや定型的だが、いずれも修正が必要なほどの逸脱ではない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E8%A6%81%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%2009%2025%2024%E6%99%82%E9%96%93%20%E5%BD%93%E9%81%B8%E7%A2%BA%E7%8E%872%E5%88%86%E3%81%AE1%201%E7%AD%89%20%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%83%90%E3%83%83%E3%82%AF%20%E3%82%A2%E3%82%A4%E3%83%BB%E3%82%AA%E3%83%BC%E3%83%BB%E3%83%87%E3%83%BC%E3%82%BF%E6%A9%9F%E5%99%A8%20DDR5%20PC5-4800%20PC5-38400%20%E5%AF%BE%E5%BF%9C%20%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%94%A8%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%BC%208GB%20D5R4800-8G&i=aps"
+   ]
   }
  },
  {
@@ -1869,7 +1917,7 @@
   "description": "テレビボード ステラ(幅120cm)の口コミ・評判を検証。背面収納やキャスターの使い勝手、向く部屋・購入前に確認すべき点をモノベースが解説します。",
   "excerpt": "背面収納・キャスター付きの幅120cmロータイプ「ステラ」を口コミから検証。向く部屋と確認点を解説。",
   "date": "2026-09-24",
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "tags": [
    "テレビボード",
    "テレビ台",
@@ -1880,7 +1928,7 @@
   "icon": "🪑",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%83%86%E3%83%AC%E3%83%93%E3%83%9C%E3%83%BC%E3%83%89%20%E3%83%AA%E3%83%93%E3%83%B3%E3%82%B0%E3%83%9C%E3%83%BC%E3%83%89%20tv%E5%8F%B0%20tv%E3%83%A9%E3%83%83%E3%82%AF%20%E3%83%AD%E3%83%BC%E3%82%BF%E3%82%A4%E3%83%97%20%E3%83%AD%E3%83%BC%20%E8%83%8C%E9%9D%A2%E5%8F%8E%E7%B4%8D%E3%83%86%E3%83%AC%E3%83%93%E5%8F%B0%20%E3%80%94%E3%82%B9%E3%83%86%E3%83%A9%E3%80%95%20%E5%B9%85120cm%20%E3%83%86%E3%83%AC%E3%83%93%E3%83%A9%E3%83%83%E3%82%AF%20%E3%83%AA%E3%83%93%E3%83%B3%E3%82%B0%E5%8F%8E%E7%B4%8D%20tv%E5%8F%B0%20tv%E3%83%9C%E3%83%BC%E3%83%89%20tv%E3%83%A9%E3%83%83%E3%82%AF%20%E3%83%86%E3%83%AC%E3%83%93%20%E3%83%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%20%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%AB%E3%83%8A%E3%83%83%E3%83%88%20%E6%9C%A8%E8%A3%BD%20%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20%E3%82%AD%E3%83%A3%E3%82%B9%E3%82%BF%E3%83%BC%E4%BB%98%E3%81%8D%20%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%83%AA%E3%83%93%E3%83%B3%E3%82%B0%E5%8F%8E%E7%B4%8D%E5%AE%B6%E5%85%B7&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：配線を隠したい一人暮らし・寝室向き。大型テレビの安定設置を最優先する人には不向き",
   "summary": [
@@ -2099,6 +2147,12 @@
     "total": 88,
     "notes": "耐荷重・素材・組み立て要否など未確認事項を都度明示しており事実の扱いは丁寧。独自分析（背面収納が効く不満の切り分け、ロータイプの視線効果、キャスターとの安定感トレードオフ）はあるが踏み込みはやや浅め。禁止語「必ず」を修正済み。"
    }
+  },
+  "health": {
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%83%86%E3%83%AC%E3%83%93%E3%83%9C%E3%83%BC%E3%83%89%20%E3%83%AA%E3%83%93%E3%83%B3%E3%82%B0%E3%83%9C%E3%83%BC%E3%83%89%20tv%E5%8F%B0%20tv%E3%83%A9%E3%83%83%E3%82%AF%20%E3%83%AD%E3%83%BC%E3%82%BF%E3%82%A4%E3%83%97%20%E3%83%AD%E3%83%BC%20%E8%83%8C%E9%9D%A2%E5%8F%8E%E7%B4%8D%E3%83%86%E3%83%AC%E3%83%93%E5%8F%B0%20%E3%80%94%E3%82%B9%E3%83%86%E3%83%A9%E3%80%95%20%E5%B9%85120cm%20%E3%83%86%E3%83%AC%E3%83%93%E3%83%A9%E3%83%83%E3%82%AF%20%E3%83%AA%E3%83%93%E3%83%B3%E3%82%B0%E5%8F%8E%E7%B4%8D%20tv%E5%8F%B0%20tv%E3%83%9C%E3%83%BC%E3%83%89%20tv%E3%83%A9%E3%83%83%E3%82%AF%20%E3%83%86%E3%83%AC%E3%83%93%20%E3%83%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%20%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%AB%E3%83%8A%E3%83%83%E3%83%88%20%E6%9C%A8%E8%A3%BD%20%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20%E3%82%AD%E3%83%A3%E3%82%B9%E3%82%BF%E3%83%BC%E4%BB%98%E3%81%8D%20%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%83%AA%E3%83%93%E3%83%B3%E3%82%B0%E5%8F%8E%E7%B4%8D%E5%AE%B6%E5%85%B7&i=aps"
+   ]
   }
  },
  {
@@ -2112,7 +2166,7 @@
   "description": "HAGIHARA KH-3691WHの口コミ・仕様表記を整理。コンセント付き宮棚とハンガーポール、耐荷重100kg・高さ159cmのミドルタイプロフトベッドが向く人・向かない人と購入前の確認点をまとめました。",
   "excerpt": "宮棚・ハンガーポール付きミドルタイプロフトベッド。耐荷重100kgの目安と設置前の確認点を整理。",
   "date": "2026-09-24",
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "tags": [
    "ロフトベッド",
    "HAGIHARA",
@@ -2122,7 +2176,7 @@
   "icon": "🪑",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=HAGIHARA%20%E7%9B%B4%E9%80%815%20%E3%80%8C%E5%A5%BD%E3%81%8D%E3%81%AA%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%E3%80%8D%E3%82%92%E5%8F%96%E3%82%8A%E4%BB%98%E3%81%91%E3%81%A6%E7%A7%81%E3%81%A0%E3%81%91%E3%81%AE%E8%87%AA%E7%94%B1%E7%A9%BA%E9%96%93%E3%81%AB%E3%80%82%20%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%B3%E3%83%88%E4%BB%98%E3%81%8D%E5%AE%AE%E6%A3%9A%20%E3%83%8F%E3%83%B3%E3%82%AC%E3%83%BC%E3%83%9D%E3%83%BC%E3%83%AB%E4%BB%98%E3%81%8D%20%E8%80%90%E8%8D%B7%E9%87%8D100kg%20%E9%AB%98%E3%81%95159cm%20%E3%83%9F%E3%83%89%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%97%E3%83%AD%E3%83%95%E3%83%88%E3%83%99%E3%83%83%E3%83%89%20%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%E3%82%B5%E3%82%A4%E3%82%BAKH-3691WH%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：床面積を稼ぎたい一人暮らし向け。天井が低い部屋と体格の大きい人には不向き",
   "summary": [
@@ -2330,6 +2384,12 @@
     "total": 90,
     "notes": "公式仕様が無い前提を一貫して開示し、断定できない数値には毎回ヘッジが入っている。rating/specは適切に省かれている。独自性はミドルタイプの位置づけ説明など中程度に留まる。"
    }
+  },
+  "health": {
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=HAGIHARA%20%E7%9B%B4%E9%80%815%20%E3%80%8C%E5%A5%BD%E3%81%8D%E3%81%AA%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%E3%80%8D%E3%82%92%E5%8F%96%E3%82%8A%E4%BB%98%E3%81%91%E3%81%A6%E7%A7%81%E3%81%A0%E3%81%91%E3%81%AE%E8%87%AA%E7%94%B1%E7%A9%BA%E9%96%93%E3%81%AB%E3%80%82%20%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%B3%E3%83%88%E4%BB%98%E3%81%8D%E5%AE%AE%E6%A3%9A%20%E3%83%8F%E3%83%B3%E3%82%AC%E3%83%BC%E3%83%9D%E3%83%BC%E3%83%AB%E4%BB%98%E3%81%8D%20%E8%80%90%E8%8D%B7%E9%87%8D100kg%20%E9%AB%98%E3%81%95159cm%20%E3%83%9F%E3%83%89%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%97%E3%83%AD%E3%83%95%E3%83%88%E3%83%99%E3%83%83%E3%83%89%20%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%E3%82%B5%E3%82%A4%E3%82%BAKH-3691WH%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88&i=aps"
+   ]
   }
  },
  {
@@ -11818,7 +11878,7 @@
   "description": "ミルボン カラーガジェット カラーシャンプー ラベンダーパープルの仕様・口コミ情報を紫シャンプーの観点で整理。美容室専売品を通販で買う際の確認点も解説します。",
   "excerpt": "黄ばみ対策の紫シャンプー。美容室専売品を通販で買う際の注意点を整理。",
   "date": "2026-09-20",
-  "updated": "2026-09-20",
+  "updated": "2026-09-25",
   "tags": [
    "ミルボン",
    "カラーガジェット",
@@ -11829,7 +11889,7 @@
   "icon": "💄",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E2%96%A0%E3%83%9E%E3%83%A9%E3%82%BD%E3%83%B3%E6%9C%80%E5%A4%A7P10%E5%80%8D%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%E3%83%BC%EF%BC%86%E5%BD%93%E5%BA%97%20%E8%A6%81%E2%96%A0%20%E3%83%9F%E3%83%AB%E3%83%9C%E3%83%B3%20%E3%82%AB%E3%83%A9%E3%83%BC%E3%82%AC%E3%82%B8%E3%82%A7%E3%83%83%E3%83%88%20%E3%82%AB%E3%83%A9%E3%83%BC%E3%82%B7%E3%83%A3%E3%83%B3%E3%83%97%E3%83%BC%20150ml%20%E3%83%A9%E3%83%99%E3%83%B3%E3%83%80%E3%83%BC%E3%83%91%E3%83%BC%E3%83%97%E3%83%AB%20%E7%BE%8E%E5%AE%B9%E5%AE%A4%E5%B0%82%E5%A3%B2%20%E7%BE%8E%E5%AE%B9%E5%AE%A4%20%E3%82%B5%E3%83%AD%E3%83%B3%20%E7%BE%8E%E5%AE%B9%E9%99%A2%20%E5%B0%82%E5%A3%B2%E5%93%81%20MILBON%20COLOR%20GADGET&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：ブリーチ・ハイライト毛の黄ばみが気になる人には検討価値があるが、仕様と購入ルートは自分で確認したい一本",
   "summary": [
@@ -12030,7 +12090,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E2%96%A0%E3%83%9E%E3%83%A9%E3%82%BD%E3%83%B3%E6%9C%80%E5%A4%A7P10%E5%80%8D%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%E3%83%BC%EF%BC%86%E5%BD%93%E5%BA%97%20%E8%A6%81%E2%96%A0%20%E3%83%9F%E3%83%AB%E3%83%9C%E3%83%B3%20%E3%82%AB%E3%83%A9%E3%83%BC%E3%82%AC%E3%82%B8%E3%82%A7%E3%83%83%E3%83%88%20%E3%82%AB%E3%83%A9%E3%83%BC%E3%82%B7%E3%83%A3%E3%83%B3%E3%83%97%E3%83%BC%20150ml%20%E3%83%A9%E3%83%99%E3%83%B3%E3%83%80%E3%83%BC%E3%83%91%E3%83%BC%E3%83%97%E3%83%AB%20%E7%BE%8E%E5%AE%B9%E5%AE%A4%E5%B0%82%E5%A3%B2%20%E7%BE%8E%E5%AE%B9%E5%AE%A4%20%E3%82%B5%E3%83%AD%E3%83%B3%20%E7%BE%8E%E5%AE%B9%E9%99%A2%20%E5%B0%82%E5%A3%B2%E5%93%81%20MILBON%20COLOR%20GADGET&i=aps"
+   ]
   }
  },
  {
@@ -12044,7 +12107,7 @@
   "description": "MPD-9X10はマウスパッド10枚セット。メーカー名・仕様表記は未確認。向く使い方と購入前の確認点を整理。",
   "excerpt": "マウスパッド10枚セットMPD-9X10。配布・複数拠点向けの使い道と注意点。",
   "date": "2026-09-20",
-  "updated": "2026-09-20",
+  "updated": "2026-09-25",
   "tags": [
    "マウスパッド",
    "10枚セット",
@@ -12055,7 +12118,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=2025%E5%B9%B4%2012%E6%9C%88%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E3%82%B9%E3%83%9E%E3%83%9B%20pc%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E3%82%B9%E3%83%9E%E3%83%9B%20OA%E6%A9%9F%E5%99%A8%20%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%20%E6%83%85%E5%A0%B1%20%E5%91%A8%E8%BE%BA%20%E6%A9%9F%E5%99%A8%20%E3%83%91%E3%83%BC%E3%83%84%20%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%89%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%20%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E9%96%A2%E9%80%A3%2010%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%E3%83%9E%E3%82%A6%E3%82%B9%E3%83%91%E3%83%83%E3%83%89%20MPD-9X10&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：複数拠点や配布用途で使い切れる人には買い。1枚を長く使いたい人には別を",
   "summary": [
@@ -12268,7 +12331,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=2025%E5%B9%B4%2012%E6%9C%88%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E3%82%B9%E3%83%9E%E3%83%9B%20pc%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E3%82%B9%E3%83%9E%E3%83%9B%20OA%E6%A9%9F%E5%99%A8%20%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%20%E6%83%85%E5%A0%B1%20%E5%91%A8%E8%BE%BA%20%E6%A9%9F%E5%99%A8%20%E3%83%91%E3%83%BC%E3%83%84%20%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%89%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%20%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E9%96%A2%E9%80%A3%2010%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%E3%83%9E%E3%82%A6%E3%82%B9%E3%83%91%E3%83%83%E3%83%89%20MPD-9X10&i=aps"
+   ]
   }
  },
  {
@@ -12282,7 +12348,7 @@
   "description": "メディアカバーマーケットのROG Strix G17 G713用保護フィルムを口コミ・製品特性から解説。紙感覚の反射防止・指紋防止の効果と、非タッチ機で選ぶ際の注意点をまとめた。",
   "excerpt": "G713用の紙感覚保護フィルムは反射・指紋対策に効くが、発色の見え方が変わる点に注意。",
   "date": "2026-09-20",
-  "updated": "2026-09-20",
+  "updated": "2026-09-25",
   "tags": [
    "ROG Strix G17",
    "G713",
@@ -12293,7 +12359,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%AB%E3%83%90%E3%83%BC%E3%83%9E%E3%83%BC%E3%82%B1%E3%83%83%E3%83%88%20%E3%82%A8%E3%82%A4%E3%82%B9%E3%83%BC%E3%82%B9%20ROG%20Strix%20G17%202023%20G713%2017.3%E3%82%A4%E3%83%B3%E3%83%81%20%E6%A9%9F%E7%A8%AE%E5%AF%BE%E5%BF%9C%20%E6%B6%B2%E6%99%B6%E4%BF%9D%E8%AD%B7%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%20%E3%83%9A%E3%83%BC%E3%83%91%E3%83%BC%E3%83%86%E3%82%A4%E3%82%B9%E3%83%88%20%E7%B4%99%E6%84%9F%E8%A6%9A%20%E5%8F%8D%E5%B0%84%E9%98%B2%E6%AD%A2%20%E6%8C%87%E7%B4%8B%E9%98%B2%E6%AD%A2%20%E4%BA%92%E6%8F%9B%E5%93%81%20rt-ppr-lspc17-mc005330&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：映り込みと指紋を抑えたい人向け。発色のシャープさを最優先する用途では見え方の変化に注意",
   "summary": [
@@ -12470,7 +12536,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%AB%E3%83%90%E3%83%BC%E3%83%9E%E3%83%BC%E3%82%B1%E3%83%83%E3%83%88%20%E3%82%A8%E3%82%A4%E3%82%B9%E3%83%BC%E3%82%B9%20ROG%20Strix%20G17%202023%20G713%2017.3%E3%82%A4%E3%83%B3%E3%83%81%20%E6%A9%9F%E7%A8%AE%E5%AF%BE%E5%BF%9C%20%E6%B6%B2%E6%99%B6%E4%BF%9D%E8%AD%B7%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%20%E3%83%9A%E3%83%BC%E3%83%91%E3%83%BC%E3%83%86%E3%82%A4%E3%82%B9%E3%83%88%20%E7%B4%99%E6%84%9F%E8%A6%9A%20%E5%8F%8D%E5%B0%84%E9%98%B2%E6%AD%A2%20%E6%8C%87%E7%B4%8B%E9%98%B2%E6%AD%A2%20%E4%BA%92%E6%8F%9B%E5%93%81%20rt-ppr-lspc17-mc005330&i=aps"
+   ]
   }
  },
  {
@@ -12484,7 +12553,7 @@
   "description": "ThinkPad E16 Gen1(2023年・16インチ)向け互換3点セット(マウス・リストレスト付きマウスパッド・シリコンキーボードカバー)の適合条件と購入前の確認点をまとめました。",
   "excerpt": "ThinkPad E16 Gen1向け互換3点セットの適合条件と注意点を整理",
   "date": "2026-09-20",
-  "updated": "2026-09-20",
+  "updated": "2026-09-25",
   "tags": [
    "ThinkPad E16",
    "Lenovoノートパソコン",
@@ -12495,7 +12564,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=Lenovo%20ThinkPad%20E16%20Gen%201%202023%E5%B9%B4%E7%89%88%2016%E3%82%A4%E3%83%B3%E3%83%81%20%E3%83%9E%E3%82%A6%E3%82%B9%20%E3%81%A8%20%E3%83%AA%E3%82%B9%E3%83%88%E3%83%AC%E3%82%B9%E3%83%88%E4%BB%98%E3%81%8D%20%E3%83%9E%E3%82%A6%E3%82%B9%E3%83%91%E3%83%83%E3%83%89%20%E3%81%A8%20%E3%82%B7%E3%83%AA%E3%82%B3%E3%83%B3%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%82%AB%E3%83%90%E3%83%BC%203%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF%20jgs%20bgt%20%E4%BA%92%E6%8F%9B%E5%93%81&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：ThinkPad E16 Gen1のキーボード保護とマウス確保を一度に済ませたい人向け。純正品や高性能マウスを求めるなら別を検討",
   "summary": [
@@ -12698,7 +12767,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=Lenovo%20ThinkPad%20E16%20Gen%201%202023%E5%B9%B4%E7%89%88%2016%E3%82%A4%E3%83%B3%E3%83%81%20%E3%83%9E%E3%82%A6%E3%82%B9%20%E3%81%A8%20%E3%83%AA%E3%82%B9%E3%83%88%E3%83%AC%E3%82%B9%E3%83%88%E4%BB%98%E3%81%8D%20%E3%83%9E%E3%82%A6%E3%82%B9%E3%83%91%E3%83%83%E3%83%89%20%E3%81%A8%20%E3%82%B7%E3%83%AA%E3%82%B3%E3%83%B3%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%82%AB%E3%83%90%E3%83%BC%203%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF%20jgs%20bgt%20%E4%BA%92%E6%8F%9B%E5%93%81&i=aps"
+   ]
   }
  },
  {
@@ -12712,7 +12784,7 @@
   "description": "ロジテックの6-in-1 USB-Cハブ「LHB-PMP6U3S」を商品ページの情報から検証。画面表示ON/OFFボタンやPD100W給電の使い勝手、購入前に確認すべき点をまとめました。",
   "excerpt": "USB-C一本で映像・給電・SDカードをまとめる6-in-1ハブの機能と注意点",
   "date": "2026-09-20",
-  "updated": "2026-09-20",
+  "updated": "2026-09-25",
   "tags": [
    "USB-Cハブ",
    "ドッキングステーション",
@@ -12724,7 +12796,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%83%AD%E3%82%B8%E3%83%86%E3%83%83%E3%82%AF%20USB%20Type-C%20%E3%83%8F%E3%83%96%20%E3%83%89%E3%83%83%E3%82%AD%E3%83%B3%E3%82%B0%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%206-in-1%20%E7%94%BB%E9%9D%A2%E8%A1%A8%E7%A4%BAON%20OFF%E3%83%9C%E3%82%BF%E3%83%B3%E4%BB%98%20USB%20PD%20100W%E5%AF%BE%E5%BF%9C%20USBA%C3%972%204K60Hz%20HDMI%C3%971%20USB-C%C3%971%20SD%EF%BC%8BmicroSD%E3%82%B9%E3%83%AD%E3%83%83%E3%83%88%20LHB-PMP6U3S&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：USB-C一本でノートPCの給電・映像出力・周辺機器をまとめたい人向け。複数モニター運用には力不足",
   "summary": [
@@ -12939,7 +13011,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%83%AD%E3%82%B8%E3%83%86%E3%83%83%E3%82%AF%20USB%20Type-C%20%E3%83%8F%E3%83%96%20%E3%83%89%E3%83%83%E3%82%AD%E3%83%B3%E3%82%B0%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%206-in-1%20%E7%94%BB%E9%9D%A2%E8%A1%A8%E7%A4%BAON%20OFF%E3%83%9C%E3%82%BF%E3%83%B3%E4%BB%98%20USB%20PD%20100W%E5%AF%BE%E5%BF%9C%20USBA%C3%972%204K60Hz%20HDMI%C3%971%20USB-C%C3%971%20SD%EF%BC%8BmicroSD%E3%82%B9%E3%83%AD%E3%83%83%E3%83%88%20LHB-PMP6U3S&i=aps"
+   ]
   }
  },
  {
@@ -12953,7 +13028,7 @@
   "description": "アイオーデータ HDL2-LE04 Eの口コミ・仕様を整理。2ドライブRAID構成と2.5GbE対応の恩恵が出る条件、購入前に確認したい点をまとめました。",
   "excerpt": "2ドライブRAID×2.5GbE対応NASの、向く人と確認すべき点を整理。",
   "date": "2026-09-20",
-  "updated": "2026-09-20",
+  "updated": "2026-09-25",
   "tags": [
    "NAS",
    "ネットワークHDD",
@@ -12965,7 +13040,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%A2%E3%82%A4%E3%82%AA%E3%83%BC%E3%83%87%E3%83%BC%E3%82%BF%20HDL2-LE04%20E%202.5GbE%E5%AF%BE%E5%BF%9C%202%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AFHDD%204TB%20%E5%9C%A8%E5%BA%AB%E7%9B%AE%E5%AE%89%3A%E5%83%85%E5%B0%91%20NAS%20RAID%20%E3%83%AC%E3%82%A4%E3%83%89&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：写真・動画をRAIDで守りたい人向け。ギガビット止まりの家では2.5GbEは活きない",
   "summary": [
@@ -13149,7 +13224,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%A2%E3%82%A4%E3%82%AA%E3%83%BC%E3%83%87%E3%83%BC%E3%82%BF%20HDL2-LE04%20E%202.5GbE%E5%AF%BE%E5%BF%9C%202%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AFHDD%204TB%20%E5%9C%A8%E5%BA%AB%E7%9B%AE%E5%AE%89%3A%E5%83%85%E5%B0%91%20NAS%20RAID%20%E3%83%AC%E3%82%A4%E3%83%89&i=aps"
+   ]
   }
  },
  {
@@ -13163,7 +13241,7 @@
   "description": "パロマ WITHNA PD-829WS-U75CV-13Aの口コミ・評判を、無水両面焼きグリルとレンジフード連動の仕組みから解説。向く人・確認すべき点をまとめました。",
   "excerpt": "無水グリルとガラス天板で手入れを減らす、都市ガス用75cmビルトインコンロ",
   "date": "2026-09-20",
-  "updated": "2026-09-20",
+  "updated": "2026-09-25",
   "tags": [
    "ビルトインコンロ",
    "パロマ",
@@ -13174,7 +13252,7 @@
   "icon": "🍳",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=PD-829WS-U75CV-13A%20WITHNA%20%E3%82%A6%E3%82%A3%E3%82%BA%E3%83%8A%20%E3%83%91%E3%83%AD%E3%83%9E%20%E3%83%93%E3%83%AB%E3%83%88%E3%82%A4%E3%83%B3%E3%82%B3%E3%83%B3%E3%83%AD%20%E3%82%AA%E3%83%BC%E3%83%96%E3%83%B3%E6%8E%A5%E7%B6%9A%E4%B8%8D%E5%8F%AF%20%E5%B9%8575cm%20%E7%84%A1%E6%B0%B4%E4%B8%A1%E9%9D%A2%E7%84%BC%E3%81%8D%E3%82%B0%E3%83%AA%E3%83%AB%20%E3%83%AC%E3%83%B3%E3%82%B8%E3%83%95%E3%83%BC%E3%83%89%E9%80%A3%E5%8B%95%20%E3%83%8F%E3%82%A4%E3%83%91%E3%83%BC%E3%82%AC%E3%83%A9%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%88%E3%83%88%E3%83%83%E3%83%97%20%E3%83%86%E3%82%A3%E3%82%A2%E3%83%A9%E3%82%B7%E3%83%AB%E3%83%90%E3%83%BC%20%E9%83%BD%E5%B8%82%E3%82%AC%E3%82%B9&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：グリルの手入れを減らしたい人には合う。オーブン連動を求める人には別グレードを",
   "summary": [
@@ -13371,7 +13449,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=PD-829WS-U75CV-13A%20WITHNA%20%E3%82%A6%E3%82%A3%E3%82%BA%E3%83%8A%20%E3%83%91%E3%83%AD%E3%83%9E%20%E3%83%93%E3%83%AB%E3%83%88%E3%82%A4%E3%83%B3%E3%82%B3%E3%83%B3%E3%83%AD%20%E3%82%AA%E3%83%BC%E3%83%96%E3%83%B3%E6%8E%A5%E7%B6%9A%E4%B8%8D%E5%8F%AF%20%E5%B9%8575cm%20%E7%84%A1%E6%B0%B4%E4%B8%A1%E9%9D%A2%E7%84%BC%E3%81%8D%E3%82%B0%E3%83%AA%E3%83%AB%20%E3%83%AC%E3%83%B3%E3%82%B8%E3%83%95%E3%83%BC%E3%83%89%E9%80%A3%E5%8B%95%20%E3%83%8F%E3%82%A4%E3%83%91%E3%83%BC%E3%82%AC%E3%83%A9%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%88%E3%83%88%E3%83%83%E3%83%97%20%E3%83%86%E3%82%A3%E3%82%A2%E3%83%A9%E3%82%B7%E3%83%AB%E3%83%90%E3%83%BC%20%E9%83%BD%E5%B8%82%E3%82%AC%E3%82%B9&i=aps"
+   ]
   }
  },
  {
@@ -13385,7 +13466,7 @@
   "description": "パナソニックのノートパソコン向け交換用バッテリー「FZ-VDM55」を、確認できる範囲の情報で解説。型番の確認手順と購入前の注意点をまとめました。",
   "excerpt": "型番の一致がカギ。適合確認の手順と購入前の注意点をまとめました。",
   "date": "2026-09-20",
-  "updated": "2026-09-20",
+  "updated": "2026-09-25",
   "tags": [
    "パナソニック",
    "Let's note",
@@ -13396,7 +13477,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=Fz-vdm551%2010.8V%2068Wh%20panasonic%20%E3%83%91%E3%83%8A%E3%82%BD%E3%83%8B%E3%83%83%E3%82%AF%20%E3%83%8E%E3%83%BC%E3%83%88%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E4%BA%A4%E6%8F%9B%E7%94%A8%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%20%E5%85%85%E9%9B%BB%E6%B1%A0&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：型番の一致を自分で確認できる人には有力な選択肢。確認を省きたい人には不向き",
   "summary": [
@@ -13593,7 +13674,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=Fz-vdm551%2010.8V%2068Wh%20panasonic%20%E3%83%91%E3%83%8A%E3%82%BD%E3%83%8B%E3%83%83%E3%82%AF%20%E3%83%8E%E3%83%BC%E3%83%88%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E4%BA%A4%E6%8F%9B%E7%94%A8%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%20%E5%85%85%E9%9B%BB%E6%B1%A0&i=aps"
+   ]
   }
  },
  {
@@ -13607,7 +13691,7 @@
   "description": "サンワサプライのケーブルカバー CA-R70GYX10（グレー・1m×10本）について、公開されている商品情報をもとに向く使い方と注意点を整理しました。価格・在庫は販売ページでご確認ください。",
   "excerpt": "グレーのケーブルカバー1m×10本セット。デスク下や壁際の配線整理に使える構成と注意点を確認します。",
   "date": "2026-09-19",
-  "updated": "2026-09-19",
+  "updated": "2026-09-25",
   "tags": [
    "サンワサプライ",
    "CA-R70GYX10",
@@ -13618,7 +13702,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=10%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%E3%82%B5%E3%83%B3%E3%83%AF%E3%82%B5%E3%83%97%E3%83%A9%E3%82%A4%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%E3%82%AB%E3%83%90%E3%83%BC%20%E3%82%B0%E3%83%AC%E3%83%BC%E3%80%811m%20CA-R70GYX10%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20%E9%96%A2%E9%80%A3%E5%8D%98%E8%AA%9E%20DVI%20%E5%A4%89%E6%8F%9B%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20HDMI%20VGA%20%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9%20%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20DVD%20%E3%82%A2%E3%83%8A%E3%83%AD%E3%82%B0%20%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%20usb%20PC%20%E5%91%A8%E8%BE%BA%E6%A9%9F%E5%99%A8%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%20%E8%BB%A2%E9%80%81%20%E4%BF%A1%E5%8F%B7&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：グレーで複数の配線ルートを分けて整理したい人向け。他色や1mを超える連続ルートを探している人には不向き",
   "summary": [
@@ -13815,7 +13899,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=10%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%E3%82%B5%E3%83%B3%E3%83%AF%E3%82%B5%E3%83%97%E3%83%A9%E3%82%A4%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%E3%82%AB%E3%83%90%E3%83%BC%20%E3%82%B0%E3%83%AC%E3%83%BC%E3%80%811m%20CA-R70GYX10%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20%E9%96%A2%E9%80%A3%E5%8D%98%E8%AA%9E%20DVI%20%E5%A4%89%E6%8F%9B%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20HDMI%20VGA%20%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9%20%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20DVD%20%E3%82%A2%E3%83%8A%E3%83%AD%E3%82%B0%20%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%20usb%20PC%20%E5%91%A8%E8%BE%BA%E6%A9%9F%E5%99%A8%20%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%20%E8%BB%A2%E9%80%81%20%E4%BF%A1%E5%8F%B7&i=aps"
+   ]
   }
  },
  {
@@ -13829,7 +13916,7 @@
   "description": "ASUS ZenBook UX433FN-A5021R向け互換バッテリーの型番照合・PSE表示など、購入前に確認したい点を整理しました。",
   "excerpt": "ZenBook UX433FN-A5021R向け互換バッテリーの選び方と確認点をまとめました。",
   "date": "2026-09-19",
-  "updated": "2026-09-19",
+  "updated": "2026-09-25",
   "tags": [
    "ASUS",
    "ZenBook",
@@ -13840,7 +13927,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=Zenbook%20ux433fn-a5021r%2011.55V%2050Wh%20asus%20%E3%82%A8%E3%82%A4%E3%82%B9%E3%83%BC%E3%82%B9%20%E3%83%8E%E3%83%BC%E3%83%88PC%20%E4%BA%A4%E6%8F%9B%E7%94%A8%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%20%E9%9B%BB%E6%B1%A0%E3%83%91%E3%83%83%E3%82%AF&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：純正バッテリーが入手困難で、型番が完全一致する互換品を探している人向け",
   "summary": [
@@ -14038,7 +14125,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=Zenbook%20ux433fn-a5021r%2011.55V%2050Wh%20asus%20%E3%82%A8%E3%82%A4%E3%82%B9%E3%83%BC%E3%82%B9%20%E3%83%8E%E3%83%BC%E3%83%88PC%20%E4%BA%A4%E6%8F%9B%E7%94%A8%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%20%E9%9B%BB%E6%B1%A0%E3%83%91%E3%83%83%E3%82%AF&i=aps"
+   ]
   }
  },
  {
@@ -28506,7 +28596,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25"
   }
  },
  {
@@ -28786,7 +28876,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25"
   }
  },
  {
@@ -31974,7 +32064,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25"
   }
  },
  {
@@ -32268,7 +32358,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25"
   }
  },
  {
@@ -34062,7 +34152,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/1st_thum/main-salo3.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-21"
+   "checked": "2026-09-25"
   }
  },
  {
@@ -34358,7 +34448,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/apm24/cabinet/mjcare/imgrc0086590428.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-21"
+   "checked": "2026-09-25"
   }
  },
  {
@@ -34595,7 +34685,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tu-hacci/cabinet/bero/90368r_main_20.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-21"
+   "checked": "2026-09-25"
   }
  },
  {
@@ -34827,7 +34917,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-21"
+   "checked": "2026-09-25"
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/next-online/cabinet/06938766/08787750/samune20251016.jpg?_ex=128x128"
@@ -35104,7 +35194,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/thum/bota-01_20off.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-21"
+   "checked": "2026-09-25"
   }
  },
  {
@@ -38342,7 +38432,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luire/cabinet/plus04/mask26a-2_off50.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25"
   }
  },
  {
@@ -38610,7 +38700,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/starfocus/cabinet/sm/rakuten_sale/ifd/ifd_15.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25"
   }
  },
  {
@@ -38846,7 +38936,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-21"
+   "checked": "2026-09-25"
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/wtw-cctv-camera/cabinet/tokusyu/imgrc0195844605.jpg?_ex=128x128"
@@ -39091,7 +39181,7 @@
   },
   "image_prompt": "A photograph of Anker Prime Power Bank, which is a モバイルバッテリー, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25"
   },
   "yahoo_url": "https://store.shopping.yahoo.co.jp/lifestyle-007/61439.html"
  },
@@ -39553,7 +39643,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25"
   },
   "image_prompt": "A photograph of シック サロンプラス トーンアップ フェイススムーサー 替刃, which is a カミソリ, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "rakuten_url": "https://item.rakuten.co.jp/e-konekuto/4891228313807/",
@@ -40388,7 +40478,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25"
   },
   "official_url": "https://creerina.co.jp/items/powderyliquideyebrow/",
   "facts": [
@@ -43268,7 +43358,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-21"
+   "checked": "2026-09-25"
   },
   "good_for": {
    "intro": "次のような使い方・環境なら、このドックの構成がそのまま効きます。",
@@ -43955,7 +44045,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25"
   },
   "good_for": {
    "intro": "利用者の声から読み取れる評価の傾向と、Kindle Paperwhite というジャンルの性質を突き合わせると、次のような人に向きます。",
@@ -44575,7 +44665,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25"
   },
   "good_for": {
    "intro": "次のいずれかに当てはまる環境なら、このクラスを選ぶ理由がはっきりします。",
@@ -44896,7 +44986,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-20"
+   "checked": "2026-09-25"
   },
   "good_for": {
    "intro": "導光板シーリングライトが向くのは、明るさの数値より「光の質感」と「天井の見え方」に価値を感じる人だ。具体的にはこういう使い方の人が該当する。",
@@ -47610,7 +47700,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-21"
+   "checked": "2026-09-25"
   },
   "good_for": {
    "intro": "収納付き玄関ベンチが効くのは、次のような条件がそろっている場合です。座りたいという動機だけで選ぶと、置けるかどうかの壁にぶつかります。",
