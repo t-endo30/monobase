@@ -4122,33 +4122,6 @@ h1,h2,h3,h4,
 .hs-nums span{font-size:10.5px;
   letter-spacing:.06em;
   color:var(--text-sub);}
-/* 分野は横に流す。右端が切れていることで「まだ続く」ことも伝わる
-   （カテゴリー枠の cat-rail と同じ考え方） */
-.hs-chips{display:flex;
-  gap:6px;
-  margin-top:10px;
-  padding-bottom:4px;
-  overflow-x:auto;
-  scrollbar-width:none;
-  -webkit-overflow-scrolling:touch;}
-.hs-chips::-webkit-scrollbar{display:none;}
-.hs-chips a{flex:0 0 auto;
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  padding:6px 10px;
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  background:var(--surface);
-  font-size:12px;
-  color:var(--ink-2);
-  text-decoration:none;}
-.hs-chips a:hover{border-color:var(--border-strong);background:var(--bg-3);}
-.hs-chips a i{font-style:normal;
-  font-family:var(--font-en);
-  font-size:11px;
-  color:var(--muted-2);}
-.hs-ic{font-size:12px;line-height:1;}
 .hs-asof{margin:8px 0 0;
   font-size:11px;
   text-align:center;
@@ -4158,5 +4131,4 @@ h1,h2,h3,h4,
 @media (max-width:430px){
   .hs-nums li{padding:10px 4px;}
   .hs-nums span{font-size:9.5px;letter-spacing:.02em;}
-  .hs-chips a{padding:5px 8px;font-size:11.5px;}
 }

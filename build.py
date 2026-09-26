@@ -1709,13 +1709,16 @@ def v2_home_stats(p):
     """ホームの、ヒーローのすぐ下に置く「このサイトの規模」の帯。
 
        これを入れる前のホームは、ヒーローの次がいきなり新着タイルの列で、
-       そこから下は最後まで同じ形のタイルが続いていた。実際には144本・
+       そこから下は最後まで同じ形のタイルが続いていた。実際には200本・
        14分野あるのに、初めて来た人からは「記事が数本しかない薄いサイト」
-       に見える。数字と分野の並びを先に置いて、規模と守備範囲を
-       スクロールする前に伝える。
+       に見える。数字を先に置いて、規模をスクロールする前に伝える。
 
        数字はビルドのたびに PUBLISHED から数え直すので、放っておいても
-       実際の中身と合う（手で書いた数字は必ず古くなる）。"""
+       実際の中身と合う（手で書いた数字は必ず古くなる）。
+
+       分野の並び（カテゴリーチップ）もここに置いていたが、外した
+       （2026-09-27、ユーザー判断）。ホームには下に CATEGORY の区画が
+       あり、同じものが2回出ていた。"""
     counts = [(c, len([a for a in PUBLISHED if a.get("category") == c["key"]]))
               for c in CATS]
     counts = [(c, n) for c, n in counts if n]
@@ -1741,19 +1744,12 @@ def v2_home_stats(p):
 
     cells = "".join(f'<li><b>{e(t)}</b><span>{e(lab)}</span></li>'
                     for t, lab in nums)
-    # 分野は記事の多い順。並びで「どこが厚いサイトか」も伝わる。
-    chips = "".join(
-        f'<a href="{p}category-{e(c["key"])}.html">'
-        f'<span class="hs-ic" aria-hidden="true">{e(c.get("icon") or "")}</span>'
-        f'{e(c["label"])}<i>{n}</i></a>'
-        for c, n in sorted(counts, key=lambda x: (-x[1], x[0]["key"])))
     # 日付は数字の枠に入れると「2026年9月20日」だけ長すぎて枠が崩れるので、
     # 下に1行の注記として置く。
     asof = (f'        <p class="hs-asof">最終更新 {e(jp_date(latest))}</p>\n'
             if latest else "")
     return (f'      <div class="home-stats">\n'
             f'        <ul class="hs-nums">{cells}</ul>\n'
-            f'        <div class="hs-chips">{chips}</div>\n'
             f'{asof}      </div>\n')
 
 
