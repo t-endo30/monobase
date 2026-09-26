@@ -275,23 +275,34 @@ def rakuten_search(app_id, access_key=None, genre=None, keyword=None, jan=None,
     """楽天商品検索API。JANを渡すときは keyword に入れる（専用の欄がない）。
        アクセスキーはURLに載せず、accessKey ヘッダで送る。
 
-       item_code は「店舗コード/商品コード」。これを渡すと、その商品だけが
-       返る（検索語での取り違えが起きない）。刷新後のAPIが受け付けない
-       場合は結果が空になるので、呼ぶ側で次の手に進むこと。"""
-    q = {
-        "applicationId": app_id,
-        "format": "json",
-        "formatVersion": 2,
-        "hits": hits,
-        "sort": sort,
-        "imageFlag": 1,          # 画像のある商品だけ
-        "availability": 1,       # 在庫のある商品だけ
-    }
-    if genre:
-        q["genreId"] = genre
+       item_code は「店舗コード:商品コード」（コロン区切り）。これを渡すと
+       その商品だけが返るので、検索語での取り違えが起きない。
+
+       **itemCode を渡すときは、絞り込みの欄を一緒に送らない。**
+       hits・sort・imageFlag・availability を添えると楽天は
+       `HTTP 400: itemCode is not valid` を返す（2026-09-27、
+       177本中130本がこれで取れなかった）。itemCode は1件を名指しする
+       指定なので、並べ替えも在庫の絞り込みも意味を持たない。
+       取れなかった場合は結果が空になるので、呼ぶ側で次の手に進むこと。"""
     if item_code:
-        q["itemCode"] = item_code
+        q = {
+            "applicationId": app_id,
+            "format": "json",
+            "formatVersion": 2,
+            "itemCode": item_code,
+        }
     else:
+        q = {
+            "applicationId": app_id,
+            "format": "json",
+            "formatVersion": 2,
+            "hits": hits,
+            "sort": sort,
+            "imageFlag": 1,          # 画像のある商品だけ
+            "availability": 1,       # 在庫のある商品だけ
+        }
+        if genre:
+            q["genreId"] = genre
         kw = jan or keyword
         if kw:
             q["keyword"] = kw
