@@ -437,29 +437,52 @@ def facts_block(a):
 
 
 def reviews_block(a):
-    """販売APIから取った口コミの件数と平均評価を渡す。
+    """販売APIから取った価格・口コミの件数・平均評価を渡す。
 
        これがあるときだけ、記事は件数と平均を数字で書ける。
-       無いときに数字を書かせないのは今までどおり
-       （tools/fetch_reviews.py が入れる。JANが無い記事には入らない）。"""
+       無いときに数字を書かせないのは今までどおり。
+
+       中身は tools/make_drafts.py（候補集めの時点の値）か
+       tools/fetch_reviews.py（既存記事の拾い直し）が入れる。
+       モールによって価格だけ・口コミだけのことがあるので、
+       どの項目も「あれば出す」で組み立てる。"""
     st = a.get("review_stats") or {}
     lines = []
+    has_price = False
     for shop, ja in (("rakuten", "楽天市場"), ("yahoo", "Yahoo!ショッピング")):
         v = st.get(shop)
-        if v:
-            lines.append(f"・{ja}：レビュー {v['count']:,}件、"
-                         f"平均 {v['average']}／5.0（{v['shops']}店舗の合計）")
+        if not isinstance(v, dict):
+            continue
+        bits = []
+        if v.get("price"):
+            ship = "送料込" if v.get("postage_included") else "送料別"
+            bits.append(f"価格 {int(v['price']):,}円（{ship}）")
+            has_price = True
+        if v.get("count"):
+            bits.append(f"レビュー {int(v['count']):,}件、"
+                        f"平均 {v.get('average', '?')}／5.0"
+                        f"（{v.get('shops', 1)}店舗の合計）")
+        if bits:
+            lines.append(f"・{ja}：" + "、".join(bits))
     if not lines:
-        return ("\n【口コミの件数・平均評価】取得できていません。"
-                "件数・割合・平均の星を数字で書かないでください。"
+        return ("\n【価格・口コミの件数・平均評価】取得できていません。"
+                "価格・件数・割合・平均の星を数字で書かないでください。"
                 "「利用者の声では」「一部の利用者の声では」として、"
                 "傾向の記述にとどめます。")
-    return ("\n【口コミの件数・平均評価（販売APIで取得済み。"
-            f"確認日 {st.get('checked', '不明')}）】\n" + "\n".join(lines)
-            + "\nこの数字は書いてよい（出どころを『楽天市場の利用者の声』"
-            "のように明示する）。ここに無いモールの件数・平均は書かない。"
+    note = ("\nこの数字は書いてよい（出どころを『楽天市場の利用者の声』"
+            "のように明示する）。ここに無いモールの価格・件数・平均は書かない。"
             "これは販売情報であって、メーカー公式の仕様ではない。"
             "レビュー本文は取得していないので、特定の投稿を引用しない。")
+    if has_price:
+        # 価格は毎日変わる。記事は何か月も残るので、本文に金額を
+        # 書き込むと必ず古くなる。金額そのものは商品カード（build.py が
+        # 確認日つきで出す）に任せ、本文では価格帯の話にとどめる。
+        note += ("\n価格は変動するため、本文に具体的な金額を書かない。"
+                 "『1万円前後の価格帯』のような幅のある言い方にとどめる"
+                 "（金額そのものは商品カードが確認日つきで出す）。")
+    return ("\n【価格・口コミの件数・平均評価（販売APIで取得済み。"
+            f"確認日 {st.get('checked', '不明')}）】\n"
+            + "\n".join(lines) + note)
 
 
 def fetch_html(url):

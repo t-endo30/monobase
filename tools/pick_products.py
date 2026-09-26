@@ -32,7 +32,7 @@ AMAZON_ACCESS_KEY 等を渡せば、同じJANでAmazon側も照合します。
   $ python3 tools/pick_products.py --category pc   # カテゴリーを絞る
   $ python3 tools/pick_products.py --limit 5       # 上位5件だけ
 """
-import json, io, os, re, sys, time, argparse
+import json, io, os, re, sys, time, argparse, collections
 import urllib.request
 import urllib.error
 import urllib.parse
@@ -167,6 +167,18 @@ MIN_RATING = 3.6
 # 価格帯。極端に安い物はレビューが機能せず、高すぎる物は読者層と合わない。
 MIN_PRICE = 1500
 MAX_PRICE = 120000
+
+# 1カテゴリーが候補全体に占められる割合の上限。
+# これを入れる前は、12カテゴリー分の候補をまとめてレビュー件数の降順に
+# 並べて上から切っていたため、レビュー件数が桁違いに多いジャンル
+# （PC周辺機器・美容家電）が候補を独占していた。2026-09-27時点で
+# 公開144本のうちパソコンが30本（21%）、直近30本では13本（43%）まで
+# 偏り、ホームの新着枠がPCアクセサリだけで埋まっていた。
+CATEGORY_SHARE = 0.25
+
+# クールダウンで見る「直近の公開記事」の本数。
+# ここに多く出ているカテゴリーほど、次の候補では後ろに回す。
+COOLDOWN_RECENT = 30
 
 # サイトのカテゴリーと、楽天のジャンルID／Yahoo!の検索語の対応。
 # 楽天のジャンルIDは https://webservice.rakuten.co.jp/documentation/ で調べられる。
@@ -428,6 +440,18 @@ def known_items(arts):
     return keys
 
 
+def recent_category_load(arts, n=COOLDOWN_RECENT):
+    """直近に公開した n 本のカテゴリー分布を数える。
+
+       候補を選ぶ順番をここで決める（多く書いたカテゴリーほど後ろに回す）。
+       下書きのままの記事は数えない。公開まで至らなかったものを
+       「もう十分書いた」と見なすと、書けないカテゴリーばかりが
+       いつまでも先頭に来てしまうため。"""
+    pub = [a for a in arts if a.get("published")]
+    pub.sort(key=lambda a: (str(a.get("date") or ""), str(a.get("slug") or "")))
+    return collections.Counter(a.get("category", "") for a in pub[-n:])
+
+
 def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                      limit, per_category, trending=True):
     arts = json.load(io.open(os.path.join(ROOT, "content", "articles.json"),
@@ -602,8 +626,14 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                 "yahoo_url": (shops.get("yahoo") or {}).get("url", ""),
                 "amazon_url": "",       # PA-API承認後にここを埋める
                 "trending": bool(e.get("trending")),
+                # 価格・レビュー件数・平均評価は、ここで各モールのAPIが
+                # 正規に返した値。make_drafts.py がこれを下書きの
+                # review_stats に引き継ぎ、記事に数字として出す。
+                # （fetch_reviews.py は JAN のある記事しか埋められず、
+                #   JANを持つ記事は144本中10本しかない）
                 "shops": {k: {"price": v["price"], "shop_name": v["shop_name"],
-                              "postage_included": v["postage_included"]}
+                              "postage_included": v["postage_included"],
+                              "reviews": v["reviews"], "rating": v["rating"]}
                           for k, v in shops.items()},
             })
 
@@ -621,20 +651,58 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
         return (not looks_identifiable(c["name"], c["shops"]),
                 -c["reviews"], -c["rating"])
 
-    # ランキング由来（今売れている）と、レビュー件数由来（定番）を
-    # それぞれ別に並べてから交互に混ぜる。ランキング由来だけを先頭に
-    # 固めると、1回のバッチが少ない本数（今は1回2本）のとき、
-    # 話題の商品ばかりに偏ってしまうため（実際にそう指摘があった）。
-    # 交互にすることで、上から順に take しても両方が混ざって出てくる。
-    trend = sorted((c for c in out if c["trending"]), key=rank_key)
-    normal = sorted((c for c in out if not c["trending"]), key=rank_key)
-    mixed = []
-    for a, b in zip(trend, normal):
-        mixed.append(a)
-        mixed.append(b)
-    mixed += trend[len(normal):]
-    mixed += normal[len(trend):]
-    return mixed[:limit]
+    def interleave(items):
+        """ランキング由来（今売れている）と、レビュー件数由来（定番）を
+           それぞれ並べてから交互に混ぜる。ランキング由来だけを先頭に
+           固めると、1回のバッチが少ない本数（今は1回2本）のとき、
+           話題の商品ばかりに偏ってしまうため（実際にそう指摘があった）。
+           交互にすることで、上から順に take しても両方が混ざって出てくる。"""
+        trend = sorted((c for c in items if c["trending"]), key=rank_key)
+        normal = sorted((c for c in items if not c["trending"]), key=rank_key)
+        mixed = []
+        for a, b in zip(trend, normal):
+            mixed.append(a)
+            mixed.append(b)
+        mixed += trend[len(normal):]
+        mixed += normal[len(trend):]
+        return mixed
+
+    # カテゴリーごとに上限を設けて、カテゴリーをまたいで1件ずつ拾う。
+    #
+    # 以前はここで全カテゴリーの候補を1本の列にまとめ、レビュー件数の
+    # 降順に並べて上から limit 件を切っていた。カテゴリーを一切見て
+    # いなかったので、レビュー件数が桁違いに多いジャンルが候補を
+    # 独占する（「マウスパッド10枚セット」が「ノートPC」より上に来る）。
+    per_cat = max(2, int(limit * CATEGORY_SHARE))
+    by_cat = {}
+    for c in out:
+        by_cat.setdefault(c["category"], []).append(c)
+    for cat in by_cat:
+        by_cat[cat] = interleave(by_cat[cat])[:per_cat]
+
+    # 直近に書いた本数が少ないカテゴリーから先に拾う（クールダウン）。
+    # 書いたカテゴリーは次の実行で自然に後ろへ回るので、日をまたいで
+    # 均される。同数のときはキー名で決める（実行ごとに並びが変わると、
+    # ログを見比べたときに何が効いたのか分からなくなるため）。
+    recent = recent_category_load(arts)
+    order = sorted(by_cat, key=lambda k: (recent.get(k, 0), k))
+
+    picked = []
+    while len(picked) < limit and any(by_cat[k] for k in order):
+        for k in order:
+            if not by_cat[k]:
+                continue
+            picked.append(by_cat[k].pop(0))
+            if len(picked) >= limit:
+                break
+
+    got = collections.Counter(c["category"] for c in picked)
+    print("カテゴリーごとの候補数（直近{}本の公開実績→今回の候補）："
+          .format(COOLDOWN_RECENT))
+    for k in order:
+        if got.get(k):
+            print(f"  {k:12s} 直近{recent.get(k, 0):2d}本 → 候補{got[k]:2d}件")
+    return picked
 
 
 def main():

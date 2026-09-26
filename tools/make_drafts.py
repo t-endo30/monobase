@@ -208,6 +208,34 @@ def make_draft(c, site, taken):
         if img and a.get(key):
             a["shop_images"] = {shop: img}
             break
+    # 候補集めの時点でモールのAPIが返した価格・口コミ件数・平均評価も
+    # 引き継ぐ。記事に載る唯一の一次データで、これが無いと本文は
+    # 「〜とされています」だけになり、読者から見て中身の薄いページになる。
+    #
+    # fetch_reviews.py でも同じキーを埋められるが、あちらは JAN で商品を
+    # 照合する作りなので、JANを持たない記事（2026-09-27時点で144本中134本）
+    # は永久に空のままだった。ここで入れておけば、書いた初日から数字が出る。
+    #
+    # 出すのは「その _url が指している商品そのもの」の値だけ。名前で
+    # 検索し直した別商品の価格を載せると、読者を誤らせる。
+    stats = {}
+    for shop, key in (("rakuten", "rakuten_url"), ("yahoo", "yahoo_url")):
+        v = (c.get("shops") or {}).get(shop) or {}
+        if not a.get(key) or not v:
+            continue
+        row = {}
+        if v.get("price"):
+            row["price"] = int(v["price"])
+            row["postage_included"] = bool(v.get("postage_included"))
+        if v.get("reviews"):
+            row["count"] = int(v["reviews"])
+            row["average"] = round(float(v.get("rating") or 0), 2)
+            row["shops"] = 1
+        if row:
+            stats[shop] = row
+    if stats:
+        stats["checked"] = today
+        a["review_stats"] = stats
     # Amazonへの導線は必ず1本入れる。商品ページが分からないときは検索結果へ。
     if not (a.get("asin") or a.get("amazon_url")):
         a["amazon_url"] = amazon_search_url(name, c.get("jan"))

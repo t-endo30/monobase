@@ -434,6 +434,32 @@ def promo_ads(item):
             for c in split_codes(item.get("html") or "")]
 
 
+def promo_title(ad):
+    """広告の案件名を、人が読む見出しの形に整える。
+
+       ASPの管理画面から持ってくる素材名は、そのままだと
+         260914_Yahoo!ショッピング(ヤフー ショッピング)_300x250
+       のようになっている。頭の登録日、末尾のバナー寸法、素材名の
+       重複した読み仮名までホームに並んでいて、サイト全体が素人くさく
+       見える一番の箇所になっていた（2026-09-27に指摘を受けて修正）。
+
+       site.json の title を手で直す手もあるが、広告は入れ替わるので
+       出すときに整える。元のコード（ad["html"]）には触れない（規約）。"""
+    t = str(ad.get("title") or "").strip()
+    t = re.sub(r"^\s*\d{6,8}[_\-]\s*", "", t)          # 頭の登録日
+    t = re.sub(r"[_\-]\s*\d{2,4}\s*[xX×]\s*\d{2,4}\s*$", "", t)   # 末尾の寸法
+    t = t.strip(" _-")
+    # 末尾の丸括弧が、直前の語の読み仮名を繰り返しているだけのときは落とす。
+    # 「Yahoo!ショッピング(ヤフー ショッピング)」→「Yahoo!ショッピング」。
+    # 【】や中身のある補足（【フル・カスタマイズ可能】）は案件の説明なので残す。
+    m = re.search(r"[（(]([^（()）]*)[）)]\s*$", t)
+    if m and re.fullmatch(r"[ぁ-んァ-ヶー\s　・]+", m.group(1) or ""):
+        head = t[:m.start()].strip()
+        if len(head) >= 4:
+            t = head
+    return t
+
+
 def promo_card(ad, label):
     """広告1件ぶんの中身。関連記事のタイルと同じ並びにする。
          写真の位置  … バナー
@@ -442,7 +468,7 @@ def promo_card(ad, label):
          見出しの位置… 案件名
        バナーのコードには手を触れず、そのまま写真の位置に入れる。"""
     date = e(str(ad.get("date") or ""))
-    title = e(str(ad.get("title") or ""))
+    title = e(promo_title(ad))
     return (f'<span class="card-thumb">{ad["html"]}</span>'
             f'<span class="card-meta">'
             f'<span class="card-date">{date}</span>'
@@ -462,7 +488,7 @@ def promo_row(ad, label):
        広告に「New」や順位が付くと、記事の並びと見分けが付かなくなるため。
        PR の表示は残す（広告であることは必ず示す：規約）。"""
     date = e(str(ad.get("date") or ""))
-    title = e(str(ad.get("title") or ""))
+    title = e(promo_title(ad))
     return (f'<span class="thumb">{ad["html"]}</span>'
             f'<span class="row-body">'
             f'<span class="row-meta">'
@@ -1523,6 +1549,42 @@ def v2_cat_text(a, detail=False):
     return CAT_LABEL.get(a.get("category", ""), "")
 
 
+def card_stats(a):
+    """一覧のタイルに出す、価格と口コミの短い行。
+
+       ホームも一覧も「写真＋題名＋一言」の同じ形が延々と続くため、
+       スクロールしても情報が増えていく感じがせず、内容の薄いページに
+       見えていた。記事が持っている一次データ（review_stats）をここにも
+       出して、一覧の段階で比べられるようにする。
+
+       出す条件は shop_stats() と同じ。リンクの無いモールの数字は出さない。
+       価格は最安値、口コミは件数が一番多いモールのものを1つだけ出す
+       （モールをまたいで件数を足すと、平均★の出どころが説明できなくなる）。"""
+    st = a.get("review_stats") or {}
+    if not isinstance(st, dict):
+        return ""
+    links = {shop for shop, _l, _h in shop_links(a)}
+    price, best_rv = 0, None
+    for shop in ("rakuten", "yahoo"):
+        v = st.get(shop)
+        if not isinstance(v, dict) or shop not in links:
+            continue
+        if v.get("price") and (not price or int(v["price"]) < price):
+            price = int(v["price"])
+        if v.get("count") and (not best_rv or int(v["count"]) > best_rv["count"]):
+            best_rv = {"count": int(v["count"]),
+                       "average": float(v.get("average") or 0)}
+    bits = ""
+    if price:
+        bits += f'<span class="cs-price">¥{price:,}</span>'
+    if best_rv:
+        star = (f'<span class="cs-star">★{best_rv["average"]:.2f}</span>'
+                if best_rv["average"] else "")
+        bits += (f'<span class="cs-rv">{star}'
+                 f'<span class="cs-n">{best_rv["count"]:,}件</span></span>')
+    return f'<span class="card-stats">{bits}</span>' if bits else ""
+
+
 def v2_card(a, p, no=None, flags=""):
     """一覧の記事タイル。日付とカテゴリーを1行目に並べ、見出し、一言と続く。
        no を渡すと、順位の札を写真の左上に重ねる（ランキング用）。
@@ -1549,6 +1611,7 @@ def v2_card(a, p, no=None, flags=""):
             f'<span class="card-views" hidden></span>'
             f'<span class="card-cat">{e(cat)}</span></span>'
             f'<span class="card-title">{v2_title(title)}</span>'
+            f'{card_stats(a)}'
             f'<span class="card-note">{e(v2_appeal(a))}</span></a>')
 
 
@@ -1574,6 +1637,7 @@ def v2_row(a, p, numbered=None, detail=False, flags=""):
             f'<span class="card-views" hidden></span>'
             f'<span class="row-cat">{e(cat)}</span></span>'
             f'<h3>{v2_title(a["title"])}</h3>'
+            f'{card_stats(a)}'
             f'<p>{e(v2_appeal(a))}</p></span></a>')
 
 
@@ -1639,6 +1703,58 @@ def v2_cat_carousel(p):
             '        <button type="button" class="rail-btn is-next" aria-label="次のカテゴリー"'
             ' hidden><span aria-hidden="true"></span></button>\n'
             '      </div>\n')
+
+
+def v2_home_stats(p):
+    """ホームの、ヒーローのすぐ下に置く「このサイトの規模」の帯。
+
+       これを入れる前のホームは、ヒーローの次がいきなり新着タイルの列で、
+       そこから下は最後まで同じ形のタイルが続いていた。実際には144本・
+       14分野あるのに、初めて来た人からは「記事が数本しかない薄いサイト」
+       に見える。数字と分野の並びを先に置いて、規模と守備範囲を
+       スクロールする前に伝える。
+
+       数字はビルドのたびに PUBLISHED から数え直すので、放っておいても
+       実際の中身と合う（手で書いた数字は必ず古くなる）。"""
+    counts = [(c, len([a for a in PUBLISHED if a.get("category") == c["key"]]))
+              for c in CATS]
+    counts = [(c, n) for c, n in counts if n]
+    latest = max((a.get("date") or "" for a in PUBLISHED), default="")
+
+    nums = [(f"{len(PUBLISHED)}", "レビュー記事"),
+            (f"{len(counts)}", "カテゴリー")]
+
+    # 口コミの総数は、モールの公式APIが返した件数の合計
+    # （tools/fetch_reviews.py が記事ごとに入れたもの）。まだ数が
+    # 揃っていないうちに出すと、かえって小さく見えるので伏せておく。
+    voices = 0
+    for a in PUBLISHED:
+        st = a.get("review_stats")
+        if not isinstance(st, dict):
+            continue
+        for shop in ("rakuten", "yahoo"):
+            v = st.get(shop)
+            if isinstance(v, dict) and v.get("count"):
+                voices += int(v["count"])
+    if voices >= 10000:
+        nums.append((f"{voices // 10000}万+", "分析した口コミ"))
+
+    cells = "".join(f'<li><b>{e(t)}</b><span>{e(lab)}</span></li>'
+                    for t, lab in nums)
+    # 分野は記事の多い順。並びで「どこが厚いサイトか」も伝わる。
+    chips = "".join(
+        f'<a href="{p}category-{e(c["key"])}.html">'
+        f'<span class="hs-ic" aria-hidden="true">{e(c.get("icon") or "")}</span>'
+        f'{e(c["label"])}<i>{n}</i></a>'
+        for c, n in sorted(counts, key=lambda x: (-x[1], x[0]["key"])))
+    # 日付は数字の枠に入れると「2026年9月20日」だけ長すぎて枠が崩れるので、
+    # 下に1行の注記として置く。
+    asof = (f'        <p class="hs-asof">最終更新 {e(jp_date(latest))}</p>\n'
+            if latest else "")
+    return (f'      <div class="home-stats">\n'
+            f'        <ul class="hs-nums">{cells}</ul>\n'
+            f'        <div class="hs-chips">{chips}</div>\n'
+            f'{asof}      </div>\n')
 
 
 def v2_hero(p):
@@ -2063,8 +2179,17 @@ def pr_note(a):
 def price_note(a):
     """価格・在庫についての断り書き。文面はアソシエイト・プログラム運営規約が
        指定しているものに合わせる。表示した日付も併せて出す（記事に価格を
-       書いていなくても、リンク先の価格を指しているため一律で置く）。"""
-    d = jp_date(a.get("updated") or a.get("date") or "")
+       書いていなくても、リンク先の価格を指しているため一律で置く）。
+
+       価格を実際に載せている記事では、その価格を取った日を使う。
+       記事の更新日のままだと、商品カードに「¥13,800（9月20日時点）」と
+       出しながら断り書きは「8月31日時点」になり、どちらの日付の値段を
+       見せられているのか分からなくなる。"""
+    when = [str(a.get("updated") or a.get("date") or "")]
+    st = a.get("review_stats")
+    if isinstance(st, dict) and st.get("checked"):
+        when.append(str(st["checked"]))
+    d = jp_date(max(x for x in when if x) if any(when) else "")
     when = f"{d}時点" if d else "記事の最終確認日時点"
     return ("※ 価格および在庫状況は" + when + "のものであり、変更される場合があります。"
             "本商品の購入においては、購入の時点で Amazon.co.jp に表示されている"
@@ -2128,6 +2253,57 @@ SHOP_IMAGE_CREDIT = {
     "yahoo": "商品写真：Yahoo!ショッピング",
 }
 
+SHOP_JA = {"rakuten": "楽天市場", "yahoo": "Yahoo!ショッピング"}
+
+
+def shop_stats(a):
+    """記事が持っている販売情報（価格・口コミ件数・平均★）を行にして返す。
+
+       中身は tools/fetch_reviews.py と tools/make_drafts.py が入れた
+       review_stats。楽天・Yahoo!の公式APIが正規に返す値そのもので、
+       このサイトが記事に載せられる数少ない一次データにあたる。
+
+       出すのは、そのショップのボタンが実際に出ている記事だけ。写真と
+       同じ決まりで、リンクの無いモールの数字は出さない（「楽天の価格を
+       見てAmazonのボタンを押す」という読み違いを起こさないため）。
+       Amazonは対象外——PA-APIの利用資格が無いあいだ、価格を機械で
+       取ってくる正規の手段が無く、アソシエイト・プログラム運営規約も
+       APIを経由しない価格の表示を認めていない。"""
+    st = a.get("review_stats") or {}
+    if not isinstance(st, dict):
+        return ""
+    links = {shop for shop, _l, _h in shop_links(a)}
+    rows = []
+    priced = False
+    for shop in ("rakuten", "yahoo"):
+        v = st.get(shop)
+        if not isinstance(v, dict) or shop not in links:
+            continue
+        bits = ""
+        if v.get("price"):
+            priced = True
+            ship = "送料込" if v.get("postage_included") else "送料別"
+            bits += (f'<span class="ps-price">¥{int(v["price"]):,}</span>'
+                     f'<span class="ps-ship">{ship}</span>')
+        if v.get("count"):
+            avg = float(v.get("average") or 0)
+            star = f'<span class="ps-star">★{avg:.2f}</span>' if avg else ""
+            bits += (f'<span class="ps-rv">{star}'
+                     f'<span class="ps-n">口コミ{int(v["count"]):,}件</span></span>')
+        if bits:
+            rows.append(f'<li class="is-{shop}">'
+                        f'<span class="ps-shop">{e(SHOP_JA[shop])}</span>{bits}</li>')
+    if not rows:
+        return ""
+    d = jp_date(str(st.get("checked") or ""))
+    when = f"{d}時点" if d else "最終確認日時点"
+    # 価格を出していない記事に「価格は変動します」と添えると、
+    # どこにも無い数字の話をしていることになる。
+    tail = "価格は変動します。" if priced else ""
+    return ('          <ul class="prod-stats">' + "".join(rows) + "</ul>\n"
+            f'          <p class="prod-asof">各モールの商品情報より'
+            f'（{e(when)}）。{tail}</p>\n')
+
 
 def product_card(a, p, eager=False, with_img=True):
     """商品画像つきのリンクカード。写真・商品名・販売先ボタンをまとめる。
@@ -2189,7 +2365,7 @@ def product_card(a, p, eager=False, with_img=True):
     return f'''        <div class="{cls}">{thumb}
           <div class="prod-body">
             <p class="prod-name">{e(name)}</p>{note}
-            <div class="prod-links is-n{min(len(links), 3)}">
+{shop_stats(a)}            <div class="prod-links is-n{min(len(links), 3)}">
 {btns}            </div>
             <p class="prod-note">{e(price_note(a))}</p>
           </div>
@@ -3301,7 +3477,10 @@ def build_index():
             break
     picks = uniq
 
-    body = v2_section(
+    # サイトの規模と守備範囲を、記事タイルより先に見せる。
+    body = v2_section(v2_home_stats(p))
+
+    body += v2_section(
         v2_sec_head("NEW", "新着記事", cls="has-feat-ad has-side-ad")
         + '      <div class="home-featwrap">'
         + home_feat_ad("home_new", n=4)

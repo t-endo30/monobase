@@ -4010,3 +4010,153 @@ h1,h2,h3,h4,
 }
 /* 写真ごと持ち上げる演出は、切り取っていない写真だと枠から浮いて見える */
 .card:hover .card-thumb.is-shop img{transform:none;}
+
+/* ============================================================
+   販売情報（価格・口コミ件数・平均★）
+   ------------------------------------------------------------
+   楽天・Yahoo!の公式APIが返した値を、商品カードと一覧タイルに出す。
+   このサイトが載せられる数少ない一次データで、読者が最初に見たい
+   ものでもある。ここを出すまでは、公開144本のうち価格の載った記事が
+   0本・口コミ件数の載った記事が9本しかなく、文章は長いのに数字が
+   1つも無いため「内容が薄い」と受け取られていた（2026-09-27）。
+
+   出す・出さないの判定は build.py 側（shop_stats / card_stats）。
+   そのモールのボタンが出ている記事だけに出す。Amazonは出さない
+   （PA-APIの利用資格が無いあいだ、価格を取る正規の手段が無い）。
+   ============================================================ */
+.prod-stats{list-style:none;
+  margin:12px 0 0;
+  padding:0;
+  display:grid;
+  gap:6px;}
+.prod-stats li{display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:5px 8px;
+  padding:8px 10px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface-2);
+  font-size:12.5px;
+  line-height:1.5;}
+.ps-shop{flex:0 0 auto;
+  align-self:center;
+  padding:2px 6px;
+  border-radius:var(--r2);
+  font-size:10.5px;
+  font-weight:700;
+  letter-spacing:.04em;
+  color:#fff;}
+.prod-stats li.is-rakuten .ps-shop{background:#bf0000;}
+.prod-stats li.is-yahoo .ps-shop{background:#ff0033;}
+.ps-price{font-family:var(--font-en);
+  font-size:17px;
+  font-weight:700;
+  letter-spacing:.01em;
+  color:var(--ink);}
+.ps-ship{font-size:11px;color:var(--text-sub);}
+/* 口コミは行の右端に寄せる。価格と口コミが左右に分かれると、
+   モールが2行並んだときに数字どうしが縦にそろって比べやすい */
+.ps-rv{margin-left:auto;
+  display:inline-flex;
+  align-items:baseline;
+  gap:5px;
+  white-space:nowrap;
+  font-size:11.5px;
+  color:var(--text-sub);}
+.ps-star{font-size:13px;font-weight:700;color:#e8a317;}
+.prod-asof{margin:7px 0 0;
+  font-size:11px;
+  line-height:1.7;
+  color:var(--muted-2);}
+
+/* 一覧タイルに出す短い版。題名のすぐ下に1行だけ置く */
+.card-stats{display:flex;
+  align-items:baseline;
+  gap:8px;
+  margin-top:6px;
+  overflow:hidden;
+  white-space:nowrap;}
+.cs-price{font-family:var(--font-en);
+  font-size:14.5px;
+  font-weight:700;
+  color:var(--ink);}
+.cs-rv{display:inline-flex;
+  align-items:baseline;
+  gap:3px;
+  font-size:11px;
+  color:var(--text-sub);}
+.cs-star{font-size:12px;font-weight:700;color:#e8a317;}
+
+/* ============================================================
+   ホーム上部の「このサイトの規模」
+   ------------------------------------------------------------
+   ヒーローの次がいきなり新着タイルの列で、そこから下は最後まで同じ形の
+   タイルが続いていたため、144本・14分野あるサイトが「記事が数本しか
+   無い薄いサイト」に見えていた。数字と分野の並びを先に置いて、
+   スクロールする前に規模と守備範囲を伝える。
+   数字はビルドのたびに数え直す（build.py の v2_home_stats）。
+   ============================================================ */
+.home-stats{margin:0;}
+.hs-nums{list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(0,1fr));
+  gap:1px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--border);}
+.hs-nums li{display:grid;
+  gap:3px;
+  padding:12px 8px;
+  text-align:center;
+  background:var(--surface);}
+.hs-nums b{font-family:var(--font-en);
+  font-size:clamp(20px,6vw,28px);
+  font-weight:700;
+  line-height:1.15;
+  letter-spacing:.01em;
+  color:var(--ink);}
+.hs-nums span{font-size:10.5px;
+  letter-spacing:.06em;
+  color:var(--text-sub);}
+/* 分野は横に流す。右端が切れていることで「まだ続く」ことも伝わる
+   （カテゴリー枠の cat-rail と同じ考え方） */
+.hs-chips{display:flex;
+  gap:6px;
+  margin-top:10px;
+  padding-bottom:4px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;}
+.hs-chips::-webkit-scrollbar{display:none;}
+.hs-chips a{flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:6px 10px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface);
+  font-size:12px;
+  color:var(--ink-2);
+  text-decoration:none;}
+.hs-chips a:hover{border-color:var(--border-strong);background:var(--bg-3);}
+.hs-chips a i{font-style:normal;
+  font-family:var(--font-en);
+  font-size:11px;
+  color:var(--muted-2);}
+.hs-ic{font-size:12px;line-height:1;}
+.hs-asof{margin:8px 0 0;
+  font-size:11px;
+  text-align:center;
+  color:var(--muted-2);}
+/* 幅の狭いスマホ（390px前後）では、3つの枠が詰まって
+   「分析した口コミ」のような長い札が折れる。字と余白を少し詰める。 */
+@media (max-width:430px){
+  .hs-nums li{padding:10px 4px;}
+  .hs-nums span{font-size:9.5px;letter-spacing:.02em;}
+  .hs-chips a{padding:5px 8px;font-size:11.5px;}
+}

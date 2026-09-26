@@ -1,6 +1,8 @@
-name: Fetch shop images
+name: Fetch shop data
 
-# 既存記事に、本文の商品カードへ出す「実物の商品写真」のURLを埋める。
+# 既存記事に、商品カードへ出す「実物の商品写真」と、価格・口コミの
+# 件数・平均評価を埋める。どちらも楽天・Yahoo!の公式APIが返した値で、
+# このサイトが記事に載せられる数少ない一次データにあたる。
 #
 # 記事が持つのはURLだけで、画像は当サイトへ保存しない。
 # 楽天ウェブサービスの規約で、取得した画像の複製・再配信はできないため
@@ -58,7 +60,7 @@ concurrency:
 jobs:
   images:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -78,6 +80,27 @@ jobs:
             ${{ inputs.force && '--force' || '' }} \
             ${{ inputs.debug && '--debug' || '' }} \
             ${{ (github.event_name == 'schedule' || inputs.apply) && '--apply' || '' }}
+
+      # 価格・口コミ件数・平均評価も同じ回で拾い直す。
+      #
+      # 記事に載る唯一の一次データで、これが空だと本文は「〜とされて
+      # います」だけになり、読者から見て中身の薄いページになる
+      # （2026-09-27時点で、価格の載った記事が0本・口コミ件数の載った
+      #   記事が9本しかなかった）。価格は毎日変わるので、写真と違って
+      # 「一度取れたら終わり」ではなく毎日取り直す必要がある。
+      #
+      # continue-on-error にはしない。取れなかった記事は review_stats が
+      # 前の値のまま残るだけで、ここが落ちるのはAPIの鍵が切れたときなど
+      # 本物の異常だけ。
+      - name: 価格・口コミの件数と平均評価を取る
+        if: github.event_name == 'schedule' || inputs.apply
+        env:
+          RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
+          RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
+          YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
+        run: |
+          python3 tools/fetch_reviews.py \
+            ${{ inputs.slug || '' }}
 
       - name: サイトを生成して検査する
         if: github.event_name == 'schedule' || inputs.apply
@@ -99,5 +122,5 @@ jobs:
           git add content/articles.json articles assets/img/auto
           git add -u
           git diff --cached --stat
-          git commit -m "商品カードの写真URLを既存記事に補う（自動）"
+          git commit -m "商品カードの写真・価格・口コミを既存記事に補う（自動）"
           git push

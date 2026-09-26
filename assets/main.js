@@ -419,18 +419,22 @@ document.addEventListener('touchstart', function () {}, { passive: true });
      出しつつ直近で並べると、ランキングの数字が降順に並ばず、
      順位の根拠が読めなくなるため。 */
   function views(root, base) {
-    /* content/ranking.json がまだ空でも、枠だけ消えると欠けて見えるので
-       0 として出す。端末ごとの記録は「その人だけの回数」なので使わない。
+    /* 端末ごとの記録は「その人だけの回数」なので使わない。
        base を渡すと、その期間の数字で出す（ランキングのページのタブ）。
        渡さなければ既定の週間。並び順と数字は必ず同じものにする——
-       違うと順位の数字が降順に並ばず、順位の根拠が読めなくなる。 */
+       違うと順位の数字が降順に並ばず、順位の根拠が読めなくなる。
+
+       0 のときは出さない。GA4 は閲覧のあった記事しか返さないので、
+       公開したばかりの記事は必ず 0 になる。ホームの新着6枠が
+       「VIEW : 0」で揃うと、誰も来ていないサイトに見えてしまう
+       （実際そうなっていた）。数字が無いことと、0回読まれたことは違う。 */
     var b = base || rankBase;
     var t = (root || document).querySelectorAll('.card-views');
     Array.prototype.forEach.call(t, function (el) {
       var card = el.closest('[data-slug]');
       if (!card) return;
-      /* GA4 は閲覧のあった記事しか返さないので、無い記事は 0 として出す */
       var n = b[card.getAttribute('data-slug')] || 0;
+      if (!n) { el.textContent = ''; el.hidden = true; return; }
       el.textContent = 'VIEW : ' + n.toLocaleString('en-US');
       el.hidden = false;
     });
