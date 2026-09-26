@@ -225,6 +225,13 @@
     "total": 87,
     "notes": "公式仕様なしを正しく処理(rating/spec省略、断定回避)。「〜のため、〜しやすい」という同型の文構造が箇条書きで反復しており、テンプレート感がやや残る点のみ減点。"
    }
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 4397,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -708,6 +715,13 @@
     "total": 91,
     "notes": "公式仕様が無いことを理由に減点していない。断定を避け情報の出どころを分けている点は良好。字数超過とhighlights/sections末尾の内容重複を修正したため、editorial_qualityとtemplate_avoidanceをやや慎重に見た。"
    }
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3290,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -924,6 +938,13 @@
     "total": 86,
     "notes": "断定を避け出典を明示する記述が徹底されており事実面は良好。ただし覗き見防止フィルム一般の説明に紙幅を割く部分が多く、NX4固有の独自分析はやや薄め。"
    }
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 1900,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -1155,6 +1176,16 @@
     "total": 87,
     "notes": "original_analysisはやや控えめ。保温/加熱の区別とライトの位置づけという独自の切り口はあるが、公式仕様が無い分、比較・数値面での独自性は限定的。"
    }
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 2640,
+    "postage_included": false,
+    "count": 1,
+    "average": 5.0,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -1390,6 +1421,16 @@
     "total": 89,
     "notes": "公式仕様が無い中でrating/specを出さず、断定を避けた記述は適切。禁止語「必ず」を修正済み。3系統の偏りや消費ペース計算など独自の指摘はあるが、やや一般論寄りで独自性はもう一段深められる余地がある。"
    }
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 5150,
+    "postage_included": false,
+    "count": 2,
+    "average": 5.0,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -1608,6 +1649,13 @@
     "total": 87,
     "notes": "公式仕様が無い中で断定を避ける姿勢は一貫しているが、「公開情報だけでは断定できない」系のヘッジ表現がほぼ全段落で繰り返され、テンプレート感がやや強い。"
    }
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 41412,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -1826,6 +1874,13 @@
     "total": 89,
     "notes": "「最大の理由になる」という言い回しがsummary・good_for・highlightsで重複しておりテンプレ感がやや残る。公式仕様が無いためrating/specを出しておらず、この点は適切な振る舞いなのでsource_reliabilityは下げていない。"
    }
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 2000,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -2546,6 +2601,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=39shop%20DDR3%E2%98%85PC3-8500E%20ECC%20Unbuffered%20DIMM%20A3E1066-2G%20D3E1066%E5%AF%BE%E5%BF%9C%E4%BA%92%E6%8F%9B%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%BC&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 5980,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -3000,6 +3062,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=EPSON%20%E3%82%A8%E3%83%97%E3%82%BD%E3%83%B3%20%E7%B4%8D%E6%9C%9F%E3%81%94%E6%B3%A8%E6%96%87%E5%BE%8C%E7%B4%847%E3%82%AB%E6%9C%88%20%E3%82%B5%E3%83%BC%E3%83%9E%E3%83%AB%E3%83%AC%E3%82%B7%E3%83%BC%E3%83%88%E3%83%97%E3%83%AA%E3%83%B3%E3%82%BF%E3%83%BC%2080mm%20USB%E3%83%BB%E6%9C%89%E7%B7%9A%E3%83%BB%E7%84%A1%E7%B7%9ALAN%20%E3%83%A9%E3%83%99%E3%83%AB%E5%8D%B0%E5%88%B7%E5%AF%BE%E5%BF%9C%20TML90UE431%20%E5%8D%98%E5%93%81%E8%B3%BC%E5%85%A5%E3%81%AE%E3%81%BF%E5%8F%AF%20%E5%90%8C%E4%B8%80%E5%95%86%E5%93%81%E3%81%A7%E3%81%82%E3%82%8C%E3%81%B0%E8%A4%87%E6%95%B0%E8%B3%BC%E5%85%A5%E5%8F%AF%20%E3%82%AF%E3%83%AC%E3%82%B8%E3%83%83%E3%83%88%E3%82%AB%E3%83%BC%E3%83%89%E6%B1%BA%E6%B8%88%20%E4%BB%A3%E9%87%91%E5%BC%95%E6%8F%9B%E6%B1%BA%E6%B8%88%E3%81%AE%E3%81%BF&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 111863,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -3263,6 +3332,16 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E5%8F%8D%E5%B0%84%E9%98%B2%E6%AD%A2%E6%B6%B2%E6%99%B6%E4%BF%9D%E8%AD%B7%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%20%E3%81%A8%20%E3%82%B7%E3%83%AA%E3%82%B3%E3%83%B3%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%82%AB%E3%83%90%E3%83%BC%20%E3%81%AE3%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%2013.3%E3%82%A4%E3%83%B3%E3%83%81%20Lenovo%20IdeaPad%20Flex%20560i%20Chromebook%202021%E5%B9%B4%E7%89%88%20%E5%AF%BE%E5%BF%9C%20%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%AB%E3%83%90%E3%83%BC%20%E8%A1%9D%E6%92%83%E5%90%B8%E5%8F%8E%20PC%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%81%A8%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF%20%E4%BA%92%E6%8F%9B%E5%93%81&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3608,
+    "postage_included": false,
+    "count": 1,
+    "average": 4.0,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -3499,6 +3578,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E3%81%BE%E3%81%A8%E3%82%81%20%E3%83%A9%E3%82%A4%E3%82%AA%E3%83%B3%E4%BA%8B%E5%8B%99%E5%99%A8%E6%B6%B2%E6%99%B6%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E7%94%A8%E6%8C%81%E5%87%BA%E3%81%97%E9%98%B2%E6%AD%A2%E3%83%AD%E3%83%83%E3%82%AF%20MB-25NE%201%E3%83%91%E3%83%83%E3%82%AF%20%C3%972%E3%82%BB%E3%83%83%E3%83%88%20%E4%BB%A3%E5%BC%95%E4%B8%8D%E5%8F%AF&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 9834,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -3733,6 +3819,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E8%A6%81%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%2009%2025%2024%E6%99%82%E9%96%93%20%E5%BD%93%E9%81%B8%E7%A2%BA%E7%8E%872%E5%88%86%E3%81%AE1%201%E7%AD%89%20%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E3%83%90%E3%83%83%E3%82%AF%20%E3%82%A2%E3%82%A4%E3%83%BB%E3%82%AA%E3%83%BC%E3%83%BB%E3%83%87%E3%83%BC%E3%82%BF%E6%A9%9F%E5%99%A8%20DDR5%20PC5-4800%20PC5-38400%20%E5%AF%BE%E5%BF%9C%20%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%94%A8%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%BC%208GB%20D5R4800-8G&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 39436,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -4219,6 +4312,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=HAGIHARA%20%E7%9B%B4%E9%80%815%20%E3%80%8C%E5%A5%BD%E3%81%8D%E3%81%AA%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%E3%80%8D%E3%82%92%E5%8F%96%E3%82%8A%E4%BB%98%E3%81%91%E3%81%A6%E7%A7%81%E3%81%A0%E3%81%91%E3%81%AE%E8%87%AA%E7%94%B1%E7%A9%BA%E9%96%93%E3%81%AB%E3%80%82%20%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%B3%E3%83%88%E4%BB%98%E3%81%8D%E5%AE%AE%E6%A3%9A%20%E3%83%8F%E3%83%B3%E3%82%AC%E3%83%BC%E3%83%9D%E3%83%BC%E3%83%AB%E4%BB%98%E3%81%8D%20%E8%80%90%E8%8D%B7%E9%87%8D100kg%20%E9%AB%98%E3%81%95159cm%20%E3%83%9F%E3%83%89%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%97%E3%83%AD%E3%83%95%E3%83%88%E3%83%99%E3%83%83%E3%83%89%20%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%E3%82%B5%E3%82%A4%E3%82%BAKH-3691WH%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 34980,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -4974,6 +5074,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E9%9D%9E%E5%B8%B8%E3%81%AB%E8%89%AF%E3%81%84%20%E3%82%A8%E3%83%AC%E3%82%B3%E3%83%A0%20%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%20%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%AC%E3%82%B9%20%E3%83%AC%E3%82%B7%E3%83%BC%E3%83%90%E3%83%BC%E4%BB%98%E5%B1%9E%20%E3%83%A1%E3%83%B3%E3%83%96%E3%83%AC%E3%83%B3%20%E8%96%84%E5%9E%8B%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%20%E3%83%9E%E3%82%A6%E3%82%B9%E4%BB%98%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20TK-FDM109MBK&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 7480,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -5228,6 +5335,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E3%82%B5%E3%83%B3%E3%83%AF%E3%82%B5%E3%83%97%E3%83%A9%E3%82%A4%20CR-LA602%20%E3%83%87%E3%83%A5%E3%82%A2%E3%83%AB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%BC%E3%83%A0%20%E3%83%8E%E3%83%BC%E3%83%88PC%E5%8F%B0&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 31160,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -5455,6 +5569,13 @@
   },
   "health": {
    "checked": "2026-09-24"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 8680,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -5672,6 +5793,13 @@
   },
   "health": {
    "checked": "2026-09-24"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 53992,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -5908,6 +6036,16 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E3%82%A6%E3%82%A3%E3%83%B3%E3%83%89%E3%83%BC%E3%83%A9%E3%82%B8%E3%82%A8%E3%83%BC%E3%82%BF%E3%83%BC%20W%20R-1200%20%E9%95%B7%E3%81%95120cm%20%E5%AE%9A%E5%B0%BA%E3%82%BF%E3%82%A4%E3%83%97%20%E7%B5%90%E9%9C%B2%E9%98%B2%E6%AD%A2%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%AA%93%E7%94%A8%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%AA%93%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%B5%90%E9%9C%B2%E6%AD%A2%E3%82%81%20%E9%9B%BB%E6%B0%97%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%AA%93%E6%9A%96%E6%88%BF%20%E7%B5%90%E9%9C%B2%E9%98%B2%E6%AD%A2%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E3%82%A6%E3%82%A4%E3%83%B3%E3%83%89%E3%83%A9%E3%82%B8%E3%82%A8%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%AA%93%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20W%20R1200%20%E9%9B%BB%E6%B0%97%E3%82%B9%E3%83%88%E3%83%BC%E3%83%96%20%E6%A3%AE%E6%B0%B8%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 30400,
+    "postage_included": true,
+    "count": 1,
+    "average": 5.0,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -6390,6 +6528,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=1%E5%8F%B0%E3%81%A7%E5%9B%9B%E5%AD%A3%E3%81%AE%E6%82%A9%E3%81%BF%E8%A7%A3%E6%B6%88%20FUXNGZI%20%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%83%E3%82%AF%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E3%82%BF%E3%83%AF%E3%83%BC%E3%83%95%E3%82%A1%E3%83%B3%20%E7%BE%BD%E6%A0%B9%E3%81%AA%E3%81%97%E6%89%87%E9%A2%A8%E6%A9%9F%20%E6%B8%A9%E9%A2%A8%2B%E9%80%81%E9%A2%A8%20%E7%BE%BD%E6%A0%B9%E7%84%A1%E3%81%97%20%E5%9B%9B%E5%AD%A3%E5%85%BC%E7%94%A8%20100%C2%B0%E8%87%AA%E5%8B%95%E9%A6%96%E6%8C%AF%E3%82%8A%209H%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC%203%E6%AE%B5%E9%9A%8E%E6%B8%A9%E9%A2%A8%2610%E6%AE%B5%E9%9A%8E%E9%80%81%E9%A2%A8%E5%88%87%E6%9B%BF%20%E9%9B%BB%E6%B0%97%E3%83%95%E3%82%A1%E3%83%B3%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E2%80%A6&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 22339,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -6621,6 +6766,13 @@
   },
   "health": {
    "checked": "2026-09-24"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3795,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -7092,6 +7244,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E4%BA%BA%E6%B0%97%20%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%20%E5%AE%9A%E7%95%AA%20%E5%86%AC%20%E8%A9%B1%E9%A1%8C%20%E6%B3%A8%E7%9B%AE%20%E3%81%8B%E3%82%8F%E3%81%84%E3%81%84%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%83%A9%E3%83%B3%E3%82%AF%20%E5%BE%A1%E6%AD%B3%E6%9A%AE%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E3%81%8A%E3%81%BF%E3%82%84%E3%81%92%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E9%96%A2%E9%80%A3%20%E3%82%B5%E3%83%B3%E3%83%AF%E3%82%B5%E3%83%97%E3%83%A9%E3%82%A4%20%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA7LAN%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB2m%20KB-T7-02WN%20%E3%81%8A%E3%81%99%E3%81%99%E3%82%81&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 5856,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -7328,6 +7487,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E8%BC%B8%E5%85%A5%E5%93%81%E3%83%BB%20Transcend%20%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%96%E3%83%ABHDD%202TB%20PS5%20PS4%20%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%20%E8%80%90%E8%A1%9D%E6%92%83%20USB3.1%20Gen1%20TS2TSJ25H3B%20%E3%83%96%E3%83%AB%E3%83%BC&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 47081,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -8019,6 +8185,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=TP-Link%2010Gbps%20LAN%E3%82%AB%E3%83%BC%E3%83%89%20PCI-E%20%E3%82%A2%E3%83%80%E3%83%97%E3%82%BF%E3%83%BC%20%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%AB%E3%83%BC%E3%83%89%20TX401&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 17596,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -8248,6 +8421,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E4%BA%BA%E6%B0%97%20%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%20%E5%AE%9A%E7%95%AA%20%E5%86%AC%20%E8%A9%B1%E9%A1%8C%20%E6%B3%A8%E7%9B%AE%20%E3%81%8B%E3%82%8F%E3%81%84%E3%81%84%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%83%A9%E3%83%B3%E3%82%AF%20%E5%BE%A1%E6%AD%B3%E6%9A%AE%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E3%81%8A%E3%81%BF%E3%82%84%E3%81%92%20%E4%BE%BF%E5%88%A9%E3%82%B0%E3%83%83%E3%82%BA%20%E3%82%A2%E3%82%A4%E3%83%87%E3%82%A2%E5%95%86%E5%93%81%2010%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%20USB%20L%E5%9E%8B%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%E5%BB%B6%E9%95%B720%20USBA-CA20ULX10%20%E4%BA%BA%E6%B0%97%20%E3%81%8A%E5%BE%97%E3%81%AA%20%E3%81%8A%E3%81%99%E3%81%99%E3%82%81&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 8736,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -8475,6 +8655,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=ASUS%20Vivobook%2014%20X1405ZA%2014%E3%82%A4%E3%83%B3%E3%83%81%20%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AA%E3%83%A5%E3%83%83%E3%82%AF%20%E3%83%A1%E3%83%B3%E3%82%BA%20%E3%83%AC%E3%83%87%E3%82%A3%E3%83%BC%E3%82%B9%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E3%83%90%E3%83%83%E3%82%B0%20%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%20%E3%82%BB%E3%83%83%E3%83%88%20%E9%80%9A%E5%8B%A4%20%E9%80%9A%E5%AD%A6%20USB%20%E5%85%85%E9%9B%BB%20%E3%83%AA%E3%83%A5%E3%83%83%E3%82%AF%E3%82%B5%E3%83%83%E3%82%AF%20PC%20%E3%83%90%E3%83%83%E3%82%B0%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E3%83%AA%E3%83%A5%E3%83%83%E3%82%AF%20%E5%A4%9A%E6%A9%9F%E8%83%BD%20%E8%BB%BD%E9%87%8F%203way%20A4%E3%82%B5%E3%82%A4%E3%82%BA%20%E9%98%B2%E6%B0%B4%20%E5%87%BA%E5%BC%B5%20%E6%B5%B7%E5%A4%96%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF%20jgs%20bgt%20%E4%BA%92%E6%8F%9B%E5%93%81&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 5990,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -8701,6 +8888,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E6%9C%AA%E9%96%8B%E5%B0%81%E5%93%81%203drose%20LLC%208%3Fx%208%3Fx%200.25%E3%82%A4%E3%83%B3%E3%83%81%E3%83%9E%E3%82%A6%E3%82%B9%E3%83%91%E3%83%83%E3%83%89%E3%80%81%E8%A3%85%E9%A3%BE%E3%82%AB%E3%83%A9%E3%83%95%E3%83%AB%E3%81%AA%E5%BA%ADBotanic%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AFPlant%20Southwest%20Desert%20cactus%E8%B5%A4%E3%81%84%E8%8A%B1%20MP%2032340%3F_%201%3F&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 13720,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -9224,6 +9418,13 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 8859,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -9736,6 +9937,13 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 17809,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -10175,6 +10383,13 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 20210,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -10879,6 +11094,13 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3980,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -11126,6 +11348,13 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 28390,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -11369,6 +11598,13 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 7814,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -11634,6 +11870,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E3%83%96%E3%83%AB%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%20%E7%9D%80%E8%84%B1%E5%BC%8F%20Lenovo%20L27-41%20%E3%83%97%E3%83%AD%E3%83%86%E3%82%AF%E3%82%BF%E3%83%BC%20%E5%85%89%E6%B2%A2%20%E3%83%96%E3%83%AB%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC%20%E7%9D%80%E8%84%B1%E7%B0%A1%E5%8D%98%20%E7%94%BB%E9%9D%A2%E4%BF%9D%E8%AD%B7%E3%83%A2%E3%83%8B%E3%82%BF%E3%83%BC&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 6910,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -12126,6 +12369,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E3%82%B5%E3%83%B3%E3%83%AF%E3%82%B5%E3%83%97%E3%83%A9%E3%82%A4%20%E3%83%87%E3%82%A3%E3%82%B9%E3%83%97%E3%83%AC%E3%82%A4%E5%88%87%E6%9B%BF%E5%99%A8%20%E3%83%9F%E3%83%8BD-sub%20HD%2015pin%E7%94%A8%20%E3%83%BB4%E5%9B%9E%E8%B7%AF%20SW-EV4N2%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 13729,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -12349,6 +12599,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E3%82%A8%E3%83%8D%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%A8%E3%82%AF%E3%82%B7%E3%82%A2%20%E5%86%8D%E7%94%9F%E3%83%88%E3%83%8A%E3%83%BC%20%E3%83%AA%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%83%88%E3%83%8A%E3%83%BC%20%E3%82%AB%E3%83%BC%E3%83%88%E3%83%AA%E3%83%83%E3%82%B8%20PR-L7700C-19%20K%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E3%83%BBAV%E6%A9%9F%E5%99%A8%E9%96%A2%E9%80%A3%20PC%E3%83%BB%E6%90%BA%E5%B8%AF%E9%96%A2%E9%80%A3&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 15050,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -12588,6 +12845,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=j5%20Create%20iPad%20iPhone%20to%20Windows%20PC%20%E3%82%AF%E3%83%AD%E3%82%B9%E3%83%AA%E3%83%B3%E3%82%AF%E3%83%8F%E3%83%96%20JCH422%201%E5%80%8B%20JCH422%20j5%20Create%20%23&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 10692,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -13016,6 +13280,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E4%B8%AD%E5%8F%A4%20%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E5%BC%8F%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%AC%E3%82%B9PC%E3%82%B3%E3%83%B3%E3%83%88%E3%83%AD%E3%83%BC%E3%83%A9%E3%83%BC%20VictrixTURTLE%20BEACH%20%E3%82%BF%E3%83%BC%E3%83%88%E3%83%AB%E3%83%93%E3%83%BC%E3%83%81TBC-5101-85%20K51018CP3500089%E3%82%B3%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%A9%E3%83%B3%E3%82%AF%20%E5%95%86%E5%93%81%20No.85-0&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 19900,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -13226,6 +13497,13 @@
   },
   "health": {
    "checked": "2026-09-21"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3678,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -13455,6 +13733,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=Lenovo%20ThinkPad%20T14s%20Gen%206%202025%E5%B9%B4%E7%89%88%2014%E3%82%A4%E3%83%B3%E3%83%81%20%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%AB%E3%83%90%E3%83%BC%20%E8%A1%9D%E6%92%83%E5%90%B8%E5%8F%8E%20PC%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%81%A8%20%E3%83%96%E3%83%AB%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%88%E3%82%AB%E3%83%83%E3%83%88%E6%B6%B2%E6%99%B6%E4%BF%9D%E8%AD%B7%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%20%E3%81%A8%20%E3%82%B7%E3%83%AA%E3%82%B3%E3%83%B3%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%82%AB%E3%83%90%E3%83%BC%20%E3%81%AE3%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF%20%E4%BA%92%E6%8F%9B%E5%93%81&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 4202,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -13694,6 +13979,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E5%AF%BE%E5%BF%9CEufy%20%E3%83%A6%E3%83%BC%E3%83%95%E3%82%A3%20X8%20Pro%20X10%20Pro%20Omni%20%E4%BA%A4%E6%8F%9B%E7%94%A8%E3%83%80%E3%82%B9%E3%83%88%E3%83%90%E3%83%83%E3%82%B0%2010%E6%9E%9A%20%E3%83%AD%E3%83%9C%E3%83%83%E3%83%88%E6%8E%83%E9%99%A4%E6%A9%9F%20%E4%BA%A4%E6%8F%9B%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%20%E3%83%80%E3%82%B9%E3%83%88%E3%83%91%E3%83%83%E3%82%AF%20%E7%B4%99%E3%83%91%E3%83%83%E3%82%AF%20%E6%B6%88%E8%80%97%E5%93%81&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3224,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -13923,6 +14215,16 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E2%96%A0%E3%83%9E%E3%83%A9%E3%82%BD%E3%83%B3%E6%9C%80%E5%A4%A7P10%E5%80%8D%E3%82%A8%E3%83%B3%E3%83%88%E3%83%AA%E3%83%BC%EF%BC%86%E5%BD%93%E5%BA%97%20%E8%A6%81%E2%96%A0%20%E3%83%9F%E3%83%AB%E3%83%9C%E3%83%B3%20%E3%82%AB%E3%83%A9%E3%83%BC%E3%82%AC%E3%82%B8%E3%82%A7%E3%83%83%E3%83%88%20%E3%82%AB%E3%83%A9%E3%83%BC%E3%82%B7%E3%83%A3%E3%83%B3%E3%83%97%E3%83%BC%20150ml%20%E3%83%A9%E3%83%99%E3%83%B3%E3%83%80%E3%83%BC%E3%83%91%E3%83%BC%E3%83%97%E3%83%AB%20%E7%BE%8E%E5%AE%B9%E5%AE%A4%E5%B0%82%E5%A3%B2%20%E7%BE%8E%E5%AE%B9%E5%AE%A4%20%E3%82%B5%E3%83%AD%E3%83%B3%20%E7%BE%8E%E5%AE%B9%E9%99%A2%20%E5%B0%82%E5%A3%B2%E5%93%81%20MILBON%20COLOR%20GADGET&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 2250,
+    "postage_included": true,
+    "count": 1,
+    "average": 5.0,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -14369,6 +14671,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%82%AB%E3%83%90%E3%83%BC%E3%83%9E%E3%83%BC%E3%82%B1%E3%83%83%E3%83%88%20%E3%82%A8%E3%82%A4%E3%82%B9%E3%83%BC%E3%82%B9%20ROG%20Strix%20G17%202023%20G713%2017.3%E3%82%A4%E3%83%B3%E3%83%81%20%E6%A9%9F%E7%A8%AE%E5%AF%BE%E5%BF%9C%20%E6%B6%B2%E6%99%B6%E4%BF%9D%E8%AD%B7%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%20%E3%83%9A%E3%83%BC%E3%83%91%E3%83%BC%E3%83%86%E3%82%A4%E3%82%B9%E3%83%88%20%E7%B4%99%E6%84%9F%E8%A6%9A%20%E5%8F%8D%E5%B0%84%E9%98%B2%E6%AD%A2%20%E6%8C%87%E7%B4%8B%E9%98%B2%E6%AD%A2%20%E4%BA%92%E6%8F%9B%E5%93%81%20rt-ppr-lspc17-mc005330&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 4650,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -14600,6 +14909,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=Lenovo%20ThinkPad%20E16%20Gen%201%202023%E5%B9%B4%E7%89%88%2016%E3%82%A4%E3%83%B3%E3%83%81%20%E3%83%9E%E3%82%A6%E3%82%B9%20%E3%81%A8%20%E3%83%AA%E3%82%B9%E3%83%88%E3%83%AC%E3%82%B9%E3%83%88%E4%BB%98%E3%81%8D%20%E3%83%9E%E3%82%A6%E3%82%B9%E3%83%91%E3%83%83%E3%83%89%20%E3%81%A8%20%E3%82%B7%E3%83%AA%E3%82%B3%E3%83%B3%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%E3%82%AB%E3%83%90%E3%83%BC%203%E7%82%B9%E3%82%BB%E3%83%83%E3%83%88%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF%20jgs%20bgt%20%E4%BA%92%E6%8F%9B%E5%93%81&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 1903,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -14844,6 +15160,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E3%83%AD%E3%82%B8%E3%83%86%E3%83%83%E3%82%AF%20USB%20Type-C%20%E3%83%8F%E3%83%96%20%E3%83%89%E3%83%83%E3%82%AD%E3%83%B3%E3%82%B0%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%206-in-1%20%E7%94%BB%E9%9D%A2%E8%A1%A8%E7%A4%BAON%20OFF%E3%83%9C%E3%82%BF%E3%83%B3%E4%BB%98%20USB%20PD%20100W%E5%AF%BE%E5%BF%9C%20USBA%C3%972%204K60Hz%20HDMI%C3%971%20USB-C%C3%971%20SD%EF%BC%8BmicroSD%E3%82%B9%E3%83%AD%E3%83%83%E3%83%88%20LHB-PMP6U3S&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 2908,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -15057,6 +15380,13 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E3%82%A2%E3%82%A4%E3%82%AA%E3%83%BC%E3%83%87%E3%83%BC%E3%82%BF%20HDL2-LE04%20E%202.5GbE%E5%AF%BE%E5%BF%9C%202%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AFHDD%204TB%20%E5%9C%A8%E5%BA%AB%E7%9B%AE%E5%AE%89%3A%E5%83%85%E5%B0%91%20NAS%20RAID%20%E3%83%AC%E3%82%A4%E3%83%89&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 108020,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -15282,6 +15612,16 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=PD-829WS-U75CV-13A%20WITHNA%20%E3%82%A6%E3%82%A3%E3%82%BA%E3%83%8A%20%E3%83%91%E3%83%AD%E3%83%9E%20%E3%83%93%E3%83%AB%E3%83%88%E3%82%A4%E3%83%B3%E3%82%B3%E3%83%B3%E3%83%AD%20%E3%82%AA%E3%83%BC%E3%83%96%E3%83%B3%E6%8E%A5%E7%B6%9A%E4%B8%8D%E5%8F%AF%20%E5%B9%8575cm%20%E7%84%A1%E6%B0%B4%E4%B8%A1%E9%9D%A2%E7%84%BC%E3%81%8D%E3%82%B0%E3%83%AA%E3%83%AB%20%E3%83%AC%E3%83%B3%E3%82%B8%E3%83%95%E3%83%BC%E3%83%89%E9%80%A3%E5%8B%95%20%E3%83%8F%E3%82%A4%E3%83%91%E3%83%BC%E3%82%AC%E3%83%A9%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%88%E3%83%88%E3%83%83%E3%83%97%20%E3%83%86%E3%82%A3%E3%82%A2%E3%83%A9%E3%82%B7%E3%83%AB%E3%83%90%E3%83%BC%20%E9%83%BD%E5%B8%82%E3%82%AC%E3%82%B9&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 87378,
+    "postage_included": false,
+    "count": 2,
+    "average": 4.5,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -16165,6 +16505,13 @@
   },
   "health": {
    "checked": "2026-09-24"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 4257,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -16382,6 +16729,13 @@
   },
   "health": {
    "checked": "2026-09-24"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3136,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -16866,6 +17220,13 @@
   },
   "health": {
    "checked": "2026-09-24"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 21965,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -17133,6 +17494,13 @@
   },
   "health": {
    "checked": "2026-09-24"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 27478,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -17355,6 +17723,13 @@
   },
   "health": {
    "checked": "2026-09-24"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 6876,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -17610,6 +17985,13 @@
   },
   "health": {
    "checked": "2026-09-24"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 4310,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -18109,6 +18491,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 7480,
+    "postage_included": true,
+    "count": 3835,
+    "average": 4.47,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -18331,6 +18723,16 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E3%83%AC%E3%82%B3%E3%83%AB%E3%83%88%20%E8%87%AA%E5%8B%95%E8%AA%BF%E7%90%86%E3%83%9D%E3%83%83%E3%83%88%20RSY-2%20%E8%B1%AA%E8%8F%AF2%E5%A4%A7%E7%89%B9%E5%85%B8%2B30%E5%93%81%E3%83%AC%E3%82%B7%E3%83%94%E6%9C%AC%20%E3%82%B9%E3%83%BC%E3%83%97%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%20600ml%20%E8%B1%86%E4%B9%B3%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%20%E8%87%AA%E5%8B%95%E8%AA%BF%E7%90%86%E5%99%A8%20%E3%83%9F%E3%82%AD%E3%82%B5%E3%83%BC%20%E3%82%B8%E3%83%A5%E3%83%BC%E3%82%B5%E3%83%BC%20%E3%83%96%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC%20%E9%9B%A2%E4%B9%B3%E9%A3%9F%20%E3%82%B8%E3%83%A5%E3%83%BC%E3%82%B9%20%E3%83%9D%E3%82%BF%E3%83%BC%E3%82%B8%E3%83%A5%20%E5%85%A8%E8%87%AA%E5%8B%95%E3%82%B9%E3%83%BC%E3%83%97%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%20%E6%99%82%E7%9F%AD%E8%AA%BF%E7%90%86%20recolte%20%E8%87%AA%E5%8B%95%E8%AA%BF%E7%90%86%E3%83%9D%E3%83%83%E3%83%88&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 13200,
+    "postage_included": true,
+    "count": 3960,
+    "average": 4.67,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -19048,6 +19450,16 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%EF%BC%BC%E6%84%9F%E8%AC%9D%E3%83%87%E3%82%A3%E3%83%BC%E7%89%B9%E4%BE%A1%20%E3%80%8E%E5%B8%B8%E9%80%A3%20%E3%80%8F%20DVD%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E5%A4%96%E4%BB%98%E3%81%91%20USB3.0%20Type-C%20%E4%B8%A1%E6%96%B9%E5%AF%BE%E5%BF%9C%20dvd%20cd%20%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E5%A4%96%E4%BB%98%E3%81%91%20dvd%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E5%A4%96%E4%BB%98%E3%81%91dvd%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20cd%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20%E6%9B%B8%E8%BE%BC%E3%81%BF%20%E8%AA%AD%E8%BE%BC%E3%81%BF%20CD%20DVD-RW%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%20Mac%20Windows11%E5%AF%BE%E5%BF%9C%20%E3%82%B3%E3%83%8D%E3%82%AF%E3%82%BF%E3%83%BC&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3280,
+    "postage_included": true,
+    "count": 4129,
+    "average": 4.54,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -19783,6 +20195,16 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=SD%E3%82%AB%E3%83%BC%E3%83%89%E3%83%AA%E3%83%BC%E3%83%80%E3%83%BC%204in1%20iPhone17%E5%AF%BE%E5%BF%9C%20%E6%9C%80%E5%A4%A71TB%E5%AF%BE%E5%BF%9C%20%E5%86%99%E7%9C%9F%E3%83%BB%E5%8B%95%E7%94%BB%E4%BF%9D%E5%AD%98%20%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%83%97%20%E3%83%87%E3%83%BC%E3%82%BF%E8%BB%A2%E9%80%81%20%E5%B0%82%E7%94%A8%E3%82%A2%E3%83%97%E3%83%AA%E4%B8%8D%E8%A6%81%20%E3%82%B9%E3%83%9E%E3%83%9B%20USB-C%20Type-C%20Lightning%20%E3%83%A9%E3%82%A4%E3%83%88%E3%83%8B%E3%83%B3%E3%82%B0%20Android%20iPad%20PC%20SD%20microSD%20%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%8F%96%E8%AA%AC%E4%BB%98%20W%20STYLE&i=aps"
    ]
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 2460,
+    "postage_included": true,
+    "count": 4450,
+    "average": 4.44,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -21502,6 +21924,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 4950,
+    "postage_included": true,
+    "count": 5169,
+    "average": 4.62,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -21767,6 +22199,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 19800,
+    "postage_included": true,
+    "count": 5026,
+    "average": 4.29,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -21987,6 +22429,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 16800,
+    "postage_included": true,
+    "count": 5186,
+    "average": 4.61,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -22223,6 +22675,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 4980,
+    "postage_included": true,
+    "count": 5198,
+    "average": 4.69,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -22440,6 +22902,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 65780,
+    "postage_included": true,
+    "count": 5588,
+    "average": 4.54,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -23181,6 +23653,16 @@
   },
   "health": {
    "checked": "2026-09-21"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 14960,
+    "postage_included": true,
+    "count": 7169,
+    "average": 4.54,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -23420,6 +23902,16 @@
   },
   "health": {
    "checked": "2026-09-21"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3280,
+    "postage_included": true,
+    "count": 12051,
+    "average": 4.4,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -23675,6 +24167,16 @@
   },
   "health": {
    "checked": "2026-09-21"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3780,
+    "postage_included": true,
+    "count": 10758,
+    "average": 4.45,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -23945,6 +24447,16 @@
   },
   "health": {
    "checked": "2026-09-21"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 34000,
+    "postage_included": true,
+    "count": 7855,
+    "average": 4.57,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -24706,6 +25218,16 @@
   },
   "health": {
    "checked": "2026-09-21"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 5280,
+    "postage_included": true,
+    "count": 10179,
+    "average": 4.7,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -25707,6 +26229,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 29800,
+    "postage_included": true,
+    "count": 11117,
+    "average": 4.34,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -26493,6 +27025,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 7500,
+    "postage_included": false,
+    "count": 10535,
+    "average": 4.3,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -28205,6 +28747,16 @@
   },
   "health": {
    "checked": "2026-09-24"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 4480,
+    "postage_included": false,
+    "count": 14840,
+    "average": 4.55,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -29023,6 +29575,16 @@
   ],
   "health": {
    "checked": "2026-09-24"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 2560,
+    "postage_included": false,
+    "count": 12947,
+    "average": 3.97,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -30706,6 +31268,16 @@
   ],
   "health": {
    "checked": "2026-09-25"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3980,
+    "postage_included": false,
+    "count": 13167,
+    "average": 4.28,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -30992,6 +31564,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 9980,
+    "postage_included": true,
+    "count": 15885,
+    "average": 4.54,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -31576,6 +32158,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3180,
+    "postage_included": true,
+    "count": 16377,
+    "average": 4.67,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -32404,6 +32996,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 5555,
+    "postage_included": true,
+    "count": 19568,
+    "average": 4.43,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -32695,6 +33297,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3799,
+    "postage_included": true,
+    "count": 19380,
+    "average": 3.92,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -32994,6 +33606,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 2990,
+    "postage_included": false,
+    "count": 18987,
+    "average": 4.37,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -33894,6 +34516,16 @@
   },
   "health": {
    "checked": "2026-09-25"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 5980,
+    "postage_included": false,
+    "count": 20870,
+    "average": 4.36,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -34449,6 +35081,16 @@
   ],
   "health": {
    "checked": "2026-09-23"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 2990,
+    "postage_included": true,
+    "count": 27187,
+    "average": 4.19,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -34720,6 +35362,16 @@
   ],
   "health": {
    "checked": "2026-09-23"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 12980,
+    "postage_included": true,
+    "count": 23406,
+    "average": 4.52,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -34966,6 +35618,16 @@
   ],
   "health": {
    "checked": "2026-09-23"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 6160,
+    "postage_included": true,
+    "count": 22259,
+    "average": 4.42,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -36515,6 +37177,16 @@
   },
   "health": {
    "checked": "2026-09-25"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 2990,
+    "postage_included": false,
+    "count": 26188,
+    "average": 4.41,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -36750,6 +37422,16 @@
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/next-online/cabinet/06938766/08787750/samune20251016.jpg?_ex=128x128"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 1980,
+    "postage_included": true,
+    "count": 41946,
+    "average": 4.6,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -37299,6 +37981,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 2200,
+    "postage_included": true,
+    "count": 40136,
+    "average": 4.75,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -39251,6 +39943,16 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 1999,
+    "postage_included": true,
+    "count": 49256,
+    "average": 4.14,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -39492,6 +40194,16 @@
   },
   "health": {
    "checked": "2026-09-23"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3960,
+    "postage_included": true,
+    "count": 45188,
+    "average": 4.69,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -39779,6 +40491,16 @@
   },
   "health": {
    "checked": "2026-09-23"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 7990,
+    "postage_included": false,
+    "count": 42679,
+    "average": 4.31,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -39998,6 +40720,16 @@
   },
   "health": {
    "checked": "2026-09-23"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 3630,
+    "postage_included": true,
+    "count": 49322,
+    "average": 4.8,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
   }
  },
  {
@@ -41024,7 +41756,17 @@
   "health": {
    "checked": "2026-09-25"
   },
-  "yahoo_url": "https://store.shopping.yahoo.co.jp/lifestyle-007/61439.html"
+  "yahoo_url": "https://store.shopping.yahoo.co.jp/lifestyle-007/61439.html",
+  "review_stats": {
+   "rakuten": {
+    "price": 16990,
+    "postage_included": true,
+    "count": 116,
+    "average": 4.47,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
+  }
  },
  {
   "slug": "gunze-agw112",
@@ -42910,7 +43652,17 @@
   },
   "image_prompt": "A photograph of Anker 621 MagGo, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "official_ogp_title": "Anker 621 Magnetic Battery (MagGo) | マグネット式ワイヤレス充電器の製品情報",
-  "official_ogp_image": "https://www.ankerjapan.com/cdn/shop/products/61cGMXNeZWL._AC_SX679_1200x1200.jpg?v=1668407544"
+  "official_ogp_image": "https://www.ankerjapan.com/cdn/shop/products/61cGMXNeZWL._AC_SX679_1200x1200.jpg?v=1668407544",
+  "review_stats": {
+   "rakuten": {
+    "price": 5990,
+    "postage_included": true,
+    "count": 56,
+    "average": 4.5,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
+  }
  },
  {
   "slug": "iris-kpc-ma4-pressure-cooker-review",
@@ -44948,7 +45700,14 @@
   "image_prompt": "A photograph of BenQ ScreenBar, which is a モニターライト, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "official_ogp_title": "ScreenBar モニターライト 仕様とスペック",
   "official_ogp_image": "https://image.benq.com/is/image/benqco/07screenbar-topleft45-button?$ResponsivePreset$",
-  "yahoo_url": "https://store.shopping.yahoo.co.jp/y-kojima/4544438000455.html"
+  "yahoo_url": "https://store.shopping.yahoo.co.jp/y-kojima/4544438000455.html",
+  "review_stats": {
+   "rakuten": {
+    "price": 18062,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
+  }
  },
  {
   "published": true,
@@ -46916,7 +47675,14 @@
   },
   "official_ogp_title": "パネルライト 調光・調色タイプ｜パネルライト｜LEDシーリングライト｜照明｜電化製品｜商品情報｜アイリスオーヤマ",
   "official_ogp_image": "https://www.irisohyama.co.jp/products/web-catalog/img/serieses/light-guide-plate-toning-type/thumb.jpg",
-  "yahoo_url": "https://store.shopping.yahoo.co.jp/joylight/538005.html"
+  "yahoo_url": "https://store.shopping.yahoo.co.jp/joylight/538005.html",
+  "review_stats": {
+   "rakuten": {
+    "price": 5148,
+    "postage_included": true
+   },
+   "checked": "2026-09-26"
+  }
  },
  {
   "published": true,
@@ -49117,7 +49883,14 @@
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/applied2/cabinet/iwmt/4580742233318.jpg?_ex=128x128"
   },
-  "image_prompt": "A photograph of 角度調整フットレスト, which is a フットレスト, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
+  "image_prompt": "A photograph of 角度調整フットレスト, which is a フットレスト, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
+  "review_stats": {
+   "rakuten": {
+    "price": 15840,
+    "postage_included": false
+   },
+   "checked": "2026-09-26"
+  }
  },
  {
   "published": true,
@@ -49954,7 +50727,17 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kankapro/cabinet/r_2024060245/20240602080328_138_1.jpg?_ex=128x128"
   },
   "official_ogp_title": "不二貿易株式会社 | Fuji Boeki Co., Ltd.",
-  "yahoo_url": "https://lohaco.yahoo.co.jp/store/h-lohaco/item/uu12344/"
+  "yahoo_url": "https://lohaco.yahoo.co.jp/store/h-lohaco/item/uu12344/",
+  "review_stats": {
+   "rakuten": {
+    "price": 1790,
+    "postage_included": true,
+    "count": 1,
+    "average": 5.0,
+    "shops": 1
+   },
+   "checked": "2026-09-26"
+  }
  },
  {
   "slug": "kachika",
