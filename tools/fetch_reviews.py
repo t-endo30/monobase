@@ -24,7 +24,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from write_article import load, save_article
-from pick_products import rakuten_search, yahoo_search, PAUSE
+from pick_products import rakuten_search, yahoo_search, item_key, PAUSE
 
 
 def rakuten_item_code(url):
@@ -69,22 +69,57 @@ def summarize(items):
     return out
 
 
-def stats_for(jan, rk_id, rk_key, yh_id, rakuten_item=""):
+def rakuten_for_url(rk_id, rk_key, url):
+    """記事が持っている楽天の商品URLから、その商品だけを引く。
+
+       手は2つあり、上から順に試す。
+
+       1. itemCode で名指しする。ただし**商品コードが数字のものしか
+          通らない**。英字・ハイフンを含むと楽天は
+          `HTTP 400: itemCode is not valid` を返す
+          （2026-09-27に実測。177本中130本がこれで取れなかった）。
+       2. 商品コードを検索語にして引き直し、**返ってきた商品のURLが
+          記事のURLと同じものだけ**を採る。名前で当てるのではなく
+          URLで突き合わせるので、別商品を掴むことはない
+          （このサイトが写真・価格で一貫して守っている決まり）。"""
+    want = item_key(url)
+    if not want:
+        return []
+    code = rakuten_item_code(url)
+    if code:
+        try:
+            items = [x for x in rakuten_search(rk_id, rk_key, item_code=code)
+                     if item_key(x.get("url")) == want]
+            if items:
+                return items
+        except Exception:                             # noqa: BLE001
+            pass                                      # 次の手に進む
+        time.sleep(PAUSE)
+    # 商品コードを検索語にして引き、URLが一致したものだけ採る。
+    try:
+        found = rakuten_search(rk_id, rk_key, keyword=code.split(":")[-1])
+    except Exception as ex:                           # noqa: BLE001
+        print(f"    （楽天を引けませんでした: {ex}）", end="")
+        return []
+    return [x for x in found if item_key(x.get("url")) == want]
+
+
+def stats_for(jan, rk_id, rk_key, yh_id, rakuten_url=""):
     """各モールを引き、価格・口コミ件数・平均評価を集める。
 
-       楽天は JAN が無くても itemCode で引けるので、記事が持っている
-       楽天の商品URLを手がかりにする。Yahoo!の商品検索APIには
-       商品コードで1件だけ引く口が無いため、JANがあるときだけ引く。"""
+       楽天は JAN が無くても、記事が持っている商品URLから引ける
+       （rakuten_for_url）。Yahoo!の商品検索APIには商品コードで1件だけ
+       引く口が無いため、JANがあるときだけ引く。"""
     out = {}
-    if rk_id and (jan or rakuten_item):
-        try:
-            if jan:
+    if rk_id and (jan or rakuten_url):
+        if jan:
+            try:
                 items = rakuten_search(rk_id, rk_key, jan=jan)
-            else:
-                items = rakuten_search(rk_id, rk_key, item_code=rakuten_item)
-        except Exception as ex:                       # noqa: BLE001
-            print(f"    （楽天を引けませんでした: {ex}）")
-            items = []
+            except Exception as ex:                   # noqa: BLE001
+                print(f"    （楽天を引けませんでした: {ex}）", end="")
+                items = []
+        else:
+            items = rakuten_for_url(rk_id, rk_key, rakuten_url)
         got = summarize(items)
         if got:
             out["rakuten"] = got
@@ -142,9 +177,9 @@ def main():
 
     # 同一商品を照合できる手がかりが要る。推測で引くと別商品の価格・
     # 口コミを記事に載せることになるので、その場合は何もしない。
-    # 手がかりは2つ：JAN と、記事が持っている楽天の商品URL（itemCode）。
-    # JANを持つ記事は144本中10本しかなく、JANだけを見ていたころは
-    # 残り134本が永久に数字の無いページのままだった。
+    # 手がかりは2つ：JAN と、記事が持っている楽天の商品URL。
+    # JANを持つ記事は200本中10本しかなく、JANだけを見ていたころは
+    # 残りが永久に数字の無いページのままだった。
     todo = [a for a in targets
             if str(a.get("jan") or "").strip()
             or rakuten_item_code(a.get("rakuten_url"))]
@@ -164,7 +199,7 @@ def main():
             time.sleep(PAUSE)
         print(f"[{i}/{len(todo)}] {slug} … ", end="", flush=True)
         st = stats_for(str(a.get("jan") or "").strip(), rk_id, rk_key, yh_id,
-                       rakuten_item=rakuten_item_code(a.get("rakuten_url")))
+                       rakuten_url=str(a.get("rakuten_url") or ""))
         if not st:
             print("価格・レビューの取れる商品ページが見つかりませんでした")
             continue
