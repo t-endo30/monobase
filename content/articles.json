@@ -156,9 +156,9 @@
    "yahoo": {
     "price": 4390,
     "postage_included": true,
-    "count": 5276,
+    "count": 5311,
     "average": 4.41,
-    "shops": 1
+    "shops": 2
    },
    "checked": "2026-09-26"
   },
@@ -37928,7 +37928,7 @@
    "rakuten": {
     "price": 1980,
     "postage_included": true,
-    "count": 41946,
+    "count": 41947,
     "average": 4.6,
     "shops": 1
    },
