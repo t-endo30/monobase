@@ -28,18 +28,23 @@ from pick_products import rakuten_search, yahoo_search, PAUSE
 
 
 def rakuten_item_code(url):
-    """楽天の商品URLから itemCode（店舗コード/商品コード）を取り出す。
+    """楽天の商品URLから itemCode を取り出す。
 
        JANを持たない記事でも、記事が抱えている商品URLそのものから
        「その商品だけ」を引き直せる。名前で検索し直すのとは違って
        別商品を掴む心配が無いので、JANと同じ確かさで使える。
 
-         https://item.rakuten.co.jp/<店舗>/<商品コード>/ → <店舗>/<商品コード>"""
+         https://item.rakuten.co.jp/<店舗>/<商品コード>/ → <店舗>:<商品コード>
+
+       **区切りはコロン**。URLと同じスラッシュで渡すと、楽天は
+       `HTTP 400: itemCode is not valid` を返す（2026-09-27、177本中
+       167本がこれで取れずに気づいた）。大文字小文字も変えない——
+       商品コードはそのままの表記で登録されている。"""
     u = urllib.parse.urlsplit(str(url or ""))
-    if "rakuten.co.jp" not in u.netloc:
+    if "item.rakuten.co.jp" not in u.netloc:
         return ""
     parts = [x for x in u.path.strip("/").split("/") if x]
-    return "/".join(parts[:2]).lower() if len(parts) >= 2 else ""
+    return ":".join(parts[:2]) if len(parts) >= 2 else ""
 
 
 def summarize(items):
