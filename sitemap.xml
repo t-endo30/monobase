@@ -102,7 +102,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-appliance-light</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -117,7 +117,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-pc-input</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -204,6 +204,16 @@
     <loc>https://monobase.site/category-pet-care</loc>
     <lastmod>2026-09-18</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/panasonic-led-8h-sb-lsew5046le1</loc>
+    <lastmod>2026-09-26</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/elecom-usb2-0hub-usb-tk-tcm012bk</loc>
+    <lastmod>2026-09-26</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://monobase.site/articles/fff-smart-life-connected-fff-ld27p2-pc</loc>
