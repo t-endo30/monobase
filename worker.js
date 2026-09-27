@@ -489,6 +489,16 @@ export default {
       return Response.redirect(dest.toString(), 301);
     }
 
+    // 末尾スラッシュ（/foo/）も同じ理由で恒久301にする。
+    // Cloudflare の既定（auto-trailing-slash）は 307（一時的）を返すため、
+    // Search Console の「ページにリダイレクトがあります」に残り続ける
+    // （2026-09-28に実測して判明。/articles/xxx/ が 307 だった）。
+    if (path.length > 1 && path.endsWith("/")) {
+      const dest = new URL(url.toString());
+      dest.pathname = path.replace(/\/+$/, "") || "/";
+      return Response.redirect(dest.toString(), 301);
+    }
+
     // メンテナンス表示
     if (MAINTENANCE && !MAINT_ALLOW.some((p) => path === p || path.startsWith(p))) {
       const res = await env.ASSETS.fetch(new URL("/maintenance.html", url));

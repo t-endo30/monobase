@@ -14,6 +14,15 @@ on:
         description: 'クエリ・ページの表示行数'
         required: false
         default: '20'
+      inspect:
+        description: 'URL検査APIでインデックス状況も調べる（時間がかかる）'
+        type: boolean
+        required: false
+        default: false
+      inspect_limit:
+        description: '検査するURLの件数（0=sitemapの全部）'
+        required: false
+        default: '0'
 
 permissions:
   contents: read
@@ -53,5 +62,19 @@ jobs:
             echo '## Search Console 検索パフォーマンス'
             echo '```'
             cat "$RUNNER_TEMP/report.txt"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: インデックス状況を調べる（URL検査API）
+        if: inputs.inspect
+        env:
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+        run: |
+          python3 tools/gsc_inspect.py \
+            --limit "${{ inputs.inspect_limit || '0' }}" | tee "$RUNNER_TEMP/inspect.txt"
+          {
+            echo '## インデックス状況（URL検査API）'
+            echo '```'
+            cat "$RUNNER_TEMP/inspect.txt"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"

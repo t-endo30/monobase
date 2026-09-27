@@ -3566,11 +3566,25 @@ p,li,.card-desc{text-wrap:pretty;}
   font-weight:700;color:#fff;background:var(--ink);border:none;
   border-radius:4px;cursor:pointer;}
 .side-search-box button:hover{background:var(--ink-2);}
-@media (min-width:1300px){
+/* 本文900 + 隙間40 + サイド300 = 1240。器（.container）の既定は
+   --wrap:1200px・左右の余白40pxで中身は1120pxしか無く、そのままだと
+   1240が入らない。入らないぶんは本文（.article-page）が最小幅まで
+   縮まずにはみ出し、サイドバーの下へ潜り込んで文字が隠れる
+   （2026-09-28に実測：本文の右300pxがサイドバーに重なっていた）。
+   記事ページの器だけ 1240+余白80=1320 に広げ、その幅が取れる
+   1340px 以上でだけ2列にする。 */
+@media (min-width:1340px){
+  .container:has(.article-body-wrap){--wrap:1320px;}
   .article-body-wrap{max-width:1240px;display:grid;
     grid-template-columns:minmax(0,900px) 300px;gap:40px;align-items:start;}
-  .article-sidebar{margin-top:0;
-    position:sticky;top:calc(var(--header-h) + 12px);}
+  /* グリッドの子は既定で min-width:auto（中身の最小幅まで）なので、
+     列が足りないとはみ出す。0 を明示して必ず列の中に収める。 */
+  .article-page{min-width:0;}
+  /* 追従（position:sticky）はしない。サイドバーは4枚積むと画面より
+     背が高くなり、sticky だと上端で貼り付いたまま下の方が永久に
+     読めなくなる＝「固定されて動かない」状態になる（2026-09-28、
+     ユーザー指摘で解除）。本文と一緒にそのまま流す。 */
+  .article-sidebar{margin-top:0;}
   .side-box{max-width:none;margin:0;}
   .side-box-pc{display:block;}
 }
@@ -3588,13 +3602,18 @@ p,li,.card-desc{text-wrap:pretty;}
    本文より長く残ってフッターに重なることもない（sticky は自分の
    属する領域＝本文と同じ高さの列の中でしか止まらないため）。 */
 .article-side-ad{display:none;}
-@media (min-width:1300px){
+/* 左右の縦バナーを出すには 150+1240+150=1540、余白80を足して1620必要。
+   これより狭い画面ではサイドバー（本文の右の列）を優先して出さない
+   （2026-09-28。以前は1300pxから出していたため、器の1200pxに
+   150+900+150 を詰め込んで本文がはみ出していた）。 */
+@media (min-width:1620px){
   .container:has(> .article-side-ad){
     /* align-items は既定の stretch のまま。.article-side-ad（外側）を
        本文と同じ高さまで伸ばしてこそ、中の -inner が sticky で
        その範囲いっぱいに動ける（start にすると内容ぶんの高さしか
        持たず、途中で追従が止まってしまう）。 */
-    display:grid;grid-template-columns:150px 900px 150px;
+    display:grid;grid-template-columns:150px minmax(0,1240px) 150px;
+    --wrap:1620px;
   }
   .article-side-ad{display:block;}
   /* HTMLの並びは「左バナー→右バナー→本文」（promo_side が2本続けて
@@ -3608,7 +3627,11 @@ p,li,.card-desc{text-wrap:pretty;}
      実際に起きた。3つとも1行目に固定して防ぐ。 */
   .article-side-ad.is-left{grid-column:1;grid-row:1;}
   .article-side-ad.is-right{grid-column:3;grid-row:1;}
-  .container:has(> .article-side-ad) > .article-page{grid-column:2;grid-row:1;}
+  /* 本文は .article-body-wrap（本文＋サイドバーの2列）でくるまれて
+     いるので、列を指定する相手はそちら。2026-09-27にサイドバーを
+     足したときここが .article-page のままで、直接の子ではなくなって
+     効かなくなっていた。 */
+  .container:has(> .article-side-ad) > .article-body-wrap{grid-column:2;grid-row:1;}
   .article-side-ad-inner{
     display:flex;flex-direction:column;align-items:center;gap:8px;
     position:sticky;top:calc(var(--header-h) + 12px);width:120px;
