@@ -1735,4 +1735,70 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   Array.prototype.forEach.call(chips, function (c) {
     c.addEventListener('click', function () { show(c); });
   });
+
+  /* 記事の「条件で探す」枠（v2_article_finder）から ?b=lo-hi 付きで
+     飛んできたときは、その帯を最初から選んだ状態にする。 */
+  var want = new URLSearchParams(location.search).get('b') || '';
+  if (want.indexOf('-') > -1) {
+    var parts = want.split('-');
+    var match = Array.prototype.filter.call(chips, function (c) {
+      return c.getAttribute('data-lo') === parts[0] &&
+             c.getAttribute('data-hi') === parts[1];
+    })[0];
+    if (match) show(match);
+  }
+})();
+
+
+/* ============================================================
+   記事の「条件で探す」枠
+   ------------------------------------------------------------
+   カテゴリーを選ぶとサブ区分の選択肢を組み替え（.finder-data に
+   埋め込んだカテゴリー→サブ区分の対応表から）、「この条件で見る」で
+   category-{cat}[-{sub}].html へ飛ぶ。予算も選んでいれば ?b=lo-hi を
+   付けて渡し、着地先の予算枠（上の IIFE）にその帯を選ばせる。
+   ============================================================ */
+(function () {
+  'use strict';
+  document.querySelectorAll('[data-finder]').forEach(function (box) {
+    var p = box.getAttribute('data-p') || './';
+    var dataEl = box.querySelector('.finder-data');
+    var map = {};
+    try { map = JSON.parse((dataEl && dataEl.textContent) || '{}'); }
+    catch (e) { map = {}; }
+
+    var catSel = box.querySelector('[data-role="cat"]');
+    var subSel = box.querySelector('[data-role="sub"]');
+    var bandSel = box.querySelector('[data-role="band"]');
+    var goBtn = box.querySelector('[data-role="go"]');
+    if (!catSel || !subSel || !bandSel || !goBtn) return;
+
+    function esc(t) {
+      return String(t == null ? '' : t)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function fillSubs(keep) {
+      var subs = map[catSel.value] || [];
+      var cur = keep ? subSel.value : '';
+      subSel.innerHTML = '<option value="">サブ区分（すべて）</option>' +
+        subs.map(function (s) {
+          return '<option value="' + esc(s.key) + '"' +
+            (s.key === cur ? ' selected' : '') + '>' + esc(s.label) +
+            '</option>';
+        }).join('');
+      subSel.disabled = !catSel.value;
+    }
+    fillSubs(true);
+    catSel.addEventListener('change', function () { fillSubs(false); });
+
+    goBtn.addEventListener('click', function () {
+      if (!catSel.value) { catSel.focus(); return; }
+      var url = p + 'category-' + catSel.value +
+        (subSel.value ? '-' + subSel.value : '') + '.html';
+      if (bandSel.value) url += '?b=' + encodeURIComponent(bandSel.value);
+      location.href = url;
+    });
+  });
 })();

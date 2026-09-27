@@ -3206,9 +3206,14 @@ def render_article(a):
     # 記事の中身（商品表・購入リンク・広告枠）は組み方を変えず、
     # 器だけ新デザインに合わせる。中身を作り直すと、収益に関わる部分が
     # 黙って壊れるおそれがあるため。
+    # article-side-ad（左右の縦長バナー）は収益に関わるのでそのまま。
+    # 条件で探す枠（article-finder）はその内側、本文と並ぶ列に別枠で置く。
     body_html = ('  <div class="container">\n' + promo_side(slug)
-                 + '    <div class="article-page">\n'
-                 + body_html + '    </div>\n  </div>\n'
+                 + '    <div class="article-body-wrap">\n'
+                 + '      <div class="article-page">\n'
+                 + body_html + '      </div>\n'
+                 + v2_article_finder(p, a)
+                 + '    </div>\n  </div>\n'
                  + share_fab(a, url))
 
     return page(f'{a["title"]} - {NAME}', a.get("description") or a.get("excerpt",""),
@@ -3582,6 +3587,82 @@ def v2_budget(items, p, min_priced=10, min_band=3):
             '      </div>\n')
 
 
+_FINDER_DATA = None
+
+
+def v2_finder_data():
+    """記事の「条件で探す」枠が使う、カテゴリー→サブ区分の対応表。
+       記事が1本も無い（カテゴリー, サブ区分）の組み合わせを選ばせても
+       行き先の一覧ページが存在しないため、PUBLISHED にある組み合わせ
+       だけに絞る。呼び出しごとに作り直さず、モジュール内で1度だけ
+       計算してキャッシュする（記事数ぶん繰り返し呼ばれるため）。"""
+    global _FINDER_DATA
+    if _FINDER_DATA is None:
+        have = {(a["category"], a.get("sub", "")) for a in PUBLISHED}
+        _FINDER_DATA = {c["key"]: [{"key": sc["key"], "label": sc["label"]}
+                                    for sc in c.get("sub", [])
+                                    if (c["key"], sc["key"]) in have]
+                        for c in CATS}
+    return _FINDER_DATA
+
+
+def v2_article_finder(p, a):
+    """記事の右サイド（幅の狭い画面では本文の下）に置く「条件で探す」枠。
+
+       ホームの「予算で探す」は全カテゴリーが母数になるため、価格帯が
+       「安い/高い」以上の意味を持たなかった（2026-09-27、ユーザー判断で
+       ホームからは撤去。v2_budget 自体はカテゴリー・サブ区分の一覧
+       ページで引き続き使う）。ここではまずカテゴリーを選ばせてから
+       予算を選ばせる形にして、ホームで失っていた「価格で探す」入口を
+       記事側に付け替えた。
+
+       今読んでいる記事のカテゴリー・サブ区分をあらかじめ選んだ状態で
+       出す（「この分野の中で予算を変えて見る」がすぐできるように）。
+       押すと category-{cat}[-{sub}].html へ飛び、予算も選んでいれば
+       ?b=lo-hi を付けて渡す（着地先の v2_budget 側で該当の帯を自動選択
+       する。assets/main.js）。
+
+       三分割の縦長バナー（.article-side-ad／収益に関わるため触らない）
+       とは別物として扱い、幅の狭い画面でも1枚のカードとして機能する
+       （装飾目的のサイドバーと違い、この部品は機能自体が要件のため）。"""
+    finder_data = v2_finder_data()
+    # </script として解釈されないようにエスケープする（home_feat_ad と同じ扱い）。
+    finder_json = json.dumps(finder_data, ensure_ascii=False).replace("</", "<\\/")
+
+    cat, sub = a.get("category", ""), a.get("sub", "")
+    cat_opts = "".join(
+        f'<option value="{c["key"]}"{" selected" if c["key"] == cat else ""}>'
+        f'{e(c["label"])}</option>' for c in CATS)
+    sub_opts = "".join(
+        f'<option value="{sc["key"]}"{" selected" if sc["key"] == sub else ""}>'
+        f'{e(sc["label"])}</option>' for sc in finder_data.get(cat, []))
+    band_opts = "".join(f'<option value="{lo}-{hi}">{e(label)}</option>'
+                        for lo, hi, label in BUDGET_BANDS)
+    ad = promo_slot("article_end", cat=cat, cls="finder-ad", count=1)
+    return (
+        '      <aside class="article-finder" data-finder '
+        f'data-p="{e(p)}">\n'
+        '        <p class="finder-title">条件で探す</p>\n'
+        '        <select class="finder-select" data-role="cat">\n'
+        '          <option value="">カテゴリーを選ぶ</option>\n'
+        f'          {cat_opts}\n'
+        '        </select>\n'
+        '        <select class="finder-select" data-role="sub">\n'
+        '          <option value="">サブ区分（すべて）</option>\n'
+        f'          {sub_opts}\n'
+        '        </select>\n'
+        '        <select class="finder-select" data-role="band">\n'
+        '          <option value="">予算（指定なし）</option>\n'
+        f'          {band_opts}\n'
+        '        </select>\n'
+        '        <button type="button" class="finder-go" data-role="go">'
+        'この条件で見る</button>\n'
+        f'        <script type="application/json" class="finder-data">{finder_json}</script>\n'
+        f'{ad}'
+        '      </aside>\n'
+    )
+
+
 def build_index():
     p = "./"
     # 幅の広いPC（1440px以上）では5列×2行＝10件出す。そこから下の
@@ -3667,13 +3748,12 @@ def build_index():
         + home_feat_ad("article_side", n=1, slot="_r2", extra_cls="is-right") + '</div>\n'
         + v2_sec_more(f"{p}ranking.html", cls="has-feat-ad has-side-ad"))
 
-    # 予算で探す枠。ランキングのすぐ下に置く。「よく読まれている物」の
-    # 次に「自分の予算で買える物」を見せる並びにする。
-    budget = v2_budget(PUBLISHED, p)
-    if budget:
-        body += v2_section(
-            v2_sec_head("BUDGET", "予算で探す", cls="has-feat-ad has-side-ad")
-            + '      <div class="home-featwrap">' + budget + '</div>\n')
+    # 予算で探す枠はホームには置かない（2026-09-27、ユーザー判断）。
+    # ホームは全カテゴリーが母数になり、価格帯が「安い/高い」以上の
+    # 意味を持たない（カメラの2万円とパソコンの2万円を同じ帯にまとめても
+    # 読者の探し方に合わない）。カテゴリー・サブ区分の一覧では引き続き
+    # 使う（v2_budget、build_category / build_subcategory）ほか、
+    # 記事側にはカテゴリー→予算の順で選べる v2_article_finder を置いた。
 
     # ピックアップもランキングと同じ横カルーセル（スマホ）。枠を同じ
     # 大きさにすると3列では収まらないため、送って見せる形にそろえる。
