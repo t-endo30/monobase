@@ -3672,7 +3672,7 @@ def v2_recent_views(p):
        必要は無い）。履歴が無い（初回訪問）人には枠ごと隠す
        （hidden、JSが履歴を見つけたときだけ外す）。2026-09-27追加。"""
     return (
-        '  <section class="v2-section recent-views" data-recent-views-wrap hidden>\n'
+        '  <section class="v2-section recent-views is-narrow" data-recent-views-wrap hidden>\n'
         '    <div class="container">\n'
         + v2_sec_head("RECENT", "最近見た記事")
         + '      <div class="card-grid is-home6" data-recent-views></div>\n'
@@ -3888,6 +3888,24 @@ def v2_side_recent_views():
             '      </div>\n')
 
 
+def v2_home_recent_col():
+    """ホームの「最近見た記事」を、新着記事の右に置く縦の列にする
+       （2026-09-28、ユーザー判断）。中身の描き方は記事ページの
+       サイドバー（v2_side_recent_views）と同じで、assets/main.js が
+       localStorage の履歴から埋める。
+
+       幅の広いPC（1440px以上）でだけ出す。それより狭い画面では列を
+       足す余地が無いので、従来どおり横並びの区画（v2_recent_views）を
+       出す。両方をHTMLに入れておき、どちらを見せるかはCSSで決める
+       （main.js は [data-recent-views] を全部埋めるので、どちらが
+       出ていても中身は入る）。"""
+    return ('<aside class="home-recent" data-recent-views-wrap hidden '
+            'aria-label="最近見た記事">'
+            '<p class="finder-title">最近見た記事</p>'
+            '<div class="card-grid" data-recent-views data-recent-limit="2"></div>'
+            '</aside>')
+
+
 def v2_article_sidebar(p, a):
     """記事のサイドバー全体。「条件で探す」＋同カテゴリーの人気記事・
        新着＋サイト内検索の4枚を1つの追従列にまとめる（1枚だけだと
@@ -3905,12 +3923,12 @@ def v2_article_sidebar(p, a):
     return ('    <aside class="article-sidebar">\n'
             + v2_side_search(p)
             + v2_article_finder(p, a)
-            + v2_side_recent_views()
             + ranking_html
             + new_html
             + v2_side_features(p, a)
             + v2_side_cats(p, a)
             + v2_side_recent(p, a, shown)
+            + v2_side_recent_views()
             + promo_slot("article_end", cat=a.get("category", ""),
                          cls="side-box side-box-pc side-promo", count=2)
             + '    </aside>\n')
@@ -3962,6 +3980,7 @@ def build_index():
         + home_feat_ad("home_new", n=4)
         + '<div class="card-grid is-home6">'
         + "".join(v2_card(a, p, flags="new") for a in latest) + "</div>"
+        + v2_home_recent_col()
         + home_feat_ad("article_side", n=1, slot="_r", extra_cls="is-right") + '</div>\n'
         + v2_sec_more(f"{p}new.html", cls="has-feat-ad has-side-ad"), tinted=True)
 

@@ -1424,6 +1424,22 @@ body.has-sticky-cta .fab{bottom:96px;}
     display:flex;flex-direction:column;align-items:center;
     gap:24px;width:100%;flex:1 1 auto;
   }
+  /* ホームの「最近見た記事」（2026-09-28、ユーザー判断で横並びの区画を
+     やめて縦の列にした）。列を足す余地があるのは1440px以上なので、
+     そこまでは従来どおり横並びの区画（.recent-views.is-narrow）を出し、
+     この列は隠しておく。 */
+  .home-recent{display:none;}
+  /* 記事タイルの並びと「最近見た記事」の列は、どちらも中身ぶんの高さで
+     止める。伸ばす（stretch）と、背の高いほうに引っぱられて記事タイルの
+     中に大きな空きができる（2026-09-28に実際に起きた）。左右の広告列は
+     これまでどおり伸ばして記事タイルと下端をそろえる。 */
+  .home-featwrap > .card-grid,
+  .home-featwrap > .home-recent{align-self:start;}
+  .home-recent .card-grid{grid-template-columns:1fr;gap:16px;}
+  .home-recent .finder-title{
+    margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.03em;
+    color:var(--ink-2);
+  }
   .card-grid.is-home6{
     grid-template-columns:repeat(3,minmax(0,1fr));
   }
@@ -1470,6 +1486,17 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card-grid.is-home6{grid-template-columns:repeat(5,minmax(0,1fr));}
   .card-grid.is-home6 > .card:nth-child(n+7){display:grid;}
   .card-grid.is-home6 > .card:nth-child(n+11){display:none;}
+  /* 履歴があって「最近見た記事」の列が出ているときは、新着タイルを
+     5列→4列に減らして場所を空ける（列ごと隠れているときは5列のまま）。
+     4列×2行＝8枚までにする。 */
+  .home-featwrap > .home-recent{display:block;flex:0 0 210px;}
+  .home-featwrap:has(> .home-recent:not([hidden])) > .card-grid.is-home6{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+  .home-featwrap:has(> .home-recent:not([hidden]))
+    > .card-grid.is-home6 > .card:nth-child(n+9){display:none;}
+  /* 広い画面では横並びの区画のほうを隠す（同じものが2回出ないように） */
+  .recent-views.is-narrow{display:none;}
   /* 5列は1枚172pxしかない。価格・送料込・★・件数を1行に収めるため、
      この段だけ字と間隔を詰める（入りきらない分は末尾から隠れる） */
   .card-grid.is-home6 .card-stats,
