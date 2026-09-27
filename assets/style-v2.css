@@ -396,7 +396,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* =========================================================================
    セクションの見出し（PICK UP / NEW / CATEGORY …）
    ========================================================================= */
-.v2-section{padding:60px 0;}
+/* 区画の上下。60pxだと1画面に1区画しか入らず、記事の少ないサイトに
+   見えていた（2026-09-27、密度を上げる方針）。 */
+.v2-section{padding:40px 0;}
 .v2-section + .v2-section{padding-top:0;}
 /* 記事数などの帯は中身が1行しかないので、区画の上下を詰める
    （2026-09-27、ユーザー指定）。+ の指定より後に置いて上書きする */
@@ -406,7 +408,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    上下の罫線だけで区切る */
 .v2-section.is-tinted{border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 
-.sec-head{display:flex;align-items:center;gap:24px;margin-bottom:34px;}
+.sec-head{display:flex;align-items:center;gap:24px;margin-bottom:22px;}
 .sec-head .rule{flex:1;height:1px;background:var(--ink);}
 .sec-head .titles{text-align:center;line-height:1.4;flex:0 0 auto;}
 .sec-head .en{font-family:var(--font-en);font-size:19px;font-weight:700;letter-spacing:.2em;}
@@ -414,7 +416,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .sec-head .ja{font-size:11px;color:var(--muted);letter-spacing:.08em;white-space:nowrap;}
 /* 一覧へ送る導線はタイルの下の中央。見出しの横に置くと、
    タイルを見終わったあとの視線と離れてしまう */
-.sec-more{display:flex;justify-content:center;margin-top:36px;}
+.sec-more{display:flex;justify-content:center;margin-top:22px;}
 /* ボタンは枠いっぱい。見出しの罫線（.sec-head）は区画の幅いっぱいに
    伸びるのに、ここだけ230pxの小さな箱で、左右がそろって見えなかった
    （2026-09-27の指摘）。スマホではもともと width:100% にしてあるので、
@@ -453,7 +455,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* =========================================================================
    記事カード
    ========================================================================= */
-.card-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px 26px;}
+/* タイルの間。詰めるとタイル自体も少し広くなる（5列で166→172px） */
+.card-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 18px;}
 /* 記事は6本渡している。PCは4列ちょうどで見せたいので、5本目から先は隠す
    （スマホでは6本目をわざと切って「続きがある」ことを示す） */
 .card-grid > .card:nth-child(n+5){display:none;}
@@ -1387,6 +1390,7 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card-grid.is-home6{
     grid-template-columns:repeat(3,minmax(0,1fr));
   }
+  .card-grid.is-feature{grid-template-columns:repeat(3,minmax(0,1fr));}
   .card-grid.is-home6 > .card:nth-child(n+5){display:grid;}
   .card-grid.is-home6 > .card:nth-child(n+7){display:none;}
   /* 見出しの帯（NEW/RANKING の "----" 罫線）は、下の広告バナーぶんを
@@ -1429,6 +1433,18 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card-grid.is-home6{grid-template-columns:repeat(5,minmax(0,1fr));}
   .card-grid.is-home6 > .card:nth-child(n+7){display:grid;}
   .card-grid.is-home6 > .card:nth-child(n+11){display:none;}
+  /* 5列は1枚172pxしかない。価格・送料込・★・件数を1行に収めるため、
+     この段だけ字と間隔を詰める（入りきらない分は末尾から隠れる） */
+  .card-grid.is-home6 .card-stats,
+  #pickGrid .card-stats{gap:4px;}
+  .card-grid.is-home6 .cs-price,
+  #pickGrid .cs-price{font-size:13.5px;}
+  .card-grid.is-home6 .cs-rv,
+  #pickGrid .cs-rv{font-size:10px;gap:2px;}
+  .card-grid.is-home6 .cs-star,
+  #pickGrid .cs-star{font-size:11px;}
+  .card-grid.is-home6 .cs-ship,
+  #pickGrid .cs-ship{font-size:9px;padding:1px 3px;}
   /* 今日のピックアップ・カテゴリー・PR … 5列×1行。
      新着とランキングが5列×2行なので、タイルの大きさをそろえる */
   #pickGrid{grid-template-columns:repeat(5,minmax(0,1fr));}
@@ -1445,8 +1461,21 @@ body.has-sticky-cta .fab{bottom:96px;}
   .cat-grid.is-rail > .cat-cell{flex:none;border:0;
     border-right:1px solid var(--line);border-bottom:1px solid var(--line);}
   .cat-grid.is-rail > .cat-cell:nth-child(n+6){display:none;}
+  /* 5列だと枠が186pxしかなく、「スマートフォン」「家具・インテリア」が
+     2行に折れていた（2026-09-27の指摘）。字と余白を詰めて1行に収める。
+     それでも入らない語は、折り返さずに末尾を…で切る。 */
+  .cat-grid.is-rail .cat-body{padding:14px 12px 12px;gap:4px;}
+  .cat-grid.is-rail .cat-cell .l{
+    font-size:13px;padding-right:38px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .cat-grid.is-rail .cat-cell .c{top:13px;right:12px;font-size:9.5px;}
+  .cat-grid.is-rail .cat-thumb{margin:auto 12px 12px;}
   /* 並びになったので、横に送るボタンは出さない */
   .cat-rail .rail-btn{display:none;}
+  /* 特集は3列。単品のレビューと同じ大きさで並べると埋もれるので、
+     ここだけ大きく見せて「読み物」の層があることを伝える */
+  .card-grid.is-feature{grid-template-columns:repeat(3,minmax(0,1fr));}
   /* PRのバナーも記事の並びと同じ5列に */
   .v2-section .promo-group > .card-grid{
     grid-template-columns:repeat(5,minmax(0,1fr));
@@ -4169,6 +4198,16 @@ h1,h2,h3,h4,
   font-size:11px;
   color:var(--text-sub);}
 .cs-star{font-size:12px;font-weight:700;color:#e8a317;}
+/* 送料込みの札。値段のすぐ右に小さく添える。「送料別」は出さない
+   （いくら掛かるか分からず、読者の判断材料にならないため） */
+.cs-ship{flex:0 0 auto;
+  padding:1px 4px;
+  border:1px solid var(--line-2);
+  border-radius:var(--r2);
+  font-size:9.5px;
+  line-height:1.4;
+  color:var(--text-sub);
+  white-space:nowrap;}
 
 /* ============================================================
    ホーム上部の「このサイトの規模」
@@ -4192,7 +4231,9 @@ h1,h2,h3,h4,
      入れて、新着記事などと左右をそろえる（見出しとボタンは
      .has-feat-ad / .has-side-ad が同じ幅にしている） */
   .is-home .cat-rail,
-  .is-home .promo-group{
+  .is-home .promo-group,
+  .is-home .budget,
+  .is-home .card-grid.is-feature{
     margin-left:calc(160px + 28px);
     margin-right:calc(130px + 28px);
   }
@@ -4249,4 +4290,64 @@ h1,h2,h3,h4,
   .hs-nums li{padding:11px 4px;}
   .hs-nums .hs-unit,
   .hs-nums .hs-pre{font-size:11px;letter-spacing:.02em;}
+}
+
+/* ============================================================
+   予算で探す
+   ------------------------------------------------------------
+   価格帯の札を押すと、その帯の記事だけが下に並び直す。
+   価格で絞れる入口がどこにも無く、「1万円くらいで探したい」という
+   読者が最初の1本にたどり着けなかったので足した（2026-09-27）。
+   札の見た目は、このサイトの他のボタンと同じく角を立てる。
+   ============================================================ */
+.budget{flex:1 1 auto;min-width:0;}
+.bd-chips{display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:16px;}
+.bd-chip{display:inline-flex;
+  align-items:baseline;
+  gap:5px;
+  padding:7px 12px;
+  border:1px solid var(--line-2);
+  border-radius:var(--radius);
+  background:var(--bg-2);
+  font-size:12.5px;
+  font-weight:700;
+  letter-spacing:.02em;
+  color:var(--ink-2);
+  cursor:pointer;
+  transition:background .2s ease,color .2s ease,border-color .2s ease;}
+.bd-chip:hover{border-color:var(--ink);background:var(--bg-3);}
+/* 選んでいる帯は地を反転させる。色を足さずに、どれを見ているかを示す */
+.bd-chip.is-on{background:var(--ink);border-color:var(--ink);color:#fff;}
+.bd-chip i{font-style:normal;
+  font-family:var(--font-en);
+  font-size:10.5px;
+  font-weight:700;
+  color:var(--muted-2);}
+.bd-chip.is-on i{color:rgba(255,255,255,.7);}
+@media (max-width:860px){
+  .bd-chips{gap:6px;margin-bottom:12px;
+    /* 札が多いので、狭い画面では横に流す */
+    flex-wrap:nowrap;overflow-x:auto;
+    padding-bottom:4px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .bd-chips::-webkit-scrollbar{display:none;}
+  .bd-chip{flex:0 0 auto;padding:6px 10px;font-size:11.5px;}
+}
+
+/* 特集（比較・選び方）の帯。
+   ここに並ぶのは複数商品を比べた記事で、単品の商品写真を持たない。
+   写真の位置には自動生成の絵（記事名を入れたもの）が入るため、
+   タイルと同じ正方形にすると灰色の面が大きく、しかも記事名が
+   絵の中と下の2回出る。横長にして面積を抑える。
+
+   **PCだけに掛ける。** スマホのタイルは写真が左・本文が右の横並びで、
+   写真は120pxの正方形に固定してある。そこへ16/9を掛けると写真の高さが
+   そろわなくなる（tools/check_layout.py が「写真の高さが52pxばらついて
+   いる」で検出した）。 */
+@media (min-width:861px){
+  .card-grid.is-feature .card-thumb{aspect-ratio:16/9;}
+  .card-grid.is-feature .card-title{font-size:15px;}
 }

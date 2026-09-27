@@ -1569,19 +1569,24 @@ def card_stats_data(a):
     if not isinstance(st, dict):
         return {}
     links = {shop for shop, _l, _h in shop_links(a)}
-    price, best_rv = 0, None
+    price, ship, best_rv = 0, False, None
     for shop in ("rakuten", "yahoo"):
         v = st.get(shop)
         if not isinstance(v, dict) or shop not in links:
             continue
         if v.get("price") and (not price or int(v["price"]) < price):
             price = int(v["price"])
+            # 送料込みかどうかは、その最安値を出している店のもの。
+            # 別の店の条件を混ぜると、出している値段と噛み合わなくなる。
+            ship = bool(v.get("postage_included"))
         if v.get("count") and (not best_rv or int(v["count"]) > best_rv["count"]):
             best_rv = {"count": int(v["count"]),
                        "average": float(v.get("average") or 0)}
     out = {}
     if price:
         out["p"] = price
+        if ship:
+            out["s"] = 1
     if best_rv:
         out["n"] = best_rv["count"]
         if best_rv["average"]:
@@ -1603,6 +1608,10 @@ def card_stats(a):
     bits = ""
     if d.get("p"):
         bits += f'<span class="cs-price">¥{d["p"]:,}</span>'
+        # 送料込みのときだけ出す。「送料別」は出さない——別のときは
+        # いくら掛かるかが分からず、出しても読者の判断材料にならない。
+        if d.get("s"):
+            bits += '<span class="cs-ship">送料込</span>'
     if d.get("n"):
         star = (f'<span class="cs-star">★{d["r"]:.2f}</span>'
                 if d.get("r") else "")
@@ -3470,6 +3479,61 @@ POLICY = [
 # 組み立ては static_pages() 側で行う（policy_items）。
 
 
+# 予算で探す枠の価格帯。下限（円）・上限（円、0で上限なし）・札の文字。
+# 記事の価格（review_stats）は1,500〜120,000円に収まるので、その範囲を
+# 6つに割る。境目は「読者が予算を口にするときの言い方」に寄せてある。
+BUDGET_BANDS = [
+    (0, 3000, "〜3,000円"),
+    (3000, 5000, "3,000〜5,000円"),
+    (5000, 10000, "5,000〜1万円"),
+    (10000, 20000, "1〜2万円"),
+    (20000, 50000, "2〜5万円"),
+    (50000, 0, "5万円〜"),
+]
+
+
+def article_price(a):
+    """一覧・予算枠で使う価格（最安値）。取れていなければ None。"""
+    d = card_stats_data(a)
+    return d.get("p")
+
+
+def v2_budget(p, pool_json):
+    """予算で探す枠。価格帯の札と、その帯の記事5件。
+
+       価格で絞れる入口がどこにも無く、「1万円くらいで探したい」という
+       読者が最初の1本にたどり着けなかった。検索ページに価格の欄を足す
+       手もあるが、ホームで押してその場で並び替わるほうが早い。
+
+       中身の差し替えは assets/main.js が data-pool（今日のピックアップと
+       同じ全記事の一覧）から行う。ここで出しておく5件は、JSが動かない
+       ときの中身でもある。記事の少ない帯は札自体を出さない。"""
+    priced = [(a, article_price(a)) for a in PUBLISHED]
+    priced = [(a, v) for a, v in priced if v]
+    if len(priced) < 10:
+        return ""                      # 価格の付いた記事が少ないうちは出さない
+
+    chips, first = "", []
+    for lo, hi, label in BUDGET_BANDS:
+        hit = [a for a, v in priced if v >= lo and (not hi or v < hi)]
+        if len(hit) < 3:
+            continue                   # 押しても数本しか出ない帯は出さない
+        on = " is-on" if not chips else ""
+        if not first:
+            first = hit[:5]
+        chips += (f'<button type="button" class="bd-chip{on}" role="tab" '
+                  f'aria-selected="{"true" if on else "false"}" '
+                  f'data-lo="{lo}" data-hi="{hi}">{e(label)}'
+                  f'<i>{len(hit)}</i></button>')
+    if not chips or not first:
+        return ""
+    return ('      <div class="budget" data-budget>\n'
+            f'        <div class="bd-chips" role="tablist">{chips}</div>\n'
+            f'        <div class="card-grid is-home6" data-pool=\'{pool_json}\'>'
+            + "".join(v2_card(a, p) for a in first) + '</div>\n'
+            '      </div>\n')
+
+
 def build_index():
     p = "./"
     # 幅の広いPC（1440px以上）では5列×2行＝10件出す。そこから下の
@@ -3534,6 +3598,20 @@ def build_index():
     # 決める。直近の閲覧数があればそれを、無ければ累計を使い、同数なら
     # 新しい順。ここを PUBLISHED の頭から取ると、新着と同じ並びになる。
     # ホームのランキングは「週間」で並べる（ランキングのページの既定タブと同じ）
+    # 特集・比較の帯。個別のレビューを読む前の「全体像」への入口で、
+    # 単品レビューより検索に強い。ホームからの導線が category-feature
+    # へのリンク1本しか無く、せっかく書いた比較記事に人が来ていなかった。
+    # 3列で大きめに出し、続きは VIEW ALL から。
+    feats = [a for a in PUBLISHED if a.get("category") == "feature"][:3]
+    if feats:
+        body += v2_section(
+            v2_sec_head("FEATURE", "比較・選び方の特集",
+                        cls="has-feat-ad has-side-ad")
+            + '      <div class="card-grid is-feature">'
+            + "".join(v2_card(a, p) for a in feats) + "</div>\n"
+            + v2_sec_more(f"{p}category-feature.html",
+                          cls="has-feat-ad has-side-ad"))
+
     rank_base = RANKING_HOME
     top = sorted(PUBLISHED,
                  key=lambda a: (rank_base.get(a["slug"], 0), a.get("date", "")),
@@ -3557,6 +3635,15 @@ def build_index():
         + '      </div>'
         + home_feat_ad("article_side", n=1, slot="_r2", extra_cls="is-right") + '</div>\n'
         + v2_sec_more(f"{p}ranking.html", cls="has-feat-ad has-side-ad"))
+
+    # 予算で探す枠。ランキングのすぐ下に置く。「よく読まれている物」の
+    # 次に「自分の予算で買える物」を見せる並びにする。
+    pool_json = html.escape(json.dumps(pool, ensure_ascii=False), quote=True)
+    budget = v2_budget(p, pool_json)
+    if budget:
+        body += v2_section(
+            v2_sec_head("BUDGET", "予算で探す", cls="has-feat-ad has-side-ad")
+            + '      <div class="home-featwrap">' + budget + '</div>\n')
 
     # ピックアップもランキングと同じ横カルーセル（スマホ）。枠を同じ
     # 大きさにすると3列では収まらないため、送って見せる形にそろえる。

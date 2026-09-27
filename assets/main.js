@@ -15,10 +15,42 @@ function titleHtml(t) {
    中身が空でも枠は必ず返す（スマホの一覧は写真の右に「日付／見出し／
    価格／一言」を積む組み方で、価格のある記事だけ背が高くなるとタイルの
    高さがばらばらに見える）。 */
+/* 記事タイル1枚ぶんのHTML。build.py の v2_card() と同じ形にそろえてある。
+   今日のピックアップと予算で探す枠は、どちらもJSで中身を差し替えるので、
+   組み立てはここ1か所にまとめる。
+   is-shop と data-shop / data-asin を落とすと、モールの写真が
+   object-fit:cover で切り取られ（規約が改変を認めていない）、台紙の
+   見た目も新着とずれるので、必ず一緒に組むこと。
+   渡すのは build.py が data-pool に入れた形（u/t/x/c/k/s/d/th/sh/sp/as/st）。 */
+function cardHtml(a) {
+  function esc(t) {
+    return String(t == null ? '' : t)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  var tcls = a.sh ? ' is-shop' : '';
+  var tattr = (a.sh && a.sp ? ' data-shop="' + esc(a.sp) + '"' : '') +
+              (a.as ? ' data-asin="' + esc(a.as) + '"' : '');
+  return '<a class="card" href="' + esc(a.u) + '"' +
+    ' data-cat="' + esc(a.k) + '" data-slug="' + esc(a.s) + '"' +
+    ' data-date="' + esc(a.d) + '">' +
+    '<span class="card-thumb' + tcls + '"' + tattr + '>' +
+      '<img src="' + esc(a.th) + '" alt="" loading="lazy">' +
+      '<span class="card-flags" aria-hidden="true"></span></span>' +
+    '<span class="card-meta">' +
+      '<span class="card-date">' + esc(a.d) + '</span>' +
+      '<span class="card-views" hidden></span>' +
+      '<span class="card-cat">' + esc(a.c) + '</span></span>' +
+    '<span class="card-title">' + titleHtml(a.t) + '</span>' +
+    statsHtml(a.st) +
+    '<span class="card-note">' + esc(a.x) + '</span></a>';
+}
 function statsHtml(d) {
   var b = '';
   if (!d) d = {};
-  if (d.p) b += '<span class="cs-price">¥' + Number(d.p).toLocaleString('en-US') + '</span>';
+  if (d.p) {
+    b += '<span class="cs-price">¥' + Number(d.p).toLocaleString('en-US') + '</span>';
+    if (d.s) b += '<span class="cs-ship">送料込</span>';
+  }
   if (d.n) {
     var star = d.r ? '<span class="cs-star">★' + Number(d.r).toFixed(2) + '</span>' : '';
     b += '<span class="cs-rv">' + star +
@@ -1079,24 +1111,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
      is-shop と data-shop / data-asin を落とすと、モールの写真が
      object-fit:cover で切り取られ（規約が改変を認めていない）、
      台紙の見た目も新着とずれるので、必ず一緒に組む */
-  grid.innerHTML = pick.map(function (a) {
-    var tcls = a.sh ? ' is-shop' : '';
-    var tattr = (a.sh && a.sp ? ' data-shop="' + esc(a.sp) + '"' : '') +
-                (a.as ? ' data-asin="' + esc(a.as) + '"' : '');
-    return '<a class="card" href="' + esc(a.u) + '"' +
-      ' data-cat="' + esc(a.k) + '" data-slug="' + esc(a.s) + '"' +
-      ' data-date="' + esc(a.d) + '">' +
-      '<span class="card-thumb' + tcls + '"' + tattr + '>' +
-        '<img src="' + esc(a.th) + '" alt="" loading="lazy">' +
-        '<span class="card-flags" aria-hidden="true"></span></span>' +
-      '<span class="card-meta">' +
-        '<span class="card-date">' + esc(a.d) + '</span>' +
-        '<span class="card-views" hidden></span>' +
-        '<span class="card-cat">' + esc(a.c) + '</span></span>' +
-      '<span class="card-title">' + titleHtml(a.t) + '</span>' +
-      statsHtml(a.st) +
-      '<span class="card-note">' + esc(a.x) + '</span></a>';
-  }).join('');
+  grid.innerHTML = pick.map(cardHtml).join('');
   /* 差し替えた札と閲覧数は、ここで組み直したぶんにも付ける */
   document.dispatchEvent(new CustomEvent('mb:cards', { detail: grid }));
 })();
@@ -1650,5 +1665,74 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     Array.prototype.forEach.call(items, function (item) {
       watch(item, function () { place(item, label, spare); });
     });
+  });
+})();
+
+
+/* ============================================================
+   予算で探す
+   ------------------------------------------------------------
+   価格帯の札を押すと、その帯に入る記事だけを並べ直す。
+   使うのは、今日のピックアップと同じ data-pool（全公開記事）。
+   価格は build.py が review_stats から入れた st.p で、モールの
+   公式APIが返した実額。価格を取れていない記事はここに出ない。
+
+   ページを開いた時点の中身は build.py が出しているので、JSが
+   動かない環境でも1つ目の帯は読める（ここは押したときの差し替え
+   だけを受け持つ）。
+   ============================================================ */
+(function () {
+  'use strict';
+  var box = document.querySelector('[data-budget]');
+  if (!box) return;
+  var grid = box.querySelector('.card-grid');
+  var chips = box.querySelectorAll('.bd-chip');
+  if (!grid || !chips.length) return;
+
+  var pool = [];
+  try { pool = JSON.parse(grid.getAttribute('data-pool') || '[]'); }
+  catch (e) { pool = []; }
+  if (!pool.length) return;
+
+  var SHOW = 5;
+
+  function pick(lo, hi) {
+    var hit = pool.filter(function (a) {
+      var p = a.st && a.st.p;
+      return p && p >= lo && (!hi || p < hi);
+    });
+    /* 同じ帯でも毎日同じ5本にならないよう、取り始める位置を日付でずらす */
+    var day = Number(String(new Date().getFullYear()) +
+                     ('0' + (new Date().getMonth() + 1)).slice(-2) +
+                     ('0' + new Date().getDate()).slice(-2));
+    var out = [];
+    for (var i = 0; i < hit.length && out.length < SHOW; i++) {
+      out.push(hit[(day + i * 7) % hit.length]);
+    }
+    /* 同じ記事が2回出ないように重複を落とす */
+    var seen = {}, uniq = [];
+    out.concat(hit).forEach(function (a) {
+      if (uniq.length >= SHOW || seen[a.s]) return;
+      seen[a.s] = 1; uniq.push(a);
+    });
+    return uniq;
+  }
+
+  function show(chip) {
+    var lo = Number(chip.getAttribute('data-lo')) || 0;
+    var hi = Number(chip.getAttribute('data-hi')) || 0;
+    Array.prototype.forEach.call(chips, function (c) {
+      c.classList.toggle('is-on', c === chip);
+      c.setAttribute('aria-selected', c === chip ? 'true' : 'false');
+    });
+    var items = pick(lo, hi);
+    if (!items.length) return;
+    grid.innerHTML = items.map(cardHtml).join('');
+    /* 差し替えた札と閲覧数は、組み直したぶんにも付ける */
+    document.dispatchEvent(new CustomEvent('mb:cards', { detail: grid }));
+  }
+
+  Array.prototype.forEach.call(chips, function (c) {
+    c.addEventListener('click', function () { show(c); });
   });
 })();
