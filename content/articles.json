@@ -243,6 +243,9 @@
     "total": 88,
     "notes": "口コミの具体的な件数・平均点・価格を『利用者の声では』という表現に置き換え、禁止語『必ず』も削除した。rating・spec を裏づけ無しで出していない点は保てているが、独自分析は比較の枠組みの提示にとどまり深掘りは弱め。"
    }
+  },
+  "health": {
+   "checked": "2026-09-27"
   }
  },
  {
@@ -517,6 +520,9 @@
     "total": 89,
     "notes": "未確認の口コミ件数・平均評価の断定と価格帯の記述を修正済み。rating/specを省いた判断は妥当で、それによる減点はしていない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-27"
   }
  },
  {
@@ -751,6 +757,9 @@
     "total": 88,
     "notes": "口コミ件数・平均点の具体的な数値を本文各所に書いていた点（summary/pros/sections/conclusion）を定性表現に統一。公式仕様が無いため rating/spec を出していない扱いは適切で、これ自体は減点していない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-27"
   }
  },
  {
@@ -992,6 +1001,9 @@
     "total": 88,
     "notes": "公式仕様が無い前提を正しく明示し続けている点は良いが、rating/specを持たない分、独自分析と編集品質は満点にはならない。数値と禁止語の修正で法務面は高得点。"
    }
+  },
+  "health": {
+   "checked": "2026-09-27"
   }
  },
  {
@@ -1263,6 +1275,9 @@
     "total": 88,
     "notes": "禁止語『必ず』3か所と未確認の口コミ件数・平均値（582件/4.41、1,214件/4.57等）を修正済み。修正後は事実・推測・利用者の声の区別が明確で、公式仕様が無い中でも独自分析（2モール間の評価傾向の一致という視点）が保たれている。"
    }
+  },
+  "health": {
+   "checked": "2026-09-27"
   }
  },
  {
@@ -1500,6 +1515,9 @@
     "total": 90,
     "notes": "禁止語の除去後は事実と推測の切り分けが一貫しており大きな瑕疵はない。独自分析はグリルの手入れ論点1点にとどまり、やや厚みが欲しい。"
    }
+  },
+  "health": {
+   "checked": "2026-09-27"
   }
  },
  {
@@ -1726,6 +1744,9 @@
     "total": 88,
     "notes": "公式仕様が無い前提でrating/specを適切に省き、事実・口コミ・編集部分析を分けて書けている点は良い。独自性は「旅美人という名前と容量のギャップ」「口コミ件数の少なさへの留保」に限られ、やや薄め。"
    }
+  },
+  "health": {
+   "checked": "2026-09-27"
   }
  },
  {
@@ -1958,6 +1979,9 @@
     "total": 87,
     "notes": "未確認の口コミ数値と価格記載を修正済み。独自分析（複数役割を兼ねる点の指摘）はあるがやや薄く、ヘッジ表現の反復がテンプレート感をわずかに残す。"
    }
+  },
+  "health": {
+   "checked": "2026-09-27"
   }
  },
  {
@@ -2199,6 +2223,9 @@
     "total": 88,
     "notes": "公式仕様不明を誠実に扱いrating/specを省いている点は良いが、「30Hzは静止画向き」「購入前に販売ページで確認を」という論点がsummary・highlights・not_for・sections・faq・conclusionで繰り返し出ており、テンプレート感がやや残る。"
    }
+  },
+  "health": {
+   "checked": "2026-09-27"
   }
  },
  {
@@ -2450,6 +2477,9 @@
     "total": 90,
     "notes": "未確認の口コミ具体数値を落として修正済み。独自性はモール間の評価傾向の考察にとどまり、公式仕様が無い中では妥当な範囲。"
    }
+  },
+  "health": {
+   "checked": "2026-09-27"
   }
  },
  {
@@ -23433,10 +23463,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_sound3/slide/samune_ver2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-21",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=VGP2023%E5%8F%97%E8%B3%9E%20%E3%82%B5%E3%82%A6%E3%83%B3%E3%83%89%E3%83%90%E3%83%BC%20FUNLOGY%20Sound3%20%E7%B7%8F%E5%90%8880W%20%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC%20%E3%83%86%E3%83%AC%E3%83%93%E7%94%A8%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC%20bluetooth%20%E3%82%B7%E3%82%A2%E3%82%BF%E3%83%BC%E3%83%90%E3%83%BC%20%E3%83%86%E3%83%AC%E3%83%93%E7%94%A8%20%E3%82%B9%E3%83%86%E3%83%AC%E3%82%AA%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC%20%E3%82%B9%E3%83%9E%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%B3%20%E5%A3%81%E6%8E%9B%E3%81%91%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E3%82%B9%E3%83%9E%E3%83%9B%20iPhone%20TV%20TV%E7%94%A8%20pc%202.1ch%20%E9%AB%98%E9%9F%B3%E8%B3%AA%20%E3%83%9B%E3%83%BC%E3%83%A0%E3%82%B7%E3%82%A2%E3%82%BF%E3%83%BC&i=aps"
-   ]
+   "checked": "2026-09-27"
   }
  },
  {
@@ -23925,10 +23952,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/growder/cabinet/littlepolacamera/imgrc0139403507.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-21",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%82%AD%E3%83%83%E3%82%BA%E3%82%AB%E3%83%A1%E3%83%A9%E2%98%85%E6%97%A5%E6%9C%AC%20%E2%98%85%E3%83%AA%E3%83%88%E3%83%9D%E3%83%A9%202026%20%E6%A5%BD%E5%A4%A9%E5%8F%97%E8%B3%9E%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97%2032GB%E3%82%AB%E3%83%BC%E3%83%89%E4%BB%98%E3%81%8D%20%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AA%E3%81%97%20%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%82%E3%82%8A%20%E3%83%AD%E3%83%83%E3%82%AF%E6%A9%9F%E8%83%BD%E4%BB%98%E3%81%8D%20%E8%87%AA%E6%92%AE%E3%82%8A%20%E5%86%99%E7%9C%9F%20%E5%8B%95%E7%94%BB%20%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%20%E3%83%88%E3%82%A4%E3%82%AB%E3%83%A1%E3%83%A9%20%E5%AD%90%E4%BE%9B%E7%94%A8%E3%82%AB%E3%83%A1%E3%83%A9%20%E3%81%8B%E3%82%8F%E3%81%84%E3%81%84%20%E8%AA%95%E7%94%9F%E6%97%A5%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E7%94%B7%E3%81%AE%E5%AD%90%20%E5%A5%B3%E3%81%AE%E5%AD%90%20%E5%B0%8F%E5%AD%A6%E7%94%9F%20%E5%A4%8F%E4%BC%91%E3%81%BF&i=aps"
-   ]
+   "checked": "2026-09-27"
   }
  },
  {
@@ -24877,7 +24901,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/iampet/cabinet/img/ps_600w.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -25152,7 +25176,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/mantubiz/cabinet/05873262/2105/2105-20260622/imgrc0155749112.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -25382,7 +25406,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -25628,7 +25652,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_portable/slide/samune_black.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -25855,7 +25879,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/pika831/cabinet/00176847/12211284/0624_h70ft_snbaaa.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -26101,7 +26125,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/milink-inc/cabinet/sn/tune01bk.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   }
  },
  {
@@ -28618,7 +28642,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   }
  },
  {
@@ -28886,7 +28910,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/roomy/cabinet/500cart_all/500cart_11g/p10n-4/win2006-mt005-1_gt01.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   }
  },
  {
@@ -29188,7 +29212,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -29984,7 +30008,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -30202,7 +30226,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   }
  },
  {
@@ -34547,7 +34571,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luckyspread/cabinet/07240546/10248259/imgrc0078419063.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -34846,7 +34870,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/d-ray/cabinet/09802265/10566858/260902_th_fdn.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   }
  },
  {
@@ -35141,7 +35165,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-kit/cabinet/description/ek-kbmr01mcl/ek-kbmr01_1.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -35446,7 +35470,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   }
  },
  {
@@ -35740,7 +35764,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   }
  },
  {
@@ -35985,7 +36009,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tansu/cabinet/00323179/13810084_10aa.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -36292,7 +36316,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/galstar/cabinet/item/1017/101707_r1_4.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -36607,7 +36631,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tu-hacci/cabinet/bero/90389r_dtrc_clr.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -36911,7 +36935,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/toucher-home/cabinet/image02/hsls201w_01x.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   }
  },
  {
@@ -37205,7 +37229,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   }
  },
  {
@@ -41006,7 +41030,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/attenir/cabinet/thum/166011_main_2609.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -41305,7 +41329,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/maxshare/cabinet/master/1st/a05750_sale.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   }
  },
  {
@@ -41584,7 +41608,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -42134,7 +42158,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "yahoo": {
@@ -42974,7 +42998,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/darkangel/cabinet/12863863/13830759/2536-main-260901-4.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "review_stats": {
    "rakuten": {
@@ -46643,7 +46667,7 @@
    "注意：メーカーの対応表記は iPhone 14/13/12 シリーズ。それより新しい機種での動作は公式に確認できていないので、断定しないこと"
   ],
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "good_for": {
    "intro": "次のような使い方をする人なら、この製品の設計と噛み合います。",
@@ -47444,7 +47468,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-27"
   },
   "good_for": {
    "intro": "モノベースは、次のような条件が当てはまる人に向くと評価します。",
