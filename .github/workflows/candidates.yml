@@ -1,0 +1,91 @@
+name: Check candidates
+
+# 商品の候補集めだけを、本番のAPIで試す（記事は書かない・何も変えない）。
+#
+# write.yml は候補集めのあと本文生成まで一気に走るので、候補の出方だけを
+# 見たいときに回すと Claude Code のサブスク枠を無駄に使う。ここは
+# tools/pick_products.py を1回走らせてログに出すだけで、コミットも
+# プッシュもしない。
+#
+# 使いどころ（CLAUDE.md「毎日走っているのに0本」の節も参照）：
+#   ・カテゴリー／サブ区分の偏りを直したあと、実際に散るか確かめる
+#   ・「候補が取れなかったサブ区分」が毎回同じなら、その検索語を見直す
+#   ・楽天のジャンルIDが改編で死んでいないか確かめる
+#
+# 手動実行専用。cron は置かない（定期で回す意味が無く、APIを叩くだけ）。
+on:
+  workflow_dispatch:
+    inputs:
+      category:
+        description: '対象カテゴリー（空なら全部。例 pc）'
+        required: false
+        default: ''
+      limit:
+        description: '出力する候補の数'
+        required: false
+        default: '30'
+      subs_per_run:
+        description: '引くサブ区分の数（記事の少ないサブから順に）'
+        required: false
+        default: '14'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-candidates
+  cancel-in-progress: true
+
+jobs:
+  candidates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # サブ区分のキーが content/site.json とずれていないかだけ先に見る。
+      # ここがずれていると、そのサブは候補が永久に作られない。
+      - name: サブ区分の対応を検算する
+        run: python3 tools/pick_products.py --check-subs
+
+      - name: 候補を集める（書き込まない）
+        env:
+          RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
+          RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
+          YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
+        run: |
+          python3 tools/pick_products.py \
+            --limit "${{ inputs.limit || '30' }}" \
+            --subs-per-run "${{ inputs.subs_per_run || '14' }}" \
+            ${{ inputs.category && format('--category {0}', inputs.category) || '' }} \
+            --out /tmp/candidates.json
+
+      # 何が取れたのかを、実行サマリーに残す（ログを追わなくて済むように）
+      - name: 結果をまとめる
+        if: always()
+        run: |
+          if [ ! -f /tmp/candidates.json ]; then
+            echo "候補ファイルが作られませんでした（上のログを見てください）" \
+              >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, collections
+          d = json.load(open('/tmp/candidates.json', encoding='utf-8'))
+          items = d.get('items', [])
+          print(f"## 候補 {len(items)} 件\n")
+          print("| カテゴリー/サブ | 件数 |")
+          print("|---|---|")
+          for k, n in collections.Counter(
+                  f"{c['category']}/{c.get('sub','')}" for c in items).most_common():
+              print(f"| {k} | {n} |")
+          print("\n### 上から10件（make_drafts.py はここから取る）\n")
+          for i, c in enumerate(items[:10], 1):
+              print(f"{i}. **{c['category']}/{c.get('sub','')}** "
+                    f"{c['name'][:50]} — ¥{c['price']:,} / "
+                    f"レビュー{c['reviews']:,}件")
+          PY
