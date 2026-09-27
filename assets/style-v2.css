@@ -1352,7 +1352,11 @@ body.has-sticky-cta .fab{bottom:96px;}
    空いた左に縦長バナーを1本並べる。1080px以下は元の並び（.card-grid が
    3列になる）に戻すため、ここより狭い画面には出さない */
 @media (min-width:1081px){
-  .home-featwrap{display:flex;align-items:flex-start;gap:28px;}
+  /* align-items は stretch（既定）。広告の列を記事タイルの並びと同じ
+     高さまで伸ばし、下端をそろえる。以前は flex-start で、バナーの
+     枚数ぶんの高さしか無く記事タイルより113px短い列になっていた
+     （2026-09-28、ユーザー指摘。1400pxで実測 745 対 858）。 */
+  .home-featwrap{display:flex;gap:28px;}
   .home-featwrap > .card-rail{flex:1 1 auto;min-width:0;}
   .home-featwrap > .card-grid{flex:1 1 auto;min-width:0;}
   .home-featwrap > .promo-group{flex:1 1 auto;min-width:0;margin-top:0;}
@@ -1360,7 +1364,7 @@ body.has-sticky-cta .fab{bottom:96px;}
      見えないようにする */
   .home-feat-ad{
     display:flex;flex-direction:column;align-items:center;
-    flex:0 0 130px;
+    flex:0 0 130px;align-self:stretch;
   }
   /* バナー1枚＝1枚の記事タイルと同じ考え方の箱。上端は記事タイルの
      上端にそのまま揃う（枠に余計な上パディングを持たせない）。
@@ -1368,7 +1372,8 @@ body.has-sticky-cta .fab{bottom:96px;}
      上にも余白を空ける */
   .home-feat-ad-item{
     display:flex;flex-direction:column;align-items:center;
-    width:100%;
+    justify-content:center;
+    width:100%;flex:1 1 0;
     background:var(--bg-2);padding:14px 12px 12px;
     box-shadow:0 2px 10px rgba(0,0,0,.08);
   }
@@ -1385,7 +1390,7 @@ body.has-sticky-cta .fab{bottom:96px;}
   .home-feat-ad.is-right{flex:0 0 130px;}
   .home-feat-ad.is-double .home-feat-ad-items{
     display:flex;flex-direction:column;align-items:center;
-    gap:24px;width:100%;
+    gap:24px;width:100%;flex:1 1 auto;
   }
   .card-grid.is-home6{
     grid-template-columns:repeat(3,minmax(0,1fr));

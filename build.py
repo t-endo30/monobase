@@ -680,7 +680,25 @@ def promo_slot(where, cat="", cls="", count=0):
     cards = [promo_card(a, label) for x in items for a in promo_ads(x)]
     # count を渡すと、その枠だけ並べる数を変えられる（ホームのPR区画は
     # 記事の並びと同じ5列にそろえたいので5枚）。渡さなければ既定の3枚。
-    show = min(count or PROMO_COUNT, len(cards))
+    want = count or PROMO_COUNT
+    # その場所（where）に割り当てた案件だけでは数がそろわないときは、
+    # 割り当ての無いタイルから足す。ホームのPR区画は5枚ぶんの枠がある
+    # のに list_end の割り当てが4件しかなく、1枠ぶん短い行になって
+    # いた（2026-09-28、ユーザー指摘）。ここまでの絞り込み（where・
+    # カテゴリー）と同じ考え方で、枠が欠けたまま並ぶよりはよい。
+    if len(cards) < want:
+        used = {id(x) for x in items}
+        rest = [x for x in (PROMOS.get("items") or [])
+                if id(x) not in used and promo_ads(x)
+                and str(x.get("kind") or "tile") == "tile"]
+        seen = set(cards)
+        for x in rest:
+            for a in promo_ads(x):
+                t = promo_card(a, label)
+                if t not in seen:
+                    seen.add(t)
+                    cards.append(t)
+    show = min(want, len(cards))
     c = f" {cls}" if cls else ""
     if len(cards) <= show:
         # 選びようがないので、そのまま並べる
