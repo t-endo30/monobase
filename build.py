@@ -1473,8 +1473,9 @@ V2_IC_CHECK = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strok
                '<path d="M5 12.4 L10 17.2 L19.4 6.8"/></svg>')
 
 
-def v2_section(inner, tinted=False, style=""):
-    cls = "v2-section is-tinted" if tinted else "v2-section"
+def v2_section(inner, tinted=False, style="", cls=""):
+    """区画の器。cls を渡すと、その区画だけを狙った指定ができる。"""
+    cls = ("v2-section is-tinted" if tinted else "v2-section") + (f" {cls}" if cls else "")
     st = f' style="{style}"' if style else ""
     return (f'  <section class="{cls}"{st}>\n    <div class="container">\n'
             + inner + '    </div>\n  </section>\n')
@@ -3469,10 +3470,10 @@ POLICY = [
 
 def build_index():
     p = "./"
-    # 幅の広いPC（1440px以上）では4列×2行＝8件出す。そこから下の
+    # 幅の広いPC（1440px以上）では5列×2行＝10件出す。そこから下の
     # 画面幅では、CSSが6件・4件と間引く（.card-grid.is-home6）。
     # 多めに渡しておいて、何件見せるかはCSSだけで決める。
-    latest = PUBLISHED[:8]
+    latest = PUBLISHED[:10]
 
     # ピックアップは「その日のおすすめ」。全記事から3本を日替わりで選ぶ。
     # ビルドは公開のたびにしか走らないので、選び直しはブラウザ側で行う
@@ -3515,7 +3516,8 @@ def build_index():
     picks = uniq
 
     # サイトの規模と守備範囲を、記事タイルより先に見せる。
-    body = v2_section(v2_home_stats(p))
+    # 中身が1行の帯なので、区画の上下の余白は他より詰める（is-stats）。
+    body = v2_section(v2_home_stats(p), cls="is-stats")
 
     body += v2_section(
         v2_sec_head("NEW", "新着記事", cls="has-feat-ad has-side-ad")

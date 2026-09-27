@@ -398,6 +398,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    ========================================================================= */
 .v2-section{padding:60px 0;}
 .v2-section + .v2-section{padding-top:0;}
+/* 記事数などの帯は中身が1行しかないので、区画の上下を詰める
+   （2026-09-27、ユーザー指定）。+ の指定より後に置いて上書きする */
+.v2-section.is-stats,
+.v2-section + .v2-section.is-stats{padding:20px 0;}
 /* 地を沈める区画。背景写真はここにも透かすので、塗りは持たせず
    上下の罫線だけで区切る */
 .v2-section.is-tinted{border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
@@ -411,9 +415,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* 一覧へ送る導線はタイルの下の中央。見出しの横に置くと、
    タイルを見終わったあとの視線と離れてしまう */
 .sec-more{display:flex;justify-content:center;margin-top:36px;}
+/* ボタンは枠いっぱい。見出しの罫線（.sec-head）は区画の幅いっぱいに
+   伸びるのに、ここだけ230pxの小さな箱で、左右がそろって見えなかった
+   （2026-09-27の指摘）。スマホではもともと width:100% にしてあるので、
+   PCも同じ扱いにそろえる。 */
 .sec-more a{
-  display:inline-flex;align-items:center;justify-content:center;gap:12px;
-  min-width:230px;padding:13px 32px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  width:100%;padding:13px 32px;
   border:1px solid var(--ink);background:var(--bg-2);
   font-family:var(--font-en);font-size:11.5px;font-weight:700;letter-spacing:.18em;
   /* 板が一枚浮いているように見せる。下に硬い影を敷いて厚みを作り、
@@ -1417,10 +1425,10 @@ body.has-sticky-cta .fab{bottom:96px;}
    いるので、ここで一緒に広がって記事の並びと左右がそろう。 */
 @media (min-width:1440px){
   body.is-home{--wrap:1360px;}
-  /* 新着記事・ランキング … 4列×2行（8件） */
-  .card-grid.is-home6{grid-template-columns:repeat(4,minmax(0,1fr));}
+  /* 新着記事・ランキング … 5列×2行（10件） */
+  .card-grid.is-home6{grid-template-columns:repeat(5,minmax(0,1fr));}
   .card-grid.is-home6 > .card:nth-child(n+7){display:grid;}
-  .card-grid.is-home6 > .card:nth-child(n+9){display:none;}
+  .card-grid.is-home6 > .card:nth-child(n+11){display:none;}
   /* 今日のピックアップ … 4列×1行（4件）。ここだけ1行にする */
   #pickGrid{grid-template-columns:repeat(4,minmax(0,1fr));}
   #pickGrid > .card:nth-child(n+4){display:grid;}
