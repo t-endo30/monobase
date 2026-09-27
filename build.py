@@ -3491,6 +3491,13 @@ BUDGET_BANDS = [
     (50000, 0, "5万円〜"),
 ]
 
+# カテゴリー・サブ区分向けの予算枠は、母数がホーム（全記事）よりずっと
+# 小さい（多くて数十本、サブ区分は1桁のことも多い）ので、ホームと同じ
+# 基準（10本・1帯3本）のままだとほぼ出せない。基準を下げて、
+# 「1帯だけでも意味のある数がまとまっていれば出す」まで緩める。
+BUDGET_MIN_PRICED_SCOPED = 6
+BUDGET_MIN_BAND_SCOPED = 2
+
 
 def article_price(a):
     """一覧・予算枠で使う価格（最安値）。取れていなければ None。"""
@@ -3524,27 +3531,34 @@ def v2_pool_json(items, p):
     return pool
 
 
-def v2_budget(items, p):
+def v2_budget(items, p, min_priced=10, min_band=3):
     """予算で探す枠。価格帯の札と、その帯の記事5件。
 
        価格で絞れる入口がどこにも無く、「1万円くらいで探したい」という
        読者が最初の1本にたどり着けなかった。検索ページに価格の欄を足す
        手もあるが、押してその場で並び替わるほうが早い。ホームだけでなく
-       カテゴリー一覧でも使う（そのカテゴリーの記事だけに絞って出す）ので、
-       対象は呼び出し側から items で渡す。
+       カテゴリー・サブ区分の一覧でも使う（そのカテゴリーの記事だけに
+       絞って出す）ので、対象は呼び出し側から items で渡す。
+
+       全体の最低件数（min_priced）・1帯あたりの最低件数（min_band）も
+       呼び出し側から渡す。ホーム（全記事が母数）と同じ基準を、記事数の
+       少ないカテゴリー・サブ区分にそのまま当てはめると母数が全く足りず
+       一度も出せない（2026-09-27、カテゴリーでも見せたいという要望を
+       受けて分離。サブ区分は多くて24本、カテゴリーでも「サブ」に近い
+       小さめの区分があるため、ホーム基準の10本・1帯3本は厳しすぎた）。
 
        中身の差し替えは assets/main.js が data-pool（items と同じ範囲の
        一覧）から行う。ここで出しておく5件は、JSが動かないときの中身でも
        ある。記事の少ない帯は札自体を出さない。"""
     priced = [(a, article_price(a)) for a in items]
     priced = [(a, v) for a, v in priced if v]
-    if len(priced) < 10:
+    if len(priced) < min_priced:
         return ""                      # 価格の付いた記事が少ないうちは出さない
 
     chips, first = "", []
     for lo, hi, label in BUDGET_BANDS:
         hit = [a for a, v in priced if v >= lo and (not hi or v < hi)]
-        if len(hit) < 3:
+        if len(hit) < min_band:
             continue                   # 押しても数本しか出ない帯は出さない
         on = " is-on" if not chips else ""
         if not first:
@@ -3772,7 +3786,8 @@ def build_category(c):
     # 予算で探す枠。ホームは全記事対象だが、ここはこのカテゴリーの記事
     # だけに絞る。「このカテゴリーの中で、自分の予算で買える物」を
     # 探す入口が無かった（絞り込みは絞り込み＝サブ区分しか無かった）。
-    budget = v2_budget(items, p)
+    budget = v2_budget(items, p, min_priced=BUDGET_MIN_PRICED_SCOPED,
+                       min_band=BUDGET_MIN_BAND_SCOPED)
     if budget:
         body += v2_section(v2_sec_head("BUDGET", "予算で探す") + budget)
     # 一覧の末尾に広告を置く。新着・ランキングには入れていたが、
@@ -3811,7 +3826,8 @@ def build_subcategory(c, sc):
                         lead=f'{c["label"]}のうち、{sc["label"]}に分類した記事です。',
                         count=len(items),
                         extra=v2_sub_nav(c, p, sc["key"]))
-    budget = v2_budget(items, p)
+    budget = v2_budget(items, p, min_priced=BUDGET_MIN_PRICED_SCOPED,
+                       min_band=BUDGET_MIN_BAND_SCOPED)
     if budget:
         body += v2_section(v2_sec_head("BUDGET", "予算で探す") + budget)
     body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
