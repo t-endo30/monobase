@@ -1402,6 +1402,31 @@ body.has-sticky-cta .fab{bottom:96px;}
   #pickGrid > .card:nth-child(n+4){display:none;}
 }
 
+/* ホームだけ、幅に余裕のある画面で4列×2行にする（2026-09-27、ユーザー判断）。
+   価格の行が増えてタイルが背高くなったぶん、3列×2行だと縦に間延びして
+   見えるため。4列ぶんの幅は、広告2枠（左160px・右130px）を残したまま
+   ページの横幅を広げて捻出する。
+     1360 − 余白80 − 左160 − 隙間28 − 右130 − 隙間28 = 934px
+     934 から隙間3つ（26px×3）を引いて4等分 → カード213px
+   （現在の3列は241px。細くなりすぎない範囲に収まる）
+
+   1440px 未満には掛けない。1360pxの器が画面に入らず、横スクロールが
+   出てしまうため。そこから下は今までどおり3列×2行のまま。
+
+   --wrap は body に載せる。ヘッダー・フッターも同じ .container を使って
+   いるので、ここで一緒に広がって記事の並びと左右がそろう。 */
+@media (min-width:1440px){
+  body.is-home{--wrap:1360px;}
+  /* 新着記事・ランキング … 4列×2行（8件） */
+  .card-grid.is-home6{grid-template-columns:repeat(4,minmax(0,1fr));}
+  .card-grid.is-home6 > .card:nth-child(n+7){display:grid;}
+  .card-grid.is-home6 > .card:nth-child(n+9){display:none;}
+  /* 今日のピックアップ … 4列×1行（4件）。ここだけ1行にする */
+  #pickGrid{grid-template-columns:repeat(4,minmax(0,1fr));}
+  #pickGrid > .card:nth-child(n+4){display:grid;}
+  #pickGrid > .card:nth-child(n+5){display:none;}
+}
+
 @media (max-width:1080px){
   :root{--gut:28px;}
   .v2-nav > ul{gap:26px;}
@@ -4139,27 +4164,46 @@ h1,h2,h3,h4,
   border:1px solid var(--border);
   border-radius:var(--radius);
   background:var(--border);}
-.hs-nums li{display:grid;
+/* 1項目＝1行。数字の上に説明を積む2行組みだったが、行数のわりに
+   情報が薄く見えたので横一列にそろえた（2026-09-27）。
+   数字と語は下端（ベースライン）でそろえる。中央ぞろえにすると、
+   字の大きさが違うぶん語だけ浮いて見える。 */
+.hs-nums li{display:flex;
+  align-items:baseline;
+  justify-content:center;
   gap:3px;
-  padding:12px 8px;
+  padding:14px 8px;
   text-align:center;
   background:var(--surface);}
 .hs-nums b{font-family:var(--font-en);
-  font-size:clamp(20px,6vw,28px);
+  font-size:clamp(17px,4.4vw,24px);
   font-weight:700;
   line-height:1.15;
   letter-spacing:.01em;
   color:var(--ink);}
-.hs-nums span{font-size:10.5px;
-  letter-spacing:.06em;
+.hs-nums .hs-unit,
+.hs-nums .hs-pre{font-size:12px;
+  letter-spacing:.04em;
   color:var(--text-sub);}
+/* 前置きの語（「参考にした口コミ」）は数字の左。単位より少し離す */
+.hs-nums .hs-pre{margin-right:2px;}
 .hs-asof{margin:8px 0 0;
   font-size:11px;
   text-align:center;
   color:var(--muted-2);}
 /* 幅の狭いスマホ（390px前後）では、3つの枠が詰まって
    「分析した口コミ」のような長い札が折れる。字と余白を少し詰める。 */
+/* 幅の狭い画面では、3項目を横一列に並べると
+   「参考にした口コミ660,608件」が入りきらず、語の途中で折り返す。
+   上段に記事数とカテゴリー数、下段に口コミ数を全幅で置く2段にする。
+   境目はスマホ扱いの 860px にそろえる。3列のままにできるぎりぎりは
+   700px前後だが、そこまで攻めると1文字増えただけで折れる。 */
+@media (max-width:860px){
+  .hs-nums{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .hs-nums li:nth-child(3){grid-column:1 / -1;}
+}
 @media (max-width:430px){
-  .hs-nums li{padding:10px 4px;}
-  .hs-nums span{font-size:9.5px;letter-spacing:.02em;}
+  .hs-nums li{padding:11px 4px;}
+  .hs-nums .hs-unit,
+  .hs-nums .hs-pre{font-size:11px;letter-spacing:.02em;}
 }

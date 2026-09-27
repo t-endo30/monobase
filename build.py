@@ -1751,12 +1751,19 @@ def v2_home_stats(p):
     counts = [(c, n) for c, n in counts if n]
     latest = max((a.get("date") or "" for a in PUBLISHED), default="")
 
-    nums = [(f"{len(PUBLISHED)}", "レビュー記事"),
-            (f"{len(counts)}", "カテゴリー")]
+    # 1項目＝1行。（前置きの語、数字、単位）で持つ。
+    # 数字の上に説明を2行で積む形にしていたが、行数のわりに情報が薄く
+    # 見えたので1行にそろえた（2026-09-27、ユーザー判断）。
+    nums = [("", f"{len(PUBLISHED)}", "記事"),
+            ("", f"{len(counts)}", "カテゴリー")]
 
     # 口コミの総数は、モールの公式APIが返した件数の合計
     # （tools/fetch_reviews.py が記事ごとに入れたもの）。まだ数が
     # 揃っていないうちに出すと、かえって小さく見えるので伏せておく。
+    #
+    # 「66万+」と丸めずに実数で出す。このサイトが出せる数少ない
+    # 一次データで、丸めると宣伝文句の数字に見える。ビルドのたびに
+    # 数え直すので、古くなることもない。
     voices = 0
     for a in PUBLISHED:
         st = a.get("review_stats")
@@ -1767,10 +1774,13 @@ def v2_home_stats(p):
             if isinstance(v, dict) and v.get("count"):
                 voices += int(v["count"])
     if voices >= 10000:
-        nums.append((f"{voices // 10000}万+", "分析した口コミ"))
+        nums.append(("参考にした口コミ", f"{voices:,}", "件"))
 
-    cells = "".join(f'<li><b>{e(t)}</b><span>{e(lab)}</span></li>'
-                    for t, lab in nums)
+    cells = ""
+    for pre, num, unit in nums:
+        head = f'<span class="hs-pre">{e(pre)}</span>' if pre else ""
+        cells += (f'<li>{head}<b>{e(num)}</b>'
+                  f'<span class="hs-unit">{e(unit)}</span></li>')
     # 日付は数字の枠に入れると「2026年9月20日」だけ長すぎて枠が崩れるので、
     # 下に1行の注記として置く。
     asof = (f'        <p class="hs-asof">最終更新 {e(jp_date(latest))}</p>\n'
@@ -3459,7 +3469,10 @@ POLICY = [
 
 def build_index():
     p = "./"
-    latest = PUBLISHED[:6]
+    # 幅の広いPC（1440px以上）では4列×2行＝8件出す。そこから下の
+    # 画面幅では、CSSが6件・4件と間引く（.card-grid.is-home6）。
+    # 多めに渡しておいて、何件見せるかはCSSだけで決める。
+    latest = PUBLISHED[:8]
 
     # ピックアップは「その日のおすすめ」。全記事から3本を日替わりで選ぶ。
     # ビルドは公開のたびにしか走らないので、選び直しはブラウザ側で行う
