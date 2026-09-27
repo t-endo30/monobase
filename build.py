@@ -1761,7 +1761,6 @@ def v2_home_stats(p):
     counts = [(c, len([a for a in PUBLISHED if a.get("category") == c["key"]]))
               for c in CATS]
     counts = [(c, n) for c, n in counts if n]
-    latest = max((a.get("date") or "" for a in PUBLISHED), default="")
 
     # 1項目＝1行。（前置きの語、数字、単位）で持つ。
     # 数字の上に説明を2行で積む形にしていたが、行数のわりに情報が薄く
@@ -1793,13 +1792,9 @@ def v2_home_stats(p):
         head = f'<span class="hs-pre">{e(pre)}</span>' if pre else ""
         cells += (f'<li>{head}<b>{e(num)}</b>'
                   f'<span class="hs-unit">{e(unit)}</span></li>')
-    # 日付は数字の枠に入れると「2026年9月20日」だけ長すぎて枠が崩れるので、
-    # 下に1行の注記として置く。
-    asof = (f'        <p class="hs-asof">最終更新 {e(jp_date(latest))}</p>\n'
-            if latest else "")
     return (f'      <div class="home-stats">\n'
             f'        <ul class="hs-nums">{cells}</ul>\n'
-            f'{asof}      </div>\n')
+            f'      </div>\n')
 
 
 def v2_hero(p):

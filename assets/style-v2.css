@@ -4337,10 +4337,6 @@ h1,h2,h3,h4,
   color:var(--text-sub);}
 /* 前置きの語（「参考にした口コミ」）は数字の左。単位より少し離す */
 .hs-nums .hs-pre{margin-right:2px;}
-.hs-asof{margin:8px 0 0;
-  font-size:11px;
-  text-align:center;
-  color:var(--muted-2);}
 /* 幅の狭いスマホ（390px前後）では、3つの枠が詰まって
    「分析した口コミ」のような長い札が折れる。字と余白を少し詰める。 */
 /* 幅の狭い画面では、3項目を横一列に並べると
