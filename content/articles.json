@@ -13874,6 +13874,13 @@
   },
   "health": {
    "checked": "2026-09-22"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 26730,
+    "postage_included": true
+   },
+   "checked": "2026-09-27"
   }
  },
  {
@@ -31736,7 +31743,7 @@
    "rakuten": {
     "price": 4480,
     "postage_included": false,
-    "count": 14845,
+    "count": 14846,
     "average": 4.55,
     "shops": 1
    },
