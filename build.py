@@ -94,6 +94,8 @@ def rank_item(a, p):
             "shop": shop if is_shop else "",
             "asin": str(a.get("asin") or "").strip(),
             "excerpt": a.get("excerpt", ""),
+            # 価格・★。JSが assets/main.js の statsHtml() で組む。
+            "st": card_stats_data(a),
             "score": a.get("rating", {}).get("score") or 0,
             "date": a.get("date", "")}
 
@@ -1549,20 +1551,20 @@ def v2_cat_text(a, detail=False):
     return CAT_LABEL.get(a.get("category", ""), "")
 
 
-def card_stats(a):
-    """一覧のタイルに出す、価格と口コミの短い行。
-
-       ホームも一覧も「写真＋題名＋一言」の同じ形が延々と続くため、
-       スクロールしても情報が増えていく感じがせず、内容の薄いページに
-       見えていた。記事が持っている一次データ（review_stats）をここにも
-       出して、一覧の段階で比べられるようにする。
+def card_stats_data(a):
+    """一覧のタイルに出す価格・口コミを、値のまま返す。
 
        出す条件は shop_stats() と同じ。リンクの無いモールの数字は出さない。
        価格は最安値、口コミは件数が一番多いモールのものを1つだけ出す
-       （モールをまたいで件数を足すと、平均★の出どころが説明できなくなる）。"""
+       （モールをまたいで件数を足すと、平均★の出どころが説明できなくなる）。
+
+       JSで組み直す枠（ランキング・今日のピックアップ）へは、出来上がりの
+       HTMLではなくこの値を渡す。HTMLの文字列を data- 属性のJSONに入れると、
+       属性の中にタグが並び tools/check_text.py の「タグの露出」検査に
+       引っかかるため（2026-09-27）。"""
     st = a.get("review_stats") or {}
     if not isinstance(st, dict):
-        return ""
+        return {}
     links = {shop for shop, _l, _h in shop_links(a)}
     price, best_rv = 0, None
     for shop in ("rakuten", "yahoo"):
@@ -1574,15 +1576,40 @@ def card_stats(a):
         if v.get("count") and (not best_rv or int(v["count"]) > best_rv["count"]):
             best_rv = {"count": int(v["count"]),
                        "average": float(v.get("average") or 0)}
-    bits = ""
+    out = {}
     if price:
-        bits += f'<span class="cs-price">¥{price:,}</span>'
+        out["p"] = price
     if best_rv:
-        star = (f'<span class="cs-star">★{best_rv["average"]:.2f}</span>'
-                if best_rv["average"] else "")
+        out["n"] = best_rv["count"]
+        if best_rv["average"]:
+            out["r"] = round(best_rv["average"], 2)
+    return out
+
+
+def card_stats(a):
+    """一覧のタイルに出す、価格と口コミの短い行（HTML）。
+
+       ホームも一覧も「写真＋題名＋一言」の同じ形が延々と続くため、
+       スクロールしても情報が増えていく感じがせず、内容の薄いページに
+       見えていた。記事が持っている一次データ（review_stats）をここにも
+       出して、一覧の段階で比べられるようにする。
+
+       assets/main.js の statsHtml() が同じ形を組む。片方だけ直すと
+       一覧とランキングで表記がずれるので、変えるときは両方直すこと。"""
+    d = card_stats_data(a)
+    bits = ""
+    if d.get("p"):
+        bits += f'<span class="cs-price">¥{d["p"]:,}</span>'
+    if d.get("n"):
+        star = (f'<span class="cs-star">★{d["r"]:.2f}</span>'
+                if d.get("r") else "")
         bits += (f'<span class="cs-rv">{star}'
-                 f'<span class="cs-n">{best_rv["count"]:,}件</span></span>')
-    return f'<span class="card-stats">{bits}</span>' if bits else ""
+                 f'<span class="cs-n">{d["n"]:,}件</span></span>')
+    # 中身が空でも枠は必ず出す。スマホの一覧は写真の右に
+    # 「日付／見出し／価格／一言」を積む組み方なので、価格のある記事だけ
+    # 1行ぶん背が高くなると、タイルの高さがばらばらに見える
+    # （2026-09-27に指摘を受けた）。空の枠はCSSが場所だけ取る。
+    return f'<span class="card-stats">{bits}</span>'
 
 
 def v2_card(a, p, no=None, flags=""):
@@ -3457,6 +3484,7 @@ def build_index():
             "sh": bool(shop_url),
             "sp": shop,
             "as": str(a.get("asin") or "").strip(),
+            "st": card_stats_data(a),
         })
     day = int(datetime.date.today().strftime("%Y%m%d"))
     # RANKING と同じ10枚ならべる（スマホは同じ形の横カルーセル、PCは4列）

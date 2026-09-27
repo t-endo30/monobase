@@ -8,6 +8,24 @@ function titleHtml(t) {
   return '<span class="tt-main">' + t.slice(0, i).trim() + '</span>' +
          '<span class="tt-sub">' + t.slice(i + 1).trim() + '</span>';
 }
+/* 一覧タイルに出す価格・★の行。build.py の card_stats() と同じ形を組む。
+   ランキングと今日のピックアップは JS で組み直すので、ここでも同じ形が
+   要る。片方だけ直すと一覧とランキングで表記がずれるため、変えるときは
+   build.py 側も一緒に直すこと。
+   中身が空でも枠は必ず返す（スマホの一覧は写真の右に「日付／見出し／
+   価格／一言」を積む組み方で、価格のある記事だけ背が高くなるとタイルの
+   高さがばらばらに見える）。 */
+function statsHtml(d) {
+  var b = '';
+  if (!d) d = {};
+  if (d.p) b += '<span class="cs-price">¥' + Number(d.p).toLocaleString('en-US') + '</span>';
+  if (d.n) {
+    var star = d.r ? '<span class="cs-star">★' + Number(d.r).toFixed(2) + '</span>' : '';
+    b += '<span class="cs-rv">' + star +
+         '<span class="cs-n">' + Number(d.n).toLocaleString('en-US') + '件</span></span>';
+  }
+  return '<span class="card-stats">' + b + '</span>';
+}
 /* ============================================================
    重ねて出すものを開いているあいだ、背面のスクロールを止める
    ------------------------------------------------------------
@@ -494,6 +512,9 @@ document.addEventListener('touchstart', function () {}, { passive: true });
               '<span class="row-cat">' + esc(it.cat) + '</span>' +
             '</span>' +
             '<h3>' + titleHtml(it.title) + '</h3>' +
+            /* 価格・★の行。build.py が組んだ文字列をそのまま入れる
+               （中身が空でも枠は入れる。行の高さをそろえるため） */
+            statsHtml(it.st) +
             (it.excerpt ? '<p>' + esc(it.excerpt) + '</p>' : '') +
           '</span>' +
         '</a>';
@@ -1073,6 +1094,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
         '<span class="card-views" hidden></span>' +
         '<span class="card-cat">' + esc(a.c) + '</span></span>' +
       '<span class="card-title">' + titleHtml(a.t) + '</span>' +
+      statsHtml(a.st) +
       '<span class="card-note">' + esc(a.x) + '</span></a>';
   }).join('');
   /* 差し替えた札と閲覧数は、ここで組み直したぶんにも付ける */

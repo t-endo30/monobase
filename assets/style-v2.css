@@ -1505,8 +1505,27 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card > :last-child{padding-bottom:0;}
   /* 札は写真の左上に重ねる。写真が小さいので、札も小さくする */
   .card{position:relative;}
-  /* 縦に余裕があるので、写真の見える範囲を広げる（4:3 → 1:1） */
-  .card-thumb{grid-row:1 / span 4;aspect-ratio:1/1;margin:0;}
+  /* 縦に余裕があるので、写真の見える範囲を広げる（4:3 → 1:1）。
+     幅は96pxだったが、価格の行が増えて本文のほうが背高くなり、
+     文字が写真の下にはみ出して見えていた（2026-09-27に指摘）。
+
+     本文が一番高くなるのは見出しが2行のとき：
+       日付 17 ＋ 見出し 39 ＋ 価格 19 ＋ 一言 38 ＝ 113px
+     写真をこれより高い120pxにして、どの記事でも本文が写真の高さに
+     収まるようにする。見出しが1行の記事では写真のほうが高くなるが、
+     本文は中央ぞろえなので上下に均等に余るだけで崩れない。
+     写真は正方形のままなので、価格のある記事・無い記事でタイルの
+     見た目は変わらない。span 5 は、価格の行が1つ増えたぶん。 */
+  .card{grid-template-columns:120px minmax(0,1fr);}
+  .card-thumb{grid-row:1 / span 5;aspect-ratio:1/1;margin:0;}
+  /* 価格・★の行。中身が空でも1行ぶんの場所を取る（build.py が
+     空の枠を必ず出す）。そうしないと価格のある記事だけ背が高くなり、
+     縦に並べたタイルの高さがばらばらに見える。 */
+  .card-stats{margin-top:2px;min-height:17px;line-height:17px;gap:6px;}
+  .card-stats:empty{margin-top:2px;}
+  .cs-price{font-size:13.5px;}
+  .cs-star{font-size:11px;}
+  .cs-rv{font-size:10.5px;}
   .card-cat{font-size:9.5px;}
   .card-meta{margin:0 0 3px;}
   .card-date{font-size:10px;}
@@ -1515,13 +1534,13 @@ body.has-sticky-cta .fab{bottom:96px;}
      まるごと1つ空いて見えたため、下限は外した。高さのばらつきより、
      見出しの直後に説明が続く自然な詰まり方を優先する */
   .card-title{
-    font-size:13px;line-height:1.6;-webkit-line-clamp:2;
-    max-height:3.2em;
+    font-size:13px;line-height:1.5;-webkit-line-clamp:2;
+    max-height:3em;
   }
   /* 一言は、写真の右の残りに収まる分だけ。ここも2行ぶんで高さを固定する */
   .card-note{
-    margin-top:3px;font-size:11px;line-height:1.7;-webkit-line-clamp:2;
-    min-height:3.4em;max-height:3.4em;
+    margin-top:3px;font-size:11px;line-height:1.6;-webkit-line-clamp:2;
+    min-height:3.2em;max-height:3.2em;
   }
   .card-cat{margin-top:4px;font-size:10px;}
   .card-cat::before{width:10px;}
@@ -1668,17 +1687,24 @@ body.has-sticky-cta .fab{bottom:96px;}
      行の高さによって動き、日付・カテゴリー（PR）の行とそろわない。
      見出しが1行の記事と2行の記事が混ざると、そのぶんだけ写真が
      上下にずれて、一覧全体がガタついて見える。 */
-  .row-item{grid-template-columns:96px minmax(0,1fr);gap:14px;padding:12px 14px 12px 12px;align-items:start;}
+  /* 写真の幅は96pxだったが、価格の行が増えて本文のほうが背高くなり、
+     文字が写真の下にはみ出していた（2026-09-27に指摘。ホームのタイルと
+     同じ症状）。本文が一番高くなるのは見出しも一言も2行のとき：
+       日付 17 ＋ 見出し 42 ＋ 価格 19 ＋ 一言 40 ＝ 118px
+     写真を120pxにすると、行の高さは必ず写真のほうで決まるので、
+     見出しが1行の記事も2行の記事も、価格のある記事も無い記事も、
+     すべて同じ高さの行になる。ホームのタイル（.card）と同じ寸法。 */
+  .row-item{grid-template-columns:120px minmax(0,1fr);gap:14px;padding:12px 14px 12px 12px;align-items:start;}
   .row-cat{font-size:9.5px;}
   .row-meta{margin-bottom:3px;}
   .row-no{top:0;min-width:24px;padding:2px 6px;font-size:9.5px;}
   .row-item .thumb{aspect-ratio:1/1;}
-  .row-item h3{font-size:13px;line-height:1.6;margin-bottom:3px;
+  .row-item h3{font-size:13px;line-height:1.5;margin-bottom:3px;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
   /* 一言はスマホでも出す。どんな商品かが一覧のまま分かるようにする */
   .row-item p{
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-    font-size:11.5px;line-height:1.7;margin-top:3px;
+    font-size:11.5px;line-height:1.6;margin-top:3px;
   }
   .row-item .meta{font-size:10px;}
 
@@ -4070,7 +4096,12 @@ h1,h2,h3,h4,
   line-height:1.7;
   color:var(--muted-2);}
 
-/* 一覧タイルに出す短い版。題名のすぐ下に1行だけ置く */
+/* 一覧タイルに出す短い版。題名のすぐ下に1行だけ置く。
+   中身が空でも枠自体は必ず出る（build.py の card_stats）。PCの一覧は
+   グリッドが行ごとに高さをそろえるので、空のときは余白を作らない。
+   スマホは写真の右に積む組み方で高さが直に効くため、下の指定で
+   1行ぶんの場所を取る。 */
+.card-stats:empty{margin-top:0;}
 .card-stats{display:flex;
   align-items:baseline;
   gap:8px;
