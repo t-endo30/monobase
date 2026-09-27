@@ -3498,17 +3498,45 @@ def article_price(a):
     return d.get("p")
 
 
-def v2_budget(p, pool_json):
+def v2_pool_json(items, p):
+    """budget（予算で探す）・pick up が assets/main.js で組み直すときに
+       使う「軽量カード」データ。モールの写真かどうか（sh）と出どころ（sp）・
+       ASIN も渡す。これが無いと、組み直したタイルから is-shop が落ち、
+       モールの写真が object-fit:cover で切り取られてしまう
+       （規約が改変を認めていない）。台紙の見た目も一覧とずれる。"""
+    pool = []
+    for a in items:
+        shop_url, shop = shop_thumb(a)
+        pool.append({
+            "u": f'{p}articles/{a["slug"]}.html',
+            "t": a.get("list_title") or a["title"],
+            "x": v2_appeal(a),
+            "c": CAT_LABEL.get(a.get("category", ""), ""),
+            "k": a.get("category", ""),
+            "s": a["slug"],
+            "d": a.get("date", ""),
+            "th": shop_url or auto_svg(a, p),
+            "sh": bool(shop_url),
+            "sp": shop,
+            "as": str(a.get("asin") or "").strip(),
+            "st": card_stats_data(a),
+        })
+    return pool
+
+
+def v2_budget(items, p):
     """予算で探す枠。価格帯の札と、その帯の記事5件。
 
        価格で絞れる入口がどこにも無く、「1万円くらいで探したい」という
        読者が最初の1本にたどり着けなかった。検索ページに価格の欄を足す
-       手もあるが、ホームで押してその場で並び替わるほうが早い。
+       手もあるが、押してその場で並び替わるほうが早い。ホームだけでなく
+       カテゴリー一覧でも使う（そのカテゴリーの記事だけに絞って出す）ので、
+       対象は呼び出し側から items で渡す。
 
-       中身の差し替えは assets/main.js が data-pool（今日のピックアップと
-       同じ全記事の一覧）から行う。ここで出しておく5件は、JSが動かない
-       ときの中身でもある。記事の少ない帯は札自体を出さない。"""
-    priced = [(a, article_price(a)) for a in PUBLISHED]
+       中身の差し替えは assets/main.js が data-pool（items と同じ範囲の
+       一覧）から行う。ここで出しておく5件は、JSが動かないときの中身でも
+       ある。記事の少ない帯は札自体を出さない。"""
+    priced = [(a, article_price(a)) for a in items]
     priced = [(a, v) for a, v in priced if v]
     if len(priced) < 10:
         return ""                      # 価格の付いた記事が少ないうちは出さない
@@ -3527,6 +3555,8 @@ def v2_budget(p, pool_json):
                   f'<i>{len(hit)}</i></button>')
     if not chips or not first:
         return ""
+    pool_json = html.escape(json.dumps(v2_pool_json(items, p), ensure_ascii=False),
+                            quote=True)
     return ('      <div class="budget" data-budget>\n'
             f'        <div class="bd-chips" role="tablist">{chips}</div>\n'
             f'        <div class="card-grid is-home6" data-pool=\'{pool_json}\'>'
@@ -3548,24 +3578,7 @@ def build_index():
     # これが無いと、assets/main.js が組み直したタイルから is-shop が落ち、
     # モールの写真が object-fit:cover で切り取られてしまう
     # （規約が改変を認めていない）。台紙の見た目も新着とずれる。
-    pool = []
-    for a in PUBLISHED:
-        shop_url, shop = shop_thumb(a)
-        pool.append({
-            "u": f'{p}articles/{a["slug"]}.html',
-            "t": a.get("list_title") or a["title"],
-            "x": v2_appeal(a),
-            "c": CAT_LABEL.get(a.get("category", ""), ""),
-            "k": a.get("category", ""),
-            "s": a["slug"],
-            "d": a.get("date", ""),
-            # 今日のピックアップも、出すのは実物写真だけ。AIの絵は使わない。
-            "th": shop_url or auto_svg(a, p),
-            "sh": bool(shop_url),
-            "sp": shop,
-            "as": str(a.get("asin") or "").strip(),
-            "st": card_stats_data(a),
-        })
+    pool = v2_pool_json(PUBLISHED, p)
     day = int(datetime.date.today().strftime("%Y%m%d"))
     # RANKING と同じ10枚ならべる（スマホは同じ形の横カルーセル、PCは4列）
     PICK_N = 10
@@ -3638,8 +3651,7 @@ def build_index():
 
     # 予算で探す枠。ランキングのすぐ下に置く。「よく読まれている物」の
     # 次に「自分の予算で買える物」を見せる並びにする。
-    pool_json = html.escape(json.dumps(pool, ensure_ascii=False), quote=True)
-    budget = v2_budget(p, pool_json)
+    budget = v2_budget(PUBLISHED, p)
     if budget:
         body += v2_section(
             v2_sec_head("BUDGET", "予算で探す", cls="has-feat-ad has-side-ad")
@@ -3757,6 +3769,12 @@ def build_category(c):
                         crumbs=[("ホーム", f"{p}index.html"), (c["label"], None)],
                         lead=c["lead"], count=len(items),
                         extra=v2_sub_nav(c, p))
+    # 予算で探す枠。ホームは全記事対象だが、ここはこのカテゴリーの記事
+    # だけに絞る。「このカテゴリーの中で、自分の予算で買える物」を
+    # 探す入口が無かった（絞り込みは絞り込み＝サブ区分しか無かった）。
+    budget = v2_budget(items, p)
+    if budget:
+        body += v2_section(v2_sec_head("BUDGET", "予算で探す") + budget)
     # 一覧の末尾に広告を置く。新着・ランキングには入れていたが、
     # カテゴリーは入れ忘れていた（41ページあり、取りこぼしが大きい）。
     body += v2_section(v2_rows(items, p, detail=True) + promo_row_slot(),
@@ -3793,6 +3811,9 @@ def build_subcategory(c, sc):
                         lead=f'{c["label"]}のうち、{sc["label"]}に分類した記事です。',
                         count=len(items),
                         extra=v2_sub_nav(c, p, sc["key"]))
+    budget = v2_budget(items, p)
+    if budget:
+        body += v2_section(v2_sec_head("BUDGET", "予算で探す") + budget)
     body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
     return page(f'{sc["label"]}の記事一覧 - {NAME}',
                 f'{NAME}の{sc["label"]}に関する記事一覧です。利用者の声と仕様をもとに整理しています。',
