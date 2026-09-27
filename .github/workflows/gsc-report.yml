@@ -1,0 +1,57 @@
+name: GSC performance report
+
+# Search Console の「検索パフォーマンス」画面と同じ集計をログに出す。
+# 管理画面はログインが要るため人にしか開けないので、同じ数字をAPIから取る。
+# 何もコミット・pushしない、見るだけの診断（gsc-coverage.yml と同じ扱い）。
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: '集計期間（日数）'
+        required: false
+        default: '28'
+      limit:
+        description: 'クエリ・ページの表示行数'
+        required: false
+        default: '20'
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Search Console client
+        run: pip install --quiet google-api-python-client google-auth
+
+      - name: Write service account key
+        env:
+          GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
+        run: |
+          if [ -z "$GSC_SA_KEY" ]; then
+            echo "::error::GSC_SA_KEY が未設定です。"
+            exit 1
+          fi
+          printf '%s' "$GSC_SA_KEY" > "$RUNNER_TEMP/gsc-sa.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/gsc-sa.json" >> "$GITHUB_ENV"
+
+      - name: 検索パフォーマンスを集計
+        env:
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+        run: |
+          python3 tools/gsc_report.py \
+            --days "${{ inputs.days || '28' }}" \
+            --limit "${{ inputs.limit || '20' }}" | tee "$RUNNER_TEMP/report.txt"
+          {
+            echo '## Search Console 検索パフォーマンス'
+            echo '```'
+            cat "$RUNNER_TEMP/report.txt"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
