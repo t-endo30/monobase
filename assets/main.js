@@ -523,27 +523,38 @@ document.addEventListener('touchstart', function () {}, { passive: true });
      枠ごと隠したまま（build.py 側が既定で hidden にしている）。
      ホームには .rank-list が無く、この下の早期 return で止まって
      しまうため、その手前に置く。 */
-  var recentGrid = document.querySelector('[data-recent-views]');
-  if (recentGrid) {
+  /* 記事ページのサイドバーにも同じ枠を置いたので、1つ目だけでなく
+     全部を描く（2026-09-28）。今読んでいる記事は履歴に入っていても
+     出さない（同じものが横に並ぶだけなので）。 */
+  var recentGrids = document.querySelectorAll('[data-recent-views]');
+  if (recentGrids.length) {
     var recentSlugs = [];
     try { recentSlugs = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); }
     catch (e) { recentSlugs = []; }
     var bySlug = {};
     items.forEach(function (it) { bySlug[it.slug] = it; });
-    var found = recentSlugs.map(function (s) { return bySlug[s]; })
-      .filter(Boolean).slice(0, 5);
-    if (found.length) {
-      recentGrid.innerHTML = found.map(function (it) {
+    /* 正規URLは拡張子なし（/articles/<slug>）。.html 付きでも拾えるようにする */
+    var hereMatch = location.pathname.match(/\/articles\/([^/]+?)(?:\.html)?$/);
+    var here = hereMatch ? hereMatch[1] : '';
+    Array.prototype.forEach.call(recentGrids, function (grid) {
+      var limit = parseInt(grid.getAttribute('data-recent-limit'), 10) || 5;
+      var found = recentSlugs
+        .filter(function (s) { return s !== here; })
+        .map(function (s) { return bySlug[s]; })
+        .filter(Boolean).slice(0, limit);
+      if (!found.length) return;
+      grid.innerHTML = found.map(function (it) {
         return cardHtml({
           u: it.url, t: it.title, x: it.excerpt || '', c: it.cat, k: it.catKey,
           s: it.slug, d: it.date, th: it.thumb, sh: !!it.shop, sp: it.shop,
           as: it.asin, st: it.st,
         });
       }).join('');
-      var recentSection = recentGrid.closest('.v2-section') || recentGrid;
-      recentSection.hidden = false;
-      document.dispatchEvent(new CustomEvent('mb:cards', { detail: recentGrid }));
-    }
+      var wrap = grid.closest('[data-recent-views-wrap]')
+        || grid.closest('.v2-section') || grid;
+      wrap.hidden = false;
+      document.dispatchEvent(new CustomEvent('mb:cards', { detail: grid }));
+    });
   }
 
   /* ---- ランキングを描く ---- */

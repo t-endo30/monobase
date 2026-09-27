@@ -3594,6 +3594,12 @@ p,li,.card-desc{text-wrap:pretty;}
    新着・PRタイルを足した。PR枠は .promo-group 自体が .side-box を
    兼ねるので、中の3列グリッドを1列に落とす。 */
 .side-promo .card-grid{grid-template-columns:1fr;gap:14px;}
+/* サイドバーの「最近見た記事」（2026-09-28）。一覧の記事タイルと
+   同じ .card をそのまま縦に積む（幅は箱の内寸ぶんになるので、
+   一覧のタイルとほぼ同じ大きさで並ぶ）。中身は assets/main.js が
+   localStorage の履歴から描き、履歴が無ければ枠ごと隠れている。 */
+.side-recent .card-grid{grid-template-columns:1fr;gap:14px;}
+.side-recent .card{box-shadow:none;border:1px solid var(--line-2);}
 .side-promo .card-thumb img{width:100%;height:auto;}
 .side-list.is-cats a{justify-content:space-between;}
 .side-list .sl-n{flex:none;font-family:var(--font-en);font-size:11px;

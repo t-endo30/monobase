@@ -3871,6 +3871,21 @@ def v2_side_recent(p, a, exclude, n=8):
             f'      </div>\n')
 
 
+def v2_side_recent_views():
+    """サイドバー：この端末で最近見た記事。ホームの「最近見た記事」
+       （v2_recent_views）と同じ器で、中身は assets/main.js が
+       localStorage の履歴から描く（端末ごとに違うのでビルド時には
+       決まらない）。タイルの形は一覧の記事タイル（.card）と同じ。
+       履歴が無いあいだ・今読んでいる記事しか履歴が無いときは、
+       枠ごと隠したままにする（hidden をJSが外す）。2026-09-28追加。"""
+    return ('      <div class="side-box side-box-pc side-recent" '
+            'data-recent-views-wrap hidden>\n'
+            '        <p class="finder-title">最近見た記事</p>\n'
+            '        <div class="card-grid" data-recent-views '
+            'data-recent-limit="4"></div>\n'
+            '      </div>\n')
+
+
 def v2_article_sidebar(p, a):
     """記事のサイドバー全体。「条件で探す」＋同カテゴリーの人気記事・
        新着＋サイト内検索の4枚を1つの追従列にまとめる（1枚だけだと
@@ -3882,14 +3897,18 @@ def v2_article_sidebar(p, a):
     for x in PUBLISHED:
         if f'articles/{x["slug"]}.html' in new_html:
             shown.add(x["slug"])
+    # 並び順：キーワード検索を先頭に置く（2026-09-28、ユーザー判断。
+    # 探し直しの入口をいちばん上に出す）。そのあと条件で探す→履歴→
+    # 同カテゴリー→横断の一覧、と「今の関心に近い順」に下げていく。
     return ('    <aside class="article-sidebar">\n'
+            + v2_side_search(p)
             + v2_article_finder(p, a)
+            + v2_side_recent_views()
             + ranking_html
             + new_html
             + v2_side_features(p, a)
             + v2_side_cats(p, a)
             + v2_side_recent(p, a, shown)
-            + v2_side_search(p)
             + promo_slot("article_end", cat=a.get("category", ""),
                          cls="side-box side-box-pc side-promo", count=2)
             + '    </aside>\n')
