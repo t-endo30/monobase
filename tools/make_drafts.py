@@ -161,7 +161,11 @@ def make_draft(c, site, taken):
 
     a = {
         "slug": draft_slug(name, cat_key, taken),
-        "category": cat_key, "sub": "",
+        # sub は、候補を引いたときに狙ったサブ区分（pick_products.py が
+        # 入れる）。以前は空で作り、本文を書いたあとに推測で埋めていた
+        # ため、サブ区分ごとの一覧ページと特集の段（5本ごと）が
+        # 実態とずれていた。
+        "category": cat_key, "sub": str(c.get("sub") or ""),
         "published": False, "featured": False,
         "title": name, "list_title": name[:30],
         # 仮の文章。本文を書くときに書き換わる。

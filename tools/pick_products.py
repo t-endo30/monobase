@@ -32,7 +32,7 @@ AMAZON_ACCESS_KEY 等を渡せば、同じJANでAmazon側も照合します。
   $ python3 tools/pick_products.py --category pc   # カテゴリーを絞る
   $ python3 tools/pick_products.py --limit 5       # 上位5件だけ
 """
-import json, io, os, re, sys, time, argparse, collections
+import json, io, os, re, sys, time, argparse, collections, zlib, datetime
 import urllib.request
 import urllib.error
 import urllib.parse
@@ -114,12 +114,24 @@ CATEGORY_EXCLUDE = {
 }
 
 
-def fits_category(name, cat):
-    """商品名が、そのカテゴリーの品物を指しているか。"""
+def fits_category(name, cat, extra=None):
+    """商品名が、そのカテゴリーの品物を指しているか。
+
+       extra には、そのとき引いたサブ区分の検索語を渡す。CATEGORY_WORDS は
+       カテゴリー全体をざっくり見分けるための語しか持っていないので、
+       サブ単位で引くようになると、そのサブの品物がここで落ちてしまう
+       （「保存容器」「水槽」「園芸用品」「電動歯ブラシ」「液晶テレビ」は
+       どれも CATEGORY_WORDS に無く、実際に候補が1件も通らなかった）。
+       サブの検索語はそのサブの品物そのものを指しているので、
+       見分け語として足して扱う。
+
+       CATEGORY_EXCLUDE は extra に関係なく効かせる。こちらは
+       「衣類アイロンとヘアアイロン」のような取り違えを止めるためのもので、
+       サブを指定したからといって緩めてよい種類の判定ではない。"""
     low = str(name or "").lower()
     if any(x.lower() in low for x in CATEGORY_EXCLUDE.get(cat, [])):
         return False
-    words = CATEGORY_WORDS.get(cat)
+    words = list(CATEGORY_WORDS.get(cat) or []) + list(extra or [])
     if not words:
         return True
     return any(w.lower() in low for w in words)
@@ -180,21 +192,160 @@ CATEGORY_SHARE = 0.25
 # ここに多く出ているカテゴリーほど、次の候補では後ろに回す。
 COOLDOWN_RECENT = 30
 
+# サブ区分のクールダウンで見る本数。カテゴリー（12個）より対象が
+# 広い（67個）ので、同じ30本だとほとんどのサブが0で横並びになる。
+SUB_COOLDOWN_RECENT = 120
+
+# 1回の実行で引くサブ区分の数と、1カテゴリーから取るサブの上限。
+# 67個すべてを毎回引くと、楽天の1秒1回制限で候補集めに4〜6分かかる。
+# 1回に書くのは最大2本なので、記事の少ないサブから順に少しずつ引いて、
+# 日をまたいで一周させる。
+SUBS_PER_RUN = 14
+SUBS_PER_CATEGORY = 2
+
 # サイトのカテゴリーと、楽天のジャンルID／Yahoo!の検索語の対応。
 # 楽天のジャンルIDは https://webservice.rakuten.co.jp/documentation/ で調べられる。
+#
+# subs は content/site.json のサブ区分と同じキーで、そのサブを指す検索語。
+# ジャンルIDはカテゴリーに1つのままで、サブは**検索語で絞る**
+# （2026-09-27、ユーザー判断）。サブごとにジャンルIDを割り当てる案もあったが、
+#   ・保守対象が12個から67個に増える。ジャンルIDは改編で消える
+#     （2026年2月の刷新で楽天ランキングAPIが丸ごと消えた前例がある）
+#   ・サブ単位のジャンルIDを調べる IchibaGenre/Search が刷新後も
+#     生きているか確認できていない
+# ため、まず検索語で回して効果を測ることにした。検索語は腐らない。
+# 取りこぼしが実際に問題になったら、ジャンルIDに移す。
+#
+# **ここを直す前に content/site.json の sub と突き合わせること。**
+# キーがずれると、そのサブは永久に候補が作られない（起動時に検算する）。
 CATEGORY_MAP = {
-    "pc":         {"rakuten_genre": 100026, "words": ["PC周辺機器"]},
-    "appliance":  {"rakuten_genre": 562637, "words": ["生活家電"]},
-    "furniture":  {"rakuten_genre": 100804, "words": ["インテリア 収納"]},
-    "daily":      {"rakuten_genre": 215783, "words": ["日用品"]},
-    "av":         {"rakuten_genre": 211742, "words": ["オーディオ"]},
-    "camera":     {"rakuten_genre": 204040, "words": ["カメラ"]},
-    "smartphone": {"rakuten_genre": 565004, "words": ["スマートフォン アクセサリ"]},
-    "kitchen":    {"rakuten_genre": 100644, "words": ["キッチン家電"]},
-    "health":     {"rakuten_genre": 100938, "words": ["健康計測"]},
-    "beauty":     {"rakuten_genre": 100939, "words": ["美容家電"]},
-    "pet":        {"rakuten_genre": 101213, "words": ["ペット用品"]},
-    "fashion":    {"rakuten_genre": 100371, "words": ["メンズファッション"]},
+    "pc": {
+        "rakuten_genre": 100026, "words": ["PC周辺機器"],
+        "subs": {
+            "laptop":     ["ノートパソコン", "ノートPC"],
+            "tablet":     ["タブレット", "電子書籍リーダー"],
+            "monitor":    ["モニター", "ディスプレイ", "モニターアーム"],
+            "input":      ["キーボード", "マウス", "トラックボール"],
+            "peripheral": ["USBハブ", "ドッキングステーション", "webカメラ"],
+            "storage":    ["外付けSSD", "外付けHDD", "SDカード"],
+            "network":    ["無線LANルーター", "Wi-Fiルーター", "LANケーブル"],
+            "parts":      ["CPUクーラー", "グラフィックボード", "PCケース", "電源ユニット"],
+            "software":   ["セキュリティソフト", "Office ソフト"],
+        },
+    },
+    "appliance": {
+        "rakuten_genre": 562637, "words": ["生活家電"],
+        "subs": {
+            "aircon":  ["扇風機", "サーキュレーター", "加湿器", "除湿機", "ヒーター"],
+            "clean":   ["掃除機", "ロボット掃除機", "スティック掃除機"],
+            "laundry": ["洗濯機", "衣類乾燥機", "衣類スチーマー"],
+            "light":   ["シーリングライト", "デスクライト", "センサーライト"],
+            "smart":   ["スマートリモコン", "スマートプラグ", "スマートスピーカー"],
+            "power":   ["ポータブル電源", "乾電池", "充電池"],
+        },
+    },
+    "furniture": {
+        "rakuten_genre": 100804, "words": ["インテリア 収納"],
+        "subs": {
+            "desk":  ["デスク", "昇降デスク", "パソコンデスク"],
+            "chair": ["オフィスチェア", "ゲーミングチェア", "スツール"],
+            "shelf": ["収納ラック", "本棚", "チェスト"],
+            "bed":   ["マットレス", "敷布団", "枕"],
+            "deco":  ["カーテン", "ラグ", "クッション"],
+        },
+    },
+    "daily": {
+        "rakuten_genre": 215783, "words": ["日用品"],
+        "subs": {
+            "storage":    ["収納ボックス", "収納ケース"],
+            "clean":      ["洗剤", "掃除用品", "スポンジ"],
+            "bath":       ["シャワーヘッド", "バスマット", "トイレブラシ"],
+            "safety":     ["防災セット", "防犯カメラ", "非常用持ち出し袋"],
+            "misc":       ["タオル", "傘", "水筒"],
+            "fashion":    ["腕時計", "サングラス"],
+            "tool":       ["電動ドライバー", "工具セット", "脚立"],
+            "garden":     ["園芸用品", "プランター", "高圧洗浄機"],
+            "hobby":      ["ゲーミング", "ボードゲーム", "プラモデル"],
+            "car":        ["ドライブレコーダー", "カーチャージャー", "車載ホルダー"],
+            "outdoor":    ["テント", "寝袋", "アウトドアチェア"],
+            "stationery": ["シュレッダー", "ラミネーター", "文房具セット"],
+        },
+    },
+    "av": {
+        "rakuten_genre": 211742, "words": ["オーディオ"],
+        "subs": {
+            "headphone": ["ワイヤレスイヤホン", "ヘッドホン", "骨伝導イヤホン"],
+            "speaker":   ["Bluetoothスピーカー", "サウンドバー"],
+            "tv":        ["液晶テレビ", "プロジェクター"],
+            "mic":       ["コンデンサーマイク", "USBマイク", "オーディオインターフェース"],
+        },
+    },
+    "camera": {
+        "rakuten_genre": 204040, "words": ["カメラ"],
+        "subs": {
+            "body":   ["ミラーレス一眼", "デジタルカメラ", "アクションカメラ"],
+            "lens":   ["カメラ レンズ", "単焦点レンズ", "望遠レンズ"],
+            "tripod": ["三脚", "ジンバル", "自撮り棒"],
+            "acc":    ["カメラバッグ", "SDカード カメラ", "ストロボ"],
+        },
+    },
+    "smartphone": {
+        "rakuten_genre": 565004, "words": ["スマートフォン アクセサリ"],
+        "subs": {
+            "body":    ["SIMフリースマホ", "スマートフォン 本体"],
+            "case":    ["スマホケース", "ガラスフィルム"],
+            "charger": ["モバイルバッテリー", "USB充電器", "MagSafe 充電"],
+            "acc":     ["スマホスタンド", "スマホリング", "車載ホルダー スマホ"],
+        },
+    },
+    "kitchen": {
+        "rakuten_genre": 100644, "words": ["キッチン家電"],
+        "subs": {
+            "appliance": ["電気ケトル", "炊飯器", "electric トースター", "コーヒーメーカー"],
+            "tool":      ["フライパン", "包丁", "圧力鍋"],
+            "ware":      ["保存容器", "食器セット", "タンブラー"],
+            "storage":   ["キッチン収納", "water 調味料ラック", "水切りラック"],
+        },
+    },
+    "health": {
+        "rakuten_genre": 100938, "words": ["健康計測"],
+        "subs": {
+            "measure":    ["体組成計", "血圧計", "スマートウォッチ"],
+            "care":       ["マッサージガン", "フォームローラー", "マッサージチェア"],
+            "supplement": ["プロテイン", "サプリメント"],
+            "hygiene":    ["電動歯ブラシ", "口腔洗浄器", "体温計"],
+        },
+    },
+    "beauty": {
+        "rakuten_genre": 100939, "words": ["美容家電"],
+        "subs": {
+            "skincare": ["化粧水", "美容液", "日焼け止め"],
+            "haircare": ["シャンプー", "ヘアオイル", "トリートメント"],
+            "makeup":   ["マスカラ", "アイブロウ", "ファンデーション"],
+            "device":   ["ドライヤー", "ヘアアイロン", "美顔器", "脱毛器"],
+            "shave":    ["電気シェーバー", "メンズシェーバー", "眉毛シェーバー"],
+        },
+    },
+    "pet": {
+        "rakuten_genre": 101213, "words": ["ペット用品"],
+        "subs": {
+            "dog":  ["犬 ハーネス", "犬 ベッド", "ペットカート"],
+            "cat":  ["猫 トイレ", "キャットタワー", "猫 爪とぎ"],
+            "food": ["ドッグフード", "キャットフード", "ペット おやつ"],
+            "care": ["ペット 爪切り", "ペットブラシ", "ペットシーツ"],
+            "aqua": ["水槽", "アクアリウム", "小動物 ケージ"],
+        },
+    },
+    "fashion": {
+        "rakuten_genre": 100371, "words": ["メンズファッション"],
+        "subs": {
+            "shoes": ["スニーカー", "ビジネスシューズ", "サンダル"],
+            "bag":   ["リュック", "ビジネスバッグ", "財布"],
+            "watch": ["腕時計 メンズ", "腕時計 レディース"],
+            "acc":   ["ベルト", "帽子", "マフラー"],
+            "wear":  ["シャツ", "ジャケット", "インナー"],
+        },
+    },
 }
 
 
@@ -463,8 +614,93 @@ def recent_category_load(arts, n=COOLDOWN_RECENT):
     return collections.Counter(a.get("category", "") for a in pub[-n:])
 
 
+def recent_sub_load(arts, n=SUB_COOLDOWN_RECENT):
+    """直近に公開した n 本の「カテゴリー/サブ」分布を数える。
+
+       カテゴリー単位のクールダウンだけでは、同じカテゴリーの中の偏りは
+       直らない。実際 pc は9個あるサブのうち「周辺機器・USBハブ」に24本、
+       サイト全体では75個あるサブの26個（35%）が記事0本だった
+       （2026-09-27）。ここは記事0本のサブが先頭に来るように数える。
+
+       カテゴリーと違って範囲が広い（75個）ので、見る本数も広く取る。
+       直近30本では、ほとんどのサブが0のまま横並びになってしまう。"""
+    pub = [a for a in arts if a.get("published")]
+    pub.sort(key=lambda a: (str(a.get("date") or ""), str(a.get("slug") or "")))
+    return collections.Counter(
+        (a.get("category", ""), a.get("sub", "")) for a in pub[-n:])
+
+
+def plan_targets(categories, arts, subs_per_run, per_cat_subs=SUBS_PER_CATEGORY):
+    """今回どの「カテゴリー/サブ」を引くかを決める。
+
+       サブを全部（67個）毎回引くと、楽天の1秒1回制限で候補集めだけに
+       4〜6分かかる。1回の実行で書くのは最大2本なので、そこまで引く
+       必要がない。**記事の少ないサブから順に、今回ぶんだけ引く**。
+       書いたサブは次の実行で後ろへ回るので、日をまたいで一周する。
+
+       同じ本数のサブが並んだときは、日付で決まる順に回す。こうしないと
+       候補が集まらないサブ（母数が小さく MIN_REVIEWS を超える商品が
+       無いサブ）が毎回先頭に居座り、他のサブがいつまでも引かれない。
+       日替わりにしておけば、1日1回ずつ順に試されて全体が回る。
+
+       1カテゴリーから取るサブは per_cat_subs 個まで。日用品・雑貨は
+       サブが12個あるので、上限が無いと1カテゴリーで枠を使い切る。"""
+    recent = recent_sub_load(arts)
+    day = int(datetime.date.today().strftime("%j"))
+    pairs = []
+    for cat in categories:
+        conf = CATEGORY_MAP.get(cat) or {}
+        for sub, words in (conf.get("subs") or {}).items():
+            if not words:
+                continue
+            # 同数のときの並び。crc32 を使うのは、Python の hash() が
+            # 実行ごとに変わる（文字列はソルト付き）ため。日を足して
+            # 剰余を取ることで、同数のサブが日替わりで前後する。
+            spin = (zlib.crc32(f"{cat}/{sub}".encode("utf-8")) + day) % 997
+            pairs.append((recent.get((cat, sub), 0), spin, cat, sub, words))
+    pairs.sort()
+
+    taken, per_cat = [], collections.Counter()
+    for _n, _spin, cat, sub, words in pairs:
+        if per_cat[cat] >= per_cat_subs:
+            continue
+        per_cat[cat] += 1
+        taken.append((cat, sub, words))
+        if len(taken) >= subs_per_run:
+            break
+    return taken, recent
+
+
+def check_subs():
+    """CATEGORY_MAP の subs が content/site.json のサブ区分と合っているか。
+
+       合っていないキーを説明つきで返す（空なら問題なし）。
+       サイト側のサブを増やしたとき、ここへ検索語を足し忘れると、
+       そのサブは候補が永久に作られないまま「記事0本」としてクールダウンの
+       先頭に居座り、他のサブの番を毎回奪ってしまう。"""
+    site = json.load(io.open(os.path.join(ROOT, "content", "site.json"),
+                             encoding="utf-8"))
+    known = {c["key"]: {s["key"] for s in c.get("sub", [])}
+             for c in site.get("categories", [])}
+    bad = []
+    for cat, conf in CATEGORY_MAP.items():
+        want = known.get(cat)
+        if want is None:
+            bad.append(f"CATEGORY_MAP の {cat} が content/site.json にありません")
+            continue
+        have = set((conf.get("subs") or {}))
+        for x in sorted(have - want):
+            bad.append(f"{cat}/{x} は content/site.json に無いサブ区分です"
+                       "（CATEGORY_MAP の subs から消すか、綴りを直してください）")
+        for x in sorted(want - have):
+            bad.append(f"{cat}/{x} に検索語がありません"
+                       "（CATEGORY_MAP の subs に足してください）")
+    return bad
+
+
 def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
-                     limit, per_category, trending=True):
+                     limit, per_category, trending=True,
+                     subs_per_run=SUBS_PER_RUN):
     arts = json.load(io.open(os.path.join(ROOT, "content", "articles.json"),
                              encoding="utf-8"))
     seen_jan, _ = known_products(arts)
@@ -479,9 +715,26 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
     for a in arts:
         seen_models |= model_codes(a.get("title", ""))
 
+    # 今回引く「カテゴリー/サブ」を決める。サブを全部引くと時間が
+    # かかりすぎるので、記事の少ないサブから順に少しずつ引く。
+    targets, recent_sub = plan_targets(categories, arts, subs_per_run)
+    if not targets:
+        print("::warning::引けるサブ区分がありません"
+              "（CATEGORY_MAP の subs を確認してください）", file=sys.stderr)
+    print(f"今回引くサブ区分 {len(targets)} 件"
+          f"（直近{SUB_COOLDOWN_RECENT}本での本数が少ない順）：")
+    for cat, sub, words in targets:
+        print(f"  {cat}/{sub:11s} 直近{recent_sub.get((cat, sub), 0):2d}本  "
+              f"検索語「{words[0]}」")
+    print()
+
     out = []
     ranking_failed = []
-    for cat in categories:
+    # 「今売れている枠」はカテゴリー単位で1回だけ引く。サブごとに引くと
+    # 呼び出し回数が倍近くになるわりに、同じジャンルの総合順が返るだけで
+    # 中身がほとんど重なる。
+    trending_done = set()
+    for cat, sub, sub_words in targets:
         conf = CATEGORY_MAP.get(cat)
         if not conf:
             print(f"::warning::カテゴリー {cat} の対応表がありません", file=sys.stderr)
@@ -490,7 +743,8 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
         # 登録されているモールを両方とも検索して結果を合わせる。
         # 片方だけを見ると、そのモールにしか無い商品を取りこぼす。
         found = []
-        if trending and rakuten_id:
+        if trending and rakuten_id and cat not in trending_done:
+            trending_done.add(cat)
             # 売れ筋ランキングを先に取る。レビュー件数（累計の人気）とは
             # 別に「今の売れ行き」を反映する枠。新しく伸びている商品は
             # レビューがまだ少ないことがあるので、ランキング由来の商品は
@@ -521,32 +775,36 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                 e["trending"] = True
             found += rank
             time.sleep(PAUSE)
+        # ジャンルはカテゴリー単位のまま、サブは検索語で絞る。
+        # ジャンルだけで引くと、そのジャンルでレビュー件数の多い商品
+        # （＝安価なアクセサリ）ばかりが返り、ノートPC・モニターの
+        # ような単価の高い商品にたどり着けない。
+        kw = sub_words[0]
         if rakuten_id:
             try:
                 found += rakuten_search(rakuten_id, rakuten_key,
                                         genre=conf["rakuten_genre"],
-                                        hits=per_category)
+                                        keyword=kw, hits=per_category)
             except Exception as ex:                       # noqa: BLE001
-                # ジャンルは改編される。弾かれたらキーワードで探し直す。
+                # ジャンルは改編される。弾かれたら検索語だけで探し直す。
                 if "genre" in str(ex).lower():
                     time.sleep(PAUSE)
                     try:
                         found += rakuten_search(rakuten_id, rakuten_key,
-                                                keyword=conf["words"][0],
-                                                hits=per_category)
+                                                keyword=kw, hits=per_category)
                     except Exception as ex2:              # noqa: BLE001
-                        print(f"::warning::楽天の検索に失敗（{cat}）: {ex2}",
+                        print(f"::warning::楽天の検索に失敗（{cat}/{sub}）: {ex2}",
                               file=sys.stderr)
                 else:
-                    print(f"::warning::楽天の検索に失敗（{cat}）: {ex}",
+                    print(f"::warning::楽天の検索に失敗（{cat}/{sub}）: {ex}",
                           file=sys.stderr)
             time.sleep(PAUSE)
         if yahoo_id:
             try:
-                found += yahoo_search(yahoo_id, query=conf["words"][0],
-                                      hits=per_category)
+                found += yahoo_search(yahoo_id, query=kw, hits=per_category)
             except Exception as ex:                       # noqa: BLE001
-                print(f"::warning::Yahoo!の検索に失敗（{cat}）: {ex}", file=sys.stderr)
+                print(f"::warning::Yahoo!の検索に失敗（{cat}/{sub}）: {ex}",
+                      file=sys.stderr)
             time.sleep(PAUSE)
 
         # レビューの多い順に混ぜる。モールごとに固まらないようにする。
@@ -575,7 +833,7 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                 continue
             # 名前が売り文句になっている商品と、分野が合わない商品は採らない。
             # ここで落としておかないと、題名もURLも作れない記事になる。
-            if looks_like_ad(name) or not fits_category(name, cat):
+            if looks_like_ad(name) or not fits_category(name, cat, sub_words):
                 continue
 
             jan = (e.get("jan") or "").strip()
@@ -620,6 +878,10 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
                 "name": name,
                 "jan": jan,
                 "category": cat,
+                # どのサブ区分を狙って引いた候補か。make_drafts.py が
+                # 下書きの sub にそのまま入れる（これが無いと、本文を
+                # 書いたあとに推測で埋めることになる）。
+                "sub": sub,
                 "reviews": max(v["reviews"] for v in shops.values()),
                 "rating": max(v["rating"] for v in shops.values()),
                 "price": min(v["price"] for v in shops.values()),
@@ -679,6 +941,7 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
         return mixed
 
     # カテゴリーごとに上限を設けて、カテゴリーをまたいで1件ずつ拾う。
+    # カテゴリーの中では、さらにサブ区分をまたいで1件ずつ拾う。
     #
     # 以前はここで全カテゴリーの候補を1本の列にまとめ、レビュー件数の
     # 降順に並べて上から limit 件を切っていた。カテゴリーを一切見て
@@ -687,9 +950,22 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
     per_cat = max(2, int(limit * CATEGORY_SHARE))
     by_cat = {}
     for c in out:
-        by_cat.setdefault(c["category"], []).append(c)
-    for cat in by_cat:
-        by_cat[cat] = interleave(by_cat[cat])[:per_cat]
+        by_cat.setdefault(c["category"], {}).setdefault(c.get("sub", ""), []).append(c)
+
+    # サブの中で並べ、サブをまたいで1件ずつ拾ってカテゴリーの列を作る。
+    # ここを飛ばしてカテゴリー単位で件数順に並べると、同じカテゴリーの
+    # 中でレビュー件数の多いサブ（周辺機器など）が枠を独占してしまい、
+    # サブ単位で引いた意味が無くなる。
+    for cat, subs in by_cat.items():
+        for sub in subs:
+            subs[sub] = interleave(subs[sub])
+        sub_order = sorted(subs, key=lambda k: (recent_sub.get((cat, k), 0), k))
+        merged = []
+        while any(subs[k] for k in sub_order):
+            for k in sub_order:
+                if subs[k]:
+                    merged.append(subs[k].pop(0))
+        by_cat[cat] = merged[:per_cat]
 
     # 直近に書いた本数が少ないカテゴリーから先に拾う（クールダウン）。
     # 書いたカテゴリーは次の実行で自然に後ろへ回るので、日をまたいで
@@ -712,7 +988,19 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
           .format(COOLDOWN_RECENT))
     for k in order:
         if got.get(k):
-            print(f"  {k:12s} 直近{recent.get(k, 0):2d}本 → 候補{got[k]:2d}件")
+            subs = collections.Counter(c.get("sub", "") for c in picked
+                                       if c["category"] == k)
+            inner = "・".join(f"{x}{n}" for x, n in subs.most_common())
+            print(f"  {k:12s} 直近{recent.get(k, 0):2d}本 → 候補{got[k]:2d}件"
+                  f"（{inner}）")
+    empty = [f"{c}/{s}" for c, s, _w in targets
+             if not any(x["category"] == c and x.get("sub") == s for x in out)]
+    if empty:
+        # 候補が1件も取れなかったサブ。母数が小さくて MIN_REVIEWS を
+        # 超える商品が無いサブは、ここに毎回出る。出続けるようなら
+        # そのサブの検索語を見直すか、対象から外す。
+        print(f"候補が取れなかったサブ区分 {len(empty)} 件："
+              + "、".join(empty))
     return picked
 
 
@@ -728,7 +1016,25 @@ def main():
                     help="楽天の商品ページが取れた商品だけを候補にする")
     ap.add_argument("--no-trending", action="store_true",
                     help="楽天ランキングAPIを使わない（レビュー件数だけで選ぶ、従来どおりの動き）")
+    ap.add_argument("--subs-per-run", type=int, default=SUBS_PER_RUN,
+                    help="1回の実行で引くサブ区分の数（記事の少ないサブから順に引く）")
+    ap.add_argument("--check-subs", action="store_true",
+                    help="CATEGORY_MAP の subs と content/site.json を突き合わせるだけ")
     args = ap.parse_args()
+
+    # サブ区分のキーがサイト側とずれていないか、毎回必ず確かめる。
+    # ずれたサブは候補が永久に作られないうえ、記事が0本のまま
+    # クールダウンの先頭に居座り続けて他のサブの番を奪う。
+    # 気づける経路が無いので、警告ではなくエラーで止める。
+    bad = check_subs()
+    if bad:
+        for line in bad:
+            print(f"::error::{line}", file=sys.stderr)
+        return 1
+    if args.check_subs:
+        n = sum(len(c.get("subs") or {}) for c in CATEGORY_MAP.values())
+        print(f"✅ CATEGORY_MAP の subs {n} 件は content/site.json と一致しています")
+        return 0
 
     rakuten_id = os.environ.get("RAKUTEN_APP_ID", "").strip()
     rakuten_key = os.environ.get("RAKUTEN_ACCESS_KEY", "").strip()
@@ -752,7 +1058,8 @@ def main():
 
     cands = build_candidates(rakuten_id, rakuten_key, yahoo_id, cats,
                              args.limit, args.per_category,
-                             trending=not args.no_trending)
+                             trending=not args.no_trending,
+                             subs_per_run=args.subs_per_run)
 
     if args.require_rakuten:
         # 楽天の商品ページが取れた商品だけに絞る。
