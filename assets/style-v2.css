@@ -1429,10 +1429,28 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card-grid.is-home6{grid-template-columns:repeat(5,minmax(0,1fr));}
   .card-grid.is-home6 > .card:nth-child(n+7){display:grid;}
   .card-grid.is-home6 > .card:nth-child(n+11){display:none;}
-  /* 今日のピックアップ … 4列×1行（4件）。ここだけ1行にする */
-  #pickGrid{grid-template-columns:repeat(4,minmax(0,1fr));}
+  /* 今日のピックアップ・カテゴリー・PR … 5列×1行。
+     新着とランキングが5列×2行なので、タイルの大きさをそろえる */
+  #pickGrid{grid-template-columns:repeat(5,minmax(0,1fr));}
   #pickGrid > .card:nth-child(n+4){display:grid;}
-  #pickGrid > .card:nth-child(n+5){display:none;}
+  #pickGrid > .card:nth-child(n+6){display:none;}
+  /* カテゴリーは、幅の広いPCでは横に送る帯をやめて5列の並びにする。
+     全部（14個）は出さないので、続きは VIEW ALL から見てもらう */
+  .cat-grid.is-rail{
+    display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;
+    overflow:visible;
+    -webkit-mask-image:none;mask-image:none;
+    border-top:1px solid var(--line);border-left:1px solid var(--line);
+  }
+  .cat-grid.is-rail > .cat-cell{flex:none;border:0;
+    border-right:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .cat-grid.is-rail > .cat-cell:nth-child(n+6){display:none;}
+  /* 並びになったので、横に送るボタンは出さない */
+  .cat-rail .rail-btn{display:none;}
+  /* PRのバナーも記事の並びと同じ5列に */
+  .v2-section .promo-group > .card-grid{
+    grid-template-columns:repeat(5,minmax(0,1fr));
+  }
 }
 
 @media (max-width:1080px){
@@ -4162,6 +4180,23 @@ h1,h2,h3,h4,
    数字はビルドのたびに数え直す（build.py の v2_home_stats）。
    ============================================================ */
 .home-stats{margin:0;}
+/* 幅の広いPCでは、見出し（NEW ----）・記事タイル・VIEW ALL と左右を
+   そろえる（2026-09-27の指摘）。ここだけ器の全幅で、下の罫線より
+   左右に張り出して見えていた。差し引く幅は .sec-head.has-feat-ad /
+   .has-side-ad と同じ（左の広告160px＋隙間28px、右の広告130px＋隙間28px）。
+   **この指定は .home-stats{margin:0} より後に置くこと。**
+   同じ詳細度なので、先に書くと打ち消される（実際そうなっていた）。 */
+@media (min-width:1081px){
+  .home-stats,
+  /* カテゴリーとPRの区画には広告の列が無いので、中身にも同じ余白を
+     入れて、新着記事などと左右をそろえる（見出しとボタンは
+     .has-feat-ad / .has-side-ad が同じ幅にしている） */
+  .is-home .cat-rail,
+  .is-home .promo-group{
+    margin-left:calc(160px + 28px);
+    margin-right:calc(130px + 28px);
+  }
+}
 .hs-nums{list-style:none;
   margin:0;
   padding:0;

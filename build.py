@@ -641,7 +641,7 @@ def promo_band(where="top"):
             '      </aside>\n')
 
 
-def promo_slot(where, cat="", cls=""):
+def promo_slot(where, cat="", cls="", count=0):
     """ASP（A8.net・バリューコマースなど）で取得した広告リンクを置く枠。
        配られたコードは書き換えず、そのまま流し込む（規約）。
        決めるのは「どこに出すか」と「どのカテゴリーの記事に出すか」だけ。
@@ -678,7 +678,9 @@ def promo_slot(where, cat="", cls=""):
     # そこから3件を選ぶ。枠ごとに3件ずつ並べると、広告だらけになるため。
     label = e(str(PROMOS.get("label") or "PR"))
     cards = [promo_card(a, label) for x in items for a in promo_ads(x)]
-    show = min(PROMO_COUNT, len(cards))
+    # count を渡すと、その枠だけ並べる数を変えられる（ホームのPR区画は
+    # 記事の並びと同じ5列にそろえたいので5枚）。渡さなければ既定の3枚。
+    show = min(count or PROMO_COUNT, len(cards))
     c = f" {cls}" if cls else ""
     if len(cards) <= show:
         # 選びようがないので、そのまま並べる
@@ -3583,10 +3585,11 @@ def build_index():
     # （promo_row_slot）ではなく、記事と同じ正方形寄りのタイルで
     # そろえる（promo_slot と同じ card-grid.is-3）。他の段と同じく
     # 見出し（PR ----）を立て、PCは左にバナーを1本添える。
-    home_ad = promo_slot("list_end")
+    home_ad = promo_slot("list_end", count=5)
     if home_ad.strip():
         body += v2_section(
-            v2_sec_head("PR", "気になる商品・キャンペーン")
+            v2_sec_head("PR", "気になる商品・キャンペーン",
+                        cls="has-feat-ad has-side-ad")
             + '      <div class="home-featwrap">'
             + home_ad + '</div>\n')
 
@@ -3596,9 +3599,13 @@ def build_index():
     if slots.strip():
         body += v2_section(slots)
 
+    # 見出し・ボタンは、新着記事などと同じく広告ぶんを差し引いた幅に
+    # そろえる（この区画に広告は無いが、縦に並べたときの左右をそろえる）。
     body += v2_section(
-        v2_sec_head("CATEGORY", "カテゴリーから探す")
-        + v2_cat_carousel(p) + v2_sec_more(f"{p}categories.html"))
+        v2_sec_head("CATEGORY", "カテゴリーから探す",
+                    cls="has-feat-ad has-side-ad")
+        + v2_cat_carousel(p)
+        + v2_sec_more(f"{p}categories.html", cls="has-feat-ad has-side-ad"))
 
     # サイトそのものの構造化データ。検索結果にサイト名と検索窓を出す材料。
     site_ld = [
