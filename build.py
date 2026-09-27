@@ -3588,6 +3588,49 @@ def v2_budget(items, p, min_priced=10, min_band=3):
             '      </div>\n')
 
 
+def v2_review_rank(p, pool_json):
+    """口コミ件数・評価の高さで探す帯。ホームの「よく読まれている記事」は
+       閲覧数（PVベース、RANKING_HOME）だが、それとは別に「口コミが多い＝
+       定番」「評価が高い」という軸で探したい読者向けに追加した
+       （2026-09-27、ユーザー判断）。カテゴリーをまたいでも「件数」「星」
+       は単位がそろっているので、予算帯と違ってオールジャンルのままで
+       意味を持つ。
+
+       中身の差し替えは v2_budget と同じ考え方（assets/main.js が
+       data-pool から並べ替える）。ここで出す5件はJSが動かないときの
+       中身でもある。"""
+    have_n = [a for a in PUBLISHED if card_stats_data(a).get("n")]
+    have_r = [a for a in PUBLISHED if card_stats_data(a).get("r")]
+    if len(have_n) < 5 or len(have_r) < 5:
+        return ""                      # どちらかの軸で5件そろわなければ出さない
+    top_n = sorted(have_n, key=lambda a: card_stats_data(a)["n"], reverse=True)[:5]
+    chips = ('<button type="button" class="bd-chip is-on" role="tab" '
+             'aria-selected="true" data-sort="n">口コミが多い順</button>'
+             '<button type="button" class="bd-chip" role="tab" '
+             'aria-selected="false" data-sort="r">評価が高い順</button>')
+    return ('      <div class="review-rank" data-review-rank>\n'
+            f'        <div class="bd-chips" role="tablist">{chips}</div>\n'
+            f'        <div class="card-grid is-home6" data-pool=\'{pool_json}\'>'
+            + "".join(v2_card(a, p) for a in top_n) + '</div>\n'
+            '      </div>\n')
+
+
+def v2_recent_views(p):
+    """ホームの「最近見た記事」。訪問者ごとの閲覧履歴（localStorage）は
+       ビルド時には分からないため、中身は空の器だけ出しておき、
+       assets/main.js が本人の履歴から埋める（sitewideに埋め込み済みの
+       data-rank の全記事一覧から引くので、ここで新しくpoolを埋め込む
+       必要は無い）。履歴が無い（初回訪問）人には枠ごと隠す
+       （hidden、JSが履歴を見つけたときだけ外す）。2026-09-27追加。"""
+    return (
+        '  <section class="v2-section recent-views" data-recent-views-wrap hidden>\n'
+        '    <div class="container">\n'
+        + v2_sec_head("RECENT", "最近見た記事")
+        + '      <div class="card-grid is-home6" data-recent-views></div>\n'
+        '    </div>\n  </section>\n'
+    )
+
+
 _FINDER_DATA = None
 
 
@@ -3681,7 +3724,7 @@ def v2_side_ranking(a, p, n=5):
         f'<span class="sl-no">{i + 1}</span>'
         f'<span>{e(x.get("list_title") or x["title"])}</span></a></li>'
         for i, x in enumerate(items))
-    return (f'      <div class="side-box">\n'
+    return (f'      <div class="side-box side-box-pc">\n'
             f'        <p class="finder-title">同じカテゴリーの人気記事</p>\n'
             f'        <ol class="side-list">{rows}</ol>\n'
             f'      </div>\n'), {x["slug"] for x in items}
@@ -3701,7 +3744,7 @@ def v2_side_new(a, p, exclude, n=5):
         f'<li><a href="{p}articles/{x["slug"]}.html">'
         f'<span>{e(x.get("list_title") or x["title"])}</span></a></li>'
         for x in items)
-    return (f'      <div class="side-box">\n'
+    return (f'      <div class="side-box side-box-pc">\n'
             f'        <p class="finder-title">同じカテゴリーの新着</p>\n'
             f'        <ul class="side-list">{rows}</ul>\n'
             f'      </div>\n')
@@ -3711,7 +3754,7 @@ def v2_side_search(p):
     """サイドバー：サイト内検索。search.js が起動時に ?q= を読んで検索を
        再現するので（assets/search.js の「起動：URLパラメータを復元」）、
        ただのGETフォームでも search.html 側で機能する。"""
-    return (f'      <div class="side-box">\n'
+    return (f'      <div class="side-box side-box-pc">\n'
             f'        <p class="finder-title">キーワードで探す</p>\n'
             f'        <form class="side-search-box" action="{p}search.html" '
             f'method="get" role="search">\n'
@@ -3768,6 +3811,12 @@ def build_index():
     # サイトの規模と守備範囲を、記事タイルより先に見せる。
     # 中身が1行の帯なので、区画の上下の余白は他より詰める（is-stats）。
     body = v2_section(v2_home_stats(p), cls="is-stats")
+
+    # 最近見た記事。初訪問には出せないので中身は空のまま置いておき、
+    # JSが本人の履歴を見つけたときだけ中身を埋めて出す（v2_recent_views）。
+    # 新着より前、統計のすぐ下に置く：戻ってきた人には
+    # 「続きから」を新着より先に見せたい。
+    body += v2_recent_views(p)
 
     body += v2_section(
         v2_sec_head("NEW", "新着記事", cls="has-feat-ad has-side-ad")
@@ -3826,6 +3875,13 @@ def build_index():
     # 読者の探し方に合わない）。カテゴリー・サブ区分の一覧では引き続き
     # 使う（v2_budget、build_category / build_subcategory）ほか、
     # 記事側にはカテゴリー→予算の順で選べる v2_article_finder を置いた。
+    # 代わりに、カテゴリーをまたいでも単位がそろう「口コミ件数・評価」
+    # を軸にした帯を置く（v2_review_rank）。
+    review_rank = v2_review_rank(p, html.escape(json.dumps(pool, ensure_ascii=False), quote=True))
+    if review_rank:
+        body += v2_section(
+            v2_sec_head("PICK", "口コミで探す", cls="has-feat-ad has-side-ad")
+            + '      <div class="home-featwrap">' + review_rank + '</div>\n')
 
     # ピックアップもランキングと同じ横カルーセル（スマホ）。枠を同じ
     # 大きさにすると3列では収まらないため、送って見せる形にそろえる。

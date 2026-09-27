@@ -3530,6 +3530,10 @@ p,li,.card-desc{text-wrap:pretty;}
 .side-box{max-width:900px;margin:0 auto;width:100%;
   padding:18px;border:1px solid var(--line-2);border-radius:var(--radius);
   background:var(--bg-2);}
+/* 人気記事・新着・検索の3枚はPC専用（2026-09-27、ユーザー判断で
+   スマホには出さないことにした）。「条件で探す」（.article-finder）は
+   機能自体がスマホでも要件なので対象外＝.side-box-pc を付けない。 */
+.side-box-pc{display:none;}
 .finder-title{margin:0 0 12px;font-size:13px;font-weight:700;
   letter-spacing:.03em;color:var(--ink-2);}
 .finder-select{display:block;width:100%;margin-bottom:8px;
@@ -3568,6 +3572,7 @@ p,li,.card-desc{text-wrap:pretty;}
   .article-sidebar{margin-top:0;
     position:sticky;top:calc(var(--header-h) + 12px);}
   .side-box{max-width:none;margin:0;}
+  .side-box-pc{display:block;}
 }
 /* 記事ページの縦長バナー（.article-side-ad）。
    本文は900pxで中央寄せ、器（.container）は1200pxなので、左右に
@@ -4292,6 +4297,8 @@ h1,h2,h3,h4,
   .is-home .cat-rail,
   .is-home .promo-group,
   .is-home .budget,
+  .is-home .review-rank,
+  .is-home .recent-views,
   .is-home .card-grid.is-feature{
     margin-left:calc(160px + 28px);
     margin-right:calc(130px + 28px);
@@ -4359,7 +4366,7 @@ h1,h2,h3,h4,
    読者が最初の1本にたどり着けなかったので足した（2026-09-27）。
    札の見た目は、このサイトの他のボタンと同じく角を立てる。
    ============================================================ */
-.budget{flex:1 1 auto;min-width:0;}
+.budget,.review-rank{flex:1 1 auto;min-width:0;}
 .bd-chips{display:flex;
   flex-wrap:wrap;
   gap:8px;

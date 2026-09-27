@@ -370,6 +370,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   'use strict';
 
   var VIEW_KEY = 'mb.views';
+  var RECENT_KEY = 'mb.recent';
   var data = {};
   try { data = JSON.parse(document.body.getAttribute('data-rank') || '{}'); }
   catch (e) { data = {}; }
@@ -409,6 +410,17 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     if (m) {
       mine[m[1]] = (mine[m[1]] || 0) + 1;
       try { localStorage.setItem(VIEW_KEY, JSON.stringify(mine)); } catch (e) {}
+
+      /* ---- ホームの「最近見た記事」用に、見た順を別に記録する ----
+         mine は回数だけで順番を持たないため、直近順に並べたいここでは
+         スラッグの配列を別キーで持つ（新しい順、重複排除、上限12件）。 */
+      try {
+        var recent = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
+        if (!Array.isArray(recent)) recent = [];
+        recent = recent.filter(function (s) { return s !== m[1]; });
+        recent.unshift(m[1]);
+        localStorage.setItem(RECENT_KEY, JSON.stringify(recent.slice(0, 12)));
+      } catch (e) {}
     }
   }
 
@@ -502,6 +514,36 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   if (results && 'MutationObserver' in window) {
     new MutationObserver(function () { flags(results); views(results); })
       .observe(results, { childList: true });
+  }
+
+  /* ---- ホームの「最近見た記事」 ----
+     訪問者ごとの閲覧履歴（RECENT_KEY）を、この端末で見た順に並べる。
+     items は上の rank_data と同じ全記事一覧なので、新しい pool を
+     埋め込まなくてもここから引ける。履歴が無い（初回訪問）ときは
+     枠ごと隠したまま（build.py 側が既定で hidden にしている）。
+     ホームには .rank-list が無く、この下の早期 return で止まって
+     しまうため、その手前に置く。 */
+  var recentGrid = document.querySelector('[data-recent-views]');
+  if (recentGrid) {
+    var recentSlugs = [];
+    try { recentSlugs = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); }
+    catch (e) { recentSlugs = []; }
+    var bySlug = {};
+    items.forEach(function (it) { bySlug[it.slug] = it; });
+    var found = recentSlugs.map(function (s) { return bySlug[s]; })
+      .filter(Boolean).slice(0, 5);
+    if (found.length) {
+      recentGrid.innerHTML = found.map(function (it) {
+        return cardHtml({
+          u: it.url, t: it.title, x: it.excerpt || '', c: it.cat, k: it.catKey,
+          s: it.slug, d: it.date, th: it.thumb, sh: !!it.shop, sp: it.shop,
+          as: it.asin, st: it.st,
+        });
+      }).join('');
+      var recentSection = recentGrid.closest('.v2-section') || recentGrid;
+      recentSection.hidden = false;
+      document.dispatchEvent(new CustomEvent('mb:cards', { detail: recentGrid }));
+    }
   }
 
   /* ---- ランキングを描く ---- */
@@ -1800,5 +1842,55 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       if (bandSel.value) url += '?b=' + encodeURIComponent(bandSel.value);
       location.href = url;
     });
+  });
+})();
+
+
+/* ============================================================
+   口コミで探す（ホーム）
+   ------------------------------------------------------------
+   予算で探すと同じ考え方だが、帯で絞るのではなく「口コミ件数」
+   「評価」で並べ替える2択のタブ。カテゴリーをまたいでも件数・星は
+   単位がそろうので、全記事が母数のままで意味を持つ（v2_review_rank）。
+   ============================================================ */
+(function () {
+  'use strict';
+  var box = document.querySelector('[data-review-rank]');
+  if (!box) return;
+  var grid = box.querySelector('.card-grid');
+  var chips = box.querySelectorAll('.bd-chip');
+  if (!grid || !chips.length) return;
+
+  var pool = [];
+  try { pool = JSON.parse(grid.getAttribute('data-pool') || '[]'); }
+  catch (e) { pool = []; }
+  if (!pool.length) return;
+
+  function rankedBy(key) {
+    return pool.filter(function (a) { return a.st && a.st[key]; })
+      .sort(function (a, b) {
+        var d = (Number(b.st[key]) || 0) - (Number(a.st[key]) || 0);
+        /* 評価が同点のときは、件数が多いほうを上にする
+           （★5・口コミ1件より★4.8・口コミ数万件のほうが信頼できる） */
+        if (d !== 0 || key !== 'r') return d;
+        return (Number(b.st.n) || 0) - (Number(a.st.n) || 0);
+      })
+      .slice(0, 5);
+  }
+
+  function show(chip) {
+    var key = chip.getAttribute('data-sort') || 'n';
+    Array.prototype.forEach.call(chips, function (c) {
+      c.classList.toggle('is-on', c === chip);
+      c.setAttribute('aria-selected', c === chip ? 'true' : 'false');
+    });
+    var items = rankedBy(key);
+    if (!items.length) return;
+    grid.innerHTML = items.map(cardHtml).join('');
+    document.dispatchEvent(new CustomEvent('mb:cards', { detail: grid }));
+  }
+
+  Array.prototype.forEach.call(chips, function (c) {
+    c.addEventListener('click', function () { show(c); });
   });
 })();
