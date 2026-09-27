@@ -551,6 +551,20 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
   overflow:hidden;max-height:3.6em;
 }
+/* カテゴリーは写真の右下に札で乗せる（2026-09-28、ユーザー指摘）。
+   日付・VIEWと同じ行の右端に置いていたが、タイルの幅が足りず
+   「家具・イン…」と見切れていた。写真の上なら行の幅に左右されない。
+   広告タイル（promo_card）のカテゴリー位置は「PR」表記のままなので、
+   下の行内の指定もそのまま残す。 */
+.card-thumb .card-cat{
+  position:absolute;right:6px;bottom:6px;z-index:2;
+  margin:0;max-width:calc(100% - 12px);
+  padding:3px 8px;
+  background:rgba(255,255,255,.92);border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:10px;font-weight:700;letter-spacing:.04em;
+  line-height:1.5;text-align:left;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
 /* カテゴリーは日付・VIEWと同じ行の右端に置く（左に margin:auto で寄せる） */
 .card-cat{
   flex:0 1 auto;min-width:0;text-align:right;margin-left:auto;

@@ -35,11 +35,12 @@ function cardHtml(a) {
     ' data-date="' + esc(a.d) + '">' +
     '<span class="card-thumb' + tcls + '"' + tattr + '>' +
       '<img src="' + esc(a.th) + '" alt="" loading="lazy">' +
-      '<span class="card-flags" aria-hidden="true"></span></span>' +
+      '<span class="card-flags" aria-hidden="true"></span>' +
+      /* カテゴリーは写真の右下の札。build.py の v2_card() と同じ並び */
+      '<span class="card-cat">' + esc(a.c) + '</span></span>' +
     '<span class="card-meta">' +
       '<span class="card-date">' + esc(a.d) + '</span>' +
-      '<span class="card-views" hidden></span>' +
-      '<span class="card-cat">' + esc(a.c) + '</span></span>' +
+      '<span class="card-views" hidden></span></span>' +
     '<span class="card-title">' + titleHtml(a.t) + '</span>' +
     statsHtml(a.st) +
     '<span class="card-note">' + esc(a.x) + '</span></a>';
