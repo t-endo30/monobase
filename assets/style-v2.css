@@ -3693,6 +3693,9 @@ p,li,.card-desc{text-wrap:pretty;}
   .article-side-ad-one{
     display:flex;flex-direction:column;align-items:center;gap:8px;
   }
+  /* 読めなかったバナーは assets/main.js が hidden を付けて消す。
+     display:flex が効いたままだと hidden が無視されるので上書きする。 */
+  .article-side-ad-one[hidden]{display:none;}
   .article-side-ad.is-left .article-side-ad-inner{margin-left:10px;}
   .article-side-ad.is-right .article-side-ad-inner{margin-left:20px;}
   .article-side-ad-label{

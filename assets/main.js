@@ -1898,3 +1898,49 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   window.addEventListener('scroll', queue, { passive: true });
   window.addEventListener('resize', queue, { passive: true });
 })();
+
+/* 記事ページの左右の縦バナー。バナー画像が読めなかったとき、
+   「PR」の文字だけが枠に残ってしまうので、その枠ごと消す
+   （2026-09-28、ユーザー指摘。記事下のタイル・帯バナー・ホームの
+   home-feat-ad には同じ仕組みが既にあり、左右の縦バナーだけ
+   抜けていた）。素材は生きていても、広告ブロッカーや回線の
+   都合で読めないことがある。列の枠が全部消えたら列自体も隠す。 */
+(function () {
+  var rails = document.querySelectorAll('.article-side-ad');
+  if (!rails.length) return;
+
+  function watch(one, onfail) {
+    var imgs = one.querySelectorAll('img');
+    var banner = null;
+    for (var i = 0; i < imgs.length; i++) {
+      /* 1x1 は成果を数えるための画像。バナーではない */
+      if (imgs[i].getAttribute('width') !== '1') { banner = imgs[i]; break; }
+    }
+    if (!banner) { onfail(); return; }
+    var done = false;
+    function fail() { if (!done) { done = true; onfail(); } }
+    if (banner.complete) {
+      if (!banner.naturalWidth) fail();
+      return;
+    }
+    banner.addEventListener('error', fail);
+    banner.addEventListener('load', function () { done = true; });
+    /* 失敗を知らせないまま止まることがあるので、長めに待ってから見る */
+    setTimeout(function () {
+      if (!banner.complete || !banner.naturalWidth) fail();
+    }, 20000);
+  }
+
+  Array.prototype.forEach.call(rails, function (rail) {
+    var ones = rail.querySelectorAll('.article-side-ad-one');
+    var left = ones.length;
+    if (!left) { rail.hidden = true; return; }
+    Array.prototype.forEach.call(ones, function (one) {
+      watch(one, function () {
+        one.hidden = true;
+        left -= 1;
+        if (left <= 0) rail.hidden = true;
+      });
+    });
+  });
+})();
