@@ -1915,16 +1915,20 @@ def kind_of(a):
     return "roundup" if a.get("category") == "feature" else "review"
 
 
-def sub_badge(a):
+def sub_badge(a, p):
     """記事の分野の、さらに細かい区分（サブ区分）の札。
 
        「パソコン」だけでは何の記事か分からない。「モニター」「マウス」
        まで出すと、開いた瞬間に扱っている物が伝わる。
-       区分を持たない記事では何も出さない。"""
-    label = SUB_LABEL.get((a.get("category", ""), a.get("sub", "")))
+       区分を持たない記事では何も出さない。押すとそのサブ区分の一覧へ
+       飛べる（この記事自身がそのサブ区分に属するので、一覧ページは
+       必ず存在する）。"""
+    cat, sub = a.get("category", ""), a.get("sub", "")
+    label = SUB_LABEL.get((cat, sub))
     if not label:
         return ""
-    return f'<span class="badge badge-sub">{e(label)}</span>'
+    return (f'<a class="badge badge-sub" href="{p}category-{cat}-{sub}.html">'
+            f'{e(label)}</a>')
 
 
 def kind_badge(a):
@@ -2735,7 +2739,7 @@ def render_article(a):
 
     add('      <article class="card-surface" id="review">\n')
     add(f'''        <div class="article-meta">
-          <span class="badge badge-cat">{e(CAT_LABEL.get(cat,""))}</span>{sub_badge(a)}
+          <a class="badge badge-cat" href="{p}category-{cat}.html">{e(CAT_LABEL.get(cat,""))}</a>{sub_badge(a, p)}
           {kind_badge(a)}
           <span class="article-date">{e(jp_date(a.get("updated") or a["date"]))} 更新</span>
         </div>
