@@ -761,37 +761,59 @@ def promo_mid2(cat):
 
 
 def promo_side(slug):
-    """記事ページの、幅の広いPCだけに出る縦長バナー。
+    """記事ページの、幅の広いPCだけに出る縦長バナー。左右に3本ずつ。
 
-       本文（.article-page）は900pxで中央寄せ、器（.container）は
-       1200pxなので、左右に150pxずつ余白がある。そこへ120x600クラスの
-       縦長バナーを、スクロールに追従させて左右1本ずつ置く
-       （幅の狭い画面では assets/style-v2.css 側で display:none にする）。
-       複数あれば記事ごとに順番を回して2本選ぶ（左右で同じ広告が
-       並ばないよう、右は左の次の候補にする。1件しか無ければ同じ
-       広告が両側に出る）。"""
-    items = [x for x in (PROMOS.get("items") or [])
-             if str(x.get("where") or "") == "article_side" and promo_ads(x)]
-    ads = [a for x in items for a in promo_ads(x)]
+       本文（.article-page）は900px、サイドバーが300px、器は1620pxまで
+       広げてあるので、左右に150pxずつの余白が残る。そこへ幅120の
+       縦長バナーを縦に3本ずつ積む（2026-09-28にユーザー判断で1本→3本。
+       幅が変わると本文・サイドバーの幅の計算がずれるので、
+       **幅120の素材だけ**を使う。assets/style-v2.css の 3.9 節と
+       CLAUDE.md の「記事ページの横幅」を参照）。
+
+       where=article_side に割り当てた素材が足りないので、幅120の
+       縦長素材なら割り当ての無いものからも足す（promo_slot と同じ
+       考え方）。記事ごとに開始位置をずらし、左右で同じ広告が並ばない
+       よう互い違いに配る。"""
+    def tall(a):
+        # size は "120x600" の形。幅が違う素材を混ぜると列の幅が変わる。
+        try:
+            w, h = [int(v) for v in str(a.get("size") or "").split("x")]
+        except ValueError:
+            return False
+        return w <= 130 and h >= 240
+
+    tiles = [x for x in (PROMOS.get("items") or []) if promo_ads(x)]
+    ads, seen = [], set()
+    # 記事横に割り当てた素材を先に、足りないぶんを残りから
+    for pref in (True, False):
+        for x in tiles:
+            if (str(x.get("where") or "") == "article_side") != pref:
+                continue
+            for a in promo_ads(x):
+                if tall(a) and a["html"] not in seen:
+                    seen.add(a["html"])
+                    ads.append(a)
     if not ads:
         return ""
+
+    per = min(3, max(1, len(ads) // 2)) if len(ads) > 1 else 1
     i = sum(map(ord, slug)) % len(ads)
     label = e(str(PROMOS.get("label") or "PR"))
 
-    def aside(ad, side):
-        # 外側（.article-side-ad）は記事と同じ高さのただの領域（グリッドの
-        # 1列）で、内側（-inner）だけを position:sticky にする。
-        # 外も内も同じ要素で sticky にすると、記事の縦幅ぶんの高さを
-        # 自分自身が持ってしまい、天面がその高さぶん下がってしまう
-        # （左右のバナーを2本とも並べたときに高さがずれる原因になった）。
+    def column(side, picks):
+        inner = "".join(
+            f'<span class="article-side-ad-one">'
+            f'<span class="article-side-ad-label">{label}</span>{a["html"]}'
+            f'</span>'
+            for a in picks)
         return (f'    <aside class="article-side-ad is-{side}" aria-label="広告">'
-                f'<span class="article-side-ad-inner">'
-                f'<span class="article-side-ad-label">{label}</span>{ad["html"]}'
-                f'</span></aside>\n')
+                f'<span class="article-side-ad-inner">{inner}</span></aside>\n')
 
-    out = aside(ads[i], "left")
+    left  = [ads[(i + 2 * n) % len(ads)] for n in range(per)]
+    right = [ads[(i + 2 * n + 1) % len(ads)] for n in range(per)]
+    out = column("left", left)
     if len(ads) > 1:
-        out += aside(ads[(i + 1) % len(ads)], "right")
+        out += column("right", right)
     return out
 
 
@@ -3732,7 +3754,7 @@ def v2_article_finder(p, a):
     )
 
 
-def v2_side_ranking(a, p, n=5):
+def v2_side_ranking(a, p, n=8):
     """サイドバー：同じカテゴリーの人気記事。ホームの「よく読まれている
        記事」と同じ並び基準（直近の閲覧数、無ければ累計）を使う。
        写真は置かず順位＋タイトルだけにして、縦に4枚並ぶサイドバーの
@@ -3755,7 +3777,7 @@ def v2_side_ranking(a, p, n=5):
             f'      </div>\n'), {x["slug"] for x in items}
 
 
-def v2_side_new(a, p, exclude, n=5):
+def v2_side_new(a, p, exclude, n=8):
     """サイドバー：同じカテゴリーの新着記事。人気記事と同じ顔ぶれが
        重複しないよう、そちらで既に出した記事は除く（exclude）。
        PUBLISHED は既に新しい順なので、絞るだけで新着順になる。"""
@@ -3790,16 +3812,86 @@ def v2_side_search(p):
             f'      </div>\n')
 
 
+def v2_side_features(p, a, n=6):
+    """サイドバー：特集・比較の記事。個別レビューを読んでいる人に、
+       横断して見られる記事があることを知らせる（内部リンクの導線も
+       兼ねる。2026-09-28、サイドバーの下が余るというユーザー指摘で追加）。"""
+    items = [x for x in PUBLISHED
+             if x.get("category") == "feature" and x["slug"] != a["slug"]][:n]
+    if not items:
+        return ""
+    rows = "".join(
+        f'<li><a href="{p}articles/{x["slug"]}.html">'
+        f'<span>{e(x.get("list_title") or x["title"])}</span></a></li>'
+        for x in items)
+    return (f'      <div class="side-box side-box-pc">\n'
+            f'        <p class="finder-title">比較・選び方から探す</p>\n'
+            f'        <ul class="side-list">{rows}</ul>\n'
+            f'      </div>\n')
+
+
+def v2_side_cats(p, a):
+    """サイドバー：カテゴリーの一覧（記事数つき）。今読んでいる
+       カテゴリーには印を付ける。一覧ページへの入口を記事側からも
+       持たせて、巡回の行き止まりを減らす。"""
+    cnt = {}
+    for x in PUBLISHED:
+        cnt[x.get("category", "")] = cnt.get(x.get("category", ""), 0) + 1
+    rows = ""
+    for c in CATS:
+        n = cnt.get(c["key"], 0)
+        if not n:
+            continue
+        on = " class=\"is-on\"" if c["key"] == a.get("category") else ""
+        rows += (f'<li{on}><a href="{p}category-{c["key"]}.html">'
+                 f'<span>{e(c["label"])}</span>'
+                 f'<span class="sl-n">{n}</span></a></li>')
+    if not rows:
+        return ""
+    return (f'      <div class="side-box side-box-pc">\n'
+            f'        <p class="finder-title">カテゴリーから探す</p>\n'
+            f'        <ul class="side-list is-cats">{rows}</ul>\n'
+            f'      </div>\n')
+
+
+def v2_side_recent(p, a, exclude, n=8):
+    """サイドバー：カテゴリーをまたいだサイト全体の新着。同じ
+       カテゴリーの新着（v2_side_new）と重複しないものだけ出す。"""
+    items = [x for x in PUBLISHED
+             if x["slug"] != a["slug"] and x["slug"] not in exclude][:n]
+    if not items:
+        return ""
+    rows = "".join(
+        f'<li><a href="{p}articles/{x["slug"]}.html">'
+        f'<span>{e(x.get("list_title") or x["title"])}</span></a></li>'
+        for x in items)
+    return (f'      <div class="side-box side-box-pc">\n'
+            f'        <p class="finder-title">サイト全体の新着</p>\n'
+            f'        <ul class="side-list">{rows}</ul>\n'
+            f'      </div>\n')
+
+
 def v2_article_sidebar(p, a):
     """記事のサイドバー全体。「条件で探す」＋同カテゴリーの人気記事・
        新着＋サイト内検索の4枚を1つの追従列にまとめる（1枚だけだと
        PCで寂しいというユーザー指摘を受けて追加、2026-09-27）。"""
     ranking_html, ranked_slugs = v2_side_ranking(a, p)
+    new_html = v2_side_new(a, p, ranked_slugs)
+    # 同じカテゴリーで既に出した記事は、サイト全体の新着では省く
+    shown = set(ranked_slugs)
+    for x in PUBLISHED:
+        if f'articles/{x["slug"]}.html' in new_html:
+            shown.add(x["slug"])
     return ('    <aside class="article-sidebar">\n'
             + v2_article_finder(p, a)
             + ranking_html
-            + v2_side_new(a, p, ranked_slugs)
+            + new_html
+            + v2_side_features(p, a)
+            + v2_side_cats(p, a)
+            + v2_side_recent(p, a, shown)
             + v2_side_search(p)
+            + promo_slot("article_end", cat=a.get("category", ""),
+                         cls="side-box side-box-pc side-promo", count=2)
             + '    </aside>\n')
 
 

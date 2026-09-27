@@ -1858,3 +1858,32 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     c.addEventListener('click', function () { show(c); });
   });
 })();
+
+/* 背景写真の流し方。ページ全体のスクロール量に対する進み具合を
+   0〜1 で --bg-pan に入れる。CSS 側（body::before）がその値ぶん
+   写真をずらすので、先頭から末尾まで読む間に少しずつ流れ、
+   最後まで来たところで流れ切る（2026-09-28、ユーザー指摘で追加。
+   以前は background-attachment:fixed で完全に止めていた）。 */
+(function () {
+  var root = document.documentElement;
+  var queued = false;
+
+  function apply() {
+    queued = false;
+    var max = root.scrollHeight - window.innerHeight;
+    var p = max > 0 ? window.pageYOffset / max : 0;
+    if (p < 0) p = 0;
+    if (p > 1) p = 1;
+    root.style.setProperty('--bg-pan', p.toFixed(4));
+  }
+
+  function queue() {
+    if (queued) return;
+    queued = true;
+    window.requestAnimationFrame(apply);
+  }
+
+  apply();
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue, { passive: true });
+})();

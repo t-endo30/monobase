@@ -48,21 +48,39 @@ body{
   line-height:1.9;
   color:var(--ink);
   background-color:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+/* 写真は body 自体ではなく、画面いっぱいに敷いた1枚の層（body::before）に
+   置く。層は画面より40vh ぶん背を高く取り、ページ全体のスクロール量に
+   対する進み具合（--bg-pan：0〜1、assets/main.js が入れる）だけ上へ
+   ずらす。こうすると、ページの先頭から最後まで読み進める間に写真が
+   少しずつ流れ、最後まで来たところで流れ切る。
+   以前は background-attachment:fixed で完全に止めていたが、
+   「少しスクロールしただけで背景が流れ切ってしまう」というユーザー
+   指摘（2026-09-28）を受けて、ページの進み具合に連動させた。
+   JSが動かないときは --bg-pan が無いので 0 のまま＝従来どおり止まる。 */
+body::before{
+  content:"";
+  position:fixed;left:0;right:0;top:0;height:140vh;z-index:-1;
+  pointer-events:none;
   background-image:
     linear-gradient(rgba(244,244,242,.80),rgba(244,244,242,.80)),
     url("img/bg-mobile.jpg");
   background-size:cover;
-  background-position:top center;
+  background-position:center;
   background-repeat:no-repeat;
-  background-attachment:fixed;
-  -webkit-font-smoothing:antialiased;
+  transform:translate3d(0,calc(var(--bg-pan,0) * -40vh),0);
+  will-change:transform;
 }
 @media (min-width:900px){
-  body{
+  body::before{
     background-image:
       linear-gradient(rgba(244,244,242,.80),rgba(244,244,242,.80)),
       url("img/bg-pc.jpg");
   }
+}
+@media (prefers-reduced-motion:reduce){
+  body::before{transform:none;}
 }
 /* 背景写真を出さない面。ヘッダー・フッター・ヒーローと、
    写真が透けると中身が読みにくくなるタイルや記事の面 */
@@ -3571,6 +3589,16 @@ p,li,.card-desc{text-wrap:pretty;}
   font-weight:700;color:#fff;background:var(--ink);border:none;
   border-radius:4px;cursor:pointer;}
 .side-search-box button:hover{background:var(--ink-2);}
+/* サイドバー下部に足した枠（2026-09-28）。下に行くほど余白が目立つ
+   というユーザー指摘を受けて、比較記事・カテゴリー・サイト全体の
+   新着・PRタイルを足した。PR枠は .promo-group 自体が .side-box を
+   兼ねるので、中の3列グリッドを1列に落とす。 */
+.side-promo .card-grid{grid-template-columns:1fr;gap:14px;}
+.side-promo .card-thumb img{width:100%;height:auto;}
+.side-list.is-cats a{justify-content:space-between;}
+.side-list .sl-n{flex:none;font-family:var(--font-en);font-size:11px;
+  color:var(--muted-2);}
+.side-list li.is-on > a{font-weight:700;color:var(--ink);}
 /* 本文900 + 隙間40 + サイド300 = 1240。器（.container）の既定は
    --wrap:1200px・左右の余白40pxで中身は1120pxしか無く、そのままだと
    1240が入らない。入らないぶんは本文（.article-page）が最小幅まで
@@ -3581,10 +3609,19 @@ p,li,.card-desc{text-wrap:pretty;}
 @media (min-width:1340px){
   .container:has(.article-body-wrap){--wrap:1320px;}
   .article-body-wrap{max-width:1240px;display:grid;
-    grid-template-columns:minmax(0,900px) 300px;gap:40px;align-items:start;}
+    grid-template-columns:minmax(0,900px) 300px;gap:40px;}
   /* グリッドの子は既定で min-width:auto（中身の最小幅まで）なので、
      列が足りないとはみ出す。0 を明示して必ず列の中に収める。 */
   .article-page{min-width:0;}
+  /* サイドバーの列は本文と同じ高さまで伸ばす（align-items は既定の
+     stretch）。箱を足しても本文の3分の1ほどにしかならず、下に
+     大きな余白が残るため、いちばん下のPR枠だけを追従させて
+     最後まで何か見えている状態にする（2026-09-28、ユーザー指摘）。
+     追従するのは画面に収まる高さの1枚だけなので、サイドバー全体を
+     sticky にしていたときのような「下が読めない」問題は起きない。 */
+  .article-sidebar > .side-promo{
+    position:sticky;top:calc(var(--header-h) + 12px);
+  }
   /* 追従（position:sticky）はしない。サイドバーは4枚積むと画面より
      背が高くなり、sticky だと上端で貼り付いたまま下の方が永久に
      読めなくなる＝「固定されて動かない」状態になる（2026-09-28、
@@ -3637,9 +3674,18 @@ p,li,.card-desc{text-wrap:pretty;}
      足したときここが .article-page のままで、直接の子ではなくなって
      効かなくなっていた。 */
   .container:has(> .article-side-ad) > .article-body-wrap{grid-column:2;grid-row:1;}
+  /* 縦長バナーを左右3本ずつ積む（2026-09-28）。3本で1800px を超え、
+     画面より背が高くなるので position:sticky は使えない（上端で
+     貼り付いて2本目から下が永久に読めなくなる。サイドバーで同じ
+     ことが起きた）。記事の高さいっぱいに等間隔で配り、読み進める
+     ほど下のバナーが現れるようにする。 */
+  .article-side-ad{display:flex;flex-direction:column;}
   .article-side-ad-inner{
+    display:flex;flex-direction:column;align-items:center;
+    justify-content:space-between;gap:48px;width:120px;flex:1 1 auto;
+  }
+  .article-side-ad-one{
     display:flex;flex-direction:column;align-items:center;gap:8px;
-    position:sticky;top:calc(var(--header-h) + 12px);width:120px;
   }
   .article-side-ad.is-left .article-side-ad-inner{margin-left:10px;}
   .article-side-ad.is-right .article-side-ad-inner{margin-left:20px;}
