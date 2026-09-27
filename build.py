@@ -3207,12 +3207,13 @@ def render_article(a):
     # 器だけ新デザインに合わせる。中身を作り直すと、収益に関わる部分が
     # 黙って壊れるおそれがあるため。
     # article-side-ad（左右の縦長バナー）は収益に関わるのでそのまま。
-    # 条件で探す枠（article-finder）はその内側、本文と並ぶ列に別枠で置く。
+    # サイドバー（条件で探す・人気記事・新着・検索）はその内側、
+    # 本文と並ぶ列に別枠で置く。
     body_html = ('  <div class="container">\n' + promo_side(slug)
                  + '    <div class="article-body-wrap">\n'
                  + '      <div class="article-page">\n'
                  + body_html + '      </div>\n'
-                 + v2_article_finder(p, a)
+                 + v2_article_sidebar(p, a)
                  + '    </div>\n  </div>\n'
                  + share_fab(a, url))
 
@@ -3640,7 +3641,7 @@ def v2_article_finder(p, a):
                         for lo, hi, label in BUDGET_BANDS)
     ad = promo_slot("article_end", cat=cat, cls="finder-ad", count=1)
     return (
-        '      <aside class="article-finder" data-finder '
+        '      <div class="side-box article-finder" data-finder '
         f'data-p="{e(p)}">\n'
         '        <p class="finder-title">条件で探す</p>\n'
         '        <select class="finder-select" data-role="cat">\n'
@@ -3659,8 +3660,79 @@ def v2_article_finder(p, a):
         'この条件で見る</button>\n'
         f'        <script type="application/json" class="finder-data">{finder_json}</script>\n'
         f'{ad}'
-        '      </aside>\n'
+        '      </div>\n'
     )
+
+
+def v2_side_ranking(a, p, n=5):
+    """サイドバー：同じカテゴリーの人気記事。ホームの「よく読まれている
+       記事」と同じ並び基準（直近の閲覧数、無ければ累計）を使う。
+       写真は置かず順位＋タイトルだけにして、縦に4枚並ぶサイドバーの
+       中で1枚あたりの高さを抑える。"""
+    cat = a.get("category", "")
+    items = [x for x in PUBLISHED if x["category"] == cat and x["slug"] != a["slug"]]
+    items.sort(key=lambda x: (RANKING_HOME.get(x["slug"], 0), x.get("date", "")),
+               reverse=True)
+    items = items[:n]
+    if not items:
+        return "", set()
+    rows = "".join(
+        f'<li><a href="{p}articles/{x["slug"]}.html">'
+        f'<span class="sl-no">{i + 1}</span>'
+        f'<span>{e(x.get("list_title") or x["title"])}</span></a></li>'
+        for i, x in enumerate(items))
+    return (f'      <div class="side-box">\n'
+            f'        <p class="finder-title">同じカテゴリーの人気記事</p>\n'
+            f'        <ol class="side-list">{rows}</ol>\n'
+            f'      </div>\n'), {x["slug"] for x in items}
+
+
+def v2_side_new(a, p, exclude, n=5):
+    """サイドバー：同じカテゴリーの新着記事。人気記事と同じ顔ぶれが
+       重複しないよう、そちらで既に出した記事は除く（exclude）。
+       PUBLISHED は既に新しい順なので、絞るだけで新着順になる。"""
+    cat = a.get("category", "")
+    items = [x for x in PUBLISHED
+             if x["category"] == cat and x["slug"] != a["slug"]
+             and x["slug"] not in exclude][:n]
+    if not items:
+        return ""
+    rows = "".join(
+        f'<li><a href="{p}articles/{x["slug"]}.html">'
+        f'<span>{e(x.get("list_title") or x["title"])}</span></a></li>'
+        for x in items)
+    return (f'      <div class="side-box">\n'
+            f'        <p class="finder-title">同じカテゴリーの新着</p>\n'
+            f'        <ul class="side-list">{rows}</ul>\n'
+            f'      </div>\n')
+
+
+def v2_side_search(p):
+    """サイドバー：サイト内検索。search.js が起動時に ?q= を読んで検索を
+       再現するので（assets/search.js の「起動：URLパラメータを復元」）、
+       ただのGETフォームでも search.html 側で機能する。"""
+    return (f'      <div class="side-box">\n'
+            f'        <p class="finder-title">キーワードで探す</p>\n'
+            f'        <form class="side-search-box" action="{p}search.html" '
+            f'method="get" role="search">\n'
+            f'          <input type="search" name="q" placeholder="{e(SEARCH_HINT)}" '
+            f'aria-label="サイト内検索">\n'
+            f'          <button type="submit">検索</button>\n'
+            f'        </form>\n'
+            f'      </div>\n')
+
+
+def v2_article_sidebar(p, a):
+    """記事のサイドバー全体。「条件で探す」＋同カテゴリーの人気記事・
+       新着＋サイト内検索の4枚を1つの追従列にまとめる（1枚だけだと
+       PCで寂しいというユーザー指摘を受けて追加、2026-09-27）。"""
+    ranking_html, ranked_slugs = v2_side_ranking(a, p)
+    return ('    <aside class="article-sidebar">\n'
+            + v2_article_finder(p, a)
+            + ranking_html
+            + v2_side_new(a, p, ranked_slugs)
+            + v2_side_search(p)
+            + '    </aside>\n')
 
 
 def build_index():

@@ -3512,19 +3512,22 @@ p,li,.card-desc{text-wrap:pretty;}
 .article-page{max-width:900px;margin:0 auto;padding:8px 0 72px;}
 
 /* ============================================================
-   記事の「条件で探す」サイドバー（.article-finder）
+   記事のサイドバー（.article-sidebar）
    ------------------------------------------------------------
-   カテゴリー→サブ区分→予算の3段プルダウンで、条件に合う一覧へ飛べる。
-   ホームの「予算で探す」はオールジャンルだと価格帯が意味を持たない
-   （2026-09-27、ユーザー判断でホームからは撤去）ので、まずカテゴリーを
-   選ばせるここに置き換えた。
+   「条件で探す」（.article-finder）に加えて、同カテゴリーの人気記事・
+   新着・サイト内検索の3枚を追加（2026-09-27、ユーザー判断）。
+   見た目の器は共通クラス .side-box にまとめ、中身だけ違う4枚を
+   縦に並べる。
 
-   狭い画面では単なる縦積みの1カードとして本文の下に置く（スマホでも
+   狭い画面では単なる縦積みのカード群として本文の下に置く（スマホでも
    使えるように、というのがこの部品の要件。装飾目的の三分割サイドバー
    とは違い、幅が無くても機能自体は成立するため）。
-   幅の広いPCだけ、本文の右にスティッキーな列として並べる。 */
+   幅の広いPCだけ、本文の右にスティッキーな列として並べる（カード1枚
+   ずつではなく .article-sidebar 全体を追従させる。カードごとに
+   sticky にすると、それぞれ止まる位置がずれて重なって見える）。 */
 .article-body-wrap{max-width:900px;margin:0 auto;}
-.article-finder{margin:32px auto 0;max-width:900px;
+.article-sidebar{margin-top:32px;display:flex;flex-direction:column;gap:20px;}
+.side-box{max-width:900px;margin:0 auto;width:100%;
   padding:18px;border:1px solid var(--line-2);border-radius:var(--radius);
   background:var(--bg-2);}
 .finder-title{margin:0 0 12px;font-size:13px;font-weight:700;
@@ -3537,13 +3540,34 @@ p,li,.card-desc{text-wrap:pretty;}
   font-size:13px;font-weight:700;letter-spacing:.03em;color:#fff;
   background:var(--ink);border:none;border-radius:4px;cursor:pointer;}
 .finder-go:hover{background:var(--ink-2);}
-.article-finder .promo-group{margin-top:16px;}
-.article-finder .promo-group .card-grid{grid-template-columns:1fr;}
+.side-box .promo-group{margin-top:16px;}
+.side-box .promo-group .card-grid{grid-template-columns:1fr;}
+/* 人気記事・新着の簡易リスト。写真は置かず文字だけにして、
+   カード1枚あたりの高さを抑える（サイドバーは縦に4枚並ぶため）。 */
+.side-list{list-style:none;margin:0;padding:0;}
+.side-list li + li{margin-top:2px;}
+.side-list a{display:flex;align-items:baseline;gap:8px;
+  padding:8px 4px;border-radius:4px;font-size:12.5px;line-height:1.5;
+  color:var(--ink-2);}
+.side-list a:hover{background:var(--bg-3);}
+.side-list .sl-no{flex:none;font-family:var(--font-en);font-size:11px;
+  font-weight:700;color:var(--muted-2);}
+/* サイドの検索。ヘッダー・記事末尾の検索欄と役目は同じだが、
+   search.js が起動時に ?q= を読んで検索を再現するので、飾りではなく
+   ここから送っても普通に機能する（assets/search.js）。 */
+.side-search-box{display:flex;gap:6px;}
+.side-search-box input{flex:1 1 auto;min-width:0;padding:9px 10px;
+  font-size:13px;border:1px solid var(--line-2);border-radius:4px;}
+.side-search-box button{flex:none;padding:9px 14px;font-size:13px;
+  font-weight:700;color:#fff;background:var(--ink);border:none;
+  border-radius:4px;cursor:pointer;}
+.side-search-box button:hover{background:var(--ink-2);}
 @media (min-width:1300px){
   .article-body-wrap{max-width:1240px;display:grid;
     grid-template-columns:minmax(0,900px) 300px;gap:40px;align-items:start;}
-  .article-finder{margin:0;max-width:none;
+  .article-sidebar{margin-top:0;
     position:sticky;top:calc(var(--header-h) + 12px);}
+  .side-box{max-width:none;margin:0;}
 }
 /* 記事ページの縦長バナー（.article-side-ad）。
    本文は900pxで中央寄せ、器（.container）は1200pxなので、左右に
