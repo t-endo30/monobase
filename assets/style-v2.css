@@ -4403,6 +4403,34 @@ h1,h2,h3,h4,
   .bd-chip{flex:0 0 auto;padding:6px 10px;font-size:11.5px;}
 }
 
+/* ============================================================
+   口コミ・おすすめで探す（.review-rank）のタブ
+   ------------------------------------------------------------
+   価格帯の札（.bd-chip）は中身の文字幅なりの小さなボタンだが、
+   こちらは3択で固定なので、記事タイルの行と同じ横幅いっぱいに
+   3等分で並べる（2026-09-27、ユーザー指摘：チップだけだと左に
+   寄って寂しい）。
+   ============================================================ */
+.rr-tabs{display:flex;gap:8px;margin-bottom:16px;}
+.rr-tab{flex:1 1 0;
+  padding:11px 8px;
+  border:1px solid var(--line-2);
+  border-radius:var(--radius);
+  background:var(--bg-2);
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.02em;
+  color:var(--ink-2);
+  text-align:center;
+  cursor:pointer;
+  transition:background .2s ease,color .2s ease,border-color .2s ease;}
+.rr-tab:hover{border-color:var(--ink);background:var(--bg-3);}
+.rr-tab.is-on{background:var(--ink);border-color:var(--ink);color:#fff;}
+@media (max-width:860px){
+  .rr-tabs{gap:6px;margin-bottom:12px;}
+  .rr-tab{padding:9px 4px;font-size:11.5px;}
+}
+
 /* 特集（比較・選び方）の帯。
    ここに並ぶのは複数商品を比べた記事で、単品の商品写真を持たない。
    写真の位置には自動生成の絵（記事名を入れたもの）が入るため、

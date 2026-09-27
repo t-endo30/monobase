@@ -3588,13 +3588,20 @@ def v2_budget(items, p, min_priced=10, min_band=3):
             '      </div>\n')
 
 
-def v2_review_rank(p, pool_json):
-    """口コミ件数・評価の高さで探す帯。ホームの「よく読まれている記事」は
-       閲覧数（PVベース、RANKING_HOME）だが、それとは別に「口コミが多い＝
-       定番」「評価が高い」という軸で探したい読者向けに追加した
-       （2026-09-27、ユーザー判断）。カテゴリーをまたいでも「件数」「星」
-       は単位がそろっているので、予算帯と違ってオールジャンルのままで
-       意味を持つ。
+def v2_review_rank(p, pool_json, picks):
+    """口コミ件数・評価・今日のおすすめの3タブで探す帯。ホームの
+       「よく読まれている記事」は閲覧数（PVベース、RANKING_HOME）だが、
+       それとは別に「口コミが多い＝定番」「評価が高い」という軸で
+       探したい読者向けに追加した（2026-09-27、ユーザー判断）。
+       カテゴリーをまたいでも「件数」「星」は単位がそろっているので、
+       予算帯と違ってオールジャンルのままで意味を持つ。
+
+       3つ目の「今日のおすすめ」は、単独の区画だった「今日の
+       ピックアップ」を吸収したもの（同じ picks を使う）。タブを
+       増やしたので3枚を出しっぱなしにはできず、ここに畳んだ。
+
+       タブは記事タイルの行幅とそろえたいので、絞り込みチップ
+       （.bd-chip）とは別に、3等分で並ぶ専用のクラス（.rr-tab）を使う。
 
        中身の差し替えは v2_budget と同じ考え方（assets/main.js が
        data-pool から並べ替える）。ここで出す5件はJSが動かないときの
@@ -3604,12 +3611,17 @@ def v2_review_rank(p, pool_json):
     if len(have_n) < 5 or len(have_r) < 5:
         return ""                      # どちらかの軸で5件そろわなければ出さない
     top_n = sorted(have_n, key=lambda a: card_stats_data(a)["n"], reverse=True)[:5]
-    chips = ('<button type="button" class="bd-chip is-on" role="tab" '
-             'aria-selected="true" data-sort="n">口コミが多い順</button>'
-             '<button type="button" class="bd-chip" role="tab" '
-             'aria-selected="false" data-sort="r">評価が高い順</button>')
-    return ('      <div class="review-rank" data-review-rank>\n'
-            f'        <div class="bd-chips" role="tablist">{chips}</div>\n'
+    tabs = ('<button type="button" class="rr-tab is-on" role="tab" '
+            'aria-selected="true" data-sort="n">口コミが多い順</button>'
+            '<button type="button" class="rr-tab" role="tab" '
+            'aria-selected="false" data-sort="r">評価が高い順</button>'
+            '<button type="button" class="rr-tab" role="tab" '
+            'aria-selected="false" data-sort="pick">今日のおすすめ</button>')
+    pick_slugs = html.escape(
+        json.dumps([a["slug"] for a in picks[:5]], ensure_ascii=False), quote=True)
+    return ('      <div class="review-rank" data-review-rank '
+            f"data-picks='{pick_slugs}'>\n"
+            f'        <div class="rr-tabs" role="tablist">{tabs}</div>\n'
             f'        <div class="card-grid is-home6" data-pool=\'{pool_json}\'>'
             + "".join(v2_card(a, p) for a in top_n) + '</div>\n'
             '      </div>\n')
@@ -3876,33 +3888,16 @@ def build_index():
     # 使う（v2_budget、build_category / build_subcategory）ほか、
     # 記事側にはカテゴリー→予算の順で選べる v2_article_finder を置いた。
     # 代わりに、カテゴリーをまたいでも単位がそろう「口コミ件数・評価」
-    # を軸にした帯を置く（v2_review_rank）。
-    review_rank = v2_review_rank(p, html.escape(json.dumps(pool, ensure_ascii=False), quote=True))
+    # を軸にした帯を置く（v2_review_rank）。「今日のおすすめ」タブに
+    # 旧・今日のピックアップの中身を吸収したので、ピックアップ単独の
+    # 区画はここでは作らない（2026-09-27、ユーザー判断）。
+    review_rank = v2_review_rank(
+        p, html.escape(json.dumps(pool, ensure_ascii=False), quote=True), picks)
     if review_rank:
         body += v2_section(
-            v2_sec_head("PICK", "口コミで探す", cls="has-feat-ad has-side-ad")
-            + '      <div class="home-featwrap">' + review_rank + '</div>\n')
-
-    # ピックアップもランキングと同じ横カルーセル（スマホ）。枠を同じ
-    # 大きさにすると3列では収まらないため、送って見せる形にそろえる。
-    # PCは新着・ランキングと同じく、左にバナーを1本添えて3列にそろえる
-    # （バナーぶん幅が狭くなる分、タイルの大きさも新着・ランキングと
-    # そろう）。
-    if picks:
-        body += v2_section(
-            v2_sec_head("PICK UP", "今日のピックアップ", cls="has-feat-ad has-side-ad")
-            + '      <div class="home-featwrap">'
-            + home_feat_ad("home_pick", n=2)
-            + '<div class="card-rail" data-rail>\n'
-            + '        <button type="button" class="rail-btn is-prev" '
-            'aria-label="前の記事" hidden><span aria-hidden="true"></span></button>\n'
-            + '        <div class="card-grid" id="pickGrid" data-pool=\''
-            + html.escape(json.dumps(pool, ensure_ascii=False), quote=True) + '\'>'
-            + "".join(v2_card(a, p) for a in picks) + "</div>\n"
-            + '        <button type="button" class="rail-btn is-next" '
-            'aria-label="次の記事" hidden><span aria-hidden="true"></span></button>\n'
-            + '      </div>'
-            + home_feat_ad("article_side", n=1, slot="_r3", extra_cls="is-right") + '</div>\n')
+            v2_sec_head("PICK", "口コミ・おすすめで探す",
+                        cls="has-feat-ad has-side-ad")
+            + review_rank)
 
     # スマホのホームは「新着記事」「ランキング」が横並び（.home-featwrap）に
     # ならず広告を置く余地が無いので、ピックアップの下に広告を3件挟む。

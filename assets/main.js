@@ -1111,55 +1111,6 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 
 
 /* ============================================================
-   トップの「今日のピックアップ」：全記事から4本を日替わりで選ぶ
-   ------------------------------------------------------------
-   ビルドは公開のたびにしか走らないので、選び直しはここで行う。
-   その日の日付を種にして混ぜるので、同じ日に見た人には同じ4本が、
-   日付が変われば別の4本が出る（読み込むたびに入れ替わると、
-   さっき見た記事を探せなくなるため）。
-   よく読まれている記事（RANKING）と同じ4列にそろえている。
-   JSが動かないときは、build.py が入れておいた4本がそのまま残る。
-   ============================================================ */
-(function () {
-  'use strict';
-  var grid = document.getElementById('pickGrid');
-  if (!grid) return;
-  var pool = [];
-  try { pool = JSON.parse(grid.getAttribute('data-pool') || '[]'); }
-  catch (e) { return; }
-  if (pool.length < 5) return;          /* 選ぶ意味がない本数なら触らない */
-
-  /* 日付を種にした、同じ入力なら同じ結果になる混ぜ方 */
-  var seed = Math.floor(Date.now() / 86400000);
-  function rnd() {
-    seed = (seed * 1103515245 + 12345) & 0x7fffffff;
-    return seed / 0x7fffffff;
-  }
-  var pick = pool.slice();
-  for (var i = pick.length - 1; i > 0; i--) {
-    var j = Math.floor(rnd() * (i + 1));
-    var t = pick[i]; pick[i] = pick[j]; pick[j] = t;
-  }
-  /* 出す本数は build.py の PICK_N と同じ。横カルーセルで送って見せる */
-  pick = pick.slice(0, 10);
-
-  function esc(v) {
-    return String(v == null ? '' : v)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-  }
-
-  /* 形は build.py の v2_card() と同じ。ここだけ別の見た目にしない。
-     is-shop と data-shop / data-asin を落とすと、モールの写真が
-     object-fit:cover で切り取られ（規約が改変を認めていない）、
-     台紙の見た目も新着とずれるので、必ず一緒に組む */
-  grid.innerHTML = pick.map(cardHtml).join('');
-  /* 差し替えた札と閲覧数は、ここで組み直したぶんにも付ける */
-  document.dispatchEvent(new CustomEvent('mb:cards', { detail: grid }));
-})();
-
-
-/* ============================================================
    背景の写真を、スクロールの半分の速さで動かす
    ------------------------------------------------------------
    CSS だけだと background-attachment は「止める（fixed）」か
@@ -1847,18 +1798,22 @@ document.addEventListener('touchstart', function () {}, { passive: true });
 
 
 /* ============================================================
-   口コミで探す（ホーム）
+   口コミ・おすすめで探す（ホーム）
    ------------------------------------------------------------
    予算で探すと同じ考え方だが、帯で絞るのではなく「口コミ件数」
-   「評価」で並べ替える2択のタブ。カテゴリーをまたいでも件数・星は
-   単位がそろうので、全記事が母数のままで意味を持つ（v2_review_rank）。
+   「評価」「今日のおすすめ」で並べ替える3択のタブ。カテゴリーを
+   またいでも件数・星は単位がそろうので、全記事が母数のままで
+   意味を持つ（v2_review_rank）。「今日のおすすめ」は、単独の区画
+   だった旧・今日のピックアップを吸収したタブ（data-picks の
+   スラッグをそのまま並べる。日替わりの選び直しはビルド時のみ、
+   2026-09-27）。
    ============================================================ */
 (function () {
   'use strict';
   var box = document.querySelector('[data-review-rank]');
   if (!box) return;
   var grid = box.querySelector('.card-grid');
-  var chips = box.querySelectorAll('.bd-chip');
+  var chips = box.querySelectorAll('.rr-tab');
   if (!grid || !chips.length) return;
 
   var pool = [];
@@ -1866,7 +1821,16 @@ document.addEventListener('touchstart', function () {}, { passive: true });
   catch (e) { pool = []; }
   if (!pool.length) return;
 
+  var pickSlugs = [];
+  try { pickSlugs = JSON.parse(box.getAttribute('data-picks') || '[]'); }
+  catch (e) { pickSlugs = []; }
+
   function rankedBy(key) {
+    if (key === 'pick') {
+      var bySlug = {};
+      pool.forEach(function (a) { bySlug[a.s] = a; });
+      return pickSlugs.map(function (s) { return bySlug[s]; }).filter(Boolean);
+    }
     return pool.filter(function (a) { return a.st && a.st[key]; })
       .sort(function (a, b) {
         var d = (Number(b.st[key]) || 0) - (Number(a.st[key]) || 0);
