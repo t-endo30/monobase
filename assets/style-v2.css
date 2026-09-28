@@ -1455,6 +1455,10 @@ body.has-sticky-cta .fab{bottom:96px;}
     -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
     mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
   }
+  .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9) .card-meta,
+  .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9) .card-title,
+  .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9) .card-stats,
+  .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9) .card-note{display:none;}
   /* 見出しの帯（NEW/RANKING の "----" 罫線）は、下の広告バナーぶんを
      含めない、記事タイルだけの幅に合わせる。バナー＋隙間ぶんだけ
      左を空ける */
@@ -1505,12 +1509,20 @@ body.has-sticky-cta .fab{bottom:96px;}
     box-shadow:0 2px 10px rgba(0,0,0,.08);
     -webkit-mask-image:none;mask-image:none;
   }
+  .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9) .card-meta,
+  .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9) .card-title,
+  .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9) .card-stats,
+  .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9) .card-note{display:revert;}
   .card-grid.is-home6 > .card:nth-child(n+11){
     max-height:150px;overflow:hidden;pointer-events:none;
     box-shadow:none;
     -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
     mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
   }
+  .card-grid.is-home6 > .card:nth-child(n+11) .card-meta,
+  .card-grid.is-home6 > .card:nth-child(n+11) .card-title,
+  .card-grid.is-home6 > .card:nth-child(n+11) .card-stats,
+  .card-grid.is-home6 > .card:nth-child(n+11) .card-note{display:none;}
   /* ホームの本体（新着から下）と右サイドバーを横に並べる。
      区画の外に出した独立した列なので、記事タイルの並びには
      割り込まない（2026-09-28、ユーザー判断）。
@@ -1534,9 +1546,6 @@ body.has-sticky-cta .fab{bottom:96px;}
        両者が等しくなるのは S=232（枠線1px×2も差し引く。実測で
        どちらも194px）。
      タイルの列数・余白を変えたら、ここも計算し直すこと。 */
-  .home-body:has(> .home-side:not([hidden])){
-    grid-template-columns:minmax(0,1fr) 232px;
-  }
   .home-body > .home-body-main{min-width:0;}
   /* 地色と上下の罫線を持つ区画（.is-tinted）は、器の中に入れた
      とたん本体の列（968px）ぶんの幅しか無くなり、画面に対して
@@ -1567,22 +1576,6 @@ body.has-sticky-cta .fab{bottom:96px;}
   .home-side .finder-title{
     margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.03em;
     color:var(--ink-2);
-  }
-  .home-body:has(> .home-side:not([hidden])) .card-grid.is-home6{
-    grid-template-columns:repeat(4,minmax(0,1fr));
-  }
-  .home-body:has(> .home-side:not([hidden]))
-    .card-grid.is-home6 > .card:nth-child(n+9){display:grid;}
-  .home-body:has(> .home-side:not([hidden]))
-    .card-grid.is-home6 > .card:nth-child(n+13){display:none;}
-  /* のぞかせる行は9〜12枚目になる（4列なので）。10枚目までを
-     普通に出す上の指定を、この段では打ち消す。 */
-  .home-body:has(> .home-side:not([hidden]))
-    .card-grid.is-home6 > .card:nth-child(n+9):nth-child(-n+12){
-    max-height:150px;overflow:hidden;pointer-events:none;
-    box-shadow:none;
-    -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
-    mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
   }
   /* 広い画面では横並びの区画のほうを隠す（同じものが2回出ないように） */
   .recent-views.is-narrow{display:none;}
@@ -4677,4 +4670,55 @@ h1,h2,h3,h4,
 @media (min-width:861px){
   .card-grid.is-feature .card-thumb{aspect-ratio:16/9;}
   .card-grid.is-feature .card-title{font-size:15px;}
+}
+
+/* サイドバーを本体の横に並べられるが、器の外へ出す余地は無い幅
+   （1440〜1879px）。本体の列からサイドバーぶんを取り、記事タイルは
+   4列にする。1880px以上では下のブロックでサイドバーを器の外へ出し、
+   本体を画面の中央に戻す。 */
+@media (min-width:1440px) and (max-width:1879px){
+  .home-body:has(> .home-side:not([hidden])){
+    grid-template-columns:minmax(0,1fr) 232px;
+  }
+  .home-body:has(> .home-side:not([hidden])) .card-grid.is-home6{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+  .home-body:has(> .home-side:not([hidden]))
+    .card-grid.is-home6 > .card:nth-child(n+9){display:grid;}
+  .home-body:has(> .home-side:not([hidden]))
+    .card-grid.is-home6 > .card:nth-child(n+13){display:none;}
+  /* のぞかせる行は9〜12枚目になる（4列なので）。10枚目までを
+     普通に出す上の指定を、この段では打ち消す。 */
+  .home-body:has(> .home-side:not([hidden]))
+    .card-grid.is-home6 > .card:nth-child(n+9):nth-child(-n+12){
+    max-height:150px;overflow:hidden;pointer-events:none;
+    box-shadow:none;
+    -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+    mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+  }
+  .home-body:has(> .home-side:not([hidden]))
+    .card-grid.is-home6 > .card:nth-child(n+9):nth-child(-n+12) .card-meta,
+  .home-body:has(> .home-side:not([hidden]))
+    .card-grid.is-home6 > .card:nth-child(n+9):nth-child(-n+12) .card-title,
+  .home-body:has(> .home-side:not([hidden]))
+    .card-grid.is-home6 > .card:nth-child(n+9):nth-child(-n+12) .card-stats,
+  .home-body:has(> .home-side:not([hidden]))
+    .card-grid.is-home6 > .card:nth-child(n+9):nth-child(-n+12) .card-note{display:none;}
+}
+
+/* 画面が十分広いとき（1880px以上）は、サイドバーを器の外＝右の余白へ
+   出す。本体（器）はもともと画面の中央に置かれているので、これだけで
+   記事タイルの並びが画面の中央に戻る（2026-09-28、ユーザー判断）。
+     必要な幅＝器1360 ＋ (隙間24 ＋ サイドバー242) × 2 ＝ 1892
+   としたいが、右側にだけ出すので実際は 1360+266+左右の余白 で足りる。
+   1880px を下回るとサイドバーが画面からはみ出すので、そこまでは
+   上のブロック（本体の列を分け合う形）にする。
+   幅242pxは、中のタイルが5列の記事タイル（204px）と同じ大きさに
+   なるように決めた（242 − 内側の余白36 − 枠線2 = 204）。 */
+@media (min-width:1880px){
+  .home-body{position:relative;}
+  .home-body > .home-side{
+    position:absolute;top:0;width:242px;
+    left:calc(100% - var(--gut) + 24px);
+  }
 }
