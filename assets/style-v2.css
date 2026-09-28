@@ -4774,3 +4774,8 @@ h1,h2,h3,h4,
     left:calc(100% - var(--gut) + 24px);
   }
 }
+
+/* 本文中の商品名リンク（build.py の link_product_names） */
+.article-body a.plink{font-weight:700;text-decoration:underline;text-underline-offset:3px;
+  text-decoration-thickness:1px;text-decoration-color:var(--amazon);}
+.article-body a.plink:hover{text-decoration-thickness:2px;}

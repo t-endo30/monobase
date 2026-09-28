@@ -2199,6 +2199,77 @@ def shop_links(a):
     return out
 
 
+# 本文中の商品名を、その記事の販売先リンクにする。
+#   リンク先は Amazon → 楽天 → Yahoo! の順で最初に見つかったもの（shop_links の順）。
+#   付けるのは1つの商品を扱うレビュー記事だけ。選び方・特集・セールは
+#   複数の商品が出てくるので、どの名前がどの商品か機械では決められない。
+#   付けすぎるとリンクだらけの読みにくい本文になり、検索エンジンからも
+#   「広告リンクを並べただけのページ」に見えやすいので、見出しで区切った
+#   段ごとに最初の1回だけにする。
+_PL_SPEC = re.compile(
+    r"^(\d+(\.\d+)?(GB|TB|MB|L|W|mAh|cm|mm|m|ml|g|kg|K|Hz|V|A|in|inch|way|P|個|枚|本|型|インチ)"
+    r"|\d+TYPE|DDR\d\w*|USB[\d.]*\w*|PC\d-\d+\w*|Wi-?Fi\d*|Bluetooth[\d.]*|BT[\d.]+"
+    r"|HDMI[\d.]*|Type-?C|LED\d*|IPX?\d+|Gen\d+|[48]K|5G|\d+)$", re.I)
+# 「◯◯用」「◯◯互換」のような付属品の記事では、題名の型番は本体の型番
+# （ASUS T100HA交換用バッテリー の T100HA はノートPC）なので型番だけでは結ばない。
+_PL_ACCESSORY = re.compile(r"用|互換|対応|ケース|カバー|フィルム|フィルター|バッテリー")
+_PL_BOUND_L = r"(?<![A-Za-z0-9\-/])"
+_PL_BOUND_R = r"(?![A-Za-z0-9\-/])"
+
+
+def product_name_patterns(a):
+    """本文で商品そのものを指している呼び方を、長いものから順に返す。
+       題名の商品名そのもの（空白の有無は問わない）と、題名の型番。"""
+    n = re.split(r"[｜|]", a.get("title", ""))[0]
+    n = re.sub(r"[\s　]*(徹底|正直)?(レビュー|口コミ|評判|評価).*$", "", n).strip()
+    names = [n] if len(n) >= 4 else []
+    if not _PL_ACCESSORY.search(n):
+        names += [t for t in re.findall(r"[A-Za-z0-9][A-Za-z0-9\-.]*[A-Za-z0-9]", n)
+                  if len(t) >= 4 and re.search(r"\d", t) and re.search(r"[A-Za-z]", t)
+                  and not _PL_SPEC.match(t)]
+    pats = []
+    for x in sorted(set(names), key=len, reverse=True):
+        body = r"\s*".join(re.escape(ch) for ch in x.replace("　", " ").split(" "))
+        pats.append(_PL_BOUND_L + body + _PL_BOUND_R)
+    return pats
+
+
+def link_product_names(html, a):
+    """記事本文のHTMLのうち、地の文の段落（<p>）にある商品名を1段に1回だけ
+       リンクにする。見出し・ボタン・注記・既にリンクを含む段落は触らない。"""
+    links = shop_links(a)
+    pats = product_name_patterns(a) if links and kind_of(a) == "review" else []
+    if not pats:
+        return html
+    name_re = re.compile("|".join(pats))
+    href = e(links[0][2])
+
+    def one_chunk(chunk):
+        done = [False]
+
+        def para(m):
+            open_, inner, close = m.group(1), m.group(2), m.group(3)
+            if done[0] or "<a " in inner or "cta-note" in open_ or "scroll-hint" in open_:
+                return m.group(0)
+            parts = re.split(r"(<[^>]+>)", inner)
+            for i in range(0, len(parts), 2):   # タグの外側（文字の部分）だけを見る
+                mm = name_re.search(parts[i])
+                if mm:
+                    parts[i] = (parts[i][:mm.start()]
+                                + f'<a class="plink" href="{href}" target="_blank" '
+                                  f'rel="nofollow sponsored noopener">{mm.group(0)}</a>'
+                                + parts[i][mm.end():])
+                    done[0] = True
+                    return open_ + "".join(parts) + close
+            return m.group(0)
+
+        return re.sub(r"(<p(?:\s[^>]*)?>)(.*?)(</p>)", para, chunk, flags=re.S)
+
+    # 見出し（h2）ごとに区切って、それぞれで最初の1回だけ
+    chunks = re.split(r"(?=<h2[\s>])", html)
+    return "".join(one_chunk(c) for c in chunks)
+
+
 # 1記事に置くボタン列は3か所まで。
 #   上部（目次の下）と下部（まとめ）は位置を固定。
 #   中間の1か所だけ、記事ごとに置き場所を選べる（cta_position）。
@@ -2874,6 +2945,7 @@ def render_article(a):
     if not a.get("summary"):
         add(shop_buttons(a, price_note(a)))
 
+    body_at = len(b)
     add('        <div class="article-body">\n')
     add(paras(a.get("lead")))
 
@@ -3132,6 +3204,8 @@ def render_article(a):
 ''')
 
     add('        </div>\n      </article>\n')
+    # 本文中の商品名を販売先へのリンクにする（本文の範囲だけ）
+    b[body_at:] = [link_product_names("".join(b[body_at:]), a)]
 
     # シェアの導線は、記事の右下に浮かせた丸いボタン（share_fab）に集約した。
     # 本文の末尾にも並べると、同じものが2か所に出て迷わせるため置かない。
