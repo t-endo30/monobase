@@ -5,6 +5,7 @@ name: Write new articles
 #   ⓪ 今日が実行日か判定する                  tools/schedule_gate.py
 #   ① 楽天・Yahoo!から商品の候補を集める      tools/pick_products.py
 #   ② 上位N件を下書きにする                   tools/make_drafts.py
+#      （特集を作る段に達したサブ区分があれば、1日1本まで特集も作る  tools/feature_plan.py）
 #   ③ Claude に本文を書かせる                 tools/write_article.py
 #   ④ 楽天・Yahoo!のURLと商品写真を埋める     tools/backfill_shop_urls.py / fetch_shop_images.py
 #   ⑤ レビューして直す・公開する               tools/review_article.py（commit・pushはここで1回）
@@ -188,7 +189,31 @@ jobs:
             python3 -c "import json; arts = json.load(open('content/articles.json', encoding='utf-8')); print(sum(1 for a in arts if not a.get('published') and isinstance(a.get('reviewed'), dict)))"
           }
 
+          # 特集（サブ区分ごとに記事が5本・10本…とたまったときのまとめ記事）。
+          # 以前は tools/feature_plan.py を deploy.yml でログに出すだけで、
+          # 誰も作らないまま「作るべき」ジャンルが10個たまっていた
+          # （2026-09-28に発覚）。ここで1日1本まで下書きを作り、通常の記事より
+          # 先に本文を書かせる。書けた特集は校閲済みとして have() に数えられる
+          # ので、その回の通常の記事は1本減り、1回2本までの上限は変わらない。
+          # 本文が書けなかった下書きは、次の回にここで書き直す。
+          DEAD=0
+          python3 tools/feature_plan.py --write --limit 1 2>&1 | tee -a /tmp/write.log
+          FEAT=$(python3 -c "import json; arts = json.load(open('content/articles.json', encoding='utf-8')); print(' '.join(a['slug'] for a in arts if a.get('category') == 'feature' and a.get('feature_of') and not a.get('published') and not a.get('unpublished_reason') and not a.get('summary')))")
+          if [ -n "$FEAT" ] && [ "$TARGET" -gt 0 ]; then
+            echo "=== 特集の本文を書きます：$FEAT ===" | tee -a /tmp/write.log
+            python3 tools/write_article.py $FEAT --model "$MODEL" 2>&1 | tee -a /tmp/write.log
+            if [ "${PIPESTATUS[0]}" -eq 2 ]; then
+              DEAD=1
+            fi
+            echo "have=$(have)" >> "$GITHUB_OUTPUT"
+          fi
+
           while :; do
+            if [ "$DEAD" -eq 1 ]; then
+              echo "認証・利用上限で呼び出せない状態です。今回はここまでにします。" \
+                | tee -a /tmp/write.log
+              break
+            fi
             HAVE=$(have)
             NEED=$((TARGET - HAVE))
             echo "=== 到達 $HAVE / 目標 $TARGET 本（試した候補 $TRIED / 上限 $MAX_TRIES）===" \

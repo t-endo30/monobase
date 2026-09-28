@@ -124,7 +124,12 @@ def plan(arts, site):
 
 def draft(pl, site):
     """特集記事の下書き。構成・比較表・各記事への導線までは機械的に作れる。
-       本文の評価コメントは、公開前に人が確認して書き足す前提。"""
+       本文は tools/write_article.py --drafts が feature_covers の要点をもとに書く。
+
+       summary・not_for・conclusion は空で作ること。以前は「（公開前に記入）」の
+       仮文を入れていたが、write_article.py の is_empty() が summary の件数で
+       「本文あり」と判定するため、自動生成の対象から外れていた。生成が
+       項目を返さなかったときに仮文がそのまま公開される危険もある。"""
     picked = [a for _, _, a in pl["picked"]]
     name = pl["label"].split("／")[-1]
     slug = f'feature-{pl["cat"]}-{pl["sub"]}-{pl["stage"]}'
@@ -154,26 +159,26 @@ def draft(pl, site):
         "tags": ["比較", name], "icon": "📊", "thumb": "",
         "cta_label": "Amazonで価格と詳細を確認する",
         "verdict_title": "結論：条件で選ぶものが変わる",
-        "summary": [f"{name}のレビュー{pl['total']}本のうち、比較軸が揃う{len(picked)}製品を選定",
-                    "（公開前に記入）どれを選ぶかの分かれ目",
-                    "（公開前に記入）価格差が意味を持つ条件"],
-        "rating": {"score": 0, "breakdown": ""},
+        "summary": [],
         "lead": f"{name}について公開しているレビューが{pl['total']}本になりました。"
                 f"ここでは比較しやすい{len(picked)}製品を並べ、"
                 f"<strong>どんな条件のときにどれを選ぶか</strong>を整理します。",
-        "not_for": {"intro": "（公開前に記入）この記事が役に立たない人", "items": []},
-        "scenes": [], "pros": [], "cons": [],
+        "not_for": {"intro": "", "items": []},
+        "scenes": [], "pros": [], "cons": [], "sections": [],
         "spec": {"intro": "選定した記事の要点です。表は横にスクロールできます。",
                  "headers": heads, "rows": rows},
         "voices_intro": "", "voices": [], "personal_note": "",
         "next_problem": {"intro": "", "items": []},
-        "conclusion_title": "まとめ", "conclusion": "（公開前に記入）",
+        "conclusion_title": "まとめ", "conclusion": [],
     }
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true", help="下書きを articles.json に追加する")
+    ap.add_argument("--limit", type=int, default=0,
+                    help="--write で追加する下書きの上限（0は無制限）。"
+                         "自動記事作成（write.yml）は1を渡す")
     args = ap.parse_args()
 
     arts, site = load()
@@ -184,6 +189,28 @@ def main():
         print("（しきい値に届いていないか、その段の特集がすでにあります）")
         return 0
 
+    # 溜まっているときは、記事数に対して特集が遅れているジャンルから作る
+    plans.sort(key=lambda p: (-p["stage"], -p["total"]))
+
+    # write.yml から毎回呼ばれるので、特集が記事作成の枠を食い尽くさない
+    # ように歯止めをかける。特集もサブスクの利用枠で本文を書くため、
+    # 溜まった10個を一度に作ると、その日の通常の記事が1本も書けなくなる。
+    #   ・本文がまだ入っていない特集の下書きがあれば、それを先に片付ける
+    #   ・今日すでに特集を作っていれば、今日はもう作らない
+    today = date.today().isoformat()
+    feats = [a for a in arts if a.get("category") == "feature" and a.get("feature_of")]
+    pending = [a["slug"] for a in feats if not a.get("published")
+               and not a.get("unpublished_reason") and not a.get("summary")]
+    made_today = [a["slug"] for a in feats if a.get("date") == today]
+    room = args.limit or len(plans)
+    if args.write and args.limit:
+        if pending:
+            print(f"本文待ちの特集の下書きがあるので、新しくは作りません：{', '.join(pending)}\n")
+            room = 0
+        elif made_today:
+            print(f"今日はすでに特集を作っています：{', '.join(made_today)}\n")
+            room = 0
+
     added = []
     for pl in plans:
         print(f"■ {pl['label']}  {pl['total']}本 → {pl['stage']}段目の特集を作る")
@@ -193,18 +220,20 @@ def main():
                 print(f"        理由: {' / '.join(why)}")
         for sc_, _, a in pl["rest"]:
             print(f"   -  [{sc_:5.1f}] {a.get('list_title') or a['title']}（今回は見送り）")
-        if args.write:
+        if args.write and len(added) < room:
             d = draft(pl, site)
             if any(x["slug"] == d["slug"] for x in arts):
                 print(f"   ※ {d['slug']} はすでにあります")
             else:
-                arts.append(d); added.append(d["slug"])
+                arts.insert(0, d); added.append(d["slug"])
         print()
 
     if args.write and added:
-        json.dump(arts, io.open(A_PATH, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-        print(f"下書きを追加しました：{', '.join(added)}")
-        print("本文の評価コメントを書き足してから published:true にしてください。")
+        # 書式は他のツールとそろえる（indent=2 で書くと全行が差分になる）
+        with io.open(A_PATH, "w", encoding="utf-8") as f:
+            json.dump(arts, f, ensure_ascii=False, indent=1)
+        print(f"特集の下書きを作りました：{', '.join(added)}")
+        print("本文は tools/write_article.py --drafts が書きます。")
     return 0
 
 
