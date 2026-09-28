@@ -3980,8 +3980,13 @@ def build_index():
         + home_feat_ad("home_new", n=4)
         + '<div class="card-grid is-home6">'
         + "".join(v2_card(a, p, flags="new") for a in latest) + "</div>"
+        # 右端の列は、PRバナーと「最近見た記事」を縦に積んだ1本の列に
+        # まとめる（2026-09-28、ユーザー判断。記事タイルの並びの中に
+        # 割り込ませると新着が5列→4列に減るため、PRの列の側に入れる）。
+        + '<div class="home-rightrail">'
+        + home_feat_ad("article_side", n=1, slot="_r", extra_cls="is-right")
         + v2_home_recent_col()
-        + home_feat_ad("article_side", n=1, slot="_r", extra_cls="is-right") + '</div>\n'
+        + '</div></div>\n'
         + v2_sec_more(f"{p}new.html", cls="has-feat-ad has-side-ad"), tinted=True)
 
     # ランキングの並びは、ランキングのページ（assets/main.js）と同じ規則で

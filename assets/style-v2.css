@@ -484,6 +484,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    下の @media (min-width:1081px) でだけ横並びにする */
 .home-featwrap{display:block;}
 .home-feat-ad{display:none;}
+/* ホームの「最近見た記事」の縦列。出すのは右の列に入る幅（1440px以上）
+   だけ。狭い画面では横並びの区画（.recent-views.is-narrow）のほうを
+   出すので、ここで隠しておかないと同じものが2回出る。 */
+.home-recent{display:none;}
 /* タイルは白い面。背景に敷いた写真の上に置くので、文字が写真に
    直接乗らないようにする */
 .card{display:flex;flex-direction:column;background:var(--bg-2);padding-bottom:38px;
@@ -1429,6 +1433,12 @@ body.has-sticky-cta .fab{bottom:96px;}
      そこまでは従来どおり横並びの区画（.recent-views.is-narrow）を出し、
      この列は隠しておく。 */
   .home-recent{display:none;}
+  /* 右端の列。PRバナーと「最近見た記事」を縦に積む器。 */
+  .home-rightrail{
+    flex:0 0 130px;display:flex;flex-direction:column;gap:24px;
+    align-self:stretch;
+  }
+  .home-rightrail > .home-feat-ad{flex:0 0 auto;}
   /* 記事タイルの並びと「最近見た記事」の列は、どちらも中身ぶんの高さで
      止める。伸ばす（stretch）と、背の高いほうに引っぱられて記事タイルの
      中に大きな空きができる（2026-09-28に実際に起きた）。左右の広告列は
@@ -1486,15 +1496,11 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card-grid.is-home6{grid-template-columns:repeat(5,minmax(0,1fr));}
   .card-grid.is-home6 > .card:nth-child(n+7){display:grid;}
   .card-grid.is-home6 > .card:nth-child(n+11){display:none;}
-  /* 履歴があって「最近見た記事」の列が出ているときは、新着タイルを
-     5列→4列に減らして場所を空ける（列ごと隠れているときは5列のまま）。
-     4列×2行＝8枚までにする。 */
-  .home-featwrap > .home-recent{display:block;flex:0 0 210px;}
-  .home-featwrap:has(> .home-recent:not([hidden])) > .card-grid.is-home6{
-    grid-template-columns:repeat(4,minmax(0,1fr));
-  }
-  .home-featwrap:has(> .home-recent:not([hidden]))
-    > .card-grid.is-home6 > .card:nth-child(n+9){display:none;}
+  /* 「最近見た記事」は右端のPRの列の中に入れる（記事タイルの並びの
+     中に割り込ませると新着が5列→4列に減るため）。その列だけ
+     130px→210px に広げ、記事タイルは5列のまま。 */
+  .home-rightrail{flex:0 0 210px;}
+  .home-recent{display:block;}
   /* 広い画面では横並びの区画のほうを隠す（同じものが2回出ないように） */
   .recent-views.is-narrow{display:none;}
   /* 5列は1枚172pxしかない。価格・送料込・★・件数を1行に収めるため、
