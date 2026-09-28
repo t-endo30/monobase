@@ -1595,6 +1595,28 @@ body.has-sticky-cta .fab{bottom:96px;}
   .v2-section .promo-group > .card-grid{
     grid-template-columns:repeat(5,minmax(0,1fr));
   }
+  /* ホームのPRの段だけは、素材が5件に満たないときも行の幅を変えない
+     （2026-09-28、ユーザー判断）。5列ぶんの幅にタイルを固定したまま
+     横に配り、足りないぶんはタイルの間隔を広げて吸収する。グリッドの
+     ままだと空いた列のぶん左に詰まって見える。 */
+  .home-featwrap > .promo-group > .card-grid{
+    display:flex;justify-content:space-between;gap:22px 18px;
+  }
+  .home-featwrap > .promo-group > .card-grid > .promo-slot{
+    flex:0 0 calc((100% - 4 * 18px) / 5);
+  }
+  /* 記事タイルの並びは既定で5枚目から隠している（.card-grid >
+     .card:nth-child(n+5)）。PRの段は5枚出すので戻す。これを
+     入れ忘れていたため、5枚ぶん用意していたのに4枚しか出て
+     いなかった（2026-09-28に実測して判明）。 */
+  .home-featwrap > .promo-group > .card-grid > .promo-slot:nth-child(n+5){
+    display:flex;
+  }
+  /* PICKは1タブ4件（build.py / main.js と合わせる）。5列のままだと
+     4枚が左に詰まって右が空く。 */
+  .review-rank .card-grid.is-home6{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
 }
 
 @media (max-width:1080px){

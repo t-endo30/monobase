@@ -3643,11 +3643,15 @@ def v2_review_rank(p, pool_json, picks):
        中身の差し替えは v2_budget と同じ考え方（assets/main.js が
        data-pool から並べ替える）。ここで出す5件はJSが動かないときの
        中身でもある。"""
+    # 1タブ4件（2026-09-28、ユーザー判断で5件から減らした）。
+    # assets/main.js の rankedBy() も同じ4件で切っている。
+    PICK_TAB_N = 4
     have_n = [a for a in PUBLISHED if card_stats_data(a).get("n")]
     have_r = [a for a in PUBLISHED if card_stats_data(a).get("r")]
-    if len(have_n) < 5 or len(have_r) < 5:
-        return ""                      # どちらかの軸で5件そろわなければ出さない
-    top_n = sorted(have_n, key=lambda a: card_stats_data(a)["n"], reverse=True)[:5]
+    if len(have_n) < PICK_TAB_N or len(have_r) < PICK_TAB_N:
+        return ""                      # どちらかの軸でそろわなければ出さない
+    top_n = sorted(have_n, key=lambda a: card_stats_data(a)["n"],
+                   reverse=True)[:PICK_TAB_N]
     tabs = ('<button type="button" class="rr-tab is-on" role="tab" '
             'aria-selected="true" data-sort="n">口コミが多い順</button>'
             '<button type="button" class="rr-tab" role="tab" '
@@ -3655,7 +3659,8 @@ def v2_review_rank(p, pool_json, picks):
             '<button type="button" class="rr-tab" role="tab" '
             'aria-selected="false" data-sort="pick">今日のおすすめ</button>')
     pick_slugs = html.escape(
-        json.dumps([a["slug"] for a in picks[:5]], ensure_ascii=False), quote=True)
+        json.dumps([a["slug"] for a in picks[:PICK_TAB_N]], ensure_ascii=False),
+        quote=True)
     return ('      <div class="review-rank" data-review-rank '
             f"data-picks='{pick_slugs}'>\n"
             f'        <div class="rr-tabs" role="tablist">{tabs}</div>\n'
