@@ -4006,13 +4006,15 @@ def v2_home_side():
        （v2_recent_views）のほうを出す。両方をHTMLに入れておき、
        どちらを見せるかはCSSで決める（main.js は [data-recent-views] を
        全部埋めるので、どちらが出ていても中身は入る）。"""
+    # 見出しは本体の区画（— NEW — など）と同じ形にする。以前は白い箱に
+    # 小さな「最近見た記事」だけで、隣の見出しと形も高さもそろって
+    # いなかった（2026-09-29、ユーザー指摘）。高さは CSS の .home-side の
+    # padding-top を .v2-section と同じにしてそろえる。
     return ('    <aside class="home-side" data-recent-views-wrap hidden '
             'aria-label="最近見た記事">\n'
-            '      <div class="side-box home-side-box">\n'
-            '        <p class="finder-title">最近見た記事</p>\n'
-            '        <div class="card-grid" data-recent-views '
+            + v2_sec_head("RECENT", "最近見た記事", "is-side")
+            + '      <div class="card-grid" data-recent-views '
             'data-recent-limit="4"></div>\n'
-            '      </div>\n'
             '    </aside>\n')
 
 

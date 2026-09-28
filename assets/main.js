@@ -556,6 +556,45 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       wrap.hidden = false;
       document.dispatchEvent(new CustomEvent('mb:cards', { detail: grid }));
     });
+
+    /* ホームの右サイドバーのタイルを、隣の NEW の行とそろえる。
+       NEW のタイルは同じ行でいちばん高いものに合わせて伸びるが、
+       サイドバーは1列なので中身の高さのまま縮み、下へ行くほど行と
+       ずれていた（2026-09-29、ユーザー指摘）。i枚目を NEW のi行目と
+       同じ高さにする。間隔は CSS で NEW の行間（22px）にそろえてある。
+       のぞかせるだけの行（高さを絞った行）には合わせない。 */
+    var alignSide = function () {
+      var side = document.querySelector('.home-side .card-grid');
+      var main = document.querySelector('.home-body-main .card-grid.is-home6');
+      if (!side || !main) return;
+      var cards = Array.prototype.slice.call(side.children);
+      cards.forEach(function (c) { c.style.minHeight = ''; c.style.marginTop = ''; });
+      if (!side.offsetWidth) return;          /* 狭い画面ではサイドバーを出さない */
+      var rows = [], lastTop = null;          /* 行ごとの [上端, 高さ] */
+      Array.prototype.forEach.call(main.children, function (c) {
+        if (!c.offsetWidth) return;
+        var b = c.getBoundingClientRect();
+        if (c.offsetTop !== lastTop) { rows.push([b.top, b.height]); lastTop = c.offsetTop; }
+        else rows[rows.length - 1][1] = Math.max(rows[rows.length - 1][1], b.height);
+      });
+      /* 上から順に、上端を行にそろえてから高さをそろえる（前の1枚の
+         高さが変わると次の位置も動くので、1枚ずつ測り直す）。
+         数px程度のずれだけを直す。大きくずれているのは別の理由なので触らない。 */
+      cards.forEach(function (c, i) {
+        var row = rows[i];
+        if (!row || row[1] < 200) return;
+        var diff = row[0] - c.getBoundingClientRect().top;
+        if (Math.abs(diff) <= 30) c.style.marginTop = diff + 'px';
+        c.style.minHeight = row[1] + 'px';
+      });
+    };
+    alignSide();
+    var alignTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(alignTimer);
+      alignTimer = setTimeout(alignSide, 150);
+    });
+    window.addEventListener('load', alignSide);
   }
 
   /* ---- ランキングを描く ---- */
