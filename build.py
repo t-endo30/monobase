@@ -5022,11 +5022,18 @@ def main():
     made = 0
     # 一覧に出すのはモールの実物写真だけなので、それが無い記事には
     # ここで作る絵が出る。AIのアイキャッチがあっても関係ない。
+    # 題名は「｜」の前を大きく、後ろを補足として小さく入れる。
+    # 分野名はサブ区分まで出す（「カメラ」より「見守り・防犯カメラ」の方が
+    # 何の記事か伝わる）。特集は束ねているサブ区分の名前を出す。
     for a in PUBLISHED:
         if not shop_thumb(a)[0]:
-            path = make_visual(a["slug"], a.get("list_title") or a["title"],
-                               a["category"], CAT_LABEL.get(a["category"], ""),
-                               NAME, auto_dir)
+            cat, sub = a["category"], a.get("sub", "")
+            if a.get("feature_of"):
+                cat, _, sub = a["feature_of"].partition("/")
+            label = SUB_LABEL.get((cat, sub)) or CAT_LABEL.get(cat, "")
+            path = make_visual(a["slug"], a.get("title") or a.get("list_title"),
+                               a["category"], label, "MONOBASE", auto_dir,
+                               kind_label=KIND_LABEL.get(kind_of(a), ""))
             auto_version(a["slug"], path)
             made += 1
     keep_svg = {a["slug"] + ".svg" for a in PUBLISHED if not shop_thumb(a)[0]}

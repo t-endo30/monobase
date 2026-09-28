@@ -1,24 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-label="Anker PowerConf S360 口コミ">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-label="Anker PowerConf S360 口コミ｜有線専用機の向き不向き">
   <defs>
-    <linearGradient id="shade" x1="0" y1="0" x2="0.35" y2="1">
-      <stop offset="0%" stop-color="#EDEDEF"/>
-      <stop offset="100%" stop-color="#DEDEE1"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5A3A86"/>
+      <stop offset="100%" stop-color="#3A2458"/>
     </linearGradient>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M40 0 L0 0 0 40" fill="none" stroke="#25282D" stroke-opacity=".05" stroke-width="1"/>
+    <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="18" cy="18" r="2.2" fill="#FFFFFF" fill-opacity=".07"/>
     </pattern>
   </defs>
-
-  <rect width="1200" height="1200" fill="url(#shade)"/>
-  <rect width="1200" height="1200" fill="url(#grid)"/>
-
-  <rect x="446" y="312" width="46" height="96"  rx="6" fill="#5A5D63" fill-opacity=".40"/>
-  <rect x="514" y="282" width="46" height="176" rx="6" fill="#5A5D63" fill-opacity=".55"/>
-  <rect x="582" y="256" width="46" height="248" rx="6" fill="#5A5D63" fill-opacity=".65"/>
-  <rect x="650" y="282" width="46" height="176" rx="6" fill="#5A5D63" fill-opacity=".55"/>
-  <rect x="718" y="312" width="46" height="96"  rx="6" fill="#5A5D63" fill-opacity=".40"/>
-  <text x="600" y="590" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, sans-serif" font-size="96" font-weight="700" fill="#25282D" fill-opacity=".80">Anker Pow</text>
-  <text x="600" y="700" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, sans-serif" font-size="96" font-weight="700" fill="#25282D" fill-opacity=".80">erConf S3</text>
-  <text x="600" y="810" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, sans-serif" font-size="96" font-weight="700" fill="#25282D" fill-opacity=".80">60 口コミ</text>
-  <text x="600" y="922" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, sans-serif" font-size="64" letter-spacing="10" fill="#5A5D63" fill-opacity=".70">AV機器</text>
+  <rect width="1200" height="1200" fill="url(#bg)"/>
+  <rect width="1200" height="1200" fill="url(#dots)"/>
+  <circle cx="1080" cy="140" r="330" fill="#FFFFFF" fill-opacity=".06"/>
+  <circle cx="1080" cy="140" r="200" fill="#FFFFFF" fill-opacity=".05"/>
+  <circle cx="90" cy="1130" r="260" fill="#FFFFFF" fill-opacity=".05"/>
+  <rect x="100" y="326" width="260" height="76" rx="38" fill="#FFFFFF"/>
+  <text x="230" y="381" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="50" font-weight="800" fill="#3A2458">レビュー</text>
+  <text x="386.0" y="381" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="48" font-weight="600" fill="#FFFFFF" fill-opacity=".82">マイク・配信機材</text>
+  <text x="100" y="538" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="104" font-weight="800" fill="#FFFFFF" letter-spacing="-2.1">Anker PowerConf</text>
+  <text x="100" y="664" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="104" font-weight="800" fill="#FFFFFF" letter-spacing="-2.1">S360 口コミ</text>
+  <text x="100" y="780" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="60" font-weight="600" fill="#FFFFFF" fill-opacity=".78">有線専用機の向き不向き</text>
+  <rect x="100" y="848" width="120" height="8" rx="4" fill="#FFD36B"/>
+  <text x="1100" y="866" text-anchor="end" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="34" font-weight="700" letter-spacing="8" fill="#FFFFFF" fill-opacity=".6">MONOBASE</text>
 </svg>
