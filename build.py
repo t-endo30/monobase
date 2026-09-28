@@ -121,6 +121,34 @@ CAT_ICON  = {c["key"]: c["icon"]  for c in CATS}
 PUBLISHED = sorted([a for a in ARTICLES if a.get("published")],
                    key=lambda a: a.get("date", ""), reverse=True)
 
+# 検索エンジンに見せる記事の線引き（2026-09-29）。
+# AdSense の審査が「有用性の低いコンテンツ」で2度落ち、Search Console でも
+# sitemap の23%しか登録されていなかった。1か月で200本を超えた自動生成の
+# レビューを全部見せると、サイト全体が薄いと判定される。そこで、読者に
+# 渡せる材料を持つ記事だけを index し、残りは noindex,follow にして
+# sitemap からも外す（ページは残し、一覧・内部リンクからは今までどおり辿れる）。
+# 条件を満たせば次のビルドで自動的に index へ戻る。
+# 記事ごとに "index": true / false を書けば、この判定より優先する。
+INDEX_MIN_VIEWS = 5        # GA4の累計閲覧数。読まれている記事は外さない
+INDEX_MIN_REVIEWS = 30     # 口コミ件数。数字の裏づけとして読める量
+INDEX_MIN_BODY = 1300      # 本文の文字数（見出しの下の段落の合計）
+
+
+def indexable(a):
+    if isinstance(a.get("index"), bool):
+        return a["index"]
+    if a.get("category") == "feature" or (a.get("kind") or "review") != "review":
+        return True
+    if RANKING.get(a["slug"], 0) >= INDEX_MIN_VIEWS:
+        return True
+    if a.get("spec"):
+        return True
+    st = a.get("review_stats") or {}
+    count = max([v.get("count") or 0 for v in st.values() if isinstance(v, dict)],
+                default=0)
+    body = sum(len(p) for s in a.get("sections") or [] for p in s.get("paras") or [])
+    return count >= INDEX_MIN_REVIEWS and body >= INDEX_MIN_BODY
+
 # ブランドマーク：ドット絵の「M」と、その下に沿う開いたダンボール箱。
 # 16×16 のマス目を「1マス＝1色」で持つ（(x, y, 幅) のリスト）。
 # ここ1か所を直すだけで、ヘッダーのSVG・favicon・OGP画像の見た目が揃う。
@@ -3342,7 +3370,7 @@ def render_article(a):
                 # OGPにAIの絵は出さない。SNSや検索結果に出る絵は
                 # 「その商品の写真」として受け取られるため。
                 # 空にすると、サイト共通の og-default.jpg が使われる。
-                image="",
+                image="", noindex=not indexable(a),
                 crumbs=[("ホーム", f"{p}index.html"),
                         (CAT_LABEL.get(cat, ""), f"{p}category-{cat}.html"),
                         (a.get("list_title") or a["title"], None)])
@@ -4950,7 +4978,44 @@ def write(path, content):
         os.makedirs(d, exist_ok=True)
     if path.endswith(".html"):
         content = clean_links(content)
+        content = externalize_promos(content)
     io.open(path, "w", encoding="utf-8").write(content)
+
+
+# ASPのバナー候補は、ページには参照キーだけを残し、中身は promos.json に
+# まとめて置く（2026-09-29）。候補を <template> で全ページに埋め込んで
+# いたため、記事1本のHTMLにバナー候補144個・A8のリンク261本が入り、
+# 327KBあった。画面に出るのは数枚でも、ソースを読むクローラには
+# 「アフィリエイトリンクの塊」に見える（AdSense が「有用性の低い
+# コンテンツ」で2度落ちた）。assets/main.js が promos.json を読んで
+# 中身を戻してから、今までどおり選んで差し込む。
+# /assets/* は1年キャッシュなので、置き場所はサイト直下（search.json と同じ）。
+PROMO_POOL = {}
+PROMO_POOL_FILE = "promos.json"
+_PROMO_TPL_RE = re.compile(
+    r'<template class="promo-item"((?: data-for="[^"]*")?)>(.*?)</template>', re.S)
+_PROMO_POOL_RE = re.compile(
+    r'(<script type="application/json" class="home-feat-ad-pool" '
+    r'data-for="[^"]*">)(.*?)(</script>)', re.S)
+
+
+def _promo_ref(html_):
+    k = hashlib.sha1(html_.encode("utf-8")).hexdigest()[:12]
+    PROMO_POOL[k] = html_
+    return k
+
+
+def externalize_promos(content):
+    content = _PROMO_TPL_RE.sub(
+        lambda m: (f'<template class="promo-item"{m.group(1)} '
+                   f'data-ref="{_promo_ref(m.group(2))}"></template>'),
+        content)
+
+    def pool(m):
+        items = json.loads(m.group(2).replace("<\\/", "</"))
+        refs = ["@" + _promo_ref(h) for h in items]
+        return m.group(1) + json.dumps(refs) + m.group(3)
+    return _PROMO_POOL_RE.sub(pool, content)
 
 LD_RE = re.compile(
     r'<script type="application/ld\+json">(.*?)</script>', re.S)
@@ -5140,7 +5205,9 @@ def main():
               cat_mod(c["key"], sc["key"]))
              for c in CATS for sc in c.get("sub", [])
              if n_arts(c["key"], sc["key"]) >= SITEMAP_MIN_SUB]
-    urls += [(f'{BASE_URL}/articles/{a["slug"]}.html', "0.9", mod(a)) for a in PUBLISHED]
+    # noindex の記事は載せない（載せると「noindex なのに sitemap にある」になる）
+    urls += [(f'{BASE_URL}/articles/{a["slug"]}.html', "0.9", mod(a))
+             for a in PUBLISHED if indexable(a)]
     static = ["about.html", "editorial-policy.html", "advertising.html",
               "privacy.html", "disclaimer.html", "sitemap.html"]
     if FEAT.get("contact_form"):
@@ -5337,6 +5404,11 @@ def main():
         "",
     ]))
     written.append("_headers")
+
+    # HTMLを全部書き終えてから、そこで集めたバナー候補を書き出す
+    write(PROMO_POOL_FILE, json.dumps(dict(sorted(PROMO_POOL.items())),
+                                      ensure_ascii=False, separators=(",", ":")))
+    written.append(PROMO_POOL_FILE)
 
     # 構造化データの検算。Google は入れ子の Product も1アイテムとして見るので、
     # offers / review / aggregateRating のどれも持たない Product があると

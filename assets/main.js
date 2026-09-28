@@ -860,10 +860,41 @@ document.addEventListener('touchstart', function () {}, { passive: true });
    その枠を引っ込めるだけだったので、3枚のはずが1枚や2枚になっていた。
    候補が尽きたときだけ、枠ごと引っ込める（写真の位置が空いたまま
    日付と見出しだけが残るのを避けるため）。
+
+   候補の中身はページに埋め込まず、promos.json にまとめてある
+   （build.py の externalize_promos）。ページの <template> と
+   ホームの候補リストには参照キーしか無いので、まずそれを読んで
+   中身を戻してから選ぶ。読めなかった候補は引かない。
    ============================================================ */
+var monoPromos = (function () {
+  'use strict';
+  var p = null;
+  return function () {
+    if (!p) {
+      p = (window.fetch
+        ? fetch('/promos.json', { cache: 'no-cache' }).then(function (r) {
+            return r.ok ? r.json() : {};
+          })
+        : Promise.resolve({})
+      ).catch(function () { return {}; });
+    }
+    return p;
+  };
+})();
+
 (function () {
   'use strict';
+  if (!document.querySelector('template.promo-item[data-ref]')) { run(); return; }
+  monoPromos().then(function (pool) {
+    Array.prototype.forEach.call(
+      document.querySelectorAll('template.promo-item[data-ref]'), function (t) {
+        var h = pool[t.getAttribute('data-ref')];
+        if (h) { t.innerHTML = h; } else { t.parentNode.removeChild(t); }
+      });
+    run();
+  });
 
+  function run() {
   /* 差し込んだ広告のバナーを見張る。読めなかったら onfail を呼ぶ */
   function watch(box, onfail) {
     var imgs = box.querySelectorAll('.card-thumb img, .promo-body img');
@@ -935,6 +966,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       fill(body.closest('.promo-slot') || body.parentNode, body, pool);
     });
   });
+  }
 })();
 
 
@@ -1648,6 +1680,19 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       return;
     }
     if (!pool || !pool.length) return;
+    /* 候補が参照キー（@付き）なら、promos.json から中身を戻してから選ぶ */
+    if (pool.some(function (h) { return h.charAt(0) === '@'; })) {
+      monoPromos().then(function (map) {
+        start(target, pool.map(function (h) {
+          return h.charAt(0) === '@' ? map[h.slice(1)] : h;
+        }).filter(Boolean));
+      });
+    } else {
+      start(target, pool);
+    }
+  });
+  function start(target, pool) {
+    if (!pool.length) return;
     var n = parseInt(target.getAttribute('data-ad-n'), 10) || 1;
     var label = target.getAttribute('data-ad-label') || 'PR';
     pool = shuffle(pool.slice());
@@ -1670,7 +1715,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
     Array.prototype.forEach.call(items, function (item) {
       watch(item, function () { place(item, label, spare); });
     });
-  });
+  }
 })();
 
 
