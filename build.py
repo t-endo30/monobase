@@ -3888,22 +3888,25 @@ def v2_side_recent_views():
             '      </div>\n')
 
 
-def v2_home_recent_col():
-    """ホームの「最近見た記事」を、新着記事の右に置く縦の列にする
-       （2026-09-28、ユーザー判断）。中身の描き方は記事ページの
-       サイドバー（v2_side_recent_views）と同じで、assets/main.js が
-       localStorage の履歴から埋める。
+def v2_home_side():
+    """ホームの右サイドバー。記事の区画（.home-body-main）の外に置く
+       独立した列で、中身は「最近見た記事」（2026-09-28、ユーザー判断で
+       新着の枠の中から外へ出した）。
 
-       幅の広いPC（1440px以上）でだけ出す。それより狭い画面では列を
-       足す余地が無いので、従来どおり横並びの区画（v2_recent_views）を
-       出す。両方をHTMLに入れておき、どちらを見せるかはCSSで決める
-       （main.js は [data-recent-views] を全部埋めるので、どちらが
-       出ていても中身は入る）。"""
-    return ('<aside class="home-recent" data-recent-views-wrap hidden '
-            'aria-label="最近見た記事">'
-            '<p class="finder-title">最近見た記事</p>'
-            '<div class="card-grid" data-recent-views data-recent-limit="2"></div>'
-            '</aside>')
+       描き方は記事ページのサイドバー（v2_side_recent_views）と同じで、
+       assets/main.js が localStorage の履歴から埋める。幅の広いPC
+       （1440px以上）でだけ出し、それより狭い画面では横並びの区画
+       （v2_recent_views）のほうを出す。両方をHTMLに入れておき、
+       どちらを見せるかはCSSで決める（main.js は [data-recent-views] を
+       全部埋めるので、どちらが出ていても中身は入る）。"""
+    return ('    <aside class="home-side" data-recent-views-wrap hidden '
+            'aria-label="最近見た記事">\n'
+            '      <div class="side-box home-side-box">\n'
+            '        <p class="finder-title">最近見た記事</p>\n'
+            '        <div class="card-grid" data-recent-views '
+            'data-recent-limit="4"></div>\n'
+            '      </div>\n'
+            '    </aside>\n')
 
 
 def v2_article_sidebar(p, a):
@@ -3974,19 +3977,22 @@ def build_index():
     # 「続きから」を新着より先に見せたい。
     body += v2_recent_views(p)
 
-    body += v2_section(
+    # ここから下（新着・特集・ランキング…）は、右にサイドバーを添えた
+    # 器（.home-body）の中に入れる。サイドバーは記事ページと同じ考え方で
+    # 区画の外に出す（2026-09-28、ユーザー判断）。
+    main_html = ""
+
+    main_html += v2_section(
         v2_sec_head("NEW", "新着記事", cls="has-feat-ad has-side-ad")
         + '      <div class="home-featwrap">'
         + home_feat_ad("home_new", n=4)
         + '<div class="card-grid is-home6">'
         + "".join(v2_card(a, p, flags="new") for a in latest) + "</div>"
-        # 右端の列は、PRバナーと「最近見た記事」を縦に積んだ1本の列に
-        # まとめる（2026-09-28、ユーザー判断。記事タイルの並びの中に
-        # 割り込ませると新着が5列→4列に減るため、PRの列の側に入れる）。
-        + '<div class="home-rightrail">'
-        + home_feat_ad("article_side", n=1, slot="_r", extra_cls="is-right")
-        + v2_home_recent_col()
-        + '</div></div>\n'
+        # 右端には何も置かない。ここは正方形のバナーを想定した枠で、
+        # article_side（120x600の縦長）を入れていたため列の幅と
+        # 合わず、並びが崩れていた（2026-09-28、ユーザー指摘で撤去）。
+        # 「最近見た記事」は区画の外＝右サイドバー（v2_home_side）へ移した。
+        + '</div>\n'
         + v2_sec_more(f"{p}new.html", cls="has-feat-ad has-side-ad"), tinted=True)
 
     # ランキングの並びは、ランキングのページ（assets/main.js）と同じ規則で
@@ -3999,7 +4005,7 @@ def build_index():
     # 3列で大きめに出し、続きは VIEW ALL から。
     feats = [a for a in PUBLISHED if a.get("category") == "feature"][:3]
     if feats:
-        body += v2_section(
+        main_html += v2_section(
             v2_sec_head("FEATURE", "比較・選び方の特集",
                         cls="has-feat-ad has-side-ad")
             + '      <div class="card-grid is-feature">'
@@ -4015,7 +4021,7 @@ def build_index():
     # スマホでは横並びのカルーセルにする（最大10件・左右見切れ・送りボタン）。
     # PCはこれまでどおり card-grid の並び（is-rail JS はスマホ幅のときだけ
     # ボタンを出す＝track が overflow-x:auto のときだけ）。
-    body += v2_section(
+    main_html += v2_section(
         v2_sec_head("RANKING", "よく読まれている記事", cls="has-feat-ad has-side-ad")
         + '      <div class="home-featwrap">'
         + home_feat_ad("home_rank", n=4)
@@ -4028,7 +4034,7 @@ def build_index():
         + '        <button type="button" class="rail-btn is-next" '
         'aria-label="次の記事" hidden><span aria-hidden="true"></span></button>\n'
         + '      </div>'
-        + home_feat_ad("article_side", n=1, slot="_r2", extra_cls="is-right") + '</div>\n'
+        + '</div>\n'
         + v2_sec_more(f"{p}ranking.html", cls="has-feat-ad has-side-ad"))
 
     # 予算で探す枠はホームには置かない（2026-09-27、ユーザー判断）。
@@ -4044,7 +4050,7 @@ def build_index():
     review_rank = v2_review_rank(
         p, html.escape(json.dumps(pool, ensure_ascii=False), quote=True), picks)
     if review_rank:
-        body += v2_section(
+        main_html += v2_section(
             v2_sec_head("PICK", "口コミ・おすすめで探す",
                         cls="has-feat-ad has-side-ad")
             + review_rank)
@@ -4057,7 +4063,7 @@ def build_index():
     # 見出し（PR ----）を立て、PCは左にバナーを1本添える。
     home_ad = promo_slot("list_end", count=5)
     if home_ad.strip():
-        body += v2_section(
+        main_html += v2_section(
             v2_sec_head("PR", "気になる商品・キャンペーン",
                         cls="has-feat-ad has-side-ad")
             + '      <div class="home-featwrap">'
@@ -4067,11 +4073,11 @@ def build_index():
     # サイトの顔にあたる場所で、古い規格のバナーが浮くため。
     slots = ad_slot("top")
     if slots.strip():
-        body += v2_section(slots)
+        main_html += v2_section(slots)
 
     # 見出し・ボタンは、新着記事などと同じく広告ぶんを差し引いた幅に
     # そろえる（この区画に広告は無いが、縦に並べたときの左右をそろえる）。
-    body += v2_section(
+    main_html += v2_section(
         v2_sec_head("CATEGORY", "カテゴリーから探す",
                     cls="has-feat-ad has-side-ad")
         + v2_cat_carousel(p)
@@ -4100,6 +4106,13 @@ def build_index():
     ld_js = "".join('<script type="application/ld+json">'
                     + json.dumps(x, ensure_ascii=False) + "</script>\n"
                     for x in site_ld)
+    body += ('  <div class="home-body">\n'
+             '    <div class="home-body-main">\n'
+             + main_html
+             + '    </div>\n'
+             + v2_home_side()
+             + '  </div>\n')
+
     return page(f"{NAME}｜{SUBTITLE}", f"{SUBTITLE}。{SITE['description']}", "home", p, BASE_URL + "/", body,
                 body_class="is-home", hero_slot=v2_hero(p), extra_js=ld_js,
                 image="")

@@ -484,10 +484,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    下の @media (min-width:1081px) でだけ横並びにする */
 .home-featwrap{display:block;}
 .home-feat-ad{display:none;}
-/* ホームの「最近見た記事」の縦列。出すのは右の列に入る幅（1440px以上）
-   だけ。狭い画面では横並びの区画（.recent-views.is-narrow）のほうを
-   出すので、ここで隠しておかないと同じものが2回出る。 */
-.home-recent{display:none;}
+/* ホームの右サイドバー（.home-side）。区画の外に置いた独立した列で、
+   中身は「最近見た記事」。出すのは列を並べる余地のある1440px以上だけ。
+   狭い画面では横並びの区画（.recent-views.is-narrow）のほうを出すので、
+   ここで隠しておかないと同じものが2回出る。 */
+.home-side{display:none;}
 /* タイルは白い面。背景に敷いた写真の上に置くので、文字が写真に
    直接乗らないようにする */
 .card{display:flex;flex-direction:column;background:var(--bg-2);padding-bottom:38px;
@@ -1432,24 +1433,11 @@ body.has-sticky-cta .fab{bottom:96px;}
      やめて縦の列にした）。列を足す余地があるのは1440px以上なので、
      そこまでは従来どおり横並びの区画（.recent-views.is-narrow）を出し、
      この列は隠しておく。 */
-  .home-recent{display:none;}
-  /* 右端の列。PRバナーと「最近見た記事」を縦に積む器。 */
-  .home-rightrail{
-    flex:0 0 130px;display:flex;flex-direction:column;gap:24px;
-    align-self:stretch;
-  }
-  .home-rightrail > .home-feat-ad{flex:0 0 auto;}
-  /* 記事タイルの並びと「最近見た記事」の列は、どちらも中身ぶんの高さで
-     止める。伸ばす（stretch）と、背の高いほうに引っぱられて記事タイルの
-     中に大きな空きができる（2026-09-28に実際に起きた）。左右の広告列は
-     これまでどおり伸ばして記事タイルと下端をそろえる。 */
-  .home-featwrap > .card-grid,
-  .home-featwrap > .home-recent{align-self:start;}
-  .home-recent .card-grid{grid-template-columns:1fr;gap:16px;}
-  .home-recent .finder-title{
-    margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.03em;
-    color:var(--ink-2);
-  }
+  .home-side{display:none;}
+  /* 記事タイルの並びは中身ぶんの高さで止める。伸ばす（stretch）と、
+     背の高い列に引っぱられてタイルの中に大きな空きができる。
+     左右の広告列はこれまでどおり伸ばして下端をそろえる。 */
+  .home-featwrap > .card-grid{align-self:start;}
   .card-grid.is-home6{
     grid-template-columns:repeat(3,minmax(0,1fr));
   }
@@ -1496,11 +1484,31 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card-grid.is-home6{grid-template-columns:repeat(5,minmax(0,1fr));}
   .card-grid.is-home6 > .card:nth-child(n+7){display:grid;}
   .card-grid.is-home6 > .card:nth-child(n+11){display:none;}
-  /* 「最近見た記事」は右端のPRの列の中に入れる（記事タイルの並びの
-     中に割り込ませると新着が5列→4列に減るため）。その列だけ
-     130px→210px に広げ、記事タイルは5列のまま。 */
-  .home-rightrail{flex:0 0 210px;}
-  .home-recent{display:block;}
+  /* ホームの本体（新着から下）と右サイドバーを横に並べる。
+     区画の外に出した独立した列なので、記事タイルの並びには
+     割り込まない（2026-09-28、ユーザー判断）。
+     器の中身は 1280px。サイドバー280＋隙間32を引いた 968px が本体で、
+     その中は左の縦バナー160＋隙間28を引いた 780px が記事タイル。
+     5列だと1枚148pxしか無いので、この段だけ4列（8枚）にする。 */
+  .home-body{
+    display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:32px;
+    max-width:var(--wrap);margin:0 auto;padding:0 var(--gut);
+    align-items:start;
+  }
+  .home-body > .home-body-main{min-width:0;}
+  /* 中の区画は既に器の中にいるので、もう一度 container で絞らない */
+  .home-body .v2-section > .container{max-width:none;padding:0;}
+  .home-side{display:block;}
+  .home-side .card-grid{grid-template-columns:1fr;gap:14px;}
+  .home-side .finder-title{
+    margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.03em;
+    color:var(--ink-2);
+  }
+  .home-body:has(> .home-side:not([hidden])) .card-grid.is-home6{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+  .home-body:has(> .home-side:not([hidden]))
+    .card-grid.is-home6 > .card:nth-child(n+9){display:none;}
   /* 広い画面では横並びの区画のほうを隠す（同じものが2回出ないように） */
   .recent-views.is-narrow{display:none;}
   /* 5列は1枚172pxしかない。価格・送料込・★・件数を1行に収めるため、
