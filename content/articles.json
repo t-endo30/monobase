@@ -534,6 +534,9 @@
     "total": 87,
     "notes": "修正前は未確認の口コミ件数・平均評価・具体的価格を事実のように書いていた点が主な減点要因。修正後は台数・OSという条件面の分析が具体的で購入判断に役立つが、独自分析はやや薄め"
    }
+  },
+  "health": {
+   "checked": "2026-09-28"
   }
  },
  {
@@ -809,6 +812,9 @@
     "total": 85,
     "notes": "未確認の口コミ件数・平均星（121件／4.64）が6箇所で使われ、personal_noteではさらに未確認の分布推測まで重ねていた点を修正。修正後は他に事実逸脱は無いが、『〜と考えられます』の多用がやや目立ちtemplate_avoidanceを抑えた。"
    }
+  },
+  "health": {
+   "checked": "2026-09-28"
   }
  },
  {
@@ -1053,6 +1059,9 @@
     "total": 86,
     "notes": "口コミの件数・平均点を断定数値で出していた5箇所を修正。rating/specは根拠が無いため正しく省かれている。独自分析(用途適合性の指摘)はあるが構成がテンプレート的でtemplate_avoidanceはやや低め"
    }
+  },
+  "health": {
+   "checked": "2026-09-28"
   }
  },
  {
@@ -1298,6 +1307,9 @@
     "total": 89,
     "notes": "rating/specを裏づけ無しとして正しく省いており減点対象ではない。独自性はふるさと納税という購入形態特有の視点（寄附上限・自己負担・発送速度）で一定のオリジナリティがあるが、他のふるさと納税食品記事にも転用しやすい骨格でもあるため original_analysis と template_avoidance は伸びきらない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-28"
   }
  },
  {
@@ -13737,7 +13749,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-28"
   },
   "review_stats": {
    "rakuten": {
@@ -13998,7 +14010,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -14256,7 +14268,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-28"
   },
   "review_stats": {
    "rakuten": {
@@ -14494,7 +14506,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -14508,7 +14520,7 @@
   "description": "CFD販売 Crucial by Micron W4U2666CMのDDR4-2666メモリを、公式仕様が未確認の範囲で口コミ傾向と確認事項から解説する。",
   "excerpt": "無期限保証・相性保証付きDDR4メモリの選び方と確認ポイント",
   "date": "2026-09-22",
-  "updated": "2026-09-22",
+  "updated": "2026-09-28",
   "tags": [
    "CFD販売",
    "Crucial",
@@ -14519,7 +14531,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E9%9D%9E%E5%B8%B8%E3%81%AB%E8%89%AF%E3%81%84%20CFD%E8%B2%A9%E5%A3%B2%20Crucial%20by%20Micron%20%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97PC%E7%94%A8%E3%83%A1%E3%83%A2%E3%83%AA%20DDR4-2666%20PC4-21300%208GB%C3%972%E6%9E%9A%20288pin%20DIMM%20%E7%84%A1%E6%9C%9F%E9%99%90%E4%BF%9D%E8%A8%BC%20%E7%9B%B8%E6%80%A7%E4%BF%9D%E8%A8%BC%20W4U2666CM&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：保証の手厚さを重視する人には選びやすいが、DDR5環境の人には無関係",
   "summary": [
@@ -14702,7 +14714,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-28",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E9%9D%9E%E5%B8%B8%E3%81%AB%E8%89%AF%E3%81%84%20CFD%E8%B2%A9%E5%A3%B2%20Crucial%20by%20Micron%20%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97PC%E7%94%A8%E3%83%A1%E3%83%A2%E3%83%AA%20DDR4-2666%20PC4-21300%208GB%C3%972%E6%9E%9A%20288pin%20DIMM%20%E7%84%A1%E6%9C%9F%E9%99%90%E4%BF%9D%E8%A8%BC%20%E7%9B%B8%E6%80%A7%E4%BF%9D%E8%A8%BC%20W4U2666CM&i=aps"
+   ]
   },
   "review_stats": {
    "rakuten": {
@@ -14723,7 +14738,7 @@
   "description": "OUTLET 10本セットのType-C to Type-Cケーブル(C24)の口コミと確認点。Lightning表記との食い違い・PD対応・アウトレット品の個体差まで整理。",
   "excerpt": "10本セットのType-Cケーブルを口コミと確認点から解説。Lightning表記との違いに注意。",
   "date": "2026-09-22",
-  "updated": "2026-09-22",
+  "updated": "2026-09-28",
   "tags": [
    "USB Type-Cケーブル",
    "iPhone15",
@@ -14734,7 +14749,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=OUTLET%2010%E6%9C%AC%20iPhone15%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%201m%20Type-C%20to%20Type-C%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20Lightning%20%E3%82%BF%E3%82%A4%E3%83%97C%20iphone%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20USB%20PD%E5%AF%BE%E5%BF%9C%20%E6%80%A5%E9%80%9F%E5%85%85%E9%9B%BB%20%E6%9C%80%E5%A4%A760W%20%E8%B6%85%E9%AB%98%E9%80%9F%20%E3%83%A9%E3%82%A4%E3%83%88%E3%83%8B%E3%83%B3%E3%82%B0%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20usb-c%20C24&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：予備・複数台の同時充電を安く済ませたい人には買い。1本の品質保証を重視するなら別を検討。",
   "summary": [
@@ -14957,7 +14972,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-28",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=OUTLET%2010%E6%9C%AC%20iPhone15%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%201m%20Type-C%20to%20Type-C%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20Lightning%20%E3%82%BF%E3%82%A4%E3%83%97C%20iphone%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20USB%20PD%E5%AF%BE%E5%BF%9C%20%E6%80%A5%E9%80%9F%E5%85%85%E9%9B%BB%20%E6%9C%80%E5%A4%A760W%20%E8%B6%85%E9%AB%98%E9%80%9F%20%E3%83%A9%E3%82%A4%E3%83%88%E3%83%8B%E3%83%B3%E3%82%B0%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20usb-c%20C24&i=aps"
+   ]
   }
  },
  {
@@ -14971,7 +14989,7 @@
   "description": "ハイアール OBBR-121A(2024年製・右開き・ブラック)は動作保証付きの中古2ドア冷蔵庫。公式仕様が確認できない中で、選ぶ前に見るべき点と向く人・向かない人を整理しました。",
   "excerpt": "動作保証付きの中古2ドア冷蔵庫。右開き設置や保証範囲など、購入前に確認したい点をまとめました。",
   "date": "2026-09-22",
-  "updated": "2026-09-22",
+  "updated": "2026-09-28",
   "tags": [
    "ハイアール",
    "OBBR-121A",
@@ -14982,7 +15000,7 @@
   "icon": "🏠",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E2%98%85%20%E6%9C%9F%E9%96%93%E4%B8%AD%20%E2%98%85%20%E3%83%8E%E3%83%B3%E3%83%95%E3%83%AD%E3%83%B3%E5%86%B7%E5%87%8D%E5%86%B7%E8%94%B5%E5%BA%AB%E5%8B%95%E4%BD%9C%E4%BF%9D%E8%A8%BC%20Haier%20%E3%83%8F%E3%82%A4%E3%82%A2%E3%83%BC%E3%83%AB%20OBBR-121A%202024%E5%B9%B4%E8%A3%BD%20%E5%8F%B3%E9%96%8B%E3%81%8D%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%202%E3%83%89%E3%82%A2%E5%86%B7%E8%94%B5%E5%BA%AB%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20C%20517832&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：右開きで置ける一人暮らし向けなら候補。左開き必須や大容量が要る人には別を",
   "summary": [
@@ -15181,7 +15199,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-28",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E2%98%85%20%E6%9C%9F%E9%96%93%E4%B8%AD%20%E2%98%85%20%E3%83%8E%E3%83%B3%E3%83%95%E3%83%AD%E3%83%B3%E5%86%B7%E5%87%8D%E5%86%B7%E8%94%B5%E5%BA%AB%E5%8B%95%E4%BD%9C%E4%BF%9D%E8%A8%BC%20Haier%20%E3%83%8F%E3%82%A4%E3%82%A2%E3%83%BC%E3%83%AB%20OBBR-121A%202024%E5%B9%B4%E8%A3%BD%20%E5%8F%B3%E9%96%8B%E3%81%8D%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%202%E3%83%89%E3%82%A2%E5%86%B7%E8%94%B5%E5%BA%AB%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20C%20517832&i=aps"
+   ]
   },
   "review_stats": {
    "rakuten": {
@@ -15202,7 +15223,7 @@
   "description": "エレコムのMacBook用インナーバッグ13.3インチ対応モデルについて、サイズ表記の読み方と購入前に確認すべき点を整理しました。",
   "excerpt": "13.3インチ対応表記の読み方と購入前の確認点をまとめました。",
   "date": "2026-09-22",
-  "updated": "2026-09-22",
+  "updated": "2026-09-28",
   "tags": [
    "エレコム",
    "MacBook",
@@ -15213,7 +15234,7 @@
   "icon": "💻",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%A8%E3%83%AC%E3%82%B3%E3%83%A0%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%A4%E3%83%B3%E3%83%8A%E3%83%BC%E3%83%90%E3%83%83%E3%82%B0%2013.3%E3%82%A4%E3%83%B3%E3%83%81%E5%AF%BE%E5%BF%9C%20MacBook%20Air%2C%20Pro%2013inch%E3%83%A2%E3%83%87%E3%83%AB&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：13.3インチ表記に自分のMacBookが収まるか確認できる人向け。厚み・生地感は購入前にページで要チェック",
   "summary": [
@@ -15420,7 +15441,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-28",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%A8%E3%83%AC%E3%82%B3%E3%83%A0%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%82%A4%E3%83%B3%E3%83%8A%E3%83%BC%E3%83%90%E3%83%83%E3%82%B0%2013.3%E3%82%A4%E3%83%B3%E3%83%81%E5%AF%BE%E5%BF%9C%20MacBook%20Air%2C%20Pro%2013inch%E3%83%A2%E3%83%87%E3%83%AB&i=aps"
+   ]
   },
   "review_stats": {
    "rakuten": {
@@ -15674,7 +15698,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-28"
   },
   "review_stats": {
    "rakuten": {
@@ -15924,7 +15948,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-28"
   },
   "review_stats": {
    "rakuten": {
@@ -22576,7 +22600,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -22807,7 +22831,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tiger-online/cabinet/kae-g13n_ra260710.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-22"
+   "checked": "2026-09-28"
   },
   "review_stats": {
    "rakuten": {
@@ -25537,7 +25561,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/secupcs/cabinet/1st-img/red/db74.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -25776,7 +25800,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/roomy/cabinet/500cart_all/500cart_11g/p10n-4/ide2006-kx027-1_gt01.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -30806,7 +30830,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -31057,7 +31081,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -39427,7 +39451,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   },
   "review_stats": {
    "rakuten": {
@@ -39708,7 +39732,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   },
   "review_stats": {
    "rakuten": {
@@ -39964,7 +39988,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   },
   "review_stats": {
    "rakuten": {
@@ -40268,7 +40292,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -43747,7 +43771,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -44019,7 +44043,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   },
   "review_stats": {
    "rakuten": {
@@ -44867,7 +44891,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/low-ya/cabinet/img4/zaisu/vg-pola_01_.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   },
   "review_stats": {
    "rakuten": {
@@ -45096,7 +45120,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/attenir/cabinet/thum/166013_main_2608-2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   },
   "review_stats": {
    "rakuten": {
@@ -46395,7 +46419,7 @@
   },
   "image_prompt": "A photograph of グンゼ AGW112, which is a 靴下, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -50748,7 +50772,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/logicool/4943765058380.html",
   "jan": "4943765058380",
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   },
   "good_for": {
    "intro": "次のような環境・使い方の人には、この構成が素直に効きます。",
@@ -51396,7 +51420,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/switchbot/w3202100.html",
   "jan": "0850046603174",
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   },
   "good_for": {
    "intro": "次のどれかに当てはまるなら、ハブ2の機能が余らずに使い切れます。",
@@ -52367,7 +52391,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/e-alamode/27-3910.html",
   "jan": "4903208044882",
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   },
   "good_for": {
    "intro": "この製品が力を発揮するのは、床面積のほうが天井高より貴重な部屋です。",
@@ -52598,7 +52622,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   },
   "good_for": {
    "intro": "モノベースでは、DCモーター扇風機への買い替えは次のような人に向くと評価します。",
@@ -52802,7 +52826,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   },
   "good_for": {
    "intro": "34インチウルトラワイドが向くのは、画面の広さを「同時に見る枚数」に変換できる使い方をしている人です。",
@@ -53094,7 +53118,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/dji-store/6941565991430.html",
   "jan": "6941565991430",
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   },
   "good_for": {
    "intro": "次のような使い方・環境なら、Mic Mini の軽さと運用のシンプルさがそのまま効きます。",
@@ -55915,7 +55939,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -56115,7 +56139,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -56342,7 +56366,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -56580,7 +56604,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   }
  },
  {
@@ -56811,7 +56835,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-28"
   }
  }
 ]
