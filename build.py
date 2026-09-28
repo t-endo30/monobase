@@ -3947,7 +3947,10 @@ def build_index():
     # 幅の広いPC（1440px以上）では5列×2行＝10件出す。そこから下の
     # 画面幅では、CSSが6件・4件と間引く（.card-grid.is-home6）。
     # 多めに渡しておいて、何件見せるかはCSSだけで決める。
-    latest = PUBLISHED[:10]
+    # 15件渡すのは、見せる行の次の1行を「半分だけのぞかせる」ため
+    # （2026-09-28、ユーザー判断。VIEW ALL の上に続きがあることを
+    # 見せる。CSS の .card-grid.is-home6 > .card の nth-child 参照）。
+    latest = PUBLISHED[:15]
 
     # ピックアップは「その日のおすすめ」。全記事から3本を日替わりで選ぶ。
     # ビルドは公開のたびにしか走らないので、選び直しはブラウザ側で行う
@@ -4019,9 +4022,10 @@ def build_index():
                           cls="has-feat-ad has-side-ad"))
 
     rank_base = RANKING_HOME
+    # 新着と同じく、のぞかせる1行ぶんを足して15件渡す
     top = sorted(PUBLISHED,
                  key=lambda a: (rank_base.get(a["slug"], 0), a.get("date", "")),
-                 reverse=True)[:10]
+                 reverse=True)[:15]
 
     # スマホでは横並びのカルーセルにする（最大10件・左右見切れ・送りボタン）。
     # PCはこれまでどおり card-grid の並び（is-rail JS はスマホ幅のときだけ

@@ -1443,7 +1443,18 @@ body.has-sticky-cta .fab{bottom:96px;}
   }
   .card-grid.is-feature{grid-template-columns:repeat(3,minmax(0,1fr));}
   .card-grid.is-home6 > .card:nth-child(n+5){display:grid;}
-  .card-grid.is-home6 > .card:nth-child(n+7){display:none;}
+  .card-grid.is-home6 > .card:nth-child(n+7){display:grid;}
+  .card-grid.is-home6 > .card:nth-child(n+10){display:none;}
+  /* 7〜9枚目は「のぞかせる行」。VIEW ALL の上に続きがあることを
+     見せるため、上半分だけを出して下へ向けて消す（2026-09-28、
+     ユーザー判断）。押せてしまうと切れた所を触ることになるので
+     pointer-events は切る。 */
+  .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9){
+    max-height:150px;overflow:hidden;pointer-events:none;
+    box-shadow:none;
+    -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+    mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+  }
   /* 見出しの帯（NEW/RANKING の "----" 罫線）は、下の広告バナーぶんを
      含めない、記事タイルだけの幅に合わせる。バナー＋隙間ぶんだけ
      左を空ける */
@@ -1483,7 +1494,23 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* 新着記事・ランキング … 5列×2行（10件） */
   .card-grid.is-home6{grid-template-columns:repeat(5,minmax(0,1fr));}
   .card-grid.is-home6 > .card:nth-child(n+7){display:grid;}
-  .card-grid.is-home6 > .card:nth-child(n+11){display:none;}
+  .card-grid.is-home6 > .card:nth-child(n+11){display:grid;}
+  .card-grid.is-home6 > .card:nth-child(n+16){display:none;}
+  /* のぞかせる行（11〜15枚目）。狭い画面と同じ考え方 */
+  /* overflow は hidden のまま戻す。visible にすると、ホバーで
+     斜めに入ってくる黒い面（.card::before/::after、枠の外へ
+     101%ずらして待機している）がはみ出して見える。 */
+  .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9){
+    max-height:none;overflow:hidden;pointer-events:auto;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+    -webkit-mask-image:none;mask-image:none;
+  }
+  .card-grid.is-home6 > .card:nth-child(n+11){
+    max-height:150px;overflow:hidden;pointer-events:none;
+    box-shadow:none;
+    -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+    mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+  }
   /* ホームの本体（新着から下）と右サイドバーを横に並べる。
      区画の外に出した独立した列なので、記事タイルの並びには
      割り込まない（2026-09-28、ユーザー判断）。
@@ -1545,7 +1572,18 @@ body.has-sticky-cta .fab{bottom:96px;}
     grid-template-columns:repeat(4,minmax(0,1fr));
   }
   .home-body:has(> .home-side:not([hidden]))
-    .card-grid.is-home6 > .card:nth-child(n+9){display:none;}
+    .card-grid.is-home6 > .card:nth-child(n+9){display:grid;}
+  .home-body:has(> .home-side:not([hidden]))
+    .card-grid.is-home6 > .card:nth-child(n+13){display:none;}
+  /* のぞかせる行は9〜12枚目になる（4列なので）。10枚目までを
+     普通に出す上の指定を、この段では打ち消す。 */
+  .home-body:has(> .home-side:not([hidden]))
+    .card-grid.is-home6 > .card:nth-child(n+9):nth-child(-n+12){
+    max-height:150px;overflow:hidden;pointer-events:none;
+    box-shadow:none;
+    -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+    mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+  }
   /* 広い画面では横並びの区画のほうを隠す（同じものが2回出ないように） */
   .recent-views.is-narrow{display:none;}
   /* 5列は1枚172pxしかない。価格・送料込・★・件数を1行に収めるため、
