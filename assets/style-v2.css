@@ -1511,6 +1511,25 @@ body.has-sticky-cta .fab{bottom:96px;}
     grid-template-columns:minmax(0,1fr) 232px;
   }
   .home-body > .home-body-main{min-width:0;}
+  /* 地色と上下の罫線を持つ区画（.is-tinted）は、器の中に入れた
+     とたん本体の列（968px）ぶんの幅しか無くなり、画面に対して
+     左に寄って見えていた（2026-09-28、ユーザー指摘）。
+     左右にはみ出させて画面いっぱいに戻し、はみ出した分を padding で
+     戻して中身は同じ位置に残す。
+       左のはみ出し＝器の外側の余白＋器の内側の余白
+       右のはみ出し＝画面幅 − 本体の列 − 左のはみ出し
+     はみ出しはスクロールバーのぶんだけ画面より広くなることがあるので、
+     外側（.layout）で clip する（hidden と違い、中の position:sticky を
+     壊さない）。 */
+  .layout{overflow-x:clip;}
+  .home-body .v2-section.is-tinted{
+    --bleed-l:calc((100vw - var(--wrap)) / 2 + var(--gut));
+    --bleed-r:calc(100vw - 100% - var(--bleed-l));
+    margin-left:calc(-1 * var(--bleed-l));
+    margin-right:calc(-1 * var(--bleed-r));
+    padding-left:var(--bleed-l);
+    padding-right:var(--bleed-r);
+  }
   /* 中の区画は既に器の中にいるので、もう一度 container で絞らない */
   .home-body .v2-section > .container{max-width:none;padding:0;}
   .home-side{display:block;}
