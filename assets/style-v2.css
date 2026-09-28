@@ -4608,21 +4608,28 @@ h1,h2,h3,h4,
   color:var(--text-sub);}
 /* 前置きの語（「参考にした口コミ」）は数字の左。単位より少し離す */
 .hs-nums .hs-pre{margin-right:2px;}
-/* 幅の狭いスマホ（390px前後）では、3つの枠が詰まって
-   「分析した口コミ」のような長い札が折れる。字と余白を少し詰める。 */
-/* 幅の狭い画面では、3項目を横一列に並べると
-   「参考にした口コミ660,608件」が入りきらず、語の途中で折り返す。
-   上段に記事数とカテゴリー数、下段に口コミ数を全幅で置く2段にする。
-   境目はスマホ扱いの 860px にそろえる。3列のままにできるぎりぎりは
-   700px前後だが、そこまで攻めると1文字増えただけで折れる。 */
+/* 数字＋単位のまとまり。PCでは箱が無いのと同じに扱い、上の1行組みのまま */
+.hs-nums .hs-val{display:contents;}
+/* 幅の狭い画面では、3項目を1行に並べたまま各項目を2段に積む。
+   「記事」「カテゴリー」は数字の下に単位、口コミは上に「参考にした口コミ」、
+   下に「660,608件」。1行組みのままだと「参考にした口コミ660,608件」が
+   入りきらず、以前は口コミだけ2段目に全幅で置いていたが、それだと
+   帯が2行ぶんの高さを取っていた（2026-09-28、ユーザー判断で1行に）。
+   項目の間の縦線は、これまでどおり隙間1pxから下地の罫線色を見せて引く。 */
 @media (max-width:860px){
-  .hs-nums{grid-template-columns:repeat(2,minmax(0,1fr));}
-  .hs-nums li:nth-child(3){grid-column:1 / -1;}
+  .hs-nums li{flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:2px;
+    padding:10px 4px;}
+  .hs-nums .hs-pre{margin-right:0;}
+  .hs-nums li.has-pre .hs-val{display:flex;align-items:baseline;gap:2px;}
+  .hs-nums li:not(.has-pre) .hs-val{display:flex;flex-direction:column;align-items:center;gap:2px;}
+  .hs-nums b{line-height:1.1;}
 }
 @media (max-width:430px){
-  .hs-nums li{padding:11px 4px;}
   .hs-nums .hs-unit,
-  .hs-nums .hs-pre{font-size:11px;letter-spacing:.02em;}
+  .hs-nums .hs-pre{font-size:11px;letter-spacing:.02em;white-space:nowrap;}
 }
 
 /* ============================================================
@@ -4785,3 +4792,28 @@ h1,h2,h3,h4,
 .article-body a.plink{font-weight:700;text-decoration:underline;text-underline-offset:3px;
   text-decoration-thickness:1px;text-decoration-color:var(--amazon);}
 .article-body a.plink:hover{text-decoration-thickness:2px;}
+
+/* ホームの「最近見た記事」の開閉（スマホだけ、初めは閉じている）。
+   縦に積まれたタイルが画面を何枚ぶんも取るため（2026-09-28、ユーザー判断）。
+   860pxより広い画面ではボタンを出さず、常に開いている。 */
+.rv-toggle{display:none;}
+@media (max-width:860px){
+  .recent-views .sec-head{margin-bottom:14px;}
+  .rv-toggle{display:flex;align-items:center;justify-content:center;gap:8px;
+    margin:0 auto 18px;
+    padding:8px 22px;
+    border:1px solid var(--ink);
+    background:var(--bg-2);
+    color:var(--ink);
+    font:inherit;font-size:12px;letter-spacing:.08em;
+    cursor:pointer;}
+  .rv-toggle::after{content:"";width:7px;height:7px;
+    border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+    transform:translateY(-2px) rotate(45deg);}
+  .recent-views:not(.is-collapsed) .rv-toggle::after{transform:translateY(2px) rotate(-135deg);}
+  .rv-toggle .rv-close,
+  .recent-views:not(.is-collapsed) .rv-toggle .rv-open{display:none;}
+  .recent-views:not(.is-collapsed) .rv-toggle .rv-close{display:inline;}
+  .recent-views.is-collapsed .rv-toggle{margin-bottom:0;}
+  .recent-views.is-collapsed [data-recent-views]{display:none;}
+}

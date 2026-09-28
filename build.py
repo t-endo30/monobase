@@ -1857,11 +1857,15 @@ def v2_home_stats(p):
     if voices >= 10000:
         nums.append(("参考にした口コミ", f"{voices:,}", "件"))
 
+    # 数字と単位は .hs-val でひとまとめにする。スマホでは各項目を
+    # 「数字／単位」「前置き／数字＋単位」の2段に積んで3項目を1行に
+    # 並べるので、口コミの「660,608件」が割れないようにするため。
     cells = ""
     for pre, num, unit in nums:
         head = f'<span class="hs-pre">{e(pre)}</span>' if pre else ""
-        cells += (f'<li>{head}<b>{e(num)}</b>'
-                  f'<span class="hs-unit">{e(unit)}</span></li>')
+        cls = ' class="has-pre"' if pre else ""
+        cells += (f'<li{cls}>{head}<span class="hs-val"><b>{e(num)}</b>'
+                  f'<span class="hs-unit">{e(unit)}</span></span></li>')
     return (f'      <div class="home-stats">\n'
             f'        <ul class="hs-nums">{cells}</ul>\n'
             f'      </div>\n')
@@ -3778,11 +3782,18 @@ def v2_recent_views(p):
        data-rank の全記事一覧から引くので、ここで新しくpoolを埋め込む
        必要は無い）。履歴が無い（初回訪問）人には枠ごと隠す
        （hidden、JSが履歴を見つけたときだけ外す）。2026-09-27追加。"""
+    # スマホではタイルが縦に積まれて画面を何枚ぶんも取るので、見出しの
+    # 下のボタンで開け閉めできるようにし、初めは閉じておく（2026-09-28、
+    # ユーザー判断）。開閉は assets/main.js、隠すのは CSS の
+    # @media (max-width:860px) だけで、それより広い画面では常に開いている。
     return (
-        '  <section class="v2-section recent-views is-narrow" data-recent-views-wrap hidden>\n'
+        '  <section class="v2-section recent-views is-narrow is-collapsed" data-recent-views-wrap hidden>\n'
         '    <div class="container">\n'
         + v2_sec_head("RECENT", "最近見た記事")
-        + '      <div class="card-grid is-home6" data-recent-views></div>\n'
+        + '      <button type="button" class="rv-toggle" aria-expanded="false"'
+        ' aria-controls="recentViewsGrid"><span class="rv-open">表示する</span>'
+        '<span class="rv-close">閉じる</span></button>\n'
+        '      <div class="card-grid is-home6" id="recentViewsGrid" data-recent-views></div>\n'
         '    </div>\n  </section>\n'
     )
 

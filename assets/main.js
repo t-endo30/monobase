@@ -557,6 +557,18 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       document.dispatchEvent(new CustomEvent('mb:cards', { detail: grid }));
     });
 
+    /* ホームの「最近見た記事」の開閉ボタン（スマホだけ出る。CSS 側で
+       .is-collapsed のときタイルを隠す）。初めは閉じておき、開いたかは
+       覚えない（2026-09-28、ユーザー判断）。 */
+    Array.prototype.forEach.call(document.querySelectorAll('.rv-toggle'), function (btn) {
+      var sec = btn.closest('.recent-views');
+      if (!sec) return;
+      btn.addEventListener('click', function () {
+        var open = sec.classList.toggle('is-collapsed') === false;
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+
     /* ホームの右サイドバーのタイルを、隣の NEW の行とそろえる。
        NEW のタイルは同じ行でいちばん高いものに合わせて伸びるが、
        サイドバーは1列なので中身の高さのまま縮み、下へ行くほど行と
