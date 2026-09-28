@@ -1462,6 +1462,30 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* 見出しの帯（NEW/RANKING の "----" 罫線）は、下の広告バナーぶんを
      含めない、記事タイルだけの幅に合わせる。バナー＋隙間ぶんだけ
      左を空ける */
+  /* カテゴリーも新着・ランキングと同じ「並べて、次の行を半分だけ
+     のぞかせる」形にする（2026-09-28、ユーザー判断）。それまでは
+     横スクロールの帯で、PCでも5〜6件しか見えていなかった。
+     罫線はセル側が持っているので隙間は作らない。 */
+  .cat-grid.is-rail{
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:0;overflow:visible;padding:0;scroll-snap-type:none;
+    border-top:1px solid var(--line);border-left:1px solid var(--line);
+    -webkit-mask-image:none;mask-image:none;
+  }
+  .cat-grid.is-rail > .cat-cell{
+    flex:none;scroll-snap-align:none;
+    border:0;border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  /* 9〜12番目をのぞかせ、13番目から先は出さない */
+  .cat-grid.is-rail > .cat-cell:nth-child(n+9){
+    max-height:64px;overflow:hidden;pointer-events:none;
+    -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+    mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+  }
+  .cat-grid.is-rail > .cat-cell:nth-child(n+13){display:none;}
+  /* 横スクロールをやめたので送りボタンは出さない */
+  .cat-rail .rail-btn{display:none;}
   .sec-head.has-feat-ad{margin-left:calc(160px + 28px);}
   /* VIEW ALL も見出しと同じく、バナーぶんを除いた記事タイルの
      幅の中央に合わせる */
@@ -1606,7 +1630,19 @@ body.has-sticky-cta .fab{bottom:96px;}
   }
   .cat-grid.is-rail > .cat-cell{flex:none;border:0;
     border-right:1px solid var(--line);border-bottom:1px solid var(--line);}
-  .cat-grid.is-rail > .cat-cell:nth-child(n+6){display:none;}
+  /* 以前はここで6件目から先を隠していたため、PCでは5件しか
+     見えていなかった（2026-09-28、ユーザー指摘）。新着・ランキングと
+     同じく、2行（10件）出して残り（11〜14件目）を半分のぞかせる。 */
+  .cat-grid.is-rail > .cat-cell:nth-child(n+6){display:flex;}
+  .cat-grid.is-rail > .cat-cell:nth-child(n+9):nth-child(-n+10){
+    max-height:none;overflow:hidden;pointer-events:auto;
+    -webkit-mask-image:none;mask-image:none;
+  }
+  .cat-grid.is-rail > .cat-cell:nth-child(n+11){
+    max-height:64px;overflow:hidden;pointer-events:none;
+    -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+    mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+  }
   /* 5列だと枠が186pxしかなく、「スマートフォン」「家具・インテリア」が
      2行に折れていた（2026-09-27の指摘）。字と余白を詰めて1行に収める。
      それでも入らない語は、折り返さずに末尾を…で切る。 */
@@ -3694,7 +3730,11 @@ p,li,.card-desc{text-wrap:pretty;}
    ずつではなく .article-sidebar 全体を追従させる。カードごとに
    sticky にすると、それぞれ止まる位置がずれて重なって見える）。 */
 .article-body-wrap{max-width:900px;margin:0 auto;}
-.article-sidebar{margin-top:32px;display:flex;flex-direction:column;gap:20px;}
+.article-sidebar{margin-top:32px;display:flex;flex-direction:column;gap:20px;
+  /* 狭い画面では記事の下に縦積みになり、いちばん下の「条件で探す」と
+     その後ろの区画がくっついて見える。1行ぶん空ける（2026-09-28、
+     ユーザー指摘）。横に並べる幅では0に戻す（下の1340pxの指定）。 */
+  margin-bottom:1.9em;}
 .side-box{max-width:900px;margin:0 auto;width:100%;
   padding:18px;border:1px solid var(--line-2);border-radius:var(--radius);
   background:var(--bg-2);}
@@ -3777,7 +3817,7 @@ p,li,.card-desc{text-wrap:pretty;}
      背が高くなり、sticky だと上端で貼り付いたまま下の方が永久に
      読めなくなる＝「固定されて動かない」状態になる（2026-09-28、
      ユーザー指摘で解除）。本文と一緒にそのまま流す。 */
-  .article-sidebar{margin-top:0;}
+  .article-sidebar{margin-top:0;margin-bottom:0;}
   .side-box{max-width:none;margin:0;}
   .side-box-pc{display:block;}
 }
@@ -4683,6 +4723,18 @@ h1,h2,h3,h4,
   .home-body:has(> .home-side:not([hidden])) .card-grid.is-home6{
     grid-template-columns:repeat(4,minmax(0,1fr));
   }
+  /* カテゴリーも4列に戻す（9〜12をのぞかせ、13番目から先は出さない） */
+  .home-body:has(> .home-side:not([hidden])) .cat-grid.is-rail{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+  .home-body:has(> .home-side:not([hidden]))
+    .cat-grid.is-rail > .cat-cell:nth-child(n+9){
+    max-height:64px;overflow:hidden;pointer-events:none;
+    -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+    mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
+  }
+  .home-body:has(> .home-side:not([hidden]))
+    .cat-grid.is-rail > .cat-cell:nth-child(n+13){display:none;}
   .home-body:has(> .home-side:not([hidden]))
     .card-grid.is-home6 > .card:nth-child(n+9){display:grid;}
   .home-body:has(> .home-side:not([hidden]))
