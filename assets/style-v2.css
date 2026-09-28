@@ -1499,8 +1499,16 @@ body.has-sticky-cta .fab{bottom:96px;}
     max-width:var(--wrap);margin:0 auto;padding:0 var(--gut);
     align-items:start;
   }
+  /* サイドバーの幅は、中のタイルが新着タイルと同じ大きさになるよう
+     逆算して決める（2026-09-28、ユーザー指摘）。
+       器の中身 1280 − サイドバー S − 隙間 32 − 左の広告(160+28)
+       − タイル間の隙間 18×3 を4列で割ったものが新着タイル、
+       S − 枠の内側の余白 18×2 がサイドバーのタイル。
+       両者が等しくなるのは S=232（枠線1px×2も差し引く。実測で
+       どちらも194px）。
+     タイルの列数・余白を変えたら、ここも計算し直すこと。 */
   .home-body:has(> .home-side:not([hidden])){
-    grid-template-columns:minmax(0,1fr) 280px;
+    grid-template-columns:minmax(0,1fr) 232px;
   }
   .home-body > .home-body-main{min-width:0;}
   /* 中の区画は既に器の中にいるので、もう一度 container で絞らない */
