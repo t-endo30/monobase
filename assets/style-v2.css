@@ -1490,15 +1490,25 @@ body.has-sticky-cta .fab{bottom:96px;}
      器の中身は 1280px。サイドバー280＋隙間32を引いた 968px が本体で、
      その中は左の縦バナー160＋隙間28を引いた 780px が記事タイル。
      5列だと1枚148pxしか無いので、この段だけ4列（8枚）にする。 */
+  /* 履歴が無い人にはサイドバーを出さないので、そのときは列を
+     確保しない（1列のまま＝これまでどおりの幅）。確保しっぱなしに
+     すると、空の枠のぶんだけ記事タイルが縮む（2026-09-28に本番で
+     実際に起きた。新着タイルが1枚148pxまで痩せていた）。 */
   .home-body{
-    display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:32px;
+    display:grid;grid-template-columns:minmax(0,1fr);gap:32px;
     max-width:var(--wrap);margin:0 auto;padding:0 var(--gut);
     align-items:start;
+  }
+  .home-body:has(> .home-side:not([hidden])){
+    grid-template-columns:minmax(0,1fr) 280px;
   }
   .home-body > .home-body-main{min-width:0;}
   /* 中の区画は既に器の中にいるので、もう一度 container で絞らない */
   .home-body .v2-section > .container{max-width:none;padding:0;}
   .home-side{display:block;}
+  /* JSが履歴を見つけるまでは hidden が付いている。display:block が
+     それを打ち消してしまうので、明示的に隠す。 */
+  .home-side[hidden]{display:none;}
   .home-side .card-grid{grid-template-columns:1fr;gap:14px;}
   .home-side .finder-title{
     margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.03em;
