@@ -4270,7 +4270,7 @@ def build_index():
             v2_sec_head("PR", "気になる商品・キャンペーン",
                         cls="has-feat-ad has-side-ad")
             + '      <div class="home-featwrap">'
-            + home_ad + '</div>\n')
+            + home_ad + '</div>\n', cls="is-ad-only")
 
     # 横長バナーの帯はホームに置かない（promo_band は残してある）。
     # サイトの顔にあたる場所で、古い規格のバナーが浮くため。

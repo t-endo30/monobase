@@ -4954,3 +4954,10 @@ h1,h2,h3,h4,
   .hl-body p,
   .hp-body p{text-align:left;}
 }
+
+/* 広告が読めなかったときに JS が隠す枠（main.js の hideIfEmpty・.promo-mid）。
+   display を持つ指定に負けないよう、hidden を明示する */
+.promo-group[hidden],.promo-mid[hidden],.v2-section.is-ad-only[hidden]{display:none;}
+/* 成果を数える 1x1 の画像は、読めなくても「?」の印を出さない */
+.promo-mid img[width="1"],.promo-body img[width="1"],.article-side-ad img[width="1"]{
+  position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}

@@ -978,9 +978,21 @@ var monoPromos = (function () {
     }, 20000);
   }
 
+  /* 枠がすべて出せなかったら、広告の山ごと隠す。広告だけの区画
+     （ホームの「PR 気になる商品・キャンペーン」、.is-ad-only）は見出しも
+     残さない。広告ブロッカーを入れた人には、見出しだけの空いた区画が
+     出ていた（2026-09-29、ユーザー指摘） */
+  function hideIfEmpty(slot) {
+    var group = slot.closest('.promo-group');
+    if (!group || group.querySelector('.promo-slot:not([hidden])')) return;
+    group.hidden = true;
+    var sec = group.closest('.is-ad-only');
+    if (sec) sec.hidden = true;
+  }
+
   /* 候補から1つ引いて差し込む。出せなければ次の候補で入れ直す */
   function fill(slot, body, pool) {
-    if (!pool.length) { slot.hidden = true; return; }
+    if (!pool.length) { slot.hidden = true; hideIfEmpty(slot); return; }
     var i = Math.floor(Math.random() * pool.length);
     var pick = pool.splice(i, 1)[0];
     body.innerHTML = '';
@@ -1014,7 +1026,7 @@ var monoPromos = (function () {
     if (!group.hasAttribute('data-rotate')) {
       Array.prototype.forEach.call(
         group.querySelectorAll('.promo-slot'), function (slot) {
-          watch(slot, function () { slot.hidden = true; });
+          watch(slot, function () { slot.hidden = true; hideIfEmpty(slot); });
         });
       return;
     }
@@ -2012,7 +2024,7 @@ var monoPromos = (function () {
    都合で読めないことがある。列の枠が全部消えたら列自体も隠す。 */
 (function () {
   var rails = document.querySelectorAll('.article-side-ad');
-  if (!rails.length) return;
+  if (!rails.length && !document.querySelector('.promo-mid')) return;
 
   function watch(one, onfail) {
     var imgs = one.querySelectorAll('img');
@@ -2035,6 +2047,12 @@ var monoPromos = (function () {
       if (!banner.complete || !banner.naturalWidth) fail();
     }, 20000);
   }
+
+  /* 記事の途中に挟む横長バナー（.promo-mid）も同じ。読めないと
+     「PR」の文字と壊れた画像の「?」だけが残っていた（2026-09-29） */
+  Array.prototype.forEach.call(document.querySelectorAll('.promo-mid'), function (box) {
+    watch(box, function () { box.hidden = true; });
+  });
 
   Array.prototype.forEach.call(rails, function (rail) {
     var ones = rail.querySelectorAll('.article-side-ad-one');
