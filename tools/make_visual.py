@@ -21,6 +21,7 @@
   決める。
 ・外部素材を使わないため著作権・規約のリスクがない。
 """
+import base64
 import os
 import re
 
@@ -195,9 +196,34 @@ def rich(line):
     return "".join(out)
 
 
-def build(slug, title, category, cat_label, site_name, out_dir, kind_label=""):
+def photo_layer(path, dark):
+    """背景に敷く写真（カテゴリーのサムネイル）。文字が読めるように強く
+       ぼかし、カテゴリーの濃い色を重ねて沈める（2026-09-29、ユーザー判断。
+       特集・まとめのサムネイルだけに使う）。
+       SVG は <img> で読まれるので外部の画像は参照できない。data URI で
+       中に埋め込む。ぼかしは表示するブラウザが掛ける（ビルド環境に画像処理の
+       ライブラリを足さずに済む）。"""
+    ext = os.path.splitext(path)[1].lower().lstrip(".")
+    mime = {"jpg": "jpeg", "jpeg": "jpeg", "png": "png", "webp": "webp"}.get(ext)
+    if not mime or not os.path.isfile(path):
+        return "", ""
+    with open(path, "rb") as f:
+        data = base64.b64encode(f.read()).decode("ascii")
+    # ぼかしで端が透けて暗くならないよう、写真は枠より一回り大きく敷く
+    defs = ('<filter id="blur" x="0" y="0" width="100%" height="100%">'
+            '<feGaussianBlur stdDeviation="16" edgeMode="duplicate"/></filter>')
+    layer = (f'<image href="data:image/{mime};base64,{data}" x="-60" y="-60" '
+             f'width="{W + 120}" height="{W + 120}" preserveAspectRatio="xMidYMid slice" '
+             f'filter="url(#blur)"/>\n'
+             f'  <rect width="{W}" height="{W}" fill="{dark}" fill-opacity=".62"/>')
+    return defs, layer
+
+
+def build(slug, title, category, cat_label, site_name, out_dir, kind_label="",
+          bg_photo=""):
     """kind_label は「特集」「レビュー」などの札。cat_label は札の横に出す
-       分野名（サブ区分があればそちら）。"""
+       分野名（サブ区分があればそちら）。bg_photo を渡すと、地色の代わりに
+       その写真をぼかして敷く（photo_layer）。"""
     dark, light = CAT_BG.get(category, DEFAULT_BG)
     raw = " ".join(str(title or "").split())
     main, _, sub = raw.partition("｜")
@@ -246,6 +272,9 @@ def build(slug, title, category, cat_label, site_name, out_dir, kind_label=""):
                  f'fill-opacity=".6">{esc(site_name or "MONOBASE")}</text>')
 
     body = "\n  ".join(parts)
+    photo_defs, photo = photo_layer(bg_photo, dark) if bg_photo else ("", "")
+    if photo:        # 写真が無い記事の SVG は、これまでと1字も変えない
+        photo_defs, photo = "\n    " + photo_defs, "\n  " + photo
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{W}" viewBox="0 0 {W} {W}" role="img" aria-label="{esc(raw)}">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
@@ -254,9 +283,9 @@ def build(slug, title, category, cat_label, site_name, out_dir, kind_label=""):
     </linearGradient>
     <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse">
       <circle cx="18" cy="18" r="2.2" fill="{WHITE}" fill-opacity=".07"/>
-    </pattern>
+    </pattern>{photo_defs}
   </defs>
-  <rect width="{W}" height="{W}" fill="url(#bg)"/>
+  <rect width="{W}" height="{W}" fill="url(#bg)"/>{photo}
   <rect width="{W}" height="{W}" fill="url(#dots)"/>
   <circle cx="1080" cy="140" r="330" fill="{WHITE}" fill-opacity=".06"/>
   <circle cx="1080" cy="140" r="200" fill="{WHITE}" fill-opacity=".05"/>

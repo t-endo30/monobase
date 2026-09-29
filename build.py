@@ -26,6 +26,7 @@ NAME     = SITE["site_name"]
 TAGLINE  = SITE["tagline"]
 BASE_URL = SITE["base_url"].rstrip("/")
 CATS     = SITE["categories"]
+CAT_IMAGE = {c["key"]: c["image"] for c in CATS if c.get("image")}
 SUB_LABEL = {(c["key"], sc["key"]): sc["label"]
              for c in CATS for sc in c.get("sub", [])}
 FEAT     = SITE.get("features", {})
@@ -5190,9 +5191,17 @@ def main():
             if a.get("feature_of"):
                 cat, _, sub = a["feature_of"].partition("/")
             label = SUB_LABEL.get((cat, sub)) or CAT_LABEL.get(cat, "")
+            # 特集・まとめは、束ねているカテゴリーのサムネイル画像
+            # （site.json の categories[].image）をぼかして背景に敷く
+            # （2026-09-29、ユーザー判断）。束ねる先が無い選び方・セール
+            # などは「特集・まとめ」自身の画像を使う。
+            bg_photo = ""
+            if a["category"] == "feature":
+                bg_photo = CAT_IMAGE.get(cat) or CAT_IMAGE.get("feature", "")
             path = make_visual(a["slug"], a.get("title") or a.get("list_title"),
                                a["category"], label, "MONOBASE", auto_dir,
-                               kind_label=KIND_LABEL.get(kind_of(a), ""))
+                               kind_label=KIND_LABEL.get(kind_of(a), ""),
+                               bg_photo=bg_photo)
             auto_version(a["slug"], path)
             made += 1
     keep_svg = {a["slug"] + ".svg" for a in PUBLISHED if not shop_thumb(a)[0]}
