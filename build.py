@@ -423,12 +423,21 @@ def ads_meta():
 
 
 def ads_head():
-    """読み込みタグ。Googleが配る形のまま置く。"""
+    """読み込みタグ。運営者の端末（localStorage の mb.notrack=1。head() の
+       GA と同じ目印）では読み込まない。自分の表示・クリックは AdSense の
+       無効なトラフィックになり、アカウント停止の理由になるため（2026-09-29）。
+       所有確認は ads_meta() のメタタグと ads.txt が担うので、タグを
+       JS から差し込む形にしても審査には影響しない。"""
     if not ads_on():
         return ""
-    return ('<script async src="https://pagead2.googlesyndication.com/pagead/js/'
-            f'adsbygoogle.js?client={e(ADS["client"].strip())}"\n'
-            '     crossorigin="anonymous"></script>\n')
+    src = ("https://pagead2.googlesyndication.com/pagead/js/"
+           f'adsbygoogle.js?client={ADS["client"].strip()}')
+    return ('<script>(function () {\n'
+            "  try { if (localStorage.getItem('mb.notrack') === '1') return; } catch (err) {}\n"
+            "  var s = document.createElement('script');\n"
+            f"  s.async = true; s.crossOrigin = 'anonymous'; s.src = {json.dumps(src)};\n"
+            '  document.head.appendChild(s);\n'
+            '})();</script>\n')
 
 
 # ASPの広告コードの先頭。ここが出てきたら、次の広告の始まりとみなす。

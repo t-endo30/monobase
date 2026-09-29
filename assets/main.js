@@ -2049,3 +2049,74 @@ var monoPromos = (function () {
     });
   });
 })();
+
+/* 運営者モード（2026-09-29）。管理画面を開いた端末、または ?notrack=1 を
+   開いた端末（localStorage の mb.notrack=1。build.py の head() が付ける）では、
+   広告・アフィリエイトのリンクを踏めないようにする。自分のクリックは
+   AdSense では無効なトラフィック、Amazonアソシエイト等では自己購入として
+   規約違反になるため。GA4 への送信と AdSense の読み込みは head 側で止めている。
+   広告は promos.json から後で差し込まれるので、個々のリンクではなく
+   document で拾う。 */
+(function () {
+  'use strict';
+  var owner = false;
+  try { owner = localStorage.getItem('mb.notrack') === '1'; } catch (e) {}
+  if (!owner) return;
+
+  var AFF = /(^|\.)(amazon\.co\.jp|amzn\.to|amzn\.asia|rakuten\.co\.jp|valuecommerce\.com|valuecommerce\.ne\.jp|a8\.net|shopping\.yahoo\.co\.jp|paypaymall\.yahoo\.co\.jp|moshimo\.com|accesstrade\.net|afi-b\.com|linksynergy\.com|googleadservices\.com|doubleclick\.net)$/;
+
+  function isAd(a) {
+    if (!a || !a.href) return false;
+    if (/\bsponsored\b/.test(a.getAttribute('rel') || '')) return true;
+    try { return AFF.test(new URL(a.href, location.href).hostname); }
+    catch (e) { return false; }
+  }
+
+  var toast = null, timer = 0;
+  function notice() {
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.setAttribute('role', 'status');
+      toast.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);' +
+        'z-index:2147483647;max-width:calc(100% - 32px);padding:10px 16px;border-radius:8px;' +
+        'background:#222;color:#fff;font-size:13px;line-height:1.5;text-align:center;' +
+        'box-shadow:0 4px 16px rgba(0,0,0,.25);';
+      toast.textContent = '運営者モードのため、広告・販売先へのリンクは無効です';
+      document.body.appendChild(toast);
+    }
+    toast.hidden = false;
+    clearTimeout(timer);
+    timer = setTimeout(function () { toast.hidden = true; }, 2500);
+  }
+
+  function block(ev) {
+    var a = ev.target && ev.target.closest && ev.target.closest('a[href]');
+    if (!isAd(a)) return;
+    ev.preventDefault();
+    ev.stopImmediatePropagation();
+    if (ev.type !== 'contextmenu') notice();
+  }
+  /* 左クリック・中クリック（新しいタブ）・右クリックのメニュー */
+  ['click', 'auxclick', 'contextmenu'].forEach(function (t) {
+    document.addEventListener(t, block, true);
+  });
+
+  /* モード中だと分かる印。押すと解除できる。 */
+  function badge() {
+    var b = document.createElement('a');
+    b.href = '?notrack=0';
+    b.title = '押すと運営者モードを解除します（計測・広告が通常に戻ります）';
+    b.textContent = '運営者モード';
+    b.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:2147483646;' +
+      'padding:3px 8px;border-radius:4px;background:rgba(34,34,34,.75);color:#fff;' +
+      'font-size:11px;line-height:1.6;text-decoration:none;';
+    b.addEventListener('click', function (ev) {
+      if (!confirm('運営者モードを解除しますか？\nこの端末からの閲覧が GA4 に記録され、広告リンクも押せるようになります。')) {
+        ev.preventDefault();
+      }
+    });
+    document.body.appendChild(b);
+  }
+  if (document.body) badge();
+  else document.addEventListener('DOMContentLoaded', badge);
+})();
