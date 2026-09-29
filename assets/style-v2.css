@@ -4806,8 +4806,11 @@ h1,h2,h3,h4,
   .rv-list li{border-bottom:1px solid var(--border);}
   .rv-list a{display:flex;align-items:center;gap:10px;
     padding:11px 12px;color:var(--ink);text-decoration:none;font-size:13.5px;}
-  .rv-list .rv-t{flex:1 1 auto;min-width:0;
+  .rv-list .rv-t{flex:1 1 auto;min-width:0;text-align:center;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  /* 題名は中央ぞろえ（2026-09-29、ユーザー指摘）。右の「›」と同じ幅の
+     見えない印を左にも置き、題名が行のまん中に来るようにする */
+  .rv-list a::before{content:"";flex:0 0 auto;width:6px;}
   .rv-list a::after{content:"";flex:0 0 auto;width:6px;height:6px;
     border-top:1.5px solid var(--muted);border-right:1.5px solid var(--muted);
     transform:rotate(45deg);}
