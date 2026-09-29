@@ -1,0 +1,79 @@
+name: AdSense re-apply check
+
+# AdSense を再申請してよい頃合いになったら Issue で知らせる（2026-09-29）。
+# 判定は tools/adsense_ready.py（noindex にした記事が Google の索引から
+# 外れたか）。Issue が立つと GitHub から通知メールが届く。
+# 一度知らせたら（ラベル adsense-ready の Issue があれば、閉じていても）
+# 何もしない。再申請が済んだらこのファイルを消してよい。
+on:
+  schedule:
+    - cron: '30 0 * * 1'   # 毎週月曜 9:30 JST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 通知済みなら止める
+        id: done
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          N=$(gh issue list --state all --label adsense-ready --json number -q 'length')
+          echo "notified=$([ "$N" -gt 0 ] && echo 1 || echo 0)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v5
+        if: steps.done.outputs.notified == '0'
+        with:
+          python-version: '3.12'
+
+      - name: Install Search Console client
+        if: steps.done.outputs.notified == '0'
+        run: pip install --quiet google-api-python-client google-auth
+
+      - name: Write service account key
+        if: steps.done.outputs.notified == '0'
+        env:
+          GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
+        run: |
+          if [ -z "$GSC_SA_KEY" ]; then
+            echo "::error::GSC_SA_KEY が未設定です。"
+            exit 1
+          fi
+          printf '%s' "$GSC_SA_KEY" > "$RUNNER_TEMP/gsc-sa.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/gsc-sa.json" >> "$GITHUB_ENV"
+
+      - name: 判定する
+        if: steps.done.outputs.notified == '0'
+        id: judge
+        env:
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+        run: |
+          set +e
+          python3 tools/adsense_ready.py
+          code=$?
+          set -e
+          if [ "$code" = 10 ]; then echo "ready=1" >> "$GITHUB_OUTPUT"; exit 0; fi
+          exit "$code"
+
+      - name: Issue で知らせる
+        if: steps.judge.outputs.ready == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create adsense-ready --color 0e8a16 --description "AdSense 再申請の通知" 2>/dev/null || true
+          {
+            echo "noindex にした記事が Google の索引から外れました。AdSense の管理画面で"
+            echo "「問題を修正しました」にチェックを入れて、審査をリクエストしてください。"
+            echo
+            cat "$RUNNER_TEMP/adsense-ready.md"
+          } > "$RUNNER_TEMP/body.md"
+          gh issue create --title "AdSense を再申請できる状態になりました" \
+            --label adsense-ready --body-file "$RUNNER_TEMP/body.md"
