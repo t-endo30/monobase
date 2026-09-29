@@ -4313,11 +4313,17 @@ h1,h2,h3,h4,
    写真の上ではないので、浮かせる影は要らない */
 .card-flags.is-inline{position:static;display:inline-flex;align-self:center;flex:0 0 auto;}
 .card-flags.is-inline .flag{box-shadow:none;}
-/* New と Hot が両方付くと、幅の狭いタイル（スマホの横並び・190px）では
-   札＋日付＋VIEW が1行に入りきらない。そのときは VIEW を次の行へ送る */
+/* 札が付くと、幅の狭いタイルでは札＋日付＋VIEW が1行に入りきらない。
+   PCは日付→VIEWの並びなので、入りきらない VIEW は次の行へ送る。 */
 .card-meta:has(> .card-flags.is-inline){flex-wrap:wrap;row-gap:4px;}
-/* 送るのは VIEW だけ。札と日付は必ず同じ行に残す */
-.card-meta:has(> .card-flags.is-inline) > .card-views{order:4;}
+/* スマホは VIEW を写真のすぐ右（行の左端）に置く（2026-09-29、ユーザー指摘で
+   戻した）。札が1つなら1行に収まる。New と Hot の両方が付くと入りきらない
+   ので、そのときだけ VIEW を2行目の左端に置く（札と日付は1行目のまま） */
+@media (max-width:599px){
+  .card-meta:has(> .card-flags.is-inline){flex-wrap:nowrap;}
+  .card-meta:has(.flag-new):has(.flag-hot){flex-wrap:wrap;}
+  .card-meta:has(.flag-new):has(.flag-hot) > .card-views{order:4;flex-basis:100%;}
+}
 .flag-hot{background:var(--amazon);color:var(--amazon-ink);}
 @media (max-width:599px){
   .flag{padding:2px 6px;font-size:9px;}
@@ -4445,7 +4451,6 @@ h1,h2,h3,h4,
   .row-meta > .card-flags.is-inline{order:3;margin-left:auto;}
   .card .card-flags.is-inline + .card-date,
   .row-item .card-flags.is-inline + .meta{margin-left:0;}
-  .card-meta:has(> .card-flags.is-inline) > .card-views{order:4;}
 }
 
 /* 本文の商品カードに、モールのAPIが返した実物の商品写真を出す場合。
