@@ -4961,3 +4961,20 @@ h1,h2,h3,h4,
 /* 成果を数える 1x1 の画像は、読めなくても「?」の印を出さない */
 .promo-mid img[width="1"],.promo-body img[width="1"],.article-side-ad img[width="1"]{
   position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
+
+/* ホームの「PR 気になる商品・キャンペーン」（.is-ad-only）は、スマホでは
+   写真を上・文字を下にした四角いタイルを2列×2行の4枚にする（2026-09-29、
+   ユーザー判断）。記事タイルと同じ横長の行だと、5枚で画面2枚ぶんを使っていた。
+   枠は5つ作ってあるので5つ目は隠す（読めなかった枠は main.js が次の候補で
+   埋め直すので、4枚がそろわなくなるのは候補を使い切ったときだけ）。 */
+@media (max-width:860px){
+  .is-ad-only .promo-group > .card-grid{display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+  .is-ad-only .promo-slot{display:flex;flex-direction:column;
+    padding:10px 10px 12px;gap:0;}
+  .is-ad-only .promo-slot:nth-child(n+5){display:none;}
+  .is-ad-only .promo-slot .card-thumb{width:100%;aspect-ratio:1 / 1;margin:0 0 8px;}
+  .is-ad-only .promo-slot .card-meta{margin:0 0 2px;}
+  .is-ad-only .promo-slot .card-title{font-size:12.5px;line-height:1.5;
+    -webkit-line-clamp:2;max-height:3em;}
+}
