@@ -2871,6 +2871,27 @@ p,li,.card-desc{text-wrap:pretty;}
 .table-scroll tbody tr:nth-child(even) td{background:#FAFAFB;}
 .table-scroll tbody tr:nth-child(even) th{background:#F3F3F5;}
 .table-scroll .mark-o,.table-scroll .mark-x{font-size:1.05em;}
+/* スマホでは、左に固定した1列目が画面の大半を取っていた（2026-09-29、
+   ユーザー指摘）。1列目は折り返さない指定だったので、長い記事名・
+   商品名だとそのまま254px（表の見える幅317pxの8割）まで広がり、
+   横に流れる列は約60pxの隙間から1〜2文字ずつしか見えず、行の高さも
+   500pxを超えていた。1列目は折り返して幅を上限で止め、流れる列には
+   読める最小幅を持たせる。見える幅に「1列ぶん＋次の列の端」が入る
+   ので、続きがあることも分かる。 */
+@media (max-width:767px){
+  .table-scroll table{min-width:0;width:auto;}
+  .table-scroll thead th:first-child,
+  .table-scroll tbody th{white-space:normal;
+    overflow-wrap:break-word;
+    /* 英字の商品名（SecuSTATION 等）が語の途中で割れない程度に字と余白を詰める */
+    font-size:12px;
+    padding-left:8px;padding-right:8px;
+    width:clamp(88px,27vw,120px);
+    min-width:clamp(88px,27vw,120px);
+    max-width:clamp(88px,27vw,120px);}
+  .table-scroll td,
+  .table-scroll thead th:not(:first-child){min-width:clamp(140px,40vw,180px);}
+}
 .card-flags{position:absolute;
   top:8px;left:8px;
   display:flex;
