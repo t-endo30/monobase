@@ -187,37 +187,64 @@ function titleHtml(t) {
 
   /* ---- カテゴリーに合わせてタグを絞る ----
      カテゴリーを選んだら、そのカテゴリーの記事に付いているタグだけを
-     記事数の多い順に並べ、高さの制限（内部スクロール）を外して全部出す。
-     外したら元の並び（名前順）・元の高さに戻す（2026-09-29）。
+     記事数の多い順に並べ、高さの制限（内部スクロール）を外して出す。
+     出すのは2本以上の記事に付いたタグだけで、残りは「もっと見る」で
+     開く（2026-09-29、ユーザー判断）。選んでいるタグは1本だけのもので
+     も隠さない。2本以上のタグが1つも無いカテゴリーは初めから全部出す。
+     外したら元の並び（名前順）・元の高さに戻す。
      選んでいたタグが新しいカテゴリーに無いときは外す（残すと必ず0件）。 */
+  var MIN_TAG_ARTICLES = 2;
+  var tagMore = document.getElementById('tagMore');
+  var tagsExpanded = false;
   var catTags = {};
   try { catTags = JSON.parse(tagBox && tagBox.getAttribute('data-cat-tags') || '{}'); }
   catch (e) { catTags = {}; }
   var tagChipsAll = tagBox ? Array.prototype.slice.call(tagBox.querySelectorAll('.chip')) : [];
+  var byTag = {};
+  tagChipsAll.forEach(function (c) { byTag[c.getAttribute('data-tag')] = c; });
   function syncTags() {
     if (!tagBox) return;
     var cat = activeCats[0];
     var list = cat ? (catTags[cat] || []) : null;
-    var byTag = {};
-    tagChipsAll.forEach(function (c) { byTag[c.getAttribute('data-tag')] = c; });
     if (!list) {
       tagChipsAll.forEach(function (c) { c.hidden = false; tagBox.appendChild(c); });
       tagBox.classList.add('is-scroll');
+      if (tagMore) tagMore.hidden = true;
       return;
     }
-    var keep = {};
-    list.forEach(function (t) { keep[t] = true; });
+    var count = {};
+    list.forEach(function (x) { count[x[0]] = x[1]; });
     for (var i = activeTags.length - 1; i >= 0; i--) {
-      if (!keep[activeTags[i]]) {
+      if (!(activeTags[i] in count)) {
         var off = byTag[activeTags[i]];
         if (off) off.classList.remove('is-active');
         activeTags.splice(i, 1);
       }
     }
-    tagChipsAll.forEach(function (c) { c.hidden = !keep[c.getAttribute('data-tag')]; });
-    list.forEach(function (t) { if (byTag[t]) tagBox.appendChild(byTag[t]); });
+    var many = list.filter(function (x) { return x[1] >= MIN_TAG_ARTICLES; }).length;
+    var showAll = tagsExpanded || many === 0;
+    var rest = 0;
+    tagChipsAll.forEach(function (c) {
+      var t = c.getAttribute('data-tag');
+      if (!(t in count)) { c.hidden = true; return; }
+      var major = count[t] >= MIN_TAG_ARTICLES || activeTags.indexOf(t) !== -1;
+      if (!major) rest++;
+      c.hidden = !major && !showAll;
+    });
+    list.forEach(function (x) { if (byTag[x[0]]) tagBox.appendChild(byTag[x[0]]); });
     tagBox.classList.remove('is-scroll');
     tagBox.scrollTop = 0;
+    if (tagMore) {
+      tagMore.hidden = many === 0 || rest === 0;
+      tagMore.textContent = tagsExpanded ? '閉じる' : 'もっと見る（ほか' + rest + '個）';
+      tagMore.setAttribute('aria-expanded', tagsExpanded ? 'true' : 'false');
+    }
+  }
+  if (tagMore) {
+    tagMore.addEventListener('click', function () {
+      tagsExpanded = !tagsExpanded;
+      syncTags();
+    });
   }
 
   function render() {
@@ -292,7 +319,7 @@ function titleHtml(t) {
         list.push(val);
         btn.classList.add('is-active');
       }
-      if (box === catBox) syncTags();
+      if (box === catBox) { tagsExpanded = false; syncTags(); }
       render();
       collapseForSearch();
       /* カテゴリーを選んだときは結果へ送らない。続けてタグを選べるよう、

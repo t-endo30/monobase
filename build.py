@@ -4480,7 +4480,10 @@ def build_search():
         cnt = by_cat.setdefault(a.get("category", ""), {})
         for t in a.get("tags", []):
             cnt[t] = cnt.get(t, 0) + 1
-    cat_tags = {k: [t for t, _ in sorted(v.items(), key=lambda x: (-x[1], x[0]))]
+    # 値は [タグ, 記事数] の組。2本以上の記事に付いたタグだけを先に出し、
+    # 残り（1本にしか付いていないもの）は「もっと見る」で開く（2026-09-29、
+    # ユーザー判断。パソコンは279個あり、全部出すとスマホで約4,500pxになった）。
+    cat_tags = {k: [[t, n] for t, n in sorted(v.items(), key=lambda x: (-x[1], x[0]))]
                 for k, v in by_cat.items()}
     cat_tags_attr = e(json.dumps(cat_tags, ensure_ascii=False, separators=(",", ":")))
     catchips = "".join(f'<button type="button" class="chip" data-cat="{c["key"]}">'
@@ -4500,6 +4503,7 @@ def build_search():
         <div class="chip-group is-open" id="tagGroup">
           <p class="chip-label en-label">TAG</p>
           <div class="chips is-scroll" id="tagChips" data-cat-tags="{cat_tags_attr}">{chips}</div>
+          <button type="button" class="tag-more" id="tagMore" aria-controls="tagChips" hidden></button>
         </div>
 
         <p class="search-status" id="searchStatus" aria-live="polite"></p>

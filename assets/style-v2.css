@@ -1006,6 +1006,14 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
 /* カテゴリーを選んだら、タグはそのカテゴリーのものだけにして全部出す
    （search.js が is-scroll を外し、関係ないタグに hidden を付ける） */
 .chip[hidden]{display:none;}
+/* 1本にしか付いていないタグを開く「もっと見る」（search.js）。
+   チップより控えめにして、タグと見分けが付くようにする */
+.tag-more{align-self:flex-start;
+  padding:6px 2px;border:0;background:none;
+  font-size:12px;letter-spacing:.04em;color:var(--muted);
+  text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
+.tag-more:hover{color:var(--ink);}
+.tag-more[hidden]{display:none;}
 
 .result-count{
   font-family:var(--font-en);font-size:11px;letter-spacing:.16em;color:var(--muted-2);
