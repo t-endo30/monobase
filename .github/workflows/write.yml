@@ -81,6 +81,12 @@ jobs:
   write:
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    # 「今日」は日本時間で数える（2026-09-30）。ランナーは UTC なので、
+    # 指定しないと schedule_gate.py の「今日の公開本数」も記事の日付
+    # （make_drafts.py / feature_plan.py）も UTC の日付になり、朝 5:07 JST の
+    # 枠が前日（UTC）の本数を見て「もう作った」と判定して空振りしていた。
+    env:
+      TZ: Asia/Tokyo
     steps:
       - uses: actions/checkout@v4
 
