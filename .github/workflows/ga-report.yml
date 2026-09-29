@@ -1,0 +1,81 @@
+name: GA4 weekly report
+
+# GA4 の週次レポート（2026-09-29）。流入元・ユーザー数・ページごとの滞在を
+# tools/ga_report.py が集計し、
+#   ・Issue（ラベル ga-report）で届ける。前週の Issue は閉じる
+#   ・content/ga_report.json としてコミットする。Claude Code が次の
+#     セッションで読んで判断できるように（GA4 の画面はログインが要る）
+# 手動実行では集計日数を変えられる（その回も Issue とコミットを行う）。
+on:
+  schedule:
+    - cron: '40 0 * * 1'   # 毎週月曜 9:40 JST（adsense-ready の後）
+  workflow_dispatch:
+    inputs:
+      days:
+        description: '集計する日数（前の同じ日数と比べる）'
+        default: '7'
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install --quiet google-analytics-data
+
+      - name: Write service account key
+        env:
+          GA4_SA_KEY: ${{ secrets.GA4_SA_KEY }}
+        run: |
+          if [ -z "$GA4_SA_KEY" ]; then
+            echo "::error::GA4_SA_KEY が未設定です。"
+            exit 1
+          fi
+          printf '%s' "$GA4_SA_KEY" > "$RUNNER_TEMP/ga4-sa.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/ga4-sa.json" >> "$GITHUB_ENV"
+
+      - name: 集計する
+        env:
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+        run: |
+          python3 tools/ga_report.py --days "${{ github.event.inputs.days || '7' }}" \
+            --md "$RUNNER_TEMP/report.md"
+          cat "$RUNNER_TEMP/report.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 数字をコミットする
+        run: |
+          if git diff --quiet -- content/ga_report.json && \
+             git ls-files --error-unmatch content/ga_report.json >/dev/null 2>&1; then
+            echo "変更なし"; exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/ga_report.json
+          git commit -m "GA4の週次レポートを更新（自動）"
+          # 走っているあいだに他のワークフローが main を進めることがある
+          for i in 1 2 3; do
+            git push && exit 0
+            git pull --rebase
+          done
+          exit 1
+
+      - name: Issue で届ける
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create ga-report --color 1d76db --description "GA4 週次レポート" 2>/dev/null || true
+          for n in $(gh issue list --state open --label ga-report --json number -q '.[].number'); do
+            gh issue close "$n" --comment "新しい週次レポートを出しました。"
+          done
+          gh issue create --title "GA4 週次レポート（$(date -u +%Y-%m-%d)）" \
+            --label ga-report --body-file "$RUNNER_TEMP/report.md"

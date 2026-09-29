@@ -9,6 +9,10 @@
   'use strict';
 
   var LS = 'kp_admin_v1';
+
+  /* 管理画面を開いた端末は運営者のものなので、以後この端末からの閲覧を
+     GA4 に送らない（build.py の head() が mb.notrack を見る）。 */
+  try { localStorage.setItem('mb.notrack', '1'); } catch (e) {}
   var cfg = { owner: '', repo: '', branch: 'main', token: '' };
   var articles = [];
   var site = null;

@@ -47,7 +47,8 @@ def load_prev():
 def fetch(prop_id, start, end):
     from google.analytics.data_v1beta import BetaAnalyticsDataClient
     from google.analytics.data_v1beta.types import (
-        DateRange, Dimension, Metric, RunReportRequest)
+        DateRange, Dimension, Filter, FilterExpression, Metric,
+        RunReportRequest)
 
     client = BetaAnalyticsDataClient()
     req = RunReportRequest(
@@ -55,6 +56,11 @@ def fetch(prop_id, start, end):
         dimensions=[Dimension(name="pagePath")],
         metrics=[Metric(name="screenPageViews")],
         date_ranges=[DateRange(start_date=start, end_date=end)],
+        # 本番の閲覧だけ数える。ローカルのスクショ確認でも同じタグが
+        # 動くため（2026-09-29、送る側でも止めた）。
+        dimension_filter=FilterExpression(filter=Filter(
+            field_name="hostName",
+            string_filter=Filter.StringFilter(value="monobase.site"))),
         limit=500,
     )
     res = client.run_report(req)

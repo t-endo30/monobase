@@ -903,7 +903,25 @@ def head(title, desc, current, p, canonical, extra="", body_class="", image="",
     """p = ルートへの相対プレフィックス（"./" または "../"）"""
     ga = ""
     if GA:
-        ga = f'''<script async src="https://www.googletagmanager.com/gtag/js?id={e(GA)}"></script>
+        # 運営者自身の閲覧は送らない（2026-09-29）。GA4 の「内部トラフィック」は
+        # IP で決めるため、回線が変わると漏れ、スマホからの確認も拾ってしまう。
+        # 代わりに端末に目印（localStorage の mb.notrack）を持たせる。
+        # 管理画面を開くと付き（assets/admin.js）、?notrack=1 / 0 でも切り替わる。
+        # 本番以外（ローカルのスクショ確認など）からも送らない。数字が
+        # 閲覧数ランキングと index 判定（INDEX_MIN_VIEWS）に使われるため。
+        host = re.sub(r"^https?://", "", BASE_URL).split("/")[0]
+        ga = f'''<script>
+  (function () {{
+    var off = location.hostname !== '{host}';
+    try {{
+      var q = /[?&]notrack=([01])/.exec(location.search);
+      if (q) localStorage.setItem('mb.notrack', q[1]);
+      if (localStorage.getItem('mb.notrack') === '1') off = true;
+    }} catch (err) {{}}
+    if (off) window['ga-disable-{e(GA)}'] = true;
+  }})();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={e(GA)}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){{dataLayer.push(arguments);}}
