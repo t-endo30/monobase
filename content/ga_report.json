@@ -1,0 +1,408 @@
+{
+ "_note": "tools/ga_report.py が GA4 から自動生成します（毎週月曜）。",
+ "generated": "2026-09-29",
+ "range": {
+  "cur": [
+   "2026-09-22",
+   "2026-09-28"
+  ],
+  "prev": [
+   "2026-09-15",
+   "2026-09-21"
+  ]
+ },
+ "totals": {
+  "cur": {
+   "dateRange": "cur",
+   "activeUsers": 23,
+   "newUsers": 19,
+   "sessions": 53,
+   "engagedSessions": 25,
+   "screenPageViews": 183,
+   "userEngagementDuration": 3610
+  },
+  "prev": {
+   "dateRange": "prev",
+   "activeUsers": 16,
+   "newUsers": 12,
+   "sessions": 72,
+   "engagedSessions": 55,
+   "screenPageViews": 286,
+   "userEngagementDuration": 2395
+  }
+ },
+ "daily": [
+  {
+   "date": "20260922",
+   "activeUsers": 2,
+   "screenPageViews": 6
+  },
+  {
+   "date": "20260923",
+   "activeUsers": 2,
+   "screenPageViews": 3
+  },
+  {
+   "date": "20260924",
+   "activeUsers": 1,
+   "screenPageViews": 2
+  },
+  {
+   "date": "20260925",
+   "activeUsers": 13,
+   "screenPageViews": 15
+  },
+  {
+   "date": "20260926",
+   "activeUsers": 3,
+   "screenPageViews": 7
+  },
+  {
+   "date": "20260927",
+   "activeUsers": 4,
+   "screenPageViews": 71
+  },
+  {
+   "date": "20260928",
+   "activeUsers": 5,
+   "screenPageViews": 79
+  }
+ ],
+ "channels": [
+  {
+   "sessionDefaultChannelGroup": "Organic Search",
+   "sessions": 30,
+   "activeUsers": 3
+  },
+  {
+   "sessionDefaultChannelGroup": "Direct",
+   "sessions": 19,
+   "activeUsers": 18
+  },
+  {
+   "sessionDefaultChannelGroup": "Referral",
+   "sessions": 2,
+   "activeUsers": 2
+  },
+  {
+   "sessionDefaultChannelGroup": "Unassigned",
+   "sessions": 2,
+   "activeUsers": 1
+  }
+ ],
+ "sources": [
+  {
+   "sessionSourceMedium": "(direct) / (none)",
+   "sessions": 19
+  },
+  {
+   "sessionSourceMedium": "google / organic",
+   "sessions": 18
+  },
+  {
+   "sessionSourceMedium": "search.google.com / referral",
+   "sessions": 11
+  },
+  {
+   "sessionSourceMedium": "(not set)",
+   "sessions": 2
+  },
+  {
+   "sessionSourceMedium": "activesearchresults.com / referral",
+   "sessions": 1
+  },
+  {
+   "sessionSourceMedium": "duckduckgo / organic",
+   "sessions": 1
+  },
+  {
+   "sessionSourceMedium": "searchirc.com / referral",
+   "sessions": 1
+  }
+ ],
+ "pages": [
+  {
+   "pagePath": "/",
+   "pageTitle": "モノベース｜あらゆるモノのデータベース",
+   "screenPageViews": 122,
+   "activeUsers": 22,
+   "userEngagementDuration": 3257,
+   "avgEngagementSec": 26.7
+  },
+  {
+   "pagePath": "/new",
+   "pageTitle": "新着記事 - モノベース",
+   "screenPageViews": 8,
+   "activeUsers": 3,
+   "userEngagementDuration": 58,
+   "avgEngagementSec": 7.2
+  },
+  {
+   "pagePath": "/category-appliance-aircon",
+   "pageTitle": "空調・季節家電の記事一覧 - モノベース",
+   "screenPageViews": 5,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/articles/p10-yunth-c-c",
+   "pageTitle": "Yunth 生ビタミンC美容液（1ml×28包）｜向く人・向かない人と購入前の確認点 - モノベース",
+   "screenPageViews": 4,
+   "activeUsers": 1,
+   "userEngagementDuration": 6,
+   "avgEngagementSec": 1.5
+  },
+  {
+   "pagePath": "/category-appliance",
+   "pageTitle": "家電の記事一覧 - モノベース",
+   "screenPageViews": 4,
+   "activeUsers": 1,
+   "userEngagementDuration": 14,
+   "avgEngagementSec": 3.5
+  },
+  {
+   "pagePath": "/ranking",
+   "pageTitle": "よく読まれている記事 - モノベース",
+   "screenPageViews": 4,
+   "activeUsers": 2,
+   "userEngagementDuration": 6,
+   "avgEngagementSec": 1.5
+  },
+  {
+   "pagePath": "/articles/200-bagin006",
+   "pageTitle": "トラベルポーチ 200-BAGIN006 口コミ｜ガジェット収納の向き不向き - モノベース",
+   "screenPageViews": 3,
+   "activeUsers": 2,
+   "userEngagementDuration": 10,
+   "avgEngagementSec": 3.3
+  },
+  {
+   "pagePath": "/articles/beauty-20260927",
+   "pageTitle": "アズマ商事 旅美人 ヘアトリートメント 口コミ｜使い方と選び方 - モノベース",
+   "screenPageViews": 3,
+   "activeUsers": 1,
+   "userEngagementDuration": 5,
+   "avgEngagementSec": 1.7
+  },
+  {
+   "pagePath": "/articles/d-dc53",
+   "pageTitle": "カメまるD DC53 口コミ｜見守りカメラの夜間撮影と動作検知を検証 - モノベース",
+   "screenPageViews": 3,
+   "activeUsers": 1,
+   "userEngagementDuration": 5,
+   "avgEngagementSec": 1.7
+  },
+  {
+   "pagePath": "/articles/a-42",
+   "pageTitle": "いなば CIAOとろみ A-42 口コミ｜48個セット購入前の注意点 - モノベース",
+   "screenPageViews": 2,
+   "activeUsers": 1,
+   "userEngagementDuration": 29,
+   "avgEngagementSec": 14.5
+  },
+  {
+   "pagePath": "/articles/elecom-usb2-0hub-usb-tk-tcm012bk",
+   "pageTitle": "エレコムTK-TCM012BK口コミ｜USBテンキーの使用感 - モノベース",
+   "screenPageViews": 2,
+   "activeUsers": 1,
+   "userEngagementDuration": 34,
+   "avgEngagementSec": 17.0
+  },
+  {
+   "pagePath": "/articles/hagihara-kh-3691wh",
+   "pageTitle": "HAGIHARA KH-3691WH 口コミ｜ロフトベッドの設置条件 - モノベース",
+   "screenPageViews": 2,
+   "activeUsers": 1,
+   "userEngagementDuration": 22,
+   "avgEngagementSec": 11.0
+  },
+  {
+   "pagePath": "/articles/ih-ih-ih-ihc-sg221-ih-ih",
+   "pageTitle": "アイリスオーヤマIHC-SG221 口コミ｜2口IHの設置条件 - モノベース",
+   "screenPageViews": 2,
+   "activeUsers": 1,
+   "userEngagementDuration": 24,
+   "avgEngagementSec": 12.0
+  },
+  {
+   "pagePath": "/articles/wsj-4l",
+   "pageTitle": "アイリスオーヤマ WSJ-4L 除草剤 口コミ|効果と使い方 - モノベース",
+   "screenPageViews": 2,
+   "activeUsers": 1,
+   "userEngagementDuration": 86,
+   "avgEngagementSec": 43.0
+  },
+  {
+   "pagePath": "/category-camera",
+   "pageTitle": "カメラの記事一覧 - モノベース",
+   "screenPageViews": 2,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/articles/00-9",
+   "pageTitle": "1億円座椅子 42段ギア 口コミ｜低反発ハイバックの向き不向き - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 16,
+   "avgEngagementSec": 16.0
+  },
+  {
+   "pagePath": "/articles/kachika",
+   "pageTitle": "KACHIKA リュック 口コミ｜防水・軽量バッグの評判と注意点 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 16,
+   "avgEngagementSec": 16.0
+  },
+  {
+   "pagePath": "/articles/mrpe-1260-soho-yamazen",
+   "pageTitle": "山善 MRPE-1260 口コミ｜幅120デスクの使い勝手 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/articles/panasonic-led-8h-sb-lsew5046le1",
+   "pageTitle": "パナソニックLSEW5046LE1 軒下ダウンライトの口コミと選び方 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 5,
+   "avgEngagementSec": 5.0
+  },
+  {
+   "pagePath": "/articles/pc-victrixturtle-beach-tbc-5101-85-k51018cp3500089",
+   "pageTitle": "Victrix TBC-5101 口コミ｜中古モジュールコントローラーの注意点 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/articles/pet-20260909",
+   "pageTitle": "スタイルプラス 薄型ペットシーツ 口コミ｜大容量の選び方 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/articles/pet-20260927",
+   "pageTitle": "ニッソー NS-106 口コミ｜60cm水槽の評判と選び方 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 15,
+   "avgEngagementSec": 15.0
+  },
+  {
+   "pagePath": "/articles/sw-kvm2lun2",
+   "pageTitle": "サンワサプライ SW-KVM2LUN2 口コミ｜自動切替器の使い勝手 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 2,
+   "avgEngagementSec": 2.0
+  },
+  {
+   "pagePath": "/articles/valx",
+   "pageTitle": "VALXホエイプロテイン 口コミ｜ふるさと納税1kgの選び方 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/categories",
+   "pageTitle": "カテゴリー一覧 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/category-appliance-clean",
+   "pageTitle": "掃除機・掃除家電の記事一覧 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/category-beauty",
+   "pageTitle": "美容・コスメの記事一覧 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/category-camera-body",
+   "pageTitle": "カメラ本体の記事一覧 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/category-feature",
+   "pageTitle": "特集・まとめの記事一覧 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/category-pet",
+   "pageTitle": "ペットの記事一覧 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  }
+ ],
+ "organic_landing": [
+  {
+   "landingPage": "/",
+   "sessions": 27
+  },
+  {
+   "landingPage": "/articles/kachika",
+   "sessions": 1
+  },
+  {
+   "landingPage": "/category-appliance-aircon",
+   "sessions": 1
+  },
+  {
+   "landingPage": "/new",
+   "sessions": 1
+  }
+ ],
+ "devices": [
+  {
+   "deviceCategory": "desktop",
+   "activeUsers": 16
+  },
+  {
+   "deviceCategory": "mobile",
+   "activeUsers": 7
+  }
+ ],
+ "hosts": [
+  {
+   "hostName": "monobase.site",
+   "screenPageViews": 183
+  },
+  {
+   "hostName": "127.0.0.1",
+   "screenPageViews": 1
+  }
+ ],
+ "notes": [
+  "検索（自然）からの訪問は 30 回で、全体の 57% です。",
+  "3回以上読まれたのに平均10秒未満で離れているページ：/new、/category-appliance-aircon、/articles/p10-yunth-c-c、/category-appliance、/ranking",
+  "本番以外のホスト名からの閲覧が 1 回混ざっています（127.0.0.1）。このレポートの数字には含めていません。"
+ ]
+}
