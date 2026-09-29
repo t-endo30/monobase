@@ -1929,7 +1929,7 @@ def v2_hero(p):
       </div>
       <div class="hero-inner">
         <div class="hero-copy">
-          <h1 class="hero-title"><span class="tw">良い点も、不満点も。</span></h1>
+          <h1 class="hero-title"><span class="sr-only">{e(NAME)}｜</span><span class="tw">良い点も、不満点も。</span></h1>
           <p class="hero-sub">買う前に「リアル」が見える<br>商品紹介サイト</p>
           <div class="hero-rule"></div>
           <p class="hero-desc">口コミ・仕様・価格を徹底的に調査し、<br>購入判断に必要な情報を整理してお届けします。</p>
@@ -4207,9 +4207,13 @@ def build_index():
         + v2_sec_more(f"{p}categories.html", cls="has-feat-ad has-side-ad"))
 
     # サイトそのものの構造化データ。検索結果にサイト名と検索窓を出す材料。
+    # alternateName は「人がこのサイトを呼ぶときの別表記」を並べる
+    # （Googleのサイト名・指名検索の手がかり）。キャッチコピー付きの
+    # 題名を入れていた頃は、英字表記の MONOBASE が伝わっていなかった。
+    alt_names = ["MONOBASE", "monobase", "monobase.site"]
     site_ld = [
         {"@context": "https://schema.org", "@type": "WebSite",
-         "name": NAME, "alternateName": f"{NAME}｜{SUBTITLE}",
+         "name": NAME, "alternateName": alt_names,
          "url": BASE_URL + "/",
          "inLanguage": "ja",
          "description": f"{SUBTITLE}。{SITE['description']}",
@@ -4219,7 +4223,8 @@ def build_index():
                         "urlTemplate": f"{BASE_URL}/search?q={{search_term_string}}"},
              "query-input": "required name=search_term_string"}},
         {"@context": "https://schema.org", "@type": "Organization",
-         "name": NAME, "slogan": SUBTITLE, "url": BASE_URL + "/",
+         "name": NAME, "alternateName": alt_names,
+         "slogan": SUBTITLE, "url": BASE_URL + "/",
          "description": f"{SUBTITLE}。{SITE['description']}",
          "logo": {"@type": "ImageObject",
                   "url": f"{BASE_URL}/assets/img/apple-touch-icon.png",
