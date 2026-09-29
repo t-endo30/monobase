@@ -21,7 +21,7 @@
   "icon": "📱",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=UZ-200%20%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88WiFi%20%E3%83%AC%E3%83%B3%E3%82%BF%E3%83%AB%2030%E6%97%A5%E9%96%93%203GB%20%E6%97%A5%20%E5%9B%BD%E5%86%85%E7%94%A8%20%E9%AB%98%E9%80%9FLTE%20wifi%E3%83%AC%E3%83%B3%E3%82%BF%E3%83%AB%20%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%205000mAh%20%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%E5%85%BC%E7%94%A8%204G%20Wi-Fi%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%20%E5%B8%B0%E7%9C%81%20%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%9F%AD%E6%9C%9F%20%E5%87%BA%E5%BC%B5%20%E6%97%85%E8%A1%8C%20%E5%85%A5%E9%99%A2%20%E4%B8%80%E6%99%82%E5%B8%B0%E5%9B%BD%20%E3%83%86%E3%83%AC%E3%83%AF%E3%83%BC%E3%82%AF%20%E5%9C%A8%E5%AE%85%E5%8B%A4%E5%8B%99%20%E5%BC%95%E8%B6%8A%E3%81%97%20Pocket%20WiFi%20%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88Wi-Fi&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：短期・軽めの通信なら買い。動画やテレワーク中心なら3GBでは足りない",
   "summary": [
@@ -251,6 +251,12 @@
     "total": 85,
     "notes": "公式仕様が無い中で、rating と spec を出さず推測を明示しており、振る舞いは適切。ただしレビュー傾向など独自の材料が乏しく、独自性はやや弱い。"
    }
+  },
+  "health": {
+   "checked": "2026-09-29",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=UZ-200%20%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88WiFi%20%E3%83%AC%E3%83%B3%E3%82%BF%E3%83%AB%2030%E6%97%A5%E9%96%93%203GB%20%E6%97%A5%20%E5%9B%BD%E5%86%85%E7%94%A8%20%E9%AB%98%E9%80%9FLTE%20wifi%E3%83%AC%E3%83%B3%E3%82%BF%E3%83%AB%20%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%205000mAh%20%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%E5%85%BC%E7%94%A8%204G%20Wi-Fi%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%20%E5%B8%B0%E7%9C%81%20%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%9F%AD%E6%9C%9F%20%E5%87%BA%E5%BC%B5%20%E6%97%85%E8%A1%8C%20%E5%85%A5%E9%99%A2%20%E4%B8%80%E6%99%82%E5%B8%B0%E5%9B%BD%20%E3%83%86%E3%83%AC%E3%83%AF%E3%83%BC%E3%82%AF%20%E5%9C%A8%E5%AE%85%E5%8B%A4%E5%8B%99%20%E5%BC%95%E8%B6%8A%E3%81%97%20Pocket%20WiFi%20%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88Wi-Fi&i=aps"
+   ]
   }
  },
  {
@@ -277,7 +283,7 @@
   "icon": "🏠",
   "thumb": "",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E5%88%A9%E7%94%A8%E3%81%A724%2C360%E5%86%86%209%2029%2000%3A00%E3%81%8B%E3%82%89%20Jackery%E3%82%BD%E3%83%BC%E3%83%A9%E3%83%BC%E3%83%91%E3%83%8D%E3%83%AB100W%20Jackery%20SolarSaga%20100%20%E3%82%BD%E3%83%BC%E3%83%A9%E3%83%BC%E3%83%81%E3%83%A3%E3%83%BC%E3%82%B8%E3%83%A3%E3%83%BC%E6%8A%98%E3%82%8A%E3%81%9F%E3%81%9F%E3%81%BF%E5%BC%8F%20%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%84%E3%82%BF%E3%83%96%E3%83%AC%E3%83%83%E3%83%88%2025%25%20%E8%B6%85%E8%96%84%E5%9E%8B%20%E8%BB%BD%E9%87%8F%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E5%8D%98%E7%B5%90%E6%99%B6%20%E9%98%B2%E7%81%BD%20IP65%E9%98%B2%E6%B0%B4%2020V%205.6A%20Jackery%20%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%96%E3%83%AB%E9%9B%BB%E6%BA%90%E7%94%A8&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：Jackery製ポータブル電源を持つ防災・アウトドア用途の人には検討価値あり。接続規格と設置場所を確認できない人は購入を急がないで",
   "summary": [
@@ -515,6 +521,12 @@
     "total": 86,
     "notes": "公式仕様が無く、レビュー本文も未取得のため、独自分析は電源との適合と設置環境の観点に限られる。rating と spec が省かれているのは適切。本文が5,000字に届いているかは字数の計測ができていないので、下限に近い可能性がある。"
    }
+  },
+  "health": {
+   "checked": "2026-09-29",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E5%88%A9%E7%94%A8%E3%81%A724%2C360%E5%86%86%209%2029%2000%3A00%E3%81%8B%E3%82%89%20Jackery%E3%82%BD%E3%83%BC%E3%83%A9%E3%83%BC%E3%83%91%E3%83%8D%E3%83%AB100W%20Jackery%20SolarSaga%20100%20%E3%82%BD%E3%83%BC%E3%83%A9%E3%83%BC%E3%83%81%E3%83%A3%E3%83%BC%E3%82%B8%E3%83%A3%E3%83%BC%E6%8A%98%E3%82%8A%E3%81%9F%E3%81%9F%E3%81%BF%E5%BC%8F%20%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%84%E3%82%BF%E3%83%96%E3%83%AC%E3%83%83%E3%83%88%2025%25%20%E8%B6%85%E8%96%84%E5%9E%8B%20%E8%BB%BD%E9%87%8F%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E5%8D%98%E7%B5%90%E6%99%B6%20%E9%98%B2%E7%81%BD%20IP65%E9%98%B2%E6%B0%B4%2020V%205.6A%20Jackery%20%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%96%E3%83%AB%E9%9B%BB%E6%BA%90%E7%94%A8&i=aps"
+   ]
   }
  },
  {
@@ -715,6 +727,9 @@
     "total": 85,
     "notes": "5本の個別レビューの結論をまとめ直した特集で、独自の分析は「困りごとと商品の役割のずれ」の指摘にとどまる。spec を削ったため本文が短くなっている。5,000字を下回っていないかは未計測なので、公開前に文字数を確認してほしい。水増しはしていない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-29"
   }
  },
  {
@@ -12060,10 +12075,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=FZ-W45HF%20%E3%82%B7%E3%83%A3%E3%83%BC%E3%83%97%E4%BA%92%E6%8F%9B%20fz-w45hf%20%E9%9B%86%E3%81%98%E3%82%93%E3%83%95%E3%82%A3%E3%83%AB%E3%82%BF%E3%83%BC%20%E5%8A%A0%E6%B9%BF%E7%A9%BA%E6%B0%97%E6%B8%85%E6%B5%84%E6%A9%9F%20KC-450Y3%20KC-45Y2%20KC-W45%20KC-W45Y%20KC-Y45%20KC-Z45%20%E5%AF%BE%E5%BF%9C%20%E9%9B%86%E5%A1%B5%201%E6%9E%9A%E5%85%A5%E3%82%8A%20%E4%BA%92%E6%8F%9B%E5%93%81&i=aps"
-   ]
+   "checked": "2026-09-29"
   }
  },
  {
@@ -12283,10 +12295,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E4%BA%BA%E6%B0%97%20%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%20%E5%AE%9A%E7%95%AA%20%E5%86%AC%20%E8%A9%B1%E9%A1%8C%20%E6%B3%A8%E7%9B%AE%20%E3%81%8B%E3%82%8F%E3%81%84%E3%81%84%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%83%A9%E3%83%B3%E3%82%AF%20%E5%BE%A1%E6%AD%B3%E6%9A%AE%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E3%81%8A%E3%81%BF%E3%82%84%E3%81%92%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E9%96%A2%E9%80%A3%20%E3%82%B5%E3%83%B3%E3%83%AF%E3%82%B5%E3%83%97%E3%83%A9%E3%82%A4%20%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA7LAN%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB2m%20KB-T7-02WN%20%E3%81%8A%E3%81%99%E3%81%99%E3%82%81&i=aps"
-   ]
+   "checked": "2026-09-29"
   },
   "review_stats": {
    "rakuten": {
@@ -12526,10 +12535,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E8%BC%B8%E5%85%A5%E5%93%81%E3%83%BB%20Transcend%20%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%96%E3%83%ABHDD%202TB%20PS5%20PS4%20%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%20%E8%80%90%E8%A1%9D%E6%92%83%20USB3.1%20Gen1%20TS2TSJ25H3B%20%E3%83%96%E3%83%AB%E3%83%BC&i=aps"
-   ]
+   "checked": "2026-09-29"
   },
   "review_stats": {
    "rakuten": {
@@ -12758,10 +12764,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%82%B5%E3%83%B3%E3%83%AF%E3%82%B5%E3%83%97%E3%83%A9%E3%82%A4%20%E7%9B%B4%E9%80%81%20USB%20Type%20C-DisplayPort%E5%A4%89%E6%8F%9B%E3%82%A2%E3%83%80%E3%83%97%E3%82%BF%204K%20120Hz%20HDR%E5%AF%BE%E5%BF%9C&i=aps"
-   ]
+   "checked": "2026-09-29"
   }
  },
  {
@@ -12987,10 +12990,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%82%B7%E3%82%AB%20%E6%8B%AD%E3%81%8D%E5%8F%96%E3%82%8A%E3%83%91%E3%83%83%E3%83%89%20VT%20CICA%20MILD%20TONER%20PAD%2060%E6%9E%9A%20130ml%E3%83%96%E3%82%A4%E3%83%86%E3%82%A3%20%E3%82%B9%E3%82%AD%E3%83%B3%E3%82%B1%E3%82%A2%20%E3%82%B7%E3%82%AB%20%E3%83%88%E3%83%8A%E3%83%BC%E3%83%91%E3%83%83%E3%83%89%20%E8%A7%92%E8%B3%AA%20%E8%A7%92%E8%B3%AA%E3%82%B1%E3%82%A2%20%E6%B0%B4%E5%88%86%E3%83%81%E3%83%A3%E3%83%BC%E3%82%B8%20%E3%82%B1%E3%82%A2%20%E5%BC%B1%E9%85%B8%E6%80%A7%20%E3%81%86%E3%82%8B%E3%81%8A%E3%81%84%20%E6%AF%9B%E7%A9%B4%E5%BC%95%E3%81%8D%E7%B7%A0%E3%82%81%20%E5%BC%BE%E5%8A%9B%20%E8%82%8C%E3%82%AD%E3%83%A1%20%E6%B0%B4%E5%88%86&i=aps"
-   ]
+   "checked": "2026-09-29"
   }
  },
  {
@@ -13224,10 +13224,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=TP-Link%2010Gbps%20LAN%E3%82%AB%E3%83%BC%E3%83%89%20PCI-E%20%E3%82%A2%E3%83%80%E3%83%97%E3%82%BF%E3%83%BC%20%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%AB%E3%83%BC%E3%83%89%20TX401&i=aps"
-   ]
+   "checked": "2026-09-29"
   },
   "review_stats": {
    "rakuten": {
@@ -13460,10 +13457,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E4%BA%BA%E6%B0%97%20%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%20%E5%AE%9A%E7%95%AA%20%E5%86%AC%20%E8%A9%B1%E9%A1%8C%20%E6%B3%A8%E7%9B%AE%20%E3%81%8B%E3%82%8F%E3%81%84%E3%81%84%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%83%A9%E3%83%B3%E3%82%AF%20%E5%BE%A1%E6%AD%B3%E6%9A%AE%20%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%9E%E3%82%B9%20%E3%81%8A%E3%81%BF%E3%82%84%E3%81%92%20%E4%BE%BF%E5%88%A9%E3%82%B0%E3%83%83%E3%82%BA%20%E3%82%A2%E3%82%A4%E3%83%87%E3%82%A2%E5%95%86%E5%93%81%2010%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%20USB%20L%E5%9E%8B%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%E5%BB%B6%E9%95%B720%20USBA-CA20ULX10%20%E4%BA%BA%E6%B0%97%20%E3%81%8A%E5%BE%97%E3%81%AA%20%E3%81%8A%E3%81%99%E3%81%99%E3%82%81&i=aps"
-   ]
+   "checked": "2026-09-29"
   },
   "review_stats": {
    "rakuten": {
@@ -13694,10 +13688,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=ASUS%20Vivobook%2014%20X1405ZA%2014%E3%82%A4%E3%83%B3%E3%83%81%20%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AA%E3%83%A5%E3%83%83%E3%82%AF%20%E3%83%A1%E3%83%B3%E3%82%BA%20%E3%83%AC%E3%83%87%E3%82%A3%E3%83%BC%E3%82%B9%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E3%83%90%E3%83%83%E3%82%B0%20%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%20%E3%82%BB%E3%83%83%E3%83%88%20%E9%80%9A%E5%8B%A4%20%E9%80%9A%E5%AD%A6%20USB%20%E5%85%85%E9%9B%BB%20%E3%83%AA%E3%83%A5%E3%83%83%E3%82%AF%E3%82%B5%E3%83%83%E3%82%AF%20PC%20%E3%83%90%E3%83%83%E3%82%B0%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E3%83%AA%E3%83%A5%E3%83%83%E3%82%AF%20%E5%A4%9A%E6%A9%9F%E8%83%BD%20%E8%BB%BD%E9%87%8F%203way%20A4%E3%82%B5%E3%82%A4%E3%82%BA%20%E9%98%B2%E6%B0%B4%20%E5%87%BA%E5%BC%B5%20%E6%B5%B7%E5%A4%96%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF%20jgs%20bgt%20%E4%BA%92%E6%8F%9B%E5%93%81&i=aps"
-   ]
+   "checked": "2026-09-29"
   },
   "review_stats": {
    "rakuten": {
@@ -13927,10 +13918,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E6%9C%AA%E9%96%8B%E5%B0%81%E5%93%81%203drose%20LLC%208%3Fx%208%3Fx%200.25%E3%82%A4%E3%83%B3%E3%83%81%E3%83%9E%E3%82%A6%E3%82%B9%E3%83%91%E3%83%83%E3%83%89%E3%80%81%E8%A3%85%E9%A3%BE%E3%82%AB%E3%83%A9%E3%83%95%E3%83%AB%E3%81%AA%E5%BA%ADBotanic%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AFPlant%20Southwest%20Desert%20cactus%E8%B5%A4%E3%81%84%E8%8A%B1%20MP%2032340%3F_%201%3F&i=aps"
-   ]
+   "checked": "2026-09-29"
   },
   "review_stats": {
    "rakuten": {
@@ -14202,10 +14190,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=Thinkpad%20edge%2014%2005787uj%2011.1V%2073Wh%20lenovo%20%E3%83%AC%E3%83%8E%E3%83%9C%20%E3%83%8E%E3%83%BC%E3%83%88%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%20%E4%BA%A4%E6%8F%9B%E7%94%A8%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%20%E5%85%85%E9%9B%BB%E6%B1%A0&i=aps"
-   ]
+   "checked": "2026-09-29"
   },
   "review_stats": {
    "rakuten": {
@@ -26741,7 +26726,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/upc1114/cabinet/10717283/10717549/imgrc0120486871.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -32579,7 +32564,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -32884,7 +32869,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -33195,7 +33180,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -33484,7 +33469,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -33787,7 +33772,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "review_stats": {
    "rakuten": {
@@ -34615,7 +34600,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "review_stats": {
    "rakuten": {
@@ -34902,7 +34887,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -35178,7 +35163,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -35445,7 +35430,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -35748,7 +35733,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -41229,7 +41214,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/shuuemura/cabinet/12824584/13204797/13525001/new.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -41490,7 +41475,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/angfa/cabinet/2025/item/1080_packsd_rakuten2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -43955,7 +43940,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -45312,7 +45297,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/yunth/cabinet/11294195/11294196/event/10000000_260906.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-23"
+   "checked": "2026-09-29"
   },
   "review_stats": {
    "rakuten": {
@@ -47629,7 +47614,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "image_prompt": "A photograph of Vivcon キャリーケース 40L, which is a キャリーケース, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
  },
@@ -47909,7 +47894,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "official_url": "https://creerina.co.jp/items/airycurlmascara/",
   "facts": [
@@ -48420,7 +48405,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "image_prompt": "A photograph of ポータブルシャワー, which is a シャワー, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background."
  },
@@ -49112,7 +49097,7 @@
    "質量・内なべの素材・保温／予約機能の詳細は、確認できた公式情報の範囲では未確認"
   ],
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "good_for": {
    "intro": "モノベースでは、次のような使い方をする人に噛み合う機種だと評価します。",
@@ -49752,7 +49737,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "good_for": {
    "intro": "コンセント式のLED投光器が向くのは、次のような条件がそろっている人です。",
@@ -49957,7 +49942,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "good_for": {
    "intro": "「どの方式が向くか」は、部屋と生活のパターンで決まります。次のどれかに当てはまるなら、対応する方式から探すと失敗しにくくなります。",
@@ -50152,7 +50137,7 @@
   ],
   "kind": "sale",
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "faq": [
    {
@@ -50416,7 +50401,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/synnex/e1r00wv.html",
   "jan": "0698833073829",
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "good_for": {
    "intro": "利用者の声の傾向と、この種のガススプリング式アームの構造から見て、次の条件に当てはまる人は満足側に入りやすいです。",
@@ -54168,7 +54153,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "good_for": {
    "intro": "次の条件に当てはまるなら、S360は素直に働きます。",
@@ -54699,7 +54684,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "good_for": {
    "intro": "ソーラー防犯カメラが向くのは、「電源を引けない場所を撮りたい」という条件が先にある人です。具体的にはこうした状況が当てはまります。",
@@ -54983,7 +54968,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "good_for": {
    "intro": "次のいずれかに当てはまるなら、角度調整フットレストは投資に見合います。",
@@ -55217,7 +55202,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-29"
   },
   "good_for": {
    "intro": "スチーム式は、次のような条件の人と噛み合います。",
