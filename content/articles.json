@@ -1157,7 +1157,7 @@
    "rakuten": {
     "price": 3740,
     "postage_included": true,
-    "count": 1316,
+    "count": 1317,
     "average": 4.52,
     "shops": 1
    },
@@ -1433,8 +1433,8 @@
    "rakuten": {
     "price": 16980,
     "postage_included": true,
-    "count": 121,
-    "average": 4.64,
+    "count": 122,
+    "average": 4.63,
     "shops": 1
    },
    "checked": "2026-09-29"
@@ -14456,7 +14456,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 8859,
+    "price": 9978,
     "postage_included": true
    },
    "checked": "2026-09-29"
@@ -20645,7 +20645,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 91378,
+    "price": 85000,
     "postage_included": false,
     "count": 2,
     "average": 4.5,
@@ -22270,7 +22270,7 @@
     "price": 21965,
     "postage_included": false
    },
-   "checked": "2026-09-26"
+   "checked": "2026-09-29"
   }
  },
  {
@@ -22770,7 +22770,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 6876,
+    "price": 6931,
     "postage_included": false
    },
    "checked": "2026-09-29"
@@ -23540,7 +23540,7 @@
    "rakuten": {
     "price": 7480,
     "postage_included": true,
-    "count": 3841,
+    "count": 3843,
     "average": 4.47,
     "shops": 1
    },
@@ -23769,7 +23769,7 @@
    "rakuten": {
     "price": 13200,
     "postage_included": true,
-    "count": 3966,
+    "count": 3967,
     "average": 4.67,
     "shops": 1
    },
@@ -24490,7 +24490,7 @@
    "rakuten": {
     "price": 3280,
     "postage_included": true,
-    "count": 4133,
+    "count": 4134,
     "average": 4.54,
     "shops": 1
    },
@@ -25226,7 +25226,7 @@
    "rakuten": {
     "price": 2460,
     "postage_included": true,
-    "count": 4454,
+    "count": 4457,
     "average": 4.44,
     "shops": 1
    },
@@ -26949,7 +26949,7 @@
    "rakuten": {
     "price": 4950,
     "postage_included": true,
-    "count": 5169,
+    "count": 5171,
     "average": 4.62,
     "shops": 1
    },
@@ -28927,7 +28927,7 @@
    "rakuten": {
     "price": 3280,
     "postage_included": true,
-    "count": 12055,
+    "count": 12056,
     "average": 4.4,
     "shops": 1
    },
@@ -33778,7 +33778,7 @@
    "rakuten": {
     "price": 4480,
     "postage_included": false,
-    "count": 14850,
+    "count": 14851,
     "average": 4.55,
     "shops": 1
    },
@@ -36619,7 +36619,7 @@
    "rakuten": {
     "price": 9980,
     "postage_included": true,
-    "count": 15897,
+    "count": 15905,
     "average": 4.54,
     "shops": 1
    },
@@ -37213,7 +37213,7 @@
    "rakuten": {
     "price": 3180,
     "postage_included": true,
-    "count": 16385,
+    "count": 16389,
     "average": 4.67,
     "shops": 1
    },
@@ -38057,7 +38057,7 @@
    "rakuten": {
     "price": 5555,
     "postage_included": true,
-    "count": 19573,
+    "count": 19581,
     "average": 4.43,
     "shops": 1
    },
@@ -38364,7 +38364,7 @@
    "rakuten": {
     "price": 3799,
     "postage_included": true,
-    "count": 19381,
+    "count": 19382,
     "average": 3.92,
     "shops": 1
    },
@@ -38679,7 +38679,7 @@
    "rakuten": {
     "price": 2990,
     "postage_included": false,
-    "count": 18996,
+    "count": 19002,
     "average": 4.37,
     "shops": 1
    },
@@ -39589,7 +39589,7 @@
    "rakuten": {
     "price": 5980,
     "postage_included": false,
-    "count": 20873,
+    "count": 20877,
     "average": 4.36,
     "shops": 1
    },
@@ -40441,7 +40441,7 @@
    "rakuten": {
     "price": 12980,
     "postage_included": true,
-    "count": 23407,
+    "count": 23408,
     "average": 4.52,
     "shops": 1
    },
@@ -40697,7 +40697,7 @@
    "rakuten": {
     "price": 6160,
     "postage_included": true,
-    "count": 22264,
+    "count": 22266,
     "average": 4.42,
     "shops": 1
    },
@@ -42268,7 +42268,7 @@
    "rakuten": {
     "price": 2990,
     "postage_included": false,
-    "count": 26194,
+    "count": 26200,
     "average": 4.41,
     "shops": 1
    },
@@ -42513,7 +42513,7 @@
    "rakuten": {
     "price": 1980,
     "postage_included": true,
-    "count": 41985,
+    "count": 41994,
     "average": 4.6,
     "shops": 1
    },
@@ -43078,7 +43078,7 @@
    "rakuten": {
     "price": 2200,
     "postage_included": true,
-    "count": 40150,
+    "count": 40159,
     "average": 4.75,
     "shops": 1
    },
@@ -45044,9 +45044,9 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 1999,
+    "price": 1399,
     "postage_included": true,
-    "count": 49275,
+    "count": 49281,
     "average": 4.14,
     "shops": 1
    },
@@ -45303,7 +45303,7 @@
    "rakuten": {
     "price": 3960,
     "postage_included": true,
-    "count": 45195,
+    "count": 45196,
     "average": 4.69,
     "shops": 1
    },
@@ -45829,7 +45829,7 @@
    "rakuten": {
     "price": 3630,
     "postage_included": true,
-    "count": 49364,
+    "count": 49382,
     "average": 4.8,
     "shops": 1
    },
@@ -49155,9 +49155,9 @@
    "rakuten": {
     "price": 14498,
     "postage_included": true,
-    "count": 100,
-    "average": 4.39,
-    "shops": 12
+    "count": 120,
+    "average": 4.38,
+    "shops": 13
    },
    "yahoo": {
     "price": 21780,
@@ -49567,7 +49567,7 @@
   "official_ogp_image": "https://www.zojirushi.co.jp/syohin/assets/img/pot_kettle/kettle/ck-ax/ogp.png",
   "review_stats": {
    "rakuten": {
-    "price": 21324,
+    "price": 20193,
     "postage_included": true
    },
    "checked": "2026-09-29"
@@ -50463,7 +50463,7 @@
     "shops": 2
    },
    "yahoo": {
-    "price": 17055,
+    "price": 17344,
     "postage_included": true,
     "count": 142,
     "average": 4.65,
@@ -52185,7 +52185,7 @@
    "rakuten": {
     "price": 9980,
     "postage_included": true,
-    "count": 1978,
+    "count": 1979,
     "average": 4.61,
     "shops": 2
    },
