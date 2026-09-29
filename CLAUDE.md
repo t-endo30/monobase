@@ -477,6 +477,10 @@
     ページには `<template class="promo-item" data-ref="…">` の参照キーだけを
     残し、`assets/main.js` の `monoPromos()` が読んで戻す。`/assets/*` は
     1年キャッシュなので置き場所を assets に移さないこと。
+- **一覧ページの index 判定は「index する記事の本数」で数える**（2026-09-29、
+  `subcat_indexable()`）。掲載本数で数えていた頃は、載っている9本が全部
+  noindex というサブ区分の一覧が18本 index されていた。sitemap も同じ関数を使う。
+  ランキングページ（中身をJSが後から入れる空のHTML）も noindex,follow にした。
 - 再審査は、Search Console で noindex が反映される（数週間）のを待ってから。
   コードだけでは通らない。**運営者の実名・プロフィール、自分で撮った写真や
   使用体験の入った記事**が、残りで最も効く手。
