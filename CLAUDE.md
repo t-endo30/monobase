@@ -48,6 +48,9 @@
 
 ## 2. 自動記事作成（`.github/workflows/write.yml`）
 
+- **GitHub の定期実行（cron）は数時間遅れて起動することがある**（2026-09-29〜30
+  の実測で4〜5時間遅れ。1:35 JST の枠が 5:58 JST に起動していた）。
+  「今日の分がまだ無い」ときは、まず Actions の実行履歴で枠が起動済みかを見る。
 - 毎日5時間おき×5回 cron で走る。頻度・本数（`runs_per_week` /
   `articles_per_run`）と自動公開の有無（`auto_publish`）は
   `content/site.json` の `automation` で管理画面から変更できる。
@@ -523,6 +526,7 @@
     本文1,300字以上。217本中67本が index。記事ごとに `"index": true/false`
     で上書きできる。条件を満たせば次のビルドで自動的に戻る。
   - **自動作成を1日10本→2本**（`automation.articles_per_run`）。
+    09-30にユーザー判断で**1日5本**に戻した（2本ずつ3回の枠に分けて作る）。
   - **バナー候補はHTMLに埋め込まず `promos.json`（サイト直下）へ**。
     ページには `<template class="promo-item" data-ref="…">` の参照キーだけを
     残し、`assets/main.js` の `monoPromos()` が読んで戻す。`/assets/*` は
