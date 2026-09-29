@@ -4902,3 +4902,55 @@ h1,h2,h3,h4,
     border-top:1.5px solid var(--muted);border-right:1.5px solid var(--muted);
     transform:rotate(45deg);}
 }
+
+/* ============================================================
+   特集・まとめの記事ページの冒頭（build.py の feature_hero）
+   ------------------------------------------------------------
+   一覧のサムネイル（tools/make_visual.py）と同じ見た目を本物の文字で組む。
+   題名は <h1> のまま（画像にすると検索エンジンに主題が伝わらない）。
+   背景は --fh-bg のカテゴリー画像をぼかし、サムネイルと同じ紺
+   （#1B2640、make_visual の CAT_BG["feature"]）を .62 重ねて沈める。
+   ============================================================ */
+.feature-hero{position:relative;overflow:hidden;isolation:isolate;
+  margin:6px 0 24px;
+  padding:clamp(26px,6vw,48px) clamp(20px,5.5vw,44px) clamp(20px,4.5vw,32px);
+  border-radius:var(--radius-sm);
+  background:#1B2640;color:#fff;text-align:left;}
+.feature-hero::before{content:"";position:absolute;inset:-40px;z-index:-2;
+  background:var(--fh-bg) center/cover no-repeat;filter:blur(14px);}
+.feature-hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:rgba(27,38,64,.62);}
+.fh-meta{display:flex;align-items:center;gap:10px;margin:0 0 14px;}
+.fh-tag{display:inline-block;padding:4px 12px;border-radius:999px;
+  background:#fff;color:#1B2640;font-size:12.5px;font-weight:800;line-height:1.3;}
+.fh-cat{font-size:12.5px;font-weight:600;color:rgba(255,255,255,.82);}
+.article-page .feature-hero .fh-title,
+.feature-hero .fh-title{margin:0;color:#fff;text-align:left;
+  font-size:clamp(24px,6.6vw,36px);font-weight:800;line-height:1.35;letter-spacing:-.01em;}
+.feature-hero .fh-title .t-sub{margin-top:.55em;font-size:.5em;font-weight:600;
+  line-height:1.6;color:rgba(255,255,255,.8);}
+.fh-em{color:#FFD36B;}
+.fh-foot{display:flex;align-items:center;justify-content:space-between;margin:clamp(16px,4vw,26px) 0 0;}
+.fh-bar{width:40px;height:3px;border-radius:2px;background:#FFD36B;}
+.fh-brand{font-size:10.5px;font-weight:700;letter-spacing:.3em;color:rgba(255,255,255,.6);}
+
+/* スマホでは両端ぞろえをやめて左ぞろえにする（2026-09-29、ユーザー指摘）。
+   1行の字数が少ないところに英単語（Anker・Thunderbolt）が混ざると、
+   行を埋めるために字間が引き伸ばされ「デ ス ク の 接 続」のように
+   ばらけて見えていた。 */
+@media (max-width:860px){
+  .article-body li,
+  .summary-list li,
+  .li-b,
+  .summary-head,
+  .rating-label,
+  .sgb-box li,
+  .goodfor-d,
+  .notfor-list li .li-b,
+  .static-wrap p,
+  .static-wrap li,
+  .scene-body p,
+  .hl-text,
+  .hl-body p,
+  .hp-body p{text-align:left;}
+}

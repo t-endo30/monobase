@@ -376,6 +376,39 @@ def thumb_attrs(a, is_shop, shop):
         out += f' data-asin="{e(asin)}"'
     return out
 
+_FH_EMPH = re.compile(r"(\d+(?:製品|選|機種|本|点|種類?|台|つ))")
+
+
+def feature_hero(a, p):
+    """特集・まとめの記事ページの冒頭。一覧のサムネイル（tools/make_visual.py）
+       と同じ見た目（ぼかしたカテゴリー画像＋紺の膜＋札＋白い題名＋黄色の数）を、
+       画像ではなく本物の文字で組む（2026-09-29、ユーザー判断）。題名を画像に
+       してしまうと <h1> が無くなり、検索エンジンにページの主題が伝わらない。
+       背景の画像・札・分野名の選び方は build() のサムネイル作りとそろえる。"""
+    cat, sub = a["category"], a.get("sub", "")
+    if a.get("feature_of"):
+        cat, _, sub = a["feature_of"].partition("/")
+    label = SUB_LABEL.get((cat, sub)) or CAT_LABEL.get(cat, "")
+    img = CAT_IMAGE.get(cat) or CAT_IMAGE.get("feature", "")
+    bg = f' style="--fh-bg:url(\'{p}{e(img)}\')"' if img else ""
+
+    def rich(t):
+        return "".join(f'<span class="fh-em">{e(x)}</span>' if _FH_EMPH.fullmatch(x) else e(x)
+                       for x in _FH_EMPH.split(t) if x)
+    main, _, subt = a["title"].partition("｜")
+    title = f'<span class="t-main">{rich(main.strip())}</span>'
+    if subt.strip():
+        title += f'<span class="t-sub">{rich(subt.strip())}</span>'
+    kind = KIND_LABEL.get(kind_of(a), "")
+    tag = f'<span class="fh-tag">{e(kind)}</span>' if kind else ""
+    return (f'        <header class="feature-hero"{bg}>\n'
+            f'          <p class="fh-meta">{tag}<span class="fh-cat">{e(label)}</span></p>\n'
+            f'          <h1 class="article-title fh-title">{title}</h1>\n'
+            f'          <p class="fh-foot" aria-hidden="true"><span class="fh-bar"></span>'
+            f'<span class="fh-brand">MONOBASE</span></p>\n'
+            f'        </header>\n')
+
+
 def title_lines(t):
     """「主題｜補足」形式のタイトルを2段に分けて表示する。
        1行に詰めると読みにくいうえ、区切り記号が目立ちすぎるため。"""
@@ -2930,8 +2963,8 @@ def render_article(a):
           <span class="article-date">{e(jp_date(a.get("updated") or a["date"]))} 更新</span>
         </div>
 
-        <h1 class="article-title">{title_lines(a["title"])}</h1>
-''')
+{feature_hero(a, p) if a["category"] == "feature" else
+  f'        <h1 class="article-title">{title_lines(a["title"])}</h1>' + chr(10)}''')
 
     # 商品カード（写真つきの購入リンク）は結論の上に置く。
     # 読者が最初に見る位置に、商品そのものと買える場所を出す。
@@ -2942,8 +2975,9 @@ def render_article(a):
     card_img = True
     top_card = (product_card(a, p, eager=True, with_img=card_img)
                 if kind_of(a) == "review" else "")
-    if not top_card:
-        # 商品カードが無い記事（選び方・特集）だけ、色帯で見出しと本文を分ける
+    if not top_card and cat != "feature":
+        # 商品カードが無い記事（選び方・特集）だけ、色帯で見出しと本文を分ける。
+        # 特集・まとめは上の feature_hero が見出しと本文を分けるので要らない
         add('        <div class="article-accent" aria-hidden="true"></div>\n')
 
     add(top_card)
