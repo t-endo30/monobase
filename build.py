@@ -3782,18 +3782,17 @@ def v2_recent_views(p):
        data-rank の全記事一覧から引くので、ここで新しくpoolを埋め込む
        必要は無い）。履歴が無い（初回訪問）人には枠ごと隠す
        （hidden、JSが履歴を見つけたときだけ外す）。2026-09-27追加。"""
-    # スマホではタイルが縦に積まれて画面を何枚ぶんも取るので、見出しの
-    # 下のボタンで開け閉めできるようにし、初めは閉じておく（2026-09-28、
-    # ユーザー判断）。開閉は assets/main.js、隠すのは CSS の
-    # @media (max-width:860px) だけで、それより広い画面では常に開いている。
+    # スマホではタイルが縦に積まれて画面を何枚ぶんも取るので、直近5件の
+    # 題名だけを5行のテキストリンクで出す（2026-09-29、ユーザー判断。
+    # 前日に入れた開閉ボタンはやめた）。どちらを見せるかは CSS の
+    # @media (max-width:860px) で決め、それより広い画面はタイルのまま。
+    # 中身は assets/main.js がタイルと同じ履歴から埋める。
     return (
-        '  <section class="v2-section recent-views is-narrow is-collapsed" data-recent-views-wrap hidden>\n'
+        '  <section class="v2-section recent-views is-narrow" data-recent-views-wrap hidden>\n'
         '    <div class="container">\n'
         + v2_sec_head("RECENT", "最近見た記事")
-        + '      <button type="button" class="rv-toggle" aria-expanded="false"'
-        ' aria-controls="recentViewsGrid"><span class="rv-open">表示する</span>'
-        '<span class="rv-close">閉じる</span></button>\n'
-        '      <div class="card-grid is-home6" id="recentViewsGrid" data-recent-views></div>\n'
+        + '      <div class="card-grid is-home6" data-recent-views></div>\n'
+        '      <ol class="rv-list" data-recent-list></ol>\n'
         '    </div>\n  </section>\n'
     )
 

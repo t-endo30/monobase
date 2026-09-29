@@ -4793,27 +4793,22 @@ h1,h2,h3,h4,
   text-decoration-thickness:1px;text-decoration-color:var(--amazon);}
 .article-body a.plink:hover{text-decoration-thickness:2px;}
 
-/* ホームの「最近見た記事」の開閉（スマホだけ、初めは閉じている）。
-   縦に積まれたタイルが画面を何枚ぶんも取るため（2026-09-28、ユーザー判断）。
-   860pxより広い画面ではボタンを出さず、常に開いている。 */
-.rv-toggle{display:none;}
+/* ホームの「最近見た記事」（スマホ）。タイルは1枚で画面幅いっぱいを
+   使い、5枚積むと画面を何枚ぶんも取るので、直近5件の題名を1行ずつの
+   テキストリンクにする（2026-09-29、ユーザー判断）。860pxより広い画面は
+   タイルのまま。長い題名は1行で切って末尾を「…」にする。 */
+.rv-list{display:none;}
 @media (max-width:860px){
-  .recent-views .sec-head{margin-bottom:14px;}
-  .rv-toggle{display:flex;align-items:center;justify-content:center;gap:8px;
-    margin:0 auto 18px;
-    padding:8px 22px;
-    border:1px solid var(--ink);
-    background:var(--bg-2);
-    color:var(--ink);
-    font:inherit;font-size:12px;letter-spacing:.08em;
-    cursor:pointer;}
-  .rv-toggle::after{content:"";width:7px;height:7px;
-    border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
-    transform:translateY(-2px) rotate(45deg);}
-  .recent-views:not(.is-collapsed) .rv-toggle::after{transform:translateY(2px) rotate(-135deg);}
-  .rv-toggle .rv-close,
-  .recent-views:not(.is-collapsed) .rv-toggle .rv-open{display:none;}
-  .recent-views:not(.is-collapsed) .rv-toggle .rv-close{display:inline;}
-  .recent-views.is-collapsed .rv-toggle{margin-bottom:0;}
-  .recent-views.is-collapsed [data-recent-views]{display:none;}
+  .recent-views .sec-head{margin-bottom:12px;}
+  .recent-views [data-recent-views]{display:none;}
+  .rv-list{display:block;list-style:none;margin:0;padding:0;
+    border-top:1px solid var(--border);background:var(--bg-2);}
+  .rv-list li{border-bottom:1px solid var(--border);}
+  .rv-list a{display:flex;align-items:center;gap:10px;
+    padding:11px 12px;color:var(--ink);text-decoration:none;font-size:13.5px;}
+  .rv-list .rv-t{flex:1 1 auto;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .rv-list a::after{content:"";flex:0 0 auto;width:6px;height:6px;
+    border-top:1.5px solid var(--muted);border-right:1.5px solid var(--muted);
+    transform:rotate(45deg);}
 }

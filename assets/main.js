@@ -551,22 +551,23 @@ document.addEventListener('touchstart', function () {}, { passive: true });
           as: it.asin, st: it.st,
         });
       }).join('');
+      /* スマホ用の、題名だけの5行（ホームの横並びの区画だけにある） */
+      var list = grid.parentNode.querySelector('[data-recent-list]');
+      if (list) {
+        var escT = function (t) {
+          return String(t == null ? '' : t).replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        };
+        list.innerHTML = found.slice(0, 5).map(function (it) {
+          /* 正規URLは拡張子なし（.html 付きだと301を1回踏む） */
+          return '<li><a href="' + escT(String(it.url).replace(/\.html$/, '')) + '"><span class="rv-t">' +
+            escT(it.title) + '</span></a></li>';
+        }).join('');
+      }
       var wrap = grid.closest('[data-recent-views-wrap]')
         || grid.closest('.v2-section') || grid;
       wrap.hidden = false;
       document.dispatchEvent(new CustomEvent('mb:cards', { detail: grid }));
-    });
-
-    /* ホームの「最近見た記事」の開閉ボタン（スマホだけ出る。CSS 側で
-       .is-collapsed のときタイルを隠す）。初めは閉じておき、開いたかは
-       覚えない（2026-09-28、ユーザー判断）。 */
-    Array.prototype.forEach.call(document.querySelectorAll('.rv-toggle'), function (btn) {
-      var sec = btn.closest('.recent-views');
-      if (!sec) return;
-      btn.addEventListener('click', function () {
-        var open = sec.classList.toggle('is-collapsed') === false;
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
     });
 
     /* ホームの右サイドバーのタイルを、隣の NEW の行とそろえる。
