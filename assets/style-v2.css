@@ -1000,7 +1000,12 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
   transition:background .18s ease,color .18s ease,border-color .18s ease;
 }
 .chip:hover{border-color:var(--muted-2);}
-.chip.is-on{background:var(--ink);border-color:var(--ink);color:#fff;}
+.chip.is-on,
+/* 検索画面で選んだカテゴリー・タグ（search.js は is-active を付ける） */
+.chip.is-active{background:var(--ink);border-color:var(--ink);color:#fff;}
+/* カテゴリーを選んだら、タグはそのカテゴリーのものだけにして全部出す
+   （search.js が is-scroll を外し、関係ないタグに hidden を付ける） */
+.chip[hidden]{display:none;}
 
 .result-count{
   font-family:var(--font-en);font-size:11px;letter-spacing:.16em;color:var(--muted-2);

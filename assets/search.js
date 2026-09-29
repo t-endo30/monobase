@@ -175,13 +175,49 @@ function titleHtml(t) {
      畳むのは「何も選んでいない枠」だけ。選んでいる枠を隠すと、
      何で絞り込んでいるのかが分からなくなるため、開いたまま残す。
      ・キーワードだけで検索した   → 両方たたむ
-     ・カテゴリーで絞り込んだ     → タグをたたむ
+     ・カテゴリーで絞り込んだ     → タグは開いたまま（そのカテゴリーの
+                                     タグだけを全部出すので、続けて選べる）
      ・タグで絞り込んだ           → カテゴリーをたたむ
      ・両方選んだ                 → 両方とも開いたまま */
   function collapseForSearch() {
     if (!input.value.trim() && !activeCats.length && !activeTags.length) return;
     setOpen(catGrp, activeCats.length > 0);
-    setOpen(tagGrp, activeTags.length > 0);
+    setOpen(tagGrp, activeTags.length > 0 || activeCats.length > 0);
+  }
+
+  /* ---- カテゴリーに合わせてタグを絞る ----
+     カテゴリーを選んだら、そのカテゴリーの記事に付いているタグだけを
+     記事数の多い順に並べ、高さの制限（内部スクロール）を外して全部出す。
+     外したら元の並び（名前順）・元の高さに戻す（2026-09-29）。
+     選んでいたタグが新しいカテゴリーに無いときは外す（残すと必ず0件）。 */
+  var catTags = {};
+  try { catTags = JSON.parse(tagBox && tagBox.getAttribute('data-cat-tags') || '{}'); }
+  catch (e) { catTags = {}; }
+  var tagChipsAll = tagBox ? Array.prototype.slice.call(tagBox.querySelectorAll('.chip')) : [];
+  function syncTags() {
+    if (!tagBox) return;
+    var cat = activeCats[0];
+    var list = cat ? (catTags[cat] || []) : null;
+    var byTag = {};
+    tagChipsAll.forEach(function (c) { byTag[c.getAttribute('data-tag')] = c; });
+    if (!list) {
+      tagChipsAll.forEach(function (c) { c.hidden = false; tagBox.appendChild(c); });
+      tagBox.classList.add('is-scroll');
+      return;
+    }
+    var keep = {};
+    list.forEach(function (t) { keep[t] = true; });
+    for (var i = activeTags.length - 1; i >= 0; i--) {
+      if (!keep[activeTags[i]]) {
+        var off = byTag[activeTags[i]];
+        if (off) off.classList.remove('is-active');
+        activeTags.splice(i, 1);
+      }
+    }
+    tagChipsAll.forEach(function (c) { c.hidden = !keep[c.getAttribute('data-tag')]; });
+    list.forEach(function (t) { if (byTag[t]) tagBox.appendChild(byTag[t]); });
+    tagBox.classList.remove('is-scroll');
+    tagBox.scrollTop = 0;
   }
 
   function render() {
@@ -256,9 +292,12 @@ function titleHtml(t) {
         list.push(val);
         btn.classList.add('is-active');
       }
+      if (box === catBox) syncTags();
       render();
       collapseForSearch();
-      scrollToResults();
+      /* カテゴリーを選んだときは結果へ送らない。続けてタグを選べるよう、
+         絞り込んだタグの並びを見せたままにする */
+      if (box !== catBox || !list.length) scrollToResults();
     });
   }
   bindChips(catBox, activeCats, 'data-cat', true);
@@ -294,6 +333,7 @@ function titleHtml(t) {
       Array.prototype.forEach.call(document.querySelectorAll('.chip.is-active'), function (c) {
         c.classList.remove('is-active');
       });
+      syncTags();
       render();
       setOpen(catGrp, true);
       setOpen(tagGrp, true);
@@ -317,6 +357,7 @@ function titleHtml(t) {
         var btn = tagBox && tagBox.querySelector('[data-tag="' + CSS.escape(t) + '"]');
         if (btn) { btn.classList.add('is-active'); activeTags.push(t); }
       });
+      syncTags();
       render();
       if (location.search) { collapseForSearch(); scrollToResults(); }
     })

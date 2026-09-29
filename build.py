@@ -4470,6 +4470,19 @@ def build_search():
     tags = sorted({t for a in PUBLISHED for t in a.get("tags", [])})
     chips = "".join(f'<button type="button" class="chip" data-tag="{e(t)}">{e(t)}</button>'
                     for t in tags)
+    # カテゴリーごとの「そのカテゴリーの記事に付いているタグ」。カテゴリーを
+    # 選んだら、タグはこれだけに絞って高さの制限を外し、スクロールなしで
+    # 全部出す（2026-09-29、ユーザー指摘：内部スクロールは見にくい）。
+    # 並びは記事数の多い順（同数は名前順）。1本にしか付いていないタグが
+    # 大半なので、よく使われるものを上に出す。
+    by_cat = {}
+    for a in PUBLISHED:
+        cnt = by_cat.setdefault(a.get("category", ""), {})
+        for t in a.get("tags", []):
+            cnt[t] = cnt.get(t, 0) + 1
+    cat_tags = {k: [t for t, _ in sorted(v.items(), key=lambda x: (-x[1], x[0]))]
+                for k, v in by_cat.items()}
+    cat_tags_attr = e(json.dumps(cat_tags, ensure_ascii=False, separators=(",", ":")))
     catchips = "".join(f'<button type="button" class="chip" data-cat="{c["key"]}">'
                        f'{e(c["label"])}</button>' for c in CATS)
     inner = f'''      <div class="search-panel">
@@ -4486,7 +4499,7 @@ def build_search():
 
         <div class="chip-group is-open" id="tagGroup">
           <p class="chip-label en-label">TAG</p>
-          <div class="chips is-scroll" id="tagChips">{chips}</div>
+          <div class="chips is-scroll" id="tagChips" data-cat-tags="{cat_tags_attr}">{chips}</div>
         </div>
 
         <p class="search-status" id="searchStatus" aria-live="polite"></p>
