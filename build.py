@@ -1855,17 +1855,21 @@ def v2_home_stats(p):
             if isinstance(v, dict) and v.get("count"):
                 voices += int(v["count"])
     if voices >= 10000:
-        nums.append(("参考にした口コミ", f"{voices:,}", "件"))
+        # 「670,873件の口コミを参照」と数字を先に置く（2026-09-29、
+        # ユーザー判断。以前は「参考にした口コミ 670,873件」）。
+        nums.append(("", f"{voices:,}", "件", "の口コミを参照"))
 
     # 数字と単位は .hs-val でひとまとめにする。スマホでは各項目を
-    # 「数字／単位」「前置き／数字＋単位」の2段に積んで3項目を1行に
-    # 並べるので、口コミの「660,608件」が割れないようにするため。
+    # 「数字／単位」「数字＋件／の口コミを参照」の2段に積んで3項目を
+    # 1行に並べるので、口コミの「670,873件」が割れないようにするため。
     cells = ""
-    for pre, num, unit in nums:
+    for pre, num, unit, *rest in nums:
+        post = rest[0] if rest else ""
         head = f'<span class="hs-pre">{e(pre)}</span>' if pre else ""
-        cls = ' class="has-pre"' if pre else ""
+        tail = f'<span class="hs-post">{e(post)}</span>' if post else ""
+        cls = ' class="has-pre"' if pre else (' class="has-post"' if post else "")
         cells += (f'<li{cls}>{head}<span class="hs-val"><b>{e(num)}</b>'
-                  f'<span class="hs-unit">{e(unit)}</span></span></li>')
+                  f'<span class="hs-unit">{e(unit)}</span></span>{tail}</li>')
     return (f'      <div class="home-stats">\n'
             f'        <ul class="hs-nums">{cells}</ul>\n'
             f'      </div>\n')

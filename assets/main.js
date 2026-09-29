@@ -472,6 +472,12 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       if (only !== 'new' && hot[card.getAttribute('data-slug')]) {
         box.insertAdjacentHTML('beforeend', '<span class="flag flag-hot">Hot</span>');
       }
+      /* 札は写真の上ではなく日付の左に出す（2026-09-29、ユーザー判断） */
+      var date = card.querySelector('.card-date,.row-meta .meta,.arow-date');
+      if (box.children.length && date) {
+        date.parentNode.insertBefore(box, date);
+        box.classList.add('is-inline');
+      }
     });
   }
   /* ---- タイルに閲覧数を出す ----

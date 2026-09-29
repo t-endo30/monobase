@@ -4307,6 +4307,16 @@ h1,h2,h3,h4,
   box-shadow:0 1px 4px rgba(0,0,0,.28);
 }
 .flag-new{background:var(--ink);color:#fff;}
+/* 札は日付の左に置く（2026-09-29、ユーザー判断。以前は写真の左上）。
+   main.js が札を付けたタイルだけ、札の箱を日付の直前へ移して is-inline を付ける。
+   写真の上ではないので、浮かせる影は要らない */
+.card-flags.is-inline{position:static;display:inline-flex;align-self:center;flex:0 0 auto;}
+.card-flags.is-inline .flag{box-shadow:none;}
+/* New と Hot が両方付くと、幅の狭いタイル（スマホの横並び・190px）では
+   札＋日付＋VIEW が1行に入りきらない。そのときは VIEW を次の行へ送る */
+.card-meta:has(> .card-flags.is-inline){flex-wrap:wrap;row-gap:4px;}
+/* 送るのは VIEW だけ。札と日付は必ず同じ行に残す */
+.card-meta:has(> .card-flags.is-inline) > .card-views{order:4;}
 .flag-hot{background:var(--amazon);color:var(--amazon-ink);}
 @media (max-width:599px){
   .flag{padding:2px 6px;font-size:9px;}
@@ -4429,6 +4439,12 @@ h1,h2,h3,h4,
   .card .card-views,.row-item .card-views{order:1;}
   .card .card-cat,.row-item .row-cat{order:2;margin-left:0;}
   .card .card-date,.row-item .meta{order:3;margin-left:auto;}
+  /* New / Hot の札は日付と一緒に右端へ寄せ、日付のすぐ左に置く */
+  .card-meta > .card-flags.is-inline,
+  .row-meta > .card-flags.is-inline{order:3;margin-left:auto;}
+  .card .card-flags.is-inline + .card-date,
+  .row-item .card-flags.is-inline + .meta{margin-left:0;}
+  .card-meta:has(> .card-flags.is-inline) > .card-views{order:4;}
 }
 
 /* 本文の商品カードに、モールのAPIが返した実物の商品写真を出す場合。
@@ -4637,7 +4653,8 @@ h1,h2,h3,h4,
   letter-spacing:.01em;
   color:var(--ink);}
 .hs-nums .hs-unit,
-.hs-nums .hs-pre{font-size:12px;
+.hs-nums .hs-pre,
+.hs-nums .hs-post{font-size:12px;
   letter-spacing:.04em;
   color:var(--text-sub);}
 /* 前置きの語（「参考にした口コミ」）は数字の左。単位より少し離す */
@@ -4658,12 +4675,14 @@ h1,h2,h3,h4,
     padding:10px 4px;}
   .hs-nums .hs-pre{margin-right:0;}
   .hs-nums li.has-pre .hs-val{display:flex;align-items:baseline;gap:2px;}
-  .hs-nums li:not(.has-pre) .hs-val{display:flex;flex-direction:column;align-items:center;gap:2px;}
+  .hs-nums li.has-post .hs-val{display:flex;align-items:baseline;gap:2px;}
+  .hs-nums li:not(.has-pre):not(.has-post) .hs-val{display:flex;flex-direction:column;align-items:center;gap:2px;}
   .hs-nums b{line-height:1.1;}
 }
 @media (max-width:430px){
   .hs-nums .hs-unit,
-  .hs-nums .hs-pre{font-size:11px;letter-spacing:.02em;white-space:nowrap;}
+  .hs-nums .hs-pre,
+  .hs-nums .hs-post{font-size:11px;letter-spacing:.02em;white-space:nowrap;}
 }
 
 /* ============================================================
