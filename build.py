@@ -4313,6 +4313,17 @@ SUBCAT_NOINDEX_MIN = 3   # これ未満の一覧ページは実質1〜2件の中
                          # （2026-09-18、審査不合格を受けて追加）。
                          # noindex,follow にしてインデックスからは外すが、
                          # リンクは辿らせるのでクロール自体は妨げない。
+                         # 数えるのは index する記事だけ（2026-09-29）。
+                         # 掲載本数で数えていた頃は、9本載っていても全部
+                         # noindex の記事、という一覧が index されていた。
+
+
+def subcat_indexable(key, sub):
+    """サブ区分の一覧を index するか。sitemap 側もこれを使う
+       （ずらすと「noindex なのに sitemap にある」ページが生まれる）。"""
+    return sum(1 for a in PUBLISHED
+               if a["category"] == key and a.get("sub") == sub
+               and indexable(a)) >= SUBCAT_NOINDEX_MIN
 
 
 def build_subcategory(c, sc):
@@ -4341,7 +4352,7 @@ def build_subcategory(c, sc):
                 crumbs=[("ホーム", f"{p}index.html"),
                         (c["label"], f'{p}category-{c["key"]}.html'),
                         (sc["label"], None)],
-                image="", noindex=len(items) < SUBCAT_NOINDEX_MIN,
+                image="", noindex=not subcat_indexable(c["key"], sc["key"]),
                 extra_js=breadcrumb_ld([
                     ("ホーム", f"{BASE_URL}/"),
                     (c["label"], f'{BASE_URL}/category-{c["key"]}.html'),
@@ -4400,6 +4411,10 @@ def build_ranking():
     return page(f"よく読まれている記事 - {NAME}",
                 f"{NAME}でよく読まれている記事のランキングです。実際に読まれている順に並べているので、いま関心の集まっている商品から探せます。", "ranking", p,
                 f"{BASE_URL}/ranking.html", body, body_class="is-listing",
+                # 一覧は assets/main.js が後から入れるので、HTML の時点では
+                # 見出しだけの空ページ。中身の無いページとして評価されない
+                # よう index から外す（リンクは辿らせる）。2026-09-29
+                noindex=True,
                 crumbs=[("ホーム", f"{p}index.html"), ("よく読まれている記事", None)],
                 extra_js=breadcrumb_ld([
                     ("ホーム", f"{BASE_URL}/"),
@@ -5215,7 +5230,6 @@ def main():
 
     urls = [(BASE_URL + "/", "1.0", newest)]
     urls += [(f'{BASE_URL}/new.html', "0.7", newest),
-             (f'{BASE_URL}/ranking.html', "0.7", newest),
              (f'{BASE_URL}/categories.html', "0.8", newest)]
     # カテゴリーページは、記事が十分に載っているものだけ載せる。
     #
@@ -5228,10 +5242,9 @@ def main():
     # 載せないだけで、ページは今までどおり作られ、ヘッダーからも辿れる。
     # 検索エンジンが見に来ることも妨げない（noindex にはしない）。
     SITEMAP_MIN_MAIN = 1      # 大分類は1本でも載せる（サイトの骨格のため）
-    # 小分類は noindex にならない本数から。ずらすと「noindex なのに sitemap に
+    # 小分類は subcat_indexable() と同じ判定で載せる。ずらすと「noindex なのに sitemap に
     # 載っている」ページが生まれ、Search Console の登録リクエストが
     # 「ライブテスト中に問題が見つかりました」で失敗し続ける（2026-09-21）。
-    SITEMAP_MIN_SUB = SUBCAT_NOINDEX_MIN
 
     def n_arts(key, sub=None):
         return sum(1 for a in PUBLISHED
@@ -5242,7 +5255,7 @@ def main():
     urls += [(f'{BASE_URL}/category-{c["key"]}-{sc["key"]}.html', "0.6",
               cat_mod(c["key"], sc["key"]))
              for c in CATS for sc in c.get("sub", [])
-             if n_arts(c["key"], sc["key"]) >= SITEMAP_MIN_SUB]
+             if subcat_indexable(c["key"], sc["key"])]
     # noindex の記事は載せない（載せると「noindex なのに sitemap にある」になる）
     urls += [(f'{BASE_URL}/articles/{a["slug"]}.html', "0.9", mod(a))
              for a in PUBLISHED if indexable(a)]
