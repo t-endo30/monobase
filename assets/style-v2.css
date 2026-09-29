@@ -373,6 +373,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .hero-figure img{width:100%;filter:saturate(0);}
 
 /* 3つの特長 */
+/* 数字（.hero-stat）はスマホだけ特長の右に並べる。PCは下の帯に出す */
+.hero-stat{display:none;}
 .hero-points{
   position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
   gap:32px;max-width:840px;margin:0 auto;padding-bottom:8px;
@@ -1782,6 +1784,32 @@ body.has-sticky-cta .fab{bottom:96px;}
   .hero-point .h3{margin-bottom:0;font-size:11px;line-height:1.4;}
   .hero-point .h3 .wide{display:none;}
   .hero-point .h3 .narrow{display:inline;}
+
+  /* 3つの特長と記事数などの数字を、横1列・6マスに並べる（2026-09-29、
+     ユーザー判断）。下の数字の帯（.is-stats）はスマホでは出さない。
+     390px幅だと1マス50〜90px。数字のマスは中身の長い口コミ数を広く取る。
+     字は小さくし、見出しは2行まで折り返してよい */
+  .hero-points{grid-template-columns:repeat(3,minmax(0,.9fr)) minmax(0,.85fr) minmax(0,1fr) minmax(0,1.45fr);
+    margin-top:10px;}
+  .hero-point{padding:8px 2px;gap:4px;}
+  .hero-point .ic{width:24px;height:24px;}
+  .hero-point .ic svg{width:12px;height:12px;}
+  .hero-point .h3{font-size:10px;line-height:1.3;letter-spacing:0;}
+  .hero-stat{display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:2px;padding:8px 2px;text-align:center;border-left:1px solid var(--line);}
+  /* 特長と数字の境目は少し濃く引いて、2つのまとまりだと分かるようにする */
+  .hero-point + .hero-stat{border-left-color:var(--ink);}
+  .hero-stat b{font-family:var(--font-en);font-size:15px;font-weight:700;line-height:1.1;color:var(--ink);}
+  .hst-val{display:flex;align-items:baseline;gap:1px;white-space:nowrap;}
+  .hst-unit{font-size:9.5px;color:var(--text-sub);}
+  .hst-label{font-size:9.5px;line-height:1.3;color:var(--text-sub);letter-spacing:0;}
+  .v2-section.is-stats{display:none;}
+  /* ヒーロー〜最初の記事までの余白を詰める（2026-09-29、ユーザー判断） */
+  .hero-inner{padding:6px 0 4px;}
+  .hero-title{margin-bottom:8px;}
+  .hero-rule{margin:8px 0 6px;}
+  .is-home .home-body-main > .v2-section:first-child{padding-top:10px;}
+  .is-home .sec-head{margin-bottom:14px;}
 
   .v2-section{padding:15px 0;}
   .sec-head{gap:14px;margin-bottom:24px;}

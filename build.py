@@ -1832,7 +1832,7 @@ def v2_cat_carousel(p):
             '      </div>\n')
 
 
-def v2_home_stats(p):
+def v2_home_stats(p, raw=False):
     """ホームの、ヒーローのすぐ下に置く「このサイトの規模」の帯。
 
        これを入れる前のホームは、ヒーローの次がいきなり新着タイルの列で、
@@ -1880,6 +1880,8 @@ def v2_home_stats(p):
     # 数字と単位は .hs-val でひとまとめにする。スマホでは各項目を
     # 「数字／単位」「数字＋件／の口コミを参照」の2段に積んで3項目を
     # 1行に並べるので、口コミの「670,873件」が割れないようにするため。
+    if raw:
+        return nums
     cells = ""
     for pre, num, unit, *rest in nums:
         post = rest[0] if rest else ""
@@ -1940,6 +1942,18 @@ def v2_hero(p):
                    f'    <button type="button" class="hp-close" aria-label="閉じる">'
                    f'<span aria-hidden="true"></span></button>\n'
                    f'  </div>\n</div>\n')
+    # スマホでは、3つの特長の右に記事数などの数字を並べて1段にする
+    # （2026-09-29、ユーザー判断。ヒーローと数字の帯で画面の半分以上を
+    # 使い、記事が1枚半しか見えていなかった）。PCでは隠し、これまでどおり
+    # 下の帯（v2_home_stats）を出す。スマホではその帯のほうを隠す。
+    hero_stats = "".join(
+        f'<span class="hero-stat"><span class="hst-val"><b>{e(num)}</b>'
+        f'<span class="hst-unit">{e(unit)}</span></span>'
+        f'<span class="hst-label">{e(rest[0] if rest else "")}</span></span>'
+        if rest else
+        f'<span class="hero-stat"><span class="hst-val"><b>{e(num)}</b></span>'
+        f'<span class="hst-label">{e(unit)}</span></span>'
+        for pre, num, unit, *rest in v2_home_stats(p, raw=True))
     return f'''  <section class="hero">
     {V2_HERO_DECO}
     <div class="container">
@@ -1959,7 +1973,7 @@ def v2_hero(p):
         <figure class="hero-figure">
           <img src="{p}assets/img/hero-box.webp" alt="{e(NAME)}" width="622" height="622">
         </figure>
-        <div class="hero-points">{pt}</div>
+        <div class="hero-points">{pt}{hero_stats}</div>
       </div>
     </div>
     {modals}  </section>
