@@ -7,6 +7,30 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>UZ-200 ポケットWiFi レンタル30日</title>
+    <link>https://monobase.site/articles/uz-200-wifi-3gb-lte-wifi-wi-fi</link>
+    <guid isPermaLink="true">https://monobase.site/articles/uz-200-wifi-3gb-lte-wifi-wi-fi</guid>
+    <description>UZ-200のWiFiレンタル30日・3GB。向く人と3GBの使い道、返却前の確認点を整理。</description>
+    <category>パソコン</category>
+    <pubDate>Tue, 29 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>Jackery SolarSaga 100</title>
+    <link>https://monobase.site/articles/jackery-jackery-solarsaga-ip65-jackery</link>
+    <guid isPermaLink="true">https://monobase.site/articles/jackery-jackery-solarsaga-ip65-jackery</guid>
+    <description>Jackery電源用の折りたたみソーラーパネル。楽天市場の利用者の声の傾向と、購入前の確認点。</description>
+    <category>家電</category>
+    <pubDate>Tue, 29 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>周辺機器・USBハブ5選</title>
+    <link>https://monobase.site/articles/feature-pc-peripheral-4</link>
+    <guid isPermaLink="true">https://monobase.site/articles/feature-pc-peripheral-4</guid>
+    <description>Anker 568ほか周辺機器5本を、困りごと別に選び分ける特集</description>
+    <category>特集・まとめ</category>
+    <pubDate>Tue, 29 Sep 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>見守り・防犯カメラ9製品の比較</title>
     <link>https://monobase.site/articles/feature-camera-security-1</link>
     <guid isPermaLink="true">https://monobase.site/articles/feature-camera-security-1</guid>
@@ -140,30 +164,6 @@
     <guid isPermaLink="true">https://monobase.site/articles/a3-ccsk-a3y8r-a-sh</guid>
     <description>A3両面・ハイタイプの店舗用看板CCSK-A3Y8R、向く店舗と確認すべき点を整理</description>
     <category>日用品・雑貨</category>
-    <pubDate>Sat, 26 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>パナソニック軒下用ダウンライト</title>
-    <link>https://monobase.site/articles/panasonic-led-8h-sb-lsew5046le1</link>
-    <guid isPermaLink="true">https://monobase.site/articles/panasonic-led-8h-sb-lsew5046le1</guid>
-    <description>軒下・玄関ポーチ向けの防湿防雨ダウンライト。設置条件と選び方のポイントを整理。</description>
-    <category>家電</category>
-    <pubDate>Sat, 26 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>エレコム TK-TCM012BK 口コミ</title>
-    <link>https://monobase.site/articles/elecom-usb2-0hub-usb-tk-tcm012bk</link>
-    <guid isPermaLink="true">https://monobase.site/articles/elecom-usb2-0hub-usb-tk-tcm012bk</guid>
-    <description>USBハブ付きテンキーで数字入力とポート不足を同時に解消できるか確認します。</description>
-    <category>パソコン</category>
-    <pubDate>Sat, 26 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>FFF-LD27P2 光沢保護フィルム</title>
-    <link>https://monobase.site/articles/fff-smart-life-connected-fff-ld27p2-pc</link>
-    <guid isPermaLink="true">https://monobase.site/articles/fff-smart-life-connected-fff-ld27p2-pc</guid>
-    <description>27型16:9モニター向け光沢保護フィルム。サイズ適合の確認ポイントを中心に解説。</description>
-    <category>パソコン</category>
     <pubDate>Sat, 26 Sep 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
