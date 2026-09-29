@@ -4509,7 +4509,7 @@ def build_search():
           <div class="chips" id="catChips">{catchips}</div>
         </div>
 
-        <div class="chip-group is-open" id="tagGroup">
+        <div class="chip-group is-open" id="tagGroup" hidden>
           <p class="chip-label en-label">TAG</p>
           <div class="chips is-scroll" id="tagChips" data-cat-tags="{cat_tags_attr}">{chips}</div>
           <button type="button" class="tag-more" id="tagMore" aria-controls="tagChips" hidden></button>

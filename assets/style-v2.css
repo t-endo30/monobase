@@ -985,6 +985,7 @@ mark{background:linear-gradient(transparent 58%,#ffe9a3 58%);color:inherit;paddi
 .search-field.is-center{max-width:520px;margin:28px auto 0;}
 
 .chip-group{display:flex;flex-direction:column;gap:12px;}
+.chip-group[hidden]{display:none;}
 .chip-label{font-size:10.5px;color:var(--muted-2);}
 .chips{display:flex;flex-wrap:wrap;gap:8px;}
 /* タグは 100 件を超えるので、高さを決めて中だけ送る */

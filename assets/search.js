@@ -206,6 +206,10 @@ function titleHtml(t) {
     if (!tagBox) return;
     var cat = activeCats[0];
     var list = cat ? (catTags[cat] || []) : null;
+    /* タグの欄は、カテゴリーを選ぶまで出さない（2026-09-29、ユーザー判断。
+       800個超のタグが名前順に並ぶだけで、選ぶ手がかりにならないため）。
+       URL でタグだけ指定して開かれたときは、選択を外せるよう全タグで出す。 */
+    if (tagGrp) tagGrp.hidden = !cat && !activeTags.length;
     if (!list) {
       tagChipsAll.forEach(function (c) { c.hidden = false; tagBox.appendChild(c); });
       tagBox.classList.add('is-scroll');
@@ -277,7 +281,7 @@ function titleHtml(t) {
     if (!cond.length) {
       results.innerHTML = '';
       empty.hidden = true;
-      status.textContent = 'キーワードを入れるか、下のカテゴリー・タグを選んでください。';
+      status.textContent = 'キーワードを入れるか、カテゴリーを選んでください。';
       history.replaceState(null, '', location.pathname);
       return;
     }
