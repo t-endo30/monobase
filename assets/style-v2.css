@@ -2046,7 +2046,11 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* 絞り込みは横一列のまま、はみ出す分を送って見せる */
   .sub-nav{flex-direction:column;gap:10px;margin-top:20px;}
   .sub-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
-    margin:0 calc(var(--gut) * -1);padding:2px var(--gut);}
+    margin:0 calc(var(--gut) * -1);padding:2px var(--gut);
+    /* 縦並びの .sub-nav（align-items:baseline）の中では、札の並びの幅
+       いっぱいまで伸びて画面からはみ出し、ページ全体が横に動いていた
+       （2026-09-30に実測で判明）。親の幅に合わせ、中だけ横に送る */
+    align-self:stretch;min-width:0;}
   .sub-chips::-webkit-scrollbar{display:none;}
   .sub-chip{flex:0 0 auto;}
 

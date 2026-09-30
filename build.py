@@ -4373,7 +4373,11 @@ def build_category(c):
         body += v2_section(v2_sec_head("BUDGET", "予算で探す") + budget)
     # 一覧の末尾に広告を置く。新着・ランキングには入れていたが、
     # カテゴリーは入れ忘れていた（41ページあり、取りこぼしが大きい）。
-    body += v2_section(v2_rows(items, p, detail=True) + promo_row_slot(),
+    # 上に「予算で探す」があるときは、ここに見出しを立てる。見出しが無いと
+    # 予算の3枚とこの一覧が同じ形のタイルで続き、区画の境目が「一覧の途中の
+    # 謎の隙間」に見えていた（2026-09-30、ユーザー指摘）。
+    all_head = v2_sec_head("ALL", "すべての記事") if budget else ""
+    body += v2_section(all_head + v2_rows(items, p, detail=True) + promo_row_slot(),
                        style=LIST_PAD)
     return page(f'{c["label"]}の記事一覧 - {NAME}',
                 c["lead"][:110], c["key"], p,
@@ -4422,7 +4426,8 @@ def build_subcategory(c, sc):
                        min_band=BUDGET_MIN_BAND_SCOPED)
     if budget:
         body += v2_section(v2_sec_head("BUDGET", "予算で探す") + budget)
-    body += v2_section(v2_rows(items, p), style="padding:40px 0 80px")
+    all_head = v2_sec_head("ALL", "すべての記事") if budget else ""   # build_category と同じ
+    body += v2_section(all_head + v2_rows(items, p), style="padding:40px 0 80px")
     return page(f'{sc["label"]}の記事一覧 - {NAME}',
                 f'{NAME}の{sc["label"]}に関する記事一覧です。利用者の声と仕様をもとに整理しています。',
                 c["key"], p,
