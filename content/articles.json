@@ -246,6 +246,9 @@
     "total": 86,
     "notes": "公式仕様も口コミ本文も無く、独自分析はサイズ選びと商品名の読み方にとどまる。rating と spec は省かれており適切。"
    }
+  },
+  "health": {
+   "checked": "2026-09-30"
   }
  },
  {
@@ -469,6 +472,9 @@
     "total": 86,
     "notes": "公式仕様と口コミ本文が無く、独自分析は機種適合と評価の読み方に限られる。rating・spec・voicesを省いた扱いは適切。"
    }
+  },
+  "health": {
+   "checked": "2026-09-30"
   }
  },
  {
@@ -729,6 +735,9 @@
     "total": 86,
     "notes": "公式仕様と口コミ本文が無いため独自分析は確認手順が中心で、商品固有の分析は薄め。rating と spec は省かれており適切。"
    }
+  },
+  "health": {
+   "checked": "2026-09-30"
   }
  },
  {
@@ -979,6 +988,9 @@
     "total": 86,
     "notes": "メーカー公式情報が無く口コミ本文も未取得のため、独自分析は機種選択ミスと確認手順に限られる。voicesは一般的な傾向の整理で、個別の声ではない。"
    }
+  },
+  "health": {
+   "checked": "2026-09-30"
   }
  },
  {
@@ -1234,6 +1246,9 @@
     "total": 86,
     "notes": "公式仕様が無い中で rating と spec を省き、推測を推測として書けている。ただし商品名表記と一般論が中心で独自の分析はやや薄く、口コミの内訳も未確認。"
    }
+  },
+  "health": {
+   "checked": "2026-09-30"
   }
  },
  {
@@ -1474,6 +1489,9 @@
     "total": 86,
     "notes": "口コミ本文が無く、公式仕様も無いため、書ける内容が販売情報と確認項目の整理に限られ、独自分析は薄め。架空の声は削除済み。削除で字数が減っており、5,000字を割る場合は水増しせず報告が必要。"
    }
+  },
+  "health": {
+   "checked": "2026-09-30"
   }
  },
  {
@@ -1738,6 +1756,9 @@
     "total": 85,
     "notes": "公式仕様と口コミ本文が無く、洗濯機全般の一般論が中心で、商品固有の分析が薄い。rating・spec を省き、口コミを装った voices も外したことで、事実の扱いは基準を満たした。"
    }
+  },
+  "health": {
+   "checked": "2026-09-30"
   }
  },
  {
@@ -11397,7 +11418,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   }
  },
  {
@@ -11632,10 +11653,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%82%B5%E3%83%B3%E3%83%AF%E3%82%B5%E3%83%97%E3%83%A9%E3%82%A4%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E8%87%AA%E5%8B%95%E5%88%87%E6%9B%BF%E5%99%A8%202%3A1%20SW-KVM2LUN2&i=aps"
-   ]
+   "checked": "2026-09-30"
   }
  },
  {
@@ -11882,10 +11900,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E9%9D%9E%E5%B8%B8%E3%81%AB%E8%89%AF%E3%81%84%20%E3%82%A8%E3%83%AC%E3%82%B3%E3%83%A0%20%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%20%E3%83%AF%E3%82%A4%E3%83%A4%E3%83%AC%E3%82%B9%20%E3%83%AC%E3%82%B7%E3%83%BC%E3%83%90%E3%83%BC%E4%BB%98%E5%B1%9E%20%E3%83%A1%E3%83%B3%E3%83%96%E3%83%AC%E3%83%B3%20%E8%96%84%E5%9E%8B%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89%20%E3%83%9E%E3%82%A6%E3%82%B9%E4%BB%98%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20TK-FDM109MBK&i=aps"
-   ]
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -12143,10 +12158,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%82%B5%E3%83%B3%E3%83%AF%E3%82%B5%E3%83%97%E3%83%A9%E3%82%A4%20CR-LA602%20%E3%83%87%E3%83%A5%E3%82%A2%E3%83%AB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%A2%E3%83%BC%E3%83%A0%20%E3%83%8E%E3%83%BC%E3%83%88PC%E5%8F%B0&i=aps"
-   ]
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -12380,7 +12392,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -12604,7 +12616,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -12844,10 +12856,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%82%A6%E3%82%A3%E3%83%B3%E3%83%89%E3%83%BC%E3%83%A9%E3%82%B8%E3%82%A8%E3%83%BC%E3%82%BF%E3%83%BC%20W%20R-1200%20%E9%95%B7%E3%81%95120cm%20%E5%AE%9A%E5%B0%BA%E3%82%BF%E3%82%A4%E3%83%97%20%E7%B5%90%E9%9C%B2%E9%98%B2%E6%AD%A2%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%AA%93%E7%94%A8%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%AA%93%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%B5%90%E9%9C%B2%E6%AD%A2%E3%82%81%20%E9%9B%BB%E6%B0%97%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%AA%93%E6%9A%96%E6%88%BF%20%E7%B5%90%E9%9C%B2%E9%98%B2%E6%AD%A2%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E3%82%A6%E3%82%A4%E3%83%B3%E3%83%89%E3%83%A9%E3%82%B8%E3%82%A8%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%AA%93%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20W%20R1200%20%E9%9B%BB%E6%B0%97%E3%82%B9%E3%83%88%E3%83%BC%E3%83%96%20%E6%A3%AE%E6%B0%B8%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%83%AA%E3%83%B3%E3%82%B0&i=aps"
-   ]
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -13115,7 +13124,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   }
  },
  {
@@ -13343,10 +13352,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=1%E5%8F%B0%E3%81%A7%E5%9B%9B%E5%AD%A3%E3%81%AE%E6%82%A9%E3%81%BF%E8%A7%A3%E6%B6%88%20FUXNGZI%20%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%83%E3%82%AF%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E3%82%BF%E3%83%AF%E3%83%BC%E3%83%95%E3%82%A1%E3%83%B3%20%E7%BE%BD%E6%A0%B9%E3%81%AA%E3%81%97%E6%89%87%E9%A2%A8%E6%A9%9F%20%E6%B8%A9%E9%A2%A8%2B%E9%80%81%E9%A2%A8%20%E7%BE%BD%E6%A0%B9%E7%84%A1%E3%81%97%20%E5%9B%9B%E5%AD%A3%E5%85%BC%E7%94%A8%20100%C2%B0%E8%87%AA%E5%8B%95%E9%A6%96%E6%8C%AF%E3%82%8A%209H%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC%203%E6%AE%B5%E9%9A%8E%E6%B8%A9%E9%A2%A8%2610%E6%AE%B5%E9%9A%8E%E9%80%81%E9%A2%A8%E5%88%87%E6%9B%BF%20%E9%9B%BB%E6%B0%97%E3%83%95%E3%82%A1%E3%83%B3%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E2%80%A6&i=aps"
-   ]
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -13584,7 +13590,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -23335,7 +23341,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -23559,7 +23565,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -23780,7 +23786,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   }
  },
  {
@@ -24057,7 +24063,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -24338,7 +24344,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -24567,7 +24573,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -24829,7 +24835,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -37861,7 +37867,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-25"
+   "checked": "2026-09-30"
   }
  },
  {
@@ -38147,7 +38153,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-25"
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -41413,7 +41419,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-25"
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -41717,7 +41723,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-25"
+   "checked": "2026-09-30"
   }
  },
  {
@@ -43553,7 +43559,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/1st_thum/main-salo3.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-25"
+   "checked": "2026-09-30"
   }
  },
  {
@@ -43855,7 +43861,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/apm24/cabinet/mjcare/imgrc0086590428.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-25"
+   "checked": "2026-09-30"
   }
  },
  {
@@ -44092,7 +44098,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tu-hacci/cabinet/bero/90368r_main_20.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-25"
+   "checked": "2026-09-30"
   },
   "review_stats": {
    "rakuten": {
@@ -44334,7 +44340,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-25"
+   "checked": "2026-09-30"
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/next-online/cabinet/06938766/08787750/samune20251016.jpg?_ex=128x128"
@@ -44621,7 +44627,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/thum/bota-01_20off.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-25"
+   "checked": "2026-09-30"
   }
  },
  {
@@ -48449,7 +48455,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-25"
+   "checked": "2026-09-30"
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/wtw-cctv-camera/cabinet/tokusyu/imgrc0195844605.jpg?_ex=128x128"
@@ -52937,7 +52943,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-25"
+   "checked": "2026-09-30"
   },
   "good_for": {
    "intro": "次のような使い方・環境なら、このドックの構成がそのまま効きます。",
@@ -56279,10 +56285,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-24",
-   "dead": [
-    "https://store.shopping.yahoo.co.jp/ebest/6941812784563.html"
-   ]
+   "checked": "2026-09-30"
   },
   "good_for": {
    "intro": "次のような使い方・環境なら、この構成で目的を達成しやすいとモノベースは評価します。",
@@ -57324,7 +57327,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-25"
+   "checked": "2026-09-30"
   },
   "good_for": {
    "intro": "収納付き玄関ベンチが効くのは、次のような条件がそろっている場合です。座りたいという動機だけで選ぶと、置けるかどうかの壁にぶつかります。",
@@ -57685,7 +57688,7 @@
   "updated": "2026-09-18",
   "kind": "review",
   "health": {
-   "checked": "2026-09-24"
+   "checked": "2026-09-30"
   },
   "official_url": "https://www.fujiboeki.jp/products/86078/",
   "facts": [
@@ -59625,7 +59628,10 @@
     }
    ]
   },
-  "image_prompt": "A photograph of a generic black laptop battery pack lying next to an open laptop turned upside down with its battery compartment visible, a small precision screwdriver beside it, placed on a light oak wood desk, soft natural window light, shallow depth of field, no logos, no text"
+  "image_prompt": "A photograph of a generic black laptop battery pack lying next to an open laptop turned upside down with its battery compartment visible, a small precision screwdriver beside it, placed on a light oak wood desk, soft natural window light, shallow depth of field, no logos, no text",
+  "health": {
+   "checked": "2026-09-30"
+  }
  },
  {
   "slug": "used-laptop-buying-guide",
@@ -59875,6 +59881,9 @@
     }
    ]
   },
-  "image_prompt": "A photograph of a used silver 15.6-inch business laptop, opened, placed on a light oak wood desk next to a notepad and a cup of coffee, soft natural window light, shallow depth of field, no logos, no text on screen"
+  "image_prompt": "A photograph of a used silver 15.6-inch business laptop, opened, placed on a light oak wood desk next to a notepad and a cup of coffee, soft natural window light, shallow depth of field, no logos, no text on screen",
+  "health": {
+   "checked": "2026-09-30"
+  }
  }
 ]
