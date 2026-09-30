@@ -4891,6 +4891,10 @@ h1,h2,h3,h4,
 .rv-list{display:none;}
 @media (max-width:860px){
   .recent-views .sec-head{margin-bottom:12px;}
+  /* ヒーローの特長の段に見出しが貼り付いていたので、1行ぶん空ける
+     （2026-09-30、ユーザー指摘）。前の区画が無いぶん padding-top:0 に
+     なる指定（.v2-section + .v2-section）より強く当てる */
+  .v2-section.recent-views.is-narrow{padding-top:24px;}
   .recent-views [data-recent-views]{display:none;}
   .rv-list{display:block;list-style:none;margin:0;padding:0;
     border-top:1px solid var(--border);background:var(--bg-2);}
