@@ -7,6 +7,22 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>ノートPC互換バッテリーの選び方</title>
+    <link>https://monobase.site/articles/laptop-battery-replacement-guide</link>
+    <guid isPermaLink="true">https://monobase.site/articles/laptop-battery-replacement-guide</guid>
+    <description>互換バッテリーで失敗しないための確認の順番を、型番→電圧→容量→安全表示の順に整理したガイド。</description>
+    <category>パソコン</category>
+    <pubDate>Thu, 01 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>中古ノートパソコンの選び方</title>
+    <link>https://monobase.site/articles/used-laptop-buying-guide</link>
+    <guid isPermaLink="true">https://monobase.site/articles/used-laptop-buying-guide</guid>
+    <description>中古ノートPCは「Core i5」より「何世代か」で選ぶ。おまかせ品・Office付きの落とし穴も整理したガイド。</description>
+    <category>パソコン</category>
+    <pubDate>Thu, 01 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>リブカットソー C3655 口コミ</title>
     <link>https://monobase.site/articles/t-s-m-l-xl-v</link>
     <guid isPermaLink="true">https://monobase.site/articles/t-s-m-l-xl-v</guid>
@@ -148,22 +164,6 @@
     <guid isPermaLink="true">https://monobase.site/articles/wsj-4l</guid>
     <description>非農耕地用の速効除草剤4L×4本セット。口コミの傾向と使い方の注意点をまとめました。</description>
     <category>日用品・雑貨</category>
-    <pubDate>Sun, 27 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>アイリスオーヤマIHC-SG221 口コミ</title>
-    <link>https://monobase.site/articles/ih-ih-ih-ihc-sg221-ih-ih</link>
-    <guid isPermaLink="true">https://monobase.site/articles/ih-ih-ih-ihc-sg221-ih-ih</guid>
-    <description>工事要否の表記に注意。2口IH×両面焼きグリルの向き不向きを確認</description>
-    <category>キッチン</category>
-    <pubDate>Sun, 27 Sep 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>アズマ商事 旅美人 ヘアトリートメント</title>
-    <link>https://monobase.site/articles/beauty-20260927</link>
-    <guid isPermaLink="true">https://monobase.site/articles/beauty-20260927</guid>
-    <description>130g×3本セットの使い方と楽天市場の口コミ傾向、購入前の確認点をまとめました。</description>
-    <category>美容・コスメ</category>
     <pubDate>Sun, 27 Sep 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
