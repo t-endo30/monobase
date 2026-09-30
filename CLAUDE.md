@@ -15,6 +15,11 @@
   公開手順は必ず `python3 build.py` → コミット → **`origin/main` へ push** まで。
   手元から `npx wrangler deploy` するだけでは、次にリポジトリ発のデプロイが走った
   瞬間に上書きされて消える（2026-09-02 に実際に発生）。
+- **push したのに本番が更新されないときは、Cloudflare のビルドが起動したかを見る。**
+  `gh api repos/t-endo30/monobase/commits/<sha>/check-runs` に
+  「Workers Builds: monobase」が無ければ、ビルド自体が始まっていない。
+  2026-10-01 に2コミット続けて起動せず、新しい記事が20分以上404だった。
+  空コミット（`git commit --allow-empty`）を push したら1分以内に走った。
 - push 前に `git fetch` して `origin/main` から離れていないか確認する。
   管理画面（`/admin`）からの記事追加や、GitHub Actions の自動再生成コミット
   （「サイトを再生成（自動）」）が向こうに積まれていることが多い。
