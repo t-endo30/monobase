@@ -1048,12 +1048,12 @@ def cat_tree(p, current="", current_sub="", idp="nav"):
        ただの文字として出す。中身のないページを作らないため。"""
     out = []
     for c in CATS:
-        n = len([a for a in PUBLISHED if a["category"] == c["key"]])
+        n = len([a for a in PUBLISHED if listed_in(a, c["key"])])
         open_ = " open" if c["key"] == current else ""
         subs = ""
         for sc in c.get("sub", []):
             m = len([a for a in PUBLISHED
-                     if a["category"] == c["key"] and a.get("sub") == sc["key"]])
+                     if listed_in(a, c["key"], sc["key"])])
             cur = ' class="is-current"' if (c["key"] == current and sc["key"] == current_sub) else ""
             if m:
                 subs += (f'            <li><a href="{p}category-{c["key"]}-{sc["key"]}.html"{cur}>'
@@ -1844,7 +1844,7 @@ def v2_cat_image(c, p):
 
 
 def v2_cat_grid(p, cls=""):
-    counts = {c["key"]: len([a for a in PUBLISHED if a.get("category") == c["key"]])
+    counts = {c["key"]: len([a for a in PUBLISHED if listed_in(a, c["key"])])
               for c in CATS}
     cells = "".join(
         f'<a class="cat-cell" href="{p}category-{c["key"]}.html">'
@@ -1861,7 +1861,7 @@ def v2_cat_carousel(p):
        右端が切れていることで「まだ続く」ことも伝わる。
        ボタンは1枠ずつ、指やマウスでもそのまま引ける。
        スマホでは送らず、これまでどおり2列で3行目を切る（CSS側）。"""
-    counts = {c["key"]: len([a for a in PUBLISHED if a.get("category") == c["key"]])
+    counts = {c["key"]: len([a for a in PUBLISHED if listed_in(a, c["key"])])
               for c in CATS}
     cells = "".join(
         f'<a class="cat-cell" href="{p}category-{c["key"]}.html">'
@@ -2065,6 +2065,22 @@ def kind_of(a):
         return k
     return "roundup" if a.get("category") == "feature" else "review"
 
+
+
+def listed_in(a, key, sub=None):
+    """一覧（カテゴリー・サブ区分）に載せるか。記事のカテゴリーは1本につき1つだが、
+       ほかのカテゴリーに置いた選び方・比較（kind が guide / roundup）は
+       「特集・まとめ」の一覧にも重ねて載せる（2026-10-01、ユーザー判断）。
+       選び方は「選び方ガイド」、比較は「比較・ランキング」の区分に入れる。
+       記事の置き場所（パンくず・関連記事）は元のカテゴリーのまま。"""
+    if a.get("category") == key:
+        return sub is None or a.get("sub") == sub
+    if key != "feature":
+        return False
+    k = kind_of(a)
+    if k not in ("guide", "roundup"):
+        return False
+    return sub is None or sub == ("guide" if k == "guide" else "compare")
 
 def sub_badge(a, p):
     """記事の分野の、さらに細かい区分（サブ区分）の札。
@@ -4338,13 +4354,12 @@ def v2_sub_nav(c, p, current_sub=""):
        （押しても空の一覧になるため）。選択中は地を反転させて示す。"""
     subs = []
     for sc in c.get("sub", []):
-        n = len([a for a in PUBLISHED
-                 if a["category"] == c["key"] and a.get("sub") == sc["key"]])
+        n = len([a for a in PUBLISHED if listed_in(a, c["key"], sc["key"])])
         if n:
             subs.append((sc, n))
     if not subs:
         return ""
-    total = len([a for a in PUBLISHED if a["category"] == c["key"]])
+    total = len([a for a in PUBLISHED if listed_in(a, c["key"])])
     items = [f'<a class="sub-chip{"" if current_sub else " is-on"}" '
              f'href="{p}category-{c["key"]}.html">すべて<span class="n">{total}</span></a>']
     for sc, n in subs:
@@ -4363,7 +4378,7 @@ LIST_PAD = "padding:40px 0 28px"
 
 def build_category(c):
     p = "./"
-    items = [a for a in PUBLISHED if a["category"] == c["key"]]
+    items = [a for a in PUBLISHED if listed_in(a, c["key"])]
     body = v2_page_head(c["label"] + "の記事",
                         crumbs=[("ホーム", f"{p}index.html"), (c["label"], None)],
                         lead=c["lead"], count=len(items),
@@ -4409,7 +4424,7 @@ def subcat_indexable(key, sub):
     """サブ区分の一覧を index するか。sitemap 側もこれを使う
        （ずらすと「noindex なのに sitemap にある」ページが生まれる）。"""
     return sum(1 for a in PUBLISHED
-               if a["category"] == key and a.get("sub") == sub
+               if listed_in(a, key, sub)
                and indexable(a)) >= SUBCAT_NOINDEX_MIN
 
 
@@ -4417,8 +4432,7 @@ def build_subcategory(c, sc):
     """サブカテゴリーの一覧ページ。記事が1本以上あるときだけ作る。
        記事数が少ないページは noindex にして、検索結果や審査からは隠す。"""
     p = "./"
-    items = [a for a in PUBLISHED
-             if a["category"] == c["key"] and a.get("sub") == sc["key"]]
+    items = [a for a in PUBLISHED if listed_in(a, c["key"], sc["key"])]
     body = v2_page_head(sc["label"],
                         crumbs=[("ホーム", f"{p}index.html"),
                                 (c["label"], f'{p}category-{c["key"]}.html'),
@@ -5278,8 +5292,7 @@ def main():
         write(f, build_category(c)); written.append(f)
         # サブカテゴリーは記事があるものだけページを作る
         for sc in c.get("sub", []):
-            if not any(a["category"] == c["key"] and a.get("sub") == sc["key"]
-                       for a in PUBLISHED):
+            if not any(listed_in(a, c["key"], sc["key"]) for a in PUBLISHED):
                 continue
             f = f'category-{c["key"]}-{sc["key"]}.html'
             write(f, build_subcategory(c, sc)); written.append(f)
