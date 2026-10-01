@@ -4212,7 +4212,7 @@ def build_index():
     # 内部リンクのためにレビューと同じカテゴリーへ置いた選び方ガイドが、
     # 「比較・選び方の特集」の帯に1本も出ていなかった。
     feats = [a for a in PUBLISHED if a.get("category") == "feature"
-             or kind_of(a) in ("guide", "roundup")][:3]
+             or kind_of(a) in ("guide", "roundup")][:4]   # 4本目はスマホだけ、見切れさせて出す（CSS）
     if feats:
         main_html += v2_section(
             v2_sec_head("FEATURE", "比較・選び方の特集",
