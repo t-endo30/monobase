@@ -747,6 +747,36 @@ def parse_json(out):
             f"    全文：{path}")
 
 
+# build.py の indexable() と同じ基準。レビュー記事はこれを下回ると noindex に
+# なり、AdSense の審査では「有用性の低いページ」に数えられる。
+INDEX_MIN_REVIEWS = 30
+INDEX_MIN_SECTION_CHARS = 1300
+
+
+def section_chars(gen):
+    """見出しの下の段落（sections[].paras）だけの字数。indexable() が見る量。"""
+    return sum(body_chars(p) for s in (gen.get("sections") or [])
+               for p in (s.get("paras") or []))
+
+
+def review_count(a):
+    """下書きに入っている口コミ件数の最大値。取れていなければ None。"""
+    st = a.get("review_stats") or {}
+    counts = [v.get("count") for v in st.values()
+              if isinstance(v, dict) and v.get("count") is not None]
+    return max(counts) if counts else None
+
+
+def expand_note(gen, now):
+    return ("\n\n---------------- 書き足し ----------------\n"
+            f"前回の出力の sections（見出しの下の段落）は合計 {now} 字しかありません。"
+            f"{INDEX_MIN_SECTION_CHARS} 字未満の記事は検索に出せないため、sections だけを"
+            "書き直して合計1,600字以上にしてください。上の材料に書かれていることだけを"
+            "根拠にし、新しい数字や事実を足さないこと。同じ内容の言い換えで水増ししないこと。"
+            "返すのは {\"sections\": [...]} の形のJSONだけ。前回の sections は次のとおり：\n"
+            + json.dumps(gen.get("sections") or [], ensure_ascii=False))
+
+
 def body_chars(v):
     if isinstance(v, str):
         return len(re.sub(r"<[^>]+>", "", v))
@@ -1078,6 +1108,18 @@ def main():
         if fresh is not None:
             a.clear()
             a.update(fresh)
+        # 書く前に弾く（2026-10-01）。口コミが30件に満たないレビューは、
+        # いくら書いても noindex になり1日の本数にも入らない。本文を
+        # 書かせてから分かるより、ここで捨てるほうがサブスクの枠を使わない。
+        # 件数が取れていない（None）ときは判断できないので通す。
+        rc = review_count(a)
+        if kind_of(a) == "review" and not a.get("spec") and rc is not None \
+                and rc < INDEX_MIN_REVIEWS:
+            print(f"口コミ {rc} 件（{INDEX_MIN_REVIEWS} 件未満）なので書かずに外します")
+            if not args.dry_run:
+                delete_article(slug)
+            continue
+
         prompt = build_prompt(a, site, prompt_md, fetch_official=not args.no_fetch)
         gen = None
         for attempt in (1, 2, 3):
@@ -1118,6 +1160,31 @@ def main():
                 break
         if gen is None:
             continue
+
+        # 見出しの下の段落が足りないときは、1本書き直すのではなく
+        # sections だけを書き足させる（出力が短いぶん安い）。それでも
+        # 足りなければ公開しない。校閲・公開まで進めると、その分の枠を
+        # 使ったうえで noindex の記事が1本増えるだけになる（2026-10-01）。
+        if kind_of(a) == "review":
+            sc = section_chars(gen)
+            if sc < INDEX_MIN_SECTION_CHARS:
+                print(f"段落 {sc} 字。段落だけ書き足させる … ", end="", flush=True)
+                try:
+                    out, c = run_claude(prompt + expand_note(gen, sc),
+                                        args.model, args.timeout)
+                    cost += c
+                    more = parse_json(out)
+                    if isinstance(more, dict) and section_chars(more) > sc:
+                        gen["sections"] = more["sections"]
+                except RuntimeError as ex:
+                    print(f"書き足しに失敗（{ex}） … ", end="", flush=True)
+                sc = section_chars(gen)
+                if sc < INDEX_MIN_SECTION_CHARS:
+                    print(f"段落 {sc} 字のままなので公開しません")
+                    failed += 1
+                    if not args.dry_run:
+                        delete_article(slug)
+                    continue
 
         if args.dry_run:
             tmp = dict(a)
