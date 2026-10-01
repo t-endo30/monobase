@@ -5457,7 +5457,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 48500,
+    "price": 52800,
     "postage_included": true,
     "count": 14,
     "average": 4.36,
@@ -22432,7 +22432,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 108020,
+    "price": 109131,
     "postage_included": true
    },
    "checked": "2026-10-01"
@@ -24817,7 +24817,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 6931,
+    "price": 6986,
     "postage_included": false
    },
    "checked": "2026-10-01"
@@ -27273,7 +27273,7 @@
    "rakuten": {
     "price": 2460,
     "postage_included": true,
-    "count": 4459,
+    "count": 4461,
     "average": 4.44,
     "shops": 1
    },
@@ -29004,7 +29004,7 @@
    "rakuten": {
     "price": 4950,
     "postage_included": true,
-    "count": 5171,
+    "count": 5170,
     "average": 4.62,
     "shops": 1
    },
@@ -30987,9 +30987,9 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 3280,
+    "price": 2980,
     "postage_included": true,
-    "count": 12060,
+    "count": 12061,
     "average": 4.4,
     "shops": 1
    },
@@ -35854,7 +35854,7 @@
    "rakuten": {
     "price": 4480,
     "postage_included": false,
-    "count": 14854,
+    "count": 14856,
     "average": 4.55,
     "shops": 1
    },
@@ -38695,7 +38695,7 @@
    "rakuten": {
     "price": 9980,
     "postage_included": true,
-    "count": 15910,
+    "count": 15913,
     "average": 4.54,
     "shops": 1
    },
@@ -39289,7 +39289,7 @@
    "rakuten": {
     "price": 3180,
     "postage_included": true,
-    "count": 16397,
+    "count": 16399,
     "average": 4.67,
     "shops": 1
    },
@@ -40133,7 +40133,7 @@
    "rakuten": {
     "price": 5555,
     "postage_included": true,
-    "count": 19587,
+    "count": 19588,
     "average": 4.43,
     "shops": 1
    },
@@ -40755,7 +40755,7 @@
    "rakuten": {
     "price": 2990,
     "postage_included": false,
-    "count": 19005,
+    "count": 19007,
     "average": 4.37,
     "shops": 1
    },
@@ -41665,7 +41665,7 @@
    "rakuten": {
     "price": 5980,
     "postage_included": false,
-    "count": 20876,
+    "count": 20877,
     "average": 4.36,
     "shops": 1
    },
@@ -44344,7 +44344,7 @@
    "rakuten": {
     "price": 2990,
     "postage_included": false,
-    "count": 26206,
+    "count": 26208,
     "average": 4.41,
     "shops": 1
    },
@@ -44589,7 +44589,7 @@
    "rakuten": {
     "price": 1980,
     "postage_included": true,
-    "count": 42002,
+    "count": 42013,
     "average": 4.6,
     "shops": 1
    },
@@ -45154,7 +45154,7 @@
    "rakuten": {
     "price": 2200,
     "postage_included": true,
-    "count": 40166,
+    "count": 40173,
     "average": 4.75,
     "shops": 1
    },
@@ -46832,7 +46832,7 @@
    "yahoo": {
     "price": 3498,
     "postage_included": true,
-    "count": 3807,
+    "count": 3808,
     "average": 4.44,
     "shops": 2
    },
@@ -47122,7 +47122,7 @@
    "rakuten": {
     "price": 1399,
     "postage_included": true,
-    "count": 49281,
+    "count": 49286,
     "average": 4.14,
     "shops": 1
    },
@@ -47379,7 +47379,7 @@
    "rakuten": {
     "price": 3960,
     "postage_included": true,
-    "count": 45198,
+    "count": 45201,
     "average": 4.69,
     "shops": 1
    },
@@ -47676,7 +47676,7 @@
    "rakuten": {
     "price": 7990,
     "postage_included": false,
-    "count": 42679,
+    "count": 42678,
     "average": 4.31,
     "shops": 1
    },
@@ -47905,7 +47905,7 @@
    "rakuten": {
     "price": 3630,
     "postage_included": true,
-    "count": 49403,
+    "count": 49413,
     "average": 4.8,
     "shops": 1
    },
@@ -51231,7 +51231,7 @@
    "rakuten": {
     "price": 14498,
     "postage_included": true,
-    "count": 120,
+    "count": 121,
     "average": 4.38,
     "shops": 13
    },
@@ -52539,7 +52539,7 @@
     "shops": 2
    },
    "yahoo": {
-    "price": 16661,
+    "price": 17980,
     "postage_included": true,
     "count": 142,
     "average": 4.65,
@@ -55240,16 +55240,16 @@
    "rakuten": {
     "price": 5940,
     "postage_included": true,
-    "count": 9,
-    "average": 4.56,
-    "shops": 5
+    "count": 33,
+    "average": 4.73,
+    "shops": 7
    },
    "yahoo": {
     "price": 9900,
     "postage_included": true,
-    "count": 53,
-    "average": 3.66,
-    "shops": 13
+    "count": 51,
+    "average": 3.8,
+    "shops": 12
    },
    "checked": "2026-10-01"
   },
