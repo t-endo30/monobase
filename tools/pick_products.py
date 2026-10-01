@@ -147,7 +147,11 @@ def looks_like_ad(name):
 # looks_identifiable での判定から除く。
 SPEC_TOKEN = re.compile(
     r"^(Bluetooth|BT|Wi-?Fi[0-9]*|USB(-?C)?|HDMI|Android|iOS|iPhone|iPad|"
-    r"Widevine|IPX?|4K|8K|HD|LED|Type-?C)[0-9.\-]*$"
+    r"Widevine|IPX?|4K|8K|HD|LED|Type-?C|"
+    # 対応機種・同梱ソフトの名前。ケースやフィルムの「Pixel10a」、
+    # 無名タブレットの「Windows11」「office2019」は、その商品の型番ではない
+    # （2026-10-01、この3つで通った候補が校閲で全部破棄された）。
+    r"Windows|Win|Office|Pixel|Galaxy|Xperia|AQUOS|arrows|MacBook|Switch|PS)[0-9.\-]*[a-z]?$"
     r"|^[0-9]+(\.[0-9]+)?(GB|TB|MB|K|W|V|L|cm|mm|kg|mAh|インチ|型|畳|人|枚|点|冠|週|位)$",
     re.I)
 
@@ -161,12 +165,26 @@ SPEC_TOKEN = re.compile(
 # 取りこぼす。実際、2026-09-10 はレビュー件数の多い順に並んだ上位
 # 5件がすべてこの型で、本文を書いてから5本とも破棄され、その日の
 # 公開が0本になった。
+BRAND_WITH_READING = re.compile(
+    r"(?<![A-Za-z])[A-Z][A-Za-z&]{3,}[\s　]+[ァ-ヶー]{3,}")
+
+
 def looks_identifiable(name, shops):
     """メーカー名・型番で読者・校閲が商品を特定できそうか（目安）。"""
     if any(is_official(v) for v in (shops or {}).values()):
         return True
+    # 「PUPPIA パピア」「NIPLUX ニップラックス」のように、英字の名前の直後に
+    # その読みのカタカナが付いていればブランド名。型番が無くてもメーカー名で
+    # 特定できる（docs/review-rules.md 5-1 はどちらか一方でよい）。
+    # 以前はここで落としていて、型番風の仕様語を持つ無名品の方が通っていた。
+    if BRAND_WITH_READING.search(str(name or "")):
+        return True
     for t in re.split(r"[\s　/／・,、()（）\[\]【】.]+", str(name or "")):
         if len(t) < 3 or SPEC_TOKEN.match(t):
+            continue
+        # 「グーグルピクセル10a」の「10a」（数字＋小文字1つ）は機種の世代で、
+        # その商品の型番ではない。C3655・A-42 のような型番は大文字なので残る。
+        if re.search(r"[0-9]+[a-z]$", t) and len(re.findall(r"[A-Za-z]", t)) == 1:
             continue
         if re.search(r"[A-Za-z]", t) and re.search(r"[0-9]", t):
             return True
