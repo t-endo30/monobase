@@ -4208,7 +4208,11 @@ def build_index():
     # 単品レビューより検索に強い。ホームからの導線が category-feature
     # へのリンク1本しか無く、せっかく書いた比較記事に人が来ていなかった。
     # 3列で大きめに出し、続きは VIEW ALL から。
-    feats = [a for a in PUBLISHED if a.get("category") == "feature"][:3]
+    # 他のカテゴリーに置いた選び方・比較も入れる（2026-10-01、ユーザー指摘）。
+    # 内部リンクのためにレビューと同じカテゴリーへ置いた選び方ガイドが、
+    # 「比較・選び方の特集」の帯に1本も出ていなかった。
+    feats = [a for a in PUBLISHED if a.get("category") == "feature"
+             or kind_of(a) in ("guide", "roundup")][:3]
     if feats:
         main_html += v2_section(
             v2_sec_head("FEATURE", "比較・選び方の特集",
@@ -5237,8 +5241,11 @@ def main():
             # （site.json の categories[].image）をぼかして背景に敷く
             # （2026-09-29、ユーザー判断）。束ねる先が無い選び方・セール
             # などは「特集・まとめ」自身の画像を使う。
+            # 他のカテゴリーに置いた選び方・比較（kind が guide / roundup）も
+            # 同じ扱いにする（2026-10-01、ユーザー指摘。pc に置いた選び方
+            # ガイドだけ紺の地のままだった）。
             bg_photo = ""
-            if a["category"] == "feature":
+            if a["category"] == "feature" or kind_of(a) in ("guide", "roundup"):
                 bg_photo = CAT_IMAGE.get(cat) or CAT_IMAGE.get("feature", "")
             path = make_visual(a["slug"], a.get("title") or a.get("list_title"),
                                a["category"], label, "MONOBASE", auto_dir,
