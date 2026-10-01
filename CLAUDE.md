@@ -543,6 +543,12 @@
     で上書きできる。条件を満たせば次のビルドで自動的に戻る。
   - **自動作成を1日10本→2本**（`automation.articles_per_run`）。
     09-30にユーザー判断で**1日5本**に戻した（2本ずつ3回の枠に分けて作る）。
+    10-01から**数えるのは index される記事だけ**（`schedule_gate.py` の
+    `indexable()`、build.py と同じ基準）。「AdSenseで低評価にならない記事を最低
+    1日5本」（ユーザー判断）。noindex になる記事は本数に入らず、次の枠で作り足す。
+    あわせて index に届くよう、候補の口コミ下限を総合順の枠も30件に
+    （`MIN_REVIEWS_TRENDING`）、本文は見出し下の段落だけで1,600字以上を指示
+    （`write_article.py`）。落ちていた理由の大半は段落1,000〜1,200字だった。
   - **バナー候補はHTMLに埋め込まず `promos.json`（サイト直下）へ**。
     ページには `<template class="promo-item" data-ref="…">` の参照キーだけを
     残し、`assets/main.js` の `monoPromos()` が読んで戻す。`/assets/*` は

@@ -78,7 +78,31 @@ def published_today(today):
         return 0
     stamp = today.isoformat()
     return sum(1 for a in arts
-               if a.get("published") and str(a.get("date", "")) == stamp)
+               if a.get("published") and str(a.get("date", "")) == stamp
+               and indexable(a))
+
+
+# build.py の indexable() と同じ基準（閲覧数の条件は公開当日には効かないので省く）。
+# 数えるのは検索に出す（noindex にしない）記事だけ。noindex の記事は AdSense の
+# 審査で「有用性の低いページ」に数えられるので、1日の本数には入れない
+# （2026-10-01、ユーザー判断：「低評価にならない記事を最低1日5本」）。
+# 基準を変えるときは build.py の INDEX_MIN_* と両方そろえること。
+INDEX_MIN_REVIEWS = 30
+INDEX_MIN_BODY = 1300
+
+
+def indexable(a):
+    if isinstance(a.get("index"), bool):
+        return a["index"]
+    if a.get("category") == "feature" or (a.get("kind") or "review") != "review":
+        return True
+    if a.get("spec"):
+        return True
+    st = a.get("review_stats") or {}
+    count = max([v.get("count") or 0 for v in st.values() if isinstance(v, dict)],
+                default=0)
+    body = sum(len(p) for s in a.get("sections") or [] for p in s.get("paras") or [])
+    return count >= INDEX_MIN_REVIEWS and body >= INDEX_MIN_BODY
 
 
 def main():
