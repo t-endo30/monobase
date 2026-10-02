@@ -243,6 +243,9 @@
     "total": 87,
     "notes": "公式仕様と口コミ本文が取れていないため、事実の裏づけと情報源はやや弱い。型番の併記を軸にした確認点の整理が、この記事ならではの分析になっている。"
    }
+  },
+  "health": {
+   "checked": "2026-10-02"
   }
  },
  {
@@ -476,6 +479,9 @@
     "total": 86,
     "notes": "公式仕様もレビュー本文も無く、独自分析は購入前の確認項目の整理にとどまる。数字は楽天の件数・平均のみで、rating と spec は適切に省かれている。"
    }
+  },
+  "health": {
+   "checked": "2026-10-02"
   }
  },
  {
@@ -724,6 +730,9 @@
     "total": 86,
     "notes": "メーカー名と公式仕様が無く、静音・軽量・ヘッド形状などを数値で裏づけられない。そのため source_reliability と original_analysis はやや低め。rating と spec は適切に省かれている。"
    }
+  },
+  "health": {
+   "checked": "2026-10-02"
   }
  },
  {
@@ -966,6 +975,9 @@
     "total": 87,
     "notes": "公式仕様が無い中で rating・spec を省き、数値も断定していない点は適切。独自分析は「期待のズレで評価が割れる」見立てが中心で、やや一般論に寄る。"
    }
+  },
+  "health": {
+   "checked": "2026-10-02"
   }
  },
  {
@@ -1205,6 +1217,9 @@
     "total": 86,
     "notes": "公式仕様・個別口コミが無く、分析は商品名と件数・平均からの推測が中心でやや薄い。メーカー名が題名に無く製品特定は商品名頼み。"
    }
+  },
+  "health": {
+   "checked": "2026-10-02"
   }
  },
  {
@@ -1478,6 +1493,9 @@
     "total": 85,
     "notes": "summary・faq・conclusionに楽天の件数と平均が残っており、確認できる数字かは未検証。商品固有の情報が少なく、他のレインコート記事にも流用できる記述が多い。"
    }
+  },
+  "health": {
+   "checked": "2026-10-02"
   }
  },
  {
@@ -1722,6 +1740,9 @@
     "total": 86,
     "notes": "公式仕様と口コミが確認できないため、独自分析は一般論と確認項目の整理が中心で、template_avoidance と original_analysis がやや低い。rating と spec は省かれており適切。"
    }
+  },
+  "health": {
+   "checked": "2026-10-02"
   }
  },
  {
@@ -1971,6 +1992,9 @@
     "total": 86,
     "notes": "独自分析は、型番のみでメーカー仕様が無い中での耐荷重・段数・クイックシューの読み取りに限られ、やや薄い。公式仕様が無いため rating と spec は出していないのが正しく、字数が短いのもそのためで水増しはしていない。"
    }
+  },
+  "health": {
+   "checked": "2026-10-02"
   }
  },
  {
@@ -10031,7 +10055,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -10256,7 +10280,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -10494,7 +10518,7 @@
    "checked": "2026-10-03"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -10760,7 +10784,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -10990,7 +11014,7 @@
    "checked": "2026-10-03"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -11216,7 +11240,7 @@
    "checked": "2026-10-03"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -11936,7 +11960,7 @@
    "checked": "2026-10-03"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -12164,7 +12188,7 @@
    "checked": "2026-10-03"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -22140,7 +22164,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -22371,7 +22395,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -22636,7 +22660,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -22863,7 +22887,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -23106,7 +23130,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -23326,7 +23350,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -23535,7 +23559,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -23752,7 +23776,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -23985,7 +24009,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -24228,7 +24252,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -28981,7 +29005,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-goods/cabinet/th/ry1103674_th.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -29216,7 +29240,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/rcmdin/cabinet/eb06/eb-4582226844157.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -29482,7 +29506,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/aimere/cabinet/00785232/03220785/imgrc0121669408.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -29702,7 +29726,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/maxtop/cabinet/13761012/imgrc0128441258.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -29941,7 +29965,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-kurashi/cabinet/main-img/012/main-r4f13.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -30206,7 +30230,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tplinkdirect/cabinet/06321509/tapo-c200.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -30438,7 +30462,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/hiromifashionhouse/cabinet/12169031/12169034/dn063.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -30938,7 +30962,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/photolink/cabinet/fotopro/4906238810830_nnv11.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -34706,7 +34730,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -34953,7 +34977,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/bonz/cabinet/03957598/micro32_main02.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -35216,7 +35240,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/secupcs/cabinet/1st-img/red/xbtb.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -35477,7 +35501,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "review_stats": {
    "rakuten": {
@@ -35708,7 +35732,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   }
  },
  {
@@ -56013,7 +56037,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-02"
   },
   "good_for": {
    "intro": "モノベースでは、次のような条件が揃っている人に向くと評価します。",
