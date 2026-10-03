@@ -248,6 +248,9 @@
     "total": 86,
     "notes": "公式仕様とレビュー本文が無いため独自分析はサイズ確認の手順が中心で、インナーケース全般に通用する内容が多い。rating と spec は省かれていて適切。"
    }
+  },
+  "health": {
+   "checked": "2026-10-03"
   }
  },
  {
@@ -483,6 +486,9 @@
     "total": 86,
     "notes": "公式仕様もレビュー本文も無く、商品名の表記と一般論が中心で独自分析はやや薄い。section内に件数の記述が一部残るが、販売APIで確認した値の範囲に収めている。"
    }
+  },
+  "health": {
+   "checked": "2026-10-03"
   }
  },
  {
@@ -726,6 +732,9 @@
     "total": 85,
     "notes": "公式仕様や素材の情報が無く、確認できない点が多いため独自分析は機種の取り違えと構造上の注意点に限られる。確認できない口コミ件数・平均・価格水準の記述は落とした。"
    }
+  },
+  "health": {
+   "checked": "2026-10-03"
   }
  },
  {
@@ -1177,6 +1186,9 @@
     "total": 86,
     "notes": "公式仕様が無く、仕様面の記述が「確認してください」に寄るため独自分析はやや薄い。ブランド名・型番が曖昧で、商品名での特定に依存している。"
    }
+  },
+  "health": {
+   "checked": "2026-10-03"
   }
  },
  {
@@ -1417,6 +1429,9 @@
     "total": 86,
     "notes": "公式仕様と口コミ本文が無く、独自分析は寸法と用途の読み解きに限られる。スチール机一般の傾向に寄る箇所があり、この型番に固有の根拠は薄い。rating と spec は省かれており適切。"
    }
+  },
+  "health": {
+   "checked": "2026-10-03"
   }
  },
  {
@@ -1652,6 +1667,9 @@
     "total": 86,
     "notes": "公式仕様が無く、利用者の声も件数と平均のみのため、独自分析は購入前の確認点の整理にとどまる。内容は商品名の訴求語に依存する部分が多い。"
    }
+  },
+  "health": {
+   "checked": "2026-10-03"
   }
  },
  {
@@ -11183,7 +11201,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -11437,7 +11455,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -13139,7 +13157,7 @@
    "checked": "2026-10-04"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -13387,7 +13405,7 @@
    "checked": "2026-10-04"
   },
   "health": {
-   "checked": "2026-09-26"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -32402,7 +32420,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_sound3/slide/samune_ver2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -32891,7 +32909,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/growder/cabinet/littlepolacamera/imgrc0139403507.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -33848,7 +33866,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/iampet/cabinet/img/ps_600w.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -34130,7 +34148,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/mantubiz/cabinet/05873262/2105/2105-20260622/imgrc0155749112.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -34360,7 +34378,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -34606,7 +34624,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_portable/slide/samune_black.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -34833,7 +34851,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/pika831/cabinet/00176847/12211284/0624_h70ft_snbaaa.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -35079,7 +35097,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/milink-inc/cabinet/sn/tune01bk.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -37603,7 +37621,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -37871,7 +37889,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/roomy/cabinet/500cart_all/500cart_11g/p10n-4/win2006-mt005-1_gt01.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -38180,7 +38198,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -38976,7 +38994,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -39194,7 +39212,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -43539,7 +43557,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luckyspread/cabinet/07240546/10248259/imgrc0078419063.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -43838,7 +43856,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/d-ray/cabinet/09802265/10566858/260902_th_fdn.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -44133,7 +44151,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-kit/cabinet/description/ek-kbmr01mcl/ek-kbmr01_1.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -44438,7 +44456,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -44732,7 +44750,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -44977,7 +44995,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tansu/cabinet/00323179/13810084_10aa.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -45284,7 +45302,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/galstar/cabinet/item/1017/101707_r1_4.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -45599,7 +45617,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tu-hacci/cabinet/bero/90389r_dtrc_clr.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -45903,7 +45921,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/toucher-home/cabinet/image02/hsls201w_01x.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -46197,7 +46215,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -49998,7 +50016,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/attenir/cabinet/thum/166011_main_2609.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -50297,7 +50315,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/maxshare/cabinet/master/1st/a05750_sale.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   }
  },
  {
@@ -50576,7 +50594,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -51126,7 +51144,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "yahoo": {
@@ -51966,7 +51984,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/darkangel/cabinet/12863863/13830759/2536-main-260901-4.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "review_stats": {
    "rakuten": {
@@ -55635,7 +55653,7 @@
    "注意：メーカーの対応表記は iPhone 14/13/12 シリーズ。それより新しい機種での動作は公式に確認できていないので、断定しないこと"
   ],
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "good_for": {
    "intro": "次のような使い方をする人なら、この製品の設計と噛み合います。",
@@ -56436,7 +56454,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-03"
   },
   "good_for": {
    "intro": "モノベースは、次のような条件が当てはまる人に向くと評価します。",
