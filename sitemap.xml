@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://monobase.site/</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://monobase.site/new</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://monobase.site/categories</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -27,7 +27,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-smartphone</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -47,7 +47,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-beauty</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -72,12 +72,12 @@
   </url>
   <url>
     <loc>https://monobase.site/category-furniture</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://monobase.site/category-pet</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -102,7 +102,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-smartphone-case</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -129,6 +129,26 @@
     <loc>https://monobase.site/category-furniture-bed</loc>
     <lastmod>2026-09-25</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/petkit-pura-max2</loc>
+    <lastmod>2026-10-04</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/iphone-max17e-16e-max-iphone13-mini</loc>
+    <lastmod>2026-10-04</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/tv-ipx8</loc>
+    <lastmod>2026-10-04</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://monobase.site/articles/pc-lkd-127</loc>
+    <lastmod>2026-10-04</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://monobase.site/articles/pc-microsoft-surface-8gb-ssd256gb-core-i5</loc>
@@ -582,37 +602,37 @@
   </url>
   <url>
     <loc>https://monobase.site/about</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/editorial-policy</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/advertising</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/privacy</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/disclaimer</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/sitemap</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://monobase.site/contact</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <priority>0.3</priority>
   </url>
 </urlset>
