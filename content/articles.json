@@ -246,6 +246,9 @@
     "total": 87,
     "notes": "メーカー名・型番が無く、仕様の数値もレビュー本文も取れていないため、独自分析とテンプレート感の項目は伸びていません。rating と spec は省かれていて、この点は適切です。"
    }
+  },
+  "health": {
+   "checked": "2026-10-04"
   }
  },
  {
@@ -482,6 +485,9 @@
     "total": 87,
     "notes": "公式仕様が無いため独自分析は対応確認の手順と本数の読み方が中心で、深さは控えめ。口コミ本文を取得できておらず、評価の中身までは踏み込めていない。"
    }
+  },
+  "health": {
+   "checked": "2026-10-04"
   }
  },
  {
@@ -730,6 +736,9 @@
     "total": 86,
     "notes": "4種類の中身が不明で、独自分析は消費ペースの計算と福袋の構造からの推論が中心。利用者の声の本文が無く、評価理由には踏み込めていない。"
    }
+  },
+  "health": {
+   "checked": "2026-10-04"
   }
  },
  {
@@ -1421,6 +1430,9 @@
     "total": 85,
     "notes": "公式仕様と利用者の声の本文が無いため、独自分析は端子の一致や設定項目といった一般論が中心です。口コミ数値と推測による voices を外した結果、字数は短くなっていますが、水増しはしていません。"
    }
+  },
+  "health": {
+   "checked": "2026-10-04"
   }
  },
  {
@@ -2394,6 +2406,9 @@
     "total": 88,
     "notes": "公式仕様が無いため rating と spec は省かれており、基準どおり。内寸・防水・クッションは未確認と明記されている。独自性は『口コミ件数や平均では満足の中身が分からない』という整理に留まり、やや弱い。"
    }
+  },
+  "health": {
+   "checked": "2026-10-04"
   }
  },
  {
@@ -10661,7 +10676,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -10938,7 +10953,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -11175,7 +11190,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -11419,7 +11434,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -11693,7 +11708,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -11933,7 +11948,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -12162,7 +12177,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -12397,7 +12412,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-27"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -24758,7 +24773,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "review_stats": {
    "rakuten": {
@@ -31658,7 +31673,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -31889,7 +31904,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tiger-online/cabinet/kae-g13n_ra260710.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "review_stats": {
    "rakuten": {
@@ -34619,7 +34634,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/secupcs/cabinet/1st-img/red/db74.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -34858,7 +34873,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/roomy/cabinet/500cart_all/500cart_11g/p10n-4/ide2006-kx027-1_gt01.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -39917,7 +39932,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -40168,7 +40183,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -48538,7 +48553,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "review_stats": {
    "rakuten": {
@@ -48819,7 +48834,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "review_stats": {
    "rakuten": {
@@ -49075,7 +49090,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "review_stats": {
    "rakuten": {
@@ -49379,7 +49394,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -52858,7 +52873,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -53130,7 +53145,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "review_stats": {
    "rakuten": {
@@ -53978,7 +53993,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/low-ya/cabinet/img4/zaisu/vg-pola_01_.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "review_stats": {
    "rakuten": {
@@ -54207,7 +54222,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/attenir/cabinet/thum/166013_main_2608-2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "review_stats": {
    "rakuten": {
@@ -55506,7 +55521,7 @@
   },
   "image_prompt": "A photograph of グンゼ AGW112, which is a 靴下, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -59863,7 +59878,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/logicool/4943765058380.html",
   "jan": "4943765058380",
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "good_for": {
    "intro": "次のような環境・使い方の人には、この構成が素直に効きます。",
@@ -60511,7 +60526,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/switchbot/w3202100.html",
   "jan": "0850046603174",
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "good_for": {
    "intro": "次のどれかに当てはまるなら、ハブ2の機能が余らずに使い切れます。",
@@ -61482,7 +61497,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/e-alamode/27-3910.html",
   "jan": "4903208044882",
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "good_for": {
    "intro": "この製品が力を発揮するのは、床面積のほうが天井高より貴重な部屋です。",
@@ -61713,7 +61728,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "good_for": {
    "intro": "モノベースでは、DCモーター扇風機への買い替えは次のような人に向くと評価します。",
@@ -61917,7 +61932,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "good_for": {
    "intro": "34インチウルトラワイドが向くのは、画面の広さを「同時に見る枚数」に変換できる使い方をしている人です。",
@@ -62209,7 +62224,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/dji-store/6941565991430.html",
   "jan": "6941565991430",
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   },
   "good_for": {
    "intro": "次のような使い方・環境なら、Mic Mini の軽さと運用のシンプルさがそのまま効きます。",
@@ -65027,7 +65042,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -65227,7 +65242,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -65454,7 +65469,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -65692,7 +65707,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
@@ -65923,7 +65938,7 @@
    ]
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-04"
   }
  },
  {
