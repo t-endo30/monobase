@@ -3779,7 +3779,7 @@
   "enabled": true,
   "runs_per_week": 7,
   "articles_per_run": 5,
-  "auto_publish": true
+  "auto_publish": false
  },
  "hosting": {
   "_note": "配信先は Cloudflare Workers（静的アセット）。build.py が wrangler.jsonc と .assetsignore を書き出す。GitHub Pages へ戻す場合は clean_urls を false にする。",

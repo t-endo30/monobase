@@ -23,6 +23,7 @@ import json, io, os, re, sys, time, argparse, subprocess, hashlib
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from article_evidence import stamp_evidence
 
 # 本文の生成・修正に任せる項目。slug・published・販売先URLは触らせない。
 from write_article import (GEN_FIELDS, NG_WORDS, MIN_CHARS, MAX_CHARS,
@@ -764,6 +765,12 @@ def main():
                 print(f"      {score['notes']}")
         for b in blockers:
             print(f"    ✗ 公開できない理由：{b}")
+
+        if args.publish:
+            evidence_blockers = stamp_evidence(a)
+            blockers.extend(evidence_blockers)
+            for b in evidence_blockers:
+                print(f"    ✗ 証拠ゲート：{b}")
 
         under = isinstance(total, (int, float)) and total < PUBLISH_SCORE
         # レビューが走らなかった記事は「指摘なし」ではなく「未確認」。

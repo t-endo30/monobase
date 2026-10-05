@@ -25,6 +25,8 @@ python3 tools/run_gpt_article_pipeline.py --select --take 2
 
 `--publish` はレビュー合格時だけ `published: true` にする。定期実行へ接続するまでは付けず、生成・レビュー結果を確認する。
 
+新規公開時には `tools/article_evidence.py` の証拠ゲートも通る。公式資料または `facts`、個別商品URL、商品同定情報が不足する記事、また `review_stats` があるのにレビュー本文が無い記事は公開されない。既存記事の全件監査は毎回は行わず、必要時に `python3 tools/audit_evidence.py --all` を実行する。
+
 初回は書き込みをせず確認する。
 
 ```sh

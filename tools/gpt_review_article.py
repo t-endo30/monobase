@@ -8,6 +8,7 @@ import sys
 import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from article_evidence import stamp_evidence
 from gpt_llm import GPTError, jev_judge, request_json
 from gpt_schemas import REVIEW_SCHEMA
 from review_article import (CATEGORY_MAP, PUBLISH_SCORE, apply_fixed,
@@ -96,6 +97,10 @@ def main():
         hits = scan(a)
         total = score.get("total")
         passed = reviewed and not hits and not blockers and isinstance(total, (int, float)) and total >= PUBLISH_SCORE
+        if args.publish:
+            evidence_blockers = stamp_evidence(a)
+            blockers.extend(evidence_blockers)
+            passed = passed and not evidence_blockers
         if passed:
             ok += 1
             a["reviewed"] = {"at": time.strftime("%Y-%m-%d"), "rev": content_rev(a), "score": score}
