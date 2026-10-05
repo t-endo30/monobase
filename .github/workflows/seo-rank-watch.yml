@@ -1,6 +1,8 @@
 name: SEO rank watch
 
 # .claude/skills/seo-rank-watch を毎週1回まわす。
+# 定期実行は2026-10-05にCodexデスクトップのローカル定期タスクへ移行した。
+# このworkflowは手動実行だけを残した復旧用の旧経路であり、定期実行しない。
 #
 #   ① 監視中キーワードの順位をSearch Consoleで測る
 #   ② 7日間の観察期間を終えた改善を実測でレビューする
@@ -12,10 +14,6 @@ name: SEO rank watch
 # noindexや大きな構造変更は提案止まりにし、レポートに残すよう
 # スキル側で指示している。
 on:
-  schedule:
-    # 0分ちょうどは避ける（GitHubのscheduled workflowが毎時0分に混雑し、
-    # 負荷次第でトリガーが飛ばされることがある）。
-    - cron: '26 21 * * 1'      # 毎週月曜 6:26 JST（UTC 月 21:26）
   workflow_dispatch:
     inputs:
       model:
