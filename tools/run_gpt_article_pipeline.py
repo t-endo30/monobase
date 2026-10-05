@@ -14,7 +14,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def slugs_with_content():
     with open(os.path.join(ROOT, "content", "articles.json"), encoding="utf-8") as f:
         articles = json.load(f)
-    return {a.get("slug") for a in articles if a.get("sections") or a.get("summary")}
+    # 候補選定直後にも title/summary の空キーが存在するため、
+    # 「キーがある」ではなく本文として実体のあるフィールドだけを判定する。
+    body_fields = ("sections", "lead", "summary", "conclusion", "personal_note")
+    return {
+        a.get("slug") for a in articles
+        if any(a.get(field) for field in body_fields)
+    }
 
 
 def reviewed_successes(slugs):

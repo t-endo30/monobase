@@ -282,6 +282,9 @@ def build_prompt(a, rules, hits, arts=()):
         "jan": a.get("jan", ""),
         "review_stats": a.get("review_stats", {}),
         "review_texts_present": bool(a.get("voices") or a.get("review_texts")),
+        # レビュー本文の有無だけでなく、編集者が照合できる要約も根拠として渡す。
+        # 本文JSONと分離した根拠ブロックに置き、本文側の混入情報と区別する。
+        "review_evidence": a.get("voices") or a.get("review_texts") or [],
     }
     siblings = [x.get("title", "") for x in arts
                 if x.get("slug") != a.get("slug") and x.get("published")

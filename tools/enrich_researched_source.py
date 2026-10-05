@@ -7,6 +7,39 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "ylt-ag30e-yamazen": {
+        "official_url": "https://book.yamazen.co.jp/product/detail/I00004142",
+        "facts": [
+            "山善の商品情報サイトで型番YLT-AG30Eの掲載を確認",
+            "楽天市場の個別商品ページで本体サイズは幅35.5×奥行35×高さ66-85cm、重量2.8kgと表示",
+            "楽天市場の個別商品ページで電源はAC100V（50/60Hz）、消費電力は38/39W（50/60Hz）と表示",
+            "楽天市場の個別商品ページで30cm羽根、風量3段階、左右首振り、切りタイマー、押しボタン式と商品名・説明に表示",
+        ],
+        "voices": [{
+            "heading": "楽天市場のレビュー本文で確認できた声",
+            "who": "楽天市場みんなのレビュー（2026-10-06確認）",
+            "text": "2026年6月1日の投稿では、シンプルでタイマー付きの点、軽量で組み立てやすい点が評価されていました。一方、別の2026年9月11日の投稿では、台座の底面にフェルトを貼って使っているという指摘がありました。いずれも個別投稿で、全購入者の傾向を代表すると断定しません。",
+            "negative": True,
+            "fix_title": "組み立て後に底面を確認する",
+            "fix": "組み立てやすさを評価する声がある一方、底面の状態を気にする投稿もあるため、設置前に台座の接地部を確認し、床を傷つけない置き方を検討してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://book.yamazen.co.jp/product/detail/I00004142",
+            "title": "山善 商品情報サイト（YLT-AG30E掲載）",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/yamazenkaden/1467895/",
+            "title": "山善 家電店 楽天市場 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/205937_10001743/1.1/",
+            "title": "楽天市場 みんなのレビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "kitchen-20261005": {
         "official_url": "https://chimoto-coffee.co.jp/",
         "facts": [
