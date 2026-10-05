@@ -2979,7 +2979,7 @@ def render_article(a):
     add(f'''        <div class="article-meta">
           <a class="badge badge-cat" href="{p}category-{cat}.html">{e(CAT_LABEL.get(cat,""))}</a>{sub_badge(a, p)}
           {kind_badge(a)}
-          <span class="article-date">{e(jp_date(a.get("updated") or a["date"]))} 更新</span>
+          <span class="article-date">{e(jp_date(a.get("date") or a.get("updated")))} 公開</span>
         </div>
 
 {feature_hero(a, p) if a["category"] == "feature" else
