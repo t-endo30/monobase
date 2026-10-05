@@ -1013,7 +1013,7 @@ SELF_CHECK_KEYS = [
     ("legal_safety", "法令・表現上の安全性"),
     ("amazon_compliance", "Amazon関連ルールへの配慮"),
 ]
-PUBLISH_SCORE = 85      # 総合これ未満は公開しない（人が読んで直す）
+PUBLISH_SCORE = 90      # GPT経路は90点以上かつ証拠ゲート通過のみ公開する
 
 
 def report_self_check(gen):
