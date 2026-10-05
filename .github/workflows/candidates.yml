@@ -83,6 +83,8 @@ jobs:
             echo "候補に変更がないためコミットしません"
           else
             git commit -m "Update product candidates"
+            # 同時刻に別のCodex/Actions実行がpushしても候補を失わない。
+            git pull --rebase origin main
             git push
           fi
 
