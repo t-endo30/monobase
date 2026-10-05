@@ -7,6 +7,39 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "rs-60e3-lcd-pdf": {
+        "official_url": "https://www.rowa.co.jp/products/tc-2001",
+        "facts": [
+            "ロワジャパン公式商品ページで商品型番TC-2001、RS-60E3互換を確認",
+            "公式商品ページで対応カメラ機種と、端子形状・リモートスイッチ型番の確認が必要と案内",
+            "公式商品ページでフォーカス・シャッター・バルブ制御ロック、インターバルタイマー、露光時間設定の説明を確認",
+            "Yahoo!ショッピングの個別商品ページで商品コードTC-2001、RS-60E3互換、レビュー本文を確認",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた操作性と注意点",
+            "who": "Yahoo!ショッピング ロワジャパン個別商品ページの利用者の声（2026-10-06確認）",
+            "text": "個別投稿では、Canon機で問題なく動作し、インターバル撮影やディレイ設定を直感的に使えたという声が確認できます。一方で、電源スイッチがなく表示が点いたままになること、液晶の見え方や電池管理が気になるという指摘もあります。個別投稿の内容であり、すべてのカメラとの互換性を保証するものではありません。",
+            "negative": True,
+            "fix_title": "端子と電池管理を購入前に確認する",
+            "fix": "カメラ側の端子形状と対応型番を公式一覧で照合し、使用しないときに電池を外す運用ができるかを確認してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.rowa.co.jp/products/tc-2001",
+            "title": "ロワジャパン公式 TC-2001 商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://store.shopping.yahoo.co.jp/rowa/tc-2001.html",
+            "title": "Yahoo!ショッピング ロワジャパン TC-2001 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://shopping.yahoo.co.jp/review/item/list?page_key=tc-2001&store_id=rowa",
+            "title": "Yahoo!ショッピング 利用者の声 TC-2001",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "mvp3-3in1": {
         "facts": [
             "楽天市場の個別商品ページで商品番号pet-trimerb、商品名ペットトリマーβを確認",
