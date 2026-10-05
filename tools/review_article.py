@@ -273,6 +273,16 @@ def build_prompt(a, rules, hits, arts=()):
     """レビュー用のプロンプト。記事の全文と、機械検査の結果を渡す。"""
     found = "\n".join(f"・[{k}] {p}：{d}" for k, p, d in hits) or "（機械検査での指摘はありません）"
     body = {k: a[k] for k in GEN_FIELDS if k in a}
+    evidence = {
+        "official_url": a.get("official_url", ""),
+        "facts": a.get("facts", []),
+        "product_urls": {k: a.get(k, "") for k in
+                          ("amazon_url", "rakuten_url", "yahoo_url") if a.get(k)},
+        "asin": a.get("asin", ""),
+        "jan": a.get("jan", ""),
+        "review_stats": a.get("review_stats", {}),
+        "review_texts_present": bool(a.get("voices") or a.get("review_texts")),
+    }
     siblings = [x.get("title", "") for x in arts
                 if x.get("slug") != a.get("slug") and x.get("published")
                 and (x.get("category") or "") == (a.get("category") or "")]
@@ -311,6 +321,10 @@ def build_prompt(a, rules, hits, arts=()):
         "",
         "================ 記事（JSON） ================",
         json.dumps(body, ensure_ascii=False, indent=1),
+        "",
+        "================ 根拠データ（本文とは別） ================",
+        "以下だけを確認済みの根拠として扱う。ここに無い仕様・レビュー・体験を補わない。",
+        json.dumps(evidence, ensure_ascii=False, indent=1),
         "",
         "================ 出力の決まり ================",
         "・JSONだけを返す。前置きも、コードフェンスも付けない。",
@@ -785,6 +799,10 @@ def main():
             if not_reviewed:
                 print("    ✗ レビューが実行できていません。"
                       "機械検査だけでは判断できないので、やり直してください")
+            if args.publish and not args.dry_run:
+                a["published"] = False
+                a["unpublished_reason"] = "レビュー不合格：根拠・独自性・安全性の再確認が必要"
+                print("    → published: false（レビュー不合格）")
         else:
             ok.append(slug)
             print("    ✓ 基準を満たしました")

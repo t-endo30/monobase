@@ -114,6 +114,10 @@ def main():
             print(f"  ✗ 要確認（レビュー実行={reviewed}, total={total}）")
             for b in blockers:
                 print(f"    - {b}")
+            if args.publish and not args.dry_run:
+                a["published"] = False
+                a["unpublished_reason"] = "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要"
+                print("  → published: false（レビュー不合格）")
         if not args.dry_run:
             save_article(a)
     print(f"合格 {ok} 本 / 要確認 {ng} 本")
