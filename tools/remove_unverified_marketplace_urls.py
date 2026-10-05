@@ -9,7 +9,7 @@ PATH = os.path.join(ROOT, "content", "articles.json")
 with open(PATH, encoding="utf-8") as f:
     articles = json.load(f)
 
-SEARCH_URL_ARTICLES = {"ylt-ag30e-yamazen", "led-pv-bl2h-n"}
+SEARCH_URL_ARTICLES = {"ylt-ag30e-yamazen", "led-pv-bl2h-n", "mvp3-3in1"}
 SEARCH_URL_ARTICLES.add("cellularline-iphone18pro-iphone18promax")
 
 for article in articles:

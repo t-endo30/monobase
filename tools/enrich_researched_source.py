@@ -7,6 +7,32 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "mvp3-3in1": {
+        "facts": [
+            "楽天市場の個別商品ページで商品番号pet-trimerb、商品名ペットトリマーβを確認",
+            "個別商品ページで本体重量180g、爪やすり用・肉球周り用の3アタッチメント、USB充電、充電時間約3〜4時間を確認",
+            "個別商品ページで刃の長さ2mm、交換時は試運転を行う注意、初回は音に慣らす注意を確認",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた使用感",
+            "who": "楽天市場の商品ページに表示された利用者の声（2026-10-06確認）",
+            "text": "個別投稿では、爪を切った後のバリ取りが楽で、モーター音がうるさくないという感想、まだ使用前だが刃先を見て使えそうという声、使いやすいという感想を確認できます。投稿時点や個体差を含む利用者の声であり、すべてのペットに同じ結果が出るとは扱いません。",
+            "negative": False,
+            "fix_title": "音への慣らしとアタッチメント固定を確認する",
+            "fix": "初回は電源音を聞かせて反応を確認し、アタッチメントが確実にはまっているかを試運転で確認してから使用してください。",
+        }],
+        "source_notes": [{
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/next-online/pet-trimerb/",
+            "title": "楽天市場 Nextオンライン ペットトリマーβ 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/item/1/372877_10000162/1.1/",
+            "title": "楽天市場 利用者の声（商品ページから確認）",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "kaedear-kdr-m11c": {
         "official_url": "https://www.kaedear.com/products/kdr-m11c",
         "facts": [
