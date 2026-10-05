@@ -13,6 +13,14 @@ python3 tools/gpt_review_article.py --new
 python3 tools/run_gpt_article_pipeline.py --drafts
 ```
 
+商品選定からGPT経路で一連実行する場合は次のようにする。
+
+```sh
+python3 tools/run_gpt_article_pipeline.py --select --take 2
+```
+
+候補も楽天・Yahoo!から再収集する場合は `--refresh-products` を付ける。選定・重複排除・製品特定は既存Claude経路と同じ機械ロジックを使い、商品をモデルの推測だけで選ばない。
+
 `--publish` はレビュー合格時だけ `published: true` にする。定期実行へ接続するまでは付けず、生成・レビュー結果を確認する。
 
 初回は書き込みをせず確認する。

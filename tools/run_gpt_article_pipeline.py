@@ -13,6 +13,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--drafts", action="store_true", help="空の下書きを生成")
+    ap.add_argument("--select", action="store_true", help="既存経路と同じ選定ロジックで商品を選ぶ")
+    ap.add_argument("--refresh-products", action="store_true", help="候補をAPIから再収集してから選ぶ")
+    ap.add_argument("--take", type=int, default=2)
     ap.add_argument("slugs", nargs="*")
     ap.add_argument("--model", default=None)
     ap.add_argument("--review-model", default=None)
@@ -23,6 +26,16 @@ def main():
     args = ap.parse_args()
     if args.drafts and args.slugs:
         ap.error("--drafts と slug は同時に指定しません")
+    if args.refresh_products:
+        args.select = True
+    if args.select:
+        selection = [sys.executable, "tools/gpt_select_products.py", "--take", str(args.take)]
+        if args.refresh_products:
+            selection.append("--refresh")
+        selected = subprocess.run(selection, cwd=ROOT, check=False)
+        if selected.returncode != 0:
+            return selected.returncode
+        args.drafts = True
     target = [sys.executable, "tools/gpt_write_article.py"]
     target += ["--drafts"] if args.drafts or not args.slugs else args.slugs
     if args.model:
