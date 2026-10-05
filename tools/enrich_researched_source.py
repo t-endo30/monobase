@@ -7,6 +7,44 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "led-pv-bl2h-n": {
+        "official_url": "https://kadenfan.hitachi.co.jp/clean/lineup/pv-bl2h/",
+        "facts": [
+            "日立公式商品ページでコードレス式スティッククリーナーPV-BL2H（N色）を確認",
+            "日立公式の仕様表示で標準質量1.1kg、自走式のパワフル スマートヘッド light、ヘッドライトを確認",
+            "日立公式の取扱説明書でPV-BL2Hの使用方法・お手入れ方法を確認",
+            "楽天市場の個別商品ページで型番PV-BL2H-N、シャンパンゴールド、回転ブラシ水洗い可の表示を確認",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた軽さと注意点",
+            "who": "楽天市場みんなのレビュー（楽天スーパーDEALSHOPの個別商品ページ、2026-10-06確認）",
+            "text": "個別投稿では、軽さやヘッドの滑り、前方ライトの見やすさを評価する声が確認できます。一方で、従来のスタンドが使えず充電方法を工夫したという指摘や、回転ブラシが軽い布類を巻き込むことがあるという注意も確認できます。個別投稿の内容であり、全購入者の傾向とは扱いません。",
+            "negative": True,
+            "fix_title": "収納方法と床面の巻き込みを先に確認する",
+            "fix": "購入前に、現在使っているスタンドや充電場所がPV-BL2H-Nの収納・充電方法に合うかを確認してください。軽いラグや布類を掃除する場合は、回転ブラシの巻き込みに注意できるかも確認しましょう.",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://kadenfan.hitachi.co.jp/clean/lineup/pv-bl2h/",
+            "title": "日立公式 PV-BL2H 商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "official_manual",
+            "url": "https://kadenfan.hitachi.co.jp/support/clean/item/docs/pv-bl2h_a.pdf",
+            "title": "日立公式 PV-BL2H 取扱説明書",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/superdeal/11776pvbl2hn20220523/",
+            "title": "楽天市場 個別商品ページ PV-BL2H-N",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/363461_10002065/1.1/",
+            "title": "楽天市場 みんなのレビュー PV-BL2H-N",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "switchbot-hub-remote-review": {
         "official_url": "https://www.switchbot.jp/collections/all/products/switchbot-hub2",
         "facts": [
