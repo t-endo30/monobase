@@ -21,6 +21,8 @@ python3 tools/run_gpt_article_pipeline.py --select --take 2
 
 候補も楽天・Yahoo!から再収集する場合は `--refresh-products` を付ける。選定・重複排除・製品特定は既存Claude経路と同じ機械ロジックを使い、商品をモデルの推測だけで選ばない。
 
+候補の再収集はGitHub Actionsへ依頼する。Actions Secretsにある楽天・Yahoo!の認証情報をMacへコピーせず、候補JSONだけをartifact経由で取得する。
+
 `--publish` はレビュー合格時だけ `published: true` にする。定期実行へ接続するまでは付けず、生成・レビュー結果を確認する。
 
 初回は書き込みをせず確認する。

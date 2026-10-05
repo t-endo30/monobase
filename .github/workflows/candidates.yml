@@ -64,6 +64,15 @@ jobs:
             ${{ inputs.category && format('--category {0}', inputs.category) || '' }} \
             --out /tmp/candidates.json
 
+      - name: 候補JSONを保存
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: product-candidates
+          path: /tmp/candidates.json
+          if-no-files-found: error
+          retention-days: 1
+
       # 何が取れたのかを、実行サマリーに残す（ログを追わなくて済むように）
       - name: 結果をまとめる
         if: always()
