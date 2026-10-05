@@ -303,7 +303,7 @@
   "slug": "cellularline-iphone18pro-iphone18promax",
   "category": "smartphone",
   "sub": "acc",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Cellularline 車載スマホホルダー 口コミ｜レンタカー用途の確認点",
   "list_title": "Cellularline 車載スマホホルダー",
@@ -537,13 +537,14 @@
     "total": 85,
     "notes": "公式仕様と口コミ本文が無く、記事の中身は確認手順が中心で独自性とテンプレート回避はやや低め。rating・spec は出しておらず、未確認の点は未確認と明記できている。"
    }
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "mvp3-3in1",
   "category": "pet",
   "sub": "care",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "多機能電動爪やすり バリカン 3in1 口コミ｜足裏・爪ケアの向き不向き",
   "list_title": "多機能電動爪やすり バリカン 3in1",
@@ -789,7 +790,8 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "health-20261005-2",
@@ -1035,7 +1037,7 @@
   "slug": "kitchen-20261005",
   "category": "kitchen",
   "sub": "ware",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "チモトコーヒー 大入り福袋 2kg 口コミ｜4種飲み比べの注意点",
   "list_title": "チモトコーヒー 福袋2kg",
@@ -1327,7 +1329,8 @@
    "review_stats_present": true,
    "missing": [],
    "blockers": []
-  }
+  },
+  "unpublished_reason": "GPTレビュー合格（90点以上）を確認できないため、再レビュー待ち（2026-10-06）"
  },
  {
   "slug": "kaedear-kdr-m11c",
@@ -1772,7 +1775,7 @@
   "slug": "rs-60e3-lcd-pdf",
   "category": "camera",
   "sub": "acc",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ロワジャパン RS-60E3互換リモコン 口コミ｜キヤノン対応",
   "list_title": "ロワジャパン RS-60E3互換リモコン",
@@ -2010,13 +2013,14 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "200-bg019",
   "category": "camera",
   "sub": "acc",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "カメラインナーバッグ 200-BG019 口コミ｜サイズ確認と向く人",
   "list_title": "カメラインナーバッグ 200-BG019",
@@ -2264,13 +2268,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "petkit-pura-max2",
   "category": "pet",
   "sub": "cat",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "PETKIT Pura Max2 口コミ｜猫用自動トイレの設置条件と評価",
   "list_title": "PETKIT Pura Max2 口コミ",
@@ -2502,13 +2507,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "iphone-max17e-16e-max-iphone13-mini",
   "category": "smartphone",
   "sub": "case",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "iPhone 手帳型スマホケース 口コミ｜機種選びと確認点",
   "list_title": "iPhone 手帳型スマホケース",
@@ -2748,13 +2754,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "200-dgbg008bk",
   "category": "camera",
   "sub": "acc",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "カメラバッグ 200-DGBG008BK 口コミ｜一眼レフ用ショルダーの評判",
   "list_title": "カメラバッグ 200-DGBG008BK 口コミ",
@@ -2986,7 +2993,8 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "tv-ipx8",
@@ -3228,7 +3236,7 @@
   "slug": "pc-lkd-127",
   "category": "furniture",
   "sub": "desk",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "オフィスデスク 片袖机 LKD-127 口コミ｜幅1200の使い勝手",
   "list_title": "オフィスデスク片袖机 LKD-127",
@@ -3465,13 +3473,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "salonia-2",
   "category": "beauty",
   "sub": "haircare",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "SALONIA ロックスタイリング剤 口コミ｜向く人と確認点",
   "list_title": "SALONIA ロックスタイリング剤",
@@ -3703,13 +3712,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "pc-microsoft-surface-8gb-ssd256gb-core-i5",
   "category": "pc",
   "sub": "tablet",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Microsoft Surface Pro 5 7+ 口コミ｜中古2in1の確認点",
   "list_title": "Microsoft Surface Pro 5 7+ 口コミ",
@@ -3952,13 +3962,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "sspp-3s",
   "category": "pet",
   "sub": "aqua",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "水作 水心 SSPP-3S 口コミ｜30〜60cm水槽用エアーポンプの評判",
   "list_title": "水作 水心 SSPP-3S 口コミ",
@@ -4188,13 +4199,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "x-720",
   "category": "health",
   "sub": "care",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "マッサージガン X-720 口コミ｜4種ヘッドと6段階調整の向き不向き",
   "list_title": "マッサージガン X-720 口コミ",
@@ -4439,13 +4451,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "fotopro-digi-mp1bh",
   "category": "camera",
   "sub": "tripod",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Fotopro DIGI-MP1BH 口コミ｜一脚の選び方と向く人",
   "list_title": "Fotopro DIGI-MP1BH 一脚",
@@ -4684,13 +4697,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "iphone13-iphone13-max-iphone12-mini-iphone11",
   "category": "smartphone",
   "sub": "case",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "iPhone13 手帳型ケース ミラー鏡面クリア 口コミ｜対応機種の選び方",
   "list_title": "iPhone13 手帳型ミラー鏡面クリア",
@@ -4926,13 +4940,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "raincoat02",
   "category": "fashion",
   "sub": "wear",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "raincoat02 自転車レインコート 口コミ｜リュック対応の評判",
   "list_title": "raincoat02 自転車レインコート",
@@ -5202,13 +5217,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "kaji-31",
   "category": "health",
   "sub": "care",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "マッサージガン KAJI-31 口コミ｜4種ヘッドの使い分けと向く人",
   "list_title": "KAJI-31 マッサージガン 口コミ",
@@ -5449,13 +5465,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "web-200-cam021n",
   "category": "camera",
   "sub": "tripod",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "三脚 200-CAM021N 口コミ｜4段伸縮41〜125cmの評判と向く人",
   "list_title": "三脚 200-CAM021N 口コミ",
@@ -5701,13 +5718,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "bi-hada-mpvl-2b-ga0145",
   "category": "beauty",
   "sub": "shave",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "貝印 bi-hada MPVL-2B 口コミ｜音波振動カミソリの向き不向き",
   "list_title": "貝印 bi-hada MPVL-2B",
@@ -5947,13 +5965,14 @@
   },
   "health": {
    "checked": "2026-10-01"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "inumeshi",
   "category": "pet",
   "sub": "food",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "INUMESHI バリュー 15kg 口コミ｜成犬・高齢犬用の大袋",
   "list_title": "INUMESHI バリュー 15kg 口コミ",
@@ -6186,13 +6205,14 @@
   },
   "health": {
    "checked": "2026-10-01"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "hbf-214-w",
   "category": "health",
   "sub": "measure",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "オムロン HBF-214-W 口コミ｜薄型体組成計の評判",
   "list_title": "オムロン HBF-214-W 体組成計",
@@ -6448,13 +6468,14 @@
   },
   "health": {
    "checked": "2026-10-01"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "niplux-hair-dryer",
   "category": "beauty",
   "sub": "device",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "NIPLUX ドライヤー 口コミ｜大風量・冷熱自動切替の評判",
   "list_title": "NIPLUX ニップラックス ドライヤー",
@@ -6705,13 +6726,14 @@
   },
   "health": {
    "checked": "2026-10-01"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "puppia-xs-s-m-l",
   "category": "pet",
   "sub": "dog",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "PUPPIA パピア ソフトベストハーネス 口コミ｜小型犬の選び方",
   "list_title": "PUPPIA ソフトベストハーネス",
@@ -6955,13 +6977,14 @@
   },
   "health": {
    "checked": "2026-10-01"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "ipad-ipad-a16-ipad-air-m4",
   "category": "smartphone",
   "sub": "case",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "iPad ケース 第11世代 iPad A16 ケース 口コミ｜対応機種の確認点",
   "list_title": "iPad 第11世代ケース 口コミ・確認点",
@@ -7198,7 +7221,8 @@
   },
   "health": {
    "checked": "2026-10-01"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "s-sd",
@@ -7457,7 +7481,7 @@
   "slug": "nimaso-iphone-iphone18pro-iphone-duo-iphone18proma",
   "category": "camera",
   "sub": "acc",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "NIMASO iPhone レンズカバー 口コミ｜2枚組の評判と確認点",
   "list_title": "NIMASO iPhone レンズカバー 2枚組",
@@ -7677,13 +7701,14 @@
   },
   "health": {
    "checked": "2026-09-30"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "t-s-m-l-xl-v",
   "category": "fashion",
   "sub": "wear",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "リブカットソー C3655 口コミ｜選べるネックの長袖ロンT",
   "list_title": "リブカットソー C3655 口コミ",
@@ -7940,13 +7965,14 @@
   },
   "health": {
    "checked": "2026-09-30"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "iphone17-iphone17e-iphone16e-iphone16-iphone-17pro",
   "category": "smartphone",
   "sub": "case",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "iPhone17 手帳型ケース 口コミ｜対応機種と選び方の注意点",
   "list_title": "iPhone17 手帳型ケース 口コミ",
@@ -8193,13 +8219,14 @@
   },
   "health": {
    "checked": "2026-09-30"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "agptek-type-c-dslr-iphone-ipad-android",
   "category": "av",
   "sub": "mic",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "AGPTEK ピンマイク 口コミ｜3.5mm・Type-C対応の選び方",
   "list_title": "AGPTEK ピンマイク 口コミ",
@@ -8451,7 +8478,8 @@
   },
   "health": {
    "checked": "2026-09-30"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "00-9-clinique",
@@ -8701,7 +8729,7 @@
   "slug": "iaw-t606-cp",
   "category": "appliance",
   "sub": "laundry",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "アイリスオーヤマ IAW-T606 口コミ｜6kg縦型洗濯機の設置と選び方",
   "list_title": "アイリスオーヤマ IAW-T606 口コミ",
@@ -8962,13 +8990,14 @@
   },
   "health": {
    "checked": "2026-09-30"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "uz-200-wifi-3gb-lte-wifi-wi-fi",
   "category": "pc",
   "sub": "",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "UZ-200 ポケットWiFi レンタル 口コミ｜30日3GBの向き不向き",
   "list_title": "UZ-200 ポケットWiFi レンタル30日",
@@ -9222,13 +9251,14 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=UZ-200%20%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88WiFi%20%E3%83%AC%E3%83%B3%E3%82%BF%E3%83%AB%2030%E6%97%A5%E9%96%93%203GB%20%E6%97%A5%20%E5%9B%BD%E5%86%85%E7%94%A8%20%E9%AB%98%E9%80%9FLTE%20wifi%E3%83%AC%E3%83%B3%E3%82%BF%E3%83%AB%20%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%205000mAh%20%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%83%90%E3%83%83%E3%83%86%E3%83%AA%E3%83%BC%E5%85%BC%E7%94%A8%204G%20Wi-Fi%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%20%E5%B8%B0%E7%9C%81%20%E3%83%AB%E3%83%BC%E3%82%BF%E3%83%BC%20%E7%9F%AD%E6%9C%9F%20%E5%87%BA%E5%BC%B5%20%E6%97%85%E8%A1%8C%20%E5%85%A5%E9%99%A2%20%E4%B8%80%E6%99%82%E5%B8%B0%E5%9B%BD%20%E3%83%86%E3%83%AC%E3%83%AF%E3%83%BC%E3%82%AF%20%E5%9C%A8%E5%AE%85%E5%8B%A4%E5%8B%99%20%E5%BC%95%E8%B6%8A%E3%81%97%20Pocket%20WiFi%20%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88Wi-Fi&i=aps"
    ]
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "jackery-jackery-solarsaga-ip65-jackery",
   "category": "appliance",
   "sub": "power",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Jackery SolarSaga 100 口コミ｜折りたたみ式ソーラーの向き不向き",
   "list_title": "Jackery SolarSaga 100",
@@ -9492,7 +9522,8 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=%E5%88%A9%E7%94%A8%E3%81%A724%2C360%E5%86%86%209%2029%2000%3A00%E3%81%8B%E3%82%89%20Jackery%E3%82%BD%E3%83%BC%E3%83%A9%E3%83%BC%E3%83%91%E3%83%8D%E3%83%AB100W%20Jackery%20SolarSaga%20100%20%E3%82%BD%E3%83%BC%E3%83%A9%E3%83%BC%E3%83%81%E3%83%A3%E3%83%BC%E3%82%B8%E3%83%A3%E3%83%BC%E6%8A%98%E3%82%8A%E3%81%9F%E3%81%9F%E3%81%BF%E5%BC%8F%20%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%84%E3%82%BF%E3%83%96%E3%83%AC%E3%83%83%E3%83%88%2025%25%20%E8%B6%85%E8%96%84%E5%9E%8B%20%E8%BB%BD%E9%87%8F%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E5%8D%98%E7%B5%90%E6%99%B6%20%E9%98%B2%E7%81%BD%20IP65%E9%98%B2%E6%B0%B4%2020V%205.6A%20Jackery%20%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%96%E3%83%AB%E9%9B%BB%E6%BA%90%E7%94%A8&i=aps"
    ]
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "feature-pc-peripheral-4",
@@ -9932,21 +9963,15 @@
    "items": [
     {
      "title": "TP-Link Tapo C200 口コミをもう少し細かく確かめたいとき",
-     "text": "首振り自動追跡と双方向音声の室内見守りカメラ。口コミと注意点を整理。",
-     "link_url": "articles/tp-link-tapo-c200-amazon-alexa.html",
-     "link_label": "TP-Link Tapo C200 口コミのレビューを読む"
+     "text": "首振り自動追跡と双方向音声の室内見守りカメラ。口コミと注意点を整理。"
     },
     {
      "title": "SecuSTATION カメまる 口コミをもう少し細かく確かめたいとき",
-     "text": "首振りと双方向通話が効く場面、購入前に確認すべき型番とWi-Fi帯を整理しました。",
-     "link_url": "articles/wifi-dc23-mq53-dc53b-dc55b-secustation.html",
-     "link_label": "SecuSTATION カメまる 口コミのレビューを読む"
+     "text": "首振りと双方向通話が効く場面、購入前に確認すべき型番とWi-Fi帯を整理しました。"
     },
     {
      "title": "カメまるD DC53 口コミ・見守りカメラをもう少し細かく確かめたいとき",
-     "text": "利用者の声が多く集まる見守りカメラ。公式仕様が見えない中での選び方を解説。",
-     "link_url": "articles/d-dc53.html",
-     "link_label": "カメまるD DC53 口コミ・見守りカメラのレビューを読む"
+     "text": "利用者の声が多く集まる見守りカメラ。公式仕様が見えない中での選び方を解説。"
     },
     {
      "title": "みてるちゃん 見守りカメラをもう少し細かく確かめたいとき",
@@ -9954,27 +9979,19 @@
     },
     {
      "title": "SecuSTATION MF45A 口コミをもう少し細かく確かめたいとき",
-     "text": "小型防犯カメラMF45Aの機能と、購入前に確認したい注意点を整理。",
-     "link_url": "articles/usb-wifi-5ghz-sd-mf45a-secustation.html",
-     "link_label": "SecuSTATION MF45A 口コミのレビューを読む"
+     "text": "小型防犯カメラMF45Aの機能と、購入前に確認したい注意点を整理。"
     },
     {
      "title": "セキュベビー XB53K 口コミをもう少し細かく確かめたいとき",
-     "text": "wifi不要のベビーモニター、口コミから向き不向きを整理",
-     "link_url": "articles/ldk-wifi-xb53k-tb53k-secustation.html",
-     "link_label": "セキュベビー XB53K 口コミのレビューを読む"
+     "text": "wifi不要のベビーモニター、口コミから向き不向きを整理"
     },
     {
      "title": "防犯カメラDB74 口コミ・レビューをもう少し細かく確かめたいとき",
-     "text": "工事不要のソーラー防犯カメラDB74。設置方式と口コミから向き不向きを整理。",
-     "link_url": "articles/db74-secustation.html",
-     "link_label": "防犯カメラDB74 口コミ・レビューのレビューを読む"
+     "text": "工事不要のソーラー防犯カメラDB74。設置方式と口コミから向き不向きを整理。"
     },
     {
      "title": "WTW塚本無線 屋外防犯カメラをもう少し細かく確かめたいとき",
-     "text": "工事不要のPTZ防犯カメラ、購入前に確認すべき点",
-     "link_url": "articles/wtw-ptz-wifi-ip.html",
-     "link_label": "WTW塚本無線 屋外防犯カメラのレビューを読む"
+     "text": "工事不要のPTZ防犯カメラ、購入前に確認すべき点"
     },
     {
      "title": "ソーラー防犯カメラの選び方をもう少し細かく確かめたいとき",
@@ -9998,7 +10015,7 @@
   "slug": "zero-windows-dl-snr-windows",
   "category": "pc",
   "sub": "software",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ZERO スーパーセキュリティ 口コミ｜Windows版1台用の評判",
   "list_title": "ZERO スーパーセキュリティ 口コミ",
@@ -10233,13 +10250,14 @@
   },
   "health": {
    "checked": "2026-09-28"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "switchbot-alexa",
   "category": "appliance",
   "sub": "smart",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "SwitchBot ハブ3 口コミ｜スマートリモコンの評判",
   "list_title": "SwitchBot ハブ3 口コミ",
@@ -10511,13 +10529,14 @@
   },
   "health": {
    "checked": "2026-09-28"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "mrpe-1260-soho-yamazen",
   "category": "furniture",
   "sub": "desk",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "山善 MRPE-1260 口コミ｜幅120デスクの使い勝手",
   "list_title": "山善 MRPE-1260 デスク口コミ",
@@ -10758,13 +10777,14 @@
   },
   "health": {
    "checked": "2026-09-28"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "valx",
   "category": "health",
   "sub": "supplement",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "VALXホエイプロテイン 口コミ｜ふるさと納税1kgの選び方",
   "list_title": "VALXホエイプロテイン1kg返礼品",
@@ -11006,13 +11026,14 @@
   },
   "health": {
    "checked": "2026-09-28"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "pet-20260927",
   "category": "pet",
   "sub": "aqua",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ニッソー NS-106 口コミ｜60cm水槽の評判と選び方",
   "list_title": "ニッソー NS-106 60cm水槽の口コミ",
@@ -11255,13 +11276,14 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "mouth-bucket-mouth4-msb24101",
   "category": "camera",
   "sub": "acc",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "MOUTH バケットマウス4 口コミ｜カメラバッグ選びの注意点",
   "list_title": "MOUTHバケットマウス4 口コミ",
@@ -11532,13 +11554,14 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "eastforce-lumbirt",
   "category": "furniture",
   "sub": "chair",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "EastForce LUMBIRT 4.0 口コミ｜オットマン付きチェアの実力",
   "list_title": "EastForce LUMBIRT4.0 口コミ",
@@ -11769,7 +11792,8 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "2way-a4-pc",
@@ -12020,7 +12044,7 @@
   "slug": "wsj-4l",
   "category": "daily",
   "sub": "garden",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "アイリスオーヤマ WSJ-4L 除草剤 口コミ|効果と使い方",
   "list_title": "アイリスオーヤマ WSJ-4L 口コミ",
@@ -12288,13 +12312,14 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "ih-ih-ih-ihc-sg221-ih-ih",
   "category": "kitchen",
   "sub": "appliance",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "アイリスオーヤマIHC-SG221 口コミ｜2口IHの設置条件",
   "list_title": "アイリスオーヤマIHC-SG221 口コミ",
@@ -12528,7 +12553,8 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "beauty-20260927",
@@ -12764,7 +12790,7 @@
   "slug": "ik2-60w-ih",
   "category": "kitchen",
   "sub": "storage",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "池永鉄工 IK2-60W 口コミ｜コンロカバーの使い勝手",
   "list_title": "池永鉄工 IK2-60W コンロカバー",
@@ -12993,13 +13019,14 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "type-c-typec-hdmi-30hz-asnad-chdmibk2x5-av",
   "category": "av",
   "sub": "tv",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "エレコム ASNAD-CHDMIBK2X5 口コミ｜HDMI変換5個セットの選び方",
   "list_title": "エレコムHDMI変換5個セット口コミ",
@@ -13237,13 +13264,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "200-bagin006",
   "category": "travel",
   "sub": "",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "トラベルポーチ 200-BAGIN006 口コミ｜ガジェット収納の向き不向き",
   "list_title": "トラベルポーチ200-BAGIN006 口コミ",
@@ -13491,13 +13519,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "d-dc53",
   "category": "camera",
   "sub": "security",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "カメまるD DC53 口コミ｜見守りカメラの夜間撮影と動作検知を検証",
   "list_title": "カメまるD DC53 口コミ・見守りカメラ",
@@ -13764,13 +13793,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "a3-ccsk-a3y8r-a-sh",
   "category": "daily",
   "sub": "misc",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "CCSK-A3Y8R 口コミ｜A3両面スタンド看板の評判",
   "list_title": "CCSK-A3Y8R 口コミ｜A3両面看板",
@@ -13989,13 +14019,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "panasonic-led-8h-sb-lsew5046le1",
   "category": "appliance",
   "sub": "light",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "パナソニックLSEW5046LE1 軒下ダウンライトの口コミと選び方",
   "list_title": "パナソニック軒下用ダウンライト",
@@ -14227,13 +14258,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "elecom-usb2-0hub-usb-tk-tcm012bk",
   "category": "pc",
   "sub": "input",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "エレコムTK-TCM012BK口コミ｜USBテンキーの使用感",
   "list_title": "エレコム TK-TCM012BK 口コミ",
@@ -14493,13 +14525,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "fff-smart-life-connected-fff-ld27p2-pc",
   "category": "pc",
   "sub": "monitor",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "FFF-LD27P2 口コミ｜27型光沢モニター保護フィルムの評判",
   "list_title": "FFF-LD27P2 光沢保護フィルム",
@@ -14723,13 +14756,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "nx4-pc",
   "category": "pc",
   "sub": "laptop",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "レッツノートNX4対応 覗き見防止フィルター 口コミと選び方",
   "list_title": "NX4用 覗き見防止フィルター 口コミ",
@@ -14949,13 +14983,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "cw671-usb",
   "category": "appliance",
   "sub": "",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "カップウォーマーCW671 口コミ｜ライト付きの実力と選び方",
   "list_title": "カップウォーマーCW671",
@@ -15193,7 +15228,8 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "a-42",
@@ -15448,7 +15484,7 @@
   "slug": "sony-cmt-m35wm-usb-cd-hcd-m35wm-ss",
   "category": "av",
   "sub": "speaker",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ソニー CMT-M35WM 口コミ｜カセットも聴けるコンポ",
   "list_title": "ソニー CMT-M35WM口コミ",
@@ -15670,13 +15706,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "a75c4419-panasonic-d2613",
   "category": "appliance",
   "sub": "aircon",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "パナソニック A75C4419 エアコンリモコン 口コミ|適合確認の注意点",
   "list_title": "パナソニック A75C4419 リモコン",
@@ -15898,13 +15935,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "pavilion-x360-15-br018na-48wh-hp",
   "category": "pc",
   "sub": "parts",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Pavilion x360 15-br018na 互換バッテリー口コミ",
   "list_title": "HP Pavilion 交換バッテリー",
@@ -16157,13 +16195,14 @@
     "postage_included": false
    },
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "pc-web-lan-t-ks02-2430wh-t-ks02-2430whx5",
   "category": "pc",
   "sub": "",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "エレコム T-KS02-2430WH 口コミ｜雷ガード電源タップの確認点",
   "list_title": "エレコム T-KS02-2430WH 電源タップ",
@@ -16387,13 +16426,14 @@
   },
   "health": {
    "checked": "2026-10-01"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "39shop-ddr3-pc3-8500e-ecc-unbuffered-dimm",
   "category": "pc",
   "sub": "parts",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "DDR3 PC3-8500E ECC UDIMM 口コミ｜A3E1066-2G互換の相性確認",
   "list_title": "PC3-8500E ECC 2GB",
@@ -16628,13 +16668,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "lan-cat5e-ld-ctt-bu50x10-usb-pc",
   "category": "pc",
   "sub": "network",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "エレコムLD-CTT/BU50X10口コミ|爪折れ防止LAN10本",
   "list_title": "エレコムLD-CTT爪折れ防止LAN10本",
@@ -16845,13 +16886,14 @@
   },
   "health": {
    "checked": "2026-10-01"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "epson-usb-lan-tml90ue431",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "EPSON TML90UE431 レビュー｜納期7カ月の業務用機",
   "list_title": "EPSON TML90UE431 レビュー",
@@ -17083,13 +17125,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "lenovo-ideapad-flex-560i-chromebook-pc",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "IdeaPad Flex 560i 保護フィルム3点セット口コミ評判",
   "list_title": "Flex 560i 保護フィルム3点セット",
@@ -17353,13 +17396,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "mb-25ne",
   "category": "pc",
   "sub": "monitor",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ライオン事務器 MB-25NE｜ディスプレイ盗難防止ロックの口コミ",
   "list_title": "ライオン事務器 MB-25NEの口コミ",
@@ -17593,13 +17637,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "ddr5-pc5-4800-pc5-38400-8gb-d5r4800-8g",
   "category": "pc",
   "sub": "parts",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "I-Oデータ D5R4800-8G｜DDR5メモリーの選び方と注意点",
   "list_title": "I-Oデータ D5R4800-8G 8GB",
@@ -17831,7 +17876,8 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "tv-tv-tv-tv-tv",
@@ -18084,7 +18130,7 @@
   "slug": "hagihara-kh-3691wh",
   "category": "furniture",
   "sub": "bed",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "HAGIHARA KH-3691WH 口コミ｜ロフトベッドの設置条件",
   "list_title": "HAGIHARA KH-3691WH 口コミ",
@@ -18319,13 +18365,14 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "satellite-a665-s6056-95wh-toshiba-pc",
   "category": "pc",
   "sub": "laptop",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "東芝 A665-S6056 互換バッテリー口コミと選び方",
   "list_title": "東芝 A665-S6056 互換バッテリー",
@@ -18590,13 +18637,14 @@
   },
   "health": {
    "checked": "2026-09-30"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "sw-kvm2lun2",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "サンワサプライ SW-KVM2LUN2 口コミ｜自動切替器の使い勝手",
   "list_title": "サンワサプライ SW-KVM2LUN2 口コミ",
@@ -18825,13 +18873,14 @@
   },
   "health": {
    "checked": "2026-09-30"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "tk-fdm109mbk",
   "category": "pc",
   "sub": "input",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "エレコムTK-FDM109MBK 口コミ｜薄型セットの評判と選び方",
   "list_title": "エレコムTK-FDM109MBK 口コミ",
@@ -19079,13 +19128,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "cr-la602-pc",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "サンワサプライCR-LA602 口コミ｜ノートPCアームの設置条件",
   "list_title": "サンワサプライ CR-LA602 口コミ",
@@ -19337,13 +19387,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "eboxer-1-usb",
   "category": "pc",
   "sub": "input",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "eboxer-1 ミニキーボード レビュー｜購入前に確認したい点",
   "list_title": "eboxer-1 有線ミニキーボード",
@@ -19571,13 +19622,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "startech-com-usb-c-dk30ch2dep",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "StarTech DK30CH2DEP 口コミ｜USB-Cドック購入前の確認点",
   "list_title": "StarTech DK30CH2DEP評価",
@@ -19795,13 +19847,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "w-r-1200-w-r1200",
   "category": "appliance",
   "sub": "aircon",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "森永エンジニアリングWR-1200 結露防止ヒーター口コミ",
   "list_title": "森永WR-1200 結露防止ヒーター",
@@ -20038,13 +20091,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "dell-latitude-i5-microsoft-office-h",
   "category": "pc",
   "sub": "laptop",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "デルLatitude3500中古レビュー｜32GB搭載の実力",
   "list_title": "デル Latitude3500 中古32GB",
@@ -20294,13 +20348,14 @@
   },
   "health": {
    "checked": "2026-09-30"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "fuxngzi-9h",
   "category": "appliance",
   "sub": "aircon",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "FUXNGZI セラミックヒーター 口コミ｜羽根なし温風扇の評判",
   "list_title": "FUXNGZI セラミックヒーター口コミ",
@@ -20529,13 +20584,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "m-book-mb-k680-9h-rt-n9bc-ntpc-k0000873245",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "メディアカバーマーケット MB-K680用 保護フィルム 口コミ",
   "list_title": "MB-K680用 保護フィルム(互換品)",
@@ -20767,13 +20823,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "fz-w45hf-fz-w45hf-kc-450y3-kc-45y2-kc-w45-kc-w45y",
   "category": "appliance",
   "sub": "aircon",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "FZ-W45HF互換フィルター口コミ｜KC-450Y3系の適合確認",
   "list_title": "FZ-W45HF互換 集じんフィルター",
@@ -21012,13 +21069,14 @@
   },
   "health": {
    "checked": "2026-09-29"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "7lan-kb-t7-02wn",
   "category": "pc",
   "sub": "network",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "サンワサプライ KB-T7-02WN 口コミ｜カテゴリ7 LANケーブル2mの選び方",
   "list_title": "サンワサプライKB-T7-02WN口コミ",
@@ -21239,13 +21297,14 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "transcend-hdd-2tb-ps5-ps4-usb3",
   "category": "pc",
   "sub": "storage",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Transcend TS2TSJ25H3B 口コミ|PS5用HDD",
   "list_title": "Transcend TS2TSJ25H3B",
@@ -21479,13 +21538,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "usb-type-c-displayport-4k-120hz-hdr",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "サンワサプライ USB-C→DP変換 口コミ｜4K120Hz対応条件",
   "list_title": "サンワサプライ USB-C DP変換アダプタ",
@@ -21701,13 +21761,14 @@
   },
   "health": {
    "checked": "2026-09-29"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "vt-cica-mild-toner-pad",
   "category": "beauty",
   "sub": "skincare",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "VT CICAマイルドトナーパッド 口コミ｜拭き取りケアの使い方",
   "list_title": "VT CICAトナーパッド 口コミ",
@@ -21927,13 +21988,14 @@
   },
   "health": {
    "checked": "2026-09-29"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "tp-link-10gbps-lan-pci-e-tx401",
   "category": "pc",
   "sub": "network",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "TP-Link TX401 口コミ｜10Gbps LANカードの注意点",
   "list_title": "TP-Link TX401 口コミ",
@@ -22168,13 +22230,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "usb-l-usba-ca20ulx10",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "USBA-CA20ULX10 口コミ｜L字USB延長10個セット",
   "list_title": "USBA-CA20ULX10延長10個セット",
@@ -22401,13 +22464,14 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "asus-vivobook-x1405za-usb-pc-3way",
   "category": "pc",
   "sub": "",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ASUS Vivobook14 X1405ZA対応 3way互換リュック口コミ・確認点",
   "list_title": "Vivobook対応 3way互換リュック",
@@ -22632,13 +22696,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "3drose-llc-x-x-botanic-plant",
   "category": "pc",
   "sub": "input",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "3dRose MP-32340マウスパッド 口コミ｜サボテン柄8インチ角",
   "list_title": "3dRose MP-32340 マウスパッド",
@@ -22862,13 +22927,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "thinkpad-edge-05787uj-73wh-lenovo",
   "category": "pc",
   "sub": "parts",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "レノボ ThinkPad Edge14 05787UJ 互換バッテリー",
   "list_title": "レノボEdge14 互換バッテリー",
@@ -23138,13 +23204,14 @@
     "postage_included": false
    },
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "ath-sr30bt-gy-bluetooth-ath",
   "category": "av",
   "sub": "headphone",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "オーディオテクニカ ATH-SR30BT 口コミ｜70時間再生とマイクの評判",
   "list_title": "オーディオテクニカ ATH-SR30BT 口コミ",
@@ -23400,13 +23467,14 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "t100ha-30wh-asus",
   "category": "pc",
   "sub": "parts",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ASUS T100HA交換用バッテリー 口コミ｜適合確認の注意点",
   "list_title": "ASUS T100HA 交換用バッテリー",
@@ -23658,13 +23726,14 @@
   },
   "health": {
    "checked": "2026-09-28"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "lp-s6160-m-lpc3t35kv",
   "category": "pc",
   "sub": "",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "エプソン LPC3T35KV口コミ｜LP-S6160純正トナーの選び方",
   "list_title": "エプソン LPC3T35KV純正トナー",
@@ -23923,13 +23992,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "bma-qtgpsgy-a4-pc",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "エレコム BMA-QTGPSGY 口コミ｜ガジェットポーチの収納力",
   "list_title": "エレコム BMA-QTGPSGY口コミ",
@@ -24154,13 +24224,14 @@
   },
   "health": {
    "checked": "2026-09-28"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "cfd-crucial-by-micron-pc-ddr4-2666",
   "category": "pc",
   "sub": "parts",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "CFD Crucial W4U2666CM 口コミ｜相性保証メモリの選び方",
   "list_title": "CFD Crucial W4U2666CM口コミ",
@@ -24372,13 +24443,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "outlet-iphone15-type-c-to-type-c-lightning",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Type-Cケーブル10本セットC24 口コミ｜PD対応と表記の注意点",
   "list_title": "Type-Cケーブル10本 C24 口コミ",
@@ -24623,13 +24695,14 @@
    "dead": [
     "https://www.amazon.co.jp/s?k=OUTLET%2010%E6%9C%AC%20iPhone15%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%201m%20Type-C%20to%20Type-C%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20Lightning%20%E3%82%BF%E3%82%A4%E3%83%97C%20iphone%20%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20USB%20PD%E5%AF%BE%E5%BF%9C%20%E6%80%A5%E9%80%9F%E5%85%85%E9%9B%BB%20%E6%9C%80%E5%A4%A760W%20%E8%B6%85%E9%AB%98%E9%80%9F%20%E3%83%A9%E3%82%A4%E3%83%88%E3%83%8B%E3%83%B3%E3%82%B0%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB%20usb-c%20C24&i=aps"
    ]
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "haier-obbr-121a-c",
   "category": "appliance",
   "sub": "",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ハイアール OBBR-121A 口コミ｜中古2ドア冷蔵庫の注意点",
   "list_title": "ハイアールOBBR-121A口コミ",
@@ -24857,13 +24930,14 @@
     "postage_included": true
    },
    "checked": "2026-09-27"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "macbook-air",
   "category": "pc",
   "sub": "laptop",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "エレコム インナーバッグ13.3インチ 口コミ・選び方",
   "list_title": "エレコム インナーバッグ13.3インチ",
@@ -25099,13 +25173,14 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "et-s-lpc3t37k",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "エプソン LPC3T37K 口コミ｜ETカートリッジ黒の選び方",
   "list_title": "エプソン LPC3T37K 黒 口コミ",
@@ -25353,13 +25428,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "usb2-u2c-e10bk",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "エレコム U2C-E10BK 口コミ｜延長ケーブル5本セットの評判",
   "list_title": "エレコム U2C-E10BK 延長5本",
@@ -25603,13 +25679,14 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "lenovo-l27-41",
   "category": "pc",
   "sub": "monitor",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Lenovo L27-41用 ブルーライトカットフィルター口コミ",
   "list_title": "Lenovo L27-41用フィルター",
@@ -25872,7 +25949,8 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "beauty-20260921",
@@ -26103,7 +26181,7 @@
   "slug": "d-sub-hd-15pin-sw-ev4n2",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "サンワサプライ SW-EV4N2 口コミ｜VGA切替器の使い方と注意点",
   "list_title": "サンワサプライ SW-EV4N2 口コミ",
@@ -26369,13 +26447,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "pr-l7700c-19-k-av-pc",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "エネックス PR-L7700C-19 口コミ｜再生トナー選びの注意点",
   "list_title": "エネックス PR-L7700C-19 口コミ",
@@ -26596,13 +26675,14 @@
     "postage_included": true
    },
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "j5-create-ipad-iphone-to-windows",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "j5create JCH422 口コミ｜iPad連携ハブの向き不向き",
   "list_title": "j5create JCH422 口コミ",
@@ -26839,13 +26919,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "yazawa-2ac2usb2-1a1-y02k4015wh2ux10-type-usb",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "YAZAWA Y02K4015WH2UX10 口コミ｜雷ガード10個セット",
   "list_title": "YAZAWA電源タップ10個セット",
@@ -27052,13 +27133,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "pc-victrixturtle-beach-tbc-5101-85-k51018cp3500089",
   "category": "pc",
   "sub": "input",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Victrix TBC-5101 口コミ｜中古モジュールコントローラーの注意点",
   "list_title": "Victrix TBC-5101中古レビュー",
@@ -27268,13 +27350,14 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "fargo-sati-color-ac4-usb-ct221gy",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Fargo SATI COLOR CT221GY 口コミ｜4個口USB電源タップ",
   "list_title": "Fargo CT221GY 電源タップ",
@@ -27485,13 +27568,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "lenovo-thinkpad-t14s-gen-pc",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ThinkPad T14s Gen 6 ケース 口コミ｜互換3点セットの注意点",
   "list_title": "ThinkPad T14s 保護3点セット",
@@ -27718,13 +27802,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "eufy-x8-x10-omni",
   "category": "appliance",
   "sub": "clean",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Eufy X8 Pro/X10 Pro Omni対応 ダストバッグ 口コミ",
   "list_title": "Eufy X8/X10対応ダストバッグ10枚",
@@ -27961,7 +28046,8 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "p10-milbon-color-gadget",
@@ -28204,7 +28290,7 @@
   "slug": "pc-oa-mpd-9x10",
   "category": "pc",
   "sub": "input",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "MPD-9X10 マウスパッド10枚セット口コミ｜使い道と選び方",
   "list_title": "MPD-9X10 マウスパッド10枚セット",
@@ -28436,13 +28522,14 @@
   },
   "health": {
    "checked": "2026-10-01"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "rog-strix-g17-g713-rt-ppr-lspc17-mc005330",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "メディアカバーマーケットG713保護フィルム 口コミと紙感覚の実力",
   "list_title": "メディアカバーマーケットG713保護フィルム",
@@ -28645,13 +28732,14 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "lenovo-thinkpad-e16-gen-jgs-bgt",
   "category": "pc",
   "sub": "input",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ThinkPad E16 Gen1 互換3点セット 口コミ｜キーボード保護と適合",
   "list_title": "ThinkPad E16 Gen1 互換3点セット",
@@ -28880,13 +28968,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "usb-type-c-6-in-1-on-usb-pd",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ロジテック LHB-PMP6U3S 口コミ｜6-in-1 USB-Cハブの使い勝手",
   "list_title": "ロジテック LHB-PMP6U3S 口コミ",
@@ -29128,13 +29217,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "hdl2-le04-e-5gbe-hdd-4tb-nas",
   "category": "pc",
   "sub": "storage",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "アイオーデータ HDL2-LE04 口コミ｜2.5GbE対応NASの評判",
   "list_title": "アイオーデータ HDL2-LE04 口コミ",
@@ -29345,13 +29435,14 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "pd-829ws-u75cv-13a-withna",
   "category": "kitchen",
   "sub": "appliance",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "パロマ WITHNA PD-829WS 口コミ｜無水両面焼きグリルの評判",
   "list_title": "パロマ WITHNA PD-829WS 評判",
@@ -29577,13 +29668,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "fz-vdm551-68wh-panasonic",
   "category": "pc",
   "sub": "parts",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "パナソニック FZ-VDM55 交換用バッテリー 口コミと確認ポイント",
   "list_title": "パナソニック FZ-VDM55バッテリー",
@@ -29811,13 +29903,14 @@
     "postage_included": false
    },
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "ca-r70gyx10-dvi-hdmi-vga-dvd-usb",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "サンワサプライ CA-R70GYX10 口コミ｜ケーブルカバーの評判",
   "list_title": "サンワサプライ ケーブルカバー10個",
@@ -30033,13 +30126,14 @@
   },
   "health": {
    "checked": "2026-10-01"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "zenbook-ux433fn-a5021r-50wh-asus-pc",
   "category": "pc",
   "sub": "laptop",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ZenBook UX433FN-A5021R 交換バッテリー 口コミと選び方",
   "list_title": "ASUS UX433FN 互換バッテリー選び方",
@@ -30268,13 +30362,14 @@
     "postage_included": false
    },
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "imf-470",
   "category": "daily",
   "sub": "bath",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "丸山タオル ふわリッチ IMF-470 口コミ｜今治製ギフトタオル",
   "list_title": "丸山タオル ふわリッチ IMF-470",
@@ -30482,13 +30577,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "od361234mlr-led",
   "category": "furniture",
   "sub": "deco",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "オーデリック OD361234MLR 口コミ｜黒枠ダウンライト選びの注意点",
   "list_title": "オーデリックOD361234MLRダウンライト",
@@ -30706,13 +30802,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "thermal-grizzly-intel-cpu-lt-tg-cf-i1700-lt",
   "category": "pc",
   "sub": "parts",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "サーマルグリズリー TG-CF-i1700-LT 口コミ｜LGA1700反り対策",
   "list_title": "サーマルグリズリー コンタクトフレームLT",
@@ -30920,13 +31017,14 @@
   },
   "health": {
    "checked": "2026-09-30"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "inspiron-14-5458-66wh-dell",
   "category": "pc",
   "sub": "parts",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Inspiron 14-5458 交換バッテリー口コミ｜互換品の選び方",
   "list_title": "Dell Inspiron 14-5458 電池",
@@ -31202,13 +31300,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "windows10-pc-lifebook-a574-m-core",
   "category": "pc",
   "sub": "laptop",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "富士通LIFEBOOK A574/M 中古PC口コミと購入前の注意点",
   "list_title": "富士通LIFEBOOK A574/M 中古PC",
@@ -31481,13 +31580,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "endgame-gear-em-c-x-x-egg-emc-500-blk",
   "category": "pc",
   "sub": "input",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Endgame Gear EM-C PLUS 口コミ｜500×500mmパッドの確認点",
   "list_title": "エンドゲームギア EM-C PLUS 評価",
@@ -31710,13 +31810,14 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "pc-ns-06bk",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ミヨシ NS-06BK 口コミ｜置くだけノートPCスタンドの向き不向き",
   "list_title": "ミヨシ NS-06BK 置くだけスタンド",
@@ -31972,7 +32073,8 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "2-7kg-greenies",
@@ -32247,7 +32349,7 @@
   "slug": "kae-g13n",
   "category": "kitchen",
   "sub": "appliance",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "タイガー魔法瓶 KAE-G13N 口コミ｜うまパントースターの評判",
   "list_title": "タイガー KAE-G13N 口コミ",
@@ -32482,13 +32584,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "rsy-2-recolte-3",
   "category": "kitchen",
   "sub": "appliance",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "レコルト RSY-2 口コミ｜自動調理ポットの選び方と注意点",
   "list_title": "レコルト RSY-2 自動調理ポット",
@@ -32711,13 +32814,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "simplus-sp-rcmc4",
   "category": "kitchen",
   "sub": "appliance",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "simplus SP-RCMC4 口コミ｜4合マイコン炊飯器と一人暮らし適性",
   "list_title": "simplus SP-RCMC4 4合炊飯器",
@@ -32936,13 +33040,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "rsb-4-recolte",
   "category": "kitchen",
   "sub": "appliance",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "レコルト RSB-4 口コミ｜ソロブレンダーの評判と選び方",
   "list_title": "レコルトRSB-4 口コミ",
@@ -33202,13 +33307,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "dvd-usb3-type-c-dvd-cd-dvd",
   "category": "pc",
   "sub": "storage",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "常連 外付けDVDドライブ 口コミ｜Type-C対応の使い勝手",
   "list_title": "常連 外付けDVDドライブ",
@@ -33432,13 +33538,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "yoh-200-yamazen",
   "category": "kitchen",
   "sub": "appliance",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "山善 YOH-200 口コミ｜20穴たこ焼き器の使い勝手",
   "list_title": "山善YOH-200 たこ焼き器",
@@ -33661,13 +33768,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "tp-link-tapo-c200-amazon-alexa",
   "category": "camera",
   "sub": "security",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "TP-Link Tapo C200 口コミ｜見守りカメラの評判",
   "list_title": "TP-Link Tapo C200 口コミ",
@@ -33926,13 +34034,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "sd-4in1-iphone17-1tb-usb-c-type-c",
   "category": "pc",
   "sub": "peripheral",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "W STYLE SDカードリーダー口コミ｜iPhone転送の注意点",
   "list_title": "W STYLE 4in1カードリーダー",
@@ -34168,13 +34277,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "vgp2023-funlogy-sound3-bluetooth-iphone-tv",
   "category": "av",
   "sub": "speaker",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "FUNLOGY Sound3 口コミ｜サウンドバーの音質と壁掛け設置",
   "list_title": "FUNLOGY Sound3 口コミ",
@@ -34443,13 +34553,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "fotopro-digi-204",
   "category": "camera",
   "sub": "tripod",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Fotopro DIGI-204 口コミ｜三脚とスマホホルダーの実力",
   "list_title": "Fotopro DIGI-204 三脚",
@@ -34658,7 +34769,8 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "32gb",
@@ -34939,7 +35051,7 @@
   "slug": "db74-secustation",
   "category": "camera",
   "sub": "security",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "防犯カメラDB74 口コミ｜穴あけ不要ソーラー式の向き不向き",
   "list_title": "防犯カメラDB74 口コミ・レビュー",
@@ -35203,13 +35315,14 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "bruno-boe021-bruno",
   "category": "kitchen",
   "sub": "appliance",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "BRUNO BOE021 深鍋セット 口コミ｜同梱内容の確認ポイント",
   "list_title": "BRUNO BOE021 深鍋セット 口コミ",
@@ -35442,13 +35555,14 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "ms-office-h-b-windows11-core",
   "category": "pc",
   "sub": "laptop",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Dynabook中古ノートPC口コミ｜i5第8世代とOffice同梱",
   "list_title": "Dynabook中古PC(Office付)",
@@ -35671,13 +35785,14 @@
   },
   "health": {
    "checked": "2026-09-29"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "p10",
   "category": "pet",
   "sub": "care",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "薄型ペットシーツ業務用ケース(レギュラー800枚/ワイド400枚/スーパーワイド200枚)｜3サイズの選び方と購入前の確認点",
   "list_title": "薄型ペットシーツ業務用ケース",
@@ -35898,7 +36013,8 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "celeron-cpu-windows11-ssd-windows11-lan",
@@ -36185,7 +36301,7 @@
   "slug": "winten-fhd-ips-pc-switch-iphone",
   "category": "pc",
   "sub": "monitor",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "WINTEN WT-156H2-BS レビュー｜モバイルモニターの特徴と購入前の確認点",
   "list_title": "WINTEN WT-156H2-BS モニター",
@@ -36409,13 +36525,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "vgp2022-bluetooth-funlogy-portable-tws-ip67",
   "category": "av",
   "sub": "speaker",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "FUNLOGY Portable 口コミ｜IP67防水スピーカーの実力",
   "list_title": "FUNLOGY Portable 口コミ・仕様分析",
@@ -36655,13 +36772,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "h70ft-h70ft-h70ft-bac06wh",
   "category": "kitchen",
   "sub": "appliance",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ヒューロム H70FT-BAC06WH 口コミ|スロージューサー",
   "list_title": "ヒューロムH70FT 口コミ",
@@ -36882,13 +37000,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "mi-tune01-bluetooth-enc-hi-fi-android",
   "category": "av",
   "sub": "headphone",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Mi Tune01 口コミ｜ワイヤレスイヤホンの評判と注意点",
   "list_title": "Mi Tune01 口コミレビュー",
@@ -37118,13 +37237,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "usb-wifi-5ghz-sd-mf45a-secustation",
   "category": "camera",
   "sub": "security",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "SecuSTATION MF45A 口コミ｜小型防犯カメラの選び方",
   "list_title": "SecuSTATION MF45A 口コミ",
@@ -37389,7 +37509,8 @@
   },
   "health": {
    "checked": "2026-10-01"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "pc-20260914",
@@ -37640,7 +37761,7 @@
   "slug": "royallife",
   "category": "furniture",
   "sub": "bed",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "RoyalLife二度寝注意枕 口コミ｜低反発でストレートネック対応",
   "list_title": "RoyalLife 二度寝注意枕 口コミ",
@@ -37883,13 +38004,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "appliance-20260914",
   "category": "appliance",
   "sub": "aircon",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "「10000mAh 超お得ハンディファン」口コミ｜冷却プレートと持続時間を検証",
   "list_title": "「10000mAh 超お得ハンディファン」口コミ",
@@ -38148,7 +38270,8 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "office-windows11-a4-core-i5-8gb",
@@ -38440,7 +38563,7 @@
   "slug": "sd-32gb-microsdhc-class10",
   "category": "pc",
   "sub": "",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ノーブランドmicroSDHC 32GB 口コミ｜容量確認と速度規格の注意点",
   "list_title": "ノーブランドmicroSDHC32GB 口コミ",
@@ -38671,13 +38794,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "ldk-wifi-xb53k-tb53k-secustation",
   "category": "camera",
   "sub": "security",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "セキュベビー XB53K 口コミ｜wifi不要ベビーモニター",
   "list_title": "セキュベビー XB53K 口コミ",
@@ -38934,13 +39058,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "relaxia-no1",
   "category": "health",
   "sub": "care",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Relaxia筋膜ローラー口コミ｜むくみケアの効果と選び方",
   "list_title": "Relaxia筋膜ローラー 口コミ",
@@ -39205,13 +39330,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "xrs-d010",
   "category": "appliance",
   "sub": "laundry",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "±0 XRS-D010 口コミ｜吊るせるスチーマーの評判",
   "list_title": "±0 XRS-D010 口コミ",
@@ -39426,13 +39552,14 @@
   },
   "health": {
    "checked": "2026-10-02"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "wtw-ptz-wifi-ip",
   "category": "camera",
   "sub": "security",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "WTW塚本無線 防犯カメラ｜屋外PTZ首振りの設置条件を検証",
   "list_title": "WTW塚本無線 屋外防犯カメラ",
@@ -39642,13 +39769,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "rcp-3-recolte-capsule-cutter-bonne",
   "category": "kitchen",
   "sub": "appliance",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "recolte カプセルカッター ボンヌ RCP-3 口コミ｜離乳食での実力",
   "list_title": "レコルト ボンヌ RCP-3 口コミ",
@@ -39908,7 +40036,8 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "win11-web-8gb-32gb-ssd-256gb",
@@ -40232,7 +40361,7 @@
   "slug": "cd-cx-3",
   "category": "furniture",
   "sub": "shelf",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "アイリスオーヤマCX-3 口コミ｜横置き対応3段ボックスの使い勝手",
   "list_title": "アイリスオーヤマCX-3 カラーボックス",
@@ -40495,13 +40624,14 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "hubath-makuake-sm64",
   "category": "daily",
   "sub": "bath",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "HUBATH SM64 口コミ｜排水口ヘアキャッチャーの評判",
   "list_title": "HUBATH SM64 ヘアキャッチャー口コミ",
@@ -40746,13 +40876,14 @@
   },
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "pn015-s-m-l-ll",
   "category": "fashion",
   "sub": "wear",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "みんなのデニム pn015 口コミ｜小柄さん向け丈とサイズの選び方",
   "list_title": "みんなのデニム pn015 口コミ",
@@ -41022,7 +41153,8 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "uv-big-spf50-2",
@@ -41237,7 +41369,7 @@
   "slug": "u-v-2way-t-t-t",
   "category": "fashion",
   "sub": "wear",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "裏起毛カットソー 2way 口コミ｜ネック3種の選び方と確認点",
   "list_title": "裏起毛カットソー 2way 口コミ",
@@ -41527,7 +41659,8 @@
   },
   "health": {
    "checked": "2026-09-29"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "beauty-20260911",
@@ -41839,7 +41972,7 @@
   "slug": "beauty-20260911-2",
   "category": "beauty",
   "sub": "skincare",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "レステモ オールインワンゲルクリーム 詰め替え500g 口コミ｜使用感と選び方",
   "list_title": "レステモ オールインワンゲル 詰め替え500g 口コミ",
@@ -42144,7 +42277,8 @@
   },
   "health": {
    "checked": "2026-09-29"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "timesale-usb-usb-2",
@@ -42440,7 +42574,7 @@
   "slug": "w-famy-jppma-w",
   "category": "pet",
   "sub": "care",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Famy ペットシーツ 口コミ｜うす型と厚型の選び分け",
   "list_title": "Famy ペットシーツ 口コミ",
@@ -42747,7 +42881,8 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "anua-pdrn-100-50ml",
@@ -43582,7 +43717,7 @@
   "slug": "furniture-20260910-5",
   "category": "furniture",
   "sub": "bed",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "三つ折り高反発マットレス10cm 口コミ｜床敷きで評価が分かれる理由",
   "list_title": "三つ折り高反発マットレス10cm 口コミ",
@@ -43853,13 +43988,14 @@
   ],
   "health": {
    "checked": "2026-09-29"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "bluetooth5-ipx7-aac-iphone",
   "category": "av",
   "sub": "headphone",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "IPX7防水ワイヤレスイヤホン 口コミ｜120時間再生の実際",
   "list_title": "IPX7防水ワイヤレスイヤホン 口コミ",
@@ -44129,13 +44265,14 @@
   ],
   "health": {
    "checked": "2026-09-29"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "recolte-rcp-7",
   "category": "kitchen",
   "sub": "appliance",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "レコルト RCP-7 口コミ｜コードレスが合う人と容量の注意",
   "list_title": "レコルト RCP-7 口コミ",
@@ -44394,7 +44531,8 @@
   ],
   "health": {
    "checked": "2026-09-29"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "furniture-20260910-4",
@@ -44999,7 +45137,7 @@
   "slug": "gokubuto",
   "category": "furniture",
   "sub": "bed",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "GOKUBUTO 敷布団 口コミ｜極太と超極太の選び方",
   "list_title": "GOKUBUTO 五層敷布団の口コミ",
@@ -45287,7 +45425,8 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "furniture-20260910",
@@ -45590,7 +45729,7 @@
   "slug": "d-d-ray",
   "category": "beauty",
   "sub": "makeup",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "d-ray D-クリア ファンデーション 12g｜合う人と購入前の確認点",
   "list_title": "d-ray D-クリア ファンデ 12g 確認点",
@@ -45873,7 +46012,8 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "sns-s-m-l",
@@ -46481,7 +46621,7 @@
   "slug": "granfort-justright",
   "category": "furniture",
   "sub": "bed",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "GRANFORT JUSTRIGHT 敷布団 口コミ｜連結サイズと直敷きの注意点",
   "list_title": "GRANFORT ジャストライト敷布団",
@@ -46767,13 +46907,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "furniture-20260909",
   "category": "furniture",
   "sub": "bed",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "高反発マットレス「純」3つ折り10cm厚｜洗える範囲と選び方の確認点",
   "list_title": "高反発マットレス「純」3つ折り10cm厚の選び方",
@@ -47022,13 +47163,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "3type",
   "category": "fashion",
   "sub": "wear",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "選べる3TYPEラク伸びストレッチスキニーパンツ 口コミ｜3TYPEの選び方",
   "list_title": "選べる3TYPEラク伸びストレッチスキニーパンツ 口コミ",
@@ -47327,13 +47469,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "bramone-basic-natural-3way-tu-hacci",
   "category": "fashion",
   "sub": "wear",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "tu-hacci BRAmone Basic 口コミ｜綿ブラキャミの選び方",
   "list_title": "tu-hacci BRAmone Basic 口コミ",
@@ -47640,13 +47783,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "mj-lt",
   "category": "daily",
   "sub": "bath",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ホテルスタイル ビッグフェイスタオル 40×100cm 4枚セット 口コミ｜バスタオル卒業の適正サイズ",
   "list_title": "ホテルスタイル ビッグフェイスタオル",
@@ -47934,13 +48078,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "wifi-dc23-mq53-dc53b-dc55b-secustation",
   "category": "camera",
   "sub": "security",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "SecuSTATION カメまる 口コミ｜見守りカメラの確認点",
   "list_title": "SecuSTATION カメまる 口コミ",
@@ -48228,13 +48373,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "a034",
   "category": "furniture",
   "sub": "bed",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "布団7点セット A034 口コミ｜直敷きの可否と確認点",
   "list_title": "布団7点セット A034 口コミ",
@@ -48550,7 +48696,8 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "pet-20260908",
@@ -48851,7 +48998,7 @@
   "slug": "s-m-l-ll-zootie",
   "category": "fashion",
   "sub": "wear",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "zootie エアパンツ 口コミ｜サイズ選びと生地感の注意点",
   "list_title": "zootie エアパンツ 口コミ",
@@ -49120,7 +49267,8 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "led-n2",
@@ -49408,7 +49556,7 @@
   "slug": "arromic-st-x3ba",
   "category": "daily",
   "sub": "bath",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "アラミック ST-X3BA 口コミ｜節水シャワーヘッドの取付条件",
   "list_title": "アラミック ST-X3BA 口コミ",
@@ -49658,7 +49806,8 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "furniture-20260908",
@@ -50439,7 +50588,7 @@
   "slug": "salonia-salonia-2way-hk-2way-slall",
   "category": "beauty",
   "sub": "device",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "SALONIA 2WAYヘアアイロン32mm 口コミ｜海外対応と確認点",
   "list_title": "SALONIA 2WAY アイロン32mm",
@@ -50681,13 +50830,14 @@
   },
   "health": {
    "checked": "2026-09-30"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "mjcare-mijin-apm24-cica",
   "category": "beauty",
   "sub": "skincare",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "MJCARE エッセンスマスク 口コミ｜個包装80〜100枚の選び方",
   "list_title": "MJCARE エッセンスマスク口コミ",
@@ -50981,13 +51131,14 @@
   },
   "health": {
    "checked": "2026-09-30"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "bramone-basic-volume-tu-hacci",
   "category": "fashion",
   "sub": "wear",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "BRAmone Basic Volume+ 口コミ｜ワイヤー入りブラトップの選び方",
   "list_title": "BRAmone Basic Volume+ ブラトップ",
@@ -51228,7 +51379,8 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "appliance-20260908",
@@ -51480,7 +51632,7 @@
   "slug": "botanist-botanical",
   "category": "beauty",
   "sub": "haircare",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "BOTANIST ボタニカルシャンプー口コミ｜種類の選び方と注意点",
   "list_title": "BOTANIST ボタニカルシャンプー",
@@ -51748,7 +51900,8 @@
   },
   "health": {
    "checked": "2026-09-30"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "kitchen-20260908",
@@ -52044,7 +52197,7 @@
   "slug": "90n-s-sd-d-q-k",
   "category": "furniture",
   "sub": "bed",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "低反発マットレストッパー8cm 90N 口コミ｜合う寝床の条件",
   "list_title": "低反発トッパー8cm 90N 口コミ",
@@ -52327,13 +52480,14 @@
   },
   "health": {
    "checked": "2026-10-03"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "orage-c33",
   "category": "appliance",
   "sub": "clean",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Orage C33 口コミ｜コードレス掃除機の向き不向き",
   "list_title": "Orage C33 コードレス掃除機",
@@ -52623,13 +52777,14 @@
     "shops": 2
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "sd-microsdxc-128gb-sandisk-r-140mb",
   "category": "camera",
   "sub": "acc",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "SanDisk SDSQUAB-128G 口コミ｜並行輸入品の注意点",
   "list_title": "SanDisk 128GB microSD",
@@ -52896,13 +53051,14 @@
   ],
   "health": {
    "checked": "2026-09-29"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "ai-infield",
   "category": "health",
   "sub": "measure",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "infield 体組成計 口コミ｜スマホ連動と測定のコツ",
   "list_title": "infield スマホ連動体組成計の評判",
@@ -53166,13 +53322,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "salonia",
   "category": "beauty",
   "sub": "device",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "SALONIA ストレートアイロン 口コミ｜太さの選び方と確認点",
   "list_title": "SALONIA ストレートアイロン 口コミ",
@@ -53430,13 +53587,14 @@
   ],
   "health": {
    "checked": "2026-10-04"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "tanita-fs-101-fs101",
   "category": "health",
   "sub": "measure",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "タニタ FS-101 口コミ｜体組成計の選び方と確認点",
   "list_title": "タニタ FS-101 口コミ",
@@ -53716,7 +53874,8 @@
     "shops": 2
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "coolify",
@@ -54011,7 +54170,7 @@
   "slug": "p10-yunth-c-c",
   "category": "beauty",
   "sub": "skincare",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Yunth 生ビタミンC美容液（1ml×28包）｜向く人・向かない人と購入前の確認点",
   "list_title": "Yunth 生ビタミンC美容液",
@@ -54260,7 +54419,8 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "00-9",
@@ -54564,7 +54724,7 @@
   "slug": "kitchen-20260906",
   "category": "beauty",
   "sub": "",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "アテニア スキンクリア クレンズ オイル 350mL｜つめかえ用と本体の見分け方",
   "list_title": "アテニア スキンクリア クレンズ オイル",
@@ -54787,13 +54947,14 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "beauty-20260906-2",
   "category": "beauty",
   "sub": "skincare",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "PLuS プラセンタモイスチュアマスク70枚 口コミ｜香りと選び方",
   "list_title": "PLuS プラセンタマスク70枚 口コミ",
@@ -55061,7 +55222,7 @@
     "a": "どちらでも取り扱いがあります。枚数・香りのバリエーション・出品者が同じ構成かを見比べ、送料を含めた条件で選ぶのが基本です。同じ商品名でも出品者によって枚数構成が違うことがあるため、注文前に内容量の表記を確認してください。"
    }
   ],
-  "unpublished_reason": "同じ商品の記事が既にあるため停止（2026-09-07）",
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luire/cabinet/plus04/mask26a-2_off50.jpg?_ex=128x128"
   },
@@ -55581,7 +55742,7 @@
   "slug": "anker-prime-power-bank-20100mah-220w-with-anker-pr",
   "category": "smartphone",
   "sub": "charger",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "Anker Prime Power Bank 口コミ｜220W高出力モデルの注意点と合う人",
   "list_title": "Anker Prime Power Bank 220W 口コミ・レビュー",
@@ -55828,7 +55989,8 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "gunze-agw112",
@@ -56080,7 +56242,7 @@
   "slug": "schick-3",
   "category": "beauty",
   "sub": "shave",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "シック サロンプラス トーンアップ フェイススムーサー 替刃 口コミと注意点",
   "list_title": "シック サロンプラス 替刃の口コミ・注意点",
@@ -56300,7 +56462,8 @@
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-konekuto/cabinet/compass1689749435.jpg?_ex=128x128"
   },
-  "yahoo_url": "https://store.shopping.yahoo.co.jp/y-kojima/4891228313807.html"
+  "yahoo_url": "https://store.shopping.yahoo.co.jp/y-kojima/4891228313807.html",
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "vivcon-s-40l-1-3",
@@ -59045,7 +59208,7 @@
   "unpublished_reason": "商品同定情報または個別商品URLが不足し、公式根拠を確認できないため（2026-10-06）"
  },
  {
-  "published": true,
+  "published": false,
   "featured": false,
   "amazon_url": "",
   "thumb": "assets/img/gen/ergotron-lx-monitor-arm-review.jpg",
@@ -59347,7 +59510,8 @@
     "shops": 2
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "published": false,
@@ -59907,7 +60071,7 @@
   "unpublished_reason": "商品同定情報または個別商品URLが不足し、公式根拠を確認できないため（2026-10-06）"
  },
  {
-  "published": true,
+  "published": false,
   "featured": false,
   "amazon_url": "",
   "thumb": "assets/img/gen/mx-master-3s-review.jpg",
@@ -60304,10 +60468,11 @@
    "review_stats_present": true,
    "missing": [],
    "blockers": []
-  }
+  },
+  "unpublished_reason": "GPTレビュー合格（90点以上）を確認できないため、再レビュー待ち（2026-10-06）"
  },
  {
-  "published": true,
+  "published": false,
   "featured": false,
   "amazon_url": "",
   "thumb": "assets/img/gen/kindle-paperwhite-signature-review.jpg",
@@ -60601,10 +60766,11 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/iphonecasez/palmokindlepw2set.html",
   "shop_images": {
    "yahoo": "https://item-shopping.c.yimg.jp/i/g/iphonecasez_palmokindlepw2set"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
-  "published": true,
+  "published": false,
   "featured": false,
   "amazon_url": "",
   "thumb": "assets/img/gen/switchbot-hub-remote-review.jpg",
@@ -60950,7 +61116,8 @@
    "checked": "2026-10-05"
   },
   "official_ogp_title": "SwitchBot ハブ2 次世代スマートリモコン",
-  "official_ogp_image": "http://www.switchbot.jp/cdn/shop/files/JP_Hub_2_2x_9a0ec3fb-beee-4124-8957-7de541b7eba2.webp?v=1745810078"
+  "official_ogp_image": "http://www.switchbot.jp/cdn/shop/files/JP_Hub_2_2x_9a0ec3fb-beee-4124-8957-7de541b7eba2.webp?v=1745810078",
+  "unpublished_reason": "GPTレビュー合格（90点以上）を確認できないため、再レビュー待ち（2026-10-06）"
  },
  {
   "published": false,
@@ -61237,7 +61404,7 @@
   "unpublished_reason": "商品ページが到達不能で、現在の販売・商品根拠を確認できないため（2026-10-06）"
  },
  {
-  "published": true,
+  "published": false,
   "featured": false,
   "amazon_url": "",
   "thumb": "assets/img/gen/iris-panel-light-ceiling-review.jpg",
@@ -61572,10 +61739,11 @@
     "postage_included": true
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
-  "published": true,
+  "published": false,
   "featured": false,
   "amazon_url": "",
   "thumb": "assets/img/gen/tower-trash-can-slim-review.jpg",
@@ -61927,7 +62095,8 @@
    "checked": "2026-10-05"
   },
   "official_ogp_title": "トラッシュカン タワー 角型ロング | 山崎実業【公式】",
-  "official_ogp_image": "http://www.yamajitsu.co.jp/cdn/shop/files/241490_collection.jpg?v=1776999809"
+  "official_ogp_image": "http://www.yamajitsu.co.jp/cdn/shop/files/241490_collection.jpg?v=1776999809",
+  "unpublished_reason": "GPTレビュー合格（90点以上）を確認できないため、再レビュー待ち（2026-10-06）"
  },
  {
   "published": false,
@@ -62332,7 +62501,7 @@
   "unpublished_reason": "商品同定情報または個別商品URLが不足し、公式根拠を確認できないため（2026-10-06）"
  },
  {
-  "published": true,
+  "published": false,
   "featured": false,
   "amazon_url": "",
   "thumb": "assets/img/gen/dji-mic-mini-review.jpg",
@@ -62655,7 +62824,8 @@
    "checked": "2026-10-05"
   },
   "official_ogp_title": "DJI Mic Mini - 仕様 - DJI",
-  "official_ogp_image": "https://www-cdn.djiits.com/cms/uploads/d561b942d2162842fdecae335b605d93@374*374.png"
+  "official_ogp_image": "https://www-cdn.djiits.com/cms/uploads/d561b942d2162842fdecae335b605d93@374*374.png",
+  "unpublished_reason": "GPTレビュー合格（90点以上）を確認できないため、再レビュー待ち（2026-10-06）"
  },
  {
   "published": false,
@@ -63490,7 +63660,7 @@
   "unpublished_reason": "商品同定情報または個別商品URLが不足し、公式根拠を確認できないため（2026-10-06）"
  },
  {
-  "published": true,
+  "published": false,
   "featured": false,
   "amazon_url": "",
   "thumb": "assets/img/gen/tilt-footrest-review.jpg",
@@ -63782,7 +63952,8 @@
     "postage_included": false
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "published": false,
@@ -64325,7 +64496,7 @@
   "unpublished_reason": "商品同定情報または個別商品URLが不足し、公式根拠を確認できないため（2026-10-06）"
  },
  {
-  "published": true,
+  "published": false,
   "featured": false,
   "amazon_url": "",
   "thumb": "assets/img/fujiboeki-folding-stool-review-mtit0x62.webp",
@@ -64635,7 +64806,8 @@
     "shops": 1
    },
    "checked": "2026-10-05"
-  }
+  },
+  "unpublished_reason": "GPTレビュー合格（90点以上）を確認できないため、再レビュー待ち（2026-10-06）"
  },
  {
   "slug": "kachika",
@@ -64907,7 +65079,7 @@
   "slug": "refa-ultra-fine-bubble-laundry-rs-ck-00a",
   "category": "daily",
   "sub": "clean",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "ReFa ランドリー RS-CK-00A 口コミ｜洗濯機取り付け型の注意点",
   "list_title": "ReFaランドリー RS-CK-00A 口コミ",
@@ -65151,7 +65323,8 @@
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tea-life/cabinet/goods/refa/15638_thumb_r.jpg?_ex=128x128"
-  }
+  },
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
  },
  {
   "slug": "feature-beauty-skincare-1",
@@ -65238,9 +65411,7 @@
    "items": [
     {
      "title": "MJCARE エッセンスマスク口コミをもう少し細かく確かめたいとき",
-     "text": "MJCAREエッセンスマスクのまとめ買いを、枚数の決め方と注文前の確認点から整理しました。",
-     "link_url": "articles/mjcare-mijin-apm24-cica.html",
-     "link_label": "MJCARE エッセンスマスク口コミのレビューを読む"
+     "text": "MJCAREエッセンスマスクのまとめ買いを、枚数の決め方と注文前の確認点から整理しました。"
     },
     {
      "title": "アテニア スキンクリア クレンズ オイルをもう少し細かく確かめたいとき",
@@ -65248,15 +65419,11 @@
     },
     {
      "title": "PLuS プラセンタマスク70枚 口コミをもう少し細かく確かめたいとき",
-     "text": "70枚の大容量シートマスク。香り表記の落とし穴と、まとめ買いが向く人の条件を整理。",
-     "link_url": "articles/beauty-20260906-2.html",
-     "link_label": "PLuS プラセンタマスク70枚 口コミのレビューを読む"
+     "text": "70枚の大容量シートマスク。香り表記の落とし穴と、まとめ買いが向く人の条件を整理。"
     },
     {
      "title": "Yunth 生ビタミンC美容液をもう少し細かく確かめたいとき",
-     "text": "1ml×28包の個包装が向く人・向かない人と、買う前に確認したい表示のポイント。",
-     "link_url": "articles/p10-yunth-c-c.html",
-     "link_label": "Yunth 生ビタミンC美容液のレビューを読む"
+     "text": "1ml×28包の個包装が向く人・向かない人と、買う前に確認したい表示のポイント。"
     }
    ]
   },
@@ -65690,15 +65857,11 @@
     },
     {
      "title": "レコルト ボンヌ RCP-3 口コミをもう少し細かく確かめたいとき",
-     "text": "少量の離乳食・介護食作りに向くか、口コミから向き不向きを整理",
-     "link_url": "articles/rcp-3-recolte-capsule-cutter-bonne.html",
-     "link_label": "レコルト ボンヌ RCP-3 口コミのレビューを読む"
+     "text": "少量の離乳食・介護食作りに向くか、口コミから向き不向きを整理"
     },
     {
      "title": "レコルト RCP-7 口コミをもう少し細かく確かめたいとき",
-     "text": "レコルト RCP-7 の口コミから、コードレス小型フードプロセッサーが合う人と合わない人を整理。",
-     "link_url": "articles/recolte-rcp-7.html",
-     "link_label": "レコルト RCP-7 口コミのレビューを読む"
+     "text": "レコルト RCP-7 の口コミから、コードレス小型フードプロセッサーが合う人と合わない人を整理。"
     }
    ]
   },
@@ -65910,9 +66073,7 @@
     },
     {
      "title": "選べる3TYPEラク伸びストレッチスキニーパンツ 口コミをもう少し細かく確かめたいとき",
-     "text": "レギンスパンツの評価が分かれる理由と、購入前に実寸で確認すべき4項目を整理。",
-     "link_url": "articles/3type.html",
-     "link_label": "選べる3TYPEラク伸びストレッチスキニーパンツ 口コミのレビューを読む"
+     "text": "レギンスパンツの評価が分かれる理由と、購入前に実寸で確認すべき4項目を整理。"
     },
     {
      "title": "冷感とろみワイドパンツ 口コミをもう少し細かく確かめたいとき",
@@ -65920,15 +66081,11 @@
     },
     {
      "title": "zootie エアパンツ 口コミをもう少し細かく確かめたいとき",
-     "text": "ウエストゴムのストレッチスキニー。楽さで選ぶなら合う、デニム感を求めるなら外れる理由",
-     "link_url": "articles/s-m-l-ll-zootie.html",
-     "link_label": "zootie エアパンツ 口コミのレビューを読む"
+     "text": "ウエストゴムのストレッチスキニー。楽さで選ぶなら合う、デニム感を求めるなら外れる理由"
     },
     {
      "title": "tu-hacci BRAmone Basic 口コミをもう少し細かく確かめたいとき",
-     "text": "締め付けの少なさは評価。ただしホールド力とサイズ選びで評価が割れる理由を解説。",
-     "link_url": "articles/bramone-basic-natural-3way-tu-hacci.html",
-     "link_label": "tu-hacci BRAmone Basic 口コミのレビューを読む"
+     "text": "締め付けの少なさは評価。ただしホールド力とサイズ選びで評価が割れる理由を解説。"
     }
    ]
   },
@@ -66140,9 +66297,7 @@
    "items": [
     {
      "title": "GRANFORT ジャストライト敷布団をもう少し細かく確かめたいとき",
-     "text": "サイズ展開と連結が持ち味の三層敷布団。向く環境と、買う前に測るべき点を整理。",
-     "link_url": "articles/granfort-justright.html",
-     "link_label": "GRANFORT ジャストライト敷布団のレビューを読む"
+     "text": "サイズ展開と連結が持ち味の三層敷布団。向く環境と、買う前に測るべき点を整理。"
     },
     {
      "title": "フェザー素材の布団セット7点・9点をもう少し細かく確かめたいとき",
@@ -66158,9 +66313,7 @@
     },
     {
      "title": "GOKUBUTO 五層敷布団の口コミをもう少し細かく確かめたいとき",
-     "text": "極太と超極太、どちらを選ぶか。三つ折り時の寸法と硬さの評価が割れる理由を整理しました。",
-     "link_url": "articles/gokubuto.html",
-     "link_label": "GOKUBUTO 五層敷布団の口コミのレビューを読む"
+     "text": "極太と超極太、どちらを選ぶか。三つ折り時の寸法と硬さの評価が割れる理由を整理しました。"
     }
    ]
   },
@@ -66776,9 +66929,7 @@
     },
     {
      "title": "付属のタッチパッドが使いにくい",
-     "text": "中古ノートのタッチパッドは、機種や個体によって使い心地に差があります。長時間の作業には、手に合うマウスを足すと楽になります。",
-     "link_url": "articles/mx-master-3s-review.html",
-     "link_label": "ロジクール MX Master 3S のレビューを見る"
+     "text": "中古ノートのタッチパッドは、機種や個体によって使い心地に差があります。長時間の作業には、手に合うマウスを足すと楽になります。"
     }
    ]
   },
