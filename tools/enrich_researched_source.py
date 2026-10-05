@@ -7,6 +7,41 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "fujiboeki-folding-stool-review": {
+        "official_url": "https://www.fujiboeki.jp/products/86078/",
+        "facts": [
+            "不二貿易公式情報でフォールディングステップスツール H39cm、品番86078を確認",
+            "公式情報のサイズ：幅39×奥行33×高さ39cm、座面290×220mm",
+            "公式情報の折りたたみ時サイズ：幅390×奥行45×高さ530mm",
+            "公式情報の重量：1.45kg、座面耐荷重：150kg",
+            "公式情報の材質：本体ポリプロピレン、滑り止めTPR",
+            "公式情報のカラー：ホワイト／カーキ／ブラック",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた使い勝手",
+            "who": "楽天市場みんなのレビュー（2022年3月31日投稿）",
+            "text": "個別投稿では、開閉が簡単で使いやすく、高さもちょうどよいという感想が確認できます。これは1件の投稿の内容であり、全購入者の傾向とは扱いません。",
+            "negative": False,
+            "fix_title": "開閉と高さを設置場所で確認する",
+            "fix": "開いた状態の幅・奥行きと高さ39cmが置き場所に合うかを先に測り、折りたたんだ状態で収納できる場所も確認してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.fujiboeki.jp/products/86078/",
+            "title": "不二貿易公式商品情報 86078",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/kankapro/20240602080328_138/",
+            "title": "楽天市場 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/item/1/227725_10001649/1.1/",
+            "title": "楽天市場 みんなのレビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "ylt-ag30e-yamazen": {
         "official_url": "https://book.yamazen.co.jp/product/detail/I00004142",
         "facts": [
