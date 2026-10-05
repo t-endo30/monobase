@@ -7,6 +7,45 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "cellularline-iphone18pro-iphone18promax": {
+        "official_url": "https://www.lauda.co.jp/c/brand/cl/handypadk",
+        "rakuten_url": "https://item.rakuten.co.jp/lauda/cl-grip/",
+        "facts": [
+            "Cellularline日本代理店ページでGRIPの案内を確認",
+            "Cellularline公式の車載ホルダー案内で、製品群に固定方式の異なる車載ホルダーがあることを確認",
+            "楽天市場の個別商品ページで商品番号XL-GRIP、対応機種欄にiPhone 18 Pro／18 Pro Maxなどの表示を確認",
+            "楽天市場の個別商品ページでダッシュボード等への粘着固定を特徴として表示",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた固定力と設置条件",
+            "who": "楽天市場みんなのレビュー（ZEROA楽天市場店の個別商品ページ、2026-10-06確認）",
+            "text": "個別投稿では、平らな面積が少ない車内でも安定したという声、長期間使っても剥がれや劣化が少ないという声、粘着力が強い一方でほこりが付きやすいという指摘を確認できます。個別投稿の内容であり、すべての車種や使用環境に当てはまるとは扱いません。",
+            "negative": True,
+            "fix_title": "貼り付け面と取り外し条件を確認する",
+            "fix": "レンタカーで使う場合は、ダッシュボードの素材・曲面・貼り付け可否を事前に確認し、返却時に跡を残さず取り外せるかも販売ページの案内で確かめてください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.lauda.co.jp/c/brand/cl/handypadk",
+            "title": "Cellularline日本代理店 ブランド商品案内",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "official_catalog",
+            "url": "https://www.cellularline.com/en-fr/Power-and-Holders/Car-and-Bike-Holders/c-0009",
+            "title": "Cellularline公式 車載・自転車ホルダー一覧",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/lauda/cl-grip/",
+            "title": "楽天市場 Cellularline GRIP 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/212271_10001703/1.1/",
+            "title": "楽天市場 みんなのレビュー Cellularline GRIP",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "led-pv-bl2h-n": {
         "official_url": "https://kadenfan.hitachi.co.jp/clean/lineup/pv-bl2h/",
         "facts": [
