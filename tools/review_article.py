@@ -799,7 +799,7 @@ def main():
             if not_reviewed:
                 print("    ✗ レビューが実行できていません。"
                       "機械検査だけでは判断できないので、やり直してください")
-            if args.publish and not args.dry_run:
+            if args.publish and not args.dry_run and not_reviewed is False:
                 a["published"] = False
                 a["unpublished_reason"] = "レビュー不合格：根拠・独自性・安全性の再確認が必要"
                 print("    → published: false（レビュー不合格）")
