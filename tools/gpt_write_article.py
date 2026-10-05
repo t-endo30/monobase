@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Claude経路を変更せずに、OpenAI Responses APIで記事を書く経路。"""
+import argparse
+import io
+import os
+import sys
+import time
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from gpt_llm import GPTError, request_json
+from gpt_schemas import ARTICLE_SCHEMA
+from write_article import (ARTICLES, INDEX_MIN_REVIEWS, MIN_CHARS, ROOT,
+                           apply_generated, audit, body_chars, build_prompt,
+                           delete_article, is_empty, kind_of, load,
+                           report_self_check, review_count, save_article,
+                           section_chars)
+
+
+INSTRUCTIONS = """あなたはモノベースの編集部員です。与えられた事実・公式情報・口コミだけで、購入判断に役立つ日本語記事を作成してください。
+事実にない仕様、体験、口コミ、価格、効果を補わないでください。曖昧な情報は data_gaps に記録し、rating と spec は根拠がある場合だけ値を入れてください。出力は指定されたJSON Schemaに厳密に従うJSONオブジェクトだけにしてください。"""
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("slugs", nargs="*")
+    ap.add_argument("--drafts", action="store_true", help="本文が空の未公開下書き")
+    ap.add_argument("--model", default=None)
+    ap.add_argument("--timeout", type=int, default=300)
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--no-fetch", action="store_true")
+    ap.add_argument("--keep-updated", action="store_true")
+    args = ap.parse_args()
+
+    arts = load(ARTICLES)
+    site = load("content/site.json")
+    prompt_md = io.open(os.path.join(ROOT, "docs", "article-prompt.md"), encoding="utf-8").read()
+    if args.drafts:
+        targets = [a for a in arts if not a.get("published") and is_empty(a)]
+    else:
+        wanted = set(args.slugs)
+        targets = [a for a in arts if a.get("slug") in wanted]
+    if not targets:
+        print("対象の記事がありません。--drafts または slug を指定してください。")
+        return 0
+
+    print(f"{len(targets)} 本をGPT経路で生成します")
+    failed = 0
+    for i, original in enumerate(targets, 1):
+        slug = original.get("slug", "?")
+        print(f"[{i}/{len(targets)}] {slug}")
+        fresh = next((x for x in load(ARTICLES) if x.get("slug") == slug), None)
+        a = fresh or original
+        count = review_count(a)
+        if kind_of(a) == "review" and not a.get("spec") and count is not None and count < INDEX_MIN_REVIEWS:
+            print(f"  - 口コミ {count} 件のため対象外")
+            continue
+        prompt = build_prompt(a, site, prompt_md, fetch_official=not args.no_fetch)
+        try:
+            gen = request_json(INSTRUCTIONS, prompt, ARTICLE_SCHEMA,
+                               model=args.model, timeout=args.timeout, cwd=ROOT)
+        except GPTError as exc:
+            print(f"  ✗ 生成失敗: {exc}")
+            failed += 1
+            continue
+        if kind_of(a) == "review" and section_chars(gen) < 1300:
+            print(f"  ✗ sections が {section_chars(gen)} 字。公開候補にしません")
+            failed += 1
+            continue
+        candidate = dict(a)
+        apply_generated(candidate, gen, keep_updated=args.keep_updated)
+        warns = audit(candidate)
+        for warning in warns:
+            print(f"  △ {warning}")
+        report_self_check(gen)
+        print(f"  ✓ JSON受領（本文 {body_chars(gen):,} 字）。レビュー待ち")
+        if not args.dry_run:
+            save_article(candidate)
+    print(f"完了：失敗 {failed} 本。生成後は tools/gpt_review_article.py を必ず実行してください。")
+    return 1 if failed else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
