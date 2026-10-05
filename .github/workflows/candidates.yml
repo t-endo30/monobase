@@ -1,11 +1,10 @@
 name: Check candidates
 
-# 商品の候補集めだけを、本番のAPIで試す（記事は書かない・何も変えない）。
+# 商品の候補集めを本番APIで行い、候補JSONをリポジトリへ反映する（記事は書かない）。
 #
 # write.yml は候補集めのあと本文生成まで一気に走るので、候補の出方だけを
-# 見たいときに回すと Claude Code のサブスク枠を無駄に使う。ここは
-# tools/pick_products.py を1回走らせてログに出すだけで、コミットも
-# プッシュもしない。
+# 見たいときに回すための経路。SecretsはActions内だけで使い、候補JSONだけを
+#コミットする。
 #
 # 使いどころ（CLAUDE.md「毎日走っているのに0本」の節も参照）：
 #   ・カテゴリー／サブ区分の偏りを直したあと、実際に散るか確かめる
@@ -30,7 +29,7 @@ on:
         default: '14'
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: check-candidates
@@ -72,6 +71,20 @@ jobs:
           path: /tmp/candidates.json
           if-no-files-found: error
           retention-days: 1
+
+      - name: 候補JSONをリポジトリへ反映
+        if: success()
+        run: |
+          cp /tmp/candidates.json content/candidates.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f content/candidates.json
+          if git diff --cached --quiet; then
+            echo "候補に変更がないためコミットしません"
+          else
+            git commit -m "Update product candidates"
+            git push
+          fi
 
       # 何が取れたのかを、実行サマリーに残す（ログを追わなくて済むように）
       - name: 結果をまとめる
