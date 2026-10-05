@@ -7,6 +7,43 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "switchbot-hub-remote-review": {
+        "official_url": "https://www.switchbot.jp/collections/all/products/switchbot-hub2",
+        "facts": [
+            "SwitchBot公式商品ページでハブ2を確認",
+            "楽天市場の個別商品ページで本体サイズ80×70×23mm、重量63gと表示",
+            "楽天市場の個別商品ページでWi-Fiは2.4GHz帯のみ対応と表示",
+            "楽天市場の個別商品ページで温度・湿度測定機能、Matter対応、赤外線家電操作を案内",
+            "楽天市場の個別商品ページで保証期間は購入日から1年間と表示",
+            "公式販売ページの利用者投稿では、古い家電で一部操作だけになるという指摘と、アプリで複数家電を管理できたという投稿を確認",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた対応可否の注意",
+            "who": "SwitchBot公式店 楽天市場の利用者投稿（2026年9月10日投稿）",
+            "text": "個別投稿では、古い家電ではリモコン登録後も電源のオン・オフだけになり、温度調整や照明の明暗調整ができなかったという指摘がありました。対応状況は家電とリモコンの組み合わせで確認が必要です。",
+            "negative": True,
+            "fix_title": "古い家電は操作範囲を先に確認する",
+            "fix": "購入前に、使いたい家電のメーカー・型番と、必要な操作が対応表やアプリで確認できるかを照合してください。",
+        }, {
+            "heading": "複数家電をまとめたという投稿",
+            "who": "SwitchBot公式店 楽天市場の利用者投稿（2026年9月7日投稿）",
+            "text": "別の投稿では、エアコンとテレビを設定し、説明書だけでは詳しい設定が分かりにくかったため、案内を見ながら設定したという内容が確認できます。個別の環境での感想として扱います。",
+            "negative": False,
+            "fix_title": "設定に必要な時間を見込む",
+            "fix": "使う家電を先に列挙し、各リモコンの登録と動作確認を一台ずつ行える時間を確保してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.switchbot.jp/collections/all/products/switchbot-hub2",
+            "title": "SwitchBot公式 ハブ2",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/switchbot/10000076/",
+            "title": "SwitchBot公式店 楽天市場 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "fujiboeki-folding-stool-review": {
         "official_url": "https://www.fujiboeki.jp/products/86078/",
         "facts": [
