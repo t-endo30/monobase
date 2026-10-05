@@ -7,6 +7,39 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "kaedear-kdr-m11c": {
+        "official_url": "https://www.kaedear.com/products/kdr-m11c",
+        "facts": [
+            "Kaedear KDR-M11C（クイックホールド）の商品番号を確認",
+            "商品情報でホルダーサイズは縦132〜175mm、横68〜85mm、厚さ12mm、重量150gと表示",
+            "商品情報で17mmボールマウント、縦横の向き調整、バー・ミラーマウント等の同梱品を確認",
+            "楽天の商品情報でJAN 4580675590427、メーカー型番KDR-M11Cを確認",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた脱着と固定の感想",
+            "who": "Webike利用者レビューおよび楽天市場の個別投稿（2026-10-06確認）",
+            "text": "個別投稿では、スマートフォンを置いてロックする操作とレバーで外す操作が簡単という感想、多様なハンドル径に対応できる点を評価する声を確認できます。一方で、荒れた路面では補助ラバーを使うという記述や、端末サイズごとの確認が必要という注意もあります。個別投稿の内容であり、すべての車種・端末に当てはまるとは扱いません。",
+            "negative": True,
+            "fix_title": "端末寸法と取付場所を先に照合する",
+            "fix": "ケースを含めた端末の幅・高さ・厚さを測り、ハンドル径またはミラー取付部が同梱マウントに合うかを購入前に確認してください。荒れた路面で使う場合は補助ラバーや防振対策も確認しましょう。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.kaedear.com/products/kdr-m11c",
+            "title": "Kaedear公式 KDR-M11C 商品情報",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/kaedear/kdr-m11c/",
+            "title": "楽天市場 Kaedear公式 KDR-M11C 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://thai.webike.net/en/review/article/755500",
+            "title": "Webike 利用者レビュー KDR-M11C",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "cellularline-iphone18pro-iphone18promax": {
         "official_url": "https://www.lauda.co.jp/c/brand/cl/handypadk",
         "rakuten_url": "https://item.rakuten.co.jp/lauda/cl-grip/",
