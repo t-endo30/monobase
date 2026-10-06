@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "petkit-pura-max2": {
+        "official_url": "https://www.petkit.com/products/puramax-2-ultimate-bundles",
+        "facts": [
+            "PETKIT公式商品ページでPuraMax 2の自動清掃、Xsecure安全センサー、アプリでの利用状況管理、消臭機能を確認",
+            "PETKIT公式の製品情報でPuraMax 2に2種類のリッターシフターが付属することを確認",
+            "楽天市場のPETKIT公式ストア個別商品ページで商品コードP9902、Pura Max2本体、個別販売条件を確認",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた猫の慣れと設置条件",
+            "who": "楽天市場PETKIT公式ストアの商品ページに表示された利用者の声（2026-10-06確認）",
+            "text": "個別投稿では、2匹の猫のうち警戒心の強い猫も数日後に使えたという声、消臭や掃除の負担が軽くなったという声を確認できます。一方で、予想より本体が大きいという指摘や、猫が慣れるまで時間がかかる可能性も確認できます。個別投稿の内容であり、すべての猫・住環境に同じ結果が出るとは扱いません。",
+            "negative": True,
+            "fix_title": "本体寸法と猫の慣らし期間を先に考える",
+            "fix": "設置場所の寸法を測り、現在のトイレをすぐ撤去せず、猫が新しいトイレに慣れるまで併設できるスペースを確保してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.petkit.com/products/puramax-2-ultimate-bundles",
+            "title": "PETKIT公式 PuraMax 2 商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/neikonu/pkt-p9902/",
+            "title": "楽天市場 PETKIT公式ストア Pura Max2 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/435566_10000015/1.1/",
+            "title": "楽天市場 利用者の声 Pura Max2",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "camera-20260830": {
         "amazon_url": "https://www.amazon.co.jp/dp/B0FM76RYRP",
         "source_notes": [{
