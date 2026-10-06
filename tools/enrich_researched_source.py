@@ -1875,6 +1875,35 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"p10-yunth-c-c": {
+        "official_url": "https://yunth.jp/shop/products/101-01",
+        "facts": [
+            "Yunth公式商品ページで、生VC美容液、1ml×28包、医薬部外品、使用期限30秒の個包装を確認",
+            "公式ページで、通常購入価格、使用方法、定期購入条件など購入前に確認すべき情報を確認し、肌への効果は個人差があるものとして扱う",
+            "楽天市場のYunth公式店個別商品ページで、同じ生ビタミンC美容液1ml×28包を商品同定",
+            "個別投稿では、使用時の温かさ、翌日の肌の感触や化粧のりを評価する声がある一方、肌状態によって合わない場合や、特典・店舗対応への不満もある",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 Yunth公式店 生ビタミンC美容液 個別投稿",
+            "text": "個別投稿では、使用時に温かさを感じる、翌日の肌の感触や化粧のりを評価する声があります。一方で、肌状態によって合わない場合があるという注意や、特典の表示・店舗対応への不満もあります。使用感や肌との相性は個人差があるため、異常があれば使用を中止し、購入条件も確認します。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://yunth.jp/shop/products/101-01",
+            "title": "Yunth公式 生VC美容液",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/yunth/10000000/",
+            "title": "楽天市場 Yunth公式店 生ビタミンC美容液 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/409735_10000000/1.1/",
+            "title": "楽天市場 Yunth公式店 個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    }
     ,"kaedear-kdr-m11c": {
         "official_url": "https://www.kaedear.com/products/kdr-m11c",
         "facts": [
