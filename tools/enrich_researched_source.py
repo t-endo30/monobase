@@ -326,6 +326,66 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     },
+    "fotopro-digi-204": {
+        "official_url": "https://www.asanumashoukai.co.jp/info/wp-content/uploads/2022/08/asanuma_price_revision20221001.pdf",
+        "product_url": "https://item.rakuten.co.jp/photolink/4906238806024/",
+        "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/photolink/cabinet/fotopro/4906238810830_nnv11.jpg?_ex=128x128",
+        "facts": [
+            "商品資料ではFotopro DIGI-204を4段120cmのアルミ製三脚として掲載している",
+            "価格.comの個別レビューでは、軽くて持ち運びやすい、カメラを載せても安定するという声がある一方、雲台の動きが今ひとつという声もある",
+            "楽天市場の個別投稿では、しっかりした作りで持ち運びやすいという声や、固定操作に複数回の回転が必要という声が確認できる"
+        ],
+        "review_texts": [{
+            "source": "価格.com・楽天市場 Fotopro DIGI-204 個別レビュー",
+            "text": "軽くて小さく持ち運びやすい、カメラを載せても安定するという声がある一方、雲台の動きや固定操作を気にする声もあります。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.asanumashoukai.co.jp/info/wp-content/uploads/2022/08/asanuma_price_revision20221001.pdf",
+            "title": "Asanuma公式資料 Fotopro DIGI-204",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/photolink/4906238806024/",
+            "title": "楽天市場 Fotopro DIGI-204 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.kakaku.com/review/K0000897755/",
+            "title": "価格.com Fotopro DIGI-204 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
+    "w-r-1200-w-r1200": {
+        "official_url": "https://www.morieng.co.jp/machine/product/window/wr/index.php",
+        "product_url": "https://item.rakuten.co.jp/kamekenken/wat2410/",
+        "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/kamekenken/cabinet/_wat04/wat2410a.jpg?_ex=128x128",
+        "facts": [
+            "森永エンジニアリング公式ではウインドーラジエーターW/Rシリーズを窓際に置いて冷気の侵入を防ぐ製品として案内している",
+            "公式コラムではW/R-1200Wを窓下専用ヒーターとして説明し、設置場所とサイズ確認が重要と案内している",
+            "公式コラムではW/Rシリーズについて、見た目がすっきりしている、窓際の冷気対策になったという利用者の声を紹介している"
+        ],
+        "review_texts": [{
+            "source": "森永エンジニアリング公式 W/Rシリーズ利用者の声",
+            "text": "公式コラムでは、見た目がすっきりして部屋の雰囲気を損なわない、窓際からの冷気対策になったという利用者の声が紹介されています。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.morieng.co.jp/machine/product/window/wr/index.php",
+            "title": "森永エンジニアリング公式 W/Rシリーズ商品情報",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "official_review",
+            "url": "https://www.morieng.co.jp/column/archives/352",
+            "title": "森永エンジニアリング公式 利用者の声",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/kamekenken/wat2410/",
+            "title": "楽天市場 W/R-1200 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }],
+    },
     "winten-fhd-ips-pc-switch-iphone": {
         "official_url": "https://winten.co.jp/products.html",
         "product_url": "https://item.rakuten.co.jp/win10/5523/",
