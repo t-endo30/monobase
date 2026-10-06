@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "ih-ipdci-t13": {
+        "official_url": "https://www.irisohyama.co.jp/",
+        "facts": [
+            "アイリスオーヤマ公式楽天市場店の商品ページで、IPDCI-T13の13点フライパン・鍋セットを商品同定",
+            "公式販売ページでIH対応・ガス火対応、取っ手が取れる構成、商品コードH527380を確認",
+            "Yahoo!ショッピングの個別商品ページで同じ商品コードH527380とJAN4967576825740の表示を確認",
+            "Yahoo!個別投稿では取っ手の扱いや中火使用、焦げ付きに関する体験談があるが、調理器具・火力・使い方による個人差を分けて扱う",
+        ],
+        "review_texts": [{
+            "source": "Yahoo!ショッピング IPDCI-T13個別レビュー",
+            "text": "個別投稿では、取っ手の扱いやすさを評価する声がある一方、中火使用や焦げ付きに触れる投稿も確認できます。使用する熱源・調理内容・手入れで結果が変わるため、すべての利用者に同じ評価が当てはまるとは扱いません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.irisohyama.co.jp/",
+            "title": "アイリスオーヤマ公式サイト",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://store.shopping.yahoo.co.jp/irisplaza/h527380.html",
+            "title": "Yahoo! アイリスプラザ IPDCI-T13 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://shopping.yahoo.co.jp/review/item/list?page_key=h527380&store_id=irisplaza",
+            "title": "Yahoo! IPDCI-T13 商品レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "salonia-2": {
         "official_url": "https://salonia.jp/product/hair/stylingitem/rockstylemilk/",
         "facts": [
