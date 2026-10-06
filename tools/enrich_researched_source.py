@@ -2846,6 +2846,37 @@ SOURCE = {
             "title": "楽天市場 カメまるD DC53B 個別レビュー",
             "checked_at": "2026-10-07",
         }],
+    },
+    "vgp2022-bluetooth-funlogy-portable-tws-ip67": {
+        "official_url": "https://funlogy.jp/collections/speaker/products/funlogy-portable",
+        "product_url": "https://item.rakuten.co.jp/entamefactory/funlogy_portable/",
+        "thumb": "https://funlogy.jp/cdn/shop/files/portable_black_01.jpg",
+        "facts": [
+            "FUNLOGY公式商品ページでモデル名をFUNLOGY Portableとして同定",
+            "公式仕様で本体サイズ184×50×63mm、重量460g、出力5W×2、Bluetooth 5.3、連続再生12時間（50%出力時）、IPX7、防水、TWS、USB Type-C・AUX・microSD入力を確認",
+            "公式の付属品案内でUSB Type-Cケーブル、3.5mm AUXケーブル、取扱説明書（保証書）を確認",
+            "楽天市場のFUNLOGY公式ショップ個別商品ページで同一モデルを確認し、レビュー本文では動画や会話の聞き取りやすさ、持ち運びやすさ、音量・音質への評価と、用途によっては上位機との差を感じるという声を確認",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 FUNLOGY公式ショップ 個別商品レビュー",
+            "text": "個別投稿では、人の声や会話が聞き取りやすく動画視聴にも向くという感想、持ち運んで複数の場所で使えるという感想が確認できます。一方で、音質は価格帯相応と感じる投稿もあるため、動画・ラジオ・屋外利用を重視するか、音楽の細かな表現を重視するかで評価が分かれる商品として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://funlogy.jp/collections/speaker/products/funlogy-portable",
+            "title": "FUNLOGY公式 FUNLOGY Portable 商品仕様",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/entamefactory/funlogy_portable/",
+            "title": "楽天市場 FUNLOGY公式ショップ FUNLOGY Portable 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/333397_10000434/1.1/",
+            "title": "楽天市場 FUNLOGY Portable 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
     }
 }
 
