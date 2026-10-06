@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "wsj-4l": {
+        "official_url": "https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=110884F",
+        "facts": [
+            "アイリスオーヤマ公式通販アイリスプラザで速効除草剤4L WSJ-4Lを商品同定",
+            "公式商品ページで4Lのストレートタイプ除草剤としての販売情報と、非農耕地用としての案内を確認",
+            "楽天市場の個別商品ページでWSJ-4Lの4L単品商品を確認",
+            "個別投稿では数日後に枯れ始めた、容器のジョウロ状の口が撒きやすいという声がある一方、散布時の天候や周囲の植物への飛散に注意する内容もあるため、使用場所とラベル表示を優先する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 WSJ-4L 個別レビュー",
+            "text": "個別投稿では、散布後数日で雑草が枯れ始めた、4L容器でも扱いやすい、ジョウロ状の口で撒きやすいという内容が確認できます。一方で、雨の予報を避ける、周囲の花や植木にかからないようにするという注意もあります。効果や扱いやすさは散布条件と場所による体験談として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=110884F",
+            "title": "アイリスオーヤマ公式通販 WSJ-4L",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/kadenrand/514489/",
+            "title": "楽天市場 WSJ-4L 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/item/1/253767_10029218/1.1/",
+            "title": "楽天市場 WSJ-4L 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "sony-cmt-m35wm-usb-cd-hcd-m35wm-ss": {
         "official_url": "https://www.sony.jp/system-stereo/products/archive/CMT-M35WM/spec.html",
         "facts": [
