@@ -7,6 +7,42 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "fotopro-digi-mp1bh": {
+        "official_url": "https://www.esco-net.com/wcs/escort/ItemFile/EA7/EA759/EA759ER-1C/EA759ER-1C_DOC_CTL_OUT%2801%29.pdf",
+        "facts": [
+            "Fotopro DIGI-MP1BHを製品名・型番で同定し、メーカー資料の一脚仕様を確認",
+            "個別商品ページでFotopro DIGI-MP1BHの販売商品を確認。カメラやビデオカメラとの適合は機材側の重量・取付ねじを購入前に照合する",
+            "一脚は自立する三脚とは用途が異なり、撮影時は使用者が保持する前提で、設置場所や荷重条件を断定しない",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 DIGI-MP1BH個別レビュー",
+            "text": "個別投稿では、長時間の手持ち撮影より楽になった、軽くて持ち運びやすい、自由雲台が便利という声が確認できます。一方で高さがもう少し欲しいという投稿や、使用頻度によっては三脚ほどの安定性を求めない人向けという内容もあります。撮影機材・身長・用途による感想として扱い、すべての利用者に同じ結果が出るとは一般化しません。",
+        }],
+        "voices": [{
+            "heading": "個別投稿で確認できた携帯性と一脚の使い勝手",
+            "who": "楽天市場 DIGI-MP1BH個別レビュー（2026-10-06確認）",
+            "text": "個別投稿では、長時間の手持ち撮影より楽になった、軽くて持ち運びやすい、自由雲台が便利という声が確認できます。一方で高さがもう少し欲しいという投稿もあります。撮影機材・身長・用途による感想として扱い、すべての利用者に同じ結果が出るとは一般化しません。",
+            "negative": True,
+            "fix_title": "一脚と機材の条件を購入前に照合する",
+            "fix": "取り付ける機材の重量・取付ねじ・必要な高さを確認し、自立する三脚とは異なる一脚として用途に合うか判断してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.esco-net.com/wcs/escort/ItemFile/EA7/EA759/EA759ER-1C/EA759ER-1C_DOC_CTL_OUT%2801%29.pdf",
+            "title": "Fotopro DIGI-MP1BH 製品資料",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/photolink/4906238808424/",
+            "title": "楽天市場 Fotopro DIGI-MP1BH 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/review/item/1/271875_10000436/1.1/",
+            "title": "楽天市場 Fotopro DIGI-MP1BH 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "buffalo-wifi6-ax5400-review": {
         "official_url": "https://www.buffalo.jp/product/detail/wsr-5400ax6s_dmb.html",
         "facts": [
