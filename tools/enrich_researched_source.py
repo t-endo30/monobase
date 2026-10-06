@@ -3110,6 +3110,35 @@ SOURCE = {
             "checked_at": "2026-10-07",
         }],
     },
+    "relaxia-no1": {
+        "official_url": "https://yamanakain.com/2026/06/04/news-5802/",
+        "product_url": "https://item.rakuten.co.jp/dots-yamanakain/10000000/",
+        "facts": [
+            "Relaxia by 山中鍼灸整骨院の公式販売ページで商品名、サイズ23×27cm、素材プラスチック、カラー2色を確認",
+            "公式販売ページでヨガマット不要、ローラー部分EVA素材、永久保証、整骨院オリジナル説明書の案内を確認",
+            "楽天市場の個別商品レビューでは、脚や背中に使いやすい、継続しやすいという声がある一方、刺激の強さや使い続けられるかには個人差があるため、効果を断定せず使用感として整理する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 山中鍼灸整骨院 個別商品レビュー",
+            "text": "個別投稿では、筋膜ローラーでは届きにくい部位にも使いやすい、脚が楽に感じる、継続できそうという感想が確認できます。一方で、むくみへの感じ方や継続状況には個人差があるため、購入前は用途と刺激の好みを確認する材料として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://yamanakain.com/2026/06/04/news-5802/",
+            "title": "山中鍼灸整骨院 お客様の声から生まれたセルフケアグッズ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/dots-yamanakain/10000000/",
+            "title": "楽天市場 Relaxia 筋膜ローラー 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/402902_10000000/1.1/",
+            "title": "楽天市場 Relaxia 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
     "coolify": {
         "title": "Dark Angel coolify とろみ冷感ワイドパンツ 利用者の声｜丈・生地感と選び方",
         "list_title": "Dark Angel coolify とろみ冷感ワイドパンツ 利用者の声",
