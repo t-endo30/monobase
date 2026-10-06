@@ -2351,6 +2351,36 @@ SOURCE = {
             "checked_at": "2026-10-07",
         }],
     },
+    "mrpe-1260-soho-yamazen": {
+        "official_url": "https://book.yamazen.co.jp/product/detail/I00008450",
+        "product_url": "https://item.rakuten.co.jp/e-kurashi/1450620/",
+        "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-kurashi/cabinet/main-img/001/main-10549.jpg?_ex=128x128",
+        "facts": [
+            "山善公式商品情報ではMRPE-1260を幅120cm・奥行60cmのラック付きデスクとして案内している",
+            "公式商品ページでは2口コンセントと左右入れ替え可能な収納ラックを案内している",
+            "山善公式レビューでは、組み立てやすさ、広さ、ラックの圧迫感の少なさを評価する声がある一方、天板の凹凸には筆記用マットが必要という声もある"
+        ],
+        "review_texts": [{
+            "source": "山善公式 MRPE-1260 個別レビュー",
+            "text": "公式レビューでは、幅が広く使いやすい、組み立てが分かりやすい、ラックが部屋に圧迫感を与えにくいという声があります。一方、天板の凹凸が気になるため筆記時はマットが必要という声もあります。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://book.yamazen.co.jp/product/detail/I00008450",
+            "title": "山善公式 MRPE-1260 商品情報",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/e-kurashi/1450620/",
+            "title": "楽天市場 MRPE-1260 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://yamazenbizcom.jp/item_review.html?ITEM_CD=1450620",
+            "title": "山善公式 MRPE-1260 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
     "ai-infield": {
         "official_url": "https://www.sportsinfield.com/product-page/%E6%9C%80%E5%A4%A71%E5%B9%B4%E4%BF%9D%E8%A8%BC-ai-%E4%BD%93%E9%87%8D%E8%A8%88-%E4%BD%93%E7%B5%84%E7%B9%94%E8%A8%88-%E6%9C%80%E5%85%88%E7%AB%AF%E3%83%87%E3%83%A5%E3%82%A2%E3%83%AB%E5%91%A8%E6%B3%A2%E6%95%B0%E6%90%AD%E8%BC%89%E3%83%97%E3%83%AC%E3%83%9F%E3%82%A2%E3%83%A0",
         "product_url": "https://store.shopping.yahoo.co.jp/comfortablegoods/weightscale.html",
