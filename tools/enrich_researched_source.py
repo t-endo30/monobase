@@ -2351,6 +2351,36 @@ SOURCE = {
             "checked_at": "2026-10-07",
         }],
     },
+    "db74-secustation": {
+        "official_url": "https://bs.secu.jp/view/item/000000000339?category_page_id=scview",
+        "product_url": "https://item.rakuten.co.jp/secupcs/001-mu72/",
+        "facts": [
+            "公式商品ページではDB74をバッテリー内蔵の屋外対応ワイヤレスネットワークカメラとして案内している",
+            "公式ページではスマートフォンから録画映像を確認でき、タイムラインで再生できると案内している",
+            "公式ストアの商品情報ではソーラーパネルや設置用品などの構成を選択できる商品として掲載されている",
+            "楽天市場の個別投稿では、充電後に動画を見ながら設定できた、ベランダへの設置に使ったという声がある一方、認証コードやWi-Fi設定時の画面が説明書と異なったという声、電源ボタンが故障して買い替えたという声も確認できる"
+        ],
+        "review_texts": [{
+            "source": "楽天市場 セキュガードD コードレス DB74 個別レビュー",
+            "text": "個別投稿では、充電後に動画を見ながら設定できた、ベランダへの設置に使ったという声があります。一方、認証コードやWi-Fi設定時の画面が説明書と異なったという声、電源ボタンが故障して買い替えたという声も確認できます。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://bs.secu.jp/view/item/000000000339?category_page_id=scview",
+            "title": "SecuSTATION公式 DB74 商品情報",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/secupcs/001-mu72/",
+            "title": "楽天市場 セキュガードD コードレス DB74 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/300680_10000311/1.1/",
+            "title": "楽天市場 DB74 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
     "d-dc53": {
         "official_url": "https://bs.secu.jp/view/item/000000000365",
         "product_url": "https://bs.secu.jp/view/item/000000000365",
