@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "a75c4419-panasonic-d2613": {
+        "official_url": "https://panasonic.jp/manualdl/p-db/cs/cs_634_804_x.pdf",
+        "facts": [
+            "パナソニック公式エアコン取扱説明書で、対応機種の付属リモコン品番CWA75C4418Xを確認",
+            "公式資料でCWA75C4418Xとリモコン記載品番A75C4419の対応関係を商品同定の根拠として確認",
+            "楽天市場の個別商品ページでA75C4419表記のCWA75C4418X純正交換用リモコンを確認",
+            "個別投稿では、故障・液晶不良の交換用として購入し、電池を入れて使えたという内容がある一方、対応機種の照合が必要な交換部品であり、すべてのパナソニック製エアコンに使えるとは扱わない",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 A75C4419/CWA75C4418X 個別商品ページ・利用者の声",
+            "text": "個別の利用者の声では、既存リモコンの故障や液晶不良をきっかけに交換用として購入し、電池を入れて問題なく使えたという内容が確認できます。ただし、交換部品はエアコン本体の対応機種との照合が前提で、同じメーカーでも型番が違えば操作できるとは限りません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://panasonic.jp/manualdl/p-db/cs/cs_634_804_x.pdf",
+            "title": "パナソニック公式 ルームエアコン取扱説明書",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/2cube02/pn1a75c4419/",
+            "title": "楽天市場 A75C4419 CWA75C4418X 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/355518_10001231/1.1/",
+            "title": "楽天市場 パナソニック対応リモコン 利用者の声",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "wsj-4l": {
         "official_url": "https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=110884F",
         "facts": [
