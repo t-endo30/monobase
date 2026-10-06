@@ -7,6 +7,62 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "buffalo-wifi6-ax5400-review": {
+        "official_url": "https://www.buffalo.jp/product/detail/wsr-5400ax6s_dmb.html",
+        "facts": [
+            "バッファロー公式でAirStation WSR-5400AX6S/DMBを商品同定し、Wi-Fi 6対応ルーターとして確認",
+            "公式ページで型番ごとの仕様・対応情報を確認できるため、WSR-5400AX6Sシリーズの色・販売形態を混同しない",
+            "楽天市場の個別商品ページでWSR-5400AX6S系の商品掲載を確認し、通信速度や接続台数は設置環境・端末条件で変わるため断定しない",
+        ],
+        "review_texts": [{
+            "source": "楽天市場のWSR-5400AX6S個別レビュー",
+            "text": "個別投稿では、ネット脅威ブロッカーの設定が通信速度に影響する可能性を指摘する声が確認できます。設定や回線、接続端末によって結果が変わる利用者の報告として扱い、すべての環境の速度傾向には一般化しません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.buffalo.jp/product/detail/wsr-5400ax6s_dmb.html",
+            "title": "バッファロー公式 WSR-5400AX6S/DMB",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/saino/55089gkk3ym/",
+            "title": "楽天市場 WSR-5400AX6S 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/item/1/213310_20432335/1.1/",
+            "title": "楽天市場 WSR-5400AX6S 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
+    "schick-3": {
+        "official_url": "https://schick.jp/pages/salon_tufs",
+        "facts": [
+            "シック公式ページでサロンプラス トーンアップ フェイススムーサー替刃（3コ入）を確認",
+            "公式案内で本体に対応する替刃として扱われること、使用方法・交換目安は公式案内を確認して使う商品であることを確認",
+            "楽天市場の個別商品ページでシック ハイドロシルク サロンプラス トーンアップ フェイススムーサー替刃（3コ入）を商品同定",
+        ],
+        "review_texts": [{
+            "source": "楽天市場の替刃個別レビュー",
+            "text": "個別投稿では、同シリーズの本体を気に入って替刃を購入したという声が確認できます。替刃の交換頻度や本体との組み合わせに触れる投稿もありますが、肌状態や使用方法による個人差があるため、すべての利用者に同じ結果が出るとは扱いません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://schick.jp/pages/salon_tufs",
+            "title": "シック公式 サロンプラス トーンアップ フェイススムーサー",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/e-konekuto/4891228313807/",
+            "title": "楽天市場 シック替刃3コ入 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/review/item/1/428623_10063064/1.1/",
+            "title": "楽天市場 シック替刃 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "ergotron-lx-monitor-arm-review": {
         "official_url": "https://media.ergotron.com/reserved/resources/lx-deskmountarms-jp-orig.pdf",
         "facts": [
