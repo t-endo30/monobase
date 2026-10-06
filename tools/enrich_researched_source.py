@@ -2321,6 +2321,35 @@ SOURCE = {
             "title": "楽天市場 RCP-3 個別レビュー掲載ページ",
             "checked_at": "2026-10-07",
         }],
+    },
+    "yoh-200-yamazen": {
+        "official_url": "https://book.yamazen.co.jp/product/detail/I00005725",
+        "facts": [
+            "山善公式商品情報でYOH-200を商品同定し、着脱式プレートの20穴たこ焼き器として確認",
+            "公式仕様で幅30.5×奥行23.5×高さ8cm、重量1.2kg、AC100V、消費電力700W、電源コード約1.4mを確認",
+            "公式情報でフッ素コーティングの着脱式プレート、串ガイド、1度に20個調理できる構成を確認",
+            "楽天市場の個別レビューでは、注文から到着までの早さや焼き上がりを評価する声がある一方、端によって火力差を感じたという投稿もあるため、焼く量と焼き位置を購入判断に反映する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 YOH-200 個別商品レビュー",
+            "text": "個別投稿では、注文してすぐ届いた、全体的にきれいに焼けたという声が確認できます。一方で、プレートの端は火力が弱く感じたという投稿もあります。焼き上がりは食材の量・位置・電源環境による利用者の声として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://book.yamazen.co.jp/product/detail/I00005725",
+            "title": "山善公式 YOH-200 商品情報",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/e-kurashi/1373959/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+            "title": "楽天市場 YOH-200 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/205937_10000794/1.1/",
+            "title": "楽天市場 YOH-200 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
     }
 }
 
