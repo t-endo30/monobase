@@ -2203,6 +2203,35 @@ SOURCE = {
             "title": "楽天市場 C.jutro公式店 個別レビュー",
             "checked_at": "2026-10-06",
         }],
+    },
+    "tp-link-tapo-c200-amazon-alexa": {
+        "official_url": "https://www.tp-link.com/jp/smart-home/tapo/tapo-c200/?app=t",
+        "facts": [
+            "TP-Link公式ページでTapo C200を商品同定し、1080p映像、パン360度・チルト114度、ナイトビジョン、動体検知通知、双方向通話を確認",
+            "公式情報でmicroSDカードまたはクラウドによる録画、プライバシーゾーン、ベビークライ検知、自動追尾などの機能案内を確認。ただし利用可能な機能や保存条件はモデル・アプリ・契約条件を確認する",
+            "楽天市場の個別商品ページでTapo C200（型番・JAN 6935364053239）を確認し、販売ページと記事の対象商品を照合",
+            "個別の利用者の声では、初期設定のしやすさ、ペットや家族の見守り、夜間の見え方を評価する内容がある一方、アプリ操作や音声機能への不満もあるため、使用環境と個人差を分けて扱う",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 Tapo C200 個別商品レビュー",
+            "text": "個別投稿では、設定が簡単だった、ペットや家族の様子を確認できる、夜間も見やすいという声が確認できます。一方で、アプリの操作や音声機能に関する不満もあります。映像の見え方や操作感は設置場所・通信環境・利用端末による個人の感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.tp-link.com/jp/smart-home/tapo/tapo-c200/?app=t",
+            "title": "TP-Link公式 Tapo C200",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/tplinkdirect/6935364053239-new/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+            "title": "楽天市場 TP-Link公式 Tapo C200 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/193345_12645010/1.1/",
+            "title": "楽天市場 Tapo C200 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
     }
 }
 
