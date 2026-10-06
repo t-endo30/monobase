@@ -326,6 +326,41 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     },
+    "winten-fhd-ips-pc-switch-iphone": {
+        "official_url": "https://winten.co.jp/products.html",
+        "product_url": "https://item.rakuten.co.jp/win10/5523/",
+        "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/win10/cabinet/monitor/imgrc0112809238.jpg?_ex=128x128",
+        "facts": [
+            "WINTEN公式ではWT-156H2-BSを15.6インチのフルHDモバイルモニターとして製品一覧に掲載している",
+            "公式のお知らせでは設定保存機能のオン・オフとL型USB-Cケーブル追加をWT-156H2-BSの改良点として案内している",
+            "楽天市場の個別レビューでは、持ち運び用のモニターとして希望通りだったという声が確認できる"
+        ],
+        "review_texts": [{
+            "source": "楽天市場 WINTEN WT-156H2-BS 個別レビュー",
+            "text": "個別投稿では、仕事用に持ち歩けるモニターを求めて購入し、希望通りだったという声があります。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://winten.co.jp/products.html",
+            "title": "WINTEN公式 WT-156H2-BS 製品情報",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "official_notice",
+            "url": "https://winten.co.jp/news/view/191",
+            "title": "WINTEN公式 WT-156H2-BS 改良案内",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/win10/5523/",
+            "title": "楽天市場 WT-156H2-BS 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/240353_10009635/1.0/",
+            "title": "楽天市場 WT-156H2-BS 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
     "mrpe-1260-soho-yamazen": {
         "official_url": "https://book.yamazen.co.jp/product/detail/I00008450",
         "facts": [
