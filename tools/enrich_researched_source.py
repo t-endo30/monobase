@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "valx": {
+        "official_url": "https://corp.valx.jp/services/valx/",
+        "facts": [
+            "VALX公式ページでVALXホエイプロテインのブランド・製品情報を確認",
+            "公式発表でホエイプロテイン1kgの製品展開と国内生産・フレーバー展開の案内を確認",
+            "ふるさとチョイスの個別返礼品ページでVALXホエイプロテイン1kgカフェオレ風味を商品同定",
+            "個別投稿では味や飲み方に触れる内容があるが、体質・摂取目的・飲み方による個人差があり、健康効果を一般化しない",
+        ],
+        "review_texts": [{
+            "source": "ふるさとチョイス VALXホエイプロテイン個別感想",
+            "text": "個別の感想では、カフェオレ風味を牛乳とシェーカーで飲み、ミルクシェークのように楽しめたという内容が確認できます。味や飲み方に関する個人の感想であり、すべての人の嗜好や体調に同じ結果が出るとは扱いません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://corp.valx.jp/services/valx/",
+            "title": "VALX公式ブランド情報",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://www.furusato-tax.jp/product/detail/35201/6027503",
+            "title": "ふるさとチョイス VALXホエイプロテイン1kg",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://www.furusato-tax.jp/product/reviews/35201/6027503",
+            "title": "ふるさとチョイス VALXホエイプロテイン感想",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "iaw-t606-cp": {
         "official_url": "https://www.irisohyama.co.jp/products/manual/pdf/108963.pdf",
         "facts": [
