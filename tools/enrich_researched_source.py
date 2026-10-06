@@ -2350,6 +2350,37 @@ SOURCE = {
             "title": "楽天市場 YOH-200 個別レビュー",
             "checked_at": "2026-10-07",
         }],
+    },
+    "d-dc53": {
+        "official_url": "https://bs.secu.jp/view/item/000000000365",
+        "product_url": "https://bs.secu.jp/view/item/000000000365",
+        "yahoo_url": "https://bs.secu.jp/view/item/000000000365",
+        "facts": [
+            "公式商品ページではSC-DC53(B)を300万画素の屋内向けカメラとして案内している",
+            "水平79度・垂直40度・対角95度の撮影画角、暗視は最大15mと案内されている",
+            "マイクとスピーカーを内蔵し、スマートフォン・パソコンから映像を確認できる",
+            "録画媒体はmicroSDカード（最大128GB、FAT32、Class10）に対応し、クラウド録画は有料オプションとして案内されている"
+        ],
+        "review_texts": [{
+            "source": "楽天市場 カメまるD DC53B 個別商品レビュー",
+            "text": "DC53Bを選択した利用者の投稿では、設定は簡単で画像も十分という声が確認できます。一方、アカウント登録やVPN接続の待ち時間、説明書との違いに戸惑ったという声もあります。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://bs.secu.jp/view/item/000000000365",
+            "title": "SecuSTATION公式 SC-DC53(B) 商品情報",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://bs.secu.jp/view/item/000000000365",
+            "title": "SecuSTATION公式 SC-DC53(B) 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/300680_10000206/2.1/",
+            "title": "楽天市場 カメまるD DC53B 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
     }
 }
 
