@@ -459,13 +459,11 @@ def lacks_shop_photo(a):
        2026-09-18、この理由で表示できない記事が3本、汎用アイコンのまま
        公開されているのに気づかず、手動で見つけて削除した。以後は
        公開前にここで止める。"""
-    urls = {shop: a.get(key) for shop, key in
-            (("rakuten", "rakuten_url"), ("yahoo", "yahoo_url"))}
-    linked = [shop for shop, url in urls.items() if str(url or "").strip()]
-    if not linked:
+    if a.get("thumb") or a.get("category") == "feature":
         return False
     imgs = a.get("shop_images") or {}
-    return not any(str(imgs.get(shop) or "").strip() for shop in linked)
+    return not any(str(imgs.get(shop) or "").strip().startswith("http")
+                   for shop in ("rakuten", "yahoo"))
 
 
 def duplicate_of(a, arts):

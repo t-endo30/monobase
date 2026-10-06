@@ -7,6 +7,39 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "benq-screenbar-review": {
+        "official_url": "https://www.benq.com/ja-jp/lighting/monitor-light/screenbar/spec.html",
+        "facts": [
+            "BenQ公式仕様ページでScreenBar（無印）の製品名と仕様を確認",
+            "公式仕様で中央照度930ルクス（照射面から45cm）、演色性Ra以上95、USB 5V／最大1A、最大消費電力5Wを確認",
+            "公式仕様で本体サイズ45×9×9.2cm、重量約0.53kg、対応モニター厚1〜3cmを確認",
+            "ScreenBar Proは別製品のため、Proの自動調光や仕様を無印の説明に混在させない",
+        ],
+        "voices": [{
+            "heading": "実使用レビューで確認できた設置と照明範囲",
+            "who": "Real Sound Techおよび個人使用レビューに掲載された実使用記録（2026-10-06確認）",
+            "text": "実使用レビューでは、モニター上に置くだけで手元を照らせること、画面への反射を抑えやすいこと、デスク作業の照明として使いやすいという記録を確認できます。一方で、モニターの形状や設置環境によって使い勝手は変わり、レビューは特定の使用環境での結果です。",
+            "negative": True,
+            "fix_title": "モニターの厚みと上部スペースを先に測る",
+            "fix": "購入前にモニター上部の厚みが1〜3cmの範囲か、背面側のクリップが干渉しないかを確認してください。USB給電できるポートの位置とケーブルの取り回しも見ておきましょう。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.benq.com/ja-jp/lighting/monitor-light/screenbar/spec.html",
+            "title": "BenQ公式 ScreenBar 仕様",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/murauchi-dvd/4544438000455/",
+            "title": "楽天市場 BenQ ScreenBar 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://realsound.jp/tech/2023/12/post-1503556.html",
+            "title": "Real Sound Tech BenQ ScreenBar実使用レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "iris-kpc-ma4-pressure-cooker-review": {
         "official_url": "https://www.irisohyama.co.jp/e-pressure-cooker/4l/",
         "facts": [

@@ -119,7 +119,24 @@ ASSOC_TAG = SITE.get("amazon", {}).get("associate_tag", "").strip()
 CAT_LABEL = {c["key"]: c["label"] for c in CATS}
 CAT_ICON  = {c["key"]: c["icon"]  for c in CATS}
 
-PUBLISHED = sorted([a for a in ARTICLES if a.get("published")],
+def has_publishable_thumbnail(a):
+    """公開一覧に出せる実物サムネイルがあるか。
+
+    特集記事はカテゴリー画像を使えるため例外とする。個別商品記事は
+    手元の画像、または楽天・Yahoo!の商品画像が確認できる場合だけ表示し、
+    Amazonだけの記事や取得できないモール画像は一覧・サイトマップから外す。
+    """
+    if a.get("thumb"):
+        return True
+    if a.get("category") == "feature":
+        return True
+    imgs = a.get("shop_images") or {}
+    return any(str(imgs.get(shop) or "").strip().startswith("http")
+               for shop in ("rakuten", "yahoo"))
+
+
+PUBLISHED = sorted([a for a in ARTICLES
+                    if a.get("published") and has_publishable_thumbnail(a)],
                    key=lambda a: a.get("date", ""), reverse=True)
 
 # 検索エンジンに見せる記事の線引き（2026-09-29）。
