@@ -687,7 +687,7 @@
    }
   ],
   "evidence_audit": {
-   "checked_at": "2026-10-06T08:44:24+09:00",
+   "checked_at": "2026-10-06T09:25:38+09:00",
    "status": "pass",
    "official_url": "https://www.lauda.co.jp/c/brand/cl/handypadk",
    "has_official_evidence": true,
@@ -57358,7 +57358,7 @@
   "official_ogp_image": "https://creerina.co.jp/img/gop/ogp.png",
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "evidence_audit": {
-   "checked_at": "2026-10-06T08:54:49+09:00",
+   "checked_at": "2026-10-06T09:26:11+09:00",
    "status": "blocked",
    "official_url": "https://creerina.co.jp/items/airycurlmascara/",
    "has_official_evidence": true,
@@ -62938,7 +62938,7 @@
   "updated": "2026-10-06",
   "rating": {
    "score": 3.8,
-   "breakdown": "メーカー公表値として確認できたUSB-C有線接続、バッテリー非搭載、約120×120×35mm・約250g、3W出力、製品から3m以内の推奨使用範囲、18か月保証、エコーキャンセリング・残響抑制・ノイズリダクションを対象に採点しました。有線・据え置き前提を受け入れられる環境では仕様が明快な点を評価し、Bluetooth非対応、バッテリー非搭載、マイク本数・対応人数・対応OSを公式ページで確認できない点を減点しています。"
+   "breakdown": "当サイト独自評価は、メーカー公表値として確認できたUSB-C有線接続、バッテリー非搭載、約120×120×35mm・約250g、3W出力、製品から3m以内の推奨使用範囲、18か月保証、エコーキャンセリング・残響抑制・ノイズリダクションを対象に採点しました。有線・据え置き前提を受け入れられる環境では仕様が明快な点を評価し、Bluetooth非対応、バッテリー非搭載、マイク本数・対応人数・対応OSを公式ページで確認できない点を減点しています。"
   },
   "conclusion_title": "まとめ",
   "slug": "speakerphone-conference-review",
@@ -63021,14 +63021,14 @@
    "本体の充電管理は不要。その代わり、使用時にUSB-C接続できる環境が必要という条件も明確",
    "約120×120×35mm・約250gと公表されており、設置場所の寸法を購入前に見積もりやすい",
    "メーカーがエコーキャンセリング・残響抑制・ノイズリダクションの搭載を説明している",
-   "保証は18か月。Ankerで会員登録するとさらに6か月延長される"
+   "保証は18か月で、Ankerで会員登録すると6か月延長される",
+   "クイックスタートガイドと安全マニュアルが同梱されるため、メーカーが案内する基本的な使用上の注意を確認できる",
+   "メーカーが製品から3m以内という推奨使用範囲を示しており、会議室の配置と合うかを事前に測って判断できる"
   ],
   "cons": [
    "Bluetoothには対応していないため、無線接続を必要とする用途には合わない",
    "バッテリーを内蔵しておらず、使用にはUSB-Cケーブルでの接続が必要",
-   "メーカーは製品から3m以内での使用を推奨している。推奨範囲を超える配置の性能は公式ページで確認できない",
-   "スピーカー出力は3W。音量や聞こえ方は部屋・参加者との距離・周囲の騒音に左右されるため、数値だけで利用環境への適合は判断できない",
-   "マイク本数・対応人数・想定する部屋の広さ・対応OSは公式ページから確認できない"
+   "メーカーは製品から3m以内での使用を推奨している。3W出力の聞こえ方や、推奨範囲を超える配置、マイク本数・対応人数・対応OSについては公式ページで確認できない"
   ],
   "voices_intro": "確認できた利用者の声と、公表仕様に照らした確認点を整理します。件数、割合、平均評価は確認できていないため示しません。",
   "voices": [
@@ -63251,7 +63251,7 @@
   "official_ogp_image": "https://www.ankerjapan.com/cdn/shop/products/A3307001_1200x1200.jpg?v=1646024880",
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "evidence_audit": {
-   "checked_at": "2026-10-06T09:03:46+09:00",
+   "checked_at": "2026-10-06T09:28:26+09:00",
    "status": "blocked",
    "official_url": "https://www.ankerjapan.com/products/a3307",
    "has_official_evidence": true,
@@ -63579,7 +63579,7 @@
   "official_ogp_image": "https://i02.appmifile.com/i18n/share/new-logo.png",
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "evidence_audit": {
-   "checked_at": "2026-10-06T09:08:18+09:00",
+   "checked_at": "2026-10-06T09:29:05+09:00",
    "status": "blocked",
    "official_url": "https://www.mi.com/jp/product/redmi-watch-5/",
    "has_official_evidence": true,
