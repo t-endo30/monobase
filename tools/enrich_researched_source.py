@@ -1875,6 +1875,35 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"salonia-salonia-2way-hk-2way-slall": {
+        "official_url": "https://salonia.jp/product/hair/iron/2way/",
+        "facts": [
+            "SALONIA公式商品ページで、2WAYストレート&カールヘアアイロン32mm、約50秒で最低設定温度に到達、100〜220℃を5℃刻みで調整、約30分後の自動電源OFF、100〜240V海外対応を確認",
+            "公式仕様で本体サイズ約74×39×320mm、32mmバレル、重量約420g（対象カラー）を確認",
+            "楽天市場の公式店個別商品ページで、2WAYストレート&カール、32mm、1年保証、海外対応の商品同定を確認",
+            "個別投稿では、温まりが早い、ストレートとカールの両方に使える、軽く持ち運びやすいという声がある一方、カール部分が熱くなる、ボタンを誤操作しやすいという指摘もある",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 SALONIA公式店 2WAYストレート&カール 32mm 個別投稿",
+            "text": "個別投稿では、温まりが早い、ストレートとカールの両方に使える、軽くて持ち運びやすいという声があります。一方で、ストレート使用時にカール部分が熱く感じる、温度調整ボタンを誤って押してしまうという指摘もあります。使いやすさは髪質・持ち方・使用環境による個人の感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://salonia.jp/product/hair/iron/2way/",
+            "title": "SALONIA公式 2WAYストレート&カールヘアアイロン",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/kobe-beauty-labo/main-salo3/",
+            "title": "楽天市場 SALONIA公式店 2WAY 32mm 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/262435_10000050/1.1/",
+            "title": "楽天市場 SALONIA公式店 2WAY 32mm 個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    }
     ,"kae-g13n": {
         "official_url": "https://www.tiger-corporation.com/ja/jpn/product/others/kae-g13n/",
         "facts": [
