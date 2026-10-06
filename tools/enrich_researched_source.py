@@ -2351,6 +2351,36 @@ SOURCE = {
             "checked_at": "2026-10-07",
         }],
     },
+    "arromic-st-x3ba": {
+        "official_url": "https://www.yamazen-create.co.jp/uploads/post/650/2_1.pdf",
+        "product_url": "https://item.rakuten.co.jp/bathroom/st-x3b/",
+        "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/bathroom/cabinet/0001/020/stx3ba_sm01b.jpg?_ex=128x128",
+        "facts": [
+            "商品資料ではアラミックの節水シャワープロ・プレミアム ST-X3B系として、アダプター4種付属を案内している",
+            "価格.comの個別レビューでは、本体サイズ約64×239×62mm、重量152g、アダプター4種付属という情報が確認できる",
+            "個別レビューでは片手で止水と水流調整ができる一方、水圧が低く感じる場合があるという声がある"
+        ],
+        "review_texts": [{
+            "source": "価格.com アラミック ST-X3BA 個別レビュー",
+            "text": "片手で止水とシャワーの強さを操作できる、強弱を調整できるという声がある一方、水圧が少々低い、水圧重視の人は注意という声もあります。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.yamazen-create.co.jp/uploads/post/650/2_1.pdf",
+            "title": "商品資料 アラミック ST-X3B系",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/bathroom/st-x3b/",
+            "title": "楽天市場 アラミック ST-X3BA 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.kakaku.com/review/S0000855568/ReviewCD%3D1478295/",
+            "title": "価格.com ST-X3BA 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
     "tp-link-10gbps-lan-pci-e-tx401": {
         "official_url": "https://www.tp-link.com/jp/home-networking/pci-adapter/tx401/v1/",
         "product_url": "https://item.rakuten.co.jp/doriem/b08gfgg888/",
