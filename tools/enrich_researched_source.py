@@ -326,6 +326,42 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     },
+    "h70ft-h70ft-h70ft-bac06wh": {
+        "official_url": "https://huromjapan.com/product/h70ft.html",
+        "product_url": "https://item.rakuten.co.jp/pika831/10005259/",
+        "thumb": "https://huromjapan.com/common/images/product/h400/hero_product_h70ft.jpg",
+        "facts": [
+            "HUROM公式ではH70FTを材料をまとめて投入できるスロージューサーとして案内している",
+            "公式商品情報ではジュースとフローズンに対応するマルチスクリュー、1.8Lのメガホッパー、食洗機使用条件を案内している",
+            "公式では野菜・果物・凍った食材をフィルター交換なしで扱えるオールインワン仕様として案内している",
+            "楽天市場の個別レビューでは、H70FT-BAC06WHの使用感や手入れについての利用者の声を確認できる"
+        ],
+        "review_texts": [{
+            "source": "楽天市場 HUROM H70FT 個別レビュー",
+            "text": "楽天市場の個別投稿では、H70FT-BAC06WHの使用感や手入れについての利用者の声が確認できます。個人の感想として扱い、健康上の効果は断定しません。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://huromjapan.com/product/h70ft.html",
+            "title": "HUROM公式 H70FT 商品情報",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "official_manual",
+            "url": "https://huromjapan.com/support/manual_pdf/manual_H70FT.pdf",
+            "title": "HUROM公式 H70FT 取扱説明書",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/pika831/10005259/",
+            "title": "楽天市場 H70FT-BAC06WH 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/201791_10005259/1.1/",
+            "title": "楽天市場 H70FT 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
     "fotopro-digi-204": {
         "official_url": "https://www.asanumashoukai.co.jp/info/wp-content/uploads/2022/08/asanuma_price_revision20221001.pdf",
         "product_url": "https://item.rakuten.co.jp/photolink/4906238806024/",
