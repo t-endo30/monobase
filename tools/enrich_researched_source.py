@@ -2351,6 +2351,35 @@ SOURCE = {
             "checked_at": "2026-10-07",
         }],
     },
+    "xrs-d010": {
+        "official_url": "https://www.plusminuszero.jp/faq/garment-steamer%EF%BC%88スタイルスチーマー%EF%BC%89/",
+        "product_url": "https://item.rakuten.co.jp/roomy/pmz19jun27b01/",
+        "facts": [
+            "プラスマイナスゼロ公式FAQではXRS-D010をスタイルスチーマーとして案内し、スチームなしのプレス仕上げにも対応すると説明している",
+            "楽天市場の個別商品ページではハンガーにかけたまま使える衣類スチーマーとしてXRS-D010を掲載している",
+            "楽天市場の個別投稿では、起動が早くスチームのパワーを評価する声、手軽に気になる部分へアイロンできたという声が確認できる"
+        ],
+        "review_texts": [{
+            "source": "楽天市場 ±0 XRS-D010 個別レビュー",
+            "text": "個別投稿では、起動が早くスチームのパワーがある、手軽に気になる部分へアイロンできたという声があります。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.plusminuszero.jp/faq/garment-steamer%EF%BC%88スタイルスチーマー%EF%BC%89/",
+            "title": "±0公式 XRS-D010 スタイルスチーマーFAQ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/roomy/pmz19jun27b01/",
+            "title": "楽天市場 ±0 XRS-D010 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/211966_10009678/1.1/",
+            "title": "楽天市場 XRS-D010 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
     "simplus-sp-rcmc4": {
         "official_url": "https://simplus.style/sp-rcmc4/",
         "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/rcmdin/cabinet/eb06/eb-4582226844157.jpg?_ex=128x128",
