@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "ath-sr30bt-gy-bluetooth-ath": {
+        "official_url": "https://www.audio-technica.co.jp/product/ATH-SR30BT",
+        "facts": [
+            "オーディオテクニカ公式製品ページでATH-SR30BTを商品同定",
+            "公式仕様でBluetooth 5.0、最大約70時間再生、φ40mmドライバー、約190g、AAC/SBC対応、ATH-SR30BT GYの型番とJANを確認",
+            "楽天市場の個別商品ページでATH-SR30BT GYの販売情報を確認",
+            "個別投稿では普段使いの音質やデザインを評価する声がある一方、長時間装着時の圧迫感や蒸れに触れる声もあるため、装着感は頭部形状・使用時間・環境による個人差として扱う",
+        ],
+        "review_texts": [{
+            "source": "Yahoo!ショッピング ATH-SR30BT 個別レビュー",
+            "text": "個別投稿では、普段使いには問題ないという内容がある一方、1時間程度の装着で圧迫感がある、運動時は蒸れやすいという指摘も確認できます。音質や装着感は個人差が大きいため、最大70時間という公式仕様と、長時間使用時の体験談を分けて判断します。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.audio-technica.co.jp/product/ATH-SR30BT",
+            "title": "オーディオテクニカ公式 ATH-SR30BT",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://biccamera.rakuten.co.jp/item/4961310146818",
+            "title": "楽天ビック ATH-SR30BT GY 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://shopping.yahoo.co.jp/products/p/51e4b769fc/review/",
+            "title": "Yahoo!ショッピング ATH-SR30BT 利用者の声",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "a75c4419-panasonic-d2613": {
         "official_url": "https://panasonic.jp/manualdl/p-db/cs/cs_634_804_x.pdf",
         "facts": [
