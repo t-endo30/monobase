@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "sony-cmt-m35wm-usb-cd-hcd-m35wm-ss": {
+        "official_url": "https://www.sony.jp/system-stereo/products/archive/CMT-M35WM/spec.html",
+        "facts": [
+            "ソニー公式仕様ページでCMT-M35WMを商品同定",
+            "公式仕様でCD、MD、カセット、FM/AM、ウォークマン専用USB端子、外部入力、スリープタイマーなどの対応を確認",
+            "ソニー公式サポートでCMT-M35WM（HCD-M35WM、RM-SM35、SS-CM35）の取扱説明書とQ&Aを確認",
+            "価格.comの個別レビューでは、CD・MD・カセット・外部入力を一体で使える点や、Bluetooth非対応、リモコン依存の操作、音量・音質の印象に触れる内容があるため、年代と用途を分けて判断する",
+        ],
+        "review_texts": [{
+            "source": "価格.com CMT-M35WM 個別レビュー",
+            "text": "個別レビューでは、CD・MD・カセット・外部入力を一体で使えること、コンパクトなサイズを評価する内容が確認できます。一方で、Bluetooth非対応、リモコンが必要な操作、音量や音質は設置環境と期待値によって印象が変わるという指摘もあります。中古品では付属品・動作状態・消耗部品の確認が必要です。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.sony.jp/system-stereo/products/archive/CMT-M35WM/spec.html",
+            "title": "ソニー公式 CMT-M35WM 主な仕様",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/skymarketplus/yb00mo3wxgk/",
+            "title": "楽天市場 CMT-M35WM 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.kakaku.com/review/20707010368/",
+            "title": "価格.com CMT-M35WM レビュー・評価",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "valx": {
         "official_url": "https://corp.valx.jp/services/valx/",
         "facts": [
