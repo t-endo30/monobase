@@ -2351,6 +2351,67 @@ SOURCE = {
             "checked_at": "2026-10-07",
         }],
     },
+    "tp-link-10gbps-lan-pci-e-tx401": {
+        "official_url": "https://www.tp-link.com/jp/home-networking/pci-adapter/tx401/v1/",
+        "product_url": "https://item.rakuten.co.jp/doriem/b08gfgg888/",
+        "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/doriem/cabinet/sn148/sn148_b08gfgg888.jpg?_ex=128x128",
+        "facts": [
+            "TP-Link公式ではTX401を10ギガビットPCIeネットワークアダプターとして案内している",
+            "公式仕様ではPCI Express 3.0 x4、RJ45ポート、最大10Gbps、付属の1.5m CAT6Aケーブルを案内している",
+            "公式ページではWindows 10・8.1・8対応、標準ブラケットとロープロファイルブラケットを案内している",
+            "公式ページでは10Gbps通信時に高温になることがあるが仕様として案内している"
+        ],
+        "review_texts": [{
+            "source": "TP-Link TX401 個別レビュー",
+            "text": "個別レビューでは、10Gbps環境で速度やドライバー、PCIeスロットとの組み合わせが購入後の確認点になるという使用報告があります。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.tp-link.com/jp/home-networking/pci-adapter/tx401/v1/",
+            "title": "TP-Link公式 TX401 商品情報・仕様",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/doriem/b08gfgg888/",
+            "title": "楽天市場 TP-Link TX401 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://memotora.com/2021/06/09/review-tp-link-tx401/",
+            "title": "TP-Link TX401 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
+    "p10-yunth-c-c": {
+        "official_url": "https://yunth.jp/shop/products/101-01",
+        "product_url": "https://item.rakuten.co.jp/yunth/10000000/",
+        "facts": [
+            "Yunth公式商品ページでは生VC美白美容液を医薬部外品として案内し、有効成分にアスコルビン酸を記載している",
+            "公式サイトでは水を使わず、生ビタミンCをフレッシュな状態で使用できる商品として案内している",
+            "公式サイトでは開封後30秒を推奨使用期限として案内しているが、30秒を過ぎても品質に問題はないと説明している",
+            "楽天市場の個別レビューでは、使用感や肌なじみについての利用者の投稿を確認できる"
+        ],
+        "review_texts": [{
+            "source": "楽天市場 Yunth 生VC美白美容液 個別レビュー",
+            "text": "楽天市場の個別投稿では、使用感や肌なじみについての感想が確認できます。医薬部外品の効能効果は公式表示の範囲で扱い、個人の感想から効果を断定しません。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://yunth.jp/shop/products/101-01",
+            "title": "Yunth公式 生VC美白美容液 商品情報",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/yunth/10000000/",
+            "title": "楽天市場 Yunth 生VC美白美容液 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/409735_10000000/2.1/",
+            "title": "楽天市場 Yunth 生VC美白美容液 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
     "salonia": {
         "official_url": "https://salonia.jp/support/hair/iron/straight.php",
         "thumb": "https://item-shopping.c.yimg.jp/i/g/queensshop_main-sl-004",
