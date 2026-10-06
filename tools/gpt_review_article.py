@@ -32,7 +32,7 @@ def main():
     ap.add_argument("--new", action="store_true", help="未公開記事を対象")
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--rounds", type=int, default=2)
-    ap.add_argument("--model", default=None)
+    ap.add_argument("--model", default="gpt-5.6-terra")
     ap.add_argument("--timeout", type=int, default=300)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--publish", action="store_true")

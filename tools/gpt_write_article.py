@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Claude経路を変更せずに、OpenAI Responses APIで記事を書く経路。"""
+"""GPT経路で記事本文を生成する。Claude Codeには依存しない。"""
 import argparse
 import io
 import os
@@ -8,7 +8,7 @@ import sys
 import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from gpt_llm import GPTError, request_json
+from gpt_llm import GPTError, jev_judge, request_json
 from gpt_schemas import ARTICLE_SCHEMA
 from write_article import (ARTICLES, INDEX_MIN_REVIEWS, MIN_CHARS, ROOT,
                            apply_generated, audit, body_chars, build_prompt,
@@ -21,11 +21,26 @@ INSTRUCTIONS = """あなたはモノベースの編集部員です。与えら�
 事実にない仕様、体験、口コミ、価格、効果を補わないでください。曖昧な情報は data_gaps に記録し、rating と spec は根拠がある場合だけ値を入れてください。出力は指定されたJSON Schemaに厳密に従うJSONオブジェクトだけにしてください。"""
 
 
+def jev_context(article):
+    """生成前にJevで主張リスクを確認し、結果を本文生成へ渡す。"""
+    result = jev_judge({
+        "task": "article_claim_risk_before_generation",
+        "slug": article.get("slug"),
+        "article": {k: article.get(k) for k in
+                     ("title", "official_url", "rakuten_url", "yahoo_url",
+                      "facts", "voices", "review_stats", "source_notes")},
+    })
+    if result.get("status") != "ok":
+        return "Jevは利用できなかったため、提供された根拠だけで生成してください。"
+    return ("生成前Jev補助判定（事実そのものではなく、要確認候補として扱う）:\n"
+            + str(result))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("slugs", nargs="*")
     ap.add_argument("--drafts", action="store_true", help="本文が空の未公開下書き")
-    ap.add_argument("--model", default=None)
+    ap.add_argument("--model", default="gpt-5.6-terra")
     ap.add_argument("--timeout", type=int, default=300)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--no-fetch", action="store_true")
@@ -56,6 +71,7 @@ def main():
             print(f"  - 口コミ {count} 件のため対象外")
             continue
         prompt = build_prompt(a, site, prompt_md, fetch_official=not args.no_fetch)
+        prompt += "\n\n================ 生成前Jev確認 ================\n" + jev_context(a)
         try:
             gen = request_json(INSTRUCTIONS, prompt, ARTICLE_SCHEMA,
                                model=args.model, timeout=args.timeout, cwd=ROOT)

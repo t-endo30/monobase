@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "web-200-cam021n": {
+        "official_url": "https://direct.sanwa.co.jp/ItemPage/200-CAM021N",
+        "facts": [
+            "サンワダイレクト公式でカメラ三脚200-CAM021N、4段伸縮、耐荷重1.5kg、ミラーレス一眼・ビデオカメラ対応を確認",
+            "公式商品ページと取扱説明書で、クイックシュー、一般的なUNC1/4インチねじ、専用収納ケースの説明を確認",
+            "商品ページで伸縮範囲41〜125cmの表示を確認。機材重量と使用時の安定性は機材・設置面に依存するため保証しない",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた高さ調整と携帯性",
+            "who": "サンワダイレクト公式商品ページとYahoo!商品ページに表示された利用者の声（2026-10-06確認）",
+            "text": "個別投稿では、雲台の微調整や伸縮部の固定がしやすい、収納ケース付きで持ち運びやすいという声を確認できます。一方で、高さを変える部分が硬いという指摘や、雲台の取っ手の質感に不満を感じたという声もあります。個別の機材・設置環境での感想であり、すべての利用者に同じ操作感が出るとは扱いません。",
+            "negative": True,
+            "fix_title": "機材重量と設置面を確認してから使う",
+            "fix": "カメラとレンズの合計重量が耐荷重内かを確認し、脚を伸ばした状態では平らで安定した場所に設置してください。固定部に緩みがないかを撮影前に確認しましょう。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://direct.sanwa.co.jp/ItemPage/200-CAM021N",
+            "title": "サンワダイレクト公式 200-CAM021N 商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/sanwadirect/200-cam021n/",
+            "title": "楽天市場 サンワダイレクト 200-CAM021N 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://direct.sanwa.co.jp/ItemReview/200-CAM021N",
+            "title": "サンワダイレクト公式 200-CAM021N 利用者の声",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "200-dgbg008bk": {
         "official_url": "https://direct.sanwa.co.jp/ItemPage/200-DGBG008BK",
         "facts": [

@@ -72,8 +72,10 @@ def main():
     ap.add_argument("--take", type=int, default=5, help="その日の目標記事数")
     ap.add_argument("--batch-size", type=int, default=2, help="1回に処理する候補数")
     ap.add_argument("slugs", nargs="*")
-    ap.add_argument("--model", default=None)
-    ap.add_argument("--review-model", default=None)
+    ap.add_argument("--model", default="gpt-5.6-terra",
+                    help="記事生成モデル（既定: gpt-5.6-terra）")
+    ap.add_argument("--review-model", default="gpt-5.6-terra",
+                    help="レビュー用モデル（既定: gpt-5.6-terra）")
     ap.add_argument("--timeout", type=int, default=300)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--publish", action="store_true", help="レビュー合格記事だけ公開")
