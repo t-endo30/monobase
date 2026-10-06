@@ -1836,6 +1836,45 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"orage-c33": {
+        "official_url": "https://www.tvfusion.co.jp/product/616",
+        "facts": [
+            "Orage公式販売ページでC33コードレスサイクロン掃除機の商品ページを確認",
+            "公式販売ページではC33の2in1コードレス掃除機として掲載されていることを確認",
+            "Yahoo!ショッピングの商品情報で22.2V、ヘッドライト、交換用バッテリー対応などの掲載情報を確認するが、購入時の仕様は販売ページで再確認する",
+        ],
+        "voices": [{
+            "heading": "取り回しとヘッドライトを評価する声",
+            "who": "Yahoo!ショッピング Orage C33 個別レビュー",
+            "text": "個別レビューでは、コードレス・軽さ・ブラシ回転式ヘッド・ヘッドライトを評価し、コードレス掃除機として十分と感じたという投稿があります。個別の使用感として扱い、全利用者の評価とは断定しません。",
+            "negative": False,
+            "fix_title": "主用途と期待する吸引力を先に決める",
+            "fix": "購入前に、階段や車内などのサブ用途か、家全体を一台で掃除する用途かを分け、販売ページの運転時間・付属品と照合してください。",
+        }, {
+            "heading": "耐久性や部品交換を気にする声",
+            "who": "Yahoo!ショッピング Orage C33 個別レビュー",
+            "text": "別の個別レビューでは、長期使用時の故障や交換部品への関心が示されています。軽さだけで決めず、保証と交換用バッテリーの入手方法を確認したい商品として整理します。",
+            "negative": True,
+            "fix_title": "保証と交換部品を購入前に確認する",
+            "fix": "購入前に販売元の保証期間、問い合わせ窓口、交換用バッテリーの販売状況を確認し、回答が得られない場合は購入判断を保留してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.tvfusion.co.jp/product/616",
+            "title": "Orage公式販売ページ C33",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://store.shopping.yahoo.co.jp/tvfusion/cleaner-cordless-c33.html",
+            "title": "Yahoo!ショッピング 個別商品ページ Orage C33",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://shopping.yahoo.co.jp/products/83760dc71d/review/",
+            "title": "Yahoo!ショッピング 個別レビュー Orage C33",
+            "checked_at": "2026-10-06",
+        }],
+    }
 }
 
 
