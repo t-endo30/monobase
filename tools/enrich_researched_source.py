@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "pc-microsoft-surface-8gb-ssd256gb-core-i5": {
+        "official_url": "https://support.microsoft.com/en-us/surface/models/surface-pro-5th-gen-specs-and-features",
+        "facts": [
+            "Microsoft公式サポートでSurface Pro（第5世代）のモデル番号1796（Wi-Fi）、12.3インチPixelSenseディスプレイ、第7世代Core m3/i5/i7、メモリ4/8/16GB、SSD容量の選択肢を確認",
+            "公式仕様でUSB 3.0、microSDXC、Mini DisplayPort、Bluetooth 4.1、重量などの世代共通情報を確認し、中古個体の構成とは分けて扱う",
+            "楽天市場の個別商品ページでSurface Pro 5、Core i5、8GB、SSD256GB、Windows 11の中古構成を確認",
+            "個別投稿では中古でも外観・起動・ソフトの立ち上がり・バッテリーに問題がなかったという声がある一方、メモリ容量やタブレット形状の必要性を購入前に考える内容もあるため、個体差と用途を分けて確認する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 Surface Pro 5 中古個別レビュー",
+            "text": "個別投稿では、中古品でもきれいで起動やソフトの立ち上がりが速く、バッテリーも問題なかったという内容が確認できます。一方で、より高い処理性能や大画面が必要なら別のノートPCを検討したほうがよいという声もあります。中古品は同じ型名でも状態・構成・付属品が異なるため、販売ページの個体説明を優先します。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://support.microsoft.com/en-us/surface/models/surface-pro-5th-gen-specs-and-features",
+            "title": "Microsoft公式 Surface Pro（第5世代）仕様",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/pc-eco2000/microsoft02/",
+            "title": "楽天市場 Surface Pro 5 中古個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/304287_10005963/1.1/",
+            "title": "楽天市場 Surface Pro 5 中古個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "00-9-clinique": {
         "official_url": "https://www.clinique.jp/product/1606/7079/makeup/mascara/lash-power-curling-mascara-long-wearing-formula",
         "facts": [
