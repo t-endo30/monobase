@@ -1875,6 +1875,35 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"refa-ultra-fine-bubble-laundry-rs-ck-00a": {
+        "official_url": "https://www.refa.net/en/item/refa_ultra_fine_bubble_laundry/",
+        "facts": [
+            "ReFa公式商品ページで、商品名ReFa ULTRA FINE BUBBLE LAUNDRY、型番RS-CK-00A、直径約30mm・高さ約62mm・重量約210g、G3/4ホース接続ねじを確認",
+            "公式説明では、1マイクロメートル未満のウルトラファインバブルを洗濯水に発生させる製品として案内されている",
+            "楽天市場の個別商品ページで、同じ型番RS-CK-00A、JAN4974011815150、洗濯機の給水口に取り付ける構成を確認",
+            "楽天市場の個別投稿では、洗濯物の肌ざわりや柔軟剤の香りを評価する声がある一方、効果を実感できないという声もあり、体感には個人差があると整理する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 ReFa ULTRA FINE BUBBLE LAUNDRY RS-CK-00A 個別投稿",
+            "text": "個別投稿では、洗濯物がきれいになり肌ざわりがよくなった、柔軟剤の香りが感じやすくなったという声がある一方、特に変化を実感していないという投稿もあります。効果の感じ方は洗濯機・洗剤・衣類・使用期間で変わる個人の感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.refa.net/en/item/refa_ultra_fine_bubble_laundry/",
+            "title": "ReFa公式 ULTRA FINE BUBBLE LAUNDRY 商品情報",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/tea-life/98490/",
+            "title": "楽天市場 ReFa ULTRA FINE BUBBLE LAUNDRY RS-CK-00A 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/394827_10001888/1.1/",
+            "title": "楽天市場 ReFa ULTRA FINE BUBBLE LAUNDRY RS-CK-00A 個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    }
     ,"chromelite-ultracush-s": {
         "official_url": "https://cjutro.jp/pages/chromelite",
         "facts": [
