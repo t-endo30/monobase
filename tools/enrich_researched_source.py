@@ -7,6 +7,39 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "puppia-xs-s-m-l": {
+        "official_url": "https://www.puppia.jp/puppia2014fw.pdf",
+        "facts": [
+            "PUPPIA公式資料でソフトベストハーネスのサイズ展開にXS・S・M・Lが含まれることを確認",
+            "楽天市場の個別商品ページで小型犬向けの商品表示とXS・S・M・Lのサイズ選択を確認",
+            "楽天市場の個別商品ページでPUPPIAパピア ソフトベストハーネスの販売商品とサイズ選択を確認",
+            "犬の首や気管への負担、抜けにくさは体格・装着状態・犬の動きで変わるため、公式サイズ表と実寸を照合して選ぶ",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた装着しやすさ",
+            "who": "楽天市場 PUPPIAソフトベストハーネス個別レビュー（2026-10-06確認）",
+            "text": "個別投稿では、リピート購入していて使いやすい、装着が楽という声が確認できます。一方で、首輪から替えて歩きやすくなったという投稿もありますが、犬種・体格・引っ張り方による感想です。すべての犬に同じ装着感や安全性が得られるとは一般化しません。",
+            "negative": True,
+            "fix_title": "首回りと胴回りを実測する",
+            "fix": "購入前に公式サイズ表と愛犬の実寸を照合し、装着後は指が入りすぎないか、動きを妨げないかを確認してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.puppia.jp/puppia2014fw.pdf",
+            "title": "PUPPIA公式 ソフトベストハーネス資料",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/dogskip/puppia-paha-ah305a/",
+            "title": "楽天市場 PUPPIAソフトベストハーネス 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/230805_10000752/1.1/",
+            "title": "楽天市場 PUPPIAソフトベストハーネス 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "pc-lkd-127": {
         "official_url": "https://www.look-it.jp/view/item/000000008428",
         "facts": [
