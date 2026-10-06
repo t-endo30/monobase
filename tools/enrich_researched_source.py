@@ -2351,6 +2351,42 @@ SOURCE = {
             "checked_at": "2026-10-07",
         }],
     },
+    "salonia": {
+        "official_url": "https://salonia.jp/support/hair/iron/straight.php",
+        "thumb": "https://item-shopping.c.yimg.jp/i/g/queensshop_main-sl-004",
+        "product_url": "https://store.shopping.yahoo.co.jp/queensshop/main-sl-004.html",
+        "facts": [
+            "SALONIA公式FAQではSL-004のプレートが上下に動き、髪を強く挟みすぎない仕様として案内している",
+            "公式取扱説明書では電源AC100V〜240V、最高温度約230℃、プレート幅15mm・24mm・35mmの各仕様を案内している",
+            "公式FAQではメーカー保証期間を1年間と案内している",
+            "Yahoo!ショッピングの個別商品レビューでは、前髪への使用で火傷が心配という声が確認できる"
+        ],
+        "review_texts": [{
+            "source": "Yahoo!ショッピング SALONIA SL-004 個別レビュー",
+            "text": "個別投稿では、カールとストレートの両用タイプを使っていたが、前髪では額を火傷しそうで心配なためストレート専用を再購入したという声があります。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://salonia.jp/support/hair/iron/straight.php",
+            "title": "SALONIA公式 SL-004 FAQ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "official_manual",
+            "url": "https://salonia.jp/wp-content/uploads/2021/07/straight.pdf",
+            "title": "SALONIA公式 SL-004 取扱説明書・仕様",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://store.shopping.yahoo.co.jp/queensshop/main-sl-004.html",
+            "title": "Yahoo!ショッピング SALONIA SL-004 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://shopping.yahoo.co.jp/products/p/84f7aad760",
+            "title": "Yahoo!ショッピング SALONIA SL-004 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
     "xrs-d010": {
         "official_url": "https://www.plusminuszero.jp/faq/garment-steamer%EF%BC%88スタイルスチーマー%EF%BC%89/",
         "product_url": "https://item.rakuten.co.jp/roomy/pmz19jun27b01/",
