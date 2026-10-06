@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "zero-windows-dl-snr-windows": {
+        "official_url": "https://www.sourcenext.com/product/security/zero-super-security/",
+        "facts": [
+            "ソースネクスト公式製品ページでZERO スーパーセキュリティを商品同定",
+            "公式案内で1台用の期限なしライセンス、対応OS、製品の位置づけを確認。Windows 10の継続利用には注意が必要との案内も確認",
+            "楽天市場のソースネクスト公式ショップでWindows専用版1台用の個別商品ページを確認",
+            "個別投稿では更新料不要や動作の軽さを評価する声がある一方、セキュリティソフトの効果は通常利用だけでは判断しにくいという声もあり、機能・更新条件・OS対応を中心に確認する",
+        ],
+        "review_texts": [{
+            "source": "ビックカメラ ZERO スーパーセキュリティ Windows専用版 個別レビュー",
+            "text": "個別投稿では、インストール後にパソコンが重くなった印象はないという内容や、更新料金が不要な点を評価する内容が確認できます。一方で、セキュリティ効果は普段の使用だけでは評価しにくいという声もあります。公式の対応OS・ライセンス条件と、個人の使用感を分けて判断します。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.sourcenext.com/product/security/zero-super-security/",
+            "title": "ソースネクスト公式 ZERO スーパーセキュリティ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/pocketalk/0000317880/",
+            "title": "楽天市場 ソースネクスト公式 ZERO スーパーセキュリティ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://www.biccamera.com/bc/disp/SfrGoodsPageReview.jsp?GOODS_NO=10876614",
+            "title": "ビックカメラ ZERO スーパーセキュリティ 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "ath-sr30bt-gy-bluetooth-ath": {
         "official_url": "https://www.audio-technica.co.jp/product/ATH-SR30BT",
         "facts": [
