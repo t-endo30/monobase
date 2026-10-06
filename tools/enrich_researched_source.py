@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "iaw-t606-cp": {
+        "official_url": "https://www.irisohyama.co.jp/products/manual/pdf/108963.pdf",
+        "facts": [
+            "アイリスオーヤマ公式取扱説明書で全自動電気洗濯機 IAW-T606を商品同定",
+            "公式資料で室内・家庭用の型番IAW-T606として、設置・給水・使用上の注意を確認",
+            "アイリスオーヤマ公式楽天市場店の個別商品ページで6kg縦型洗濯機、2年保証の案内を確認",
+            "個別投稿では静音性や操作の簡単さを評価する声がある一方、初期不良・設置条件・洗濯時間に触れる内容もあるため、設置環境と保証条件を確認する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 IAW-T606個別レビュー",
+            "text": "個別投稿では、音が静か、操作が簡単、コンパクトで使いやすいという内容が確認できます。一方で、初期不良や設置場所による保証条件、洗濯時間に関する指摘もあります。住環境・設置条件・個体差による体験談として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.irisohyama.co.jp/products/manual/pdf/108963.pdf",
+            "title": "アイリスオーヤマ公式 IAW-T606取扱説明書",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/irisplaza-r/108963/",
+            "title": "楽天市場 アイリスオーヤマ公式 IAW-T606",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/358201_10160922/1.1/",
+            "title": "楽天市場 IAW-T606 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "mrpe-1260-soho-yamazen": {
         "official_url": "https://book.yamazen.co.jp/product/detail/I00008450",
         "facts": [
