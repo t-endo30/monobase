@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "mrpe-1260-soho-yamazen": {
+        "official_url": "https://book.yamazen.co.jp/product/detail/I00008450",
+        "facts": [
+            "山善公式商品情報サイトでMRPE-1260ラック付デスクを商品同定",
+            "山善公式マニュアルで天板耐荷重60kg、棚板20kg（1枚当たり）、付属コンセント合計1500Wまでの案内を確認",
+            "楽天市場の個別商品ページで幅120・奥行60、2口コンセント、左右入れ替え可能な収納ラック付きデスクを確認",
+            "個別投稿では組み立てやすさ、安定性、色味、天板の凹凸に触れる内容があるため、設置場所と用途に応じて確認する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場・山善公式レビューのMRPE-1260個別投稿",
+            "text": "個別投稿では、1人で組み立てやすい、完成後にぐらつきがない、棚が便利という内容が確認できます。一方で、色味や天板の凹凸に触れる投稿もあります。組み立て環境・照明・用途による個人差として扱い、すべての設置で同じ印象になるとは一般化しません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://book.yamazen.co.jp/product/detail/I00008450",
+            "title": "山善公式 MRPE-1260 商品情報",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/e-kurashi/1450620/",
+            "title": "楽天市場 山善 MRPE-1260 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://yamazenbizcom.jp/item_review.html?ITEM_CD=1450620",
+            "title": "山善公式 MRPE-1260 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "pet-20260927": {
         "official_url": "https://page.mkgr.jp/product/8592/",
         "facts": [
