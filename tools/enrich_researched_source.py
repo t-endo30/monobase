@@ -7,6 +7,39 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "health-20261005-2": {
+        "official_url": "https://brushmo.co.jp/collections/brush-head-refills",
+        "facts": [
+            "ブラシモ公式 Yahoo!ショッピング店の商品ページで、商品名『フィリップス ソニッケアー 替えブラシ 電動歯ブラシ 対応 ダイヤモンドクリーン ミニ8本入 ブラシモ 互換替えブラシ』と商品コードSM6078-JPを確認",
+            "商品ページでダイヤモンドクリーン、ダイヤモンドクリーンスマート、イージークリーン、フレックスケアー、ヘルシーホワイト、ガムヘルス、アダプティブクリーン、プラチナシリーズ、プロテクトクリーン等への対応表示を確認",
+            "商品ページでミニサイズの替えブラシ8本入、DuPont素材の表示を確認。仕様・パッケージは変更される場合があるため購入時の表示を優先する",
+            "ブラシモ公式オンラインストアの替えブラシ一覧で、ソニッケアー向けブラシヘッドの商品群を確認。SM6078-JPの個別仕様は公式Yahoo!商品ページで照合する",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた装着感とサイズの違い",
+            "who": "ブラシモ公式Yahoo!商品ページに表示された利用者の声（2026-10-06確認）",
+            "text": "個別投稿では、ソニッケアー本体に装着して問題なく使えた、ミニサイズが本人や子どもに合ったという声を確認できます。一方で、純正品よりやや柔らかい・幅広く感じたという個人の感想、旧購入品で接続部が外れたことがあるという指摘、耐久性はまだ判断できないという声もあります。投稿者の使用条件に基づく感想であり、すべての本体や口腔状態に同じ結果が出るとは扱いません。",
+            "negative": True,
+            "fix_title": "本体型番とブラシサイズを購入前に照合する",
+            "fix": "使用中のソニッケアー本体のシリーズ名・型番を対応表と照合し、ミニサイズの大きさが自分や子どもの口に合うかを確認してください。装着後は接続部にぐらつきがないかを確かめ、違和感があれば使用を中止しましょう。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://brushmo.co.jp/collections/brush-head-refills",
+            "title": "BRUSHMO公式オンラインストア 替えブラシ一覧",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://store.shopping.yahoo.co.jp/sonimart/sm6078-jp.html",
+            "title": "ブラシモ公式 Yahoo!ショッピング店 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://store.shopping.yahoo.co.jp/sonimart/sm6078-jp.html",
+            "title": "ブラシモ公式 Yahoo!商品ページに表示された個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "petkit-pura-max2": {
         "official_url": "https://www.petkit.com/products/puramax-2-ultimate-bundles",
         "facts": [
