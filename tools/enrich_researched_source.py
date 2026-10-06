@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "switchbot-alexa": {
+        "official_url": "https://www.switchbot.jp/collections/all/products/switchbot-hub3",
+        "facts": [
+            "SwitchBot公式ページでSwitchBot ハブ3を商品同定",
+            "公式案内で赤外線リモコン、2.4インチモニター、温湿度計・光センサー、Matter対応に関する製品情報を確認",
+            "楽天市場のSwitchBot公式店個別商品ページでハブ3と商品レビューを確認",
+            "個別投稿では操作の便利さを評価する声がある一方、機器登録やコネクタ接続に関する注意も確認できるため、利用機器との互換性を先に確認する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 SwitchBot公式店 ハブ3個別レビュー",
+            "text": "個別投稿では、家電操作が楽になった、便利で使いやすいという内容が確認できます。一方で、登録方法や他社Bluetooth機器の操作範囲に関する注意もあります。接続する機器・アプリ・ネットワーク環境による差を分けて扱い、すべての環境で同じ操作性になるとは一般化しません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.switchbot.jp/collections/all/products/switchbot-hub3",
+            "title": "SwitchBot公式 ハブ3",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/switchbot/hub3/",
+            "title": "楽天市場 SwitchBot公式店 ハブ3",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/415408_10000265/1.1/",
+            "title": "楽天市場 SwitchBot ハブ3 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "jackery-jackery-solarsaga-ip65-jackery": {
         "official_url": "https://www.jackery.jp/collections/solar-panel/products/jackery-solarsaga-100",
         "facts": [
