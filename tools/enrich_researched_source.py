@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "200-dgbg008bk": {
+        "official_url": "https://direct.sanwa.co.jp/ItemPage/200-DGBG008BK",
+        "facts": [
+            "サンワダイレクト公式でカメラバッグ200-DGBG008BK、品番200-DGBG008BKを確認",
+            "公式商品ページで一眼カメラ本体と交換用レンズを収納でき、ショルダーベルトとベルトループに対応する商品説明を確認",
+            "公式説明で間仕切りを使って収納レイアウトを調整できることを確認",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できたサイズ感と収納範囲",
+            "who": "サンワダイレクト公式商品ページとYahoo!商品ページに表示された利用者の声（2026-10-06確認）",
+            "text": "個別投稿では、散歩などの気軽な撮影に使いやすい大きさ、カメラとレンズの収納にちょうどよいサイズ感という声を確認できます。一方で、カメラ機材以外の収納はメッシュポケット程度に限られるという記述もあります。機材の大きさや持ち物によって使い勝手は変わるため、投稿者の感想をすべての組み合わせに一般化しません。",
+            "negative": True,
+            "fix_title": "機材と周辺品の寸法を先に照合する",
+            "fix": "カメラ本体・レンズ・予備バッテリーなどの寸法を測り、公式商品ページの収納説明と照合してください。機材以外の荷物を多く入れる場合は別のバッグも用意しましょう。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://direct.sanwa.co.jp/ItemPage/200-DGBG008BK",
+            "title": "サンワダイレクト公式 200-DGBG008BK 商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/sanwadirect/200-dgbg008bk/",
+            "title": "楽天市場 サンワダイレクト 200-DGBG008BK 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://direct.sanwa.co.jp/ItemReview/200-DGBG008BK",
+            "title": "サンワダイレクト公式 200-DGBG008BK 利用者の声",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "200-bg019": {
         "official_url": "https://direct.sanwa.co.jp/ItemPage/200-BG019LBK",
         "facts": [
