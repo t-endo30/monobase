@@ -3008,6 +3008,39 @@ SOURCE = {
             "title": "楽天市場 アテニア 350mL 個別レビュー",
             "checked_at": "2026-10-07",
         }],
+    },
+    "beauty-20260906-2": {
+        "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/luire/cabinet/plus04/mask26a-2_off50.jpg?_ex=128x128",
+        "title": "PLuS プラセンタモイスチュアマスク 70枚 利用者の声｜香りと使い方の確認点",
+        "list_title": "PLuS プラセンタモイスチュアマスク 70枚 利用者の声",
+        "official_url": "https://www.plus-cosme.jp/products/mask.html",
+        "product_url": "https://item.rakuten.co.jp/luire/pmm-yami/",
+        "facts": [
+            "PLuS公式サイトでプラセンタモイスチュアマスクの商品情報と使用方法を確認",
+            "楽天市場のプリュ公式ショップ個別商品ページで35枚入り2点セット、合計70枚の構成と香りの選択肢を確認",
+            "公式情報ではローションを含むシートマスクとして案内されているため、肌への効果を断定せず使用方法と肌との相性を確認する",
+            "楽天市場の個別レビューでは、香り、美容液の量、使いやすさを評価する声がある一方、香りが合わないという声も確認できるため、香りの選択と初回の使用感を確認する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 プリュ公式ショップ 個別レビュー",
+            "text": "個別投稿では、美容液がたっぷりで使いやすい、ローズや柚子などの香りを楽しめるという感想が確認できます。一方で、においが気になったという投稿もあるため、香りの種類を選べる点と、肌に合わない場合は使用を中止する点を購入前に確認します。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.plus-cosme.jp/products/mask.html",
+            "title": "PLuS公式 プラセンタモイスチュアマスク",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/luire/pmm-yami/",
+            "title": "楽天市場 プリュ公式ショップ 70枚セット個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/item/1/197539_10004549/1.1/",
+            "title": "楽天市場 プラセンタモイスチュアマスク 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
     }
 }
 
