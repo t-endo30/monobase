@@ -1875,6 +1875,45 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"chromelite-ultracush-s": {
+        "official_url": "https://cjutro.jp/pages/chromelite",
+        "facts": [
+            "C.jutro公式ページでChromeLiteを2年の開発期間を経て誕生した独自素材として案内していることを確認",
+            "公式情報でChromeLite×UltraCushのSサイズ・機内持ち込みモデルのシリーズ掲載を確認",
+            "購入対象はASIN B0F9VFYC1Zと楽天市場の商品ページを照合し、サイズ・カラー選択を注文前に確認する",
+        ],
+        "voices": [{
+            "heading": "楽天市場の利用者の声で確認できる走行感",
+            "who": "楽天市場 C.jutro公式店の利用者の声（2025年8月投稿）",
+            "text": "個別レビューでは、機内持ち込みサイズを探して購入し、滑らかな動きや収納構成を評価したという声が確認できます。一方、別の投稿ではアームのがたつきや高さ固定について触れられており、個別の使用感として整理します。",
+            "negative": True,
+            "fix_title": "キャスターとハンドルの確認を行う",
+            "fix": "到着後は平らな場所でキャスターの動きとハンドルの固定を確認し、違和感があれば保証・交換条件に沿って販売元へ相談してください。",
+        }, {
+            "heading": "収納と外観を評価する利用者の声",
+            "who": "楽天市場 C.jutro公式店の利用者の声（2025年7月投稿）",
+            "text": "別の投稿では、外観の質感と収納力を評価する声が確認できます。見た目や収納の印象は荷物量・使い方で変わるため、個別の感想として扱います。",
+            "negative": False,
+            "fix_title": "機内持ち込み条件と荷物量を照合する",
+            "fix": "航空会社の機内持ち込みサイズ規定と、実際に入れる荷物の量を照合してからサイズを選んでください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://cjutro.jp/pages/chromelite",
+            "title": "C.jutro公式 ChromeLite商品情報",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/euphoric/10000013/",
+            "title": "楽天市場 C.jutro公式店 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/item/1/420106_10000035/1.1/",
+            "title": "楽天市場 C.jutro公式店 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    }
 }
 
 
