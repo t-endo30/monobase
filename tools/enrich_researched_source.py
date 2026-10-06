@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "nimaso-iphone-iphone18pro-iphone-duo-iphone18proma": {
+        "official_url": "https://nimaso.co.jp/collections/iphone-camera-lens-protectors",
+        "facts": [
+            "NIMASO公式のiPhoneカメラレンズカバー案内で、カメラレンズ保護フィルムの製品群を確認",
+            "楽天市場の個別商品ページでNIMASO iPhone用レンズカバーの販売商品と対応機種選択を確認",
+            "対応機種・レンズ形状・ケースとの干渉はiPhoneの世代と商品構成で変わるため、注文時の選択欄を照合する",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた貼り付け後の状態",
+            "who": "楽天市場 NIMASOレンズカバー個別商品レビュー（2026-10-06確認）",
+            "text": "個別投稿では、NIMASOの保護フィルムを継続して使っている、貼り付け後の見た目を評価する声が確認できます。一方で、貼り付け時に空気が抜けないという投稿もあります。貼り付け手順・端末・ケースとの相性による感想として扱い、すべての端末で同じ結果になるとは一般化しません。",
+            "negative": True,
+            "fix_title": "対応機種とケース干渉を先に確認する",
+            "fix": "注文前にiPhoneの正確な機種、レンズ形状、使用中ケースとの干渉、貼り付け手順を確認してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://nimaso.co.jp/collections/iphone-camera-lens-protectors",
+            "title": "NIMASO公式 iPhoneカメラレンズカバー",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/niccou-store/20210508-jtm-tm/",
+            "title": "楽天市場 NIMASO iPhoneレンズカバー 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://item.rakuten.co.jp/niccou-store/20210508-jtm-tm/",
+            "title": "楽天市場 NIMASO iPhoneレンズカバー 個別レビュー表示",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "puppia-xs-s-m-l": {
         "official_url": "https://www.puppia.jp/puppia2014fw.pdf",
         "facts": [
