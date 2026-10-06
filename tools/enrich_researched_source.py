@@ -7,6 +7,24 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "camera-20260830": {
+        "amazon_url": "https://www.amazon.co.jp/dp/B0FM76RYRP",
+        "source_notes": [{
+            "type": "product_page",
+            "url": "https://www.amazon.co.jp/dp/B0FM76RYRP",
+            "title": "Amazon 個別商品ページ クレーリナ エアリーカールマスカラ",
+            "checked_at": "2026-10-06",
+        }],
+    },
+    "redmi-watch-5-review": {
+        "amazon_url": "https://www.amazon.co.jp/dp/B0DPX91VHZ",
+        "source_notes": [{
+            "type": "product_page",
+            "url": "https://www.amazon.co.jp/dp/B0DPX91VHZ",
+            "title": "Amazon 個別商品ページ Xiaomi REDMI Watch 5",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "speakerphone-conference-review": {
         "official_url": "https://www.ankerjapan.com/products/a3307",
         "amazon_url": "https://www.amazon.co.jp/dp/B09N6F7TPG",

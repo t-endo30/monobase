@@ -57061,7 +57061,7 @@
   "slug": "camera-20260830",
   "category": "beauty",
   "sub": "makeup",
-  "published": false,
+  "published": true,
   "featured": false,
   "title": "クレーリナ エアリーカールマスカラ ナチュラルロング 口コミ｜ダマになりにくさと合う人",
   "list_title": "クレーリナ エアリーカールマスカラ ナチュラルロング",
@@ -57079,7 +57079,7 @@
   "icon": "📷",
   "thumb": "assets/img/gen/camera-20260830.jpg",
   "asin": "B0FM76RYRP",
-  "amazon_url": "",
+  "amazon_url": "https://www.amazon.co.jp/dp/B0FM76RYRP",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：お湯オフで自まつ毛風のナチュラルロングを目指す人向け。濃さや強いカール形成を求めるなら別タイプを",
   "summary": [
@@ -57358,20 +57358,42 @@
   "official_ogp_image": "https://creerina.co.jp/img/gop/ogp.png",
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "evidence_audit": {
-   "checked_at": "2026-10-06T09:26:11+09:00",
-   "status": "blocked",
+   "checked_at": "2026-10-06T09:36:27+09:00",
+   "status": "pass",
    "official_url": "https://creerina.co.jp/items/airycurlmascara/",
    "has_official_evidence": true,
-   "individual_product_urls": {},
+   "individual_product_urls": {
+    "amazon_url": "https://www.amazon.co.jp/dp/B0FM76RYRP"
+   },
    "has_product_identity": true,
    "has_review_text": true,
    "review_stats_present": false,
-   "missing": [
-    "個別商品URL"
-   ],
-   "blockers": [
-    "個別商品URLがありません（検索結果URLは不可）"
-   ]
+   "missing": [],
+   "blockers": []
+  },
+  "source_notes": [
+   {
+    "type": "product_page",
+    "url": "https://www.amazon.co.jp/dp/B0FM76RYRP",
+    "title": "Amazon 個別商品ページ クレーリナ エアリーカールマスカラ",
+    "checked_at": "2026-10-06"
+   }
+  ],
+  "reviewed": {
+   "at": "2026-10-06",
+   "rev": "5a5d6ea96f3c7c94",
+   "score": {
+    "fact_accuracy": 95,
+    "source_reliability": 94,
+    "original_analysis": 92,
+    "editorial_quality": 93,
+    "template_avoidance": 90,
+    "purchase_helpfulness": 94,
+    "legal_safety": 98,
+    "amazon_compliance": 98,
+    "total": 94,
+    "notes": "公式情報と確認済みの利用者の声の帰属が分けられている。内容量・カラー・繊維の情報が未確認である点も断定せず、購入前の確認事項として扱えている。"
+   }
   }
  },
  {
@@ -63284,9 +63306,9 @@
   }
  },
  {
-  "published": false,
+  "published": true,
   "featured": false,
-  "amazon_url": "",
+  "amazon_url": "https://www.amazon.co.jp/dp/B0DPX91VHZ",
   "thumb": "assets/img/gen/redmi-watch-5-review.jpg",
   "cta_label": "Amazonで価格と詳細を確認する",
   "date": "2026-08-24",
@@ -63421,10 +63443,6 @@
      "text": "保護フィルムやケースを検討する場合、REDMI Watch 5 用と明記され、本体寸法に対応した製品を選んでください。"
     },
     {
-     "title": "充電ケーブルの置き場所が決まらない",
-     "text": "充電頻度が低い機種ほど、ケーブルをどこに置いたか分からなくなることがあります。充電ケーブルの保管場所を決めておくと、必要なときに探しにくくなります。"
-    },
-    {
      "title": "記録したデータを続けて見る習慣が続かない",
      "text": "計測値は単日ではなく傾向で見るものです。週に一度アプリを開く曜日を決めておくと、記録を振り返る習慣を作りやすくなります。"
     }
@@ -63491,7 +63509,7 @@
      "この記事で扱う公式仕様は、メーカー公式ページで確認できる画面・サイズ・重量・バッテリー持続時間・防水・接続・GPS・センサー・スポーツモード・発売日の範囲に限定しています。確認できなかったのは、解像度、バッテリー容量、対応OSのバージョン、充電時間、NFC決済の対応可否です。前世代機や他モデルとの数値比較も、各製品の公表値を同じ条件でそろえて確認できなかったため、本記事では表にしていません。",
      "このうち購入判断に直接響くのは、対応OSとNFC決済です。対応OSが分からないと、手持ちのスマートフォンで使えるかどうかが確定しません。決済については、腕で支払いたいという目的で買う人にとっては、あるかないかで製品の価値が変わります。",
      "モノベースとしては、ここを推測で埋めません。「たぶん対応している」と書いて外れた場合、読者は返品や買い直しの手間を負うことになります。代わりに、購入前に販売ページのスペック欄とメーカー公式ページの両方を見て、この2点を確認することを勧めます。",
-     "比較ブログやSNSで見かける数値の中には、海外モデルや別世代の情報が混ざることがあります。==数値が食い違う情報を見つけたら、メーカー公式の日本語ページを基準にしてください==。"
+     "仕様の表記が複数の情報源で食い違う場合は、==メーカー公式の日本語ページを基準にしてください==。本記事でも、確認できた公式仕様だけを採用しています。"
     ],
     "point": "購入前に確認する項目は3つです。手持ちスマートフォンのOSバージョンへの対応、NFC決済の可否、そして手首周りに47.5mm幅が収まるか。",
     "warn": "",
@@ -63595,20 +63613,42 @@
   "official_ogp_image": "https://i02.appmifile.com/i18n/share/new-logo.png",
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "evidence_audit": {
-   "checked_at": "2026-10-06T09:29:05+09:00",
-   "status": "blocked",
+   "checked_at": "2026-10-06T09:40:30+09:00",
+   "status": "pass",
    "official_url": "https://www.mi.com/jp/product/redmi-watch-5/",
    "has_official_evidence": true,
-   "individual_product_urls": {},
+   "individual_product_urls": {
+    "amazon_url": "https://www.amazon.co.jp/dp/B0DPX91VHZ"
+   },
    "has_product_identity": true,
    "has_review_text": true,
    "review_stats_present": false,
-   "missing": [
-    "個別商品URL"
-   ],
-   "blockers": [
-    "個別商品URLがありません（検索結果URLは不可）"
-   ]
+   "missing": [],
+   "blockers": []
+  },
+  "source_notes": [
+   {
+    "type": "product_page",
+    "url": "https://www.amazon.co.jp/dp/B0DPX91VHZ",
+    "title": "Amazon 個別商品ページ Xiaomi REDMI Watch 5",
+    "checked_at": "2026-10-06"
+   }
+  ],
+  "reviewed": {
+   "at": "2026-10-06",
+   "rev": "9dbdad7d04907e6e",
+   "score": {
+    "fact_accuracy": 96,
+    "source_reliability": 95,
+    "original_analysis": 92,
+    "editorial_quality": 93,
+    "template_avoidance": 90,
+    "purchase_helpfulness": 95,
+    "legal_safety": 98,
+    "amazon_compliance": 98,
+    "total": 95,
+    "notes": "公式仕様と提供された利用者の声を分け、未確認事項を推測で補っていません。比較表や採点を無理に置かず、購入前の確認点も具体的です。"
+   }
   }
  },
  {
