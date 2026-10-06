@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "inumeshi": {
+        "official_url": "https://www.i-de-al.com/c/gr001/gr007/gr1031",
+        "facts": [
+            "INUMESHI公式オンラインストアで、INUMESHIバリューの15kgパックを商品として確認",
+            "公式案内で成犬・高齢犬用、全犬種向けの販売区分を確認。食事の適合や健康上の効果は犬の状態と獣医師の助言を優先する",
+            "楽天市場の個別商品ページでINUMESHIバリュー15kgブリーダーパックの商品同定と販売情報を確認",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた継続しやすさと食べ方の違い",
+            "who": "楽天市場 INUMESHIバリュー15kg個別レビュー（2026-10-06確認）",
+            "text": "個別投稿では、多頭飼いで価格面からリピートしている、愛犬がよく食べるという声が確認できます。一方で、便の量やにおいが気になるという投稿もあります。犬の体質・頭数・切り替え方による個人の感想であり、食いつきや体調への効果をすべての犬に一般化しません。",
+            "negative": True,
+            "fix_title": "犬の状態と切り替え方法を確認する",
+            "fix": "給与量や切り替え方法は販売ページの案内を確認し、体調に変化があれば給餌を見直して獣医師へ相談してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.i-de-al.com/c/gr001/gr007/gr1031",
+            "title": "INUMESHI公式 バリュー",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/net-ryohin/inu-011/",
+            "title": "楽天市場 INUMESHIバリュー15kg 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/241004_10285595/1.1/",
+            "title": "楽天市場 INUMESHIバリュー15kg 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "bi-hada-mpvl-2b-ga0145": {
         "official_url": "https://www.kai-group.com/products/kamisori/product/bihadaompa.html",
         "facts": [
