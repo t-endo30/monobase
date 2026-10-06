@@ -3109,6 +3109,38 @@ SOURCE = {
             "title": "楽天市場 zootie エアパンツ 個別レビュー",
             "checked_at": "2026-10-07",
         }],
+    },
+    "coolify": {
+        "title": "Dark Angel coolify とろみ冷感ワイドパンツ 利用者の声｜丈・生地感と選び方",
+        "list_title": "Dark Angel coolify とろみ冷感ワイドパンツ 利用者の声",
+        "official_url": "https://www.rakuten.ne.jp/gold/darkangel/tokushu/COOLIFY/index.html",
+        "product_url": "https://item.rakuten.co.jp/darkangel/coolify/",
+        "facts": [
+            "Dark Angelの公式特集ページでCOOLIFY素材の接触冷感・UVカット・速乾・ストレッチの案内を確認",
+            "楽天市場のDark Angel個別商品ページでcoolifyとろみ冷感ワイドパンツの丈・サイズ・素材タイプの選択肢を確認",
+            "商品は素材タイプや丈を選ぶ構成のため、購入時は希望する生地と丈を商品ページで照合する",
+            "楽天市場の個別レビューでは、涼しさ、軽さ、さらさらした生地、丈の選択肢を評価する声がある一方、透け感、光沢、サイズ・生地感への指摘も確認できるため、色と丈を含めて確認する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 Dark Angel 個別商品レビュー",
+            "text": "個別投稿では、軽く涼しい、さらさらした生地で夏に使いやすい、丈を選べる点が便利という感想が確認できます。一方で、生地の見え方やサイズ感は選択したタイプ・色・体型で変わるため、透け感と丈のレビューを確認して選ぶ材料として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.rakuten.ne.jp/gold/darkangel/tokushu/COOLIFY/index.html",
+            "title": "Dark Angel公式 COOLIFY素材案内",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/darkangel/coolify/",
+            "title": "楽天市場 Dark Angel coolify 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/item/1/224379_10034443/1.1/",
+            "title": "楽天市場 coolify 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
     }
 }
 
