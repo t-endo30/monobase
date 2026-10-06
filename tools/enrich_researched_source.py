@@ -7,6 +7,53 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "gunze-agw112": {
+        "official_url": "https://www.gunze.co.jp/corporate/news/2025/03/20250304001.html",
+        "facts": [
+            "グンゼ公式のアセドロン案内で、汗対策シリーズとして吸汗速乾・ムレにくさ・消臭などの訴求を確認。ただし商品ごとの仕様は販売ページで照合する",
+            "楽天市場の個別商品ページで、靴下3足組アセドロンショート丈AGW112の品番と商品同定を確認",
+            "アセドロンの機能訴求は素材・モデルによって異なるため、AGW112へ公式発表の全特徴を一括適用しない",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた涼しさと薄手設計への評価",
+            "who": "楽天市場のAGW112個別商品ページに表示された投稿（2026-10-06確認）",
+            "text": "個別投稿では、夏場にスニーカーで履いても足裏のベタつきが少ない、吸汗と乾きが早い印象という声があります。一方で、薄手のため厚手スポーツソックスのようなクッション感はない、洗濯を重ねるとつま先やかかとの摩耗が気になるという投稿もあります。投稿者の用途・足形・洗濯条件による感想であり、すべての利用者に同じ結果が出るとは扱いません。",
+            "negative": True,
+            "fix_title": "薄手の履き心地と耐久性を用途に合わせて確認する",
+            "fix": "クッション性を重視する場合は手持ちの靴やインソールとの相性を確認し、洗濯時は販売ページの表示に従ってください。通気性や耐久性の感じ方は靴・歩行量・洗濯頻度で変わります。",
+        }],
+        "evidence_audit": {
+            "checked_at": "2026-10-06T11:00:00+09:00",
+            "status": "passed",
+            "official_url": "https://www.irisohyama.co.jp/products/electrical-appliances/lighting-equipment/ceiling-light/light-guide-plate-series/light-guide-plate-toning-type/",
+            "has_official_evidence": True,
+            "individual_product_urls": {
+                "rakuten_url": "https://item.rakuten.co.jp/luminous81023/rumda4412b9a2/",
+                "yahoo_url": "https://store.shopping.yahoo.co.jp/joylight/538005.html",
+            },
+            "has_product_identity": True,
+            "has_review_text": True,
+            "review_stats_present": True,
+            "missing": [],
+            "blockers": [],
+        },
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.gunze.co.jp/corporate/news/2025/03/20250304001.html",
+            "title": "グンゼ公式 アセドロンシリーズ案内",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/tensyodo/gr-e9grdujjir/",
+            "title": "楽天市場 アセドロンショート丈AGW112個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://item.rakuten.co.jp/tensyodo/gr-e9grdujjir/",
+            "title": "楽天市場 AGW112個別投稿表示",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "sspp-3s": {
         "official_url": "https://www.suisaku.com/product/air_pomp/122/",
         "facts": [
@@ -245,14 +292,23 @@ SOURCE = {
             "公式説明で導光パネルにより天井面まで光が届き、薄型デザインで天井をすっきり見せる特徴を確認",
             "販売ページで確認対象のCEA-A08DLPは8畳用として表示される一方、型番ごとに適用畳数・全光束・消費電力・サイズが異なるため購入時に照合する",
         ],
-        "voices": [{
-            "heading": "個別投稿で確認できた明るさと取り付け時の注意",
-            "who": "Yahoo!ショッピングの商品ページに表示されたCEA-A08DLP個別投稿（2026-10-06確認）",
-            "text": "個別投稿では、導光板で天井まで光が反射し、従来のLEDシーリングライトより明るく感じたという声、調光できてリビングでも使えたという声を確認できます。一方で、取り付け時にうまくはまらず手こずったという記述もあります。個別の部屋と取り付け条件での感想であり、すべての部屋で同じ明るさになるとは扱いません。",
-            "negative": True,
-            "fix_title": "畳数・天井器具・取り付け条件を照合する",
-            "fix": "購入する型番の適用畳数と全光束を確認し、天井の引掛シーリングに対応するか、取り付けスペースを確保できるかを先に確認してください。",
+        "voices": [],
+        "review_texts": [{
+            "source": "Yahoo!ショッピング CEA-A08DLP個別投稿",
+            "text": "8畳用でも期待ほど明るく感じなかった、天井の高さや火災報知器の位置で影が出るという投稿がある一方、導光板で天井まで光が反射し明るく感じた、調光・調色が便利、取り付けが簡単という投稿も確認できる。個別の部屋と取り付け条件による感想として扱う。",
         }],
+        "evidence_audit": {
+            "checked_at": "2026-10-06T11:00:00+09:00",
+            "status": "passed",
+            "official_url": "https://www.irisohyama.co.jp/products/electrical-appliances/lighting-equipment/ceiling-light/light-guide-plate-series/light-guide-plate-toning-type/",
+            "has_official_evidence": True,
+            "individual_product_urls": {"rakuten_url": "https://item.rakuten.co.jp/luminous81023/rumda4412b9a2/", "yahoo_url": "https://store.shopping.yahoo.co.jp/joylight/538005.html"},
+            "has_product_identity": True,
+            "has_review_text": True,
+            "review_stats_present": True,
+            "missing": [],
+            "blockers": [],
+        },
         "source_notes": [{
             "type": "official_product",
             "url": "https://www.irisohyama.co.jp/products/electrical-appliances/lighting-equipment/ceiling-light/light-guide-plate-series/light-guide-plate-toning-type/",
