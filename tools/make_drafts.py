@@ -368,12 +368,12 @@ def main():
             unidentifiable.append(name)
             continue
         # 根拠ゲートと公開条件を満たせない候補は、本文生成前に落とす。
-        # Amazon検索URLだけ、またはサムネイルなしの商品を生成してから
-        # 不合格にするより、次候補へ進むほうが1本あたりの処理時間を短縮できる。
+        # Amazon検索URLだけの商品は、生成してから不合格にするより
+        # 次候補へ進むほうが速い。一方、候補収集直後は画像情報が未取得の
+        # ことがあるため、サムネイル判定は既存の画像取得・レビュー側に任せる。
         has_shop_url = bool(c.get("rakuten_url") or c.get("yahoo_url"))
-        has_shop_image = bool(c.get("shop_images") or c.get("thumb"))
-        if not has_shop_url or not has_shop_image:
-            print(f"個別販売URLまたはサムネイル不足のため事前スキップ: {name[:50]}")
+        if not has_shop_url:
+            print(f"個別販売URL不足のため事前スキップ: {name[:50]}")
             continue
         # すでに書いた商品は飛ばす。JANが無い場合は名前の頭かURLで見る。
         if c.get("jan") and str(c["jan"]) in seen_jan:
