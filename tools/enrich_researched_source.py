@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "agptek-type-c-dslr-iphone-ipad-android": {
+        "official_url": "https://images.agptek.us/Download/User_Manual/AC02B_User_Manual%28Quick_Start_in_Japanese%29.pdf.pdf",
+        "facts": [
+            "AGPTEK公式配布のAC02Bクリップマイク取扱説明書で3.5mmミニプラグ（CTIA標準）と付属アダプターの案内を確認",
+            "公式説明書でApple・Android・カメラなど接続先によって付属アダプターを使い分ける案内を確認",
+            "楽天市場の個別商品ページでAGPTEKピンマイク、3.5mmプラグ、Type-Cケーブル、4段アダプター付属の構成を確認",
+            "個別投稿では問題なく使えた、安価で実用的という声がある一方、接続先やアプリによって認識方法が変わる内容もあるため、端末の端子・規格・アプリ条件を確認する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 AGPTEKピンマイク 個別レビュー",
+            "text": "個別投稿では、問題なく使用できた、価格を考えると実用的という内容が確認できます。一方で、イヤホン端子で使うためにアプリを入れたという投稿もあり、端末やアプリによって接続条件が変わる可能性があります。公式説明書の端子・アダプター案内を優先して確認します。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://images.agptek.us/Download/User_Manual/AC02B_User_Manual%28Quick_Start_in_Japanese%29.pdf.pdf",
+            "title": "AGPTEK公式 AC02Bクリップマイク取扱説明書",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/goodgoodsshop/ac02bc/",
+            "title": "楽天市場 AGPTEKピンマイク 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/357302_10000228/1.1/",
+            "title": "楽天市場 AGPTEKピンマイク 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "zero-windows-dl-snr-windows": {
         "official_url": "https://www.sourcenext.com/product/security/zero-super-security/",
         "facts": [
