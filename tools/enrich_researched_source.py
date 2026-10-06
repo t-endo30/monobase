@@ -2351,6 +2351,36 @@ SOURCE = {
             "checked_at": "2026-10-07",
         }],
     },
+    "ai-infield": {
+        "official_url": "https://www.sportsinfield.com/product-page/%E6%9C%80%E5%A4%A71%E5%B9%B4%E4%BF%9D%E8%A8%BC-ai-%E4%BD%93%E9%87%8D%E8%A8%88-%E4%BD%93%E7%B5%84%E7%B9%94%E8%A8%88-%E6%9C%80%E5%85%88%E7%AB%AF%E3%83%87%E3%83%A5%E3%82%A2%E3%83%AB%E5%91%A8%E6%B3%A2%E6%95%B0%E6%90%AD%E8%BC%89%E3%83%97%E3%83%AC%E3%83%9F%E3%82%A2%E3%83%A0",
+        "product_url": "https://store.shopping.yahoo.co.jp/comfortablegoods/weightscale.html",
+        "thumb": "https://item-shopping.c.yimg.jp/i/g/comfortablegoods_weightscale",
+        "facts": [
+            "公式商品ページではINFIELD体組成計をスマートフォンアプリと連動して測定結果を確認する商品として案内している",
+            "公式商品情報では測定範囲0.2〜150kg、登録人数無制限、体重・BMI・体脂肪率など44項目を案内している",
+            "Yahoo!ショッピングの個別商品レビューでは、測定結果をアプリで管理できる点を評価する声がある一方、アプリの不具合や日による測定値の差を指摘する声もある"
+        ],
+        "review_texts": [{
+            "source": "Yahoo!ショッピング INFIELD体組成計 個別レビュー",
+            "text": "個別投稿では、体脂肪率や筋肉量などのデータをアプリで管理できる点が評価されています。一方、アプリの不具合が改善されたら連絡すると案内されたという投稿や、日によって測定値の差が大きいという投稿も確認できます。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.sportsinfield.com/product-page/%E6%9C%80%E5%A4%A71%E5%B9%B4%E4%BF%9D%E8%A8%BC-ai-%E4%BD%93%E9%87%8D%E8%A8%88-%E4%BD%93%E7%B5%84%E7%B9%94%E8%A8%88-%E6%9C%80%E5%85%88%E7%AB%AF%E3%83%87%E3%83%A5%E3%82%A2%E3%83%AB%E5%91%A8%E6%B3%A2%E6%95%B0%E6%90%AD%E8%BC%89%E3%83%97%E3%83%AC%E3%83%9F%E3%82%A2%E3%83%A0",
+            "title": "INFIELD公式 体組成計 商品情報",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://store.shopping.yahoo.co.jp/comfortablegoods/weightscale.html",
+            "title": "Yahoo!ショッピング INFIELD体組成計 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://shopping.yahoo.co.jp/review/item/list?page_key=weightscale&store_id=comfortablegoods",
+            "title": "Yahoo!ショッピング INFIELD体組成計 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
     "arromic-st-x3ba": {
         "official_url": "https://www.yamazen-create.co.jp/uploads/post/650/2_1.pdf",
         "product_url": "https://item.rakuten.co.jp/bathroom/st-x3b/",
