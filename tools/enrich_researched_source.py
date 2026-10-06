@@ -2613,23 +2613,23 @@ SOURCE = {
             "楽天市場の個別レビューでは、使用感や肌なじみについての利用者の投稿を確認できる"
         ],
         "review_texts": [{
-            "source": "楽天市場 Yunth 生VC美白美容液 個別レビュー",
+            "source": "楽天市場 Yunth 生ビタミンC美容液 個別レビュー",
             "text": "楽天市場の個別投稿では、使用感や肌なじみについての感想が確認できます。医薬部外品の効能効果は公式表示の範囲で扱い、個人の感想から効果を断定しません。"
         }],
         "source_notes": [{
             "type": "official_product",
             "url": "https://yunth.jp/shop/products/101-01",
-            "title": "Yunth公式 生VC美白美容液 商品情報",
+            "title": "Yunth公式 生ビタミンC美容液 商品情報",
             "checked_at": "2026-10-07",
         }, {
             "type": "product_page",
             "url": "https://item.rakuten.co.jp/yunth/10000000/",
-            "title": "楽天市場 Yunth 生VC美白美容液 個別商品ページ",
+            "title": "楽天市場 Yunth 生ビタミンC美容液 個別商品ページ",
             "checked_at": "2026-10-07",
         }, {
             "type": "review_page",
             "url": "https://review.rakuten.co.jp/item/1/409735_10000000/2.1/",
-            "title": "楽天市場 Yunth 生VC美白美容液 個別レビュー",
+            "title": "楽天市場 Yunth 生ビタミンC美容液 個別レビュー",
             "checked_at": "2026-10-07",
         }],
     },
