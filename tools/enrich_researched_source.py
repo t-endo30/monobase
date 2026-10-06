@@ -11,6 +11,7 @@ SOURCE = {
         "official_url": "https://nimaso.co.jp/collections/iphone-camera-lens-protectors",
         "facts": [
             "NIMASO公式のiPhoneカメラレンズカバー案内で、カメラレンズ保護フィルムの製品群を確認",
+            "楽天市場の個別商品ページの商品名で、対象商品が2枚組として販売されていることを確認",
             "楽天市場の個別商品ページでNIMASO iPhone用レンズカバーの販売商品と対応機種選択を確認",
             "対応機種・レンズ形状・ケースとの干渉はiPhoneの世代と商品構成で変わるため、注文時の選択欄を照合する",
         ],
