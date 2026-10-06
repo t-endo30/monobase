@@ -7,6 +7,43 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "hbf-214-w": {
+        "official_url": "https://store.healthcare.omron.co.jp/support/download/catalog/pdf/hbf_series01.pdf",
+        "facts": [
+            "オムロン公式カタログで体重体組成計カラダスキャン HBF-214-W（ホワイト）を確認",
+            "オムロン公式取扱説明書で販売名HBF-214 カラダスキャンと、体重・体脂肪率・BMI等の測定に関する案内を確認",
+            "楽天市場の個別商品ページでHBF-214-Wの型番と商品同定を確認。医療上の診断や治療を目的とする機器として扱わない",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた表示項目と薄型設計への評価",
+            "who": "楽天市場・価格.comのHBF-214-W個別投稿（2026-10-06確認）",
+            "text": "個別投稿では、体重だけでなく体脂肪率やBMIなどを確認できる点、薄型でコンパクトな点を評価する声があります。一方で、測定値は使用条件や個人差の影響を受けるため、投稿者の評価をすべての利用者に一般化しません。健康状態の判断は医療専門家への相談を優先してください。",
+            "negative": True,
+            "fix_title": "設置場所と測定条件をそろえる",
+            "fix": "硬く平らな床に設置し、取扱説明書の測定手順を確認してください。数値だけで健康状態を自己判断せず、気になる変化がある場合は医療機関へ相談しましょう。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://store.healthcare.omron.co.jp/support/download/catalog/pdf/hbf_series01.pdf",
+            "title": "オムロン公式 HBFシリーズカタログ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "official_manual",
+            "url": "https://store.healthcare.omron.co.jp/support/download/manual/pdf/5333221-2F_HBF-214.pdf",
+            "title": "オムロン公式 HBF-214取扱説明書",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/rakuten24/e224959h/",
+            "title": "楽天市場 HBF-214-W個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/item/1/261122_10759459/1.1/",
+            "title": "楽天市場 HBF-214-W個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "health-20261005": {
         "official_url": "https://brushmo.co.jp/collections/brush-head-refills",
         "facts": [
