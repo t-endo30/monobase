@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "sspp-3s": {
+        "official_url": "https://www.suisaku.com/product/air_pomp/122/",
+        "facts": [
+            "水作公式の水心シリーズで、水心SSPP-3S、JAN4974105006082、45〜60cm水槽用、最大吐出量3.0L/min、吐出量調節機能を確認",
+            "公式説明で振動吸収脚ゴムによる静音化と、SSPP-3Sのエア量を調整するダイヤル機構を確認",
+            "楽天市場の個別商品ページで水作 水心 SSPP-3Sの型番・商品同定を確認。エアチューブ等の付属条件は購入時の商品ページを確認する",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた静音性と設置条件",
+            "who": "楽天市場のSSPP-3S個別投稿（2026-10-06確認）",
+            "text": "個別投稿では、従来使っていたエアーポンプより音が気になりにくい、エア量を調整できる点が便利という声を確認できます。一方で、夜間の室内では作動音が聞こえる、吊り下げると静かになった、エアチューブが別売りだったという記述もあります。水槽台や設置方法によって感じ方は変わるため、投稿者の感想をすべての環境に一般化しません。",
+            "negative": True,
+            "fix_title": "付属品と設置方法を購入前に確認する",
+            "fix": "購入ページでエアチューブなどの付属条件を確認し、設置時は脚ゴムが安定して接地する場所を選んでください。音が気になる場合も、取扱説明書に反する吊り下げ方は避け、メーカー案内を優先しましょう。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.suisaku.com/product/air_pomp/122/",
+            "title": "水作公式 水心シリーズ SSPP-3S",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/chanet/12666/",
+            "title": "楽天市場 水作 水心 SSPP-3S個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/211165_10280753/1.1/",
+            "title": "楽天市場 SSPP-3S個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "hbf-214-w": {
         "official_url": "https://store.healthcare.omron.co.jp/support/download/catalog/pdf/hbf_series01.pdf",
         "facts": [
