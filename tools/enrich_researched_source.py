@@ -2232,6 +2232,35 @@ SOURCE = {
             "title": "楽天市場 Tapo C200 個別レビュー",
             "checked_at": "2026-10-06",
         }],
+    },
+    "200-bagin006": {
+        "official_url": "https://direct.sanwa.co.jp/ItemPage/200-BAGIN006BK",
+        "facts": [
+            "サンワダイレクト公式商品ページで200-BAGIN006BKを商品同定し、5ポケット、ストラップ付き、内寸約21cm、奥行約11cmのガジェットポーチとして確認",
+            "公式ページでACアダプタや大きめのモバイルバッテリーにも対応する収納部の案内を確認。ただし収納できるかは機器の形状・ケーブル長・厚みによる",
+            "楽天市場とYahoo!ショッピングの個別商品ページで200-BAGIN006の販売情報を確認し、Amazon検索導線のJAN 4969887744758とも照合",
+            "個別使用レビューでは、収納力や持ち運びやすさを評価する一方、長いケーブルや大きな機器では幅・深さが足りない場合があるという声があるため、収納物の寸法確認を購入前の条件にする",
+        ],
+        "review_texts": [{
+            "source": "サンワダイレクト公式商品ページの利用者の声・個別使用レビュー",
+            "text": "公式販売ページの利用者の声では、機器をまとめて持ち運べる点や収納のしやすさを評価する内容が確認できます。個別使用レビューでは、長いケーブルや大きな機器を入れる場合は幅・深さを確認したほうがよいという指摘もあります。収納量は中身の形状によって変わる個別の感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://direct.sanwa.co.jp/ItemPage/200-BAGIN006BK",
+            "title": "サンワダイレクト公式 200-BAGIN006BK",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/sanwadirect/200-bagin006/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+            "title": "楽天市場 サンワダイレクト 200-BAGIN006 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://yusukekitagawa.com/200-bakin006bk/",
+            "title": "200-BAGIN006BK 個別使用レビュー",
+            "checked_at": "2026-10-06",
+        }],
     }
 }
 
