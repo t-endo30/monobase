@@ -3076,6 +3076,39 @@ SOURCE = {
             "title": "楽天市場 アルティム8∞キット 個別レビュー",
             "checked_at": "2026-10-07",
         }],
+    },
+    "s-m-l-ll-zootie": {
+        "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-zakkamania/cabinet/33566-1401336.jpg?_ex=128x128",
+        "title": "zootie エアパンツ 33566 利用者の声｜サイズ・生地感と選び方",
+        "list_title": "zootie エアパンツ 33566 利用者の声",
+        "official_url": "https://e-zakkamania.com/products/33566-1401336",
+        "product_url": "https://item.rakuten.co.jp/e-zakkamania/33566-1401336/",
+        "facts": [
+            "イーザッカマニア公式販売ページでオリジナルブランドzootieのエアパンツを商品同定",
+            "公式商品ページで品番33566-1401336、サイズ展開、ストレッチ性、生地・お手入れに関する商品案内を確認",
+            "楽天市場の個別商品ページでzootieエアパンツ［テーパード］の販売構成を確認",
+            "楽天市場の個別レビューでは、履き心地、伸縮性、動きやすさ、色の選びやすさを評価する声がある一方、生地の薄さやサイズ感、丈への指摘も確認できるため、体型と用途に合わせてサイズ表を確認する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 イーザッカマニアストアーズ 個別レビュー",
+            "text": "個別投稿では、履き心地がよくリピートした、ストレッチが効いて動きやすい、色違いを選びやすいという感想が確認できます。一方で、生地の薄さやサイズ・丈の感じ方には違いがあるため、公式のサイズ表と希望するシルエットを照合する材料として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://e-zakkamania.com/products/33566-1401336",
+            "title": "イーザッカマニア公式 zootie エアパンツ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/e-zakkamania/33566-1401336/",
+            "title": "楽天市場 zootie エアパンツ 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/200612_10074023/1.1/",
+            "title": "楽天市場 zootie エアパンツ 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
     }
 }
 
