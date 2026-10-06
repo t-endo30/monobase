@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "pc-lkd-127": {
+        "official_url": "https://www.look-it.jp/view/item/000000008428",
+        "facts": [
+            "LOOKIT公式商品ページでオフィスデスク片袖机 LKD-127、幅1200×奥行700mmの商品を同定",
+            "公式販売情報で天板100kg、上段5kg、中段20kg、下段20kgの平均耐荷重、スチール製・粉体塗装の表記を確認",
+            "法人宛配送や組立条件は地域・注文条件で変わるため、購入時の販売ページを確認する",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた組み立てや見た目への評価",
+            "who": "楽天市場 LKD-127個別商品レビュー（2026-10-06確認）",
+            "text": "個別投稿では、組み立てが簡単だった、商品がきれいだった、色合いや見栄えがよいという声が確認できます。机の設置環境、組み立て経験、選んだカラーによる感想であり、すべての購入者に同じ結果が出るとは一般化しません。",
+            "negative": True,
+            "fix_title": "搬入・組み立て条件を先に確認する",
+            "fix": "設置場所の寸法、搬入経路、組み立て人数、法人・個人宛の配送条件を購入前に確認してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.look-it.jp/view/item/000000008428",
+            "title": "LOOKIT公式 LKD-127",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/look-it/lkd-127/",
+            "title": "楽天市場 LKD-127 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://item.rakuten.co.jp/look-it/lkd-127/",
+            "title": "楽天市場 LKD-127 個別レビュー表示",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "inumeshi": {
         "official_url": "https://www.i-de-al.com/c/gr001/gr007/gr1031",
         "facts": [
