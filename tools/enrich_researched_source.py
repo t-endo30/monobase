@@ -7,6 +7,36 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "furniture-20261006": {
+        "official_url": "https://www.tansu-gen.jp/products/86500001",
+        "facts": [
+            "タンスのゲン公式商品ページで商品番号86500001の遮光カーテン4枚セットを商品同定",
+            "公式ページで幅・丈の選択、遮光カーテンのみ2枚またはミラーレース付き4枚のセット選択、洗濯可能の案内を確認",
+            "公式商品ページでレビュー72件・平均4.6点の表示を確認し、個別投稿では色味・取り付けやすさ・サイズ選択に触れる内容を確認",
+            "カーテンは窓寸法・色・セット内容で適合が変わるため、購入前に幅・丈・枚数を照合する",
+        ],
+        "review_texts": [{
+            "source": "タンスのゲン公式商品ページ個別レビュー",
+            "text": "個別投稿では、色味、取り付けやすさ、サイズを選べる点を評価する内容が確認できます。一方で、予約待ちによる到着の遅れに触れる投稿もあります。窓寸法や購入時期による条件差があるため、すべての注文に同じ印象が当てはまるとは扱いません。",
+        }],
+        "review_stats": {"official_store": {"count": 72, "average": 4.6}},
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.tansu-gen.jp/products/86500001",
+            "title": "タンスのゲン公式 86500001 遮光カーテン",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/tansu/86500001/",
+            "title": "楽天市場 タンスのゲン 86500001 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://www.tansu-gen.jp/products/86500001",
+            "title": "タンスのゲン公式 86500001 個別レビュー表示",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "ih-ipdci-t13": {
         "official_url": "https://www.irisohyama.co.jp/",
         "facts": [
