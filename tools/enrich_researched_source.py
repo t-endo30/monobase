@@ -1732,6 +1732,62 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"anua-pdrn-100-50ml": {
+        "official_url": "https://anuashop.jp/products/side0011",
+        "facts": [
+            "Anua公式オンラインショップでPDRNヒアルロン酸カプセル100セラム（30ml／50ml）の商品情報を確認",
+            "公式ページでPDRNヒアルロン酸カプセル100セラムの使用方法と商品区分を確認",
+            "対象記事は50mlとして扱い、販売ページの容量選択を購入前に確認する構成にする",
+        ],
+        "review_texts": [{
+            "source": "@cosme 個別口コミページ",
+            "text": "@cosmeの個別口コミでは、さらっとした使用感や保湿感に触れる投稿がある一方、肌質によって感じ方が異なることも確認できます。個別投稿の感想として扱い、効果を保証する表現にはしません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://anuashop.jp/products/side0011",
+            "title": "Anua公式 PDRNヒアルロン酸カプセル100セラム",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://store.shopping.yahoo.co.jp/happyworldshop2/hapitetv-9fh-j8n.html",
+            "title": "Yahoo!ショッピング 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://www.cosme.net/products/10263023/review/",
+            "title": "@cosme 個別口コミ一覧",
+            "checked_at": "2026-10-06",
+        }],
+    }
+    ,"kindle-paperwhite-signature-review": {
+        "official_url": "https://press.aboutamazon.com/jp/news/retail/2021/9/amazon-%E6%96%B0%E4%B8%96%E4%BB%A3kindle-paperwhite",
+        "facts": [
+            "Amazon公式発表でKindle Paperwhiteシグニチャーエディション（第11世代・2021年発売）の32GB構成を確認",
+            "公式発表でPaperwhiteの6.8インチ反射抑制ディスプレイ、色調調節ライト、USB-C充電を確認",
+            "シグニチャーエディションは32GB、明るさ自動調節、ワイヤレス充電対応と公式発表で案内されている",
+        ],
+        "review_texts": [{
+            "source": "TechRadar Kindle Paperwhite Signature Edition 2021 review",
+            "text": "TechRadarの製品レビューでは、Signature Editionの画面表示、読書用途、ワイヤレス充電などを確認できます。第三者レビューの評価として扱い、すべての利用者に同じ使用感があるとは断定しません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://press.aboutamazon.com/jp/news/retail/2021/9/amazon-%E6%96%B0%E4%B8%96%E4%BB%A3kindle-paperwhite",
+            "title": "Amazon公式発表 Kindle Paperwhite 第11世代",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://www.amazon.co.jp/dp/B08N2ZL7PS",
+            "title": "Amazon 個別商品ページ B08N2ZL7PS",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://www.techradar.com/reviews/amazon-kindle-paperwhite-signature-edition-2021-review",
+            "title": "TechRadar 個別製品レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    }
 }
 
 
