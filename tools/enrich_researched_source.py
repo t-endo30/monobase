@@ -7,6 +7,72 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "anker-568-usbc-dock-review": {
+        "official_url": "https://www.ankerjapan.com/products/a8399",
+        "facts": [
+            "Anker Japan公式でAnker 568 USB-Cドッキングステーション（11-in-1、USB4）、製品型番A83995A1を確認",
+            "公式仕様でUSB4上流40Gbps、映像出力は1画面8K/30Hzまたは4K/60Hz、2画面最大4K/60Hz、3画面最大4K/30Hzを確認",
+            "公式仕様でPC給電最大100W、USB-Cポート2つ使用時は最大65W、USB-A 3.2 Gen1×2とUSB-A 2.0×2を確認",
+            "公式ページで180W ACアダプタ、USB4ケーブル、18か月保証（会員登録で6か月延長）、Dock Manager対応を確認",
+        ],
+        "voices": [{
+            "heading": "実使用レビューで確認できたポート構成と互換条件",
+            "who": "PCWorldおよびFramework Communityに掲載されたAnker 568実使用レビュー（2026-10-06確認）",
+            "text": "実使用レビューでは、前面にUSB-C給電ポートと電源ボタンがあること、USB4ドックとして複数機器をまとめられることを確認できます。一方で、PC側のUSB4・Thunderbolt対応や映像出力条件によって結果が変わり、機器によっては画面出力やUSBハブの挙動を個別に確認する必要があります。レビューは特定のPC構成での結果であり、すべての環境で同じ動作を保証するものではありません。",
+            "negative": True,
+            "fix_title": "PC・モニター・ケーブルの規格を先に確認する",
+            "fix": "購入前にPC側のUSB4／Thunderbolt対応、DisplayPort Alt Mode、モニターの解像度とリフレッシュレート、使用するケーブルの規格を照合してください。複数画面や高出力給電では公式の条件を優先しましょう。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.ankerjapan.com/products/a8399",
+            "title": "Anker Japan公式 Anker 568 USB-Cドッキングステーション",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://www.pcworld.com/article/1922334/anker-568-usb-c-docking-station-review.html",
+            "title": "PCWorld Anker 568実使用レビュー",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://community.frame.work/t/user-review-anker-568-framework-13-amd-intel-12th-gen/54256",
+            "title": "Framework Community Anker 568利用者レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
+    "iris-panel-light-ceiling-review": {
+        "official_url": "https://www.irisohyama.co.jp/products/electrical-appliances/lighting-equipment/ceiling-light/light-guide-plate-series/light-guide-plate-toning-type/",
+        "facts": [
+            "アイリスオーヤマ公式のパネルライト（導光板）シリーズ 調光・調色タイプを確認",
+            "公式説明で導光板の側面から入れたLED光を拡散反射させ、点光源のまぶしさを抑えやすい構造を確認",
+            "公式説明で導光パネルにより天井面まで光が届き、薄型デザインで天井をすっきり見せる特徴を確認",
+            "販売ページで確認対象のCEA-A08DLPは8畳用として表示される一方、型番ごとに適用畳数・全光束・消費電力・サイズが異なるため購入時に照合する",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた明るさと取り付け時の注意",
+            "who": "Yahoo!ショッピングの商品ページに表示されたCEA-A08DLP個別投稿（2026-10-06確認）",
+            "text": "個別投稿では、導光板で天井まで光が反射し、従来のLEDシーリングライトより明るく感じたという声、調光できてリビングでも使えたという声を確認できます。一方で、取り付け時にうまくはまらず手こずったという記述もあります。個別の部屋と取り付け条件での感想であり、すべての部屋で同じ明るさになるとは扱いません。",
+            "negative": True,
+            "fix_title": "畳数・天井器具・取り付け条件を照合する",
+            "fix": "購入する型番の適用畳数と全光束を確認し、天井の引掛シーリングに対応するか、取り付けスペースを確保できるかを先に確認してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.irisohyama.co.jp/products/electrical-appliances/lighting-equipment/ceiling-light/light-guide-plate-series/light-guide-plate-toning-type/",
+            "title": "アイリスオーヤマ公式 パネルライト導光板シリーズ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://store.shopping.yahoo.co.jp/joylight/538005.html",
+            "title": "Yahoo!ショッピング CEA-A08DLP 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://shopping.yahoo.co.jp/review/item/list?page_key=538005&store_id=insair-y",
+            "title": "Yahoo!ショッピング CEA-A08DLP 個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "benq-screenbar-review": {
         "official_url": "https://www.benq.com/ja-jp/lighting/monitor-light/screenbar/spec.html",
         "facts": [
