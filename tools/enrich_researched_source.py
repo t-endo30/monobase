@@ -2351,6 +2351,94 @@ SOURCE = {
             "checked_at": "2026-10-07",
         }],
     },
+    "simplus-sp-rcmc4": {
+        "official_url": "https://simplus.style/sp-rcmc4/",
+        "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/rcmdin/cabinet/eb06/eb-4582226844157.jpg?_ex=128x128",
+        "product_url": "https://item.rakuten.co.jp/rcmdin/eb-4582226844157/",
+        "facts": [
+            "simplus公式サイトではSP-RCMC4を4合炊きのマイコン式炊飯器として案内している",
+            "公式サイトでは炊飯のほか、早炊き、蒸し料理、ヨーグルト、ケーキ、スープなど8種類のメニューに対応する機種として紹介している",
+            "価格.comの個別レビューでは、調理完了後に保温へ切り替わり、12時間後に自動オフになるという情報が確認できる"
+        ],
+        "review_texts": [{
+            "source": "価格.com simplus SP-RCMC4 個別レビュー",
+            "text": "個別レビューでは、調理完了後に自動で保温へ切り替わり、12時間経過すると自動オフになるという使用情報が確認できます。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://simplus.style/sp-rcmc4/",
+            "title": "simplus公式 SP-RCMC4 商品情報",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/rcmdin/eb-4582226844157/",
+            "title": "楽天市場 simplus SP-RCMC4 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.kakaku.com/review/J0000035145/",
+            "title": "価格.com simplus SP-RCMC4 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
+    "rsb-4-recolte": {
+        "official_url": "https://recolte-jp.com/admin/wp-content/uploads/2023/01/RSB-4_Manual_4.pdf",
+        "product_url": "https://item.rakuten.co.jp/aimere/r006003/",
+        "facts": [
+            "レコルト公式取扱説明書ではソロブレンダー シエル、品番RSB-4として案内している",
+            "公式仕様では容量約300ml、消費電力170W、ボトルはAS樹脂、付属品にボトル・パッキン・フタ・キャップ・ボトル台座がある",
+            "楽天市場の個別投稿では、1人分のスムージーに十分なサイズ、氷や冷凍フルーツを撹拌できる、洗いやすいという声がある一方、パッキンの装着やコード長を気にする声もある"
+        ],
+        "review_texts": [{
+            "source": "楽天市場 レコルト RSB-4 個別レビュー",
+            "text": "個別投稿では、1人分のスムージーに十分なサイズ、氷や冷凍フルーツも撹拌できる、洗い物が楽という声があります。一方、パッキンがうまくはまらず漏れたという声や、コード長を気にする声も確認できます。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://recolte-jp.com/admin/wp-content/uploads/2023/01/RSB-4_Manual_4.pdf",
+            "title": "レコルト公式 RSB-4 取扱説明書・仕様",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/aimere/r006003/",
+            "title": "楽天市場 レコルト RSB-4 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/220207_10002736/1.0/",
+            "title": "楽天市場 RSB-4 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
+    "usb-wifi-5ghz-sd-mf45a-secustation": {
+        "official_url": "https://bs.secu.jp/view/item/000000000285?category_page_id=ct45",
+        "product_url": "https://item.rakuten.co.jp/secupcs/001-001/",
+        "facts": [
+            "公式商品ページではMF45Aを500万画素のパンチルトカメラ、自動追跡対応として案内している",
+            "公式商品ページでは屋内・屋外での利用、5GHz Wi-Fi、microSDカード録画、無料クラウド録画などを案内している",
+            "楽天市場の個別投稿では、本体が軽く画質も十分という声、自動追尾と設置のしやすさを評価する声がある一方、アプリ設定に戸惑ったという声も確認できる"
+        ],
+        "review_texts": [{
+            "source": "楽天市場 SecuSTATION MF45A 個別レビュー",
+            "text": "本体が軽く小さい、画質も十分という投稿や、自動追尾を試すため購入し設置できたという投稿があります。一方、アプリの使い方が分かりにくく慣れるまで戸惑ったという声もあります。"
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://bs.secu.jp/view/item/000000000285?category_page_id=ct45",
+            "title": "SecuSTATION公式 MF45A 商品情報",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/secupcs/001-001/",
+            "title": "楽天市場 SecuSTATION MF45A 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/300680_10000003/1.1/",
+            "title": "楽天市場 MF45A 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
     "db74-secustation": {
         "official_url": "https://bs.secu.jp/view/item/000000000339?category_page_id=scview",
         "product_url": "https://item.rakuten.co.jp/secupcs/001-mu72/",
