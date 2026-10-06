@@ -1671,6 +1671,8 @@ SOURCE = {
     },
     "kitchen-20261005": {
         "official_url": "https://chimoto-coffee.co.jp/",
+        "official_ogp_image": "https://chimoto-coffee.co.jp/wp-content/uploads/2021/08/ogp_facebook.png",
+        "official_ogp_title": "チモトコーヒー公式サイト",
         "facts": [
             "販売ページの内容量：1セットは4種類・500g×4袋の合計2kg",
             "販売ページの杯数目安：200杯分",
@@ -1682,7 +1684,7 @@ SOURCE = {
         "voices": [{
             "heading": "個別投稿で確認できた飲み方",
             "who": "利用者の声（楽天市場の個別商品ページ、2026-10-06確認）",
-            "text": "個別投稿では、中細挽きの粉を毎日飲むためリピートしているという声、4種類の味と香りを楽しんでいるという声、すっきりした飲み口で他の種類も楽しみという声が確認できます。個別投稿の内容であり、全購入者の傾向とは扱いません。",
+            "text": "個別投稿では、中細挽きの粉を毎日飲むためリピートしているという声、4種類の味と香りを楽しんでいるという声、すっきりした飲み口で他の種類も楽しみという声が確認できます。味や香りは飲み方・保存状態・好みによって変わるため、4種類を試せる点と容量を購入判断に反映します。",
             "negative": False,
             "fix_title": "飲む量と挽き方を先に決める",
             "fix": "毎日飲む量、豆のままか粉か、挽き方を先に決めてから、2kgを保存できる密閉容器と消費ペースを確認してください。",
@@ -2259,6 +2261,35 @@ SOURCE = {
             "type": "review_page",
             "url": "https://yusukekitagawa.com/200-bakin006bk/",
             "title": "200-BAGIN006BK 個別使用レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
+    "elecom-usb2-0hub-usb-tk-tcm012bk": {
+        "official_url": "https://www.elecom.co.jp/products/TK-TCM012BK/TK-TCM012SV.html",
+        "facts": [
+            "エレコム公式ページでTK-TCM012BKを商品同定し、2ポートUSB2.0ハブ付きの有線テンキーボード、メンブレン方式、JAN 4953103550667を確認",
+            "公式仕様でマウスなどUSB機器を2台まで接続できること、NumLock LED、最大1000万回のキーストロークに耐えるキーの案内を確認",
+            "楽天市場の個別商品ページでTK-TCM012BKとJANを照合し、Amazon検索導線の対象商品と同一型番として整理",
+            "個別レビューでは、テンキーのないPCで数字入力がしやすくなった、キー配列が使いやすいという声がある一方、接続環境やキーの好みは利用者によって異なるため、用途と端子条件を分けて扱う",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 TK-TCM012BK 個別商品レビュー",
+            "text": "個別投稿では、テンキーのないPCで数字入力がしやすくなった、以前使っていた配列と近く使いやすいという内容が確認できます。使いやすさやキー入力の感触は、PCの配置・入力方法・個人の好みによる感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.elecom.co.jp/products/TK-TCM012BK/TK-TCM012SV.html",
+            "title": "エレコム公式 TK-TCM012BK",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/webby/50212601/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+            "title": "楽天市場 TK-TCM012BK 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/review/item/1/242953_10111527/1.1/",
+            "title": "楽天市場 TK-TCM012BK 個別レビュー",
             "checked_at": "2026-10-06",
         }],
     }
