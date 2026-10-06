@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "iris-kpc-ma4-pressure-cooker-review": {
+        "official_url": "https://www.irisohyama.co.jp/e-pressure-cooker/4l/",
+        "facts": [
+            "アイリスプラザの商品ページで電気圧力鍋4.0L KPC-MA4、型番KPC-MA4、JAN 4967576470674を確認",
+            "商品情報で満水容量4.0L、調理容量2.6L、最高圧力70kPa、自動メニュー80種類、消費電力1000Wを確認",
+            "商品情報で圧力・温度・なべ・無水・蒸し・低温／発酵の手動調理、蒸しプレートとレシピブックの付属を確認",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた容量と手入れの注意",
+            "who": "価格.comのKPC-MA4個別投稿およびアイリスプラザ商品ページに表示された利用者の声（2026-10-06確認）",
+            "text": "個別投稿では、肉料理が柔らかく仕上がる、家族向けの容量を選んだという声を確認できます。一方で、4人家族では料理によって容量が足りないという指摘、ふたの掃除や電源が落ちたときのやり直しを負担に感じたという声、エラーや仕上がりへの不満もあります。投稿者の調理量・使い方に基づく感想であり、すべての家庭で同じ結果になるとは扱いません。",
+            "negative": True,
+            "fix_title": "調理量と手入れの手間を購入前に確認する",
+            "fix": "家族人数だけでなく、作りたい料理の一度の分量が調理容量に収まるかを確認し、使用後にふたやパーツを洗う手間も考慮してください。圧力調理は取扱説明書の手順と安全表示に従いましょう。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.irisohyama.co.jp/e-pressure-cooker/4l/",
+            "title": "アイリスオーヤマ公式 電気圧力鍋4Lシリーズ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=H516394F",
+            "title": "アイリスプラザ KPC-MA4 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.kakaku.com/review/K0001275735/",
+            "title": "価格.com KPC-MA4 利用者レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "beauty-20260830": {
         "official_url": "https://creerina.co.jp/items/powderyliquideyebrow/",
         "facts": [
