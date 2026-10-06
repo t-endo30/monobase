@@ -1875,6 +1875,64 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"recolte-rcp-7": {
+        "official_url": "https://recolte-jp.com/support/faq/rcp-7/",
+        "facts": [
+            "レコルト公式サポートで、コードレス カプセルカッター ボンヌRCP-7の取扱説明書・部品案内を確認",
+            "公式取扱説明書で、RCP-7、専用USB Type-Cケーブル、ガラスカップなどの構成と安全上の注意を確認",
+            "楽天市場の個別商品ページで、recolteコードレス カプセルカッター ボンヌRCP-7、充電式、ガラス容器を商品同定",
+            "個別投稿では、コードレスで少量の調理に使いやすい、ガラス容器が洗いやすいという声がある一方、容器が重く滑りやすい、食材の大きさが均一になりにくいという指摘もある",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 レコルト RCP-7 個別投稿",
+            "text": "個別投稿では、コードレスで少量の調理に使いやすい、ガラス容器で洗いやすいという声があります。一方で、洗うときに容器が重く滑りやすい、食材の位置によって大きさが均一になりにくいという指摘もあります。扱いやすさは食材量や洗い方による個人の感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://recolte-jp.com/support/faq/rcp-7/",
+            "title": "レコルト公式 RCP-7 FAQ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/hotch-potch/00014805-cordless-bonne/",
+            "title": "楽天市場 レコルト RCP-7 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/363461_10004508/1.1/",
+            "title": "楽天市場 レコルト RCP-7 個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    }
+    ,"rsy-2-recolte-3": {
+        "official_url": "https://recolte-jp.com/products/auto-cooking-pot/",
+        "facts": [
+            "レコルト公式商品ページで、自動調理ポットRSY-2、容量約600ml、5種類の調理モード、刻む・加熱・撹拌・保温を自動で行う構成を確認",
+            "公式仕様で約幅16.5×奥行12.0×高さ23.3cm、約970g、AC100V、消費電力600Wを確認",
+            "レコルト公式オンラインショップの個別商品ページで、RSY-2(BK)、JAN4582180208019、付属品と使用上の注意を確認",
+            "楽天市場の個別投稿では、手入れしやすい、スープや料理を自動で作れるという声がある一方、本体を丸洗いできない点を心配する声もあり、手入れ方法を確認して使う必要がある",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 レコルト RSY-2 個別投稿",
+            "text": "個別投稿では、付属ブラシやスポンジで清潔に維持できる、材料を入れて自動でスープを作れるという声があります。一方で、本体を丸洗いできない点を心配する声もあります。手入れのしやすさは使うメニューや洗い方による個人の感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://recolte-jp.com/products/auto-cooking-pot/",
+            "title": "レコルト公式 自動調理ポット RSY-2",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/e-goods/ry1103674/",
+            "title": "楽天市場 レコルト RSY-2 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/196113_10018473/1.1/",
+            "title": "楽天市場 レコルト RSY-2 個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    }
     ,"bruno-boe021-bruno": {
         "official_url": "https://bruno-inc.com/?am=07760192&pg=product_detail",
         "facts": [
