@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "00-9-clinique": {
+        "official_url": "https://www.clinique.jp/product/1606/7079/makeup/mascara/lash-power-curling-mascara-long-wearing-formula",
+        "facts": [
+            "クリニーク公式オンラインショップでラッシュ パワー カーリング マスカラを商品同定",
+            "公式商品ページで小さく緩やかなカーブの三日月型ブラシ、水・汗・涙や高湿度に負けにくいロングウェアリング フォーミュラ、ぬるま湯でオフという案内を確認",
+            "楽天市場のクリニーク公式ショップでラッシュ パワー カーリング マスカラの個別商品ページを確認",
+            "個別投稿では長年使っている、お湯で落としやすい、にじみにくいという声がある一方、仕上がりや目元への相性には個人差があるため、公式の商品特長と利用者の感想を分けて扱う",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 クリニーク公式ショップ 個別レビュー",
+            "text": "個別投稿では、長年リピートしている、お湯で落としやすい、にじみにくいという内容が確認できます。別の投稿では、ブラシの形状が塗りやすく長さが出るという感想もあります。仕上がりや使いやすさは目元の状態・塗り方による個人の感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.clinique.jp/product/1606/7079/makeup/mascara/lash-power-curling-mascara-long-wearing-formula",
+            "title": "クリニーク公式 ラッシュ パワー カーリング マスカラ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/clinique/7079/",
+            "title": "楽天市場 クリニーク公式 ラッシュ パワー カーリング マスカラ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/313026_10000018/1.1/",
+            "title": "楽天市場 クリニーク公式 カーリングマスカラ 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "agptek-type-c-dslr-iphone-ipad-android": {
         "official_url": "https://images.agptek.us/Download/User_Manual/AC02B_User_Manual%28Quick_Start_in_Japanese%29.pdf.pdf",
         "facts": [
