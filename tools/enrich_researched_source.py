@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "salonia-2": {
+        "official_url": "https://salonia.jp/product/hair/stylingitem/rockstylemilk/",
+        "facts": [
+            "SALONIA公式ページでロックスタイルミルクを商品同定",
+            "公式案内で朝夜に使う2wayヘアミルクとして案内され、乾いた髪への使用方法と成分表示を確認",
+            "楽天市場の個別商品ページでSALONIAロックスタイルミルクの商品を確認",
+            "仕上がりやまとまりは髪質・使用量・乾かし方で変わるため、公式の使用方法を確認して少量から調整する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場のSALONIAスタイリングミルク個別レビュー",
+            "text": "個別投稿では、アイロン前のスタイリング剤として探したという購入理由や、髪をまとめる目的で使うという内容が確認できます。商品名や使用目的が近い投稿でも髪質・使用量による個人差があるため、全体の仕上がりとして一般化しません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://salonia.jp/product/hair/stylingitem/rockstylemilk/",
+            "title": "SALONIA公式 ロックスタイルミルク",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/kobe-beauty-labo/sal061/",
+            "title": "楽天市場 SALONIAロックスタイルミルク 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/262435_10001922/1.1/",
+            "title": "楽天市場 SALONIAスタイリングミルク 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "nimaso-iphone-iphone18pro-iphone-duo-iphone18proma": {
         "official_url": "https://nimaso.co.jp/collections/iphone-camera-lens-protectors",
         "facts": [
