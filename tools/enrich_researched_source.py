@@ -1875,6 +1875,35 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"bruno-boe021-bruno": {
+        "official_url": "https://bruno-inc.com/?am=07760192&pg=product_detail",
+        "facts": [
+            "BRUNO公式商品ページで、コンパクトホットプレートBOE021とセラミックコート鍋のセット構成、別売オプション、2〜3人向けのサイズ感を確認",
+            "公式・販売ページで、平面プレートとたこ焼きプレート、深鍋、温度調整などの構成を確認",
+            "楽天市場の個別販売ページで、BRUNOコンパクトホットプレートBOE021と深鍋セットを商品同定",
+            "個別投稿では、鍋が深く料理しやすい、外して洗える、2人分にちょうどよいという声がある一方、本体装着時のがたつきや火力の偏りを指摘する声もある",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 BRUNO公式店 BOE021 個別投稿",
+            "text": "個別投稿では、鍋が深く料理しやすい、外して丸洗いできる、2人分にちょうどよいという声があります。一方で、本体に取り付けたときのがたつきや、中央と端で火力に差があるという指摘もあります。使い勝手は料理内容や置き方による個人の感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://bruno-inc.com/?am=07760192&pg=product_detail",
+            "title": "BRUNO公式 コンパクトホットプレート BOE021",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/roomy/ide17nov01b01/",
+            "title": "楽天市場 BRUNO BOE021 深鍋セット 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/372781_10000325/1.1/",
+            "title": "楽天市場 BRUNO公式店 BOE021 個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    }
     ,"tanita-fs-101-fs101": {
         "official_url": "https://www.tanita.co.jp/support/manual/FS-101/",
         "facts": [
