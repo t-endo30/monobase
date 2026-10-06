@@ -1703,6 +1703,34 @@ SOURCE = {
             "title": "楽天市場 みんなのレビュー",
             "checked_at": "2026-10-06",
         }],
+    },
+    "anker-prime-power-bank-20100mah-220w-with-anker-pr": {
+        "official_url": "https://www.ankerjapan.com/products/b110b",
+        "facts": [
+            "Anker Japan公式情報でAnker Prime Power Bank（20100mAh、220W）とCharging Base（150W、3ポート）のセットを確認",
+            "公式仕様で本体約520g、約147×44×51mm、USB-C出力は最大140W、USB-A出力は最大22.5Wと確認",
+            "公式情報ではCharging BaseのUSB-C1最大140W、USB-C2最大100W、USB-A最大22.5Wと案内されている",
+        ],
+        "review_texts": [{
+            "source": "価格.com 個別使用レビュー A110BH11",
+            "text": "価格.comの個別レビュー欄で、20100mAh・220Wモデルの利用者評価と、重量や携帯性を含む使用感を確認できます。個別投稿の感想であり、すべての利用者に当てはまる傾向とは断定しません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.ankerjapan.com/products/b110b",
+            "title": "Anker Japan公式 B110B",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/anker/a1339/",
+            "title": "Anker公式 楽天市場 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.kakaku.com/review/K0001719137/",
+            "title": "価格.com 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
     }
 }
 
