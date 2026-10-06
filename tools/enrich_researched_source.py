@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "jackery-jackery-solarsaga-ip65-jackery": {
+        "official_url": "https://www.jackery.jp/collections/solar-panel/products/jackery-solarsaga-100",
+        "facts": [
+            "Jackery Japan公式ページでSolarSaga 100Wソーラーパネルを商品同定",
+            "公式仕様で最大100W、変換効率25%、IP68防水、ETFE採用、5年保証の案内を確認",
+            "楽天市場のJackery Japan公式店個別商品ページでSolarSaga 100の商品を確認",
+            "楽天市場の個別投稿では発電・充電や買い替えに触れる内容があるが、天候・設置条件・接続する電源で結果が変わるため一般化しない",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 Jackery Japan公式店個別レビュー",
+            "text": "個別投稿では、天候が悪い期間を経て発電できたことや、以前のパネルから買い替えて充電しやすくなったという内容が確認できます。日射条件・設置角度・接続機器による体験談として扱い、常に同じ出力になるとは一般化しません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.jackery.jp/collections/solar-panel/products/jackery-solarsaga-100",
+            "title": "Jackery Japan公式 SolarSaga 100W",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/jackery-japan/n-s-100-jkss1/",
+            "title": "楽天市場 Jackery Japan公式 SolarSaga 100",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/item/1/374756_10000009/1.1/",
+            "title": "楽天市場 Jackery SolarSaga 100 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "tv-ipx8": {
         "official_url": "https://extage.jp/brand/clear-elec-brush-001/",
         "facts": [
