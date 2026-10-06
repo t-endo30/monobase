@@ -1875,6 +1875,35 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"kaedear-kdr-m11c": {
+        "official_url": "https://www.kaedear.com/products/kdr-m11c",
+        "facts": [
+            "Kaedear公式商品ページで、クイックホールドKDR-M11C、対応スマートフォンの縦132〜175mm・横68〜85mm・厚さ12mm以下、重量150g、17mmボールマウントを確認",
+            "公式ページで、バー／ミラーマウント、径変換アタッチメント、六角レンチなどのセット内容とメーカー保証1年を確認",
+            "Yahoo!ショッピングのKaedear公式店でKDR-M11Cの個別販売ページを確認し、楽天市場の個別投稿で同一型番の利用者の声を確認",
+            "個別投稿では、脱着しやすく取り付けも簡単、頑丈で使いやすいという声があるため、対応サイズとケースの厚さを確認して選ぶ商品として整理する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 KDR-M11C 個別投稿",
+            "text": "個別投稿では、脱着がしやすくバーへの取り付けも簡単、頑丈で使いやすいという声があります。装着するスマートフォンのサイズやケースの厚み、車体側の取り付け方法によって適合や使い勝手が変わるため、購入前に公式の対応範囲を確認します。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.kaedear.com/products/kdr-m11c",
+            "title": "Kaedear公式 クイックホールド KDR-M11C",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://store.shopping.yahoo.co.jp/kaedear/kdr-m11c.html",
+            "title": "Yahoo!ショッピング Kaedear公式店 KDR-M11C",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/370890_12373741/1.1/",
+            "title": "楽天市場 KDR-M11C 個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    }
     ,"recolte-rcp-7": {
         "official_url": "https://recolte-jp.com/support/faq/rcp-7/",
         "facts": [
