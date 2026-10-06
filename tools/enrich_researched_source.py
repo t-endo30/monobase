@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "pet-20260927": {
+        "official_url": "https://page.mkgr.jp/product/8592/",
+        "facts": [
+            "マルカン公式製品ページでNewスティングレーNS106を商品同定",
+            "公式仕様で本体サイズ約W600×D300×H360mm、容量56L、重量約7.3kg、曲げガラス、品番NWN-001、JAN4975637214563を確認",
+            "楽天市場の個別商品ページでニッソー60cm水槽 NEWスティングレー NS-106を確認",
+            "個別投稿ではフレーム付きの扱いやすさ、曲げガラスの見た目、外付けフィルターの適合に関する内容があるため、設置機器との寸法照合が必要",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 NS-106個別レビュー",
+            "text": "個別投稿では、同型水槽の買い替え理由としてフレーム付きの扱いやすさを挙げる内容や、曲げガラスの見た目を評価する内容が確認できます。一方で、フレームの厚みにより外付けフィルターの選択肢が限られるという指摘もあります。設置機器と個体差による感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://page.mkgr.jp/product/8592/",
+            "title": "マルカン公式 NewスティングレーNS106",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/chanet3980/12297/",
+            "title": "楽天市場 ニッソー NS-106 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/item/1/211165_10007045/1.1/",
+            "title": "楽天市場 ニッソー NS-106 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "switchbot-alexa": {
         "official_url": "https://www.switchbot.jp/collections/all/products/switchbot-hub3",
         "facts": [
