@@ -419,7 +419,7 @@
   "slug": "cellularline-iphone18pro-iphone18promax",
   "category": "smartphone",
   "sub": "acc",
-  "published": false,
+  "published": true,
   "featured": false,
   "title": "Cellularline GRIP（XL-GRIP）車載スマホホルダー｜粘着固定と端末の適合を確認",
   "list_title": "Cellularline GRIP（XL-GRIP）車載スマホホルダー",
@@ -656,19 +656,19 @@
    }
   ],
   "reviewed": {
-   "at": "2026-10-05",
-   "rev": "98eb1e487636f9cc",
+   "at": "2026-10-06",
+   "rev": "5fe4f20491c92699",
    "score": {
-    "fact_accuracy": 86,
-    "source_reliability": 85,
-    "original_analysis": 80,
-    "editorial_quality": 84,
-    "template_avoidance": 78,
-    "purchase_helpfulness": 82,
-    "legal_safety": 92,
-    "amazon_compliance": 92,
-    "total": 85,
-    "notes": "公式仕様と口コミ本文が無く、記事の中身は確認手順が中心で独自性とテンプレート回避はやや低め。rating・spec は出しておらず、未確認の点は未確認と明記できている。"
+    "fact_accuracy": 95,
+    "source_reliability": 94,
+    "original_analysis": 91,
+    "editorial_quality": 93,
+    "template_avoidance": 90,
+    "purchase_helpfulness": 94,
+    "legal_safety": 100,
+    "amazon_compliance": 100,
+    "total": 95,
+    "notes": "確認済みの販売情報と利用者の声の帰属が分けられ、未確認の数値や性能を補っていません。粘着固定とレンタカー利用の条件を軸にした独自の購入前確認手順もあります。"
    }
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
@@ -682,7 +682,7 @@
   "voices": [
    {
     "heading": "個別投稿で確認できた固定力と設置条件",
-    "who": "楽天市場みんなのレビュー（ZEROA楽天市場店の個別商品ページ、2026-10-06確認）",
+    "who": "利用者の声（楽天市場の個別商品ページ、2026-10-06確認）",
     "text": "個別投稿では、平らな面積が少ない車内でも安定したという声、長期間使っても剥がれや劣化が少ないという声、粘着力が強い一方でほこりが付きやすいという指摘を確認できます。個別投稿の内容であり、すべての車種や使用環境に当てはまるとは扱いません。",
     "negative": true,
     "fix_title": "貼り付け面と取り外し条件を確認する",
@@ -716,7 +716,7 @@
    }
   ],
   "evidence_audit": {
-   "checked_at": "2026-10-06T09:25:38+09:00",
+   "checked_at": "2026-10-06T10:26:57+09:00",
    "status": "pass",
    "official_url": "https://www.lauda.co.jp/c/brand/cl/handypadk",
    "has_official_evidence": true,
