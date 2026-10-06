@@ -342,6 +342,9 @@
     "total": 93,
     "notes": "根拠データ内の公式仕様とYahoo!ショッピングの利用者評価・投稿傾向に沿っており、Amazon由来の評価や価格、架空の体験談は見当たりません。未確認の材質・寸法・内訳なども概ね明示されています。"
    }
+  },
+  "health": {
+   "checked": "2026-10-06"
   }
  },
  {
@@ -919,6 +922,9 @@
     "total": 93,
     "notes": "根拠データの範囲内で仕様・利用者の声・編集部分析を分けており、未確認の数値やAmazonレビュー評価の転載もありません。一般的な採寸・確認の助言が一部反復されるため、テンプレート回避のみ満点にはしていません。"
    }
+  },
+  "health": {
+   "checked": "2026-10-06"
   }
  },
  {
@@ -1235,7 +1241,10 @@
    "missing": [],
    "blockers": []
   },
-  "rakuten_url": "https://item.rakuten.co.jp/lauda/cl-grip/"
+  "rakuten_url": "https://item.rakuten.co.jp/lauda/cl-grip/",
+  "health": {
+   "checked": "2026-10-06"
+  }
  },
  {
   "slug": "mvp3-3in1",
@@ -2836,6 +2845,9 @@
    "review_stats_present": true,
    "missing": [],
    "blockers": []
+  },
+  "health": {
+   "checked": "2026-10-06"
   }
  },
  {
@@ -5609,7 +5621,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://support.microsoft.com/en-us/surface/models/surface-pro-5th-gen-specs-and-features",
@@ -5902,7 +5914,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.suisaku.com/product/air_pomp/122/",
@@ -7869,7 +7881,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.kai-group.com/products/kamisori/product/bihadaompa.html",
@@ -8225,7 +8237,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.i-de-al.com/c/gr001/gr007/gr1031",
@@ -8538,7 +8550,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://store.healthcare.omron.co.jp/support/download/catalog/pdf/hbf_series01.pdf",
@@ -8853,7 +8865,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://niplux.jp/collections/%E5%95%86%E5%93%81%E4%B8%80%E8%A6%A7%E7%94%A8/products/hair-dryer",
@@ -9174,7 +9186,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.puppia.jp/puppia2014fw.pdf",
@@ -10007,7 +10019,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-30"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://nimaso.co.jp/collections/iphone-camera-lens-protectors",
@@ -10874,7 +10886,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-30"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://images.agptek.us/Download/User_Manual/AC02B_User_Manual%28Quick_Start_in_Japanese%29.pdf.pdf",
@@ -11232,7 +11244,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-30"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.clinique.jp/product/1606/7079/makeup/mascara/lash-power-curling-mascara-long-wearing-formula",
@@ -11570,7 +11582,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-30"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.irisohyama.co.jp/products/manual/pdf/108963.pdf",
@@ -13077,7 +13089,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.sourcenext.com/product/security/zero-super-security/",
@@ -13405,7 +13417,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.switchbot.jp/collections/all/products/switchbot-hub3",
@@ -13785,7 +13797,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://book.yamazen.co.jp/product/detail/I00008450",
@@ -14117,7 +14129,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "",
   "official_url": "https://corp.valx.jp/services/valx/",
@@ -26230,7 +26242,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-29"
+   "checked": "2026-10-06"
   },
   "review_stats": {
    "rakuten": {
@@ -27529,7 +27541,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-06"
   },
   "review_stats": {
    "rakuten": {
@@ -42976,7 +42988,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/secupcs/cabinet/1st-img/pb/mf45a_pb.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://bs.secu.jp/view/item/000000000285?category_page_id=ct45",
@@ -49075,7 +49087,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-06"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "image_prompt": "A photograph of ANUA PDRNセラム, which is a 美容液, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
@@ -49466,7 +49478,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-09-06"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "image_prompt": "A photograph of ChromeLite×UltraCush, which is a スーツケース, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
@@ -50634,7 +50646,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-29"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://recolte-jp.com/support/faq/rcp-7/",
@@ -56655,7 +56667,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/shuuemura/cabinet/12824584/13204797/13525001/new.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-29"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.shuuemura.jp/new-best-seller/best-seller-product/",
@@ -57314,7 +57326,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/1st_thum/main-salo3.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-30"
+   "checked": "2026-10-06"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://salonia.jp/product/hair/iron/2way/",
@@ -61458,7 +61470,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/yunth/cabinet/11294195/11294196/event/10000000_260906.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-29"
+   "checked": "2026-10-06"
   },
   "review_stats": {
    "rakuten": {
@@ -62534,7 +62546,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luire/cabinet/plus04/mask26a-2_off50.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "official_url": "https://www.plus-cosme.jp/products/mask.html",
   "product_url": "https://item.rakuten.co.jp/luire/pmm-yami/",
@@ -63344,7 +63356,7 @@
   },
   "image_prompt": "A photograph of Anker Prime Power Bank, which is a モバイルバッテリー, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "yahoo_url": "https://store.shopping.yahoo.co.jp/lifestyle-007/61439.html",
   "review_stats": {
@@ -63983,7 +63995,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "image_prompt": "A photograph of シック サロンプラス トーンアップ フェイススムーサー 替刃, which is a カミソリ, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "rakuten_url": "https://item.rakuten.co.jp/e-konekuto/4891228313807/",
@@ -64927,7 +64939,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "official_url": "https://creerina.co.jp/items/powderyliquideyebrow/",
   "facts": [
@@ -65677,7 +65689,7 @@
    "商品情報で圧力・温度・なべ・無水・蒸し・低温／発酵の手動調理、蒸しプレートとレシピブックの付属を確認"
   ],
   "health": {
-   "checked": "2026-09-29"
+   "checked": "2026-10-06"
   },
   "good_for": {
    "intro": "確認済みの仕様と自分の調理環境が次の条件に合う場合、KPC-MA4を候補として検討できます。",
@@ -67001,7 +67013,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/synnex/e1r00wv.html",
   "jan": "0698833073829",
   "health": {
-   "checked": "2026-09-29"
+   "checked": "2026-10-06"
   },
   "good_for": {
    "intro": "公式資料で確認すべき設置条件と、提示された利用者の声から、次の確認を購入前に行える人に向きます。",
@@ -67697,7 +67709,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-30"
+   "checked": "2026-10-06"
   },
   "good_for": {
    "intro": "次のような環境なら、Anker 568 A83995A1の構成が目的に合いやすいです。",
@@ -68385,7 +68397,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "good_for": {
    "intro": "次のような読書環境なら、シグニチャーエディションの追加機能が判断材料になります。",
@@ -69065,7 +69077,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "good_for": {
    "intro": "次のような条件なら、WSR-5400AX6S/DMBを候補に入れやすくなります。",
@@ -69343,7 +69355,7 @@
   ],
   "kind": "guide",
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "good_for": {
    "intro": "導光板シーリングライトは、メーカーが説明する光の拡散の仕組みや薄型デザインに魅力を感じ、購入前の照合を丁寧にできる人に向く。判断しやすい条件を整理する。",
@@ -71737,7 +71749,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-09-29"
+   "checked": "2026-10-06"
   },
   "good_for": {
    "intro": "足元の広さと調整幅を重視するデスク環境なら、仕様上のメリットを活かしやすい製品です。",
@@ -73290,7 +73302,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-06"
   },
   "shop_images": {
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tea-life/cabinet/goods/refa/15638_thumb_r.jpg?_ex=128x128"
