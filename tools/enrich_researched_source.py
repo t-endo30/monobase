@@ -7,6 +7,27 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "speakerphone-conference-review": {
+        "official_url": "https://www.ankerjapan.com/products/a3307",
+        "amazon_url": "https://www.amazon.co.jp/dp/B09N6F7TPG",
+        "facts": [
+            "Anker公式商品ページでPowerConf S360、型番A3307041を確認",
+            "公式仕様でUSB-C有線接続、Bluetooth非対応、内蔵バッテリーなしを確認",
+            "公式仕様で本体サイズ約120×120×35mm、重量約250g、スピーカー出力3Wを確認",
+            "公式説明でエコーキャンセリング、残響抑制、ノイズリダクション、製品から3m以内の使用推奨を確認",
+        ],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.ankerjapan.com/products/a3307",
+            "title": "Anker Japan PowerConf S360 公式商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://www.amazon.co.jp/dp/B09N6F7TPG",
+            "title": "Amazon 個別商品ページ ASIN B09N6F7TPG",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "rs-60e3-lcd-pdf": {
         "official_url": "https://www.rowa.co.jp/products/tc-2001",
         "facts": [
@@ -52,7 +73,7 @@ SOURCE = {
             "text": "個別投稿では、爪を切った後のバリ取りが楽で、モーター音がうるさくないという感想、まだ使用前だが刃先を見て使えそうという声、使いやすいという感想を確認できます。投稿時点や個体差を含む利用者の声であり、すべてのペットに同じ結果が出るとは扱いません。",
             "negative": False,
             "fix_title": "音への慣らしとアタッチメント固定を確認する",
-            "fix": "初回は電源音を聞かせて反応を確認し、アタッチメントが確実にはまっているかを試運転で確認してから使用してください。",
+            "fix": "初回は電源音を聞かせて反応を確認し、アタッチメントがしっかりはまっているかを試運転で確認してから使用してください。",
         }],
         "source_notes": [{
             "type": "product_page",

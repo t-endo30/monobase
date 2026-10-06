@@ -807,7 +807,7 @@
     "text": "個別投稿では、爪を切った後のバリ取りが楽で、モーター音がうるさくないという感想、まだ使用前だが刃先を見て使えそうという声、使いやすいという感想を確認できます。投稿時点や個体差を含む利用者の声であり、すべてのペットに同じ結果が出るとは扱いません。",
     "negative": false,
     "fix_title": "音への慣らしとアタッチメント固定を確認する",
-    "fix": "初回は電源音を聞かせて反応を確認し、アタッチメントが正しくはまっているかを試運転で確認してから使用してください。"
+    "fix": "初回は電源音を聞かせて反応を確認し、アタッチメントがしっかりはまっているかを試運転で確認してから使用してください。"
    }
   ],
   "conclusion_title": "まとめ",
@@ -1767,7 +1767,7 @@
   "voices": [
    {
     "heading": "個別投稿で確認できた脱着と固定の感想",
-    "who": "Webikeおよび楽天市場の個別の利用者の声（2026-10-06確認）",
+    "who": "Webike利用者レビューおよび楽天市場の個別投稿（2026-10-06確認）",
     "text": "個別投稿では、スマートフォンを置いてロックする操作とレバーで外す操作が簡単という感想、多様なハンドル径に対応できる点を評価する声を確認できます。一方で、荒れた路面では補助ラバーを使うという記述や、端末サイズごとの確認が必要という注意もあります。個別投稿の内容であり、すべての車種・端末に当てはまるとは扱いません。",
     "negative": true,
     "fix_title": "端末寸法と取付場所を先に照合する",
@@ -62929,16 +62929,16 @@
   }
  },
  {
-  "published": false,
+  "published": true,
   "featured": false,
-  "amazon_url": "",
+  "amazon_url": "https://www.amazon.co.jp/dp/B09N6F7TPG",
   "thumb": "assets/img/gen/speakerphone-conference-review.jpg",
   "cta_label": "Amazonで価格と詳細を確認する",
   "date": "2026-08-24",
   "updated": "2026-10-06",
   "rating": {
    "score": 3.8,
-   "breakdown": "当サイト独自評価は、メーカー公表値として確認できたUSB-C有線接続、バッテリー非搭載、約120×120×35mm・約250g、3W出力、製品から3m以内の推奨使用範囲、18か月保証、エコーキャンセリング・残響抑制・ノイズリダクションを対象に採点しました。有線・据え置き前提を受け入れられる環境では仕様が明快な点を評価し、Bluetooth非対応、バッテリー非搭載、マイク本数・対応人数・対応OSを公式ページで確認できない点を減点しています。"
+   "breakdown": "当サイト独自評価は、メーカー公表値として確認できたUSB-C有線接続、バッテリー非搭載、約120×120×35mm・約250g、3W出力、製品から3m以内の推奨使用範囲、エコーキャンセリング・残響抑制・ノイズリダクションを対象に採点しました。有線・据え置き前提を受け入れられる環境では仕様が明快な点を評価し、Bluetooth非対応とバッテリー非搭載を減点しています。"
   },
   "conclusion_title": "まとめ",
   "slug": "speakerphone-conference-review",
@@ -62990,11 +62990,11 @@
     },
     {
      "title": "最も離れた席が3mを超える会議環境で使いたい人",
-     "text": "メーカーは製品から3m以内での使用を推奨しています。推奨範囲を超える配置での性能は公式ページから確認できないため、会議室の規模を優先して別の構成を検討してください。"
+     "text": "メーカーは製品から3m以内での使用を推奨しています。推奨範囲を超える配置での性能は確認済みのメーカー仕様に含まれないため、会議室の規模を優先して別の構成を検討してください。"
     },
     {
      "title": "USB-C接続の可否を事前に確認できない人",
-     "text": "接続方式はUSB-Cです。変換アダプタやハブを介した構成、対応OSについては公式ページで確認できないため、購入前に販売元またはメーカーへ自身の環境での対応可否を確認してください。"
+     "text": "接続方式はUSB-Cです。変換アダプタやハブを介した構成、対応OSは本記事で確認したメーカー仕様に含まれないため、購入前に販売元またはメーカーへ自身の環境での対応可否を確認してください。"
     },
     {
      "title": "会議音声を周囲に出せない共有空間で使う人",
@@ -63021,14 +63021,12 @@
    "本体の充電管理は不要。その代わり、使用時にUSB-C接続できる環境が必要という条件も明確",
    "約120×120×35mm・約250gと公表されており、設置場所の寸法を購入前に見積もりやすい",
    "メーカーがエコーキャンセリング・残響抑制・ノイズリダクションの搭載を説明している",
-   "保証は18か月で、Ankerで会員登録すると6か月延長される",
-   "クイックスタートガイドと安全マニュアルが同梱されるため、メーカーが案内する基本的な使用上の注意を確認できる",
    "メーカーが製品から3m以内という推奨使用範囲を示しており、会議室の配置と合うかを事前に測って判断できる"
   ],
   "cons": [
    "Bluetoothには対応していないため、無線接続を必要とする用途には合わない",
    "バッテリーを内蔵しておらず、使用にはUSB-Cケーブルでの接続が必要",
-   "メーカーは製品から3m以内での使用を推奨している。3W出力の聞こえ方や、推奨範囲を超える配置、マイク本数・対応人数・対応OSについては公式ページで確認できない"
+   "メーカーは製品から3m以内での使用を推奨している。3W出力の聞こえ方や、推奨範囲を超える配置、マイク本数・対応人数・対応OSは、本記事で確認したメーカー仕様に含まれない"
   ],
   "voices_intro": "確認できた利用者の声と、公表仕様に照らした確認点を整理します。件数、割合、平均評価は確認できていないため示しません。",
   "voices": [
@@ -63062,7 +63060,7 @@
     "text": "挿すだけで使えた、という趣旨の評価が確認されています。個別の接続環境によって動作は変わるため、すべてのPC環境で同様に使えることを示すものではありません。",
     "negative": false,
     "fix_title": "購入前に対応環境を確認する",
-    "fix": "メーカー公式ページでは対応OSを確認できません。購入前に、販売元またはメーカーの案内で自身のPC環境との対応可否を確認してください。"
+    "fix": "対応OSは本記事で確認したメーカー仕様に含まれません。購入前に、販売元またはメーカーの案内で自身のPC環境との対応可否を確認してください。"
    }
   ],
   "personal_note": "利用者の声と公式仕様を突き合わせると、S360は接続方式と設置条件を先に受け入れられるかで評価が変わる製品です。USB-C有線接続、Bluetooth非対応、バッテリー非搭載、製品から3m以内という条件を購入前に確認することが、仕様の読み違いを防ぐ近道になります。",
@@ -63086,7 +63084,7 @@
   "conclusion": [
    "Anker PowerConf S360 は、USB-C有線接続で使い、製品から最も離れた参加者までが3m以内に収まる会議環境に適した会議用マイクスピーカーです。Bluetoothには対応せず、バッテリーも内蔵していないため、無線接続や単体使用を必要とする人には合いません。",
    "メーカーは、エコーキャンセリング、残響抑制、ノイズリダクションを搭載すると説明しています。ただし、実際の聞こえ方は部屋の反響、周囲の騒音、距離、接続環境にも左右されます。<strong>音声機能の比較より先に、USB-C接続と3m以内の配置という条件を満たせるか確認することが重要です。</strong>",
-   "購入前に確認したいのは、型番がA3307041であること、使用予定の機器でUSB-C接続できること、最も離れた席までが3m以内に収まることの3点です。主要な情報源はAnker Japanの公式製品ページの仕様表と、確認できた利用者の声です。マイクの本数・対応人数・想定する部屋の広さ・対応OSは公式ページから確認できていません。最終確認日：2026年09月03日。価格・在庫・保証適用条件は変動するため、購入前に販売元とメーカー公式案内で確認してください。"
+   "購入前に確認したいのは、型番がA3307041であること、使用予定の機器でUSB-C接続できること、最も離れた席までが3m以内に収まることの3点です。主要な情報源はAnker Japanの公式製品ページの仕様表と、確認できた利用者の声です。マイクの本数・対応人数・想定する部屋の広さ・対応OSは、本記事で確認したメーカー仕様に含まれません。最終確認日：2026年09月03日。価格・在庫・保証適用条件は変動するため、購入前に販売元とメーカー公式案内で確認してください。"
   ],
   "sub": "mic",
   "scenes_after": [
@@ -63107,7 +63105,7 @@
      "モノベースは、S360を多機能な会議機器としてではなく、接続条件が明確な会議用マイクスピーカーとして評価します。購入前には、PCや会議場所の接続条件を確認してください。"
     ],
     "point": "USB-C有線接続とバッテリー非搭載は、利点と制約を同時に決める仕様です。",
-    "warn": "変換アダプタ、ハブ、対応OSについては公式ページで確認できないため、個別環境での動作を前提にしないでください。",
+    "warn": "変換アダプタ、ハブ、対応OSは本記事で確認したメーカー仕様に含まれないため、個別環境での動作を前提にしないでください。",
     "aside": "",
     "aside_label": ""
    },
@@ -63116,11 +63114,11 @@
     "paras": [
      "メーカーは製品から3m以内での使用を推奨しています。==この数字は、購入前に会議環境へ当てはめるべき中心条件です==。",
      "確認するべきなのは参加人数そのものではなく、本体を置く予定の位置から最も離れた参加者までの距離です。会議室の長さ、テーブルの配置、座席の位置を測ることで、メーカー推奨の範囲に収まるかを判断できます。",
-     "推奨範囲を超えたら音を拾わない、という意味ではありません。メーカーが推奨として示しているのが3m以内であり、その外側での集音性能、対応人数、想定する部屋の広さは公式ページから確認できません。",
+     "推奨範囲を超えたら音を拾わない、という意味ではありません。メーカーが推奨として示しているのが3m以内であり、その外側での集音性能、対応人数、想定する部屋の広さは本記事で確認したメーカー仕様に含まれません。",
      "公開情報から判断すると、3mを超える会議環境では、仕様上の推奨条件を満たさないことを理解したうえで、会議室に合う別の構成も比較する必要があります。"
     ],
     "point": "最も遠い席までの距離を測り、3m以内に収まるかを先に確認してください。",
-    "warn": "対応人数や推奨する部屋の広さは公式ページから確認できません。",
+    "warn": "対応人数や推奨する部屋の広さは、本記事で確認したメーカー仕様に含まれません。",
     "aside": "",
     "aside_label": ""
    },
@@ -63143,10 +63141,10 @@
      "メーカーは、S360にエコーキャンセリング、残響抑制、ノイズリダクションを搭載していると説明しています。音声処理機能を重視して会議用機器を選ぶ場合、確認できている一次情報はこの範囲です。",
      "一方、部屋の反響、周囲の生活音、回線品質、接続先の設定は、製品仕様だけでは判断できません。機器を替えればすべての会議トラブルが解消する、と考えるのは適切ではありません。",
      "スピーカー出力は3Wです。ただし、実際の聞こえ方は設置場所、参加者との距離、周囲の騒音に左右されます。数値のみで、自分の会議室に十分かどうかを断定することはできません。",
-     "購入前には、公開されていないマイク本数、対応人数、対応OSも確認事項として残ります。これらが必須条件なら、販売元またはメーカーへ問い合わせてから判断してください。"
+     "購入前には、確認済みのメーカー仕様に含まれないマイク本数、対応人数、対応OSも確認事項として残ります。これらが必須条件なら、販売元またはメーカーへ問い合わせてから判断してください。"
     ],
     "point": "公表された音声処理機能と、会議環境によって変わる要素を分けて判断します。",
-    "warn": "マイク本数・対応人数・対応OSは公式ページから確認できません。",
+    "warn": "マイク本数・対応人数・対応OSは、本記事で確認したメーカー仕様に含まれません。",
     "aside": "",
     "aside_label": ""
    },
@@ -63218,53 +63216,71 @@
    },
    {
     "q": "何人までの会議に使えますか？",
-    "a": "対応人数について、メーカー公式ページからは確認できませんでした。メーカーが示しているのは「製品から3m以内での使用を推奨」という条件です。参加人数だけで決めず、最も離れた席までの距離を確認してください。"
+    "a": "対応人数は、本記事で確認したメーカー仕様に含まれません。メーカーが示しているのは「製品から3m以内での使用を推奨」という条件です。参加人数だけで決めず、最も離れた席までの距離を確認してください。"
    },
    {
     "q": "MacやWindowsで使えますか？",
-    "a": "対応OSは公式ページから確認できませんでした。購入前に、販売ページまたはメーカー案内で、使用するPC環境との対応可否を確認してください。"
+    "a": "対応OSは、本記事で確認したメーカー仕様に含まれません。対応OSが必須条件なら、購入前に販売ページまたはメーカー案内で、使用するPC環境との対応可否を確認してください。"
    },
    {
     "q": "USB-Aしかないパソコンでも使えますか？",
-    "a": "接続方式はUSB-Cです。変換アダプタやハブを介する構成について、メーカー公式ページの記載を確認できませんでした。動作を前提にした購入は避け、販売元またはメーカーへ対応可否を確認してください。"
-   },
-   {
-    "q": "保証はどのくらいですか？",
-    "a": "メーカー仕様では18か月です。Ankerで会員登録すると6か月延長されます。適用条件は購入前に公式案内で確認してください。"
+    "a": "接続方式はUSB-Cです。変換アダプタやハブを介する構成が必須なら、動作を前提にした購入は避け、販売元またはメーカーへ対応可否を確認してください。"
    }
   ],
   "official_url": "https://www.ankerjapan.com/products/a3307",
   "facts": [
-   "正式名称：Anker PowerConf S360（会議用マイクスピーカー）",
-   "型番：A3307041（シルバー）",
-   "接続方式：USB-C の有線接続。Bluetooth接続には対応していない",
-   "バッテリー：内蔵していない。使用にはUSB-Cケーブルでの接続が必要",
-   "スピーカー出力：3W",
-   "本体サイズ：約120×120×35mm、重量 約250g",
-   "保証：18か月（Ankerで会員登録すると+6か月）",
-   "同梱物：本体、クイックスタートガイド、安全マニュアル",
-   "音声処理：エコーキャンセリング、残響抑制、ノイズリダクションを搭載しているとメーカーが説明している",
-   "集音範囲：メーカーは製品から3m以内での使用を推奨している。マイクの本数・対応人数・想定する部屋の広さ・対応OSは公式ページから確認できていない"
+   "Anker公式商品ページでPowerConf S360、型番A3307041を確認",
+   "公式仕様でUSB-C有線接続、Bluetooth非対応、内蔵バッテリーなしを確認",
+   "公式仕様で本体サイズ約120×120×35mm、重量約250g、スピーカー出力3Wを確認",
+   "公式説明でエコーキャンセリング、残響抑制、ノイズリダクション、製品から3m以内の使用推奨を確認"
   ],
   "image_prompt": "A photograph of Anker PowerConf S360, which is a スピーカーフォン, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "official_ogp_title": "Anker PowerConf S360 | 会議用マイクスピーカーの製品情報",
   "official_ogp_image": "https://www.ankerjapan.com/cdn/shop/products/A3307001_1200x1200.jpg?v=1646024880",
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "evidence_audit": {
-   "checked_at": "2026-10-06T09:28:26+09:00",
-   "status": "blocked",
+   "checked_at": "2026-10-06T09:34:16+09:00",
+   "status": "pass",
    "official_url": "https://www.ankerjapan.com/products/a3307",
    "has_official_evidence": true,
-   "individual_product_urls": {},
+   "individual_product_urls": {
+    "amazon_url": "https://www.amazon.co.jp/dp/B09N6F7TPG"
+   },
    "has_product_identity": true,
    "has_review_text": true,
    "review_stats_present": false,
-   "missing": [
-    "個別商品URL"
-   ],
-   "blockers": [
-    "個別商品URLがありません（検索結果URLは不可）"
-   ]
+   "missing": [],
+   "blockers": []
+  },
+  "source_notes": [
+   {
+    "type": "official_product",
+    "url": "https://www.ankerjapan.com/products/a3307",
+    "title": "Anker Japan PowerConf S360 公式商品ページ",
+    "checked_at": "2026-10-06"
+   },
+   {
+    "type": "product_page",
+    "url": "https://www.amazon.co.jp/dp/B09N6F7TPG",
+    "title": "Amazon 個別商品ページ ASIN B09N6F7TPG",
+    "checked_at": "2026-10-06"
+   }
+  ],
+  "reviewed": {
+   "at": "2026-10-06",
+   "rev": "9e4b5e28f76f8260",
+   "score": {
+    "fact_accuracy": 94,
+    "source_reliability": 93,
+    "original_analysis": 90,
+    "editorial_quality": 87,
+    "template_avoidance": 86,
+    "purchase_helpfulness": 94,
+    "legal_safety": 99,
+    "amazon_compliance": 100,
+    "total": 92,
+    "notes": "公式仕様と利用者の声の帰属が明確で、購入条件への落とし込みも具体的です。接続条件と3m推奨の説明はやや反復していますが、購入判断に必要な内容です。"
+   }
   }
  },
  {
@@ -67356,9 +67372,9 @@
   "voices_after": "確認できたのは個別の投稿です。利用者の声を読む際は、投稿対象の商品と販売ページの商品情報を照合してください。",
   "voices": [
    {
-    "heading": "楽天市場の商品ページで確認できた利用者の声",
-    "who": "楽天市場の商品ページ（2026-10-06確認）",
-    "text": "確認できた個別の利用者の声には、組み立てが簡単で和室にグレージュが合うという感想、ボタン式を選んで満足しているという感想、台座部分の付着物が気になったという指摘があります。いずれも個別の声で、全購入者の傾向とは扱いません。",
+    "heading": "楽天市場のレビュー本文で確認できた声",
+    "who": "楽天市場みんなのレビュー（2026-10-06確認）",
+    "text": "個別投稿では、組み立てが簡単で和室にグレージュが合うという感想、ボタン式を選んで満足しているという感想、台座部分の付着物が気になったという指摘を確認できます。いずれも個別投稿で、全購入者の傾向とは扱いません。",
     "negative": true,
     "fix_title": "組み立てと台座を確認する",
     "fix": "組み立て後は台座や首のねじ部分を確認し、設置場所の色やコード長さが合うかを購入前に照合してください。"
