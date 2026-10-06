@@ -1875,6 +1875,35 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"h70ft-h70ft-h70ft-bac06wh": {
+        "official_url": "https://www.huromjapan.com/product/h70ft",
+        "facts": [
+            "HUROM公式商品ページで、H70FT-BAC06WW/ホワイト、オールインワンフィルター、メガホッパー、ジュース・フローズン対応、15年保証の案内を確認",
+            "公式仕様で、130mmの投入口、1.8Lのメガホッパー、食材をまとめて投入できる構成、付属品と食洗機使用時の注意を確認",
+            "楽天市場の個別商品ページで、H70FT-BAC06WHホワイトを商品同定し、同型番の個別投稿を確認",
+            "個別投稿では、音が静か、滑らかなジュースが作れる、洗浄や組み立てがしやすいという声がある一方、繊維質の多い食材では詰まりやすい、ジュースに繊維が混ざるという指摘もある",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 H70FT 個別投稿",
+            "text": "個別投稿では、音が静かで滑らかなジュースが作れる、洗浄や組み立てが簡単という声があります。一方で、繊維質の多い葉物を続けて使うと詰まりやすい、ジュースに繊維が混ざるという指摘もあります。食材の種類や投入順で使い勝手が変わる個人の感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.huromjapan.com/product/h70ft",
+            "title": "HUROM公式 H70FT 製品情報",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/pika831/10005259/",
+            "title": "楽天市場 H70FT-BAC06WH 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/item/1/201791_10005259/1.1/",
+            "title": "楽天市場 H70FT 個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    }
     ,"p10-yunth-c-c": {
         "official_url": "https://yunth.jp/shop/products/101-01",
         "facts": [
