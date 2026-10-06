@@ -60476,7 +60476,7 @@
    "checked": "2026-10-05"
   },
   "evidence_audit": {
-   "checked_at": "2026-10-06T10:13:17+09:00",
+   "checked_at": "2026-10-06T11:17:35+09:00",
    "status": "pass",
    "official_url": "https://www.benq.com/ja-jp/lighting/monitor-light/screenbar/spec.html",
    "has_official_evidence": true,
@@ -60609,7 +60609,7 @@
    ],
    "read": "数値はBenQ公式仕様ページに掲載された無印ScreenBarの情報です。照度は照射面から45cmの測定条件付きの値であり、Proの仕様は混在させていません。"
   },
-  "voices_intro": "以下は、根拠として提示された公開済み実使用記録の要約です。Amazonのカスタマーレビューではなく、特定の使用環境での記録として扱います。",
+  "voices_intro": "以下は、根拠として提示された公開済み実使用記録の要約です。特定の使用環境での記録として扱います。",
   "voices_after": "公開された実使用記録は、個々のモニター形状や机の配置での結果です。公式仕様の対応条件と自分の設置環境を照合したうえで判断してください。",
   "next_problem": {
    "intro": "購入判断では、次の点も販売ページと公式情報で確認してください。",
@@ -60630,18 +60630,18 @@
   },
   "reviewed": {
    "at": "2026-10-06",
-   "rev": "e8782bbb05cdf537",
+   "rev": "31ef93415cceadc8",
    "score": {
-    "fact_accuracy": 95,
-    "source_reliability": 94,
-    "original_analysis": 90,
-    "editorial_quality": 92,
-    "template_avoidance": 87,
+    "fact_accuracy": 94,
+    "source_reliability": 93,
+    "original_analysis": 91,
+    "editorial_quality": 90,
+    "template_avoidance": 89,
     "purchase_helpfulness": 94,
     "legal_safety": 99,
-    "amazon_compliance": 99,
+    "amazon_compliance": 98,
     "total": 93,
-    "notes": "公式仕様と実使用記録を区別し、設置条件・給電条件という購入判断に必要な確認項目を具体化しています。表現は一部反復がありますが、製品固有の確認軸が維持されています。"
+    "notes": "公式仕様と公開済み実使用記録を区別し、設置・給電・モデル取り違えの確認点が具体的です。適合可否に関する注意が複数箇所で重なるため、編集上の簡潔さには改善余地があります。"
    }
   }
  },
