@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "tv-ipx8": {
+        "official_url": "https://extage.jp/brand/clear-elec-brush-001/",
+        "facts": [
+            "Extage公式ページでCLEARLABO ELECTRIC TOOTHBRUSHを商品同定",
+            "公式案内でIPX8防水設計、2分後の自動停止、歯科医師監修の製品として確認",
+            "Yahoo!ショッピングの個別商品ページでCLEARLABO電動歯ブラシとIPX8・替えブラシ付きの表示を確認",
+            "個別投稿では持ちやすさ、磨きやすさ、モード切替に触れる内容があるが、口腔状態や使用方法による個人差を分けて扱う",
+        ],
+        "review_texts": [{
+            "source": "Yahoo!ショッピング CLEARLABO個別レビュー",
+            "text": "個別投稿では、奥側や歯間を磨きやすい、持ちやすい、モード切替に実用性を感じるという内容が確認できます。投稿者の使用方法や口腔状態に基づく感想であり、すべての利用者に同じ清掃感や使いやすさが得られるとは一般化しません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://extage.jp/brand/clear-elec-brush-001/",
+            "title": "Extage公式 CLEARLABO電動歯ブラシ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://store.shopping.yahoo.co.jp/excitech/clear-elec-brush-001.html",
+            "title": "Yahoo! CLEARLABO電動歯ブラシ 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://store.shopping.yahoo.co.jp/excitech/clear-elec-brush-001/",
+            "title": "Yahoo! CLEARLABO電動歯ブラシ 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "furniture-20261006": {
         "official_url": "https://www.tansu-gen.jp/products/86500001",
         "facts": [
