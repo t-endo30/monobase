@@ -7,6 +7,35 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "fargo-sati-color-ac4-usb-ct221gy": {
+        "official_url": "https://fargo.co.jp/",
+        "facts": [
+            "Fargo公式サイトで電源タップをデザイン・使い勝手まで含めて開発するブランド情報を確認",
+            "Fargo Direct Shopの公式商品カテゴリでSATI COLORのAC4個口・USB Type-A 2ポート構成を確認",
+            "個別商品ページでFargo SATI COLOR CT221GY（ライトグレー）のAC4個口、USB 2ポート合計4.2A、スマートフォンスタンド、雷サージガードの構成を確認",
+            "利用者のレビューでは、AC4口とUSB2口、スマートフォン置き台の便利さを評価する一方、大きなACアダプターを挿すと隣の口や安定性に影響するという指摘があるため、接続機器の形状を確認する",
+        ],
+        "review_texts": [{
+            "source": "価格.com・個別使用レビュー Fargo SATI COLOR CT221",
+            "text": "個別使用レビューでは、USBポート2口とAC4口を一体で使える点、スマートフォン置き台を兼ねる点が評価されています。一方で、大きなACアダプターを挿すと隣の口や本体の安定性に影響するという指摘があります。接続する機器の大きさ・向きと壁コンセントの位置による使用感として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://fargo.co.jp/",
+            "title": "Fargo公式サイト",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://payid.jp/item/155856196",
+            "title": "Fargo SATI COLOR CT221GY 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.kakaku.com/review/K0001582631/",
+            "title": "価格.com Fargo SATI COLOR CT221 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "pc-microsoft-surface-8gb-ssd256gb-core-i5": {
         "official_url": "https://support.microsoft.com/en-us/surface/models/surface-pro-5th-gen-specs-and-features",
         "facts": [
