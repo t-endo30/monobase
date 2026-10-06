@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "health-20261005": {
+        "official_url": "https://brushmo.co.jp/collections/brush-head-refills",
+        "facts": [
+            "ブラシモ公式オンラインストアのソニッケアー向け替えブラシ商品群を確認",
+            "ブラシモ公式Yahoo!商品ページで商品名『ダイヤモンドクリーン スタンダード 8本入 ブラシモ互換品』と商品コードSM6068-JPを確認",
+            "販売ページでソニッケアー対応のスタンダードサイズ8本入として表示されることを確認。互換品であり、フィリップス純正品とは別商品として扱う",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた装着感と純正品との違い",
+            "who": "ブラシモ公式Yahoo!ショッピング商品ページに表示された利用者の声（2026-10-06確認）",
+            "text": "個別投稿では、ソニッケアー本体で問題なく使えた、消耗品として交換しやすいという声を確認できます。一方で、純正品との使い心地の違いを感じた、互換品によってはブラシ毛が抜けた経験があるという記述もあります。投稿者の本体・使用条件に基づく感想であり、すべての本体で同じ装着感や耐久性になるとは扱いません。",
+            "negative": True,
+            "fix_title": "本体型番と互換品であることを確認する",
+            "fix": "使用中のソニッケアー本体のシリーズ名・型番を販売ページの対応表示と照合し、純正品ではなく互換品であることを理解したうえで購入してください。装着後はぐらつきや毛の抜けがないか確認しましょう。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://brushmo.co.jp/collections/brush-head-refills",
+            "title": "BRUSHMO公式オンラインストア 替えブラシ一覧",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://store.shopping.yahoo.co.jp/sonimart/sm6068-jp.html",
+            "title": "ブラシモ公式 Yahoo!ショッピング SM6068-JP個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://store.shopping.yahoo.co.jp/sonimart/sm6068-jp.html",
+            "title": "ブラシモ公式Yahoo!商品ページの個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "web-200-cam021n": {
         "official_url": "https://direct.sanwa.co.jp/ItemPage/200-CAM021N",
         "facts": [
