@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "200-bg019": {
+        "official_url": "https://direct.sanwa.co.jp/ItemPage/200-BG019LBK",
+        "facts": [
+            "サンワダイレクト公式で200-BG019シリーズのカメラインナーボックス（ソフトクッション・Lサイズ）を確認",
+            "公式商品ページでカメラに合わせて仕切りを配置できる構造と、クッション材で機材を保護する商品説明を確認",
+            "商品ページの型番表記はカラー・サイズで異なるため、購入時は200-BG019L／200-BG019LBKなど選択した型番を照合する",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた収納性と仕切りの使い勝手",
+            "who": "サンワダイレクト公式商品ページに表示された利用者の声（2026-10-06確認）",
+            "text": "個別投稿では、手持ちのバッグをカメラバッグとして使える、仕切りとクッション性で機材を守りやすい、仕切りの間隔をマジックテープで調整できるという声を確認できます。一方で、マジックテープの強度を心配する声や、機材の大きさによって収納感が変わるという注意もあります。投稿者の機材とバッグに基づく感想であり、すべての組み合わせに同じ結果が出るとは扱いません。",
+            "negative": True,
+            "fix_title": "内寸と機材の組み合わせを先に確認する",
+            "fix": "カメラ本体・レンズ・付属品を実測し、公式ページの内寸と仕切り配置に収まるか確認してください。仕切りを固定した後は、持ち運び前に機材が動かないかを確かめましょう。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://direct.sanwa.co.jp/ItemPage/200-BG019LBK",
+            "title": "サンワダイレクト公式 200-BG019LBK 商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/sanwadirect/200-bg019/",
+            "title": "楽天市場 サンワダイレクト 200-BG019 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://direct.sanwa.co.jp/ItemReview/200-BG019L",
+            "title": "サンワダイレクト公式 200-BG019L 利用者の声",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "anker-568-usbc-dock-review": {
         "official_url": "https://www.ankerjapan.com/products/a8399",
         "facts": [
