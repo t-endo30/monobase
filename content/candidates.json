@@ -1,30 +1,82 @@
 {
- "generated": "2026-10-05T17:10:55+09:00",
+ "generated": "2026-10-06T05:14:40+09:00",
  "count": 30,
  "items": [
   {
-   "name": "扇風機 左右首振り リビング扇風機 風量3段階 押しボタン 切りタイマー 静音 省エネ YLT-AG30E 30cm羽根 首ふり リビングファン サーキュレーター おしゃれ シンプル 換気 熱中症対策 山善 YAMAZEN",
+   "name": "【本店】泥汚れ洗剤『レギュラー』3kg 爆買 野球 洗濯 ガンコ 汚れ すっきり 洗剤 スッキリ 泥 土 泥汚れ洗剤 ユニフォーム洗剤 野球洗剤 子供 サッカー",
    "jan": "",
-   "category": "appliance",
-   "sub": "aircon",
-   "reviews": 5128,
-   "rating": 4.5,
-   "price": 3990,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-kurashi/cabinet/main-img/017/main-1467895tg.jpg?_ex=128x128",
+   "category": "daily",
+   "sub": "garden",
+   "reviews": 822,
+   "rating": 4.7,
+   "price": 3630,
+   "image": "https://item-shopping.c.yimg.jp/i/g/alk-lifenext_02",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-kurashi/cabinet/main-img/017/main-1467895tg.jpg?_ex=128x128"
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/alk-lifenext_02"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/e-kurashi/1467895/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "",
+   "yahoo_url": "https://store.shopping.yahoo.co.jp/alk-lifenext/02.html",
+   "amazon_url": "",
+   "trending": false,
+   "shops": {
+    "yahoo": {
+     "price": 3630,
+     "shop_name": "ライフネクスト ヤフー店",
+     "postage_included": true,
+     "reviews": 822,
+     "rating": 4.7
+    }
+   }
+  },
+  {
+   "name": "レインコート 自転車 レインポンチョ レディース かわいい バイク メンズ リュック フード カッパ 雨具 反射材 防水 通勤 通学 レインウェア 送料無料 フリーサイズ バイザー 蒸れない 涼しい 自転車専用 自転車用",
+   "jan": "",
+   "category": "fashion",
+   "sub": "bag",
+   "reviews": 1035,
+   "rating": 4.31,
+   "price": 3480,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/auc-risecreation/cabinet/product/top/y0111_01b_em.jpg?_ex=128x128",
+   "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/auc-risecreation/cabinet/product/top/y0111_01b_em.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/auc-risecreation/y0111/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": true,
    "shops": {
     "rakuten": {
-     "price": 3990,
-     "shop_name": "くらしのeショップ",
+     "price": 3480,
+     "shop_name": "atRise(アットライズ)",
      "postage_included": true,
-     "reviews": 5128,
-     "rating": 4.5
+     "reviews": 1035,
+     "rating": 4.31
+    }
+   }
+  },
+  {
+   "name": "カーテン 遮光 100％ 完全遮光 ホワイト アイボリー ベージュ ネイビー ブラウン グリーン アイスグレー グレージュ ブラック エクルベージュ 白 黒 遮光1級 省エネ 遮熱 断熱 保温 防音 おしゃれ 形状記憶加工付き 幅100cm 幅125cm 幅150cm 4枚セット 2枚セット 1枚",
+   "jan": "",
+   "category": "furniture",
+   "sub": "deco",
+   "reviews": 6153,
+   "rating": 4.54,
+   "price": 3696,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/auc-yoshietsu/cabinet/new2024-/rakuten-d16-main03.jpg?_ex=128x128",
+   "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/auc-yoshietsu/cabinet/new2024-/rakuten-d16-main03.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/auc-yoshietsu/mobkbr100-135-200/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "yahoo_url": "",
+   "amazon_url": "",
+   "trending": true,
+   "shops": {
+    "rakuten": {
+     "price": 3696,
+     "shop_name": "カーテン選びの案内人",
+     "postage_included": false,
+     "reviews": 6153,
+     "rating": 4.54
     }
    }
   },
@@ -50,6 +102,84 @@
      "shop_name": "アンカー・ダイレクト楽天市場店",
      "postage_included": true,
      "reviews": 1239,
+     "rating": 4.63
+    }
+   }
+  },
+  {
+   "name": "【ルーターレビュー数No.1★3年保証】 バッファロー ルーター wifi7 wifi6 無線LAN WiFiルーター WiFi ワイファイ 無線ルーター BUFFALO Wi-Fi ルーター スタンダード バッファロー 中継機 WEX-300HPTX LANケーブル WSR-3000AX4P",
+   "jan": "",
+   "category": "pc",
+   "sub": "network",
+   "reviews": 3673,
+   "rating": 4.62,
+   "price": 6900,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/justrich/cabinet/09412118/top.jpg?_ex=128x128",
+   "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/justrich/cabinet/09412118/top.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/justrich/1246-001780/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "yahoo_url": "",
+   "amazon_url": "",
+   "trending": true,
+   "shops": {
+    "rakuten": {
+     "price": 6900,
+     "shop_name": "Colulu - コルル",
+     "postage_included": true,
+     "reviews": 3673,
+     "rating": 4.62
+    }
+   }
+  },
+  {
+   "name": "まな板 黒 食洗機対応 滑らない [料理研究家監修] 抗菌 耐熱 カッティングボード まないた エラストマー 滑り止め 33.5 × 23.5 37 x 25 cm おしゃれ",
+   "jan": "",
+   "category": "kitchen",
+   "sub": "storage",
+   "reviews": 2887,
+   "rating": 4.42,
+   "price": 1680,
+   "image": "https://item-shopping.c.yimg.jp/i/g/himjp_10000004-1",
+   "images": {
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/himjp_10000004-1"
+   },
+   "rakuten_url": "",
+   "yahoo_url": "https://store.shopping.yahoo.co.jp/himjp/10000004-1.html",
+   "amazon_url": "",
+   "trending": false,
+   "shops": {
+    "yahoo": {
+     "price": 1680,
+     "shop_name": "ラチュナ キングジム直営店",
+     "postage_included": true,
+     "reviews": 2887,
+     "rating": 4.42
+    }
+   }
+  },
+  {
+   "name": "【 犬 ハーネス おしゃれ 抜けない 負担が少ない 小型犬 中型犬 大型犬】【 日本製 】【 洗える 】ciiron TOKYO ハーネスS〜Lサイズ（幅15mm〜25mm）犬 日本製 オシャレ カラー 抜けにくい 抜けない かわいい おしゃれ かっこいい 洗える 柴犬",
+   "jan": "",
+   "category": "pet",
+   "sub": "dog",
+   "reviews": 244,
+   "rating": 4.63,
+   "price": 7550,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/ciirontokyo/cabinet/top/imgrc0110949994.jpg?_ex=128x128",
+   "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/ciirontokyo/cabinet/top/imgrc0110949994.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/ciirontokyo/harness_s/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "yahoo_url": "",
+   "amazon_url": "",
+   "trending": true,
+   "shops": {
+    "rakuten": {
+     "price": 7550,
+     "shop_name": "ciironTOKYO楽天市場店",
+     "postage_included": true,
+     "reviews": 244,
      "rating": 4.63
     }
    }
@@ -81,80 +211,106 @@
    }
   },
   {
-   "name": "【本店】泥汚れ洗剤『レギュラー』3kg 爆買 野球 洗濯 ガンコ 汚れ すっきり 洗剤 スッキリ 泥 土 泥汚れ洗剤 ユニフォーム洗剤 野球洗剤 子供 サッカー",
+   "name": "【両面同じ色】デスクマット テーブルマット 滑り止め 100cm 80cm 60cm 防水PUレザー作り おしゃれ 大型マウスパッド ゲーミングマウスパッド 汚れ防止 多機能デスクマット飾りマット 学習机 光学マウス対応 在宅勤務 テレワーク 在宅ワーク オフィス及び自宅用 子供 9色",
    "jan": "",
    "category": "daily",
-   "sub": "garden",
-   "reviews": 822,
-   "rating": 4.7,
-   "price": 3630,
-   "image": "https://item-shopping.c.yimg.jp/i/g/alk-lifenext_02",
+   "sub": "hobby",
+   "reviews": 86,
+   "rating": 4.19,
+   "price": 1580,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/rupinasu/cabinet/06528025/imgrc0093040904.jpg?_ex=128x128",
    "images": {
-    "yahoo": "https://item-shopping.c.yimg.jp/i/g/alk-lifenext_02"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/rupinasu/cabinet/06528025/imgrc0093040904.jpg?_ex=128x128"
    },
-   "rakuten_url": "",
-   "yahoo_url": "https://store.shopping.yahoo.co.jp/alk-lifenext/02.html",
-   "amazon_url": "",
-   "trending": false,
-   "shops": {
-    "yahoo": {
-     "price": 3630,
-     "shop_name": "ライフネクスト ヤフー店",
-     "postage_included": true,
-     "reviews": 822,
-     "rating": 4.7
-    }
-   }
-  },
-  {
-   "name": "＼先着限定★半額クーポン！／ 遮光カーテン 1級遮光 遮光率99.99％ レースセット有無 選べる 遮像レース フック付き 幅100cm 4枚セット 幅150cm 2枚セット 丈80-200cm UVカット 遮熱 断熱 防音 洗える 厚手 ドレープカーテン タッセル付き おしゃれ 無地 リビング 寝室",
-   "jan": "",
-   "category": "furniture",
-   "sub": "deco",
-   "reviews": 648,
-   "rating": 4.59,
-   "price": 1750,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/classort/cabinet/image-item/ct-0.jpg?_ex=128x128",
-   "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/classort/cabinet/image-item/ct-0.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/classort/ct/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/rupinasu/gz-l-deskmat-s12-600/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": true,
    "shops": {
     "rakuten": {
-     "price": 1750,
-     "shop_name": "Classort楽天市場店",
-     "postage_included": false,
-     "reviews": 648,
-     "rating": 4.59
+     "price": 1580,
+     "shop_name": "ルピナス",
+     "postage_included": true,
+     "reviews": 86,
+     "rating": 4.19
     }
    }
   },
   {
-   "name": "まな板 黒 食洗機対応 滑らない [料理研究家監修] 抗菌 耐熱 カッティングボード まないた エラストマー 滑り止め 33.5 × 23.5 37 x 25 cm おしゃれ",
+   "name": "リュック メンズ おしゃれ リュックサック 3way ショルダーバッグ 大容量 アウトドア 新生活",
    "jan": "",
-   "category": "kitchen",
-   "sub": "storage",
-   "reviews": 2887,
-   "rating": 4.42,
-   "price": 1680,
-   "image": "https://item-shopping.c.yimg.jp/i/g/himjp_10000004-1",
+   "category": "fashion",
+   "sub": "bag",
+   "reviews": 1967,
+   "rating": 4.31,
+   "price": 5600,
+   "image": "https://item-shopping.c.yimg.jp/i/g/crosscharm_ehr-66038",
    "images": {
-    "yahoo": "https://item-shopping.c.yimg.jp/i/g/himjp_10000004-1"
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/crosscharm_ehr-66038"
    },
    "rakuten_url": "",
-   "yahoo_url": "https://store.shopping.yahoo.co.jp/himjp/10000004-1.html",
+   "yahoo_url": "https://store.shopping.yahoo.co.jp/crosscharm/ehr-66038.html",
    "amazon_url": "",
    "trending": false,
    "shops": {
     "yahoo": {
-     "price": 1680,
-     "shop_name": "ラチュナ キングジム直営店",
+     "price": 5600,
+     "shop_name": "CrossCharm",
      "postage_included": true,
-     "reviews": 2887,
-     "rating": 4.42
+     "reviews": 1967,
+     "rating": 4.31
+    }
+   }
+  },
+  {
+   "name": "【楽天1位受賞】パソコンデスク 引き出し付 収納 100cm幅/120cm幅 奥行60cm 木製 デスク 木目調 書斎机 書斎デスク 勉強机 学習机 学習デスク ミシン台 おしゃれ 大人 シンプル 新生活 机 子供 テレワーク 在宅勤務 リモートワーク 在宅ワーク PCデスク 机",
+   "jan": "",
+   "category": "furniture",
+   "sub": "desk",
+   "reviews": 351,
+   "rating": 4.36,
+   "price": 12800,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/sanwadirect/cabinet/1/100-deskh010.jpg?_ex=128x128",
+   "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/sanwadirect/cabinet/1/100-deskh010.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/sanwadirect/100-deskh010/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "yahoo_url": "",
+   "amazon_url": "",
+   "trending": true,
+   "shops": {
+    "rakuten": {
+     "price": 12800,
+     "shop_name": "サンワダイレクト楽天市場店",
+     "postage_included": true,
+     "reviews": 351,
+     "rating": 4.36
+    }
+   }
+  },
+  {
+   "name": "テレビ 43型 フルハイビジョン ダブルチューナー 地上・BS・110度CSデジタル IPSパネル 壁掛け対応 ゲームモード搭載 外付けHDD録画機能 HDMI2系統 メーカー1年保証 液晶テレビ MAXZEN マクスゼン J43CH06 エクプラ特選",
+   "jan": "",
+   "category": "av",
+   "sub": "tv",
+   "reviews": 224,
+   "rating": 4.38,
+   "price": 35480,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/a-price/cabinet/mailmaga/08814302/12654252/4571495431953.jpg?_ex=128x128",
+   "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/a-price/cabinet/mailmaga/08814302/12654252/4571495431953.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/a-price/4571495431953/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "yahoo_url": "",
+   "amazon_url": "",
+   "trending": true,
+   "shops": {
+    "rakuten": {
+     "price": 35480,
+     "shop_name": "XPRICE楽天市場店",
+     "postage_included": true,
+     "reviews": 224,
+     "rating": 4.38
     }
    }
   },
@@ -185,80 +341,158 @@
    }
   },
   {
-   "name": "当選確率2分の1！1等最大100％ コトブキ工芸 ガラス水槽 クリスタルキューブ 300（30×30×30cm） レグラス 30cm水槽（単体） 小型水槽 お一人様2点限り",
+   "name": "片手鍋 電気鍋 せいろ 電気調理鍋 18cm 1.5L 1人用 蓋 蒸し器 付き 1台4役 焼く 煮る 炒める 蒸す コンロ不要 卓上 万能 鍋 電気 鍋 自宅 簡単料理 安全 IH フライパン 圧力調理 保温 低温調理 無水 ERETTO mono エレット",
    "jan": "",
-   "category": "pet",
-   "sub": "aqua",
-   "reviews": 355,
-   "rating": 4.65,
-   "price": 2380,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/chanet/cabinet/141/13811-1.jpg?_ex=128x128",
+   "category": "kitchen",
+   "sub": "tool",
+   "reviews": 49,
+   "rating": 4.1,
+   "price": 3480,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/bigworld/cabinet/08354975/08395020/08396206/k-071n-018.jpg?_ex=128x128",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/chanet/cabinet/141/13811-1.jpg?_ex=128x128"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/bigworld/cabinet/08354975/08395020/08396206/k-071n-018.jpg?_ex=128x128"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/chanet/13811/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/bigworld/k-071/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": true,
    "shops": {
     "rakuten": {
-     "price": 2380,
-     "shop_name": "charm 楽天市場店",
-     "postage_included": false,
-     "reviews": 355,
-     "rating": 4.65
+     "price": 3480,
+     "shop_name": "BIGWORLD【ビッグワールド】",
+     "postage_included": true,
+     "reviews": 49,
+     "rating": 4.1
     }
    }
   },
   {
-   "name": "Google Pixel10a ケース 手帳型 グーグルピクセル10a ケース Pixel9a Pixel9 Pixel8a Pixel11 11Pro 11ProXL Pixel10 Pixel10Pro Pixel8 9Pro 8Pro スマホケース",
+   "name": "ネイティブドッグ プレミアムチキン 成犬用 12kg（3kg×4）",
    "jan": "",
-   "category": "smartphone",
-   "sub": "acc",
-   "reviews": 2473,
-   "rating": 4.48,
-   "price": 1650,
-   "image": "https://item-shopping.c.yimg.jp/i/g/hanaro_diy-pita-google-pu",
+   "category": "pet",
+   "sub": "food",
+   "reviews": 1460,
+   "rating": 4.62,
+   "price": 13228,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/e48/cabinet/01350600/shohin01/food-sap/imgrc0077610608.jpg?_ex=128x128",
    "images": {
-    "yahoo": "https://item-shopping.c.yimg.jp/i/g/hanaro_diy-pita-google-pu"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e48/cabinet/01350600/shohin01/food-sap/imgrc0077610608.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/e48/614778/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "yahoo_url": "",
+   "amazon_url": "",
+   "trending": true,
+   "shops": {
+    "rakuten": {
+     "price": 13228,
+     "shop_name": "ネイティブドッグ",
+     "postage_included": false,
+     "reviews": 1460,
+     "rating": 4.62
+    }
+   }
+  },
+  {
+   "name": "布団乾燥機 ツインノズル カラリエ 靴乾燥 ダニ 湿気 花粉 梅雨対策 コンパクト 布団ドライヤー FK-W2 アイリスオーヤマ",
+   "jan": "",
+   "category": "beauty",
+   "sub": "device",
+   "reviews": 2607,
+   "rating": 4.61,
+   "price": 12800,
+   "image": "https://item-shopping.c.yimg.jp/i/g/insdenki-y_273711",
+   "images": {
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/insdenki-y_273711"
    },
    "rakuten_url": "",
-   "yahoo_url": "https://store.shopping.yahoo.co.jp/hanaro/diy-pita-google-pu.html",
+   "yahoo_url": "https://store.shopping.yahoo.co.jp/insdenki-y/273711.html",
    "amazon_url": "",
    "trending": false,
    "shops": {
     "yahoo": {
-     "price": 1650,
-     "shop_name": "HANARO-SHOP ヤフー店",
+     "price": 12800,
+     "shop_name": "ウエノ電器 Yahoo!店",
      "postage_included": true,
-     "reviews": 2473,
-     "rating": 4.48
+     "reviews": 2607,
+     "rating": 4.61
     }
    }
   },
   {
-   "name": "[レビュー11000件超え／高評価4.43点] サーキュレーター 360°首振り 洗える 扇風機 DCモーター コードレス ACモーター リモコン付き 省エネ 軽量 丸洗い DCファン 360度首振り 3D首振り 卓上扇風機",
+   "name": "送料無料【本店】泥汚れ洗剤『レギュラー』9kg 爆買 野球 洗濯 ガンコ 汚れ すっきり 洗剤 スッキリ 泥 土 泥汚れ洗剤 ユニフォーム洗剤 野球洗剤 子供 サッカー",
    "jan": "",
-   "category": "appliance",
-   "sub": "aircon",
-   "reviews": 11306,
-   "rating": 4.43,
-   "price": 4980,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/dondon/cabinet/yy02_14.jpg?_ex=128x128",
+   "category": "daily",
+   "sub": "garden",
+   "reviews": 733,
+   "rating": 4.69,
+   "price": 9900,
+   "image": "https://item-shopping.c.yimg.jp/i/g/alk-lifenext_03",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/dondon/cabinet/yy02_14.jpg?_ex=128x128"
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/alk-lifenext_03"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/dondon/sq-001/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "",
+   "yahoo_url": "https://store.shopping.yahoo.co.jp/alk-lifenext/03.html",
+   "amazon_url": "",
+   "trending": false,
+   "shops": {
+    "yahoo": {
+     "price": 9900,
+     "shop_name": "ライフネクスト ヤフー店",
+     "postage_included": true,
+     "reviews": 733,
+     "rating": 4.69
+    }
+   }
+  },
+  {
+   "name": "レインコート 自転車 メンズ レディース リュック 通勤 通学 リュック対応 ポンチョ レインウェア レインポンチョ 7441 サイクルモードハイポンチョ",
+   "jan": "",
+   "category": "fashion",
+   "sub": "bag",
+   "reviews": 403,
+   "rating": 4.2,
+   "price": 6030,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/workerbee/cabinet/sh_r/7441_thum.jpg?_ex=128x128",
+   "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/workerbee/cabinet/sh_r/7441_thum.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/workerbee/7441/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "yahoo_url": "",
+   "amazon_url": "",
+   "trending": true,
+   "shops": {
+    "rakuten": {
+     "price": 6030,
+     "shop_name": "アメトハレ(旧ワーカービー)",
+     "postage_included": true,
+     "reviews": 403,
+     "rating": 4.2
+    }
+   }
+  },
+  {
+   "name": "【最大8,500円OFF】10/4 20:00〜10/10 23:59省エネ節電レース カーテンくれない レースカーテン K-wave-L-total high ミラー オーダー 外から見えにくい 防炎 ミラーレースカーテン UVカット 日本製 遮像 遮熱 1枚入り・2枚組からお選びいただけます",
+   "jan": "",
+   "category": "furniture",
+   "sub": "deco",
+   "reviews": 8242,
+   "rating": 4.57,
+   "price": 4830,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/kurenai/cabinet/cart_img2/totalhigh_kago01.jpg?_ex=128x128",
+   "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kurenai/cabinet/cart_img2/totalhigh_kago01.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/kurenai/669881/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": false,
    "shops": {
     "rakuten": {
-     "price": 4980,
-     "shop_name": "モダンデコ",
-     "postage_included": true,
-     "reviews": 11306,
-     "rating": 4.43
+     "price": 4830,
+     "shop_name": "カーテンメーカーくれない直販店",
+     "postage_included": false,
+     "reviews": 8242,
+     "rating": 4.57
     }
    }
   },
@@ -297,322 +531,36 @@
    }
   },
   {
-   "name": "布団乾燥機 ツインノズル カラリエ 靴乾燥 ダニ 湿気 花粉 梅雨対策 コンパクト 布団ドライヤー FK-W2 アイリスオーヤマ",
-   "jan": "",
-   "category": "beauty",
-   "sub": "device",
-   "reviews": 2607,
-   "rating": 4.61,
-   "price": 12800,
-   "image": "https://item-shopping.c.yimg.jp/i/g/insdenki-y_273711",
+   "name": "価格.com年度銀賞商品 WIFI 中継器433+300Mbps無線LAN中継機 RE200TP-Link 11ac/n/g対応 3年保証中継器 ルーター信号を拡張",
+   "jan": "6935364095956",
+   "category": "pc",
+   "sub": "network",
+   "reviews": 1249,
+   "rating": 4.21,
+   "price": 2200,
+   "image": "https://item-shopping.c.yimg.jp/i/g/tplink_6935364095956",
    "images": {
-    "yahoo": "https://item-shopping.c.yimg.jp/i/g/insdenki-y_273711"
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/tplink_6935364095956",
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tplinkdirect/cabinet/06321509/re200.jpg?_ex=128x128"
    },
-   "rakuten_url": "",
-   "yahoo_url": "https://store.shopping.yahoo.co.jp/insdenki-y/273711.html",
+   "rakuten_url": "https://item.rakuten.co.jp/tplinkdirect/6935364095956-10/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "yahoo_url": "https://store.shopping.yahoo.co.jp/tplink/6935364095956.html",
    "amazon_url": "",
    "trending": false,
    "shops": {
     "yahoo": {
-     "price": 12800,
-     "shop_name": "ウエノ電器 Yahoo!店",
-     "postage_included": true,
-     "reviews": 2607,
-     "rating": 4.61
-    }
-   }
-  },
-  {
-   "name": "【両面同じ色】デスクマット テーブルマット 滑り止め 100cm 80cm 60cm 防水PUレザー作り おしゃれ 大型マウスパッド ゲーミングマウスパッド 汚れ防止 多機能デスクマット飾りマット 学習机 光学マウス対応 在宅勤務 テレワーク 在宅ワーク オフィス及び自宅用 子供 9色",
-   "jan": "",
-   "category": "daily",
-   "sub": "hobby",
-   "reviews": 86,
-   "rating": 4.19,
-   "price": 1580,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/rupinasu/cabinet/06528025/imgrc0093040904.jpg?_ex=128x128",
-   "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/rupinasu/cabinet/06528025/imgrc0093040904.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/rupinasu/gz-l-deskmat-s12-600/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "",
-   "amazon_url": "",
-   "trending": true,
-   "shops": {
-    "rakuten": {
-     "price": 1580,
-     "shop_name": "ルピナス",
-     "postage_included": true,
-     "reviews": 86,
-     "rating": 4.19
-    }
-   }
-  },
-  {
-   "name": "★15％OFFクーポン配布 10/9迄★ 昇降デスク 電動 【組立設置無料】 Flexispot EF1 昇降式テーブル オフィスデスク スタンディングデスク 昇降 学習机 パソコンデスク リモートワーク デスク 在宅 テレワーク 昇降式 高さ調整 電動昇降テーブル 天板 幅100 120 140 160",
-   "jan": "",
-   "category": "furniture",
-   "sub": "desk",
-   "reviews": 223,
-   "rating": 4.48,
-   "price": 30800,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/loctek/cabinet/standingdesku/ef1new/ef1-25nm.jpg?_ex=128x128",
-   "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/loctek/cabinet/standingdesku/ef1new/ef1-25nm.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/loctek/e1-pr1206-all/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "",
-   "amazon_url": "",
-   "trending": true,
-   "shops": {
-    "rakuten": {
-     "price": 30800,
-     "shop_name": "FlexiSpot楽天市場店",
+     "price": 2200,
+     "shop_name": "TP-Link公式ダイレクト",
      "postage_included": false,
-     "reviews": 223,
-     "rating": 4.48
-    }
-   }
-  },
-  {
-   "name": "イワキ ガラス 保存容器 耐熱ガラス 7点セット 食洗器対応 レンジ オーブン 耐熱容器 耐熱皿 作り置き iwaki RC-PRN PSC-PRN PC-PRN7 R-PRN-7 *",
-   "jan": "4905284148690",
-   "category": "kitchen",
-   "sub": "ware",
-   "reviews": 924,
-   "rating": 4.68,
-   "price": 3850,
-   "image": "https://item-shopping.c.yimg.jp/i/g/takuhaibin_m7090728",
-   "images": {
-    "yahoo": "https://item-shopping.c.yimg.jp/i/g/takuhaibin_m7090728",
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/ms-shop-online/cabinet/07951864/compass1679490781.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/ms-shop-online/w230322-iwa-001-03300/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "https://store.shopping.yahoo.co.jp/takuhaibin/m7090728.html",
-   "amazon_url": "",
-   "trending": false,
-   "shops": {
-    "yahoo": {
-     "price": 3850,
-     "shop_name": "ラクチーナ Yahoo!店",
-     "postage_included": true,
-     "reviews": 924,
-     "rating": 4.68
+     "reviews": 1249,
+     "rating": 4.2
     },
     "rakuten": {
-     "price": 4980,
-     "shop_name": "Ms shop online",
+     "price": 2980,
+     "shop_name": "TP-Linkダイレクト 楽天市場店",
      "postage_included": true,
-     "reviews": 0,
-     "rating": 0.0
-    }
-   }
-  },
-  {
-   "name": "今日も当日発送 デスクトップ PC 新品 パソコン スリムタワー 12世代 COREi5 メモリ 16GB SSD 500GB Windows11 省スペース型 本体のみ おしゃれ 安い",
-   "jan": "",
-   "category": "pc",
-   "sub": "parts",
-   "reviews": 110,
-   "rating": 4.57,
-   "price": 86200,
-   "image": "https://item-shopping.c.yimg.jp/i/g/project-a_a574-hx",
-   "images": {
-    "yahoo": "https://item-shopping.c.yimg.jp/i/g/project-a_a574-hx"
-   },
-   "rakuten_url": "",
-   "yahoo_url": "https://store.shopping.yahoo.co.jp/project-a/a574-hx.html",
-   "amazon_url": "",
-   "trending": false,
-   "shops": {
-    "yahoo": {
-     "price": 86200,
-     "shop_name": "パソコン専門店 ProjectA",
-     "postage_included": true,
-     "reviews": 110,
-     "rating": 4.57
-    }
-   }
-  },
-  {
-   "name": "≪新規の方限定★3％OFFクーポン！9日10時迄≫＼楽天1位／ペットシーツ 薄型 犬 トイレ シート シーツ シート 猫 レギュラー800枚 レギュラー1200枚 ワイド400枚 ワイド600枚 ダブルワイド 200枚 大容量 まとめ買い 業務用 ケース 送料無料【R上】",
-   "jan": "",
-   "category": "pet",
-   "sub": "cat",
-   "reviews": 45531,
-   "rating": 4.49,
-   "price": 4480,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/dog-kan/cabinet/11076425/11076426/8867300928.jpg?_ex=128x128",
-   "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/dog-kan/cabinet/11076425/11076426/8867300928.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/dog-kan/886730/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "",
-   "amazon_url": "",
-   "trending": true,
-   "shops": {
-    "rakuten": {
-     "price": 4480,
-     "shop_name": "Pet館〜ペット館〜",
-     "postage_included": true,
-     "reviews": 45531,
-     "rating": 4.49
-    }
-   }
-  },
-  {
-   "name": "【モバイルバッテリー無料キャンペーン中！】wifi レンタル 完全無制限 7日 10日14日 30日 60日 30日間 無制限 大容量 wi-fi 国内 専用 ポケットwi-fi 1ヶ月 レンタルwi-fi モバイルwifi ポケットWiFi 旅行 入院 一時帰国 引っ越し テレワーク オススメ 往復送料無料",
-   "jan": "",
-   "category": "smartphone",
-   "sub": "charger",
-   "reviews": 194,
-   "rating": 4.23,
-   "price": 1900,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/his-mobile/cabinet/08695261/imgrc0120323532.jpg?_ex=128x128",
-   "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/his-mobile/cabinet/08695261/imgrc0120323532.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/his-mobile/10000071/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "",
-   "amazon_url": "",
-   "trending": true,
-   "shops": {
-    "rakuten": {
-     "price": 1900,
-     "shop_name": "HISMobile",
-     "postage_included": true,
-     "reviews": 194,
-     "rating": 4.23
-    }
-   }
-  },
-  {
-   "name": "【ほぼ全品P5倍★10/5 12:00〜23:59迄】超★激アツ★扇風機 アイリスオーヤマ リビング扇風機 首振り扇風機 小型 静音 静か 首振り タイマー付き タイマー リビング 寝室 一人暮らし おしゃれ オシャレ シンプル かわいい 夏 ホワイト 白 メカ式リビング扇 家電 PF-301RA-W",
-   "jan": "",
-   "category": "appliance",
-   "sub": "aircon",
-   "reviews": 255,
-   "rating": 4.58,
-   "price": 3080,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/rack-kan/cabinet/eigyou01/11601399/imgrc0107207171.jpg?_ex=128x128",
-   "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/rack-kan/cabinet/eigyou01/11601399/imgrc0107207171.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/rack-kan/7163101/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "",
-   "amazon_url": "",
-   "trending": true,
-   "shops": {
-    "rakuten": {
-     "price": 3080,
-     "shop_name": "収納・家具・寝具の収納宅配館",
-     "postage_included": true,
-     "reviews": 255,
-     "rating": 4.58
-    }
-   }
-  },
-  {
-   "name": "Marshall 公式ストア EMBERTON III Bluetoothスピーカー マーシャル エンバートン3 EMBERTON3 国内正規品 防水 防塵 大音量 高音質 持ち運び 小型 ワイヤレス お風呂 屋外 アウトドア 重低音 IP67 32時間 急速充電 プレゼント ギフト おしゃれ ポータブル マイク",
-   "jan": "",
-   "category": "av",
-   "sub": "speaker",
-   "reviews": 301,
-   "rating": 4.88,
-   "price": 28980,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/marshall-official/cabinet/portable_speakers/emberton3/imgrc0122980681.jpg?_ex=128x128",
-   "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/marshall-official/cabinet/portable_speakers/emberton3/imgrc0122980681.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/marshall-official/7340055399449/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "",
-   "amazon_url": "",
-   "trending": true,
-   "shops": {
-    "rakuten": {
-     "price": 28980,
-     "shop_name": "Marshall公式ストア",
-     "postage_included": true,
-     "reviews": 301,
-     "rating": 4.88
-    }
-   }
-  },
-  {
-   "name": "【メーカー公式】アウトバストリートメント リファロックトリートメント ドライヤー ロックオイル ダメージレス ミルクタイプ ヘアケア ギフト ヘアドライ前 プレゼント 誕生日 女性 プチギフト",
-   "jan": "",
-   "category": "beauty",
-   "sub": "device",
-   "reviews": 126,
-   "rating": 4.61,
-   "price": 2640,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/mtgec-beauty/cabinet/refa/refa_lock_treatment/imgrc0120386132.jpg?_ex=128x128",
-   "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/mtgec-beauty/cabinet/refa/refa_lock_treatment/imgrc0120386132.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/mtgec-beauty/1500720101/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "",
-   "amazon_url": "",
-   "trending": true,
-   "shops": {
-    "rakuten": {
-     "price": 2640,
-     "shop_name": "MTG ONLINESHOP",
-     "postage_included": false,
-     "reviews": 126,
-     "rating": 4.61
-    }
-   }
-  },
-  {
-   "name": "送料無料【本店】泥汚れ洗剤『レギュラー』9kg 爆買 野球 洗濯 ガンコ 汚れ すっきり 洗剤 スッキリ 泥 土 泥汚れ洗剤 ユニフォーム洗剤 野球洗剤 子供 サッカー",
-   "jan": "",
-   "category": "daily",
-   "sub": "garden",
-   "reviews": 733,
-   "rating": 4.69,
-   "price": 9900,
-   "image": "https://item-shopping.c.yimg.jp/i/g/alk-lifenext_03",
-   "images": {
-    "yahoo": "https://item-shopping.c.yimg.jp/i/g/alk-lifenext_03"
-   },
-   "rakuten_url": "",
-   "yahoo_url": "https://store.shopping.yahoo.co.jp/alk-lifenext/03.html",
-   "amazon_url": "",
-   "trending": false,
-   "shops": {
-    "yahoo": {
-     "price": 9900,
-     "shop_name": "ライフネクスト ヤフー店",
-     "postage_included": true,
-     "reviews": 733,
-     "rating": 4.69
-    }
-   }
-  },
-  {
-   "name": "【最大8,500円OFF】10/4 20:00〜10/10 23:59省エネ節電レース カーテンくれない レースカーテン K-wave-L-total high ミラー オーダー 外から見えにくい 防炎 ミラーレースカーテン UVカット 日本製 遮像 遮熱 1枚入り・2枚組からお選びいただけます",
-   "jan": "",
-   "category": "furniture",
-   "sub": "deco",
-   "reviews": 8242,
-   "rating": 4.57,
-   "price": 4830,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/kurenai/cabinet/cart_img2/totalhigh_kago01.jpg?_ex=128x128",
-   "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kurenai/cabinet/cart_img2/totalhigh_kago01.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/kurenai/669881/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "",
-   "amazon_url": "",
-   "trending": false,
-   "shops": {
-    "rakuten": {
-     "price": 4830,
-     "shop_name": "カーテンメーカーくれない直販店",
-     "postage_included": false,
-     "reviews": 8242,
-     "rating": 4.57
+     "reviews": 90,
+     "rating": 4.21
     }
    }
   },
@@ -643,166 +591,210 @@
    }
   },
   {
-   "name": "今日も当日発送 adobeソフトに デスクトップ GT1030 第13世代 Corei5 Windows11 SSD 512GB メモリ16GB ゲーミングPC にも 新品 パソコン 安い ゲーム",
-   "jan": "",
-   "category": "pc",
-   "sub": "parts",
-   "reviews": 69,
-   "rating": 4.93,
-   "price": 108100,
-   "image": "https://item-shopping.c.yimg.jp/i/g/project-a_adpc-co5m16",
-   "images": {
-    "yahoo": "https://item-shopping.c.yimg.jp/i/g/project-a_adpc-co5m16"
-   },
-   "rakuten_url": "",
-   "yahoo_url": "https://store.shopping.yahoo.co.jp/project-a/adpc-co5m16.html",
-   "amazon_url": "",
-   "trending": false,
-   "shops": {
-    "yahoo": {
-     "price": 108100,
-     "shop_name": "パソコン専門店 ProjectA",
-     "postage_included": true,
-     "reviews": 69,
-     "rating": 4.93
-    }
-   }
-  },
-  {
-   "name": "驚異の 防臭袋 BOS ( ボス ) ストライプパッケージ SSサイズ 200枚入 送料無料",
+   "name": "犬 ハーネス 負担が少ない おしゃれ かわいい 小型犬 大型犬 胴輪 Truelove 簡単装着 喉に当たらない メッシュ 快適 スポーツハーネス TLH5811",
    "jan": "",
    "category": "pet",
-   "sub": "aqua",
-   "reviews": 1174,
-   "rating": 4.85,
-   "price": 1617,
-   "image": "https://item-shopping.c.yimg.jp/i/g/bos-shop_bos-b001a",
+   "sub": "dog",
+   "reviews": 1331,
+   "rating": 4.64,
+   "price": 3380,
+   "image": "https://item-shopping.c.yimg.jp/i/g/wanwan-square-garden_tlh-sport",
    "images": {
-    "yahoo": "https://item-shopping.c.yimg.jp/i/g/bos-shop_bos-b001a"
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/wanwan-square-garden_tlh-sport"
    },
    "rakuten_url": "",
-   "yahoo_url": "https://store.shopping.yahoo.co.jp/bos-shop/bos-b001a.html",
+   "yahoo_url": "https://store.shopping.yahoo.co.jp/wanwan-square-garden/tlh-sport.html",
    "amazon_url": "",
    "trending": false,
    "shops": {
     "yahoo": {
-     "price": 1617,
-     "shop_name": "BOS-SHOP",
+     "price": 3380,
+     "shop_name": "わんわん SQUARE GARDEN",
      "postage_included": true,
-     "reviews": 1174,
-     "rating": 4.85
+     "reviews": 1331,
+     "rating": 4.64
     }
    }
   },
   {
-   "name": "iPad ケース A16 第11世代 第10世代 第7世代 11インチ カバー ペン収納 スタンド機能 軽量 薄型 シンプル 耐衝撃 第9世代 アイパッド Air Pro mini 全世代対応",
-   "jan": "",
-   "category": "smartphone",
-   "sub": "acc",
-   "reviews": 1693,
-   "rating": 4.29,
-   "price": 1999,
-   "image": "https://item-shopping.c.yimg.jp/i/g/angelique-girlish_ipadcase-simple",
-   "images": {
-    "yahoo": "https://item-shopping.c.yimg.jp/i/g/angelique-girlish_ipadcase-simple"
-   },
-   "rakuten_url": "",
-   "yahoo_url": "https://store.shopping.yahoo.co.jp/angelique-girlish/ipadcase-simple.html",
-   "amazon_url": "",
-   "trending": false,
-   "shops": {
-    "yahoo": {
-     "price": 1999,
-     "shop_name": "AngeliqueはiPhone・スマホケース",
-     "postage_included": true,
-     "reviews": 1693,
-     "rating": 4.29
-    }
-   }
-  },
-  {
-   "name": "リズム 公式 | ハンディファン 2026 大風量 静音 3Way ( 手持ち 首かけ 卓上 ) 最大15時間 風量5段階 Type-C対応 カラビナ＆ストラップ付き 携帯扇風機 2重反転ファン | 9ZF042RH [ Silky Wind Mobile 4 ]",
-   "jan": "",
-   "category": "appliance",
-   "sub": "aircon",
-   "reviews": 6406,
-   "rating": 4.69,
-   "price": 3278,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/rhythm-official/cabinet/item/9zf042/9zf042rh_top_emblem.jpg?_ex=128x128",
-   "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/rhythm-official/cabinet/item/9zf042/9zf042rh_top_emblem.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/rhythm-official/9zf036rh/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "",
-   "amazon_url": "",
-   "trending": false,
-   "shops": {
-    "rakuten": {
-     "price": 3278,
-     "shop_name": "リズム公式ストア楽天市場店",
-     "postage_included": true,
-     "reviews": 6406,
-     "rating": 4.69
-    }
-   }
-  },
-  {
-   "name": "スピーカー bluetooth ブルートゥース 10W出力 防水 防塵 高音質 重低音 スマート ワイヤレス iphone 小型 ウォークマン スマホ 1年保障付",
-   "jan": "4573226520455",
-   "category": "av",
-   "sub": "speaker",
-   "reviews": 1292,
-   "rating": 4.32,
-   "price": 2200,
-   "image": "https://item-shopping.c.yimg.jp/i/g/flavor9_me155041",
-   "images": {
-    "yahoo": "https://item-shopping.c.yimg.jp/i/g/flavor9_me155041",
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/9flavor/cabinet/05614497/sp-ps.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/9flavor/me155041/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "https://store.shopping.yahoo.co.jp/flavor9/me155041.html",
-   "amazon_url": "",
-   "trending": false,
-   "shops": {
-    "yahoo": {
-     "price": 2200,
-     "shop_name": "flavor9",
-     "postage_included": true,
-     "reviews": 1292,
-     "rating": 4.32
-    },
-    "rakuten": {
-     "price": 2200,
-     "shop_name": "flavor9",
-     "postage_included": true,
-     "reviews": 578,
-     "rating": 4.17
-    }
-   }
-  },
-  {
-   "name": "夜用ヘアミルク マジック ナイト セラム◆ミニサイズ30mL/本体90mL◆洗い流さない トリートメント アウトバス スタイリング ヘアケア 夜用セラム ドライヤー◆ケラスターゼ ニュートリティブ 乾燥ケア",
+   "name": "【メーカー公式】アウトバストリートメント リファロックトリートメント ドライヤー ロックオイル ダメージレス ミルクタイプ ヘアケア ギフト ヘアドライ前 プレゼント 誕生日 女性 プチギフト",
    "jan": "",
    "category": "beauty",
    "sub": "device",
-   "reviews": 2344,
-   "rating": 4.73,
-   "price": 2970,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/kerastase-varie/cabinet/thumbna/dp-nightserumor_90/260715-1.jpg?_ex=128x128",
+   "reviews": 126,
+   "rating": 4.61,
+   "price": 2640,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/mtgec-beauty/cabinet/refa/refa_lock_treatment/imgrc0120386132.jpg?_ex=128x128",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kerastase-varie/cabinet/thumbna/dp-nightserumor_90/260715-1.jpg?_ex=128x128"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/mtgec-beauty/cabinet/refa/refa_lock_treatment/imgrc0120386132.jpg?_ex=128x128"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/kerastase-varie/dp-nightserumor_90/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/mtgec-beauty/1500720101/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "yahoo_url": "",
+   "amazon_url": "",
+   "trending": true,
+   "shops": {
+    "rakuten": {
+     "price": 2640,
+     "shop_name": "MTG ONLINESHOP",
+     "postage_included": false,
+     "reviews": 126,
+     "rating": 4.61
+    }
+   }
+  },
+  {
+   "name": "オフィスチェア ゲーミングチェア レザー おしゃれ ワークチェア デスクチェア パソコンチェア 安い 椅子 オフィス リクライニング 肘付き 在宅 チェア H-8800L",
+   "jan": "4967576211246",
+   "category": "daily",
+   "sub": "hobby",
+   "reviews": 631,
+   "rating": 4.3,
+   "price": 17900,
+   "image": "https://item-shopping.c.yimg.jp/i/g/petkan_m7058266",
+   "images": {
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/petkan_m7058266"
+   },
+   "rakuten_url": "",
+   "yahoo_url": "https://store.shopping.yahoo.co.jp/petkan/m7058266.html",
+   "amazon_url": "",
+   "trending": false,
+   "shops": {
+    "yahoo": {
+     "price": 17900,
+     "shop_name": "メガストア Yahoo!店",
+     "postage_included": true,
+     "reviews": 631,
+     "rating": 4.3
+    }
+   }
+  },
+  {
+   "name": "リュック メンズ レディース テフロン加工で水と汚れに強い 人気 リュックサック USB充電ポート 通勤 通学 旅行 キャンプ 防災 アウトドア バッグ 35L 大容量",
+   "jan": "",
+   "category": "fashion",
+   "sub": "bag",
+   "reviews": 1839,
+   "rating": 4.32,
+   "price": 3200,
+   "image": "https://item-shopping.c.yimg.jp/i/g/courage_ladbag012",
+   "images": {
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/courage_ladbag012"
+   },
+   "rakuten_url": "",
+   "yahoo_url": "https://store.shopping.yahoo.co.jp/courage/ladbag012.html",
+   "amazon_url": "",
+   "trending": false,
+   "shops": {
+    "yahoo": {
+     "price": 3200,
+     "shop_name": "LAD WEATHER ラドウェザー 公式",
+     "postage_included": true,
+     "reviews": 1839,
+     "rating": 4.32
+    }
+   }
+  },
+  {
+   "name": "【15%OFF★最大1年保証】デスクライト コードレス 卓上ライト LED 学習 電気スタンド 目に優しい led スタンドライト おしゃれ 学習机 充電式 明るい 照明 折りたたみ テレワーク勉強 デスクランプ 寝室 角度調整 調光調色 読書灯 子供 省エネ 2000mAh 25種モード",
+   "jan": "",
+   "category": "furniture",
+   "sub": "desk",
+   "reviews": 4564,
+   "rating": 4.45,
+   "price": 2750,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/ilemon/cabinet/top/mjd1006--.jpg?_ex=128x128",
+   "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/ilemon/cabinet/top/mjd1006--.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/ilemon/mjd1006/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": false,
    "shops": {
     "rakuten": {
-     "price": 2970,
-     "shop_name": "ケラスターゼ公式ショップ",
+     "price": 2750,
+     "shop_name": "ilemon",
      "postage_included": true,
-     "reviews": 2344,
-     "rating": 4.73
+     "reviews": 4564,
+     "rating": 4.45
+    }
+   }
+  },
+  {
+   "name": "ブルーライトカット 液晶テレビ保護パネル 23〜77インチ 23〜77型 固定ベルト付【2mm/3mm厚】【カット率44.73％】【液晶テレビ 保護パネル 保護フィルム 液晶保護パネル テレビ 保護 テレビカバー テレビガード】 MBL",
+   "jan": "",
+   "category": "av",
+   "sub": "tv",
+   "reviews": 2590,
+   "rating": 4.58,
+   "price": 4290,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/tanonmasuwa/cabinet/bluelightpanel/thumb/panel23770.jpg?_ex=128x128",
+   "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tanonmasuwa/cabinet/bluelightpanel/thumb/panel23770.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/tanonmasuwa/10000093/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "yahoo_url": "",
+   "amazon_url": "",
+   "trending": false,
+   "shops": {
+    "rakuten": {
+     "price": 4290,
+     "shop_name": "音と映像設備のたのんますわ!",
+     "postage_included": false,
+     "reviews": 2590,
+     "rating": 4.58
+    }
+   }
+  },
+  {
+   "name": "今日も当日発送 デスクトップ PC 新品 パソコン スリムタワー 12世代 COREi5 メモリ 16GB SSD 500GB Windows11 省スペース型 本体のみ おしゃれ 安い",
+   "jan": "",
+   "category": "pc",
+   "sub": "parts",
+   "reviews": 110,
+   "rating": 4.57,
+   "price": 86200,
+   "image": "https://item-shopping.c.yimg.jp/i/g/project-a_a574-hx",
+   "images": {
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/project-a_a574-hx"
+   },
+   "rakuten_url": "",
+   "yahoo_url": "https://store.shopping.yahoo.co.jp/project-a/a574-hx.html",
+   "amazon_url": "",
+   "trending": false,
+   "shops": {
+    "yahoo": {
+     "price": 86200,
+     "shop_name": "パソコン専門店 ProjectA",
+     "postage_included": true,
+     "reviews": 110,
+     "rating": 4.57
+    }
+   }
+  },
+  {
+   "name": "フライパンセット IH ガス火 アイリスオーヤマ フライパン 鍋 卵焼き器 取っ手が取れる 高耐久4層構造 ダイヤモンドコート 13点 IPDCI-T13 *",
+   "jan": "4967576825740",
+   "category": "kitchen",
+   "sub": "tool",
+   "reviews": 1377,
+   "rating": 4.46,
+   "price": 12980,
+   "image": "https://item-shopping.c.yimg.jp/i/g/irisplaza_h527380",
+   "images": {
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/irisplaza_h527380"
+   },
+   "rakuten_url": "",
+   "yahoo_url": "https://store.shopping.yahoo.co.jp/irisplaza/h527380.html",
+   "amazon_url": "",
+   "trending": false,
+   "shops": {
+    "yahoo": {
+     "price": 12980,
+     "shop_name": "アイリスプラザ Yahoo!店",
+     "postage_included": true,
+     "reviews": 1377,
+     "rating": 4.46
     }
    }
   }
