@@ -1875,6 +1875,35 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"kae-g13n": {
+        "official_url": "https://www.tiger-corporation.com/ja/jpn/product/others/kae-g13n/",
+        "facts": [
+            "タイガー魔法瓶公式ページで、オーブントースターKAE-G13N、消費電力1300W、温度調整範囲約80〜250℃、本体約35.4×34.4×24.2cm、庫内約30×27.5×10cm、質量約4.2kgを確認",
+            "公式ページでレッド、マットブラック、マットホワイトの色展開とKAE-G13Nの型番を確認",
+            "楽天市場タイガー魔法瓶公式店の個別商品ページで、KAE-G13NWE、1300W、30分タイマー、温度調節、調理トレイ、JAN4904710429013を確認",
+            "個別投稿では、パンが外はカリッと中はふわっと焼ける、庫内が広いという声がある一方、火力が強く焦げやすい、短時間のタイマー調整が難しいという指摘もあり、焼き時間は様子を見ながら調整する必要がある",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 タイガー魔法瓶公式店 KAE-G13N 個別投稿",
+            "text": "個別投稿では、パンが外はカリッと中はふわっと焼ける、庫内が広く使いやすい、網やパンくずトレイの手入れがしやすいという声があります。一方で、火力が強くパンが焦げやすい、短時間のタイマー設定が難しい、扉の開き方によって大きなピザを取り出しにくいという指摘もあります。焼き上がりと操作感は利用環境や使い方による個人の感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.tiger-corporation.com/ja/jpn/product/others/kae-g13n/",
+            "title": "タイガー魔法瓶公式 KAE-G13N 商品情報",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/tiger-online/kae-g13nwe/",
+            "title": "楽天市場 タイガー魔法瓶公式店 KAE-G13N 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/281266_10004136/1.1/",
+            "title": "楽天市場 タイガー魔法瓶公式店 KAE-G13N 個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    }
     ,"refa-ultra-fine-bubble-laundry-rs-ck-00a": {
         "official_url": "https://www.refa.net/en/item/refa_ultra_fine_bubble_laundry/",
         "facts": [
