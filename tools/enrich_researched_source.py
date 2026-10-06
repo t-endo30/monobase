@@ -2292,6 +2292,35 @@ SOURCE = {
             "title": "楽天市場 TK-TCM012BK 個別レビュー",
             "checked_at": "2026-10-06",
         }],
+    },
+    "rcp-3-recolte-capsule-cutter-bonne": {
+        "official_url": "https://recolte-jp.com/products/capsule-cutter-bonne/",
+        "facts": [
+            "レコルト公式ページでカプセルカッター ボンヌ RCP-3を商品同定し、みじん切り・ペースト・大根おろし・メレンゲなど1台7役の案内を確認",
+            "公式情報でRCP-3の用途と付属プレートの案内を確認。食材の量や状態によって仕上がりが変わるため、取扱説明書の使用条件を優先する",
+            "楽天市場の個別商品ページでrecolte カプセルカッター ボンヌ RCP-3を確認し、記事の対象商品と照合",
+            "個別投稿では、みじん切りや大根おろしを手軽にできる、思ったより容量があるという声がある一方、用途や食材量によって使い勝手が変わるため、容器容量と下ごしらえ量を購入前に確認する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 RCP-3 個別商品レビュー",
+            "text": "個別投稿では、玉ねぎのみじん切りや大根おろしが楽になった、思ったより容器が大きかったという声が確認できます。手軽さや容量の印象は、下ごしらえする食材・量・家庭の使い方による利用者の声として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://recolte-jp.com/products/capsule-cutter-bonne/",
+            "title": "レコルト公式 カプセルカッター ボンヌ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/roomy/win13jan15c01/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+            "title": "楽天市場 RCP-3 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://item.rakuten.co.jp/roomy/win13jan15c01/",
+            "title": "楽天市場 RCP-3 個別レビュー掲載ページ",
+            "checked_at": "2026-10-07",
+        }],
     }
 }
 
