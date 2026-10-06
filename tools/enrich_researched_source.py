@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "bi-hada-mpvl-2b-ga0145": {
+        "official_url": "https://www.kai-group.com/products/kamisori/product/bihadaompa.html",
+        "facts": [
+            "貝印公式のbi-hada ompa案内で、音波振動カミソリのシリーズ情報を確認",
+            "楽天市場の個別商品ページでbi-hada MPVL-2B（GA0145）、JAN4901331003134、刃部・寸法・重量・付属品の表記を確認",
+            "刃物のため、公式案内と販売ページの注意事項を優先し、肌への刺激や切れ味をすべての利用者に一般化しない",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた使いやすさと注意点",
+            "who": "楽天市場 MPVL-2B個別レビュー（2026-10-06確認）",
+            "text": "個別投稿では、使いやすい、音波振動で楽に処理できるという声が確認できます。一方で、肌が傷ついた、数回で切れ味が悪くなったという投稿もあります。刃の状態、肌質、使い方による感想であり、すべての利用者に同じ結果が出るとは一般化しません。",
+            "negative": True,
+            "fix_title": "肌への使用と替刃の状態を確認する",
+            "fix": "刃物として注意事項を守り、肌に異常を感じた場合は使用を中止してください。替刃の交換条件や保管方法も購入先・公式案内で確認してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.kai-group.com/products/kamisori/product/bihadaompa.html",
+            "title": "貝印公式 bi-hada ompa",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/lila-q/2013052101/",
+            "title": "楽天市場 bi-hada MPVL-2B 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/241838_10000488/5.0/",
+            "title": "楽天市場 bi-hada MPVL-2B 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "niplux-hair-dryer": {
         "official_url": "https://niplux.jp/collections/%E5%95%86%E5%93%81%E4%B8%80%E8%A6%A7%E7%94%A8/products/hair-dryer",
         "facts": [
