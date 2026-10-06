@@ -1788,6 +1788,34 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"tilt-footrest-review": {
+        "official_url": "https://www.bauhutte.jp/product/bft700/",
+        "facts": [
+            "Bauhutte公式情報でチルトフットレストワイド BFT-700-BK、JAN 4580742233318を確認",
+            "公式仕様の寸法は幅700mm×奥行300mm×高さ210〜300mm、耐荷重は約30kg",
+            "公式情報でクッション部は木板、脚部・スタンドは金属、角度調整に対応する構成を確認",
+        ],
+        "review_texts": [{
+            "source": "Yahoo!ショッピング 個別商品レビュー BFT-700-BK",
+            "text": "個別レビューでは、角度調整が簡単で質感がよいという声や、机の下で足の位置が安定し落ち着いて座れるようになったという声が確認できます。3件の個別投稿として扱い、すべての利用者に同じ効果があるとは断定しません。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.bauhutte.jp/product/bft700/",
+            "title": "Bauhutte公式 BFT-700",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/applied2/4580742233318-ds/",
+            "title": "楽天市場 個別商品ページ BFT-700-BK",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://store.shopping.yahoo.co.jp/hitline/4580742233318.html",
+            "title": "Yahoo!ショッピング 個別レビュー BFT-700-BK",
+            "checked_at": "2026-10-06",
+        }],
+    }
 }
 
 
