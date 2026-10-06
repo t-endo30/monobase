@@ -40,7 +40,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("slugs", nargs="*")
     ap.add_argument("--drafts", action="store_true", help="本文が空の未公開下書き")
-    ap.add_argument("--model", default="gpt-5.6-terra")
+    ap.add_argument("--model", default="gpt-5.6-luna")
     ap.add_argument("--timeout", type=int, default=300)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--no-fetch", action="store_true")

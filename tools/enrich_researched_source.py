@@ -7,6 +7,34 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "ergotron-lx-monitor-arm-review": {
+        "official_url": "https://media.ergotron.com/reserved/resources/lx-deskmountarms-jp-orig.pdf",
+        "facts": [
+            "エルゴトロン公式資料でLXデスクマウントアームの製品群と、モニターアームとしての可動・設置条件を確認",
+            "楽天市場のエルゴトロン公式個別商品ページでLXデスクマウントアームの型番45-241-224を確認",
+            "公式資料の対応重量・VESA・机への固定条件は、取り付けるモニターと机の実寸を購入前に照合する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 エルゴトロン公式店のLX個別レビュー",
+            "text": "個別投稿では、作りがしっかりして動きが滑らかという評価がある一方、机上からクランプ作業ができる製品を羨ましく感じるという声も確認できる。モニターの重量、机の天板、取り付け手順によって使い勝手が変わるため、投稿者の環境を一般化しない。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://media.ergotron.com/reserved/resources/lx-deskmountarms-jp-orig.pdf",
+            "title": "エルゴトロン公式 LXデスクマウントアーム資料",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/ergotron/e1r00wv/",
+            "title": "楽天市場 エルゴトロン公式 LX個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/review/review/item/1/415243_10000220/1.1/",
+            "title": "楽天市場 LX個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "gunze-agw112": {
         "official_url": "https://www.gunze.co.jp/corporate/news/2025/03/20250304001.html",
         "facts": [

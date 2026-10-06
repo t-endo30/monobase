@@ -91,7 +91,7 @@ def request_json(instructions, prompt, schema, *, model=None, timeout=900, cwd=N
         raise GPTError("OPENAI_API_KEY が設定されていません")
     # 記事生成・レビューの既定モデル。Claude経路から切り離し、
     # サブスクリプション内のCodex実行ではterraに統一する。
-    model = model or os.environ.get("OPENAI_ARTICLE_MODEL", "gpt-5.6-terra")
+    model = model or os.environ.get("OPENAI_ARTICLE_MODEL", "gpt-5.6-luna")
     payload = {
         "model": model,
         "instructions": instructions,
