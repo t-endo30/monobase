@@ -1875,6 +1875,35 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     }
+    ,"tanita-fs-101-fs101": {
+        "official_url": "https://www.tanita.co.jp/support/manual/FS-101/",
+        "facts": [
+            "タニタ公式サポートで体組成計フィットスキャンFS-101の取扱説明書・関連ダウンロードを確認",
+            "楽天市場の個別商品ページで、タニタFS-101A、体重・体脂肪率・内臓脂肪などを測定する商品として同定し、JAN4904785814639を価格比較情報で確認",
+            "個別投稿では、コンパクトで場所を取らない、表示が見やすい、測定が早いという声がある一方、操作が面倒、測定中の表示が見づらいという指摘もある",
+            "健康状態の診断や治療を目的とする機器ではないため、測定値は日々の傾向把握用として扱う",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 FS-101 個別投稿",
+            "text": "個別投稿では、コンパクトで場所を取らず、表示が見やすく、測定が早いという声があります。一方で、操作が面倒、測定中は表示が薄く見えにくいという指摘もあります。使いやすさは年齢・視認性・測定方法による個人の感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.tanita.co.jp/support/manual/FS-101/",
+            "title": "タニタ公式 FS-101 取扱説明書・関連ダウンロード",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/minimalife/fs101a/",
+            "title": "楽天市場 FS-101A 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/396197_10000501/1.1/",
+            "title": "楽天市場 FS-101A 個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    }
     ,"salonia-salonia-2way-hk-2way-slall": {
         "official_url": "https://salonia.jp/product/hair/iron/2way/",
         "facts": [
