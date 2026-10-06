@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "niplux-hair-dryer": {
+        "official_url": "https://niplux.jp/collections/%E5%95%86%E5%93%81%E4%B8%80%E8%A6%A7%E7%94%A8/products/hair-dryer",
+        "facts": [
+            "NIPLUX公式オンラインストアでHair Dryer（型番NP-HD25BK）を商品として確認",
+            "公式販売ページで、延長保証の選択肢と公式ストアでの販売情報を確認。価格・在庫は変動するため購入時点の表示を確認する",
+            "大風量・速乾などの訴求は公式販売ページの表現として扱い、乾燥時間や髪質への効果をすべての利用者に一般化しない",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた乾燥時の感想",
+            "who": "楽天市場 NIPLUX Hair Dryer個別レビュー（2026-10-06確認）",
+            "text": "個別投稿では、風当たりがやさしく頭皮への刺激が少ないという声や、他社製品と比較して価格帯を検討して購入したという声が確認できます。髪質、乾かし方、比較対象による感想であり、乾燥時間や仕上がりをすべての利用者に一般化しません。",
+            "negative": True,
+            "fix_title": "髪質と乾燥条件を購入前に想定する",
+            "fix": "自分の髪の長さ・量・温度の好みを整理し、公式ページの仕様と購入時の保証条件を確認してください。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://niplux.jp/collections/%E5%95%86%E5%93%81%E4%B8%80%E8%A6%A7%E7%94%A8/products/hair-dryer",
+            "title": "NIPLUX公式 Hair Dryer",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/nissoplus/np-hd25/",
+            "title": "楽天市場 NIPLUX Hair Dryer 個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/381975_10000291/1.1/",
+            "title": "楽天市場 NIPLUX Hair Dryer 個別レビュー",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "fotopro-digi-mp1bh": {
         "official_url": "https://www.esco-net.com/wcs/escort/ItemFile/EA7/EA759/EA759ER-1C/EA759ER-1C_DOC_CTL_OUT%2801%29.pdf",
         "facts": [
