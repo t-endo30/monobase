@@ -7,6 +7,38 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SOURCE = {
+    "beauty-20260830": {
+        "official_url": "https://creerina.co.jp/items/powderyliquideyebrow/",
+        "facts": [
+            "クレーリナ公式商品ページで、パウダリーリキッドアイブロウ ウルトラキープ、全4色、メーカー希望小売価格1,870円（税込）を確認",
+            "公式説明でウォータープルーフ・スマッジプルーフ処方と、斜めカット平筆で太さを調整できる仕様を確認",
+            "公式の使用方法として、容器を振り、筆の両面をしごいてから眉中央から眉尻へ描く手順を確認",
+        ],
+        "voices": [{
+            "heading": "個別投稿で確認できた仕上がりと描きやすさ",
+            "who": "アットコスメの商品ページに表示された個別投稿（2026-10-06確認）",
+            "text": "個別投稿では、リキッドなのにパウダーのようにふんわり仕上がる、斜めカットの平筆で眉尻まで描きやすいという声を確認できます。一方で、色の濃さや描きやすさは肌質・筆圧・使用色によって変わるという前提で扱います。投稿者の感想であり、すべての人に同じ仕上がりや持続性が出るとは限りません。",
+            "negative": True,
+            "fix_title": "色と筆圧を少量から確認する",
+            "fix": "初回は手の甲などで色の濃さと液量を確認し、眉頭は薄く、眉尻は筆の角度を変えながら少量ずつ描いてください。肌に異常が出た場合は使用を中止しましょう。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://creerina.co.jp/items/powderyliquideyebrow/",
+            "title": "クレーリナ公式 パウダリーリキッドアイブロウ ウルトラキープ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/boundless/4901477090029/",
+            "title": "楽天市場 クレーリナ個別商品ページ",
+            "checked_at": "2026-10-06",
+        }, {
+            "type": "review_page",
+            "url": "https://www.cosme.net/variations/1242045/",
+            "title": "アットコスメ クレーリナ個別投稿",
+            "checked_at": "2026-10-06",
+        }],
+    },
     "health-20261005-2": {
         "official_url": "https://brushmo.co.jp/collections/brush-head-refills",
         "facts": [
