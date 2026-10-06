@@ -2877,6 +2877,73 @@ SOURCE = {
             "title": "楽天市場 FUNLOGY Portable 個別レビュー",
             "checked_at": "2026-10-07",
         }],
+    },
+    "pc-20260914": {
+        "title": "トレンドマイクロ ウイルスバスター クラウド VB_03-005 利用者の声｜3年3台版の対応端末と更新条件",
+        "list_title": "トレンドマイクロ ウイルスバスター クラウド VB_03-005 利用者の声",
+        "product_name": "ウイルスバスター クラウド ダウンロード 3年3台版",
+        "brand": "トレンドマイクロ",
+        "model": "VB_03-005",
+        "official_url": "https://www.trendmicro.com/ja_jp/forHome/products/vb.html",
+        "product_url": "https://item.rakuten.co.jp/trendmicro/vb_03-005/",
+        "facts": [
+            "トレンドマイクロ公式の製品情報でウイルスバスター クラウドを同定し、Windows・Mac・Android・iOS/iPadOSなどを1つの契約で3台まで保護する案内を確認",
+            "楽天市場のトレンドマイクロ公式ショップ個別商品ページで、ダウンロード版・3年・3台の構成を確認",
+            "公式の更新案内では契約期間や自動更新の扱いが別条件になるため、購入時の販売条件と更新条件を分けて確認する必要がある",
+            "楽天市場の個別レビューでは、購入後すぐダウンロードできた、複数台・長期間で使いやすいという声がある一方、更新やインストールでサポートが必要だったという声も確認できる",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 トレンドマイクロ公式ショップ 個別レビュー",
+            "text": "個別投稿では、ダウンロード形式で早く使えた、3年3台版が便利、長年使っているという声が確認できます。一方、更新手続きやインストールでうまく進まずサポートへ連絡したという投稿もあるため、購入後の登録・更新手順を確認できる人に向く商品として整理します。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.trendmicro.com/ja_jp/forHome/products/vb.html",
+            "title": "トレンドマイクロ公式 ウイルスバスター クラウド",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/trendmicro/vb_03-005/",
+            "title": "楽天市場 トレンドマイクロ公式 3年3台版 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://review.rakuten.co.jp/item/1/300231_10000000/1.1/",
+            "title": "楽天市場 ウイルスバスター クラウド 3年3台版 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
+    },
+    "a-42": {
+        "title": "いなば CIAO とろみ A-42 利用者の声｜ささみ・まぐろカツオ節入りの選び方",
+        "list_title": "いなば CIAO とろみ A-42 利用者の声",
+        "official_url": "https://www.inaba-petfood.co.jp/product/detail/CIAO%2B%E3%81%A8%E3%82%8D%E3%81%BF/1563",
+        "product_url": "https://item.rakuten.co.jp/chanet/180124/",
+        "facts": [
+            "いなばペットフード公式の商品情報でCIAO とろみ ささみ・まぐろ カツオ節入り、背番号A-42を確認",
+            "公式情報で、ささみとまぐろをベースにかつお節を加えた猫用ウェットフードであることを確認",
+            "楽天市場の個別商品ページでA-42、80g×3缶の販売構成を確認",
+            "楽天市場の個別レビューでは、食いつきやとろみの絡みやすさを評価する声がある一方、猫の好みや与え方で反応が分かれる声も確認できるため、猫の嗜好と給餌量を確認する",
+        ],
+        "review_texts": [{
+            "source": "楽天市場 charm 個別商品レビュー",
+            "text": "個別投稿では、ささみが好きな猫がよく食べた、カリカリにとろみが絡んで与えやすいという感想が確認できます。一方で、食べ方や好みには個体差があるため、初回は少量から反応を見て選ぶという判断材料として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.inaba-petfood.co.jp/product/detail/CIAO%2B%E3%81%A8%E3%82%8D%E3%81%BF/1563",
+            "title": "いなばペットフード公式 CIAO とろみ A-42",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://item.rakuten.co.jp/chanet/180124/",
+            "title": "楽天市場 charm CIAO とろみ A-42 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://item.rakuten.co.jp/chanet/180124/",
+            "title": "楽天市場 charm CIAO とろみ A-42 個別レビュー表示",
+            "checked_at": "2026-10-07",
+        }],
     }
 }
 
