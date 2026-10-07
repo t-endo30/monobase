@@ -109,6 +109,21 @@ for article in articles:
                     return {k: maxzen_rewrite(x) for k, x in v.items()}
                 return v
             article.update(maxzen_rewrite(article))
+        if article.get("slug") == "maxzen-j43ch06":
+            article.update(clean(article))
+            article.pop("rating", None)
+            article["title"] = article.get("title", "").replace("口コミ", "利用者の声")
+            article["list_title"] = article.get("list_title", "").replace("口コミ", "利用者の声")
+            article["spec"]["rows"] = [["画面サイズ", "43型"], ["放送", "地上・BS・110度CSデジタル"], ["確認できた機能", "外付けHDD録画・ゲームモード"], ["同定", "JAN 4571495431953"]]
+            def tv_rewrite(v):
+                if isinstance(v, str):
+                    for old in ["1920×1080画素", "HDMI2系統", "HDMI端子", "ARC", "CEC", "光デジタル出力", "アンテナケーブル非付属", "入力遅延", "リフレッシュレート", "音質", "消費電力", "輝度", "視野角", "寸法", "重量"]:
+                        v = v.replace(old, "確認範囲外")
+                    return v.replace("口コミ", "利用者の声")
+                if isinstance(v, list): return [tv_rewrite(x) for x in v]
+                if isinstance(v, dict): return {k: tv_rewrite(x) for k,x in v.items()}
+                return v
+            article.update(tv_rewrite(article))
             for v in article.get("voices", []):
                 if v.get("who") == "楽天市場の個別利用者の声で確認された利用者の声":
                     v["who"] = "楽天市場の個別レビュー"

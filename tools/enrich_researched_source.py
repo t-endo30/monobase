@@ -3272,6 +3272,12 @@ SOURCE = {
             {"type": "review_page", "url": "https://review.rakuten.co.jp/item/1/252089_10014983/1.1/", "title": "楽天市場 O'NEIL OF DUBLIN 10014983 個別レビュー", "checked_at": "2026-10-07"}
         ]
     },
+    "maxzen-j43ch06": {
+        "official_url": "https://maxzen.jp/product/j43ch06/",
+        "facts": ["MAXZEN公式の商品情報で、J43CH06が43型の液晶テレビであることを確認", "個別商品ページで、地上・BS・110度CS、外付けHDD録画、ゲームモード、HDMI接続の案内を確認", "JANコード4571495431953で個別商品を同定", "利用者の声では、画面の大きさや映像の見やすさに関する内容を確認し、設置環境による差と分けて扱う"],
+        "review_texts": [{"source":"MAXZEN J43CH06 個別レビュー","text":"個別投稿では、画面が大きく見やすい、価格とのバランスを評価する内容が確認できます。設置スペースや視聴距離による印象の違いは個別の使用条件として扱います。"}],
+        "source_notes": [{"type":"official_product","url":"https://maxzen.jp/product/j43ch06/","title":"MAXZEN公式 J43CH06","checked_at":"2026-10-07"},{"type":"product_page","url":"https://item.rakuten.co.jp/a-price/4571495431953/","title":"J43CH06 個別商品ページ","checked_at":"2026-10-07"},{"type":"review_page","url":"https://store.shopping.yahoo.co.jp/aprice/4571495431953.html","title":"J43CH06 利用者の声","checked_at":"2026-10-07"}]
+    },
     "maxzen-j24ch06": {
         "official_url": "https://maxzen.jp/product/j24ch06/",
         "facts": [
