@@ -1864,6 +1864,21 @@ SOURCE = {
             "title": "価格.com 個別レビュー",
             "checked_at": "2026-10-06",
         }],
+    },
+    "pd-829ws-u75cv-13a-withna": {
+        "official_url": "https://www.paloma.co.jp/cgi-bin/productDetail.cgi?rno=310",
+        "facts": [
+            "パロマ公式の商品詳細でWITHNA PD-829WS-U75CVを確認し、75cm幅・無水両面焼きグリル・都市ガス/LPガス対応の案内を確認",
+            "楽天市場の個別商品ページでPD-829WS-U75CV-13A、ティアラシルバー、都市ガス用の個別販売条件を確認",
+            "同一型番の楽天市場個別レビューで、操作性、グリル調理、清掃性、設置対応に関する利用者の声を確認",
+            "ガス種別と設置工事の条件があるため、レビューの感想と公式仕様・施工条件を分けて扱う",
+        ],
+        "review_texts": [{"source":"楽天市場 PD-829WS-U75CV-13A 個別レビュー","text":"同一型番の個別投稿では、コンロの使いやすさ、グリル調理の仕上がり、掃除のしやすさ、注文から設置までの対応について評価する声が確認できます。都市ガス用の購入者による感想として扱い、設置環境やガス種別が異なる場合へ一般化しません。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.paloma.co.jp/cgi-bin/productDetail.cgi?rno=310","title":"パロマ公式 WITHNA PD-829WS-U75CV 商品詳細","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/jyupro/pd-829ws-u75cv-13a-kj/","title":"楽天市場 PD-829WS-U75CV-13A 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/review/review/item/1/361767_10001019/1.1/","title":"楽天市場 PD-829WS-U75CV 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
     ,"anua-pdrn-100-50ml": {
         "official_url": "https://anuashop.jp/products/side0011",
