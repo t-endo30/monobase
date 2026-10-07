@@ -3707,6 +3707,21 @@ SOURCE = {
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/200195_10042289/1.1/","title":"楽天市場 グリニーズプラス カロリーケア超小型犬用2-7kg 個別レビュー","checked_at":"2026-10-07"}
         ]
     }
+    ,"beauty-20260911-2": {
+        "official_url": "https://www.lesthemo.jp/collections/%E3%82%AA%E3%83%BC%E3%83%AB%E3%82%A4%E3%83%B3%E3%83%AF%E3%83%B3%E3%82%B2%E3%83%AB",
+        "facts": [
+            "レステモ公式ショップで500g詰替カートリッジの商品名と医薬部外品としての販売情報を確認",
+            "公式商品ページでオールインワンの用途と、詰替カートリッジであることを確認。美容効果は断定せず、公式表示と使用感を分けて扱う",
+            "楽天市場の個別商品ページで商品番号gel-500g-reの500g詰替用を確認",
+            "同一商品の楽天レビューで、手入れのしやすさや使用感に関する投稿を確認。肌との相性は個人差のある利用者の声として扱う",
+        ],
+        "review_texts": [{"source":"楽天市場 レステモ500g詰替 個別レビュー","text":"同一商品の個別投稿では、手入れが楽、使い続けやすいという声が確認できます。一方で肌に合わないという投稿もあるため、使用感は肌質・使用量による個別の感想として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.lesthemo.jp/collections/%E3%82%AA%E3%83%BC%E3%83%AB%E3%82%A4%E3%83%B3%E3%83%AF%E3%83%B3%E3%82%B2%E3%83%AB","title":"レステモ公式 500g詰替カートリッジ","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/lesthemo/gcr/","title":"楽天市場 レステモ500g詰替 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/230278_10000002/1.1/","title":"楽天市場 レステモ500g詰替 個別レビュー","checked_at":"2026-10-07"}
+        ]
+    }
     ,"beauty-20260927": {
         "official_url": "https://www.tabibijin.com/",
         "facts": [
