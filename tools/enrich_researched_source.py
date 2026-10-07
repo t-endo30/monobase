@@ -3387,6 +3387,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/deco-maison/ds-2628037/","title":"楽天市場 NS-06BK 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://www.biccamera.com/bc/item/13709388/","title":"ビックカメラ NS-06BK 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "cd-cx-3": {
+        "official_url": "https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=K285289",
+        "facts": [
+            "アイリスオーヤマ公式商品情報でCBボックスCX-3を商品同定",
+            "公式・個別商品ページで幅41.5cm、奥行29cm、高さ88cm、3段、棚板耐荷重30kg、全体耐荷重80kg、組立式の案内を確認",
+            "楽天市場の個別商品ページでCBボックスCX-3と内寸・材質・組立条件を確認",
+            "同一商品の個別レビューでは、組み立てやすさや軽さを評価する声がある一方、塗装の欠け・傷への指摘も確認できるため、購入前の確認点として整理",
+        ],
+        "review_texts": [{"source":"楽天市場 CBボックスCX-3 個別レビュー","text":"同一商品の個別投稿では、組み立てが簡単で軽く扱いやすい、配送が早く色も気に入ったという声が確認できます。一方で、塗装の欠けや傷が目立ったという指摘もあります。組み立てやすさと外観の状態は利用者の個別体験として、公式の寸法・耐荷重とは分けて扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=K285289","title":"アイリスオーヤマ公式 CBボックスCX-3","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/k-home/264856/","title":"楽天市場 CBボックスCX-3 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/294175_10013380/1.1/","title":"楽天市場 CBボックスCX-3 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 

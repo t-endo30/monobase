@@ -509,8 +509,11 @@ def fetch_html(url):
         with urllib.request.urlopen(req, timeout=15) as r:
             raw = r.read(2_000_000)
             enc = r.headers.get_content_charset() or "utf-8"
+        # 一部の日本語サイトは sjis-win を返す。Python標準の別名に
+        # 正規化して、公式ページ取得全体を落とさない。
+        enc = {"sjis-win": "cp932", "shift-jis": "cp932"}.get(enc.lower(), enc)
         return raw.decode(enc, "replace")
-    except (urllib.error.URLError, ValueError, TimeoutError, OSError) as ex:
+    except (urllib.error.URLError, ValueError, LookupError, TimeoutError, OSError) as ex:
         print(f"（公式ページを取得できませんでした: {ex}）", end="", flush=True)
         return ""
 
