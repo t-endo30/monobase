@@ -3417,6 +3417,22 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/enetroom/509553/","title":"楽天市場 LT-40FSX-F1 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/202126_10169036/1.1/","title":"楽天市場 LT-40FSX-F1 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "eastforce-lumbirt": {
+        "official_url": "https://eastforce.jp/products/eastforce-officechair-lumbirt",
+        "official_product_image": "https://eastforce.jp/cdn/shop/files/lum4_design_MBK_sp.jpg?v=1748234850&width=1200",
+        "facts": [
+            "EastForce公式商品ページでLUMBIRT4.0を商品同定",
+            "公式仕様で4Dヘッドレスト、4Dアームレスト、3ゾーンランバーサポート、背面5段階調節、最大約134度のリクライニング、座面スライド5cm、耐荷重125kgを確認",
+            "楽天市場の個別商品ページでLUMBIRT 4.0の販売情報と座面・カラーの選択肢を確認",
+            "同一商品の楽天レビューでは、メッシュ座面とランバーサポートを評価する声がある一方、ヘッドレストの保持や調整に関する指摘も確認できるため、体格と調整範囲を購入前の確認点として整理",
+        ],
+        "review_texts": [{"source":"楽天市場 LUMBIRT 4.0 個別レビュー","text":"同一商品の個別投稿では、メッシュ座面とランバーサポートを目的に購入し、それらは良いと感じたという声が確認できます。一方で、ヘッドレストを調整しても位置を維持しにくいという指摘もあります。座り心地や調整感は体格・設定による個別の使用感として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://eastforce.jp/products/eastforce-officechair-lumbirt","title":"EastForce公式 LUMBIRT4.0","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/381599/10008154/","title":"楽天市場 LUMBIRT 4.0 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/381599_10008154/1.1/","title":"楽天市場 LUMBIRT 4.0 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
