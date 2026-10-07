@@ -155,6 +155,13 @@ INDEX_MIN_BODY = 1300      # 本文の文字数（見出しの下の段落の合
 def indexable(a):
     if isinstance(a.get("index"), bool):
         return a["index"]
+    # 公開処理で根拠ゲートとGPTレビューを通過した記事は、公開後に
+    # 閲覧数・レビュー件数の閾値で noindex へ戻さない。公開記事を
+    # Search Console の対象外にするには、明示的に index=false を設定する。
+    reviewed = a.get("reviewed") or {}
+    score = reviewed.get("score") if isinstance(reviewed, dict) else None
+    if a.get("published") and isinstance(score, dict) and (score.get("total") or 0) >= 85:
+        return True
     if a.get("category") == "feature" or (a.get("kind") or "review") != "review":
         return True
     if RANKING.get(a["slug"], 0) >= INDEX_MIN_VIEWS:
