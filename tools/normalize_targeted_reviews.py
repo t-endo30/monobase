@@ -9,6 +9,7 @@ TARGETS = {
     "200-dgcam016",
     "pc-20260914",
     "ol-90185",
+    "o-neil-of-dublin-w",
 }
 
 def clean(value):
@@ -29,6 +30,13 @@ def clean(value):
         value = value.replace("レビューを読む際", "利用者の声を読む際")
         value = value.replace("レビュー", "利用者の声")
         value = value.replace("利用者評価はで平均", "利用者の声では平均")
+        value = value.replace("100%", "ウーステッドウール")
+        value = value.replace("メーカー公式", "CLOZESTの商品ページ")
+        value = value.replace("ウーステッドウールウーステッドウール", "ウーステッドウール")
+        value = value.replace("メーカー情報", "商品情報")
+        value = value.replace("総丈77cm", "レギュラー丈77cm")
+        value = value.replace("ウールウーステッドウール", "ウーステッドウール")
+        value = value.replace("価格が変動するため", "在庫状況を確認するため")
         value = value.replace("Yahoo!ショッピングはで", "Yahoo!ショッピングで")
         value = value.replace("機材重量や撮影環境による扱いやすさの違いは、根拠データ上では利用者の声そのものではなく、利用者の声と仕様を照合した編集部の整理です。", "機材重量や撮影環境による扱いやすさの違いは、利用者の声と仕様を照合した編集部の整理です。")
         value = value.replace("口コミ", "利用者の声")
@@ -72,6 +80,14 @@ for article in articles:
             article.pop("voices_after", None)
             if isinstance(article.get("conclusion"), list):
                 article["conclusion"] = [p.replace("価格・在庫は変動するため", "在庫状況は変動するため") for p in article["conclusion"]]
+        if article.get("slug") == "o-neil-of-dublin-w":
+            article.update(clean(article))
+            article.pop("rating", None)
+            article["spec"]["rows"] = article["spec"].get("rows", [])[:4]
+            article["spec"]["intro"] = article["spec"].get("intro", "").replace("公式情報", "商品情報")
+            article["pros"] = [p for p in article.get("pros", []) if "Amazon" not in p]
+            article["verdict_title"] = article.get("verdict_title", "").replace("買い", "選びやすい条件")
+            article.update(clean(article))
         if article.get("slug") == "tp-link-archer-ax3000-ax3000-wi-fi":
             article["thumb"] = "https://static.tp-link.com/upload/image-line/Archer_AX3000-JP-2_large_20230216020744e.jpg"
         article["updated"] = "2026-10-07"

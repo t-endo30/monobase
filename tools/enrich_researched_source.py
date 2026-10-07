@@ -3256,6 +3256,21 @@ SOURCE = {
             {"type": "product_page", "url": "https://item.rakuten.co.jp/justrich/1246-001780/", "title": "楽天市場 WSR-3000AX4P 個別商品ページ", "checked_at": "2026-10-07"},
             {"type": "review_page", "url": "https://item.rakuten.co.jp/justrich/1246-001780/", "title": "楽天市場 WSR-3000AX4P 利用者の声", "checked_at": "2026-10-07"}
         ]
+    },
+    "o-neil-of-dublin-w": {
+        "official_url": "https://www.clozest.jp/shopdetail/000000003643/",
+        "facts": [
+            "CLOZESTの商品ページで、O'NEIL OF DUBLINのウーステッドウール100%キルトスカートとブランド背景を確認",
+            "楽天市場の個別商品ページで、レギュラー丈77cm、ワイドベルト、巻きスカート仕様を確認",
+            "個別レビューで、柄・生地の質感・丈感・サイズ選びに関する利用者の声を確認",
+            "サイズ感は身長や体型、巻き方で変わるため、レビュー本文の個別例と商品寸法を分けて扱う",
+        ],
+        "review_texts": [{"source": "楽天市場 O'NEIL OF DUBLIN 10014983 個別レビュー", "text": "個別投稿では、柄が気に入った、ウール生地の質感がよい、77cm丈が合わせやすいという内容が確認できます。一方、サイズや丈感は身長・体型・選ぶサイズによって異なるため、個別の着用例として扱います。"}],
+        "source_notes": [
+            {"type": "official_product", "url": "https://www.clozest.jp/shopdetail/000000003643/", "title": "CLOZEST O'NEIL OF DUBLIN 商品情報", "checked_at": "2026-10-07"},
+            {"type": "product_page", "url": "https://item.rakuten.co.jp/clozest/10014983/", "title": "楽天市場 O'NEIL OF DUBLIN 10014983 個別商品ページ", "checked_at": "2026-10-07"},
+            {"type": "review_page", "url": "https://review.rakuten.co.jp/item/1/252089_10014983/1.1/", "title": "楽天市場 O'NEIL OF DUBLIN 10014983 個別レビュー", "checked_at": "2026-10-07"}
+        ]
     }
 }
 
