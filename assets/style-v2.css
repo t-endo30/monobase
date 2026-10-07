@@ -1617,7 +1617,11 @@ body.has-sticky-cta .fab{bottom:96px;}
      こちらも同じだけ下げ、見出しは同じ .sec-head を使う。 */
   .home-side{padding-top:40px;}
   .home-side .sec-head{gap:14px;}
-  .home-side .card-grid{grid-template-columns:1fr;gap:22px;}   /* NEW の行間と同じ */
+  .home-side .card-grid{
+    grid-template-columns:1fr;
+    row-gap:24px;
+    background:transparent;
+  }   /* NEW と同じくカード間に背景が見える間隔を確保 */
   /* 広い画面では横並びの区画のほうを隠す（同じものが2回出ないように） */
   .recent-views.is-narrow{display:none;}
   /* 5列は1枚172pxしかない。価格・送料込・★・件数を1行に収めるため、

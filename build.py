@@ -374,6 +374,11 @@ SHOP_THUMB_ORDER = ("rakuten", "yahoo")
 
 def shop_thumb(a):
     """一覧に出せる、モールの実物写真。無ければ空。"""
+    # 特集・選び方・比較記事は個別商品を代表させない。カテゴリ画像を
+    # ぼかしてタイトルを重ねた自動生成サムネイルを使う。
+    if (a.get("category") == "feature" or a.get("feature_of")
+            or kind_of(a) in ("guide", "roundup")):
+        return "", ""
     official = str(a.get("official_product_image") or "").strip()
     if official.startswith("http"):
         return official, "official"
@@ -2405,7 +2410,9 @@ def product_name_patterns(a):
     """本文で商品そのものを指している呼び方を、長いものから順に返す。
        題名の商品名そのもの（空白の有無は問わない）と、題名の型番。"""
     n = re.split(r"[｜|]", a.get("title", ""))[0]
-    n = re.sub(r"[\s　]*(徹底|正直)?(レビュー|口コミ|評判|評価).*$", "", n).strip()
+    # 記事タイトルの評価語を商品名から取り除く。特に「利用者の声」が
+    # 残ると、本文中の実際の商品名と一致せず、商品名リンクが欠落する。
+    n = re.sub(r"[\s　]*(徹底|正直)?(利用者の声|レビュー|口コミ|評判|評価).*$", "", n).strip()
     names = [n] if len(n) >= 4 else []
     if not _PL_ACCESSORY.search(n):
         names += [t for t in re.findall(r"[A-Za-z0-9][A-Za-z0-9\-.]*[A-Za-z0-9]", n)
