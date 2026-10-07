@@ -10,6 +10,7 @@ TARGETS = {
     "pc-20260914",
     "ol-90185",
     "o-neil-of-dublin-w",
+    "maxzen-j24ch06",
 }
 
 def clean(value):
@@ -88,6 +89,31 @@ for article in articles:
             article["pros"] = [p for p in article.get("pros", []) if "Amazon" not in p]
             article["verdict_title"] = article.get("verdict_title", "").replace("買い", "選びやすい条件")
             article.update(clean(article))
+        if article.get("slug") == "maxzen-j24ch06":
+            article.update(clean(article))
+            article["title"] = article.get("title", "").replace("口コミ", "利用者の声")
+            article["list_title"] = article.get("list_title", "").replace("口コミ", "利用者の声")
+            article["excerpt"] = article.get("excerpt", "").replace("口コミ", "利用者の声")
+            article["verdict_title"] = article.get("verdict_title", "").replace("買い", "向く条件")
+            article["summary"] = [s for s in article.get("summary", []) if "裏番組視聴" not in str(s)]
+            article["not_for"] = {**article.get("not_for", {}), "items": [i for i in article.get("not_for", {}).get("items", []) if "海外" not in str(i)]}
+            for section in article.get("sections", []):
+                section["paras"] = [p.replace("ベッドサイドにも置ける", "設置場所に合わせて置きやすい可能性がある").replace("公式にも案内", "商品情報で確認できる") for p in section.get("paras", [])]
+            article.update(clean(article))
+            def maxzen_rewrite(v):
+                if isinstance(v, str):
+                    return v.replace("CLOZESTの商品ページ店", "MAXZEN Direct").replace("CLOZESTの商品ページ", "MAXZEN Direct").replace("MAXZEN DirectのMAXZEN Direct", "MAXZEN Direct").replace("楽天市場の個別レビュー", "楽天市場の利用者の声").replace("個別利用者の声", "利用者の声").replace(".", "。")
+                if isinstance(v, list):
+                    return [maxzen_rewrite(x) for x in v]
+                if isinstance(v, dict):
+                    return {k: maxzen_rewrite(x) for k, x in v.items()}
+                return v
+            article.update(maxzen_rewrite(article))
+            for v in article.get("voices", []):
+                if v.get("who") == "楽天市場の個別利用者の声で確認された利用者の声":
+                    v["who"] = "楽天市場の個別レビュー"
+            for section in article.get("sections", []):
+                section["paras"] = [p.replace("CLOZEST", "MAXZEN Direct").replace("商品ページ店", "MAXZEN Direct").replace("商品ページページ", "個別商品ページ").replace("公式にベッドサイドに置ける", "24型のため設置場所を選びやすい") for p in section.get("paras", [])]
         if article.get("slug") == "tp-link-archer-ax3000-ax3000-wi-fi":
             article["thumb"] = "https://static.tp-link.com/upload/image-line/Archer_AX3000-JP-2_large_20230216020744e.jpg"
         article["updated"] = "2026-10-07"

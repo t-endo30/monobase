@@ -3271,6 +3271,21 @@ SOURCE = {
             {"type": "product_page", "url": "https://item.rakuten.co.jp/clozest/10014983/", "title": "楽天市場 O'NEIL OF DUBLIN 10014983 個別商品ページ", "checked_at": "2026-10-07"},
             {"type": "review_page", "url": "https://review.rakuten.co.jp/item/1/252089_10014983/1.1/", "title": "楽天市場 O'NEIL OF DUBLIN 10014983 個別レビュー", "checked_at": "2026-10-07"}
         ]
+    },
+    "maxzen-j24ch06": {
+        "official_url": "https://maxzen.jp/product/j24ch06/",
+        "facts": [
+            "MAXZEN公式の商品情報で、J24CH06が24型の地上・BS・110度CSデジタル対応液晶テレビであることを確認",
+            "MAXZEN公式店の個別商品ページで、Wチューナー、外付けHDD録画、HDMI端子、ゲームモードの構成を確認",
+            "JANコード4571495432677で公式店の個別商品を同定",
+            "個別レビューでは、映像の見やすさや軽さ、カード挿入時の確認に関する声を確認し、設置環境による差と分けて扱う",
+        ],
+        "review_texts": [{"source": "MAXZEN Direct 個別商品レビュー", "text": "個別投稿では、映像がきれい、軽く扱いやすいという内容が確認できます。一方で、カードの向きが分かりにくかったという声もあるため、設置時は付属品と差し込み方向を説明書で確認する商品として整理します。"}],
+        "source_notes": [
+            {"type": "official_product", "url": "https://maxzen.jp/product/j24ch06/", "title": "MAXZEN公式 J24CH06", "checked_at": "2026-10-07"},
+            {"type": "product_page", "url": "https://item.rakuten.co.jp/maxzen/4571495432677/", "title": "MAXZEN Direct J24CH06 個別商品ページ", "checked_at": "2026-10-07"},
+            {"type": "review_page", "url": "https://store.shopping.yahoo.co.jp/maxzen/4571495432677.html", "title": "MAXZEN J24CH06 個別レビュー", "checked_at": "2026-10-07"}
+        ]
     }
 }
 

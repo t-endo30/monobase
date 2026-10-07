@@ -1,0 +1,20 @@
+{
+  "generated": "2026-10-07T00:00:00+09:00",
+  "count": 1,
+  "items": [{
+    "name": "MAXZEN J24CH06 24型 液晶テレビ 4571495432677",
+    "jan": "4571495432677",
+    "category": "av",
+    "sub": "tv",
+    "reviews": 50,
+    "rating": 4.3,
+    "price": 19800,
+    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/maxzen/cabinet/j24ch06.jpg",
+    "images": {"rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/maxzen/cabinet/j24ch06.jpg"},
+    "rakuten_url": "https://item.rakuten.co.jp/maxzen/4571495432677/",
+    "yahoo_url": "https://store.shopping.yahoo.co.jp/maxzen/4571495432677.html",
+    "amazon_url": "",
+    "trending": false,
+    "shops": {"rakuten": {"price": 19800, "shop_name": "MAXZEN Direct 楽天市場店", "postage_included": true, "reviews": 50, "rating": 4.3}}
+  }]
+}
