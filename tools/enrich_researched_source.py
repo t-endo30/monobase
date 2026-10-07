@@ -3661,6 +3661,21 @@ SOURCE = {
             {"type":"review_page","url":"https://review.kakaku.com/review/K0000459594/","title":"価格.com LD-CTT/BU50 個別レビュー","checked_at":"2026-10-07"}
         ]
     }
+    ,"p10-milbon-color-gadget": {
+        "official_url": "https://www.milbon.com/ja/brand/colorgadget/",
+        "facts": [
+            "ミルボン公式でカラーガジェットをカラーサポートブランドとして商品同定し、記事対象はJAN 4954835291705のラベンダーパープル150mLとして確認",
+            "商品情報でカラーシャンプー150mL、ラベンダーパープルを確認。色の仕上がりや褪色は髪の状態・施術履歴・使用方法で変わるため、染毛効果を一律に断定しない",
+            "楽天市場の個別商品ページでカラーガジェット150mLの販売情報を確認",
+            "同一色・同一容量の楽天レビューで、美容師にすすめられて購入し髪色をきれいに保てたという利用者の声を確認",
+        ],
+        "review_texts": [{"source":"楽天市場 ミルボン カラーガジェット ラベンダーパープル150mL 個別レビュー","text":"同一色・同一容量の個別投稿では、美容師にすすめられて購入し、髪色をきれいに保てたという声が確認できます。色の入り方や仕上がりは髪の明るさ・状態・使用量で変わるため、個人の使用感として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.milbon.com/ja/brand/colorgadget/","title":"ミルボン公式 カラーガジェット","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/freefeel/milb4954835291705/","title":"楽天市場 カラーガジェット ラベンダーパープル150mL 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/322367_10006705/1.1/","title":"楽天市場 カラーガジェット ラベンダーパープル150mL 個別レビュー","checked_at":"2026-10-07"}
+        ]
+    }
 }
 
 
