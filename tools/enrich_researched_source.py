@@ -3139,6 +3139,33 @@ SOURCE = {
             "checked_at": "2026-10-07",
         }],
     },
+    "samsung-galaxy-a57-128gb-awesome-navy": {
+        "title": "Samsung Galaxy A57 5G 128GB 利用者の声｜仕様と購入前の確認点",
+        "list_title": "Samsung Galaxy A57 5G 128GB 利用者の声",
+        "official_url": "https://www.samsung.com/jp/smartphones/galaxy-a/galaxy-a57-5g-awesome-navy-128gb-sm-a576qdbasjp/",
+        "product_url": "https://store.shopping.yahoo.co.jp/samsungonline/4986773267283v.html",
+        "facts": [
+            "Samsung Japan公式製品ページでGalaxy A57 5G SIMフリーモデルを確認",
+            "Samsung公式情報で128GBモデル、6.7インチディスプレイ、IPX8/IP6X、防水・防塵、おサイフケータイ対応を確認",
+            "Samsung公式ページの利用者投稿では、動作の軽快さや持ちやすさを評価する声がある一方、128GBとmicroSD非対応を確認材料として挙げる声もある",
+        ],
+        "review_texts": [{"source": "Samsung Japan公式製品ページの利用者投稿", "text": "利用者投稿では、動作が軽快で安定している、従来機種から乗り換えて動作が速く感じる、本体が軽く片手で持ちやすいという声が確認できます。一方、128GBでmicroSDに対応しない点を保存容量の確認事項として挙げる投稿もあります。"}],
+        "source_notes": [{"type":"official_product","url":"https://www.samsung.com/jp/smartphones/galaxy-a/galaxy-a57-5g-awesome-navy-128gb-sm-a576qdbasjp/","title":"Samsung Japan Galaxy A57 5G公式製品ページ","checked_at":"2026-10-07"},{"type":"product_page","url":"https://store.shopping.yahoo.co.jp/samsungonline/4986773267283v.html","title":"Samsung公式ストア Yahoo!ショッピング個別商品ページ","checked_at":"2026-10-07"},{"type":"review_page","url":"https://www.samsung.com/jp/smartphones/galaxy-a/galaxy-a57-5g-awesome-navy-128gb-sm-a576qdbasjp/","title":"Samsung Japan公式ページ内の利用者投稿","checked_at":"2026-10-07"}],
+    },
+    "tp-link-archer-ax3000-ax3000-wi-fi": {
+        "title": "TP-Link Archer AX3000 利用者の声｜Wi-Fi 6ルーターの仕様と確認点",
+        "list_title": "TP-Link Archer AX3000 利用者の声",
+        "official_url": "https://www.tp-link.com/jp/home-networking/wifi-router/archer-ax3000/",
+        "product_url": "https://store.shopping.yahoo.co.jp/tplink/4895252502688/",
+        "facts": [
+            "TP-Link Japan公式製品ページでArcher AX3000を商品同定",
+            "TP-Link公式情報でWi-Fi 6対応、AX3000クラス、2.4GHz 574Mbpsと5GHz 2402Mbpsの案内を確認",
+            "TP-Link公式の設定ガイドとユーザーガイドで、初期設定、SSID・パスワード、管理画面への接続手順を確認",
+            "公式販売ページの利用者評価は通信環境や設置条件で感じ方が変わるため、回線・端末・設置場所を照合して選ぶ",
+        ],
+        "review_texts": [{"source": "TP-Link公式ダイレクト Yahoo!ショッピング個別商品ページ", "text": "個別商品ページでは、Wi-Fi 6対応とAX3000規格の案内、TP-Link公式ダイレクトでの販売情報を確認できます。実際の通信速度や安定性は回線、端末、設置場所で変わるため、利用環境と対応規格を照合する材料として扱います。"}],
+        "source_notes": [{"type":"official_product","url":"https://www.tp-link.com/jp/home-networking/wifi-router/archer-ax3000/","title":"TP-Link Japan Archer AX3000公式製品ページ","checked_at":"2026-10-07"},{"type":"product_page","url":"https://store.shopping.yahoo.co.jp/tplink/4895252502688/","title":"TP-Link公式ダイレクト Yahoo!ショッピング個別商品ページ","checked_at":"2026-10-07"},{"type":"review_page","url":"https://store.shopping.yahoo.co.jp/tplink/4895252502688/","title":"TP-Link公式ダイレクト商品ページの利用者評価","checked_at":"2026-10-07"}],
+    },
     "coolify": {
         "title": "Dark Angel coolify とろみ冷感ワイドパンツ 利用者の声｜丈・生地感と選び方",
         "list_title": "Dark Angel coolify とろみ冷感ワイドパンツ 利用者の声",

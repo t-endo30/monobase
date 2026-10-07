@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "name": "Samsung Galaxy A57 5G 128GB Awesome Navy SIMフリー SM-A576QDBASJP",
+      "jan": "4986773267283",
+      "category": "smartphone",
+      "sub": "body",
+      "reviews": 41,
+      "rating": 4.76,
+      "images": {"yahoo": "https://item-shopping.c.yimg.jp/i/g/samsungonline_4986773267283v"},
+      "rakuten_url": "https://item.rakuten.co.jp/123market/s2d004a/",
+      "yahoo_url": "https://store.shopping.yahoo.co.jp/samsungonline/4986773267283v.html",
+      "shops": {"yahoo": {"price": 79800, "shop_name": "Samsung公式ストア", "reviews": 41, "rating": 4.76}}
+    },
+    {
+      "name": "TP-Link Archer AX3000 AX3000 Wi-Fi 6ルーター 4895252502688",
+      "jan": "4895252502688",
+      "category": "pc",
+      "sub": "network",
+      "reviews": 100,
+      "rating": 4.5,
+      "images": {},
+      "rakuten_url": "https://item.rakuten.co.jp/tplinkdirect/4895252502688/",
+      "yahoo_url": "https://store.shopping.yahoo.co.jp/tplink/4895252502688/",
+      "shops": {"yahoo": {"price": 0, "shop_name": "TP-Link公式ダイレクト", "reviews": 100, "rating": 4.5}}
+    }
+  ]
+}

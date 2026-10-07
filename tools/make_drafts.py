@@ -331,7 +331,10 @@ def main():
     # の delete_article が書き出す）は選び直さない。破棄された記事は
     # articles.json から消えているので、上のチェックだけでは弾けない。
     rejected_path = os.path.join(ROOT, "content", "candidates.rejected.json")
-    if os.path.exists(rejected_path):
+    # 明示的に渡した調査済み候補（--from）は、通常の候補収集で過去に
+    # 破棄された同一商品でも再検証できるよう、rejected の履歴を適用しない。
+    # 通常の candidates.json では従来どおり再選定を抑止する。
+    if os.path.exists(rejected_path) and args.src == "content/candidates.json":
         for r in json.load(io.open(rejected_path, encoding="utf-8")):
             if r.get("jan"):
                 seen_jan.add(str(r["jan"]))
