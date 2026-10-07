@@ -3707,6 +3707,36 @@ SOURCE = {
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/200195_10042289/1.1/","title":"楽天市場 グリニーズプラス カロリーケア超小型犬用2-7kg 個別レビュー","checked_at":"2026-10-07"}
         ]
     }
+    ,"usb2-u2c-e10bk": {
+        "official_url": "https://www.elecom.co.jp/products/U2C-E10BK.html",
+        "facts": [
+            "エレコム公式でU2C-E10BKを商品同定し、USB2.0対応のA-A延長ケーブル、長さ1m、ブラックであることを確認",
+            "公式情報でUSB Aタイプを持つパソコン・USBハブ・周辺機器が対応機器であること、USB2.0規格とパッシブ仕様を確認",
+            "楽天市場の個別商品ページでU2C-E10BKの5本セットを確認し、単品仕様とセット数量を分けて扱う",
+            "価格.comとビックカメラの同一型番レビューで、机上までUSB機器を延長できたという具体的な利用者の声を確認。接続機器や環境に依存する感想として扱う",
+        ],
+        "review_texts": [{"source":"価格.com・ビックカメラ U2C-E10BK 個別レビュー","text":"同一型番の個別投稿では、PC背面のUSB端子からBluetoothアダプターなどを机上まで延長して使えたという声が確認できます。接続機器やUSBポートの状態によって結果が変わるため、個別環境に基づく声として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.elecom.co.jp/products/U2C-E10BK.html","title":"エレコム公式 U2C-E10BK","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/elmon0/qr9262147/","title":"楽天市場 U2C-E10BK 5本セット個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.kakaku.com/review/K0000101603/","title":"価格.com U2C-E10BK 個別レビュー","checked_at":"2026-10-07"}
+        ]
+    }
+    ,"transcend-hdd-2tb-ps5-ps4-usb3": {
+        "official_url": "https://transcend-info.com/support/product/external-hard-drive/storejet-25h3",
+        "facts": [
+            "Transcend公式サポートでTS2TSJ25H3Bを商品同定し、StoreJet 25H3シリーズの2TBモデルであることを確認",
+            "公式製品情報でUSB 3.0/USB 2.0対応、Transcend EliteやRecoveRxなどの対応ソフトを確認し、PS5利用は本体側の対応条件と分けて扱う",
+            "楽天市場の個別商品ページでTS2TSJ25H3Bを確認",
+            "価格.comの同一型番レビューで、常時外付け・写真や動画の保存・読み書きの使用感を確認。個別のPC環境に基づく利用者の声として扱う",
+        ],
+        "review_texts": [{"source":"価格.com Transcend StoreJet 25H3 TS2TSJ25H3B 個別レビュー","text":"同一型番の個別投稿では、ノートPCに常時接続して写真や動画の保存に使い、読み書きに大きな不満なく利用しているという声が確認できます。転送速度や耐久性は使用環境・個体差に左右されるため、個別の使用感として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://transcend-info.com/support/product/external-hard-drive/storejet-25h3","title":"Transcend公式 StoreJet 25H3サポート","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/skymarketplus/b00je8g88m/","title":"楽天市場 TS2TSJ25H3B 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.kakaku.com/review/K0000645481/","title":"価格.com TS2TSJ25H3B 個別レビュー","checked_at":"2026-10-07"}
+        ]
+    }
     ,"startech-com-usb-c-dk30ch2dep": {
         "official_url": "https://www.startech.com/en-ca/universal-laptop-docking-stations/dk30ch2dep",
         "facts": [
