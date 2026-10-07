@@ -3327,6 +3327,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/bostonclub/msb09012-camera/","title":"楽天市場 MOUTH BUCKET MOUTH4 MSB24101 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.rakuten.co.jp/review/item/1/216844_10006672/1.1/","title":"楽天市場 MOUTH BUCKET MOUTH4 MSB24101 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "ih-ih-ih-ihc-sg221-ih-ih": {
+        "official_url": "https://www.irisohyama.co.jp/products/support/4905009992348",
+        "facts": [
+            "アイリスオーヤマ公式サポートで、2口IHクッキングヒーター（据置タイプ）IHC-SG221を商品同定",
+            "公式商品情報で、据置タイプ、200V電源、コード長約0.7m、2極接地極付き250V20Aプラグの案内を確認",
+            "楽天市場の個別商品ページでIHC-SG221を確認",
+            "楽天市場の個別レビューでは、据置型200VのIHとして導入した、グリルのファン音は気にならないという声のほか、電源条件や天板の跡を確認点とする投稿を確認",
+        ],
+        "review_texts": [{"source":"楽天市場 IHC-SG221 個別レビュー","text":"個別投稿では、据置型200VのIHとして価格面を含めて導入した、ファンの空気音は気にならないという声を確認しました。一方で、購入前の電源条件や、使用後の天板の跡に触れる投稿もあるため、200V電源の有無と設置面の扱いを確認します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.irisohyama.co.jp/products/support/4905009992348","title":"アイリスオーヤマ公式 IHC-SG221 商品サポート","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/k-home/561392/","title":"楽天市場 IHC-SG221 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/review/review/review/item/1/294157_10018184/1.1/","title":"楽天市場 IHC-SG221 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
