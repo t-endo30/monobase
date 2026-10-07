@@ -1910,6 +1910,23 @@ SOURCE = {
             {"type":"review_page","url":"https://review.rakuten.co.jp/review/review/item/1/361767_10001019/1.1/","title":"楽天市場 PD-829WS-U75CV 個別レビュー","checked_at":"2026-10-07"}
         ]
     }
+    ,"fz-w45hf-fz-w45hf-kc-450y3-kc-45y2-kc-w45-kc-w45y": {
+        "official_url": "https://cocorostore.jp.sharp/fz-w45hf.html",
+        "facts": [
+            "シャープ公式オンラインストアでFZ-W45HFを商品同定し、KC-W45/KC-W45Y系空気清浄機に対応する集じんフィルターとして確認",
+            "シャープ公式取扱説明書でFZ-W45HFを集じんフィルター（制菌HEPAフィルター）として確認し、交換目安は約10年に1回と記載されている。これは1日5本相当の粉じんを前提にした目安で、1日10本相当では約5年の目安とされ、使用環境で短くなる場合がある",
+            "同説明書に空気清浄適用床面積の基準として日本電機工業会規格JEM1467が記載されているが、対象記事ではフィルター交換の説明に必要な範囲だけを扱う",
+            "楽天市場の個別商品ページでFZ-W45HFの販売情報を確認。互換品と純正品を混同せず、購入前に商品説明を確認する",
+            "同一型番の楽天レビューで、交換時期を迎えたため純正品を選び、交換後に空気がきれいになったように感じたという利用者の声を確認",
+        ],
+        "review_texts": [{"source":"楽天市場 シャープ FZ-W45HF 個別レビュー","text":"同一型番の個別投稿では、十年交換不要と思っていたが交換時期に気づき、格安互換品ではなく純正品を選んだ、交換後に空気がきれいになったように感じるという声が確認できます。交換時期や体感は使用環境によるため、公式の対象機種・交換案内と個人の感想を分けて扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://cocorostore.jp.sharp/fz-w45hf.html","title":"シャープ公式 FZ-W45HF","checked_at":"2026-10-07"},
+            {"type":"official_manual","url":"https://jp.sharp/support/air_purifier/doc/kcw45y_mn.pdf","title":"シャープ公式 KC-W45Y系取扱説明書","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/bestar/fz-w45hf-aaa/","title":"楽天市場 FZ-W45HF 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/357621_10168370/1.1/","title":"楽天市場 シャープ FZ-W45HF 個別レビュー","checked_at":"2026-10-07"}
+        ]
+    }
     ,"anua-pdrn-100-50ml": {
         "official_url": "https://anuashop.jp/products/side0011",
         "facts": [
