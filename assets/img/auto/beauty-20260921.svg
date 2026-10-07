@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-label="リマナチュラル ボリュームアップシャンプー詰替 利用者の声">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A8476A"/>
+      <stop offset="100%" stop-color="#7A2E4A"/>
+    </linearGradient>
+    <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="18" cy="18" r="2.2" fill="#FFFFFF" fill-opacity=".07"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="1200" fill="url(#bg)"/>
+  <rect width="1200" height="1200" fill="url(#dots)"/>
+  <circle cx="1080" cy="140" r="330" fill="#FFFFFF" fill-opacity=".06"/>
+  <circle cx="1080" cy="140" r="200" fill="#FFFFFF" fill-opacity=".05"/>
+  <circle cx="90" cy="1130" r="260" fill="#FFFFFF" fill-opacity=".05"/>
+  <rect x="100" y="385" width="260" height="76" rx="38" fill="#FFFFFF"/>
+  <text x="230" y="440" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="50" font-weight="800" fill="#7A2E4A">レビュー</text>
+  <text x="386.0" y="440" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="48" font-weight="600" fill="#FFFFFF" fill-opacity=".82">ヘアケア</text>
+  <text x="100" y="562" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="67" font-weight="800" fill="#FFFFFF" letter-spacing="-1.3">リマナチュラル</text>
+  <text x="100" y="644" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="67" font-weight="800" fill="#FFFFFF" letter-spacing="-1.3">ボリュームアップシャンプー詰替</text>
+  <text x="100" y="725" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="67" font-weight="800" fill="#FFFFFF" letter-spacing="-1.3">利用者の声</text>
+  <rect x="100" y="848" width="120" height="8" rx="4" fill="#FFD36B"/>
+  <text x="1100" y="866" text-anchor="end" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="34" font-weight="700" letter-spacing="8" fill="#FFFFFF" fill-opacity=".6">MONOBASE</text>
+</svg>

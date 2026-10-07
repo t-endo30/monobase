@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-label="山善 YLT-AG30Eの仕様と購入前の確認点">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#23708F"/>
+      <stop offset="100%" stop-color="#164B63"/>
+    </linearGradient>
+    <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="18" cy="18" r="2.2" fill="#FFFFFF" fill-opacity=".07"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="1200" fill="url(#bg)"/>
+  <rect width="1200" height="1200" fill="url(#dots)"/>
+  <circle cx="1080" cy="140" r="330" fill="#FFFFFF" fill-opacity=".06"/>
+  <circle cx="1080" cy="140" r="200" fill="#FFFFFF" fill-opacity=".05"/>
+  <circle cx="90" cy="1130" r="260" fill="#FFFFFF" fill-opacity=".05"/>
+  <rect x="100" y="385" width="260" height="76" rx="38" fill="#FFFFFF"/>
+  <text x="230" y="440" text-anchor="middle" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="50" font-weight="800" fill="#164B63">レビュー</text>
+  <text x="386.0" y="440" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="48" font-weight="600" fill="#FFFFFF" fill-opacity=".82">空調・季節家電</text>
+  <text x="100" y="593" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="100" font-weight="800" fill="#FFFFFF" letter-spacing="-2.0">山善 YLT-AG30Eの</text>
+  <text x="100" y="715" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="100" font-weight="800" fill="#FFFFFF" letter-spacing="-2.0">仕様と購入前の確認点</text>
+  <rect x="100" y="848" width="120" height="8" rx="4" fill="#FFD36B"/>
+  <text x="1100" y="866" text-anchor="end" font-family="&quot;Hiragino Sans&quot;, &quot;Hiragino Kaku Gothic ProN&quot;, &quot;Noto Sans JP&quot;, &quot;Yu Gothic&quot;, &quot;Meiryo&quot;, sans-serif" font-size="34" font-weight="700" letter-spacing="8" fill="#FFFFFF" fill-opacity=".6">MONOBASE</text>
+</svg>

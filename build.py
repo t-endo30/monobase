@@ -381,7 +381,10 @@ def shop_thumb(a):
     verified = a.get("shop_images_verified") or {}
     for shop in SHOP_THUMB_ORDER:
         url = str(imgs.get(shop) or "").strip()
-        if url.startswith("http") and verified.get(shop) is not False:
+        # 取得時点で画像応答を確認したURLだけを公開HTMLに出す。
+        # 旧データには検証記録のないURLが残っており、モール側で失効すると
+        # ブラウザ上で壊れた画像になるため、未検証は採用しない。
+        if url.startswith("http") and verified.get(shop) is True:
             return shop_image_size(url, shop), shop
     return "", ""
 
@@ -2576,6 +2579,10 @@ def shop_image(a):
     for shop in ("rakuten", "yahoo"):
         url = str(imgs.get(shop) or "").strip()
         if not url.startswith("http") or shop not in links:
+            continue
+        # 本文の商品カードも一覧と同じく、取得時に画像応答を確認した
+        # URLだけを使用する。Amazon導線の保持とは独立した画像表示の安全策。
+        if (a.get("shop_images_verified") or {}).get(shop) is not True:
             continue
         return shop_image_size(url, shop), links[shop], shop
     return "", "", ""
