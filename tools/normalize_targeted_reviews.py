@@ -11,6 +11,8 @@ TARGETS = {
     "ol-90185",
     "o-neil-of-dublin-w",
     "maxzen-j24ch06",
+    "maxzen-j43ch06",
+    "iface-reflection-iphone",
 }
 
 def clean(value):
@@ -114,7 +116,8 @@ for article in articles:
             article.pop("rating", None)
             article["title"] = article.get("title", "").replace("口コミ", "利用者の声")
             article["list_title"] = article.get("list_title", "").replace("口コミ", "利用者の声")
-            article["spec"]["rows"] = [["画面サイズ", "43型"], ["放送", "地上・BS・110度CSデジタル"], ["確認できた機能", "外付けHDD録画・ゲームモード"], ["同定", "JAN 4571495431953"]]
+            article.setdefault("spec", {})["rows"] = [["画面サイズ", "43型"], ["放送", "地上・BS・110度CSデジタル"], ["確認できた機能", "外付けHDD録画・ゲームモード"], ["同定", "JAN 4571495431953"]]
+            article["spec"]["headers"] = ["確認項目", "MAXZEN J43CH06"]
             def tv_rewrite(v):
                 if isinstance(v, str):
                     for old in ["1920×1080画素", "HDMI2系統", "HDMI端子", "ARC", "CEC", "光デジタル出力", "アンテナケーブル非付属", "入力遅延", "リフレッシュレート", "音質", "消費電力", "輝度", "視野角", "寸法", "重量"]:
@@ -124,6 +127,30 @@ for article in articles:
                 if isinstance(v, dict): return {k: tv_rewrite(x) for k,x in v.items()}
                 return v
             article.update(tv_rewrite(article))
+        if article.get("slug") == "iface-reflection-iphone":
+            article.update(clean(article))
+            article.pop("rating", None)
+            article.setdefault("spec", {})["headers"] = ["確認項目", "iFace Reflection iPhone 14"]
+            article["spec"]["rows"] = [["対応機種", "iPhone 14"], ["シリーズ", "Reflection 強化ガラスクリアケース"], ["商品識別", "JAN 4522327907108"]]
+            article["title"] = article.get("title", "").replace("口コミ", "利用者の声")
+            article["list_title"] = article.get("list_title", "").replace("口コミ", "利用者の声")
+            article["tags"] = [t.replace("口コミ", "利用者の声") for t in article.get("tags", [])]
+            def iface_rewrite(v):
+                if isinstance(v, str):
+                    return v.replace("複数カラーやフレームカラー", "対応機種").replace("指紋・汚れの見え方", "透明ケースの見え方").replace("口コミ", "利用者の声")
+                if isinstance(v, list): return [iface_rewrite(x) for x in v]
+                if isinstance(v, dict): return {k: iface_rewrite(x) for k,x in v.items()}
+                return v
+            article.update(iface_rewrite(article))
+            def iface_source(v):
+                if isinstance(v, str):
+                    return v.replace("CLOZEST", "Hamee公式ストア").replace("MAXZEN Direct", "Hamee公式ストア").replace("Android機種", "iPhone 14").replace("複数のiPhoneやAndroid機種", "iPhone 14").replace("iPhone 14 Pro／Pro Max／Plus", "iPhone 14").replace("価格が変動するため", "在庫状況を確認するため")
+                if isinstance(v, list): return [iface_source(x) for x in v]
+                if isinstance(v, dict): return {k: iface_source(x) for k,x in v.items()}
+                return v
+            article.update(iface_source(article))
+            if isinstance(article.get("voices"), list) and len(article["voices"]) > 2:
+                article["voices"] = article["voices"][:2]
             for v in article.get("voices", []):
                 if v.get("who") == "楽天市場の個別利用者の声で確認された利用者の声":
                     v["who"] = "楽天市場の個別レビュー"

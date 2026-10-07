@@ -3278,6 +3278,12 @@ SOURCE = {
         "review_texts": [{"source":"MAXZEN J43CH06 個別レビュー","text":"個別投稿では、画面が大きく見やすい、価格とのバランスを評価する内容が確認できます。設置スペースや視聴距離による印象の違いは個別の使用条件として扱います。"}],
         "source_notes": [{"type":"official_product","url":"https://maxzen.jp/product/j43ch06/","title":"MAXZEN公式 J43CH06","checked_at":"2026-10-07"},{"type":"product_page","url":"https://item.rakuten.co.jp/a-price/4571495431953/","title":"J43CH06 個別商品ページ","checked_at":"2026-10-07"},{"type":"review_page","url":"https://store.shopping.yahoo.co.jp/aprice/4571495431953.html","title":"J43CH06 利用者の声","checked_at":"2026-10-07"}]
     },
+    "iface-reflection-iphone": {
+        "official_url": "https://jp.iface.com/products/case-reflection?id=41-195509",
+        "facts": ["iFace公式商品ページでReflection強化ガラスクリアケースのシリーズとiPhone 14対応を確認", "公式案内で対応機種を選択できる商品構成を確認", "Hamee公式ストアの個別商品ページで商品コード41-907とJAN4522327907108を確認", "利用者の声では、透明感や装着感に関する内容を扱い、機種・カラーごとの違いと分けて整理"],
+        "review_texts": [{"source":"Hamee公式ストア 個別商品レビュー","text":"個別投稿では、ケースの透明感や装着時の使いやすさに関する内容が確認できます。使用感は端末の機種、カラー、持ち方による個別の感想として扱います。"}],
+        "source_notes": [{"type":"official_product","url":"https://jp.iface.com/products/case-reflection?id=41-195509","title":"iFace公式 Reflection強化ガラスクリアケース","checked_at":"2026-10-07"},{"type":"product_page","url":"https://store.shopping.yahoo.co.jp/keitai/41-907.html","title":"Hamee公式ストア 個別商品ページ","checked_at":"2026-10-07"},{"type":"review_page","url":"https://store.shopping.yahoo.co.jp/keitai/41-907.html","title":"Hamee公式ストア 利用者の声","checked_at":"2026-10-07"}]
+    },
     "maxzen-j24ch06": {
         "official_url": "https://maxzen.jp/product/j24ch06/",
         "facts": [
