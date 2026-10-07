@@ -3310,6 +3310,23 @@ SOURCE = {
         "facts": ["シロカ公式の商品情報で、食器洗い乾燥機の4〜5人用・食器36点・水道工事不要の案内を確認", "楽天市場の個別商品ページでSS-MA351-WHとJAN4589919826841を確認", "個別レビューでは、自動給水の配置や乾燥の仕上がり、家事負担の軽減に関する声を確認", "設置場所や食器の形状で使い勝手が変わるため、公式仕様と利用者の声を分けて扱う"],
         "review_texts": [{"source":"楽天市場 SS-MA351-WH 個別レビュー","text":"個別投稿では、自動給水が楽、家事負担が減ったという声がある一方、配置や乾燥の仕上がりに関する確認点も見られます。設置場所と食器の形状による個別の感想として扱います。"}],
         "source_notes": [{"type":"official_product","url":"https://www.siroca.co.jp/product/dishwasher_largecapacity_ss-mh351/","title":"シロカ公式 食器洗い乾燥機","checked_at":"2026-10-07"},{"type":"product_page","url":"https://item.rakuten.co.jp/ec-current/4589919826841/","title":"SS-MA351-WH 個別商品ページ","checked_at":"2026-10-07"},{"type":"review_page","url":"https://review.rakuten.co.jp/item/1/193345_12714070/1.1/","title":"SS-MA351-WH 個別レビュー","checked_at":"2026-10-07"}]
+    },
+    "mouth-bucket-mouth4-msb24101": {
+        "official_url": "https://shop.mouth-jp.com/i/msb24101-blk",
+        "official_ogp_image": "https://shop.mouth-jp.com/img/product/MSB24101/msb24101-blk.jpg",
+        "official_ogp_title": "MOUTH BUCKET MOUTH 4 MSB24101",
+        "facts": [
+            "MOUTH公式商品ページでBUCKET MOUTH 4（MSB24101）の商品同定と、高密度ナイロン、取り外し式クッションインナー、マグネット・ベルクロ併用の留め具を確認",
+            "公式仕様でバッグ外寸、ショルダー長さ、重量、対応機材の目安を確認し、色違いは個別商品ページで選択する構成と整理",
+            "楽天市場の個別商品ページでMSB24101の販売情報を確認",
+            "楽天市場の個別レビューでは、EOS Kiss X7やD7200とレンズを収納できた、街歩き用としてデザインと機能性を評価する声を確認",
+        ],
+        "review_texts": [{"source":"楽天市場 MOUTH BUCKET MOUTH4 MSB24101 個別レビュー","text":"個別投稿では、EOS Kiss X7が余裕で入った、D7200にレンズを装着した状態で収納できた、カジュアルな服装で街中に持ち歩くバッグとしてデザインと機能性がよいという声を確認しました。機材の大きさやレンズ構成によって収納可否は変わるため、使用機材の外寸と公式サイズを照合します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://shop.mouth-jp.com/i/msb24101-blk","title":"MOUTH公式 BUCKET MOUTH 4 MSB24101","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/bostonclub/msb09012-camera/","title":"楽天市場 MOUTH BUCKET MOUTH4 MSB24101 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/review/item/1/216844_10006672/1.1/","title":"楽天市場 MOUTH BUCKET MOUTH4 MSB24101 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
