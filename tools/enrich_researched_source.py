@@ -3707,6 +3707,37 @@ SOURCE = {
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/200195_10042289/1.1/","title":"楽天市場 グリニーズプラス カロリーケア超小型犬用2-7kg 個別レビュー","checked_at":"2026-10-07"}
         ]
     }
+    ,"endgame-gear-em-c-x-x-egg-emc-500-blk": {
+        "official_url": "https://endgamegear.com/en-us/mousepads/em-c",
+        "facts": [
+            "Endgame Gear公式でEM-Cシリーズのマウスパッドを商品同定し、EM-C Plusの500×500mmサイズを確認",
+            "公式情報でEM-C系マウスパッドの表面と操作感に関する案内を確認し、個別モデルの仕様とシリーズ説明を分けて扱う",
+            "楽天市場の個別商品ページでEGG-EMC-500-BLKを確認",
+            "同一モデルの利用者レビューでは、サイズや滑走感、コントロール性に関する具体的な評価が確認できるため、使用環境に依存する感想として扱う",
+        ],
+        "review_texts": [{"source":"Reddit r/MouseReview Endgame Gear EM-C Plus 個別レビュー","text":"同一モデルの個別レビューでは、500×500mmのサイズと、速すぎず遅すぎない操作感を評価する内容が確認できます。マウスやゲーム、机の環境によって感じ方が変わるため、個別の使用感として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://endgamegear.com/en-us/mousepads/em-c","title":"Endgame Gear公式 EM-Cシリーズ","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/myr2026/gr-e9rp0gv3hz/","title":"楽天市場 EGG-EMC-500-BLK 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://www.reddit.com/r/MouseReview/comments/16421ma/endgame_gear_emc_review_after_1_month_the_perfect/","title":"Reddit Endgame Gear EM-C Plus 個別レビュー","checked_at":"2026-10-07"}
+        ]
+    }
+    ,"hdl2-le04-e-5gbe-hdd-4tb-nas": {
+        "official_url": "https://www.iodata.jp/product/nas/personal/hdl2-le/index.htm",
+        "facts": [
+            "アイ・オー・データ公式でHDL2-LE04を商品同定し、4TB・2ドライブ・2.5GbE対応の個人向けNASであることを確認",
+            "公式仕様でHDL2-LE04の容量構成、インターフェース、重量、対応機能を確認し、シリーズ共通仕様と個別型番を分けて扱う",
+            "楽天市場の個別商品ページでHDL2-LE04を確認し、レビューは同一型番の価格.com投稿から具体的な使用環境と評価を確認",
+            "利用者投稿では転送速度や設定、家庭内共有に関する評価と注意点が示されているため、ネットワーク環境に依存する感想として扱う",
+        ],
+        "review_texts": [{"source":"価格.com I-O DATA HDL2-LE04 個別レビュー","text":"同一型番の個別レビューでは、家庭内のデータ共有や転送速度に関する評価が確認できます。一方で、ネットワーク機器や設定によって速度・使い勝手が変わるため、利用環境に基づく声として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.iodata.jp/product/nas/personal/hdl2-le/index.htm","title":"アイ・オー・データ公式 HDL2-LEシリーズ","checked_at":"2026-10-07"},
+            {"type":"official_product","url":"https://www.iodata.jp/product/nas/personal/hdl2-le/spec.htm?lsrc=emanu","title":"アイ・オー・データ公式 HDL2-LE仕様","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/pc-express/4957180173399/","title":"楽天市場 HDL2-LE04 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.kakaku.com/review/K0001658077/","title":"価格.com HDL2-LE04 個別レビュー","checked_at":"2026-10-07"}
+        ]
+    }
     ,"beauty-20260911-2": {
         "official_url": "https://www.lesthemo.jp/collections/%E3%82%AA%E3%83%BC%E3%83%AB%E3%82%A4%E3%83%B3%E3%83%AF%E3%83%B3%E3%82%B2%E3%83%AB",
         "facts": [
