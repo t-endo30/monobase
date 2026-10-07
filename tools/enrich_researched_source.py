@@ -3241,6 +3241,21 @@ SOURCE = {
             {"type": "product_page", "url": "https://item.rakuten.co.jp/luminous-club/ol-90185/", "title": "ルミナスクラブ OL-90185 個別商品ページ", "checked_at": "2026-10-07"},
             {"type": "review_page", "url": "https://item.rakuten.co.jp/luminous-club/ol-90185/", "title": "ルミナスクラブ OL-90185 利用者の声", "checked_at": "2026-10-07"}
         ]
+    },
+    "buffalo-wsr-3000ax4p-wi-fi-lan": {
+        "official_url": "https://www.buffalo.jp/product/detail/wsr-3000ax4p_dbk.html",
+        "facts": [
+            "バッファロー公式商品ページで、WSR-3000AX4PがWi-Fi 6対応の無線LANルーターであることを確認",
+            "公式仕様で、利用環境に応じた無線LAN接続とEasyMesh対応の案内を確認",
+            "楽天市場の個別商品ページで、WSR-3000AX4Pの型番と販売構成を確認",
+            "個別レビューでは、接続設定のしやすさや家庭内の通信改善に関する声が確認できる一方、回線・住環境による差と分けて扱う",
+        ],
+        "review_texts": [{"source": "楽天市場 WSR-3000AX4P 個別レビュー", "text": "個別投稿では、設定後に家庭内で使いやすくなった、既存機器との組み合わせで通信環境を整えられたという内容が確認できます。通信速度や安定性は回線契約、設置場所、接続端末による個別の感想として扱います。"}],
+        "source_notes": [
+            {"type": "official_product", "url": "https://www.buffalo.jp/product/detail/wsr-3000ax4p_dbk.html", "title": "バッファロー公式 WSR-3000AX4P/DBK", "checked_at": "2026-10-07"},
+            {"type": "product_page", "url": "https://item.rakuten.co.jp/justrich/1246-001780/", "title": "楽天市場 WSR-3000AX4P 個別商品ページ", "checked_at": "2026-10-07"},
+            {"type": "review_page", "url": "https://item.rakuten.co.jp/justrich/1246-001780/", "title": "楽天市場 WSR-3000AX4P 利用者の声", "checked_at": "2026-10-07"}
+        ]
     }
 }
 

@@ -1,0 +1,19 @@
+{
+  "generated": "2026-10-07T00:00:00+09:00",
+  "count": 1,
+  "items": [{
+    "name": "BUFFALO WSR-3000AX4P Wi-Fi 6 無線LANルーター",
+    "category": "pc",
+    "sub": "network",
+    "reviews": 3673,
+    "rating": 4.62,
+    "price": 6900,
+    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/justrich/cabinet/09412118/top.jpg",
+    "images": {"rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/justrich/cabinet/09412118/top.jpg"},
+    "rakuten_url": "https://item.rakuten.co.jp/justrich/1246-001780/",
+    "yahoo_url": "",
+    "amazon_url": "",
+    "trending": true,
+    "shops": {"rakuten": {"price": 6900, "shop_name": "Colulu - コルル", "postage_included": true, "reviews": 3673, "rating": 4.62}}
+  }]
+}
