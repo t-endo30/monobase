@@ -3538,6 +3538,22 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/kamekenken/wat2410/","title":"楽天市場 W/R-1200W 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/253046_10028962/1.1/","title":"楽天市場 W/R-1200 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "vt-cica-mild-toner-pad": {
+        "official_url": "https://vtcosmetics.jp/product/cica-%E3%83%9E%E3%82%A4%E3%83%AB%E3%83%89%E3%83%88%E3%83%8A%E3%83%BC%E3%83%91%E3%83%83%E3%83%8960%E6%9E%9A%E5%85%A5%E3%82%8A/1077/",
+        "facts": [
+            "VT COSMETICS JAPAN公式商品ページでCICA マイルドトナーパッド（60枚入り）を商品同定し、内容量130ml・60枚入り、化粧水区分、使用期限、成分表示と使用上の注意を確認",
+            "公式成分表示に水、グリセリン、BG、サリチル酸、ツボクサエキス、ヒアルロン酸Naなどが記載されていること、開封前36か月・開封後6か月の使用期限表示を確認",
+            "楽天市場の個別商品ページでVT CICAマイルドトナーパッド（60枚入）を確認",
+            "楽天市場の同一商品の個別レビューで、敏感肌でも刺激を感じなかった、朝の洗顔代わりに使いやすいという声と、ピリつきを感じたという投稿を確認",
+            "利用者の体感は個人差があるため、肌状態や成分表示を確認し、化粧品の効能を断定しない構成にする",
+        ],
+        "review_texts": [{"source":"楽天市場 VT CICAマイルドトナーパッド 個別レビュー","text":"同一商品の個別投稿では、朝の洗顔代わりに使いやすい、敏感肌でも刺激を感じなかったという声が確認できます。一方で、ピリつきを感じたという投稿もあるため、肌状態や成分表示を確認し、使用感には個人差がある前提で選びます。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://vtcosmetics.jp/product/cica-%E3%83%9E%E3%82%A4%E3%83%AB%E3%83%89%E3%83%88%E3%83%8A%E3%83%BC%E3%83%91%E3%83%83%E3%83%8960%E6%9E%9A%E5%85%A5%E3%82%8A/1077/","title":"VT公式 CICAマイルドトナーパッド","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/skindesign/vt-cicapad-03/","title":"楽天市場 VT CICAマイルドトナーパッド 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/261122_11053580/1.1/","title":"楽天市場 VT CICAマイルドトナーパッド 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 

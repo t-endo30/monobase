@@ -947,6 +947,17 @@ def apply_generated(a, gen, keep_updated=False):
         if v not in (None, "", [], {}):
             a[k] = v
 
+    # 個別商品記事の根拠ゲートでサムネイルを必須にするため、生成JSONが
+    # thumbを空で返しても、取得済みの楽天/Yahoo画像を明示的に引き継ぐ。
+    # 画像の到達性は収集時に検証済みで、未検証URLはfetch側で保存しない。
+    if not a.get("thumb") and a.get("category") != "feature":
+        imgs = a.get("shop_images") or {}
+        for shop in ("rakuten", "yahoo"):
+            url = str(imgs.get(shop) or "").strip()
+            if url.startswith("http"):
+                a["thumb"] = url
+                break
+
     # 書き直しでは、上書きだけでは足りない。
     # 生成AIが rating と spec を「根拠が無いので出さない」と判断して省いても、
     # 上書きしかしないと前の版の値が残り、根拠のない点数と比較表が生き続ける。
