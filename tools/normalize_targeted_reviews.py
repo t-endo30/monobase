@@ -7,6 +7,7 @@ TARGETS = {
     "samsung-galaxy-a57-128gb-awesome-navy",
     "tp-link-archer-ax3000-ax3000-wi-fi",
     "200-dgcam016",
+    "pc-20260914",
 }
 
 def clean(value):
@@ -29,6 +30,7 @@ def clean(value):
         value = value.replace("利用者評価はで平均", "利用者の声では平均")
         value = value.replace("Yahoo!ショッピングはで", "Yahoo!ショッピングで")
         value = value.replace("機材重量や撮影環境による扱いやすさの違いは、根拠データ上では利用者の声そのものではなく、利用者の声と仕様を照合した編集部の整理です。", "機材重量や撮影環境による扱いやすさの違いは、利用者の声と仕様を照合した編集部の整理です。")
+        value = value.replace("口コミ", "利用者の声")
         return value
     if isinstance(value, list):
         return [clean(v) for v in value]
@@ -49,6 +51,18 @@ for article in articles:
                 "収納時の具体的な寸法や重量は今回の確認範囲に含めていない",
                 "長時間同じ構図を固定する目的では三脚が適している",
             ]
+        if article.get("slug") == "pc-20260914":
+            article["cons"] = [
+                "利用するOSによって対応機能が異なる",
+                "契約終了後の更新条件は購入時の条件と分けて確認が必要",
+                "一部の利用者の声では更新やインストール時にサポートが必要だった",
+                "1台だけを短期間使う人には3台・3年の構成が合わない可能性がある",
+            ]
+            if isinstance(article.get("voices"), list):
+                article["voices"] = [v for v in article["voices"] if "編集部分析" not in str(v.get("who", ""))]
+            for section in article.get("sections", []):
+                section["paras"] = [p.replace("ネット詐欺対策、プライバシー保護、保護者による使用制限、ファイアウォール強化、パソコン・スマホ最適化", "OSごとに対応状況が異なる機能") for p in section.get("paras", [])]
+            article["good_for"]["items"][2] = {"title": "対応OSと必要な機能を確認したい人", "text": "公式の対応OS・機能一覧を見て、自分の端末で必要な機能が案内されているか確認したい人に向きます。"}
         if article.get("slug") == "tp-link-archer-ax3000-ax3000-wi-fi":
             article["thumb"] = "https://static.tp-link.com/upload/image-line/Archer_AX3000-JP-2_large_20230216020744e.jpg"
         article["updated"] = "2026-10-07"
