@@ -3197,6 +3197,35 @@ SOURCE = {
             "title": "楽天市場 coolify 個別レビュー",
             "checked_at": "2026-10-07",
         }],
+    },
+    "200-dgcam016": {
+        "official_url": "https://www.sanwa.co.jp/product/syohin?code=DG-CAM16",
+        "facts": [
+            "サンワサプライ公式の商品情報で、200-DGCAM016に該当するカメラ用一脚の用途・仕様を確認",
+            "公式案内と個別商品ページで、4段伸縮、約60〜180cm、クイックシュー付きの構成を確認",
+            "サンワダイレクトの個別商品ページで型番200-DGCAM016、販売価格、対応するカメラ用一脚であることを確認",
+            "個別レビューでは、軽さや収納性、撮影時の扱いやすさに関する声を確認し、撮影環境や機材重量による使用感の違いと分けて扱う",
+        ],
+        "review_texts": [{
+            "source": "サンワダイレクト 200-DGCAM016 個別レビュー",
+            "text": "個別レビューでは、軽く持ち運びやすい、伸縮して収納しやすい、撮影時に扱いやすいという内容が確認できます。安定性や操作感は取り付ける機材の重量、撮影場所、使い方による個別の感想として扱います。",
+        }],
+        "source_notes": [{
+            "type": "official_product",
+            "url": "https://www.sanwa.co.jp/product/syohin?code=DG-CAM16",
+            "title": "サンワサプライ公式 カメラ用一脚商品情報",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "product_page",
+            "url": "https://store.shopping.yahoo.co.jp/sanwadirect/200-dgcam016.html",
+            "title": "サンワダイレクト 200-DGCAM016 個別商品ページ",
+            "checked_at": "2026-10-07",
+        }, {
+            "type": "review_page",
+            "url": "https://direct.sanwa.co.jp/ItemReview/200-DGCAM016",
+            "title": "サンワダイレクト 200-DGCAM016 個別レビュー",
+            "checked_at": "2026-10-07",
+        }],
     }
 }
 
