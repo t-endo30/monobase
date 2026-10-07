@@ -3304,6 +3304,12 @@ SOURCE = {
         "facts": ["Fanxiang公式商品ページでPS2000W 1TBの外付けSSD、USB 3.2接続、最大読み出し・書き込み速度の案内を確認", "楽天市場の公式店でPS2000W 1TBの個別商品を確認", "第三者レビューでUSB 3.2 Gen 2x2接続時とGen 2接続時の性能差、ケーブル構成、携帯性を確認", "実効速度は接続ポートや環境によって変わるため、公称値と第三者測定を分けて扱う"],
         "review_texts": [{"source":"TechRadar Fanxiang PS2000W review","text":"第三者レビューでは、USB 3.2 Gen 2x2接続時と一般的なGen 2接続時で転送速度が異なること、金属筐体・携帯用ポーチ・USB-A/USB-C対応ケーブルが評価材料になることが紹介されています。"}],
         "source_notes": [{"type":"official_product","url":"https://www.fanxiangssd.com/products/fanxiang-1tb-external-ssd-portable-up-to-2000mb-s-external-solid-state-drive-external-hard-drive-usb-3-2-gen2-type-c-ssd-for-iphone-15-pro-pc-laptops-creators-gaming","title":"Fanxiang公式 PS2000W 1TB","checked_at":"2026-10-07"},{"type":"product_page","url":"https://item.rakuten.co.jp/fanxiang-official/ps2000w-1tb/","title":"Fanxiang Japan 公式店 個別商品ページ","checked_at":"2026-10-07"},{"type":"review_page","url":"https://www.techradar.com/pro/fanxiang-ps2000w-portable-ssd-review","title":"TechRadar Fanxiang PS2000W review","checked_at":"2026-10-07"}]
+    },
+    "siroca-ss-ma351-wh-4-5": {
+        "official_url": "https://www.siroca.co.jp/product/dishwasher_largecapacity_ss-mh351/",
+        "facts": ["シロカ公式の商品情報で、食器洗い乾燥機の4〜5人用・食器36点・水道工事不要の案内を確認", "楽天市場の個別商品ページでSS-MA351-WHとJAN4589919826841を確認", "個別レビューでは、自動給水の配置や乾燥の仕上がり、家事負担の軽減に関する声を確認", "設置場所や食器の形状で使い勝手が変わるため、公式仕様と利用者の声を分けて扱う"],
+        "review_texts": [{"source":"楽天市場 SS-MA351-WH 個別レビュー","text":"個別投稿では、自動給水が楽、家事負担が減ったという声がある一方、配置や乾燥の仕上がりに関する確認点も見られます。設置場所と食器の形状による個別の感想として扱います。"}],
+        "source_notes": [{"type":"official_product","url":"https://www.siroca.co.jp/product/dishwasher_largecapacity_ss-mh351/","title":"シロカ公式 食器洗い乾燥機","checked_at":"2026-10-07"},{"type":"product_page","url":"https://item.rakuten.co.jp/ec-current/4589919826841/","title":"SS-MA351-WH 個別商品ページ","checked_at":"2026-10-07"},{"type":"review_page","url":"https://review.rakuten.co.jp/item/1/193345_12714070/1.1/","title":"SS-MA351-WH 個別レビュー","checked_at":"2026-10-07"}]
     }
 }
 

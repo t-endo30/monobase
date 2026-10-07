@@ -14,6 +14,7 @@ TARGETS = {
     "maxzen-j43ch06",
     "iface-reflection-iphone",
     "fanxiang-ps2000w-ssd-1tb",
+    "siroca-ss-ma351-wh-4-5",
 }
 
 def clean(value):
@@ -176,6 +177,28 @@ for article in articles:
                 if isinstance(v, dict): return {k: ssd_final(x) for k,x in v.items()}
                 return v
             article.update(ssd_final(article))
+        if article.get("slug") == "siroca-ss-ma351-wh-4-5":
+            article.update(clean(article))
+            article["category"] = "appliance"
+            article.pop("rating", None)
+            article.pop("spec", None)
+            article["verdict_title"] = article.get("verdict_title", "").replace("買い", "向く条件")
+            article["description"] = article.get("description", "").replace("SS-MH351", "SS-MA351-WH")
+            article["excerpt"] = article.get("excerpt", "").replace("SS-MH351", "SS-MA351-WH")
+            def siroca_rewrite(v):
+                if isinstance(v, str): return v.replace("口コミ", "利用者の声")
+                if isinstance(v, list): return [siroca_rewrite(x) for x in v]
+                if isinstance(v, dict): return {k: siroca_rewrite(x) for k,x in v.items()}
+                return v
+            article.update(siroca_rewrite(article))
+            def siroca_fix(v):
+                if isinstance(v, str):
+                    return v.replace("大型タイプ", "4〜5人用").replace("手動で水を何度も足すタイプ", "給水方式が異なる機種").replace("電源・排水の位置", "設置スペース").replace("庫内のかご", "食器の配置").replace("底面の残水", "洗浄後の状態").replace("SS-MH351", "SS-MA351-WH").replace("自動給水", "給水の使い勝手").replace("給水の使い勝手の使い勝手", "給水の使い勝手").replace("容量不足が導入後の不満になりやすい", "容量と食器量の関係を確認する")
+                if isinstance(v, list): return [siroca_fix(x) for x in v]
+                if isinstance(v, dict): return {k: siroca_fix(x) for k,x in v.items()}
+                return v
+            article.update(siroca_fix(article))
+            if isinstance(article.get("faq"), list): article["faq"] = [f for f in article["faq"] if "水滴" not in str(f)]
             for v in article.get("voices", []):
                 if v.get("who") == "楽天市場の個別利用者の声で確認された利用者の声":
                     v["who"] = "楽天市場の個別レビュー"
