@@ -326,9 +326,18 @@ def auto_svg(a, p=""):
 
 
 def thumbnail_fallback(a, p=""):
-    """外部商品画像が失敗したときにも壊れた画像を表示しない。"""
+    """外部商品画像が失敗したときの安全な代替画像。
+
+    個別商品で別商品の自動生成画像を見せないため、まずカテゴリ画像を
+    使う。特集記事だけは従来の自動生成画像を許可する。
+    """
     slug = a["slug"] if isinstance(a, dict) else str(a)
-    if os.path.exists(os.path.join(ROOT, "assets", "img", "auto", f"{slug}.svg")):
+    cat = a.get("category") if isinstance(a, dict) else ""
+    cat_rel = CAT_IMAGE.get(cat, "")
+    cat_img = os.path.join(ROOT, cat_rel) if cat_rel else ""
+    if cat_img and os.path.exists(cat_img):
+        return p + cat_rel
+    if isinstance(a, dict) and a.get("category") == "feature" and os.path.exists(os.path.join(ROOT, "assets", "img", "auto", f"{slug}.svg")):
         return auto_svg(a, p)
     return p + "assets/img/og-default.jpg"
 
@@ -363,6 +372,9 @@ SHOP_THUMB_ORDER = ("rakuten", "yahoo")
 
 def shop_thumb(a):
     """一覧に出せる、モールの実物写真。無ければ空。"""
+    official = str(a.get("official_product_image") or "").strip()
+    if official.startswith("http"):
+        return official, "official"
     imgs = a.get("shop_images") or {}
     for shop in SHOP_THUMB_ORDER:
         url = str(imgs.get(shop) or "").strip()
@@ -2546,6 +2558,11 @@ def shop_image(a):
        出ていない記事では、写真も使わない。
 
        返り値は (画像URL, リンク先, ショップ名)。無ければ空。"""
+    official = str(a.get("official_product_image") or "").strip()
+    if official.startswith("http"):
+        href = str(a.get("official_url") or "").strip()
+        if href.startswith("http"):
+            return official, href, "official"
     imgs = a.get("shop_images") or {}
     links = {s: href for s, _label, href in shop_links(a)}
     # Amazonは使わない。PA-APIライセンス契約 13(n) が
@@ -2572,6 +2589,7 @@ def shop_image_size(url, shop):
 
 
 SHOP_IMAGE_CREDIT = {
+    "official": "商品写真：メーカー公式",
     "rakuten": "商品写真：楽天市場",
     "yahoo": "商品写真：Yahoo!ショッピング",
 }

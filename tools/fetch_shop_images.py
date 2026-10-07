@@ -37,6 +37,7 @@ import re
 import sys
 import time
 import urllib.parse
+import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pick_products import rakuten_search, yahoo_search   # noqa: E402
@@ -82,6 +83,22 @@ def pick_image(hits, article, shop, exact):
     if exact and withimg:
         return withimg[0]["image"], "商品コードで特定"
     return "", ""
+
+
+def reachable_image(url):
+    """取得時点で画像として応答するURLだけを採用する。
+
+    商品ページは残っていても画像だけ削除・移転されることがあるため、
+    APIが返したURLを無検証で保存しない。保存後の失効はビルド側の
+    onerrorフォールバックで壊れた画像を防ぐ。
+    """
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=12) as res:
+            ct = str(res.headers.get("Content-Type") or "").lower()
+            return 200 <= int(getattr(res, "status", 200)) < 400 and ct.startswith("image/")
+    except Exception:
+        return False
 
 
 def product_name(article):
@@ -226,8 +243,10 @@ def main():
                         print(f"        {item_key(it.get('url')):38} "
                               f"{str(it.get('name'))[:40]}")
                 url, why = pick_image(hits, a, shop, exact)
-                if url:
+                if url and reachable_image(url):
                     break
+                if url:
+                    url, why = "", ""
             if not url:
                 continue
             label = "楽天" if shop == "rakuten" else "Yahoo!"
