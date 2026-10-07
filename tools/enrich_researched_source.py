@@ -3707,6 +3707,21 @@ SOURCE = {
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/200195_10042289/1.1/","title":"楽天市場 グリニーズプラス カロリーケア超小型犬用2-7kg 個別レビュー","checked_at":"2026-10-07"}
         ]
     }
+    ,"p-5ghz-amazon": {
+        "official_url": "https://www.wtw.jp/ccd/download/manual/ip/WTW-IPW108_manual.pdf",
+        "facts": [
+            "塚本無線の公式取扱説明書でWTW-IPW108の型番を商品同定し、スマートフォンから映像を確認するための接続・設定手順、録画や通知に関する案内を確認",
+            "楽天市場の個別商品ページでWTW-IPW108を商品同定し、500万画素・5GHz対応・温度表示・自動追跡などの販売情報を確認",
+            "同一商品ページに掲載された利用者の声で、室内のペットや家族の見守り、スマートフォンからの確認、設置後の使い勝手に関する具体的な投稿を確認",
+            "通信環境、録画方式、アプリ対応、設置場所で使い勝手が変わるため、購入前に家庭のWi-Fi帯域と録画保存方法を確認する",
+        ],
+        "review_texts": [{"source":"楽天市場 WTW-IPW108 個別商品ページ掲載レビュー","text":"同一商品の販売ページ掲載レビューでは、ペットや家族の見守りに使っている、スマートフォンから室内を確認できることが便利という声が確認できます。通信環境や設置場所によって使い勝手が変わるため、個別の使用環境に基づく声として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.wtw.jp/ccd/download/manual/ip/WTW-IPW108_manual.pdf","title":"塚本無線公式 WTW-IPW108取扱説明書","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/wtw-cctv-camera/wtw-ipw108/","title":"楽天市場 WTW-IPW108 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://item.rakuten.co.jp/wtw-cctv-camera/wtw-ipw108/","title":"楽天市場 WTW-IPW108 掲載レビュー","checked_at":"2026-10-07"}
+        ]
+    }
 }
 
 
