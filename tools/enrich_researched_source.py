@@ -3707,6 +3707,21 @@ SOURCE = {
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/200195_10042289/1.1/","title":"楽天市場 グリニーズプラス カロリーケア超小型犬用2-7kg 個別レビュー","checked_at":"2026-10-07"}
         ]
     }
+    ,"startech-com-usb-c-dk30ch2dep": {
+        "official_url": "https://www.startech.com/en-ca/universal-laptop-docking-stations/dk30ch2dep",
+        "facts": [
+            "StarTech.com公式でDK30CH2DEPを商品同定し、USB-C接続のトリプル4K対応ドッキングステーションであることを確認",
+            "公式仕様で3系統の映像出力、100W Power Delivery、USB 3.0、対応OSとUSB-C側のDP Alt Mode要件を確認",
+            "楽天市場の個別商品ページでDK30CH2DEPを確認",
+            "同一型番のBest Buyレビューで、接続・表示・電源供給に関する利用者評価を確認し、ホスト機器やドライバーに依存する感想として扱う",
+        ],
+        "review_texts": [{"source":"Best Buy StarTech DK30CH2DEP 個別レビュー","text":"同一型番の個別レビューでは、複数画面接続や周辺機器をまとめられる点に関する評価が確認できます。表示可否や安定性は接続するPC・モニター・ドライバーに左右されるため、使用環境に基づく声として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.startech.com/en-ca/universal-laptop-docking-stations/dk30ch2dep","title":"StarTech.com公式 DK30CH2DEP","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/rcmdse/tm-2593669/","title":"楽天市場 DK30CH2DEP 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://www.bestbuy.com/product/startech-com-triple-4k-usb-c-dock-dp-hdmi-100w-pd-dk30ch2dep/J7PHYXJGV4D","title":"Best Buy DK30CH2DEP 個別レビュー","checked_at":"2026-10-07"}
+        ]
+    }
     ,"endgame-gear-em-c-x-x-egg-emc-500-blk": {
         "official_url": "https://endgamegear.com/en-us/mousepads/em-c",
         "facts": [
