@@ -1865,6 +1865,21 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     },
+    "7lan-kb-t7-02wn": {
+        "official_url": "https://www.sanwa.co.jp/product/syohin?code=KB-T7-02WN",
+        "facts": [
+            "サンワサプライ公式でKB-T7-02WNを商品同定し、CAT7・2m・ホワイト・10GBASE-T・600MHz・ScTP・ストレート結線・PoE非対応などの仕様を確認",
+            "楽天市場の個別商品ページでKB-T7-02WNの2m・ホワイト商品を確認",
+            "Yahoo!ショッピングの同一型番個別商品ページで、10G対応を評価する利用者の声を確認",
+            "通信速度は接続機器と環境にも左右されるため、公式仕様と1件の利用者の声を分けて扱う",
+        ],
+        "review_texts": [{"source":"Yahoo!ショッピング KB-T7-02WN 個別レビュー","text":"同一型番の個別投稿では、10G対応を評価し、LANケーブルをこの製品で揃えたいという声が確認できます。1件の利用者の感想として扱い、通信速度の再現性や耐久性全体の傾向とは分けて整理します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.sanwa.co.jp/product/syohin?code=KB-T7-02WN","title":"サンワサプライ公式 KB-T7-02WN","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/ssk-1/asnv-51548-b-/","title":"楽天市場 KB-T7-02WN 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://store.shopping.yahoo.co.jp/esupply/kb-t7-02wn.html","title":"Yahoo!ショッピング KB-T7-02WN 個別レビュー","checked_at":"2026-10-07"}
+        ]
+    },
     "beauty-20260921": {
         "official_url": "https://limanatural.net/item-detail/910448",
         "facts": [
