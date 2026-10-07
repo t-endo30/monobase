@@ -3569,6 +3569,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/pc-bomber-shop/255151000140000/","title":"楽天市場 KH-3691WH 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://product.rakuten.co.jp/product/-/174f66c35139dc801fc8e15df1de9aa0/","title":"楽天市場 KH-3691WH 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "furniture-20260910-3": {
+        "official_url": "https://emoor.jp/products/ss-lmr",
+        "facts": [
+            "エムール公式商品ページで日本製布団6点セット・シングルを商品同定し、掛け布団・敷き布団・枕・カバー類の構成、敷き布団のサイズと中材、日本製布団・カバーの製造国を確認",
+            "楽天市場の個別商品ページで布団6点セット シングル、商品番号sa-lmr4-sを確認",
+            "同一商品ページの個別レビューで、敷き布団の厚みや硬さ、カバーの色、価格とのバランス、マットレス併用の必要性に関する利用者の声を確認",
+            "寝心地は体格・床面・好みに左右されるため、公式仕様と個別の利用者の声を分け、腰痛改善などの効果は断定しない構成にする",
+        ],
+        "review_texts": [{"source":"楽天市場 エムール日本製布団6点セット 個別レビュー","text":"同一商品の個別投稿では、敷き布団の厚みや硬さを評価する声がある一方、床に直接敷く場合はマットレスを併用したいという声、カバーの色や在庫への指摘も確認できます。使用する床面と寝心地の好みを購入前に確認します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://emoor.jp/products/ss-lmr","title":"エムール公式 日本製布団6点セット","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/emoorap/sk-lmr/","title":"楽天市場 エムール布団6点セット 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://item.rakuten.co.jp/emoorap/sk-lmr/","title":"楽天市場 エムール布団6点セット 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 

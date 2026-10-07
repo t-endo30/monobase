@@ -131,7 +131,9 @@ def has_publishable_thumbnail(a):
     if a.get("category") == "feature":
         return True
     imgs = a.get("shop_images") or {}
+    verified = a.get("shop_images_verified") or {}
     return any(str(imgs.get(shop) or "").strip().startswith("http")
+               and verified.get(shop) is not False
                for shop in ("rakuten", "yahoo"))
 
 
@@ -376,9 +378,10 @@ def shop_thumb(a):
     if official.startswith("http"):
         return official, "official"
     imgs = a.get("shop_images") or {}
+    verified = a.get("shop_images_verified") or {}
     for shop in SHOP_THUMB_ORDER:
         url = str(imgs.get(shop) or "").strip()
-        if url.startswith("http"):
+        if url.startswith("http") and verified.get(shop) is not False:
             return shop_image_size(url, shop), shop
     return "", ""
 

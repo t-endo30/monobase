@@ -254,6 +254,7 @@ def main():
             # 1記事につき1枚だけ持つ。出るのは1枚なので、
             # 別のモールの写真が残っていると迷う。
             a["shop_images"] = {shop: url}
+            a["shop_images_verified"] = {shop: True}
             found += 1
             got = True
             break
