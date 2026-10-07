@@ -3707,6 +3707,22 @@ SOURCE = {
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/200195_10042289/1.1/","title":"楽天市場 グリニーズプラス カロリーケア超小型犬用2-7kg 個別レビュー","checked_at":"2026-10-07"}
         ]
     }
+    ,"beauty-20260927": {
+        "official_url": "https://www.tabibijin.com/",
+        "facts": [
+            "旅美人公式サイトでアズマ商事のヘアケア商品ブランドと、ドライヤー前に使うヘアトリートメント130gを商品同定",
+            "アズマ商事公式カタログで旅美人ヘアケア商品の成分表示と使用上の案内を確認し、未確認の効果は記事に追加しない",
+            "楽天市場の個別商品ページで旅美人 ドライヤーの前にヘアトリートメント130g 3本入を確認",
+            "同一商品の楽天レビューで、継続使用や髪のつや・コシに関する投稿を確認。使用感は個人差のある利用者の声として扱う",
+        ],
+        "review_texts": [{"source":"楽天市場 旅美人ドライヤーの前にヘアトリートメント130g 個別レビュー","text":"同一商品の個別投稿では、複数本を継続して使っている、髪のつややコシを感じるという声が確認できます。仕上がりや実感は髪質・使用量・乾かし方による個人の感想として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.tabibijin.com/","title":"旅美人公式サイト","checked_at":"2026-10-07"},
+            {"type":"official_product","url":"https://www.azumashoji.co.jp/catalog/products_speclist.pdf","title":"アズマ商事公式商品仕様カタログ","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/bayu/sonota73/","title":"楽天市場 旅美人ヘアトリートメント個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/review/item/1/278857_10000061","title":"楽天市場 旅美人ヘアトリートメント個別レビュー","checked_at":"2026-10-07"}
+        ]
+    }
     ,"type-c-typec-hdmi-30hz-asnad-chdmibk2x5-av": {
         "official_url": "https://www2.elecom.co.jp/tables/slatepc/top.aspx?_isquery=&keyWordInput=AD-CHDMIBK2&ngWordInput=",
         "facts": [
