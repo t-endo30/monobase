@@ -70,7 +70,7 @@ def main():
         fresh = next((x for x in load(ARTICLES) if x.get("slug") == slug), None)
         a = fresh or original
         count = review_count(a)
-        if kind_of(a) == "review" and not a.get("spec") and count is not None and count < INDEX_MIN_REVIEWS:
+        if kind_of(a) == "review" and not a.get("spec") and count is not None and count < INDEX_MIN_REVIEWS and not (a.get("source_notes") and a.get("review_texts")):
             print(f"  - 口コミ {count} 件のため対象外")
             continue
         prompt = build_prompt(a, site, prompt_md, fetch_official=not args.no_fetch)
