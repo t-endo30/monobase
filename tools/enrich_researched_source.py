@@ -3342,6 +3342,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/k-home/561392/","title":"楽天市場 IHC-SG221 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.rakuten.co.jp/review/review/review/item/1/294157_10018184/1.1/","title":"楽天市場 IHC-SG221 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "tk-fdm109mbk": {
+        "official_url": "https://www.elecom.co.jp/products/TK-FDM109MBK.html",
+        "facts": [
+            "エレコム公式商品ページで、無線薄型コンパクトキーボード＆マウス TK-FDM109MBKを商品同定し、JAN4549550107938を確認",
+            "公式仕様で、キーボードとマウスのセット、無線接続、メンブレン方式、マウスのBlueLED、電池仕様を確認",
+            "楽天市場の個別商品ページでTK-FDM109MBKを確認",
+            "楽天市場の個別レビューでは、価格に対してキーボードとマウスを一式そろえられる点、マウスが小さく感じられる点に関する利用者の声を確認",
+        ],
+        "review_texts": [{"source":"楽天市場 エレコムダイレクトショップ TK-FDM109MBK 個別レビュー","text":"個別投稿では、価格に対して無線キーボードとマウスをそろえられる点を評価する声が確認できます。一方で、マウスが思ったより小さい、ホイールの耐久性が気になるという声もあるため、手の大きさと操作感を購入前に確認します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.elecom.co.jp/products/TK-FDM109MBK.html","title":"エレコム公式 TK-FDM109MBK","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/elecom/4549550107938/","title":"楽天市場 エレコムダイレクトショップ TK-FDM109MBK","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/review/item/1/193217_10046745/1.1/","title":"楽天市場 TK-FDM109MBK 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
