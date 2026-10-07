@@ -3478,6 +3478,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/f-fact/t-ks02-2430wh/","title":"楽天市場 T-KS02-2430WH 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.kakaku.com/review/K0000975444/","title":"価格.com T-KS02-2430WH 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "h70ft-h70ft-h70ft-bac06wh": {
+        "official_url": "https://huromjapan.com/product/h70ft.html",
+        "facts": [
+            "HUROM公式製品ページでH70FT EASY PRESS、型番H70FT-BAC06WHを商品同定",
+            "公式案内でオールインワンフィルター、メガホッパー、ジュース＆フローズン対応のマルチフィルター、ドラム・メガホッパー・マルチスクリュー・押し棒・カップ・ブラシ等の付属品を確認",
+            "公式取扱説明書で食洗機使用時の温度条件と、メガホッパー・ドラムは食洗機非対応であることを確認",
+            "同一型番の楽天市場レビューでは、洗いやすさやジュース作りの手軽さを評価する声がある一方、使用時の設置スペースや食材による手入れの違いへの言及も確認できるため、置き場所と洗浄方法を確認点として整理",
+        ],
+        "review_texts": [{"source":"楽天市場 H70FT-BAC06WH 個別レビュー","text":"同一型番の個別投稿では、細かい網目の部品がなく水で流しやすい、野菜や果物から手軽にジュースを作れて手入れも簡単という声が確認できます。一方で、使用時は置き場所が必要、食材によってはブラシで洗う工程があるという投稿もあります。公式の洗浄条件と利用者の使用感を分けて確認します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://huromjapan.com/product/h70ft.html","title":"HUROM公式 H70FT","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/pika831/10005259/","title":"楽天市場 H70FT-BAC06WH 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/review/item/1/201791_10005259/1.1/","title":"楽天市場 H70FT-BAC06WH 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
