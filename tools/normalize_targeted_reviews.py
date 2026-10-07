@@ -8,6 +8,7 @@ TARGETS = {
     "tp-link-archer-ax3000-ax3000-wi-fi",
     "200-dgcam016",
     "pc-20260914",
+    "ol-90185",
 }
 
 def clean(value):
@@ -63,6 +64,14 @@ for article in articles:
             for section in article.get("sections", []):
                 section["paras"] = [p.replace("ネット詐欺対策、プライバシー保護、保護者による使用制限、ファイアウォール強化、パソコン・スマホ最適化", "OSごとに対応状況が異なる機能") for p in section.get("paras", [])]
             article["good_for"]["items"][2] = {"title": "対応OSと必要な機能を確認したい人", "text": "公式の対応OS・機能一覧を見て、自分の端末で必要な機能が案内されているか確認したい人に向きます。"}
+        if article.get("slug") == "ol-90185":
+            article["voices_intro"] = "確認できた利用者の声では、収納量や組み立て後の使いやすさに関する内容が見られます。"
+            article["pros"] = [p for p in article.get("pros", []) if "公式ブランド・商品情報を確認できる" not in p]
+            article["title"] = article.get("title", "").replace("口コミ", "利用者の声")
+            article.pop("personal_note", None)
+            article.pop("voices_after", None)
+            if isinstance(article.get("conclusion"), list):
+                article["conclusion"] = [p.replace("価格・在庫は変動するため", "在庫状況は変動するため") for p in article["conclusion"]]
         if article.get("slug") == "tp-link-archer-ax3000-ax3000-wi-fi":
             article["thumb"] = "https://static.tp-link.com/upload/image-line/Archer_AX3000-JP-2_large_20230216020744e.jpg"
         article["updated"] = "2026-10-07"

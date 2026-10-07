@@ -3226,6 +3226,21 @@ SOURCE = {
             "title": "サンワダイレクト 200-DGCAM016 個別レビュー",
             "checked_at": "2026-10-07",
         }],
+    },
+    "ol-90185": {
+        "official_url": "https://luminoussuppl.com/",
+        "facts": [
+            "ルミナス公式ブランドサイトで、スチールラックを収納用途に展開するブランド情報を確認",
+            "ルミナスクラブ公式ショップの個別商品ページで、OL-90185の幅約90cm、奥行約45cm、5段、キャスター付きの構成を確認",
+            "個別商品ページで棚板の高さ調整と収納用途を確認し、設置場所の寸法を測って選ぶ商品として整理",
+            "個別レビューでは、収納量や組み立て後の使いやすさに関する声を確認し、設置環境による差と分けて扱う",
+        ],
+        "review_texts": [{"source": "ルミナスクラブ 個別商品レビュー", "text": "個別投稿では、収納量が多い、棚板を調整しやすい、キャスター付きで動かしやすいという内容が確認できます。組み立てや安定感は設置場所と収納物による個別の感想として扱います。"}],
+        "source_notes": [
+            {"type": "official_product", "url": "https://luminoussuppl.com/", "title": "ルミナス公式ブランドサイト", "checked_at": "2026-10-07"},
+            {"type": "product_page", "url": "https://item.rakuten.co.jp/luminous-club/ol-90185/", "title": "ルミナスクラブ OL-90185 個別商品ページ", "checked_at": "2026-10-07"},
+            {"type": "review_page", "url": "https://item.rakuten.co.jp/luminous-club/ol-90185/", "title": "ルミナスクラブ OL-90185 利用者の声", "checked_at": "2026-10-07"}
+        ]
     }
 }
 

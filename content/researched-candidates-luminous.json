@@ -1,0 +1,19 @@
+{
+  "generated": "2026-10-07T00:00:00+09:00",
+  "count": 1,
+  "items": [{
+    "name": "ルミナス スチールラック 幅90 奥行45 5段 キャスター付 OL-90185",
+    "category": "furniture",
+    "sub": "storage",
+    "reviews": 100,
+    "rating": 4.4,
+    "price": 12800,
+    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/luminous-club/cabinet/ol/ol-90185.jpg",
+    "images": {"rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luminous-club/cabinet/ol/ol-90185.jpg"},
+    "rakuten_url": "https://item.rakuten.co.jp/luminous-club/ol-90185/",
+    "yahoo_url": "https://store.shopping.yahoo.co.jp/luminous-club/zsh-90185.html",
+    "amazon_url": "",
+    "trending": false,
+    "shops": {"rakuten": {"price": 12800, "shop_name": "ルミナスクラブ楽天市場店", "postage_included": true, "reviews": 100, "rating": 4.4}}
+  }]
+}
