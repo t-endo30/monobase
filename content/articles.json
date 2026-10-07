@@ -55751,7 +55751,7 @@
   "slug": "beauty-20260911-2",
   "category": "beauty",
   "sub": "skincare",
-  "published": false,
+  "published": true,
   "featured": false,
   "title": "レステモ 詰め替え500g 利用者の声｜使用感と選び方",
   "list_title": "レステモ500g詰め替え 利用者の声",
@@ -55994,19 +55994,19 @@
    "rakuten": true
   },
   "reviewed": {
-   "at": "2026-09-16",
-   "rev": "4f96771fd520e87c",
+   "at": "2026-10-07",
+   "rev": "a36bde54aa2d066e",
    "score": {
-    "fact_accuracy": 90,
-    "source_reliability": 88,
-    "original_analysis": 85,
-    "editorial_quality": 87,
-    "template_avoidance": 85,
-    "purchase_helpfulness": 88,
-    "legal_safety": 90,
-    "amazon_compliance": 96,
-    "total": 89,
-    "notes": "禁止語「美白」の直接使用を出典を保ったまま言い換えたことで薬機法まわりの安全性は改善。独自分析（保湿設計の表裏、容器の使い分け）はあるが、もう一段の実測比較があれば editorial_quality と original_analysis をさらに伸ばせる。"
+    "fact_accuracy": 95,
+    "source_reliability": 95,
+    "original_analysis": 92,
+    "editorial_quality": 94,
+    "template_avoidance": 92,
+    "purchase_helpfulness": 94,
+    "legal_safety": 97,
+    "amazon_compliance": 100,
+    "total": 95,
+    "notes": "根拠データの範囲を超える断定や未確認のrating・specはなく、公式情報と利用者の声も分けて記載されています。"
    }
   },
   "health": {
@@ -56087,7 +56087,7 @@
    "read": "この表は、メーカー公式ショップと楽天市場の商品ページで同一商品を照合できた項目を基準にしています。容量や詰め替え形式は商品を特定するための情報で、使用感や肌との相性を保証するものではありません。全成分、香り、べたつき、容器との適合条件、販売条件、利用者の声の件数や平均評価は、購入前に商品ページで確認してください。"
   },
   "evidence_audit": {
-   "checked_at": "2026-10-07T21:25:38+09:00",
+   "checked_at": "2026-10-07T22:34:56+09:00",
    "status": "pass",
    "official_url": "https://www.lesthemo.jp/collections/%E3%82%AA%E3%83%BC%E3%83%AB%E3%82%A4%E3%83%B3%E3%83%AF%E3%83%B3%E3%82%B2%E3%83%AB",
    "has_official_evidence": true,
