@@ -3707,6 +3707,21 @@ SOURCE = {
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/200195_10042289/1.1/","title":"楽天市場 グリニーズプラス カロリーケア超小型犬用2-7kg 個別レビュー","checked_at":"2026-10-07"}
         ]
     }
+    ,"type-c-typec-hdmi-30hz-asnad-chdmibk2x5-av": {
+        "official_url": "https://www2.elecom.co.jp/tables/slatepc/top.aspx?_isquery=&keyWordInput=AD-CHDMIBK2&ngWordInput=",
+        "facts": [
+            "エレコム公式の対応情報でAD-CHDMIBK2を商品同定し、USB Type-C端子からHDMI入力端子へ映像を出力する変換アダプターであることを確認",
+            "公式情報で対応機器の確認が必要で、USB Type-C端子があっても映像出力に対応しない機器では利用できないことを確認",
+            "楽天市場の個別商品ページでエレコム ASNAD-CHDMIBK2X5 5個セットを確認し、記事対象は単品仕様とセット販売を分けて扱う",
+            "個別商品ページ掲載の利用者投稿では、ノートPCと外部ディスプレイを接続できたという声がある一方、機器側の映像出力対応を確認してから購入すべきという内容もあるため、環境依存の感想として扱う",
+        ],
+        "review_texts": [{"source":"楽天市場 ASNAD-CHDMIBK2X5 個別商品ページ掲載レビュー","text":"同一商品ページの投稿では、ノートPCと外部ディスプレイの接続に使えたという声が確認できます。接続可否はパソコン側のUSB Type-C映像出力対応とディスプレイ側のHDMI入力に依存するため、使用機器ごとの感想として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www2.elecom.co.jp/tables/slatepc/top.aspx?_isquery=&keyWordInput=AD-CHDMIBK2&ngWordInput=","title":"エレコム公式 AD-CHDMIBK2対応情報","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/ryoccado/asn4589453000479/","title":"楽天市場 ASNAD-CHDMIBK2X5 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://item.rakuten.co.jp/ryoccado/asn4589453000479/","title":"楽天市場 ASNAD-CHDMIBK2X5 掲載レビュー","checked_at":"2026-10-07"}
+        ]
+    }
     ,"p-5ghz-amazon": {
         "official_url": "https://www.wtw.jp/ccd/download/manual/ip/WTW-IPW108_manual.pdf",
         "facts": [
