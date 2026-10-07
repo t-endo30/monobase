@@ -3593,11 +3593,11 @@ SOURCE = {
             "同一商品ページの個別レビューで、敷き布団の厚みや硬さ、カバーの色、価格とのバランス、マットレス併用の必要性に関する利用者の声を確認",
             "寝心地は体格・床面・好みに左右されるため、公式仕様と個別の利用者の声を分け、腰痛改善などの効果は断定しない構成にする",
         ],
-        "review_texts": [{"source":"楽天市場 エムール日本製布団6点セット 個別レビュー","text":"同一商品の個別投稿では、敷き布団の厚みや硬さを評価する声がある一方、床に直接敷く場合はマットレスを併用したいという声、カバーの色や在庫への指摘も確認できます。使用する床面と寝心地の好みを購入前に確認します。"}],
+        "review_texts": [{"source":"楽天市場 エムール日本製布団6点セット 個別レビュー","text":"商品番号sa-lmr4-sの個別投稿では、敷き布団がしっかりして寝心地がよい、届いてすぐ使える、枕が薄く感じる、敷き布団は高反発マットレスに慣れていると物足りないという声が確認できます。カバーの種類・色と寝心地の好みを購入前に確認します。"}],
         "source_notes": [
             {"type":"official_product","url":"https://emoor.jp/products/ss-lmr","title":"エムール公式 日本製布団6点セット","checked_at":"2026-10-07"},
-            {"type":"product_page","url":"https://item.rakuten.co.jp/emoorap/sk-lmr/","title":"楽天市場 エムール布団6点セット 個別商品ページ","checked_at":"2026-10-07"},
-            {"type":"review_page","url":"https://item.rakuten.co.jp/emoorap/sk-lmr/","title":"楽天市場 エムール布団6点セット 個別レビュー","checked_at":"2026-10-07"}
+            {"type":"product_page","url":"https://item.rakuten.co.jp/emoor/sk-lmr/","title":"楽天市場 エムール布団6点セット 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/223734_10001820/1.1/","title":"楽天市場 エムール布団6点セット 個別レビュー","checked_at":"2026-10-07"}
         ]
     }
 }
