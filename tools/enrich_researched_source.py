@@ -3357,6 +3357,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/elecom/4549550107938/","title":"楽天市場 エレコムダイレクトショップ TK-FDM109MBK","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.rakuten.co.jp/review/item/1/193217_10046745/1.1/","title":"楽天市場 TK-FDM109MBK 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "cr-la602-pc": {
+        "official_url": "https://sanwajp.life/product/syohin?code=CR-LA602",
+        "facts": [
+            "サンワサプライ公式商品ページで、CR-LA602デュアルシステムアーム（ノートPC台）を商品同定",
+            "公式案内で、1画面・最大27インチ・クランプ・ノートPC台付きの構成と、湾曲モニターでは耐荷重に余裕が必要という注意を確認",
+            "楽天市場の個別商品ページでCR-LA602を確認",
+            "Yahoo!ショッピングの個別商品レビューでは、アーム1本あたりの荷重制限や、機材を載せた状態の使い勝手に関する利用者の声を確認",
+        ],
+        "review_texts": [{"source":"Yahoo!ショッピング CR-LA602 個別レビュー","text":"個別投稿では、アーム1本あたりの荷重制限を確認したうえで、比較的重い機器にも使えるという声が確認できます。机の天板形状・厚みや、載せるモニターとノートPCの重量によって設置結果が変わるため、公式の対応条件と実測値を照合します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://sanwajp.life/product/syohin?code=CR-LA602","title":"サンワサプライ公式 CR-LA602","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/ra-kudenmart/cr-la602/","title":"楽天市場 CR-LA602 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://shopping.yahoo.co.jp/products/24a04906ac","title":"Yahoo!ショッピング CR-LA602 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
