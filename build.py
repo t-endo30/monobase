@@ -325,6 +325,14 @@ def auto_svg(a, p=""):
     return p + f'assets/img/auto/{slug}.svg' + (f"?v={v}" if v else "")
 
 
+def thumbnail_fallback(a, p=""):
+    """外部商品画像が失敗したときにも壊れた画像を表示しない。"""
+    slug = a["slug"] if isinstance(a, dict) else str(a)
+    if os.path.exists(os.path.join(ROOT, "assets", "img", "auto", f"{slug}.svg")):
+        return auto_svg(a, p)
+    return p + "assets/img/og-default.jpg"
+
+
 def auto_version(slug, path):
     """絵の中身から版番号を作る（8文字）。"""
     try:
@@ -1789,6 +1797,7 @@ def v2_card(a, p, no=None, flags=""):
     # 枠の大きさはそのままで、余った分は地の色で埋める。
     tcls = " is-shop" if is_shop else ""
     tsrc = thumb_attrs(a, is_shop, shop)
+    fallback = thumbnail_fallback(a, p)
     rank = (f'<span class="row-no is-n{no}">{no:02d}</span>' if no else "")
     title = a.get("list_title") or a["title"]
     cat = CAT_LABEL.get(a.get("category", ""), "")
@@ -1796,7 +1805,8 @@ def v2_card(a, p, no=None, flags=""):
     return (f'<a class="card" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
             f'data-date="{e(a.get("date",""))}"{fl}>'
-            f'<span class="card-thumb{tcls}"{tsrc}><img src="{e(src)}" alt="" loading="lazy">'
+            f'<span class="card-thumb{tcls}"{tsrc}><img src="{e(src)}" alt="" loading="lazy" '
+            f'onerror="this.onerror=null;this.src=\'{e(fallback)}\';this.closest(\'.card-thumb\').classList.remove(\'is-shop\')">'
             f'<span class="card-flags" aria-hidden="true"></span>{rank}'
             # カテゴリーは写真の右下に札で乗せる（2026-09-28、ユーザー指摘）。
             # 日付・VIEWと同じ行に置いていたが、タイルの幅が足りず
@@ -1818,6 +1828,7 @@ def v2_row(a, p, numbered=None, detail=False, flags=""):
     src, is_shop, shop = card_visual(a, p)
     tcls = " is-shop" if is_shop else ""
     tsrc = thumb_attrs(a, is_shop, shop)
+    fallback = thumbnail_fallback(a, p)
     no = (f'<span class="row-no is-n{numbered}">{numbered:02d}</span>'
           if numbered else "")
     cat = v2_cat_text(a, detail)
@@ -1825,7 +1836,8 @@ def v2_row(a, p, numbered=None, detail=False, flags=""):
     return (f'<a class="row-item" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
             f'data-date="{e(a.get("date",""))}"{fl}>'
-            f'<span class="thumb{tcls}"{tsrc}><img src="{e(src)}" alt="" loading="lazy">'
+            f'<span class="thumb{tcls}"{tsrc}><img src="{e(src)}" alt="" loading="lazy" '
+            f'onerror="this.onerror=null;this.src=\'{e(fallback)}\';this.closest(\'.thumb\').classList.remove(\'is-shop\')">'
             f'<span class="card-flags" aria-hidden="true"></span>{no}</span>'
             f'<span class="row-body">'
             f'<span class="row-meta">'
