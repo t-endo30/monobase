@@ -3298,6 +3298,12 @@ SOURCE = {
             {"type": "product_page", "url": "https://item.rakuten.co.jp/maxzen/4571495432677/", "title": "MAXZEN Direct J24CH06 個別商品ページ", "checked_at": "2026-10-07"},
             {"type": "review_page", "url": "https://store.shopping.yahoo.co.jp/maxzen/4571495432677.html", "title": "MAXZEN J24CH06 個別レビュー", "checked_at": "2026-10-07"}
         ]
+    },
+    "fanxiang-ps2000w-ssd-1tb": {
+        "official_url": "https://www.fanxiangssd.com/products/fanxiang-1tb-external-ssd-portable-up-to-2000mb-s-external-solid-state-drive-external-hard-drive-usb-3-2-gen2-type-c-ssd-for-iphone-15-pro-pc-laptops-creators-gaming",
+        "facts": ["Fanxiang公式商品ページでPS2000W 1TBの外付けSSD、USB 3.2接続、最大読み出し・書き込み速度の案内を確認", "楽天市場の公式店でPS2000W 1TBの個別商品を確認", "第三者レビューでUSB 3.2 Gen 2x2接続時とGen 2接続時の性能差、ケーブル構成、携帯性を確認", "実効速度は接続ポートや環境によって変わるため、公称値と第三者測定を分けて扱う"],
+        "review_texts": [{"source":"TechRadar Fanxiang PS2000W review","text":"第三者レビューでは、USB 3.2 Gen 2x2接続時と一般的なGen 2接続時で転送速度が異なること、金属筐体・携帯用ポーチ・USB-A/USB-C対応ケーブルが評価材料になることが紹介されています。"}],
+        "source_notes": [{"type":"official_product","url":"https://www.fanxiangssd.com/products/fanxiang-1tb-external-ssd-portable-up-to-2000mb-s-external-solid-state-drive-external-hard-drive-usb-3-2-gen2-type-c-ssd-for-iphone-15-pro-pc-laptops-creators-gaming","title":"Fanxiang公式 PS2000W 1TB","checked_at":"2026-10-07"},{"type":"product_page","url":"https://item.rakuten.co.jp/fanxiang-official/ps2000w-1tb/","title":"Fanxiang Japan 公式店 個別商品ページ","checked_at":"2026-10-07"},{"type":"review_page","url":"https://www.techradar.com/pro/fanxiang-ps2000w-portable-ssd-review","title":"TechRadar Fanxiang PS2000W review","checked_at":"2026-10-07"}]
     }
 }
 

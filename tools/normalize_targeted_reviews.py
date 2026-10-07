@@ -13,6 +13,7 @@ TARGETS = {
     "maxzen-j24ch06",
     "maxzen-j43ch06",
     "iface-reflection-iphone",
+    "fanxiang-ps2000w-ssd-1tb",
 }
 
 def clean(value):
@@ -151,6 +152,30 @@ for article in articles:
             article.update(iface_source(article))
             if isinstance(article.get("voices"), list) and len(article["voices"]) > 2:
                 article["voices"] = article["voices"][:2]
+        if article.get("slug") == "fanxiang-ps2000w-ssd-1tb":
+            article.update(clean(article))
+            article.pop("rating", None)
+            article["title"] = article.get("title", "").replace("口コミ", "利用者の声")
+            article["list_title"] = article.get("list_title", "").replace("口コミ", "利用者の声")
+            article["tags"] = [t.replace("口コミ", "利用者の声") for t in article.get("tags", [])]
+            def ssd_rewrite(v):
+                if isinstance(v, str):
+                    for old in ["85×50×8.6mm", "1.6オンス", "アルミニウム合金筐体", "耐衝撃性", "レビュー50件", "平均4.4／5.0", "2,000MB/s", "1,800MB/s", "PC・Mac・Android・ゲーム機・iPhone 15/15 Pro", "PC・Mac・Android・ゲーム機", "iPhone 15/15 Pro", "Type-C to Type-C", "Type-C to Type-A", "2種類"]:
+                        v = v.replace(old, "確認範囲外")
+                    return v.replace("口コミ", "利用者の声").replace("CLOZESTの商品ページページ", "Fanxiang公式店の商品ページ").replace("CLOZESTの商品ページ", "Fanxiang公式店の商品ページ").replace("MAXZEN Direct", "Fanxiang公式店")
+                if isinstance(v, list): return [ssd_rewrite(x) for x in v]
+                if isinstance(v, dict): return {k: ssd_rewrite(x) for k,x in v.items()}
+                return v
+            article.update(ssd_rewrite(article))
+            article.pop("spec", None)
+            article["cons"] = [c for c in article.get("cons", []) if "落下耐性" not in c]
+            def ssd_final(v):
+                if isinstance(v, str):
+                    return v.replace("落下耐性やデータ保護の公式仕様を確認", "データのバックアップ方法を確認").replace("落下耐性や耐久性について公式案内があるか", "保存先とバックアップ方法").replace("複数機器への接続方法", "接続条件")
+                if isinstance(v, list): return [ssd_final(x) for x in v]
+                if isinstance(v, dict): return {k: ssd_final(x) for k,x in v.items()}
+                return v
+            article.update(ssd_final(article))
             for v in article.get("voices", []):
                 if v.get("who") == "楽天市場の個別利用者の声で確認された利用者の声":
                     v["who"] = "楽天市場の個別レビュー"

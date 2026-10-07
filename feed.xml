@@ -7,6 +7,14 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>Fanxiang PS2000W 利用者の声</title>
+    <link>https://monobase.site/articles/fanxiang-ps2000w-ssd-1tb</link>
+    <guid isPermaLink="true">https://monobase.site/articles/fanxiang-ps2000w-ssd-1tb</guid>
+    <description>Fanxiang PS2000W 1TBの速度と接続条件、携帯性、購入前の確認点を公式仕様と第三者利用者の声から整理。</description>
+    <category>パソコン</category>
+    <pubDate>Wed, 07 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>iFace Reflection 利用者の声</title>
     <link>https://monobase.site/articles/iface-reflection-iphone</link>
     <guid isPermaLink="true">https://monobase.site/articles/iface-reflection-iphone</guid>
@@ -156,14 +164,6 @@
     <guid isPermaLink="true">https://monobase.site/articles/health-20261005</guid>
     <description>ブラシモ SM6068-JPはソニッケアー向けのスタンダードサイズ8本入互換ブラシ。購入前の適合確認と注意点を整理。</description>
     <category>美容・コスメ</category>
-    <pubDate>Tue, 06 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>ロワジャパン TC-2001 RS-60E3互換リモコン</title>
-    <link>https://monobase.site/articles/rs-60e3-lcd-pdf</link>
-    <guid isPermaLink="true">https://monobase.site/articles/rs-60e3-lcd-pdf</guid>
-    <description>ロワジャパン TC-2001のRS-60E3互換とタイマー機能を確認。対応機種の照合方法と利用者の声を整理。</description>
-    <category>カメラ</category>
     <pubDate>Tue, 06 Oct 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
