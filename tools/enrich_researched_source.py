@@ -3508,6 +3508,36 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/secupcs/001-jt82/","title":"楽天市場 DC53B 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/300680_10000206/1.1/","title":"楽天市場 DC53B 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "sw-kvm2lun2": {
+        "official_url": "https://www.sanwa.co.jp/product/syohin?code=SW-KVM2LUN2",
+        "facts": [
+            "サンワサプライ公式商品ページでSW-KVM2LUN2を商品同定し、USBキーボード・USBマウス・ディスプレイ1組を2台のパソコンで共有できる2:1 KVM切替器であることを確認",
+            "公式仕様で最大2048×1536ドット、オートスキャン・ホットキー・本体ボタン切替、Windows・macOS・Linux対応、JAN4969887594629を確認",
+            "楽天市場の個別商品ページで商品番号SW-KVM2LUN2と対応仕様を確認",
+            "Yahoo!ショッピングの商品ページで同一型番のレビュー3件を確認し、USB接続への移行、製品の頑丈さ、快適な切替を評価する声と、まれなマウス反応不良への指摘を整理",
+        ],
+        "review_texts": [{"source":"Yahoo!ショッピング SW-KVM2LUN2 個別レビュー","text":"同一型番の個別投稿では、USB接続への移行、製品の頑丈さ、快適な切替を評価する声が確認できます。一方で、まれにマウスカーソルが反応しなくなるという指摘もあり、接続機器との相性や利用環境を確認点として整理します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.sanwa.co.jp/product/syohin?code=SW-KVM2LUN2","title":"サンワサプライ公式 SW-KVM2LUN2","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/eagleeyeshopping/top1-ds-2464135/","title":"楽天市場 SW-KVM2LUN2 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://shopping.yahoo.co.jp/products/z4gki64u45","title":"Yahoo!ショッピング SW-KVM2LUN2 個別レビュー","checked_at":"2026-10-07"}
+        ]
+    },
+    "w-r-1200-w-r1200": {
+        "official_url": "https://www.morieng.co.jp/machine/product/window/wr/index.php",
+        "facts": [
+            "森永エンジニアリング公式のウインドーラジエーター製品情報で、窓際に設置する定尺タイプW/R-1200系を商品同定",
+            "楽天市場の個別商品ページで森永ウインドーラジエーター定尺タイプ1200mm、型番W/R-1200系を確認",
+            "楽天市場の同一型番W/R-1200の商品レビューで、窓際の冷気・結露の軽減、設置しやすさ、電源タイマー利用などの声を確認",
+            "レビューは個人の使用環境に基づく感想であり、結露が完全になくなることや暖房効果を一般化しない構成にする",
+        ],
+        "review_texts": [{"source":"楽天市場 W/R-1200 個別レビュー","text":"同一型番の個別投稿では、窓際に置くことで冷気や結露が軽減された、窓に合わせやすいという声が確認できます。一方で、タイマーがないため別途タイマーを使っているという投稿もあり、設置場所と電源管理を確認点として整理します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.morieng.co.jp/machine/product/window/wr/index.php","title":"森永エンジニアリング公式 ウインドーラジエーター","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/kamekenken/wat2410/","title":"楽天市場 W/R-1200W 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/253046_10028962/1.1/","title":"楽天市場 W/R-1200 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
