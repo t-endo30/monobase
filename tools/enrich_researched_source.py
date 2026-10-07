@@ -3433,6 +3433,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/381599/10008154/","title":"楽天市場 LUMBIRT 4.0 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/381599_10008154/1.1/","title":"楽天市場 LUMBIRT 4.0 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "ik2-60w-ih": {
+        "official_url": "https://ikenaga-iw.jp/products/livliv/fukin/",
+        "facts": [
+            "池永鉄工公式LiVLiV製品情報で、システムキッチン用（ビルトインコンロ用）コンロカバー IK2-60Wを商品同定",
+            "公式カタログで60cm用、サイズ572×650×70mm、重量約2.5kg、耐荷重3kg、スチール製、JAN4906018510004を確認",
+            "楽天市場の個別商品ページでIK2-60W・60cm・ホワイトの販売情報を確認",
+            "同一商品の楽天レビューでは、サイズが合い設置しやすい、油はね対策や調理スペースとして使えるという声がある一方、強力な両面テープで固定する点への指摘も確認できるため、設置面との相性を確認点として整理",
+        ],
+        "review_texts": [{"source":"楽天市場 IK2-60W 個別レビュー","text":"同一商品の個別投稿では、60cmのコンロにサイズが合い、油はね対策や調理スペースとして使えるという声が確認できます。一方で、固定用の両面テープが強力という指摘もあります。設置面を傷めないか、固定方法を事前に確認します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://ikenaga-iw.jp/products/livliv/fukin/","title":"池永鉄工公式 IK2-60W","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/ouchimawari/060602041/","title":"楽天市場 IK2-60W 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/review/review/item/1/302227_10013621/1.1/","title":"楽天市場 IK2-60W 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
