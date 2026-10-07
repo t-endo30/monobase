@@ -3448,6 +3448,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/ouchimawari/060602041/","title":"楽天市場 IK2-60W 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.rakuten.co.jp/review/review/item/1/302227_10013621/1.1/","title":"楽天市場 IK2-60W 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "winten-fhd-ips-pc-switch-iphone": {
+        "official_url": "https://winten.co.jp/products/view/22",
+        "facts": [
+            "WINTEN公式製品ページでWT-156H2-BSを商品同定",
+            "公式仕様で15.6インチIPS、Full HD（1920×1080）、輝度250cd/m2、コントラスト比1000:1、USB Type-C・miniHDMI入力、重量730g、カバー兼スタンドとケーブル類の付属を確認",
+            "楽天市場の個別商品ページでWT-156H2-BSと商品コード5523を確認",
+            "同一型番の楽天レビューでは、持ち運びやすさ、画質、設定の簡単さを評価する声がある一方、接続が安定しない・初期不良への指摘も確認できるため、端末側の映像出力対応と接続条件を確認点として整理",
+        ],
+        "review_texts": [{"source":"楽天市場 WT-156H2-BS 個別レビュー","text":"同一型番の個別投稿では、持ち運びやすく画質も良い、設定が簡単という声が確認できます。一方で、USB Type-CやHDMI接続で信号が出なかったという指摘もあります。モニター側の仕様だけでなく、接続する端末の映像出力対応とケーブル条件を確認します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://winten.co.jp/products/view/22","title":"WINTEN公式 WT-156H2-BS","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/win10/5523/","title":"楽天市場 WT-156H2-BS 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/240353_10009635/1.1/","title":"楽天市場 WT-156H2-BS 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
