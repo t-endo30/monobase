@@ -3554,6 +3554,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/skindesign/vt-cicapad-03/","title":"楽天市場 VT CICAマイルドトナーパッド 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/261122_11053580/1.1/","title":"楽天市場 VT CICAマイルドトナーパッド 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "hagihara-kh-3691wh": {
+        "official_url": "https://e-hagihara.jp/webcatalog/2025%E5%AE%B6%E5%85%B7カタログ_wed.pdf",
+        "facts": [
+            "HAGIHARA公式家具カタログでKH-3691WHを商品同定し、シングルサイズのカーテン取付対応ロフトベッドであることを確認",
+            "楽天市場の個別商品ページで萩原KH-3691WHホワイトを確認し、メーカー名・JAN4934257317863を確認",
+            "同一型番の楽天レビューで、しっかりして揺れが少ないという評価と、部品違いで組立予定に遅れが出たという指摘を確認",
+            "家具は設置場所、搬入経路、組立作業の条件を確認し、レビューの一投稿を製品全体の傾向として一般化しない構成にする",
+        ],
+        "review_texts": [{"source":"楽天市場 KH-3691WH 個別レビュー","text":"同一型番の個別投稿では、しっかりして揺れが少ないという評価が確認できます。一方で、部品違いにより予定どおり組み立てられなかった、対応スピードに不満があるという指摘もあります。搬入・部品確認・組立日程を購入前の確認点として整理します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://e-hagihara.jp/webcatalog/2025%E5%AE%B6%E5%85%B7カタログ_wed.pdf","title":"HAGIHARA公式家具カタログ KH-3691WH","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/pc-bomber-shop/255151000140000/","title":"楽天市場 KH-3691WH 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://product.rakuten.co.jp/product/-/174f66c35139dc801fc8e15df1de9aa0/","title":"楽天市場 KH-3691WH 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
