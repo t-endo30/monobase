@@ -3463,6 +3463,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/win10/5523/","title":"楽天市場 WT-156H2-BS 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/240353_10009635/1.1/","title":"楽天市場 WT-156H2-BS 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "pc-web-lan-t-ks02-2430wh-t-ks02-2430whx5": {
+        "official_url": "https://www.elecom.co.jp/products/T-KS02-2430WH.html",
+        "facts": [
+            "エレコム公式商品ページでT-KS02-2430WHを商品同定し、JAN4953103319240を確認",
+            "公式仕様で4個口、2ピン・スイングプラグ、コード長3m、定格125V・15A・1500W、雷ガード、二重被ふくコード、質量295gを確認",
+            "楽天市場の個別商品ページでT-KS02-2430WHを確認",
+            "同一型番の個別レビューでは、4個口で機器をまとめて接続でき、使い勝手や安定性を評価する声がある一方、電源タップの見た目や用途は個人の環境によるため、設置場所と接続機器を確認点として整理",
+        ],
+        "review_texts": [{"source":"価格.com・Yahoo!ショッピング T-KS02-2430WH 個別レビュー","text":"同一型番の個別投稿では、4個口に機器をまとめられ、通常使用で問題なく安定している、使い勝手が良いという声が確認できます。オーディオ用途では必要十分と感じたという個人の評価もありますが、音質などは使用環境による感想として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.elecom.co.jp/products/T-KS02-2430WH.html","title":"エレコム公式 T-KS02-2430WH","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/f-fact/t-ks02-2430wh/","title":"楽天市場 T-KS02-2430WH 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.kakaku.com/review/K0000975444/","title":"価格.com T-KS02-2430WH 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
