@@ -1865,6 +1865,21 @@ SOURCE = {
             "checked_at": "2026-10-06",
         }],
     },
+    "beauty-20260921": {
+        "official_url": "https://limanatural.net/item-detail/910448",
+        "facts": [
+            "リマナチュラル公式通販でボリュームアップシャンプー詰替・400mLを商品同定し、アミノ酸系保湿成分、椿油・海藻エキスなどの案内、ノンシリコン・パラベンフリー、使用方法、原産国日本を確認",
+            "楽天市場の個別商品ページでボリュームアップシャンプー詰替400mLを確認",
+            "同一商品の楽天レビューで、頭皮がすっきりする、さっぱりする、ふんわり仕上がるという利用者の声を確認",
+            "髪質や使用感は個人差があるため、公式の配合・使用方法と利用者の感想を分けて扱い、発毛や治療効果は断定しない",
+        ],
+        "review_texts": [{"source":"楽天市場 ボリュームアップシャンプー詰替400mL 個別レビュー","text":"同一商品の個別投稿では、汗をかいた時も頭皮がすっきりしてさっぱりする、天候に関係なくふんわり仕上がるという声が確認できます。使用感は髪質や洗い方で変わるため、個人の感想として整理します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://limanatural.net/item-detail/910448","title":"リマナチュラル公式 ボリュームアップシャンプー詰替","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/shizenkan/8340/","title":"楽天市場 ボリュームアップシャンプー詰替400mL 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/206306_10004283/1.1/","title":"楽天市場 ボリュームアップシャンプー詰替 個別レビュー","checked_at":"2026-10-07"}
+        ]
+    },
     "pd-829ws-u75cv-13a-withna": {
         "official_url": "https://www.paloma.co.jp/cgi-bin/productDetail.cgi?rno=310",
         "facts": [
