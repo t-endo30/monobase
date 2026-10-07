@@ -3402,6 +3402,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/k-home/264856/","title":"楽天市場 CBボックスCX-3 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/294175_10013380/1.1/","title":"楽天市場 CBボックスCX-3 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "w-hdd-tv-lt-40fsx-f1": {
+        "official_url": "https://www.irisohyama.co.jp/products/support/4967576769501",
+        "facts": [
+            "アイリスオーヤマ公式サポートでフルハイビジョン液晶テレビ40V型 LT-40FSX-F1を商品同定",
+            "公式商品情報で40V型、フルハイビジョン、Wチューナー、裏番組録画、外付けHDD録画対応の案内を確認",
+            "公式取扱説明書で、設置・接続・録画に関する注意事項を確認",
+            "同一型番の楽天市場レビューでは、価格に対する画面サイズ、設置や設定のしやすさを評価する声がある一方、画質・音質・リモコン操作への指摘も確認できるため、購入前の確認点として整理",
+        ],
+        "review_texts": [{"source":"楽天市場 LT-40FSX-F1 個別レビュー","text":"同一型番の個別投稿では、40型として価格に納得している、設置や設定が簡単、軽く扱いやすいという声が確認できます。一方で、画質・音質・リモコン操作については好みや期待との差に触れる投稿もあります。公式仕様と利用者の使用感を分けて判断します。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.irisohyama.co.jp/products/support/4967576769501","title":"アイリスオーヤマ公式 LT-40FSX-F1 商品サポート","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/enetroom/509553/","title":"楽天市場 LT-40FSX-F1 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/202126_10169036/1.1/","title":"楽天市場 LT-40FSX-F1 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
