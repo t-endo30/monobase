@@ -3493,6 +3493,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/pika831/10005259/","title":"楽天市場 H70FT-BAC06WH 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://review.rakuten.co.jp/review/item/1/201791_10005259/1.1/","title":"楽天市場 H70FT-BAC06WH 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "d-dc53": {
+        "official_url": "https://bs.secu.jp/view/item/000000000365",
+        "facts": [
+            "SecuSTATION公式販売ページでカメまるD DC53Bを商品同定",
+            "SecuSTATION公式カタログ・取扱資料でDシリーズのカメラ構成と、スマートフォン接続・録画・動作検知などの案内を確認",
+            "公式販売ページでDC53Bの個別商品ページと販売情報を確認",
+            "同一型番の個別レビューでは、設定の簡単さや画像の十分さを評価する声がある一方、アカウント登録や接続待ち、説明書との差に戸惑ったという声も確認できるため、初期設定と通信条件を確認点として整理",
+        ],
+        "review_texts": [{"source":"楽天市場 DC53B 個別レビュー","text":"同一型番DC53Bの個別投稿では、設定が簡単で画像も十分という声が確認できます。一方で、アカウント登録やVPN接続の待ち時間、説明書との違いに戸惑ったという声もあります。購入後はアプリ登録と接続確認を先に行います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://bs.secu.jp/view/item/000000000365","title":"SecuSTATION公式 DC53B","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/secupcs/001-jt82/","title":"楽天市場 DC53B 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/300680_10000206/1.1/","title":"楽天市場 DC53B 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
