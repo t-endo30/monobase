@@ -3647,6 +3647,20 @@ SOURCE = {
             {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/223734_10001820/1.1/","title":"楽天市場 エムール布団6点セット 個別レビュー","checked_at":"2026-10-07"}
         ]
     }
+    ,"lan-cat5e-ld-ctt-bu50x10-usb-pc": {
+        "official_url": "https://www.elecom.co.jp/products/LD-CTTBU50.html",
+        "facts": [
+            "エレコム公式でLD-CTT/BU50を商品同定し、Cat5e準拠、5m、1000BASE-T対応、ストレート結線、ツメ折れ防止プロテクターと新素材コネクターのダブル構造を確認",
+            "記事の販売ページは同一型番LD-CTT/BU50を10本セットにした商品として確認し、1本仕様の公式情報とセット販売を区別する",
+            "価格.comの同一型番LD-CTT/BU50利用者レビューで、複数本を使用して不具合なく使えている、抜き差し時に引っかかる場合がある、5mで問題なく接続できたという具体的な声を確認",
+        ],
+        "review_texts": [{"source":"価格.com エレコム LD-CTT/BU50 個別レビュー","text":"同一型番の個別投稿では、複数本使用して不具合なく使えているという声があります。一方、抜き差しの際に引っかかって扱いにくい場合があるという指摘もあります。別の投稿では5mで問題なく接続できたとされていますが、設置経路や端子周りの余裕で使用感が変わる個別の体験として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.elecom.co.jp/products/LD-CTTBU50.html","title":"エレコム公式 LD-CTT/BU50","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/ssk-1/asve-85406_04-/","title":"楽天市場 LD-CTT/BU50 10本セット 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://review.kakaku.com/review/K0000459594/","title":"価格.com LD-CTT/BU50 個別レビュー","checked_at":"2026-10-07"}
+        ]
+    }
 }
 
 
