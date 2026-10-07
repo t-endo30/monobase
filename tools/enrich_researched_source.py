@@ -3372,6 +3372,21 @@ SOURCE = {
             {"type":"product_page","url":"https://item.rakuten.co.jp/ra-kudenmart/cr-la602/","title":"楽天市場 CR-LA602 個別商品ページ","checked_at":"2026-10-07"},
             {"type":"review_page","url":"https://shopping.yahoo.co.jp/products/24a04906ac","title":"Yahoo!ショッピング CR-LA602 個別レビュー","checked_at":"2026-10-07"}
         ]
+    },
+    "pc-ns-06bk": {
+        "official_url": "https://mco.jp/products_pc/pc_cat/stand/stand-02/",
+        "facts": [
+            "ナカバヤシ MCO・Digio2公式ページで、NS-06置くだけノートPCスタンドのシリーズとNS-06BKを商品同定",
+            "公式・販売資料で、2段階の高さ24mm/34mm、アルミ合金、シリコンの設置面、タブレット対応、専用ポーチの案内を確認",
+            "楽天市場の個別商品ページでNS-06BKとJAN4902205184584を確認",
+            "ビックカメラの同一型番レビューでは、角度を付けるとタイピングしやすい、会社へ持ち運びやすい、約3cmの高さでも手や目が楽に感じるという声を確認",
+        ],
+        "review_texts": [{"source":"ビックカメラ NS-06BK 個別レビュー","text":"同一型番の個別投稿では、角度を付けるとタイピングがしやすい、会社へ持ち運びやすい、約3cmの高さでも手と目が楽に感じるという声が確認できます。使用感は利用者の姿勢やノートPCとの組み合わせによる個別の感想として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://mco.jp/products_pc/pc_cat/stand/stand-02/","title":"ナカバヤシ MCO公式 NS-06","checked_at":"2026-10-07"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/deco-maison/ds-2628037/","title":"楽天市場 NS-06BK 個別商品ページ","checked_at":"2026-10-07"},
+            {"type":"review_page","url":"https://www.biccamera.com/bc/item/13709388/","title":"ビックカメラ NS-06BK 個別レビュー","checked_at":"2026-10-07"}
+        ]
     }
 }
 
