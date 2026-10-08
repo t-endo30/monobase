@@ -58,6 +58,19 @@ def main():
     for i, a in enumerate(targets, 1):
         slug = a.get("slug", "?")
         print(f"[{i}/{len(targets)}] {slug}")
+        # GPT呼び出し・Jev判定より前に、公開済み記事との型番重複を除外する。
+        # 重複記事は根拠や文章を直しても公開対象にならないため、候補を
+        # 早く次へ回し、レビュー枠とAPI利用を消費しない。
+        dup = duplicate_of(a, arts)
+        if dup:
+            ng += 1
+            reason = (f"既存公開記事と型番が重複するため公開対象外（重複先: {dup}）")
+            a["published"] = False
+            a["unpublished_reason"] = reason
+            print(f"  → GPTレビュー前に除外: {reason}")
+            if not args.dry_run:
+                save_article(a)
+            continue
         hits = scan(a)
         for kind, path, detail in hits:
             print(f"  △ [{kind}] {path}: {detail}")
