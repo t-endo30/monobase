@@ -4278,7 +4278,6 @@ def build_index():
     main_html += v2_section(
         v2_sec_head("NEW", "新着記事", cls="has-feat-ad has-side-ad")
         + '      <div class="home-featwrap">'
-        + home_feat_ad("home_new", n=4)
         + '<div class="card-grid is-home6">'
         + "".join(v2_card(a, p, flags="new") for a in latest) + "</div>"
         # 右端には何も置かない。ここは正方形のバナーを想定した枠で、
@@ -4287,7 +4286,7 @@ def build_index():
         # 「最近見た記事」は区画の外＝右サイドバー（v2_home_side）へ移した。
         + '</div>\n'
         + v2_sec_more(f"{p}new.html", cls="has-feat-ad has-side-ad"), tinted=True,
-        cls="is-section-frame has-separate-feat-ad")
+        cls="is-section-frame")
 
     # ランキングの並びは、ランキングのページ（assets/main.js）と同じ規則で
     # 決める。直近の閲覧数があればそれを、無ければ累計を使い、同数なら
@@ -4324,7 +4323,6 @@ def build_index():
     main_html += v2_section(
         v2_sec_head("RANKING", "よく読まれている記事", cls="has-feat-ad has-side-ad")
         + '      <div class="home-featwrap">'
-        + home_feat_ad("home_rank", n=4)
         + '<div class="card-rail" data-rail>\n'
         + '        <button type="button" class="rail-btn is-prev" '
         'aria-label="前の記事" hidden><span aria-hidden="true"></span></button>\n'
@@ -4336,7 +4334,7 @@ def build_index():
         + '      </div>'
         + '</div>\n'
         + v2_sec_more(f"{p}ranking.html", cls="has-feat-ad has-side-ad"),
-        cls="is-section-frame has-separate-feat-ad")
+        cls="is-section-frame")
 
     # 予算で探す枠はホームには置かない（2026-09-27、ユーザー判断）。
     # ホームは全カテゴリーが母数になり、価格帯が「安い/高い」以上の
