@@ -23512,12 +23512,15 @@
     "price": 4397,
     "postage_included": false
    },
-   "checked": "2026-10-05"
+   "checked": "2026-10-08"
   },
   "health": {
    "checked": "2026-10-02"
   },
-  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）"
+  "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
+  "shop_images_verified": {
+   "rakuten": true
+  }
  },
  {
   "slug": "elecom-usb2-0hub-usb-tk-tcm012bk",
