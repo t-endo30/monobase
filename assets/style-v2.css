@@ -5011,7 +5011,8 @@ h1,h2,h3,h4,
   /* RECENTも他のセクションと同じく、container内の枠にする。外側の
      section全幅を囲むと、NEW等より左右が広く見えるため。 */
   .v2-section.recent-views.is-narrow{
-    margin-top:10px;padding-top:0;border:0;background:transparent;box-shadow:none;
+    margin:10px var(--gut) 0;padding-top:0;
+    border:0;background:transparent;box-shadow:none;
   }
   .v2-section.recent-views.is-narrow > .container{
     box-sizing:border-box;padding:15px 5px;
