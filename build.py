@@ -2448,25 +2448,51 @@ def link_product_names(html, a):
     """記事本文のHTMLのうち、地の文の段落（<p>）にある商品名を1段に1回だけ
        リンクにする。見出し・ボタン・注記・既にリンクを含む段落は触らない。"""
     links = shop_links(a)
-    pats = product_name_patterns(a) if links and kind_of(a) == "review" else []
-    if not pats:
+    if a.get("category") == "feature" and a.get("feature_covers"):
+        # 特集は掲載元記事ごとに商品名と優先販売先を対応させる。
+        by_slug = {x.get("slug"): x for x in ARTICLES}
+        mapped = []
+        for slug in a.get("feature_covers") or []:
+            src = by_slug.get(slug)
+            if not src or not shop_links(src):
+                continue
+            href = e(shop_links(src)[0][2])
+            for pat in product_name_patterns(src):
+                mapped.append((pat, href))
+        if not mapped:
+            return html
+        mapped.sort(key=lambda x: len(x[0]), reverse=True)
+        name_re = re.compile("|".join(x[0] for x in mapped))
+        href = mapped[0][1]
+    elif links and kind_of(a) == "review":
+        pats = product_name_patterns(a)
+        if not pats:
+            return html
+        name_re = re.compile("|".join(pats))
+        href = e(links[0][2])
+    else:
         return html
-    name_re = re.compile("|".join(pats))
-    href = e(links[0][2])
 
     def one_chunk(chunk):
         done = [False]
 
         def para(m):
             open_, inner, close = m.group(1), m.group(2), m.group(3)
-            if done[0] or "<a " in inner or "cta-note" in open_ or "scroll-hint" in open_:
+            if (done[0] or "<a " in inner or "cta-note" in open_
+                    or "scroll-hint" in open_ or "prod-name" in open_):
                 return m.group(0)
             parts = re.split(r"(<[^>]+>)", inner)
             for i in range(0, len(parts), 2):   # タグの外側（文字の部分）だけを見る
                 mm = name_re.search(parts[i])
                 if mm:
+                    target = href
+                    if a.get("category") == "feature" and a.get("feature_covers"):
+                        for pat, mapped_href in mapped:
+                            if re.fullmatch(pat, mm.group(0), flags=re.I):
+                                target = mapped_href
+                                break
                     parts[i] = (parts[i][:mm.start()]
-                                + f'<a class="plink" href="{href}" target="_blank" '
+                                + f'<a class="plink" href="{target}" target="_blank" '
                                   f'rel="nofollow sponsored noopener">{mm.group(0)}</a>'
                                 + parts[i][mm.end():])
                     done[0] = True
@@ -2740,13 +2766,32 @@ def product_card(a, p, eager=False, with_img=True):
     cls = "prod-card" if with_img else "prod-card is-noimg"
     return f'''        <div class="{cls}">{thumb}
           <div class="prod-body">
-            <p class="prod-name">{e(name)}</p>{note}
+            <p class="prod-name"><a class="plink" href="{e(first)}" target="_blank" rel="nofollow sponsored noopener">{e(name)}</a></p>{note}
 {shop_stats(a)}            <div class="prod-links is-n{min(len(links), 3)}">
 {btns}            </div>
             <p class="prod-note">{e(price_note(a))}</p>
           </div>
         </div>
 '''
+
+
+def feature_product_cards(a, p):
+    """特集が紹介する全商品を、実物画像つきの購入導線として出す。"""
+    if a.get("category") != "feature":
+        return ""
+    by_slug = {x.get("slug"): x for x in ARTICLES}
+    cards = []
+    for slug in a.get("feature_covers") or []:
+        src = by_slug.get(slug)
+        if not src or not shop_links(src):
+            continue
+        cards.append(product_card(src, p, with_img=True))
+    if not cards:
+        return ""
+    return ('          <h2 id="sec-feature-products">紹介商品を画像で確認する</h2>\n'
+            '          <div class="feature-product-cards">\n'
+            + "\n".join(cards)
+            + '\n          </div>\n')
 
 
 def cta(url, label, note=""):
@@ -3370,7 +3415,9 @@ def render_article(a):
 
 
     # 特集記事の商品カードは、比較表を読んだあとの本文中に置く
-    if not top_card:
+    if a.get("category") == "feature":
+        add(feature_product_cards(a, p))
+    elif not top_card:
         add(product_card(a, p))
 
     # 8. 次に困りそうなこと・併売の提案（回遊導線）
