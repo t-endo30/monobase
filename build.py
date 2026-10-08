@@ -4287,7 +4287,7 @@ def build_index():
         # 「最近見た記事」は区画の外＝右サイドバー（v2_home_side）へ移した。
         + '</div>\n'
         + v2_sec_more(f"{p}new.html", cls="has-feat-ad has-side-ad"), tinted=True,
-        cls="is-section-frame")
+        cls="is-section-frame has-separate-feat-ad")
 
     # ランキングの並びは、ランキングのページ（assets/main.js）と同じ規則で
     # 決める。直近の閲覧数があればそれを、無ければ累計を使い、同数なら
@@ -4336,7 +4336,7 @@ def build_index():
         + '      </div>'
         + '</div>\n'
         + v2_sec_more(f"{p}ranking.html", cls="has-feat-ad has-side-ad"),
-        cls="is-section-frame")
+        cls="is-section-frame has-separate-feat-ad")
 
     # 予算で探す枠はホームには置かない（2026-09-27、ユーザー判断）。
     # ホームは全カテゴリーが母数になり、価格帯が「安い/高い」以上の

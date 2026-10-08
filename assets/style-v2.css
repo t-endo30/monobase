@@ -437,10 +437,22 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    別の箱にすると、広告列や見出しの幅がずれて見えるため、枠の単位を
    セクション全体に統一する。 */
 .section-frame-body{
-  width:100%;box-sizing:border-box;padding:5px;
+  width:100%;box-sizing:border-box;padding:15px 5px;
   border:1px solid var(--line-2);border-radius:10px;
   background:rgba(255,255,255,.78);
   box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+.v2-section.has-separate-feat-ad > .container > .section-frame-body{
+  border:0;background:transparent;box-shadow:none;padding-left:0;padding-right:0;
+}
+.v2-section.has-separate-feat-ad .home-feat-ad{
+  border:1px solid var(--line-2);border-radius:10px;background:rgba(255,255,255,.78);
+  box-shadow:0 2px 10px rgba(0,0,0,.04);padding:5px;box-sizing:border-box;
+}
+.v2-section.has-separate-feat-ad .home-featwrap > .card-grid,
+.v2-section.has-separate-feat-ad .home-featwrap > .card-rail > .card-grid{
+  border:1px solid var(--line-2);border-radius:10px;background:rgba(255,255,255,.78);
+  box-shadow:0 2px 10px rgba(0,0,0,.04);padding:5px;
 }
 .v2-section.is-ad-only .section-frame-body{
   width:min(860px,calc(100% - 10px));
@@ -501,6 +513,19 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   padding-left:5px;
   padding-right:5px;
   padding-bottom:5px;
+}
+/* NEW/RANKINGの左PRは記事列と同じ外枠に入れず、独立した広告枠にする。 */
+.v2-section.has-separate-feat-ad > .container > .section-frame-body{
+  border:0;background:transparent;box-shadow:none;padding-left:0;padding-right:0;
+}
+.v2-section.has-separate-feat-ad .home-feat-ad{
+  border:1px solid var(--line-2);border-radius:10px;background:rgba(255,255,255,.78);
+  box-shadow:0 2px 10px rgba(0,0,0,.04);padding:5px;box-sizing:border-box;
+}
+.v2-section.has-separate-feat-ad .home-featwrap > .card-grid,
+.v2-section.has-separate-feat-ad .home-featwrap > .card-rail > .card-grid{
+  border:1px solid var(--line-2);border-radius:10px;background:rgba(255,255,255,.78);
+  box-shadow:0 2px 10px rgba(0,0,0,.04);padding:5px;
 }
 
 .sec-head{display:flex;align-items:center;gap:24px;margin-bottom:22px;}
@@ -1690,7 +1715,7 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* 見出し・1枚目のタイルの高さを、隣の区画（NEW）とそろえる。
      本体の区画は .v2-section の padding-top:40px の下に見出しが来るので、
      こちらも同じだけ下げ、見出しは同じ .sec-head を使う。 */
-  .home-side{padding-top:40px;}
+  .home-side{margin-top:40px;padding-top:0;}
   .home-side .sec-head{gap:14px;}
   .home-side .card-grid{
     grid-template-columns:1fr;

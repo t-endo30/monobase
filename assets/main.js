@@ -608,6 +608,15 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       });
     };
     alignSide();
+    /* NEWの外枠とRECENTの外枠を同じ高さ・上端にそろえる。 */
+    var alignHomePanels = function () {
+      var sidePanel = document.querySelector('.home-side');
+      var newPanel = document.querySelector('.home-body-main > .v2-section:first-child');
+      if (!sidePanel || !newPanel || !sidePanel.offsetWidth) return;
+      sidePanel.style.minHeight = newPanel.getBoundingClientRect().height + 'px';
+    };
+    alignHomePanels();
+    window.addEventListener('resize', alignHomePanels);
     var alignTimer;
     window.addEventListener('resize', function () {
       clearTimeout(alignTimer);
