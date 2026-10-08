@@ -784,6 +784,18 @@ def promo_slot(where, cat="", cls="", count=0):
        出せるもの全部から選ぶ。関係のない広告になるが、枠が空いたまま
        になるよりはよい（合う案件が増えれば自然にそちらへ寄る）。
        cats が空の案件は、どのカテゴリーの記事にも出る。"""
+    def card_ad(ad):
+        """カード列では縦長バナーを使わない。"""
+        size = str(ad.get("size") or "")
+        m = re.match(r"^(\d+)x(\d+)$", size)
+        if not m:
+            m = re.search(r'width=["\'](\d+)["\'][^>]*height=["\'](\d+)["\']',
+                          str(ad.get("html") or ""), re.I)
+        if not m:
+            return True
+        w, h = int(m.group(1)), int(m.group(2))
+        return w <= 0 or h / w <= 1.5
+
     items = [x for x in (PROMOS.get("items") or [])
              if str(x.get("where") or "") == where and promo_ads(x)]
     # 記事下は関連記事と同じタイルの形なので、四角いバナーだけを入れる。
@@ -792,6 +804,8 @@ def promo_slot(where, cat="", cls="", count=0):
     # 出す場所が決まったら where を変えれば使える。
     if where == "article_end":
         items = [x for x in items if str(x.get("kind") or "tile") == "tile"]
+    if where == "list_end":
+        items = [x for x in items if all(card_ad(a) for a in promo_ads(x))]
     if cat:
         fit = [x for x in items
                if not x.get("cats") or cat in (x.get("cats") or [])]
@@ -819,7 +833,8 @@ def promo_slot(where, cat="", cls="", count=0):
         used = {id(x) for x in items}
         rest = [x for x in (PROMOS.get("items") or [])
                 if id(x) not in used and promo_ads(x)
-                and str(x.get("kind") or "tile") == "tile"]
+                and str(x.get("kind") or "tile") == "tile"
+                and (where != "list_end" or all(card_ad(a) for a in promo_ads(x)))]
         seen = set(cards)
         for x in rest:
             for a in promo_ads(x):
