@@ -3957,7 +3957,7 @@ def v2_recent_views(p):
     # @media (max-width:860px) で決め、それより広い画面はタイルのまま。
     # 中身は assets/main.js がタイルと同じ履歴から埋める。
     return (
-        '  <section class="v2-section recent-views is-narrow" data-recent-views-wrap hidden>\n'
+        '  <section class="v2-section recent-views is-narrow is-section-frame" data-recent-views-wrap hidden>\n'
         '    <div class="container">\n'
         + v2_sec_head("RECENT", "最近見た記事")
         + '      <div class="card-grid is-home6" data-recent-views></div>\n'
@@ -4284,7 +4284,8 @@ def build_index():
         # 合わず、並びが崩れていた（2026-09-28、ユーザー指摘で撤去）。
         # 「最近見た記事」は区画の外＝右サイドバー（v2_home_side）へ移した。
         + '</div>\n'
-        + v2_sec_more(f"{p}new.html", cls="has-feat-ad has-side-ad"), tinted=True)
+        + v2_sec_more(f"{p}new.html", cls="has-feat-ad has-side-ad"), tinted=True,
+        cls="is-section-frame")
 
     # ランキングの並びは、ランキングのページ（assets/main.js）と同じ規則で
     # 決める。直近の閲覧数があればそれを、無ければ累計を使い、同数なら
@@ -4331,7 +4332,8 @@ def build_index():
         'aria-label="次の記事" hidden><span aria-hidden="true"></span></button>\n'
         + '      </div>'
         + '</div>\n'
-        + v2_sec_more(f"{p}ranking.html", cls="has-feat-ad has-side-ad"))
+        + v2_sec_more(f"{p}ranking.html", cls="has-feat-ad has-side-ad"),
+        cls="is-section-frame")
 
     # 予算で探す枠はホームには置かない（2026-09-27、ユーザー判断）。
     # ホームは全カテゴリーが母数になり、価格帯が「安い/高い」以上の
