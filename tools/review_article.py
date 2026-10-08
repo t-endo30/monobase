@@ -276,6 +276,12 @@ def build_prompt(a, rules, hits, arts=()):
     evidence = {
         "official_url": a.get("official_url", ""),
         "facts": a.get("facts", []),
+        # 個別商品記事の公開条件。本文GEN_FIELDSからは画像URLを除外して
+        # いるため、GPTが「サムネイルなし」と誤判定しないよう根拠ブロック
+        # に表示用URLとモール画像の有無を明示する。
+        "thumbnail_present": bool(a.get("thumb")),
+        "thumbnail_url": a.get("thumb", ""),
+        "shop_images": a.get("shop_images", {}),
         "product_urls": {k: a.get(k, "") for k in
                           ("amazon_url", "rakuten_url", "yahoo_url") if a.get(k)},
         "asin": a.get("asin", ""),
