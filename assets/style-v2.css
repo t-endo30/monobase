@@ -438,9 +438,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .v2-section.is-section-frame > .container > .card-rail,
 .v2-section.is-section-frame > .container > .cat-rail,
 .v2-section.is-section-frame > .container > .review-rank,
-.v2-section.is-section-frame.is-ad-only > .container > .home-featwrap,
-.v2-section.recent-views.is-section-frame > .container > .card-grid{
+.v2-section.is-section-frame.is-ad-only > .container > .home-featwrap{
   padding:5px;
+  border:1px solid var(--line-2);
+  border-radius:10px;
+  background:rgba(255,255,255,.78);
+  box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+.v2-section.recent-views.is-section-frame{
   border:1px solid var(--line-2);
   border-radius:10px;
   background:rgba(255,255,255,.78);
@@ -460,6 +465,16 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   border-radius:10px;
   background:rgba(255,255,255,.78);
   box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+.home-side{
+  border:1px solid var(--line-2);
+  border-radius:10px;
+  background:rgba(255,255,255,.78);
+  box-shadow:0 2px 10px rgba(0,0,0,.04);
+  box-sizing:border-box;
+  padding-left:5px;
+  padding-right:5px;
+  padding-bottom:5px;
 }
 
 .sec-head{display:flex;align-items:center;gap:24px;margin-bottom:22px;}
