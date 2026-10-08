@@ -454,6 +454,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   border:1px solid var(--line-2);border-radius:10px;background:rgba(255,255,255,.78);
   box-shadow:0 2px 10px rgba(0,0,0,.04);padding:5px;
 }
+/* 左側PRを削除しても、NEW/RANKINGのセクション枠は必ず残す。 */
+.v2-section.is-section-frame:not(.is-ad-only) > .container > .section-frame-body{
+  border:1px solid var(--line-2) !important;
+  border-radius:10px !important;
+  background:rgba(255,255,255,.78) !important;
+  box-shadow:0 2px 10px rgba(0,0,0,.04) !important;
+  padding:15px 5px !important;
+}
 .v2-section.is-ad-only .section-frame-body{
   width:min(860px,calc(100% - 10px));
   max-width:860px;margin-left:auto;margin-right:auto;
