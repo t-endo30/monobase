@@ -34954,7 +34954,7 @@
   ],
   "rakuten_url": "https://item.rakuten.co.jp/honkeya/ds-1864576/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
   "shop_images": {
-   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/honkeya/cabinet/dsproducts/377/0001864576-1.jpg?_ex=128x128"
+   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/r-kojima/cabinet/n0000000279/4988617219687_1.jpg?_ex=128x128"
   },
   "good_for": {
    "intro": "次のような使い方をしている人に向いています。",
@@ -35075,10 +35075,20 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 17809,
-    "postage_included": false
+    "price": 7800,
+    "postage_included": true,
+    "count": 6,
+    "average": 4.33,
+    "shops": 3
    },
-   "checked": "2026-10-05"
+   "yahoo": {
+    "price": 9250,
+    "postage_included": true,
+    "count": 20,
+    "average": 3.1,
+    "shops": 7
+   },
+   "checked": "2026-10-08"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "evidence_audit": {
@@ -35094,6 +35104,9 @@
    "review_stats_present": true,
    "missing": [],
    "blockers": []
+  },
+  "shop_images_verified": {
+   "rakuten": true
   }
  },
  {
