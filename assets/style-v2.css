@@ -5008,7 +5008,17 @@ h1,h2,h3,h4,
   /* ヒーローの特長の段に見出しが貼り付いていたので、1行ぶん空ける
      （2026-09-30、ユーザー指摘）。前の区画が無いぶん padding-top:0 に
      なる指定（.v2-section + .v2-section）より強く当てる */
-  .v2-section.recent-views.is-narrow{padding-top:24px;}
+  /* RECENTも他のセクションと同じく、container内の枠にする。外側の
+     section全幅を囲むと、NEW等より左右が広く見えるため。 */
+  .v2-section.recent-views.is-narrow{
+    margin-top:10px;padding-top:0;border:0;background:transparent;box-shadow:none;
+  }
+  .v2-section.recent-views.is-narrow > .container{
+    box-sizing:border-box;padding:15px 5px;
+    border:1px solid var(--line-2);border-radius:10px;
+    background:rgba(255,255,255,.78);
+    box-shadow:0 2px 10px rgba(0,0,0,.04);
+  }
   .recent-views [data-recent-views]{display:none;}
   .rv-list{display:block;list-style:none;margin:0;padding:0;
     border-top:1px solid var(--border);background:var(--bg-2);}
