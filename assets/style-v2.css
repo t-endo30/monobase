@@ -1724,7 +1724,7 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* 見出し・1枚目のタイルの高さを、隣の区画（NEW）とそろえる。
      本体の区画は .v2-section の padding-top:40px の下に見出しが来るので、
      こちらも同じだけ下げ、見出しは同じ .sec-head を使う。 */
-  .home-side{margin-top:40px;padding-top:0;}
+  .home-side{margin-top:40px;padding-top:15px;}
   /* RECENTの見出しをNEWと同じ線の間隔・中央配置にそろえる。 */
   .home-side .sec-head{gap:24px;}
   .home-side .card-grid{

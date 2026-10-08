@@ -604,7 +604,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
         if (!row || row[1] < 200) return;
         var diff = row[0] - c.getBoundingClientRect().top;
         if (Math.abs(diff) <= 30) c.style.marginTop = diff + 'px';
-        c.style.minHeight = row[1] + 'px';
+        /* RECENTはNEWの行高に引き伸ばさず、記事内容に合わせた高さにする。 */
       });
     };
     alignSide();
