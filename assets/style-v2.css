@@ -434,7 +434,6 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   margin-bottom:24px;
 }
 /* 枠は見出しや VIEW ALL ではなく、記事タイルの集合だけを包む。 */
-.v2-section.is-section-frame > .container > .home-featwrap,
 .v2-section.is-section-frame > .container > .card-grid,
 .v2-section.is-section-frame > .container > .card-rail,
 .v2-section.is-section-frame > .container > .cat-grid,
@@ -448,10 +447,18 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .v2-section.is-section-frame > .container > .home-featwrap > .card-grid,
 .v2-section.is-section-frame > .container > .card-grid.is-feature,
 .v2-section.is-section-frame > .container > .card-rail > .card-grid{
-  padding:0;
-  border:0;
-  box-shadow:none;
-  background:transparent;
+  padding:5px;
+  border:1px solid var(--line-2);
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,.04);
+  background:rgba(255,255,255,.78);
+}
+.home-side .card-grid{
+  padding:5px;
+  border:1px solid var(--line-2);
+  border-radius:10px;
+  background:rgba(255,255,255,.78);
+  box-shadow:0 2px 10px rgba(0,0,0,.04);
 }
 
 .sec-head{display:flex;align-items:center;gap:24px;margin-bottom:22px;}
