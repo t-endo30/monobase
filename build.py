@@ -152,6 +152,15 @@ def has_publishable_thumbnail(a):
     return bool(approved_product_image(a))
 
 
+def has_publishable_review(a):
+    """証拠ゲートとGPTレビューを通過した記事だけを生成対象にする。"""
+    evidence = a.get("evidence_audit") or {}
+    score = (a.get("reviewed") or {}).get("score") or {}
+    return (evidence.get("status") == "pass" and
+            isinstance(score.get("total"), (int, float)) and
+            score["total"] >= 85)
+
+
 def is_feature_article(a):
     """FEATURE欄で扱う特集・選び方記事かどうか。"""
     return (a.get("category") == "feature" or
@@ -159,7 +168,8 @@ def is_feature_article(a):
 
 
 PUBLISHED = sorted([a for a in ARTICLES
-                    if a.get("published") and has_publishable_thumbnail(a)],
+                    if a.get("published") and has_publishable_thumbnail(a)
+                    and has_publishable_review(a)],
                    key=lambda a: a.get("date", ""), reverse=True)
 
 # 検索エンジンに見せる記事の線引き（2026-09-29）。

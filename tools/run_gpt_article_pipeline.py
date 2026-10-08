@@ -31,7 +31,9 @@ def reviewed_successes(slugs):
         if article.get("slug") not in slugs:
             continue
         score = (article.get("reviewed") or {}).get("score") or {}
-        if isinstance(score.get("total"), (int, float)) and score["total"] >= 90:
+        if (article.get("published") and
+                isinstance(score.get("total"), (int, float)) and
+                score["total"] >= 85):
             result.add(article.get("slug"))
     return result
 
@@ -67,7 +69,7 @@ def remove_failed_new(slugs):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--drafts", action="store_true", help="空の下書きを生成")
-    ap.add_argument("--select", action="store_true", help="既存経路と同じ選定ロジックで商品を選ぶ")
+    ap.add_argument("--select", action="store_true", help="商品候補を選定して新規記事を作る")
     ap.add_argument("--refresh-products", action="store_true", help="候補をAPIから再収集してから選ぶ")
     ap.add_argument("--take", type=int, default=5, help="その日の目標記事数")
     ap.add_argument("--batch-size", type=int, default=2, help="1回に処理する候補数")
