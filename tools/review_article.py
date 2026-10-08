@@ -292,6 +292,22 @@ def build_prompt(a, rules, hits, arts=()):
         # 本文JSONと分離した根拠ブロックに置き、本文側の混入情報と区別する。
         "review_evidence": a.get("voices") or a.get("review_texts") or [],
     }
+    # 特集記事は、本文で扱う掲載元記事の根拠をレビュー側にも渡す。
+    # 特集自身に単一商品の公式URLやレビュー本文がないことを理由に、
+    # 掲載元の根拠まで見えないまま不合格にしないための補助情報。
+    if a.get("category") == "feature":
+        covered = set(a.get("feature_covers") or [])
+        evidence["feature_sources"] = [{
+            "slug": x.get("slug"),
+            "title": x.get("title", ""),
+            "official_url": x.get("official_url", ""),
+            "facts": x.get("facts", []),
+            "product_urls": {k: x.get(k, "") for k in
+                             ("amazon_url", "rakuten_url", "yahoo_url") if x.get(k)},
+            "asin": x.get("asin", ""),
+            "jan": x.get("jan", ""),
+            "review_texts": x.get("voices") or x.get("review_texts") or [],
+        } for x in arts if x.get("slug") in covered]
     siblings = [x.get("title", "") for x in arts
                 if x.get("slug") != a.get("slug") and x.get("published")
                 and (x.get("category") or "") == (a.get("category") or "")]

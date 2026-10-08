@@ -3,6 +3,8 @@
 """記事を公開するための最低限の一次情報・商品同定チェック。"""
 import re
 import datetime as dt
+import json
+import os
 from urllib.parse import urlparse
 
 def _url(value):
@@ -47,6 +49,17 @@ def assessment(article):
     facts = article.get("facts") or []
     if isinstance(facts, str):
         facts = [facts]
+    is_feature = article.get("category") == "feature"
+    feature_sources = []
+    if is_feature and article.get("feature_covers"):
+        try:
+            root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            with open(os.path.join(root, "content", "articles.json"), encoding="utf-8") as f:
+                all_articles = json.load(f)
+            wanted = set(article.get("feature_covers") or [])
+            feature_sources = [x for x in all_articles if x.get("slug") in wanted]
+        except (OSError, ValueError):
+            feature_sources = []
     has_official = bool(official) and bool(re.match(r"^https?://", official))
     has_official_evidence = has_official or bool(facts)
     shop_urls = {key: _url(article.get(key)) for key in
@@ -57,6 +70,16 @@ def assessment(article):
     title = str(article.get("title") or "").split("｜", 1)[0]
     has_identity = has_identity or bool(re.search(r"[A-Za-z0-9][A-Za-z0-9._-]{2,}", title))
     has_reviews = review_text_present(article)
+    if is_feature and feature_sources:
+        has_official = has_official or any(
+            bool(x.get("official_url")) or bool(x.get("facts")) for x in feature_sources)
+        has_official_evidence = has_official or bool(facts)
+        individual_urls = {f"feature:{x.get('slug')}": u
+                           for x in feature_sources
+                           for u in (x.get("amazon_url"), x.get("rakuten_url"), x.get("yahoo_url"))
+                           if is_individual_product_url(u)}
+        has_identity = True
+        has_reviews = any(review_text_present(x) for x in feature_sources)
     missing = []
     if not has_official_evidence:
         missing.append("公式資料またはfacts")
