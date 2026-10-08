@@ -1666,6 +1666,8 @@ def v2_section(inner, tinted=False, style="", cls=""):
     """区画の器。cls を渡すと、その区画だけを狙った指定ができる。"""
     cls = ("v2-section is-tinted" if tinted else "v2-section") + (f" {cls}" if cls else "")
     st = f' style="{style}"' if style else ""
+    if "is-section-frame" in cls:
+        inner = '      <div class="section-frame-body">\n' + inner + '      </div>\n'
     return (f'  <section class="{cls}"{st}>\n    <div class="container">\n'
             + inner + '    </div>\n  </section>\n')
 

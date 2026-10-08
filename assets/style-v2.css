@@ -433,6 +433,28 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   box-shadow:none;
   margin-bottom:24px;
 }
+/* セクションの見出し・コンテンツ・VIEW ALLを同じ面で囲む。記事列だけを
+   別の箱にすると、広告列や見出しの幅がずれて見えるため、枠の単位を
+   セクション全体に統一する。 */
+.section-frame-body{
+  width:100%;box-sizing:border-box;padding:5px;
+  border:1px solid var(--line-2);border-radius:10px;
+  background:rgba(255,255,255,.78);
+  box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+.v2-section.is-ad-only .section-frame-body{max-width:860px;margin-left:auto;margin-right:auto;}
+/* 旧来の内側枠は、外側の共通フレームに統合する。 */
+.section-frame-body > .card-grid,
+.section-frame-body > .card-rail,
+.section-frame-body > .cat-rail,
+.section-frame-body > .review-rank,
+.section-frame-body > .home-featwrap,
+.section-frame-body > .home-featwrap > .card-grid,
+.section-frame-body > .home-featwrap > .card-rail > .card-grid,
+.section-frame-body > .card-grid.is-feature{
+  padding:0 !important;border:0 !important;border-radius:0 !important;
+  background:transparent !important;box-shadow:none !important;
+}
 /* 枠は見出しや VIEW ALL ではなく、記事タイルの集合だけを包む。 */
 .v2-section.is-section-frame > .container > .card-grid,
 .v2-section.is-section-frame > .container > .card-rail,
