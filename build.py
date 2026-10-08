@@ -4352,7 +4352,8 @@ def build_index():
         main_html += v2_section(
             v2_sec_head("PICK", "口コミ・おすすめで探す",
                         cls="has-feat-ad has-side-ad")
-            + review_rank)
+            + review_rank,
+            cls="is-section-frame")
 
     # スマホのホームは「新着記事」「ランキング」が横並び（.home-featwrap）に
     # ならず広告を置く余地が無いので、ピックアップの下に広告を3件挟む。
