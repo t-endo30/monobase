@@ -4307,7 +4307,8 @@ def build_index():
             + '      <div class="card-grid is-feature">'
             + "".join(v2_card(a, p) for a in feats) + "</div>\n"
             + v2_sec_more(f"{p}category-feature.html",
-                          cls="has-feat-ad has-side-ad"))
+                          cls="has-feat-ad has-side-ad"),
+            cls="is-section-frame")
 
     rank_base = RANKING_HOME
     # 新着と同じく、のぞかせる1行ぶんを足して15件渡す
@@ -4365,7 +4366,7 @@ def build_index():
             v2_sec_head("PR", "気になる商品・キャンペーン",
                         cls="has-feat-ad has-side-ad")
             + '      <div class="home-featwrap">'
-            + home_ad + '</div>\n', cls="is-ad-only")
+            + home_ad + '</div>\n', cls="is-ad-only is-section-frame")
 
     # 横長バナーの帯はホームに置かない（promo_band は残してある）。
     # サイトの顔にあたる場所で、古い規格のバナーが浮くため。
@@ -4379,7 +4380,8 @@ def build_index():
         v2_sec_head("CATEGORY", "カテゴリーから探す",
                     cls="has-feat-ad has-side-ad")
         + v2_cat_carousel(p)
-        + v2_sec_more(f"{p}categories.html", cls="has-feat-ad has-side-ad"))
+        + v2_sec_more(f"{p}categories.html", cls="has-feat-ad has-side-ad"),
+        cls="is-section-frame")
 
     # サイトそのものの構造化データ。検索結果にサイト名と検索窓を出す材料。
     # alternateName は「人がこのサイトを呼ぶときの別表記」を並べる
