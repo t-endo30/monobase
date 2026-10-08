@@ -68163,7 +68163,7 @@
   "slug": "sd-microsdxc-128gb-sandisk-r-140mb",
   "category": "camera",
   "sub": "acc",
-  "published": false,
+  "published": true,
   "featured": false,
   "title": "SanDisk SDSQUAB-128G-GN6MN 利用者の声｜並行輸入品の確認点",
   "list_title": "SanDisk microSDカード",
@@ -68179,7 +68179,7 @@
    "メモリーカード"
   ],
   "icon": "📷",
-  "thumb": "",
+  "thumb": "https://item-shopping.c.yimg.jp/i/g/jnh_sa3310qunc",
   "asin": "",
   "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
@@ -68199,9 +68199,9 @@
    }
   ],
   "lead": [
-   "SanDisk SDSQUAB-128G-GN6MNは、SanDisk公式の適合宣言資料に型番が記載されているmicroSDカードです。販売ページでは容量・仕様・並行輸入品の条件を確認できるため、購入前に型番と掲載内容が一致しているかを確認してください。",
+   "SanDisk SDSQUAB-128G-GN6MNは、SanDisk公式の適合宣言資料に型番が記載されているmicroSDカードです。容量・仕様・並行輸入品の条件は公式資料とは別に、購入する販売ページで確認してください。購入前に型番と掲載内容が一致しているかも確認してください。",
    "確認済みの利用者の声では、Switchでの認識・保存用途、動画撮影時の安定性、並行輸入品の保証窓口、SDアダプタの有無が主な確認点です。本文では、確認できた利用者の声と、購入前に販売ページで確認すべき項目を分けて整理します。",
-   "R:140MB/s、A1、容量の詳細、付属品、保証期間などは、購入する販売ページとメーカー公式資料の記載を照合して確認してください。記載が異なる場合は、用途に必要な条件を満たすか購入前に販売店へ確認してください。"
+   "読み込み速度140MB/s、A1、容量の詳細、付属品、保証期間などは、購入する販売ページとメーカー公式資料の記載を照合して確認してください。記載が異なる場合は、用途に必要な条件を満たすか購入前に販売店へ確認してください。"
   ],
   "not_for": {
    "intro": "次に当てはまる人は、販売ページの確認だけで判断せず、別の候補も比較してください。",
@@ -68250,7 +68250,7 @@
    "SanDisk公式の適合宣言資料にSDSQUAB-128G-GN6MNが記載されている",
    "利用者の声にSwitchでの認識・保存用途の報告がある",
    "動画用途、保証窓口、アダプタ付属という購入前の確認点が明確",
-   "販売ページの型番・容量・仕様を公式資料と照合できる"
+   "型番は公式資料、容量・仕様・販売条件は購入する販売ページで確認できる"
   ],
   "cons": [
    "並行輸入品の保証期間や対応窓口は、販売ページで確認する必要がある",
@@ -68303,7 +68303,26 @@
   "facts": [
    "SanDisk公式の適合宣言資料にSDSQUAB-128G-GN6MNが記載されている",
    "対象資料はSanDiskのmicroSDカードに関する適合宣言資料である",
+   "Yahoo!の商品情報ではSanDisk Ultra SDSQUAB-128G-GN6MNの容量128GB、読み込み速度140MB/s、Class 10、UHS-I、A1が案内されている",
    "販売ページに記載された容量・仕様・並行輸入品の条件は、公式資料とは別に商品ページで確認する必要がある"
+  ],
+  "review_texts": [
+   {
+    "source": "価格.com SDSQUAB-128G-GN6MNレビュー",
+    "text": "デジタルカメラで画像中心に使うと128GBで十分な容量だと感じたという声がある"
+   },
+   {
+    "source": "価格.com SDSQUAB-128G-GN6MNレビュー",
+    "text": "スマートフォン2機種で3年以上使い、写真や動画の記録に問題がなかったという声がある"
+   },
+   {
+    "source": "Yahoo!ショッピング SDSQUAB-128G-GN6MNレビュー",
+    "text": "スマートフォンですぐ認識され、写真や動画の移動が快適だという声がある一方、実際の書き込み速度は表示値より低かったという声もある"
+   },
+   {
+    "source": "Yahoo!ショッピング SDSQUAB-128G-GN6MNレビュー",
+    "text": "監視カメラやドライブレコーダーで使用し、現時点では問題なさそうだという声がある"
+   }
   ],
   "yahoo_url": "https://store.shopping.yahoo.co.jp/jnh/sa3310qunc.html",
   "shop_images": {
@@ -68343,7 +68362,7 @@
     },
     {
      "title": "購入前の確認項目が明確",
-     "text": "容量・仕様・保証窓口・初期不良条件・アダプタ付属の有無を、販売ページで個別に確認できます。確認できない項目は、購入前に販売店へ問い合わせる必要があります。"
+     "text": "容量・仕様・保証窓口・初期不良条件・アダプタ付属の有無は、購入する販売ページの記載を個別に確認してください。確認できない項目は、購入前に販売店へ問い合わせる必要があります。"
     }
    ]
   },
@@ -68434,7 +68453,6 @@
   "health": {
    "checked": "2026-09-29"
   },
-  "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "scenes": [
    {
     "title": "Switchの保存先として検討する場面",
@@ -68454,7 +68472,7 @@
    }
   ],
   "evidence_audit": {
-   "checked_at": "2026-10-09T02:02:15+09:00",
+   "checked_at": "2026-10-09T03:08:51+09:00",
    "status": "pass",
    "official_url": "https://documents.sandisk.com/content/dam/doc-library/en_us/assets/public/western-digital/collateral/company/eu-declaration-of-conformity-micro-sd-cards.pdf",
    "has_official_evidence": true,
@@ -68466,6 +68484,22 @@
    "review_stats_present": false,
    "missing": [],
    "blockers": []
+  },
+  "reviewed": {
+   "at": "2026-10-09",
+   "rev": "016efea27db6a2c5",
+   "score": {
+    "fact_accuracy": 92,
+    "source_reliability": 91,
+    "original_analysis": 80,
+    "editorial_quality": 88,
+    "template_avoidance": 82,
+    "purchase_helpfulness": 89,
+    "legal_safety": 96,
+    "amazon_compliance": 100,
+    "total": 90,
+    "notes": "根拠にない rating や spec はなく、公式資料・利用者の声・販売ページで確認すべき事項も概ね分離されている。販売条件の個別情報が不足するため、購入先ごとの確認を促す構成になっている。"
+   }
   }
  },
  {
