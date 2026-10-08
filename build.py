@@ -119,6 +119,27 @@ ASSOC_TAG = SITE.get("amazon", {}).get("associate_tag", "").strip()
 CAT_LABEL = {c["key"]: c["label"] for c in CATS}
 CAT_ICON  = {c["key"]: c["icon"]  for c in CATS}
 
+def approved_product_image(a):
+    """商品同定済みのサムネイルだけを返す。
+
+    旧来の thumb は、取得元の商品URLと結び付いていないものが混ざるため、
+    thumb が存在するだけでは採用しない。公式画像、または取得成功済みの
+    楽天/Yahoo画像をデータ上の出所と一緒に持つ場合だけ採用する。
+    """
+    official = str(a.get("official_product_image") or "").strip()
+    if official.startswith("http"):
+        return official
+    imgs = a.get("shop_images") or {}
+    verified = a.get("shop_images_verified") or {}
+    for shop in ("rakuten", "yahoo"):
+        url = str(imgs.get(shop) or "").strip()
+        if url.startswith("http") and verified.get(shop) is not False:
+            if shop == "rakuten":
+                return re.sub(r"_ex=\d+x\d+", "_ex=600x600", url)
+            return url
+    return ""
+
+
 def has_publishable_thumbnail(a):
     """公開一覧に出せる実物サムネイルがあるか。
 
@@ -126,15 +147,9 @@ def has_publishable_thumbnail(a):
     手元の画像、または楽天・Yahoo!の商品画像が確認できる場合だけ表示し、
     Amazonだけの記事や取得できないモール画像は一覧・サイトマップから外す。
     """
-    if a.get("thumb"):
-        return True
     if a.get("category") == "feature":
         return True
-    imgs = a.get("shop_images") or {}
-    verified = a.get("shop_images_verified") or {}
-    return any(str(imgs.get(shop) or "").strip().startswith("http")
-               and verified.get(shop) is not False
-               for shop in ("rakuten", "yahoo"))
+    return bool(approved_product_image(a))
 
 
 PUBLISHED = sorted([a for a in ARTICLES
@@ -355,8 +370,9 @@ def auto_version(slug, path):
 
 def visual_path(a, p):
     """アイキャッチのパスを返す。実写真が最優先、無ければ自動生成SVG。"""
-    if a.get("thumb"):
-        return p + a["thumb"], False
+    approved = approved_product_image(a)
+    if approved:
+        return approved, False
     return auto_svg(a, p), True
 
 

@@ -207,7 +207,10 @@ def main():
     for a in arts:
         if args.slug and a.get("slug") != args.slug:
             continue
-        if a.get("shop_images") and not args.force:
+        # 取得失敗（verified=false）の記録は固定化せず、次回の通常実行でも
+        # 再取得する。これを除外すると、失効URLが残ったまま復旧しない。
+        if (a.get("shop_images") and not args.force
+                and not any(v is False for v in (a.get("shop_images_verified") or {}).values())):
             continue
         # 写真を出せるのは、そのモールのボタンが出ている記事だけ
         if not any(a.get(key) for _shop, key in SHOPS):
@@ -255,6 +258,7 @@ def main():
             # 別のモールの写真が残っていると迷う。
             a["shop_images"] = {shop: url}
             a["shop_images_verified"] = {shop: True}
+            a["thumb"] = url
             found += 1
             got = True
             break
