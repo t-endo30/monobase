@@ -4939,41 +4939,41 @@ h1,h2,h3,h4,
     grid-template-columns:minmax(0,1fr) 202px;
   }
   .home-body:has(> .home-side:not([hidden])) .card-grid.is-home6{
-    grid-template-columns:repeat(4,minmax(0,1fr));
+    grid-template-columns:repeat(3,minmax(0,1fr));
   }
-  /* カテゴリーも4列に戻す（9〜12をのぞかせ、13番目から先は出さない） */
+  /* カテゴリーも3列に戻す（7〜9をのぞかせ、10番目から先は出さない） */
   .home-body:has(> .home-side:not([hidden])) .cat-grid.is-rail{
-    grid-template-columns:repeat(4,minmax(0,1fr));
+    grid-template-columns:repeat(3,minmax(0,1fr));
   }
   .home-body:has(> .home-side:not([hidden]))
-    .cat-grid.is-rail > .cat-cell:nth-child(n+9){
+    .cat-grid.is-rail > .cat-cell:nth-child(n+7){
     max-height:64px;overflow:hidden;pointer-events:none;
     -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
     mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
   }
   .home-body:has(> .home-side:not([hidden]))
-    .cat-grid.is-rail > .cat-cell:nth-child(n+13){display:none;}
+    .cat-grid.is-rail > .cat-cell:nth-child(n+10){display:none;}
   .home-body:has(> .home-side:not([hidden]))
-    .card-grid.is-home6 > .card:nth-child(n+9){display:grid;}
+    .card-grid.is-home6 > .card:nth-child(n+7){display:grid;}
   .home-body:has(> .home-side:not([hidden]))
-    .card-grid.is-home6 > .card:nth-child(n+13){display:none;}
-  /* のぞかせる行は9〜12枚目になる（4列なので）。10枚目までを
+    .card-grid.is-home6 > .card:nth-child(n+10){display:none;}
+  /* のぞかせる行は7〜9枚目になる（3列なので）。6枚目までを
      普通に出す上の指定を、この段では打ち消す。 */
   .home-body:has(> .home-side:not([hidden]))
-    .card-grid.is-home6 > .card:nth-child(n+9):nth-child(-n+12){
+    .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9){
     max-height:150px;overflow:hidden;pointer-events:none;
     box-shadow:none;
     -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
     mask-image:linear-gradient(to bottom,#000 30%,transparent 95%);
   }
   .home-body:has(> .home-side:not([hidden]))
-    .card-grid.is-home6 > .card:nth-child(n+9):nth-child(-n+12) .card-meta,
+    .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9) .card-meta,
   .home-body:has(> .home-side:not([hidden]))
-    .card-grid.is-home6 > .card:nth-child(n+9):nth-child(-n+12) .card-title,
+    .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9) .card-title,
   .home-body:has(> .home-side:not([hidden]))
-    .card-grid.is-home6 > .card:nth-child(n+9):nth-child(-n+12) .card-stats,
+    .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9) .card-stats,
   .home-body:has(> .home-side:not([hidden]))
-    .card-grid.is-home6 > .card:nth-child(n+9):nth-child(-n+12) .card-note{display:none;}
+    .card-grid.is-home6 > .card:nth-child(n+7):nth-child(-n+9) .card-note{display:none;}
 }
 
 /* 画面が十分広いとき（1880px以上）は、サイドバーを器の外＝右の余白へ
