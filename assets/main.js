@@ -1975,8 +1975,8 @@ var monoPromos = (function () {
         if (d !== 0 || key !== 'r') return d;
         return (Number(b.st.n) || 0) - (Number(a.st.n) || 0);
       })
-      /* 1タブ4件。build.py の v2_review_rank（PICK_TAB_N）と同じ数 */
-      .slice(0, 4);
+      /* 1タブ6件。build.py の v2_review_rank（PICK_TAB_N）と同じ数 */
+      .slice(0, 6);
   }
 
   function show(chip) {

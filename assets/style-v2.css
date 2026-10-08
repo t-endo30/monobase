@@ -1810,10 +1810,9 @@ body.has-sticky-cta .fab{bottom:96px;}
   .home-featwrap > .promo-group > .card-grid > .promo-slot:nth-child(n+5){
     display:flex;
   }
-  /* PICKは1タブ4件（build.py / main.js と合わせる）。5列のままだと
-     4枚が左に詰まって右が空く。 */
+  /* PICKは新着と同じ3列×2行。 */
   .review-rank .card-grid.is-home6{
-    grid-template-columns:repeat(4,minmax(0,1fr));
+    grid-template-columns:repeat(3,minmax(0,1fr));
   }
 }
 
@@ -4769,20 +4768,20 @@ h1,h2,h3,h4,
    **この指定は .home-stats{margin:0} より後に置くこと。**
    同じ詳細度なので、先に書くと打ち消される（実際そうなっていた）。 */
 @media (min-width:1081px){
-  .home-stats,
-  /* カテゴリーとPRの区画には広告の列が無いので、中身にも同じ余白を
-     入れて、新着記事などと左右をそろえる（見出しとボタンは
-     .has-feat-ad / .has-side-ad が同じ幅にしている） */
+  /* NEWの左広告列を撤去した後も残っていた、旧広告ぶんの左余白を
+     PICK・PR・CATEGORY等から取り除く。各区画は共通フレームの全幅を使う。 */
+  .is-home .home-stats,
   .is-home .cat-rail,
   .is-home .promo-group,
   .is-home .budget,
   .is-home .review-rank,
   .is-home .recent-views,
   .is-home .card-grid.is-feature{
-    margin-left:calc(160px + 28px);
-    /* 右のPR枠は撤去済み（2026-09-28）。右は差し引かないので、
-       統計の帯の右端はホームの右サイドバーの右端とそろう。 */
+    margin-left:0;
     margin-right:0;
+  }
+  .v2-section.is-ad-only .section-frame-body{
+    width:100%;max-width:none;margin-left:0;margin-right:0;
   }
 }
 .hs-nums{list-style:none;

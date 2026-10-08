@@ -3984,9 +3984,9 @@ def v2_review_rank(p, pool_json, picks):
        中身の差し替えは v2_budget と同じ考え方（assets/main.js が
        data-pool から並べ替える）。ここで出す5件はJSが動かないときの
        中身でもある。"""
-    # 1タブ4件（2026-09-28、ユーザー判断で5件から減らした）。
-    # assets/main.js の rankedBy() も同じ4件で切っている。
-    PICK_TAB_N = 4
+    # 1タブ6件。新着記事と同じ3列×2行で、左側に空きが残らないようにする。
+    # assets/main.js の rankedBy() も同じ6件で切っている。
+    PICK_TAB_N = 6
     have_n = [a for a in PUBLISHED if card_stats_data(a).get("n")]
     have_r = [a for a in PUBLISHED if card_stats_data(a).get("r")]
     if len(have_n) < PICK_TAB_N or len(have_r) < PICK_TAB_N:
