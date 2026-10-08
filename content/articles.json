@@ -403,7 +403,7 @@
     "slug": "siroca-ss-ma351-wh-4-5",
     "category": "appliance",
     "sub": "appliance",
-    "published": true,
+    "published": false,
     "featured": false,
     "title": "シロカ SS-MA351-WH 利用者の声｜4〜5人用食洗機の設置条件",
     "list_title": "シロカ SS-MA351-WH 利用者の声",
@@ -760,7 +760,7 @@
     "slug": "fanxiang-ps2000w-ssd-1tb",
     "category": "pc",
     "sub": "storage",
-    "published": true,
+    "published": false,
     "featured": false,
     "title": "Fanxiang PS2000W 利用者の声｜1TB外付けSSDの速度と接続条件",
     "list_title": "Fanxiang PS2000W 利用者の声",
@@ -1449,7 +1449,7 @@
     "slug": "maxzen-j43ch06",
     "category": "av",
     "sub": "tv",
-    "published": true,
+    "published": false,
     "featured": false,
     "title": "MAXZEN J43CH06 利用者の声｜43型テレビの見やすさと録画の確認点",
     "list_title": "MAXZEN J43CH06 利用者の声",
@@ -1811,7 +1811,7 @@
     "slug": "maxzen-j24ch06",
     "category": "av",
     "sub": "tv",
-    "published": true,
+    "published": false,
     "featured": false,
     "title": "MAXZEN J24CH06 利用者の声｜24型テレビの録画と設置条件",
     "list_title": "MAXZEN J24CH06 利用者の声",
@@ -2180,7 +2180,9 @@
       "サイズ感"
     ],
     "icon": "👕",
-    "thumb": "https://image.rakuten.co.jp/clozest/cabinet/oneil/10014983.jpg",
+    "thumb": "https://makeshop-multi-images.akamaized.net/clozest/itemimages/000000003643_0tobE0X.jpg",
+    "official_product_image": "https://makeshop-multi-images.akamaized.net/clozest/itemimages/000000003643_0tobE0X.jpg",
+    "official_url": "https://www.clozest.jp/shopdetail/000000003643/",
     "asin": "",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -2934,7 +2936,9 @@
       "家具・インテリア"
     ],
     "icon": "🪑",
-    "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/low-ya/cabinet/img4/zaisu/vg-pola_01_.jpg?_ex=600x600",
+    "thumb": "https://shop.r10s.jp/luminous-club/cabinet/item-img/lumi_el/el25-90185_v3.jpg",
+    "official_product_image": "https://shop.r10s.jp/luminous-club/cabinet/item-img/lumi_el/el25-90185_v3.jpg",
+    "official_url": "https://item.rakuten.co.jp/luminous-club/ol-90185/",
     "asin": "",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -50482,7 +50486,7 @@
       "利用者の声"
     ],
     "icon": "🎧",
-    "thumb": "https://funlogy.jp/cdn/shop/files/portable_black_01.jpg",
+    "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_portable/slide/samune_black.jpg?_ex=600x600",
     "asin": "",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -50718,7 +50722,7 @@
       }
     },
     "shop_images": {
-      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_portable/slide/samune_black.jpg?_ex=128x128"
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_portable/slide/samune_black.jpg?_ex=600x600"
     },
     "health": {
       "checked": "2026-10-03"
@@ -50844,7 +50848,7 @@
       "キッチン家電"
     ],
     "icon": "🍳",
-    "thumb": "https://huromjapan.com/common/images/product/h400/hero_product_h70ft.jpg",
+    "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/pika831/cabinet/00176847/12211284/0624_h70ft_snbaaa.jpg?_ex=600x600",
     "asin": "",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -51059,7 +51063,7 @@
       }
     },
     "shop_images": {
-      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/pika831/cabinet/00176847/12211284/0624_h70ft_snbaaa.jpg?_ex=128x128"
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/pika831/cabinet/00176847/12211284/0624_h70ft_snbaaa.jpg?_ex=600x600"
     },
     "health": {
       "checked": "2026-10-03"
@@ -55458,7 +55462,7 @@
     "slug": "hubath-makuake-sm64",
     "category": "daily",
     "sub": "bath",
-    "published": true,
+    "published": false,
     "featured": false,
     "title": "HUBATH SM64 利用者の声｜排水口ヘアキャッチャーの確認点",
     "list_title": "HUBATH SM64 ヘアーキャッチャー利用者の声",
@@ -64276,7 +64280,7 @@
       "ファッション"
     ],
     "icon": "👕",
-    "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-zakkamania/cabinet/33566-1401336.jpg?_ex=128x128",
+    "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-zakkamania/cabinet/14013/33566-1401336r.jpg?_ex=600x600",
     "asin": "",
     "amazon_url": "",
     "cta_label": "Amazonで価格と詳細を確認する",
@@ -64399,7 +64403,7 @@
     ],
     "rakuten_url": "https://item.rakuten.co.jp/e-zakkamania/33566-1401336/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
     "shop_images": {
-      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-zakkamania/cabinet/14013/33566-1401336r.jpg?_ex=128x128"
+      "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-zakkamania/cabinet/14013/33566-1401336r.jpg?_ex=600x600"
     },
     "good_for": {
       "intro": "伸びやすさを活かせる場面と、テーパード型の見た目が合う人なら、日常用のパンツとして目的を絞って選びやすい商品です。",
