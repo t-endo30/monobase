@@ -3,7 +3,7 @@
   "slug": "feature-beauty-haircare-1",
   "category": "feature",
   "sub": "compare",
-  "published": false,
+  "published": true,
   "featured": false,
   "feature_of": "beauty/haircare",
   "feature_stage": 1,
@@ -166,7 +166,7 @@
    }
   ],
   "evidence_audit": {
-   "checked_at": "2026-10-09T03:29:25+09:00",
+   "checked_at": "2026-10-09T03:32:22+09:00",
    "status": "pass",
    "official_url": "",
    "has_official_evidence": true,
@@ -183,7 +183,22 @@
    "missing": [],
    "blockers": []
   },
-  "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要"
+  "reviewed": {
+   "at": "2026-10-09",
+   "rev": "c878d3d9b06b31d5",
+   "score": {
+    "fact_accuracy": 95,
+    "source_reliability": 93,
+    "original_analysis": 88,
+    "editorial_quality": 91,
+    "template_avoidance": 89,
+    "purchase_helpfulness": 93,
+    "legal_safety": 97,
+    "amazon_compliance": 97,
+    "total": 93,
+    "notes": "根拠データにない数値や評価を補わず、feature記事としてrating・spec・voicesを使用していない。5候補の用途差と注文前の照合項目が具体的で、公開を妨げる問題は確認できない。"
+   }
+  }
  },
  {
   "slug": "feature-camera-acc-1",
