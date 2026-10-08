@@ -436,7 +436,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* 枠は見出しや VIEW ALL ではなく、記事タイルの集合だけを包む。 */
 .v2-section.is-section-frame > .container > .card-grid,
 .v2-section.is-section-frame > .container > .card-rail,
-.v2-section.is-section-frame > .container > .cat-grid,
+.v2-section.is-section-frame > .container > .cat-rail,
+.v2-section.is-section-frame > .container > .review-rank,
+.v2-section.is-section-frame.is-ad-only > .container > .home-featwrap,
 .v2-section.recent-views.is-section-frame > .container > .card-grid{
   padding:5px;
   border:1px solid var(--line-2);
@@ -445,8 +447,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   box-shadow:0 2px 10px rgba(0,0,0,.04);
 }
 .v2-section.is-section-frame > .container > .home-featwrap > .card-grid,
-.v2-section.is-section-frame > .container > .card-grid.is-feature,
-.v2-section.is-section-frame > .container > .card-rail > .card-grid{
+.v2-section.is-section-frame > .container > .card-grid.is-feature{
   padding:5px;
   border:1px solid var(--line-2);
   border-radius:10px;
@@ -1653,7 +1654,7 @@ body.has-sticky-cta .fab{bottom:96px;}
   .home-side .card-grid{
     grid-template-columns:1fr;
     row-gap:24px !important;
-    background:transparent;
+    background:rgba(255,255,255,.78);
   }   /* NEW と同じくカード間に背景が見える間隔を確保 */
   /* 広い画面では横並びの区画のほうを隠す（同じものが2回出ないように） */
   .recent-views.is-narrow{display:none;}
