@@ -1619,7 +1619,7 @@ body.has-sticky-cta .fab{bottom:96px;}
   .home-side .sec-head{gap:14px;}
   .home-side .card-grid{
     grid-template-columns:1fr;
-    row-gap:24px;
+    row-gap:24px !important;
     background:transparent;
   }   /* NEW と同じくカード間に背景が見える間隔を確保 */
   /* 広い画面では横並びの区画のほうを隠す（同じものが2回出ないように） */
