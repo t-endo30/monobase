@@ -121,6 +121,7 @@ def main():
             a["reviewed"] = {"at": time.strftime("%Y-%m-%d"), "rev": content_rev(a), "score": score}
             if args.publish and not args.dry_run:
                 a["published"] = True
+                a.pop("unpublished_reason", None)
                 print("  ✓ 合格・published: true")
             else:
                 print("  ✓ 合格（公開は保留）")
