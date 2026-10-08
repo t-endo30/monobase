@@ -152,6 +152,12 @@ def has_publishable_thumbnail(a):
     return bool(approved_product_image(a))
 
 
+def is_feature_article(a):
+    """FEATURE欄で扱う特集・選び方記事かどうか。"""
+    return (a.get("category") == "feature" or
+            kind_of(a) in ("guide", "roundup"))
+
+
 PUBLISHED = sorted([a for a in ARTICLES
                     if a.get("published") and has_publishable_thumbnail(a)],
                    key=lambda a: a.get("date", ""), reverse=True)
@@ -1229,7 +1235,8 @@ def latest_panel(p, limit=5):
        ランキングをもう一度出しても手がかりにならないので、
        代わりに新しい記事を出して次の行き先にする。
        見た目は ACCESS RANKING と同じ rank-box にそろえる。"""
-    items = sorted(PUBLISHED, key=lambda a: a.get("date", ""), reverse=True)[:limit]
+    items = [a for a in PUBLISHED if not is_feature_article(a)]
+    items = sorted(items, key=lambda a: a.get("date", ""), reverse=True)[:limit]
     if not items:
         return ""
     return ('    <section class="rank-box">\n'
@@ -4154,7 +4161,7 @@ def v2_side_new(a, p, exclude, n=8):
     cat = a.get("category", "")
     items = [x for x in PUBLISHED
              if x["category"] == cat and x["slug"] != a["slug"]
-             and x["slug"] not in exclude][:n]
+             and x["slug"] not in exclude and not is_feature_article(x)][:n]
     if not items:
         return ""
     rows = "".join(
@@ -4228,7 +4235,8 @@ def v2_side_recent(p, a, exclude, n=8):
     """サイドバー：カテゴリーをまたいだサイト全体の新着。同じ
        カテゴリーの新着（v2_side_new）と重複しないものだけ出す。"""
     items = [x for x in PUBLISHED
-             if x["slug"] != a["slug"] and x["slug"] not in exclude][:n]
+             if x["slug"] != a["slug"] and x["slug"] not in exclude
+             and not is_feature_article(x)][:n]
     if not items:
         return ""
     rows = "".join(
@@ -4315,7 +4323,8 @@ def build_index():
     # 15件渡すのは、見せる行の次の1行を「半分だけのぞかせる」ため
     # （2026-09-28、ユーザー判断。VIEW ALL の上に続きがあることを
     # 見せる。CSS の .card-grid.is-home6 > .card の nth-child 参照）。
-    latest = PUBLISHED[:15]
+    # 特集・選び方記事はFEATURE欄だけに掲載し、NEWと重複させない。
+    latest = [a for a in PUBLISHED if not is_feature_article(a)][:15]
 
     # ピックアップは「その日のおすすめ」。全記事から3本を日替わりで選ぶ。
     # ビルドは公開のたびにしか走らないので、選び直しはブラウザ側で行う
@@ -4640,7 +4649,8 @@ def build_new():
     p = "./"
     cutoff = (datetime.date.today() - datetime.timedelta(days=7)).isoformat()
     items = sorted(
-        [a for a in PUBLISHED if a.get("date", "") >= cutoff],
+        [a for a in PUBLISHED
+         if a.get("date", "") >= cutoff and not is_feature_article(a)],
         key=lambda a: a.get("date", ""), reverse=True)
     body = v2_page_head("新着記事",
                         lead="掲載から1週間以内の記事を、新しい順に並べています。", count=len(items))
@@ -5150,7 +5160,9 @@ def static_pages():
                           style="padding:56px 0 0")
     body404 += v2_section(v2_sec_head("NEW", "新着記事")
                           + '      <div class="card-grid">'
-                          + "".join(v2_card(a, p) for a in PUBLISHED[:6]) + "</div>\n"
+                          + "".join(v2_card(a, p) for a in
+                                   [a for a in PUBLISHED if not is_feature_article(a)][:6])
+                          + "</div>\n"
                           + v2_sec_more(f"{p}new.html"),
                           style="padding:56px 0 88px")
     out.append(("404.html", page(f"ページが見つかりません - {NAME}",

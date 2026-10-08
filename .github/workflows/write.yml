@@ -1,14 +1,15 @@
 name: Write new articles
 
-# 記事を用意して、そのまま公開する。
+# 旧GitHub Actions経路（停止中）。記事作成・レビュー・公開は、
+# ChatGPTサブスクリプションにログインしたMac上のCodex自動実行へ統一する。
 #
 #   ⓪ 今日が実行日か判定する                  tools/schedule_gate.py
 #   ① 楽天・Yahoo!から商品の候補を集める      tools/pick_products.py
 #   ② 上位N件を下書きにする                   tools/make_drafts.py
 #      （特集を作る段に達したサブ区分があれば、1日1本まで特集も作る  tools/feature_plan.py）
-#   ③ Claude に本文を書かせる                 tools/write_article.py
+#   ③ GPT-5.6-luna に本文を書かせる            tools/gpt_write_article.py
 #   ④ 楽天・Yahoo!のURLと商品写真を埋める     tools/backfill_shop_urls.py / fetch_shop_images.py
-#   ⑤ レビューして直す・公開する               tools/review_article.py（commit・pushはここで1回）
+#   ⑤ GPT-5.6-lunaでレビューして公開する       tools/gpt_review_article.py
 #   ⑥ 通らなかったものはプルリクエストで残す
 #
 # ④を⑤より前に済ませることで、何本まとめて作る日でも
@@ -19,8 +20,8 @@ name: Write new articles
 # 管理画面の「サイト設定」から変えられる。ここでは毎日まわし、⓪で間引く。
 #
 # 以前はClaude CodeのサブスクリプションをGitHub Actionsから呼んでいたが、
-# 2026-10-05以降の定期実行はCodexデスクトップのローカル定期タスクへ移行した。
-# このworkflowは手動実行だけを残した復旧用の旧経路であり、定期実行しない。
+# 2026-10-05以降の実行はCodexデスクトップのローカル定期タスクへ移行した。
+# GitHub ActionsからClaudeを呼ぶ経路は使用しない。
 #
 # 公開まで自動で進める（automation.auto_publish）。レビュー基準を満たした
 # 記事だけが published:true になり、そのまま push される。
@@ -58,6 +59,7 @@ concurrency:
 
 jobs:
   write:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
     # 「今日」は日本時間で数える（2026-09-30）。ランナーは UTC なので、

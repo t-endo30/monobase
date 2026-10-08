@@ -1,6 +1,6 @@
 # GPT記事経路
 
-既存のClaude経路は変更せず、次の2段階でGPT経路を使う。
+記事作成・レビュー・公開はGPT-5.6-luna経路に統一し、Claude経路は使用しない。
 
 ```sh
 python3 tools/gpt_write_article.py --drafts
@@ -23,7 +23,7 @@ python3 tools/run_gpt_article_pipeline.py --select --take 2
 
 候補の再収集はGitHub Actionsへ依頼する。Actions Secretsにある楽天・Yahoo!の認証情報をMacへコピーせず、候補JSONだけをartifact経由で取得する。
 
-`--publish` はレビュー合格時だけ `published: true` にする。定期実行へ接続するまでは付けず、生成・レビュー結果を確認する。
+`--publish` はレビュー合格時だけ `published: true` にする。定期実行ではCodexサブスクリプションのローカル実行から付ける。
 
 新規公開時には `tools/article_evidence.py` の証拠ゲートも通る。公式資料または `facts`、個別商品URL、商品同定情報が不足する記事、また `review_stats` があるのにレビュー本文が無い記事は公開されない。既存記事の全件監査は毎回は行わず、必要時に `python3 tools/audit_evidence.py --all` を実行する。
 
