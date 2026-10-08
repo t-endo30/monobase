@@ -442,7 +442,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   background:rgba(255,255,255,.78);
   box-shadow:0 2px 10px rgba(0,0,0,.04);
 }
-.v2-section.is-ad-only .section-frame-body{max-width:860px;margin-left:auto;margin-right:auto;}
+.v2-section.is-ad-only .section-frame-body{
+  width:min(860px,calc(100% - 10px));
+  max-width:860px;margin-left:auto;margin-right:auto;
+}
 /* 旧来の内側枠は、外側の共通フレームに統合する。 */
 .section-frame-body > .card-grid,
 .section-frame-body > .card-rail,
