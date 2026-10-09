@@ -2458,11 +2458,46 @@ _PL_BOUND_R = r"(?![A-Za-z0-9\-/])"
 def product_name_patterns(a):
     """本文で商品そのものを指している呼び方を、長いものから順に返す。
        題名の商品名そのもの（空白の有無は問わない）と、題名の型番。"""
-    n = re.split(r"[｜|]", a.get("title", ""))[0]
     # 記事タイトルの評価語を商品名から取り除く。特に「利用者の声」が
     # 残ると、本文中の実際の商品名と一致せず、商品名リンクが欠落する。
-    n = re.sub(r"[\s　]*(徹底|正直)?(利用者の声|レビュー|口コミ|評判|評価).*$", "", n).strip()
-    names = [n] if len(n) >= 4 else []
+    def clean_title(value):
+        value = re.split(r"[｜|]", value or "")[0].strip()
+        return re.sub(
+            r"[\s　]*(徹底|正直)?(利用者の声|レビュー|口コミ|評判|評価).*$",
+            "", value).strip()
+
+    n = clean_title(a.get("title", ""))
+    names = [n]
+    listed = clean_title(a.get("list_title", ""))
+    if listed:
+        names.append(listed)
+    # 特集本文では、長い正式名称を「ブランド＋型番」やカテゴリ名だけで
+    # 書くことがある。タイトル同士の共通部分から短い表記も追加する。
+    compact = lambda value: re.sub(r"[\s　]", "", value)
+    for longer, shorter in ((n, listed), (listed, n)):
+        if longer and shorter and compact(longer).startswith(compact(shorter)):
+            suffix = longer[len(shorter):].strip(" \u3000")
+            if len(suffix) >= 4:
+                names.append(suffix)
+    if n and listed:
+        cn, cl = compact(n), compact(listed)
+        common = 0
+        while common < min(len(cn), len(cl)) and cn[common] == cl[common]:
+            common += 1
+        if common >= 4:
+            for suffix in (cn[common:], cl[common:]):
+                if len(suffix) >= 4:
+                    names.append(suffix)
+    # 型番単独の本文表記も商品同定性が保てる場合に限ってリンク対象にする。
+    for source in (n, listed):
+        names.extend(re.findall(r"(?<![A-Za-z0-9])[A-Za-z][A-Za-z0-9.-]{3,}(?![A-Za-z0-9])", source))
+    names = [x for x in names if len(x) >= 4]
+    # 英字の商品名に日本語の一般名詞が続く場合は、記事本文で使われる
+    # ブランド・型番部分も商品名として扱う（例：GRANFORT JUSTRIGHT 敷布団）。
+    for x in list(names):
+        ascii_name = re.match(r"[A-Za-z][A-Za-z0-9.\-]*(?:\s+[A-Za-z][A-Za-z0-9.\-]*)*", x)
+        if ascii_name and len(ascii_name.group(0)) >= 4:
+            names.append(ascii_name.group(0).strip())
     if not _PL_ACCESSORY.search(n):
         names += [t for t in re.findall(r"[A-Za-z0-9][A-Za-z0-9\-.]*[A-Za-z0-9]", n)
                   if len(t) >= 4 and re.search(r"\d", t) and re.search(r"[A-Za-z]", t)
@@ -2492,7 +2527,7 @@ def link_product_names(html, a):
                 continue
             href = e(shop_links(src)[0][2])
             for pat in product_name_patterns(src):
-                mapped.append((pat, href, slug, product_card(src, "../", with_img=True)))
+                mapped.append((pat, href, slug, ""))
         if not mapped:
             return html
         mapped.sort(key=lambda x: len(x[0]), reverse=True)
@@ -2516,8 +2551,6 @@ def link_product_names(html, a):
                     or "prod-name" in open_):
                 return m.group(0)
             parts = re.split(r"(<[^>]+>)", inner)
-            cards = []
-
             def replace_text(text):
                 def repl(mm):
                     target = ""
@@ -2527,9 +2560,6 @@ def link_product_names(html, a):
                         if re.fullmatch(pat, mm.group(0), flags=re.I):
                             target, source_slug, card = mapped_href, slug, mapped_card
                             break
-                    if card and source_slug and source_slug not in placed:
-                        placed.add(source_slug)
-                        cards.append(card)
                     return (f'<a class="plink" href="{target}" target="_blank" '
                             f'rel="nofollow sponsored noopener">{mm.group(0)}</a>')
                 return name_re.sub(repl, text)
@@ -2546,8 +2576,7 @@ def link_product_names(html, a):
                     parts[i] = replace_text(part)
             if "<a class=\"plink\"" not in "".join(parts):
                 return m.group(0)
-            prefix = "".join(cards) if re.match(r"<p(?:\s|>)", open_, re.I) else ""
-            return prefix + open_ + "".join(parts) + close
+            return open_ + "".join(parts) + close
 
         return re.sub(
             r"(<(p|li|td|th|summary|h2|h3|h4)(?:\s[^>]*)?>)(.*?)(</\2>)",
@@ -2556,6 +2585,63 @@ def link_product_names(html, a):
     # 商品名の登場位置を維持するため、見出し単位の分割は残す。
     chunks = re.split(r"(?=<h2[\s>])", html)
     return "".join(one_chunk(c) for c in chunks)
+
+
+def feature_product_cards_in_context(html, a, p):
+    """特集本文で各商品を説明する段落の直前に、その商品の画像リンクを置く。
+
+    商品カードだけを末尾にまとめる一覧は作らず、本文中で商品名が実際に
+    登場した場合だけ対応カードを差し込む。商品名を記事に書けない候補は、
+    根拠不足としてカードも出さない。
+    """
+    if a.get("category") != "feature":
+        return html
+    by_slug = {x.get("slug"): x for x in ARTICLES}
+    for slug in a.get("feature_covers") or []:
+        src = by_slug.get(slug)
+        if not src or not shop_links(src):
+            continue
+        card = product_card(src, p, with_img=True)
+        if not card:
+            continue
+        pats = product_name_patterns(src)
+        if not pats:
+            continue
+        name_re = re.compile("|".join(pats), flags=re.I)
+        inserted = [False]
+
+        def before_product(m):
+            if inserted[0]:
+                return m.group(0)
+            attrs, inner = m.group(1), m.group(2)
+            if "prod-name" in attrs:
+                return m.group(0)
+            plain = re.sub(r"<[^>]+>", "", inner)
+            if not name_re.search(plain):
+                return m.group(0)
+            inserted[0] = True
+            return card + m.group(0)
+
+        html = re.sub(r"<p([^>]*)>(.*?)</p>", before_product, html,
+                      flags=re.S | re.I)
+        if not inserted[0]:
+            # 商品の最初の説明が要点リストに置かれている特集もあるため、
+            # 段落で見つからない場合だけ、その li の本文直前へ置く。
+            def before_product_in_list(m):
+                if inserted[0]:
+                    return m.group(0)
+                attrs, inner = m.group(1), m.group(2)
+                if "prod-name" in attrs:
+                    return m.group(0)
+                plain = re.sub(r"<[^>]+>", "", inner)
+                if not name_re.search(plain):
+                    return m.group(0)
+                inserted[0] = True
+                return f"<li{attrs}>{card}{inner}</li>"
+
+            html = re.sub(r"<li([^>]*)>(.*?)</li>", before_product_in_list,
+                          html, flags=re.S | re.I)
+    return html
 
 
 # 1記事に置くボタン列は3か所まで。
@@ -3172,6 +3258,7 @@ def render_article(a):
     add = b.append
 
     add('      <article class="card-surface" id="review">\n')
+    pre_body_at = len(b)
     add(f'''        <div class="article-meta">
           <a class="badge badge-cat" href="{p}category-{cat}.html">{e(CAT_LABEL.get(cat,""))}</a>{sub_badge(a, p)}
           {kind_badge(a)}
@@ -3533,7 +3620,9 @@ def render_article(a):
 
     add('        </div>\n      </article>\n')
     # 本文中の商品名を販売先へのリンクにする（本文の範囲だけ）
-    b[body_at:] = [link_product_names("".join(b[body_at:]), a)]
+    linked_prefix = link_product_names("".join(b[pre_body_at:body_at]), a)
+    linked_body = link_product_names("".join(b[body_at:]), a)
+    b[pre_body_at:] = [linked_prefix + feature_product_cards_in_context(linked_body, a, p)]
 
     # シェアの導線は、記事の右下に浮かせた丸いボタン（share_fab）に集約した。
     # 本文の末尾にも並べると、同じものが2か所に出て迷わせるため置かない。
