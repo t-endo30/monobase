@@ -133,7 +133,7 @@ def request_json(instructions, prompt, schema, *, model=None, timeout=900, cwd=N
 
 def jev_judge(payload, *, timeout=90):
     """固定MCPブリッジ経由でJevを呼ぶ。未接続時は補助判定を省略する。"""
-    endpoint = os.environ.get("JEV_MCP_URL", "https://jev.moonplace.link/mcp").strip()
+    configured_endpoint = os.environ.get("JEV_MCP_URL", "").strip()
     command = os.environ.get("JEV_COMMAND", "").strip()
     if command:
         try:
@@ -151,17 +151,27 @@ def jev_judge(payload, *, timeout=90):
     }
     rpc = {"jsonrpc": "2.0", "id": 1, "method": "tools/call",
            "params": {"name": "jev_system_one", "arguments": {"state": state, "questions": questions}}}
-    req = urllib.request.Request(endpoint, data=json.dumps(rpc, ensure_ascii=False).encode("utf-8"),
-                                 headers={"Content-Type": "application/json"}, method="POST")
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as response:
-            data = json.loads(response.read().decode("utf-8"))
-    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, json.JSONDecodeError) as exc:
-        return {"status": "error", "reason": f"Jev MCP通信失敗: {exc}"}
-    if data.get("error"):
-        return {"status": "error", "reason": "Jev MCPエラー"}
-    result = data.get("result", {}).get("structuredContent")
-    if not isinstance(result, dict):
-        return {"status": "error", "reason": "Jev MCP結果がJSONではありません"}
-    result["status"] = "ok"
-    return result
+    endpoints = ([configured_endpoint] if configured_endpoint else
+                 ["http://127.0.0.1:8787/mcp", "https://jev.moonplace.link/mcp"])
+    last_error = "Jev MCP通信先がありません"
+    for endpoint in endpoints:
+        req = urllib.request.Request(
+            endpoint, data=json.dumps(rpc, ensure_ascii=False).encode("utf-8"),
+            headers={"Content-Type": "application/json"}, method="POST")
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as response:
+                data = json.loads(response.read().decode("utf-8"))
+        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError,
+                json.JSONDecodeError) as exc:
+            last_error = f"{endpoint}: {exc}"
+            continue
+        if data.get("error"):
+            last_error = f"{endpoint}: Jev MCPエラー"
+            continue
+        result = data.get("result", {}).get("structuredContent")
+        if not isinstance(result, dict):
+            last_error = f"{endpoint}: Jev MCP結果がJSONではありません"
+            continue
+        result["status"] = "ok"
+        return result
+    return {"status": "error", "reason": f"Jev MCP通信失敗: {last_error}"}

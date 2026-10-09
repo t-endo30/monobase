@@ -42,7 +42,7 @@ python3 tools/gpt_review_article.py <slug> --dry-run
 
 ## Jevの位置づけ
 
-`--jev` を付けると、既定の `https://jev.moonplace.link/mcp` に接続し、`jev_system_one`で記事の主張リスクを補助判定する。接続先を変える場合だけ `JEV_MCP_URL` を設定する。互換用に `JEV_COMMAND` を設定した場合はコマンド方式を優先する。
+`--jev` を付けると、まずMac上のJevブリッジ `http://127.0.0.1:8787/mcp` に接続し、利用できない場合だけ `https://jev.moonplace.link/mcp` へフォールバックして、`jev_system_one`で記事の主張リスクを補助判定する。接続先を固定する場合だけ `JEV_MCP_URL` を設定する。互換用に `JEV_COMMAND` を設定した場合はコマンド方式を優先する。
 
 Jevは、主張の不確実性・要確認箇所・根拠不足の候補を増やす二次判定としては有効。ただしJevの判定だけで事実を確定してはいけないため、GPTレビューには「要確認候補」として渡し、公式情報・facts・口コミなどの根拠が無い記述は残さない。Jev未接続でも通常の機械検査とGPTレビューは継続する。
 

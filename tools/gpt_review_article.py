@@ -24,7 +24,7 @@ def review_instructions(jev):
                  "要確認候補として扱い、公式情報や記事中の根拠が無い主張を残さないでください。\n"
                  + str(jev))
     return """あなたは厳格な編集レビュー担当です。レビュー基準、機械検査結果、記事JSONを照合し、直すべき項目だけを fixed に返してください。架空の事実を補わず、根拠が弱い rating/spec は removed にしてください。score は修正後の実物に対して採点します。
-追加ルール：特集・選び方記事のタイトルと一覧名に個別商品名・型番を入れず、カテゴリ名・用途名に直してください。特集のサムネイルはカテゴリ画像を使う前提です。個別商品記事でサムネイルが無い場合は公開不可にしてください。本文の商品名リンクはAmazon→楽天→Yahoo!の順で、Amazon導線が存在する場合はAmazonを優先してください。公式資料リンクは削除せず、公式OGP画像が根拠データにある場合は表示用フィールドを残してください。「このサイトでは判断できない」「正確に判断できない」「個別の例で評価全体の傾向を示さない」などの弱気なメタ表現は、確認できた事実と購入前の具体的な確認項目へ書き換えてください。「口コミ」は出典が曖昧な本文では「利用者の声」に統一してください。
+追加ルール：特集・選び方記事のタイトルと一覧名に個別商品名・型番を入れず、カテゴリ名・用途名に直してください。特集のサムネイルはカテゴリ画像を使う前提です。根拠ブロックの thumbnail_policy が category_image の場合はサムネイル不足として扱わないでください。個別商品記事でサムネイルが無い場合は公開不可にしてください。本文の商品名リンクはAmazon→楽天→Yahoo!の順で、Amazon導線が存在する場合はAmazonを優先してください。公式資料リンクは削除せず、公式OGP画像が根拠データにある場合は表示用フィールドを残してください。「このサイトでは判断できない」「正確に判断できない」「個別の例で評価全体の傾向を示さない」などの弱気なメタ表現は、確認できた事実と購入前の具体的な確認項目へ書き換えてください。「口コミ」は出典が曖昧な本文では「利用者の声」に統一してください。
 JSON Schemaに厳密に従うJSONだけを返してください。""" + extra
 
 
@@ -38,7 +38,7 @@ def main():
     ap.add_argument("--timeout", type=int, default=300)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--publish", action="store_true")
-    ap.add_argument("--jev", action="store_true", help="JEV_COMMANDがある場合だけ補助判定を使う")
+    ap.add_argument("--jev", action="store_true", help="Jevの補助判定を使う（ローカルブリッジを優先）")
     args = ap.parse_args()
     arts = load("content/articles.json")
     rules = io.open(os.path.join(os.path.dirname(os.path.dirname(__file__)),

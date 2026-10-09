@@ -279,8 +279,13 @@ def build_prompt(a, rules, hits, arts=()):
         # 個別商品記事の公開条件。本文GEN_FIELDSからは画像URLを除外して
         # いるため、GPTが「サムネイルなし」と誤判定しないよう根拠ブロック
         # に表示用URLとモール画像の有無を明示する。
-        "thumbnail_present": bool(a.get("thumb")),
+        # 特集は個別商品画像ではなく、build.py がカテゴリー画像を使う。
+        # GPTにもこの公開ルールを明示し、特集をサムネイル不足で誤って
+        # 不合格にしない。
+        "thumbnail_present": bool(a.get("thumb")) or a.get("category") == "feature",
         "thumbnail_url": a.get("thumb", ""),
+        "thumbnail_policy": ("category_image" if a.get("category") == "feature"
+                              else "product_image"),
         "shop_images": a.get("shop_images", {}),
         "product_urls": {k: a.get(k, "") for k in
                           ("amazon_url", "rakuten_url", "yahoo_url") if a.get(k)},
