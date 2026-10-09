@@ -5008,7 +5008,11 @@ h1,h2,h3,h4,
 .card-grid.is-rank > .card .card-thumb{order:1;}
 .card-grid.is-rank > .card .card-meta{display:none;}
 .card-grid.is-rank > .card .card-title{
-  order:2;text-align:center;
+  order:2;text-align:center !important;
+}
+.card-grid.is-rank > .card .card-title .tt-main,
+.card-grid.is-rank > .card .card-title .tt-sub{
+  text-align:center !important;
 }
 .card-grid.is-rank > .card .card-stats{
   order:3;justify-content:center;
