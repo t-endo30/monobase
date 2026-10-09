@@ -2809,7 +2809,12 @@ def product_card(a, p, eager=False, with_img=True):
 
 
 def feature_product_cards(a, p):
-    """特集が紹介する全商品を、実物画像つきの購入導線として出す。"""
+    """特集商品を「画像付きリンク→商品ごとの説明」の順で出す。
+
+    商品カードだけを先に一覧化すると、どの説明がどの商品に対応するか
+    分かりにくくなる。掲載元記事の要約をカード直後に置き、商品単位で
+    用途・確認点へ進める構成にする。
+    """
     if a.get("category") != "feature":
         return ""
     by_slug = {x.get("slug"): x for x in ARTICLES}
@@ -2818,10 +2823,15 @@ def feature_product_cards(a, p):
         src = by_slug.get(slug)
         if not src or not shop_links(src):
             continue
-        cards.append(product_card(src, p, with_img=True))
+        card = product_card(src, p, with_img=True)
+        explanation = (src.get("excerpt") or src.get("description") or "").strip()
+        if explanation:
+            card += (f'        <p class="feature-product-explanation">'
+                     f'{e(explanation)}</p>\n')
+        cards.append(card)
     if not cards:
         return ""
-    return ('          <h2 id="sec-feature-products">紹介商品を画像で確認する</h2>\n'
+    return ('          <h2 id="sec-feature-products">紹介商品を順番に確認する</h2>\n'
             '          <div class="feature-product-cards">\n'
             + "\n".join(cards)
             + '\n          </div>\n')

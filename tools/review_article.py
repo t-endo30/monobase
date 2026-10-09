@@ -493,6 +493,25 @@ def lacks_shop_photo(a):
                    for shop in ("rakuten", "yahoo"))
 
 
+def has_publishable_thumbnail(a):
+    """公開一覧に出せる実物画像があるかをレビュー段階でも判定する。
+
+    build.pyだけで弾くと、記事JSONの published フラグだけが先にtrueになり、
+    公開数と実際の公開ページがずれる。特集はカテゴリ画像を許可し、個別商品は
+    取得元が確認済みの公式・楽天・Yahoo!画像だけを許可する。
+    """
+    if a.get("category") == "feature":
+        return True
+    official = str(a.get("official_product_image") or "").strip()
+    if official.startswith("http"):
+        return True
+    images = a.get("shop_images") or {}
+    verified = a.get("shop_images_verified") or {}
+    return any(str(images.get(shop) or "").strip().startswith("http")
+               and verified.get(shop) is not False
+               for shop in ("rakuten", "yahoo"))
+
+
 def duplicate_of(a, arts):
     """同じ型番をすでに扱っている公開済み記事があれば、そのslugを返す。
        discard 判定と同じ「保険」の考え方。校閲LLMに重複の判断を任せると

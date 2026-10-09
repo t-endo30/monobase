@@ -404,13 +404,14 @@
     "category": "appliance",
     "sub": "appliance",
     "published": false,
+    "unpublished_reason": "個別商品画像の取得・確認が完了するまで公開保留",
     "featured": false,
     "title": "シロカ SS-MA351-WH 利用者の声｜4〜5人用食洗機の設置条件",
     "list_title": "シロカ SS-MA351-WH 利用者の声",
     "description": "siroca SS-MA351-WHについて、確認できた4〜5人用・食器36点・水道工事不要の案内と利用者の声を整理。設置場所や乾燥の確認点も紹介します。",
     "excerpt": "4〜5人用・食器36点・水道工事不要。siroca SS-MA351-WHについて、確認できた仕様と利用者の声から、向く家庭と設置前の確認点を解説。",
     "date": "2026-10-07",
-    "updated": "2026-10-07",
+    "updated": "2026-10-09",
     "tags": [
       "シロカ",
       "SS-MA351-WH",
@@ -630,7 +631,7 @@
       "items": [
         {
           "title": "36点対応で、家族分の洗い物を一度にまとめやすい",
-          "text": "シロカ公式は4〜5人用、食器36点を案内しています。食器が少ない一人暮らし向けではなく、食後に皿や茶わん、コップなどがまとまって出る家庭を前提にした容量です。洗い物をシンクに残す時間を短くしたい場合、庫内にまとめて入れられることが判断材料になります。毎回の手洗いを少しずつ続けるより、食事単位で家事を区切りやすくなります。"
+          "text": "シロカ公式は4〜5人用、食器36点を案内しています。食後に皿や茶わん、コップなどがまとまって出る家庭では、庫内にまとめて入れられることが判断材料になります。洗い物をシンクに残す時間を短くしたい場合、食事単位で家事を区切りやすくなります。"
         },
         {
           "title": "水道工事なしで、住まいの制約を越えやすい",
@@ -638,61 +639,22 @@
         },
         {
           "title": "給水の使い勝手が、食後の作業を短くする",
-          "text": "個別利用者の声では給水の使い勝手の配置に関する声が確認されています。給水方式の便利さだけでなく、実際に本体を置いた場所で給水口へアクセスできるかが使い勝手を左右します。設置場所と給水動線が合えば、洗浄を始めるまでの準備を減らせます。一方で、置き場所によっては給水や食器の出し入れに手を伸ばす動作が増えるため、購入前にキッチン周辺の動線を確認したいところです。"
+          "text": "利用者の声では、給水の使い勝手や給水口の配置に関する評価が確認されています。給水方式の便利さだけでなく、実際に本体を置いた場所で給水口へアクセスできるかが使い勝手を左右します。設置場所と給水動線が合えば、洗浄を始めるまでの準備を減らせます。一方で、置き場所によっては給水や食器の出し入れに手を伸ばす動作が増えるため、購入前にキッチン周辺の動線を確認したいところです。"
         }
       ]
     },
     "sections": [
       {
-        "heading": "大容量の価値は、洗える点数より「洗い物をまとめられること」にある",
-        "paras": [
-          "siroca SS-MA351-WH 食器洗い乾燥機 4-5人用を検討する人は、単に食器洗い乾燥機が欲しいのではなく、食後の洗い物を毎回手作業で処理する状態を変えたいはずです。シロカ公式が示す4〜5人用・食器36点という容量は、家族の食事で発生する複数の皿や茶わん、コップなどをまとめて扱うための目安になります。容量が大きいことの意味は、1枚多く入ることより、洗浄の回数を抑えやすい点にあります。",
-          "食器洗いを少量ずつ処理する生活では、シンクに残った食器が視界に入り続けます。まとめて入れられる容量があれば、食後の作業を一つのまとまりとして終わらせやすくなります。もちろん、食器の形状や入れ方によって実際に収納できる数は変わります。点数表示は家庭の食器がそのまま同じ数入るという意味ではなく、判断の起点として見るのが適切です。",
-          "特に家族人数が多い家庭では、容量不足による途中の手洗いが導入後の不満になりやすい部分です。その点で4〜5人用という位置付けは、少人数向けの小型機とは役割が異なります。食器をまとめて洗うことを優先するなら、容量の方向性は合っています。逆に、普段から食器が少なく、こまめに洗う家庭では、本体の大きさに対して得られるメリットが小さくなる可能性があります。",
-          "モノベースでは、この商品の判断軸を「何枚入るか」だけでなく「食後の洗い物を一度に処理したいか」に置くことを勧めます。家族分の食器を毎日まとめたいなら、容量が家事の流れに直結します。==食器洗いの回数を減らしたい家庭ほど、36点対応の意味が大きくなります。=="
-        ],
-        "point": "食器点数は目安です。普段使う皿の深さやコップの高さを先に確認すると、容量表示と自宅での使い方を結びつけやすくなります。",
-        "warn": "設置場所の寸法や周囲の動線は、商品ページの容量表示だけでは判断できません。購入前に置き場所を決めてください。",
-        "aside": "利用者の声では家事負担の軽減が評価されています。容量と給水の使い勝手が、単なる機能ではなく片付けの流れを短くする要素として受け取られています。",
-        "aside_label": "確認できた情報"
-      },
-      {
-        "heading": "水道工事不要でも、置くだけで終わるわけではない",
-        "paras": [
-          "水道工事不要という公式案内は、SS-MA351-WHを選ぶ理由として強い情報です。賃貸住宅では水栓を変更しにくく、持ち家でも工事の日程や費用を増やしたくない場合があります。そうした環境では、工事を前提にしない食器洗い乾燥機という時点で検討の入口に立ちやすくなります。",
-          "ただし、水道工事が要らないことと、設置条件が無いことは同じではありません。本体を置く面、扉を開けるための空間、食器を出し入れする動線、給水口へ手を伸ばせる位置を考える必要があります。給水の使い勝手に関する利用者の声が確認されているからこそ、給水の方式だけでなく、給水部分が自宅のキッチンで扱いやすいかを見ることが重要です。",
-          "設置場所がシンクの近くなら、食器を運ぶ距離を短くできます。一方、調理スペースの一部を使う場合は、調理中の作業場所が狭くなる可能性があります。食器洗いの負担が減っても、調理や収納の動線が悪化すれば、別の不便が生まれます。購入前には、使うときの便利さだけでなく、置いた後に何が狭くなるかまで確認したいところです。",
-          "この商品は「工事を避けられるから、どこにでも置ける」と解釈するものではありません。水道工事という大きなハードルを減らしつつ、設置面と周辺スペースの確認は残る製品です。ここを先に確認できる人なら、導入後の想定違いを抑えやすくなります。"
-        ],
-        "point": "メジャーで設置面を測り、本体を置いた後に食器を入れる動作まで想像すると、購入後の動線を具体化できます。",
-        "warn": "水道工事不要でも、給水位置と周囲の空間は確認が必要です。販売ページと取扱説明書の設置条件を参照してください。",
-        "aside": "給水の使い勝手の評価がある一方、利用者の声では配置に関する確認も重要です。方式の利点と、設置場所との相性を分けて考える必要があります。",
-        "aside_label": "確認できた情報"
-      },
-      {
-        "heading": "乾燥の評価は、機能名より食器の形状と置き方で読む",
-        "paras": [
-          "食器洗い乾燥機を選ぶとき、洗浄後にどの程度片付けが残るかは大切な判断材料です。今回確認できた利用者の声には、乾燥の仕上がりに触れる内容があります。ただし、食器の形状や置き方、庫内で水がたまりやすい向きなどによって、乾燥後の状態は変わります。利用者の声の印象だけを取り出して、すべての家庭に同じ結果が出ると読むのは適切ではありません。",
-          "たとえば深さのある器や水が残りやすい形は、平たい皿とは確認すべき点が異なります。普段使う食器に特殊な形が多い場合は、36点という数字より、収納条件にどのように収まるかを優先したいところです。確認できる商品資料に対応サイズや使用上の注意があれば、そこを照合してください。",
-          "乾燥の仕上がりを重視する人は、洗浄できることと、片付けが完全に終わることを分けて考えると判断しやすくなります。利用者の声では家事負担の軽減が評価されているため、手洗いから機械洗浄へ移すメリットはあります。一方、乾燥後の状態を確認する作業が残る可能性まで含めて、自分の家事スタイルに合うかを見ます。",
-          "正直に言えば、食器洗い乾燥機の満足度は本体のスペックだけで決まりません。食器の入れ方、置き場所、使う頻度が揃って初めて、家事を減らす道具として機能します。SS-MA351-WHは容量と工事不要が明確な一方、乾燥については自宅の食器との相性を確認してから選ぶ商品です。"
-        ],
-        "point": "購入前に、深い器・底が丸い器・背の高いコップなど、日常的に使う食器を洗えるか確認してください。",
-        "warn": "乾燥の仕上がりを重視する場合は、商品説明だけでなく、取扱説明書の乾燥に関する注意事項も確認したいです。",
-        "aside": "乾燥に関する声は、製品そのものの評価だけでなく、食器の形状や設置環境を確認するきっかけになります。",
-        "aside_label": "確認できた情報"
-      },
-      {
         "heading": "購入前に見るべきなのは、容量・工事・動線の三つ",
         "paras": [
           "SS-MA351-WHの購入判断を短くまとめるなら、第一に食器36点を自宅の食器構成で活かせるか、第二に水道工事不要という条件が導入の障壁を下げるか、第三に置いた後の給水と出し入れが無理なく続くかです。この三つは、公式情報と利用者の声を組み合わせて判断できます。",
-          "公式情報は容量と設置方式の基準になります。楽天市場の商品ページでは型番SS-MA351-WHとJANコード4589919826841が確認されています。商品名が似た別モデルや色違いを選ばないよう、購入先のページでも型番を照合してください。",
+          "公式情報は容量と設置方式の基準になります。楽天市場の個別商品ページでは型番SS-MA351-WHとJANコード4589919826841が確認されています。商品名が似た別モデルや色違いを選ばないよう、購入先のページでも型番を照合してください。",
           "利用者の声は、仕様表だけでは分からない部分を補います。給水の使い勝手の配置、乾燥の仕上がり、家事負担の軽減について声があるため、そこを自宅の環境へ置き換えて読むのが有効です。評価が良いか悪いかだけでなく、どの条件で評価が変わるかを見ると、購入後の想定を作りやすくなります。",
           "この商品を選ぶなら、設置予定場所の寸法を測り、給水部分へアクセスできるかを確認し、普段使う食器を数種類思い浮かべるところから始めるのが現実的です。ここが合えば、4〜5人用の容量と水道工事不要という特徴が、毎日の家事に直結します。"
         ],
         "point": "商品ページで型番、給水方法、設置条件を確認し、別モデルや容量違いと混同しないようにしてください。",
         "warn": "JANコードや型番が異なる商品ページは、同じシロカ製品でも仕様が異なる可能性があります。購入先でSS-MA351-WHを照合してください。",
-        "aside": "今回確認できた販売情報は楽天市場の1店舗分です。価格や在庫は記事本文の判断材料にせず、リンク先の最新表示を確認する位置付けです。",
+        "aside": "確認できた販売情報には楽天市場の個別商品ページがあります。価格や在庫は記事本文の判断材料にせず、リンク先の最新表示を確認する位置付けです。",
         "aside_label": "確認できた情報"
       }
     ],
@@ -720,7 +682,7 @@
       }
     ],
     "evidence_audit": {
-      "checked_at": "2026-10-07T15:42:04+09:00",
+      "checked_at": "2026-10-09T09:16:57+09:00",
       "status": "pass",
       "official_url": "https://www.siroca.co.jp/product/dishwasher_largecapacity_ss-mh351/",
       "has_official_evidence": true,
@@ -734,19 +696,19 @@
       "blockers": []
     },
     "reviewed": {
-      "at": "2026-10-07",
-      "rev": "72b570d966518888",
+      "at": "2026-10-09",
+      "rev": "32a9dd078c322efd",
       "score": {
-        "fact_accuracy": 96,
-        "source_reliability": 94,
-        "original_analysis": 89,
-        "editorial_quality": 91,
-        "template_avoidance": 84,
-        "purchase_helpfulness": 95,
-        "legal_safety": 98,
+        "fact_accuracy": 92,
+        "source_reliability": 91,
+        "original_analysis": 86,
+        "editorial_quality": 89,
+        "template_avoidance": 87,
+        "purchase_helpfulness": 92,
+        "legal_safety": 96,
         "amazon_compliance": 100,
-        "total": 93,
-        "notes": "確認済みの仕様・利用者の声の範囲で構成され、根拠のないratingやspecもありません。確認表現の反復はやや多いものの、商品固有の購入前確認点は具体的です。"
+        "total": 91,
+        "notes": "根拠データに沿って公式仕様と利用者の声を分けており、ratingやspecもありません。容量から対象者を断定する表現を修正しました。"
       }
     },
     "health": {
@@ -761,6 +723,7 @@
     "category": "pc",
     "sub": "storage",
     "published": false,
+    "unpublished_reason": "個別商品画像の取得・確認が完了するまで公開保留",
     "featured": false,
     "title": "Fanxiang PS2000W 利用者の声｜1TB外付けSSDの速度と接続条件",
     "list_title": "Fanxiang PS2000W 利用者の声",
@@ -1050,7 +1013,7 @@
       }
     ],
     "evidence_audit": {
-      "checked_at": "2026-10-07T15:25:12+09:00",
+      "checked_at": "2026-10-09T09:17:09+09:00",
       "status": "pass",
       "official_url": "https://www.fanxiangssd.com/products/fanxiang-1tb-external-ssd-portable-up-to-2000mb-s-external-solid-state-drive-external-hard-drive-usb-3-2-gen2-type-c-ssd-for-iphone-15-pro-pc-laptops-creators-gaming",
       "has_official_evidence": true,
@@ -1064,19 +1027,19 @@
       "blockers": []
     },
     "reviewed": {
-      "at": "2026-10-07",
+      "at": "2026-10-09",
       "rev": "3bee541a74e7a54e",
       "score": {
-        "fact_accuracy": 93,
-        "source_reliability": 92,
-        "original_analysis": 89,
-        "editorial_quality": 88,
-        "template_avoidance": 84,
-        "purchase_helpfulness": 91,
-        "legal_safety": 94,
-        "amazon_compliance": 95,
-        "total": 91,
-        "notes": "根拠データの範囲を超える rating や spec はなく、Amazon検索URLも楽天の同一商品URLで照合可能です。表現の一部に同種の説明の反復はありますが、公開基準上の重大な違反は確認できません。"
+        "fact_accuracy": 95,
+        "source_reliability": 94,
+        "original_analysis": 88,
+        "editorial_quality": 91,
+        "template_avoidance": 88,
+        "purchase_helpfulness": 92,
+        "legal_safety": 96,
+        "amazon_compliance": 100,
+        "total": 93,
+        "notes": "根拠データの範囲内で仕様・利用者の声・分析が分けられており、未確認のratingやspecもない。接続条件と購入前確認項目が具体的で、公開上の重大な問題は見当たらない。"
       }
     },
     "health": {
@@ -1812,13 +1775,14 @@
     "category": "av",
     "sub": "tv",
     "published": false,
+    "unpublished_reason": "個別商品画像の取得・確認が完了するまで公開保留",
     "featured": false,
     "title": "MAXZEN J24CH06 利用者の声｜24型テレビの録画と設置条件",
     "list_title": "MAXZEN J24CH06 利用者の声",
     "description": "MAXZEN J24CH06を公式仕様と楽天市場の利用者の声から分析。24型、Wチューナー、外付けHDD録画、HDMI、ゲームモードの向き不向きと購入前の確認点を紹介します。",
     "excerpt": "24型で放送・録画・ゲームをまとめやすい小型テレビ。利用者の声から設置時の注意点も整理します。",
     "date": "2026-10-07",
-    "updated": "2026-10-06",
+    "updated": "2026-10-09",
     "tags": [
       "MAXZEN",
       "J24CH06",
@@ -1850,7 +1814,7 @@
     ],
     "rating": {
       "score": 4.2,
-      "breakdown": "24型の設置性、地上・BS・110度CS対応、Wチューナーと外付けHDD録画、HDMI端子を評価し、大画面用途には向かない点とカード挿入確認に関する利用者の声を減点しました。"
+      "breakdown": "当サイト独自評価。24型の設置性、地上・BS・110度CS対応、Wチューナーと外付けHDD録画、HDMI端子を評価し、大画面用途には向かない点とカード挿入確認に関する利用者の声を減点しました。"
     },
     "lead": [
       "MAXZEN J24CH06は、24型の画面で地上波・BS・110度CSを見られる小型液晶テレビです。MAXZEN公式店の商品ページ情報では、Wチューナー、外付けHDD録画、HDMI端子、ゲームモードを搭載しています。",
@@ -2071,7 +2035,7 @@
       {
         "heading": "利用者の声で評価が分かれる点は、設置前の確認で差が出る",
         "paras": [
-          "楽天市場の販売情報では、J24CH06についての利用者の声と平均4。3の評価が確認されています。これはメーカー仕様ではなく、販売ページ上の利用者評価です。本文では、楽天市場の利用者の声から確認できた内容と、MAXZEN公式店の商品ページ情報を分けて扱います。",
+          "楽天市場の販売情報では、J24CH06についての利用者の声と平均4.5の評価が確認されています。これはメーカー仕様ではなく、販売ページ上の利用者評価です。本文では、楽天市場の利用者の声から確認できた内容と、MAXZEN公式店の商品ページ情報を分けて扱います。",
           "利用者の声では、映像の見やすさに触れる評価があります。画面サイズが24型であるため、近い距離で個室や寝室のテレビとして見る場合には、必要な情報を把握しやすいサイズです。ただし、見やすさは視聴距離や放送内容、設置位置によって変わります。大きな部屋で離れて見る場合まで同じ印象になるとは限りません。",
           "本体の軽さに触れる声も確認されています。重量の具体値は根拠データに含まれていないため、設置前に販売ページで重量表記を確認し、テレビ台の耐荷重とスタンドを含む設置面を照合してください。壁寄せやベッド脇など周囲に余裕が少ない場所では、画面サイズだけでなく電源・アンテナ・HDMIケーブルの取り回しも見ておきたいところです。",
           "一方、miniB-CASカードの挿入時の確認に関する声もあります。これは本体の放送対応そのものを否定する話ではなく、初期設定時のカードの向きや挿入状態を確認する場面で戸惑う可能性があるという話です。カードを差し込む場所と向きを説明書で確認し、画面に表示される案内に沿って進めることで、設置時の迷いを抑えやすくなります。"
@@ -2119,9 +2083,9 @@
       }
     ],
     "evidence_audit": {
-      "checked_at": "2026-10-07T14:47:10+09:00",
+      "checked_at": "2026-10-09T09:18:07+09:00",
       "status": "pass",
-      "official_url": "https://maxzen。jp/product/j24ch06/",
+      "official_url": "https://maxzen.jp/product/j24ch06/",
       "has_official_evidence": true,
       "individual_product_urls": {
         "rakuten_url": "https://item。rakuten。co。jp/maxzen/4571495432677/",
@@ -2134,19 +2098,19 @@
       "blockers": []
     },
     "reviewed": {
-      "at": "2026-10-07",
-      "rev": "b2cb99ac259302bb",
+      "at": "2026-10-09",
+      "rev": "49fc4be4189d31b4",
       "score": {
         "fact_accuracy": 96,
-        "source_reliability": 94,
-        "original_analysis": 91,
-        "editorial_quality": 94,
-        "template_avoidance": 90,
+        "source_reliability": 95,
+        "original_analysis": 88,
+        "editorial_quality": 92,
+        "template_avoidance": 87,
         "purchase_helpfulness": 94,
-        "legal_safety": 96,
+        "legal_safety": 97,
         "amazon_compliance": 98,
-        "total": 94,
-        "notes": "確認済みの公式仕様と楽天市場の利用者の声を分けて扱っており、根拠のないspecやAmazon由来の評価はありません。個別商品の特定、価格の不掲載、購入前確認点も満たしています。"
+        "total": 92,
+        "notes": "確認済みの公式仕様と楽天市場の利用者の声に基づき、根拠のないspecやレビュー引用は見当たりません。表現にやや定型的な購入前確認の反復はありますが、公開基準を満たす水準です。"
       }
     },
     "health": {
@@ -76944,6 +76908,7 @@
   },
   {
     "published": false,
+    "unpublished_reason": "個別商品画像の取得・確認が完了するまで公開保留",
     "featured": false,
     "amazon_url": "https://www.amazon.co.jp/dp/B0BN1GYZXZ",
     "thumb": "assets/img/gen/anker-568-usbc-dock-review.jpg",
@@ -77187,7 +77152,6 @@
     "image_prompt": "A photograph of Anker 568 ドック, which is a ドッキングステーション, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
     "official_ogp_title": "Anker 568 USB-C ドッキングステーション (11-in-1, USB4) | ドッキングステーションの製品情報",
     "official_ogp_image": "https://www.ankerjapan.com/cdn/shop/products/012_1200x1200.jpg?v=1677741663",
-    "unpublished_reason": "",
     "voices": [
       {
         "heading": "実使用レビューで確認できたポート構成と互換条件",
@@ -77221,7 +77185,7 @@
     "voices_intro": "今回の根拠には、PCWorldおよびFramework Communityに掲載された第三者レビューがあります。一方、販売サイト由来の利用者の声の件数、平均評価、星による評価は確認できないため、それらを使った採点や傾向の断定は行いません。第三者レビューも特定のPC構成に基づく情報として扱い、すべての環境に一般化しません。",
     "voices_after": "第三者レビューを購入判断に使う場合は、画面数ごとの出力条件、USB-Cポート使用時の給電条件、接続するパソコンの型番を意識して読み取ってください。環境が異なる報告をそのまま自分の環境へ当てはめず、公式仕様で確認できる点と個別構成に依存する点を分けて考えることが重要です。",
     "evidence_audit": {
-      "checked_at": "2026-10-06T20:36:25+09:00",
+      "checked_at": "2026-10-09T09:18:23+09:00",
       "status": "pass",
       "official_url": "https://www.ankerjapan.com/products/a8399",
       "has_official_evidence": true,
@@ -77257,24 +77221,25 @@
       ]
     },
     "reviewed": {
-      "at": "2026-10-06",
-      "rev": "429d97629ad9978b",
+      "at": "2026-10-09",
+      "rev": "7bd63a2888978630",
       "score": {
-        "fact_accuracy": 95,
+        "fact_accuracy": 96,
         "source_reliability": 94,
         "original_analysis": 91,
-        "editorial_quality": 92,
-        "template_avoidance": 88,
-        "purchase_helpfulness": 94,
+        "editorial_quality": 94,
+        "template_avoidance": 90,
+        "purchase_helpfulness": 95,
         "legal_safety": 98,
-        "amazon_compliance": 100,
+        "amazon_compliance": 98,
         "total": 94,
-        "notes": "確認済みの公式仕様と提供された第三者レビューの範囲で記述され、未確認の価格・レビュー件数・平均評価を断定していません。製品固有の画面数別条件と給電条件を購入判断に結び付けています。"
+        "notes": "根拠データの公式仕様と第三者レビューの範囲内で記述され、未確認のratingやspec、Amazon由来の星・件数もありません。"
       }
     }
   },
   {
-    "published": true,
+    "published": false,
+    "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
     "featured": false,
     "amazon_url": "https://www.amazon.co.jp/dp/B0BN1GYZXZ",
     "thumb": "assets/img/gen/mx-master-3s-review.jpg",
@@ -77575,7 +77540,6 @@
       "missing": [],
       "blockers": []
     },
-    "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
     "reviewed": {
       "at": "2026-10-06",
       "rev": "871bc4bb8bac2c52",

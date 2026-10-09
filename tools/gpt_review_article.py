@@ -13,7 +13,8 @@ from gpt_llm import GPTError, jev_judge, request_json
 from gpt_schemas import REVIEW_SCHEMA
 from review_article import (CATEGORY_MAP, PUBLISH_SCORE, apply_fixed,
                             build_prompt, content_rev, duplicate_of,
-                            lacks_shop_photo, load, looks_unidentifiable,
+                            has_publishable_thumbnail, lacks_shop_photo, load,
+                            looks_unidentifiable,
                             save_article, scan)
 
 
@@ -115,7 +116,11 @@ def main():
         if args.publish:
             evidence_blockers = stamp_evidence(a)
             blockers.extend(evidence_blockers)
-            passed = passed and not evidence_blockers
+            thumbnail_blocker = False
+            if a.get("category") != "feature" and not has_publishable_thumbnail(a):
+                blockers.append("個別商品画像の取得・確認が済んでいないため公開不可")
+                thumbnail_blocker = True
+            passed = passed and not evidence_blockers and not thumbnail_blocker
         if passed:
             ok += 1
             a["reviewed"] = {"at": time.strftime("%Y-%m-%d"), "rev": content_rev(a), "score": score}
