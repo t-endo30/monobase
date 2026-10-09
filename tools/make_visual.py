@@ -211,11 +211,11 @@ def photo_layer(path, dark):
         data = base64.b64encode(f.read()).decode("ascii")
     # ぼかしで端が透けて暗くならないよう、写真は枠より一回り大きく敷く
     defs = ('<filter id="blur" x="0" y="0" width="100%" height="100%">'
-            '<feGaussianBlur stdDeviation="16" edgeMode="duplicate"/></filter>')
+            '<feGaussianBlur stdDeviation="10" edgeMode="duplicate"/></filter>')
     layer = (f'<image href="data:image/{mime};base64,{data}" x="-60" y="-60" '
              f'width="{W + 120}" height="{W + 120}" preserveAspectRatio="xMidYMid slice" '
              f'filter="url(#blur)"/>\n'
-             f'  <rect width="{W}" height="{W}" fill="{dark}" fill-opacity=".62"/>')
+             f'  <rect width="{W}" height="{W}" fill="{dark}" fill-opacity=".54"/>')
     return defs, layer
 
 
@@ -233,10 +233,10 @@ def build(slug, title, category, cat_label, site_name, out_dir, kind_label="",
     # 上まで）で上下中央にそろえる。題名の大きさは、残りの高さで決める。
     avail = BOTTOM - TOP - 20 - 90
     tag_h, gap1 = 76, 40
-    sub_lines, sub_fs = layout(sub, 1, 60, 42, 1.3, 80) if sub else ([], 0)
+    sub_lines, sub_fs = layout(sub, 1, 68, 46, 1.3, 80) if sub else ([], 0)
     gap2 = 30 if sub_lines else 0
     sub_h = sub_fs * 1.3 if sub_lines else 0
-    lines, fs = layout(main, 3, 132, 64, 1.22, avail - tag_h - gap1 - gap2 - sub_h)
+    lines, fs = layout(main, 3, 150, 68, 1.22, avail - tag_h - gap1 - gap2 - sub_h)
     title_h = len(lines) * fs * 1.22
     block = tag_h + gap1 + title_h + gap2 + sub_h
     y0 = TOP + 20 + max(0, (avail - block) / 2)
@@ -254,15 +254,15 @@ def build(slug, title, category, cat_label, site_name, out_dir, kind_label="",
         parts.append(f'<text x="{x}" y="{y0 + 55:.0f}" font-family="{FAM}" font-size="48" '
                      f'font-weight="600" fill="{WHITE}" fill-opacity=".82">{esc(cat_label)}</text>')
 
-    # 題名（左そろえ。雑誌の表紙のように、行頭の線がそろうと読みやすい）
+    # 題名（中央ぞろえ）。16:9で切り取られても読める帯の中に収める。
     y = y0 + tag_h + gap1 + fs * 0.92
     for l in lines:
-        parts.append(f'<text x="100" y="{y:.0f}" font-family="{FAM}" font-size="{fs:.0f}" '
+        parts.append(f'<text x="{W / 2:.0f}" y="{y:.0f}" text-anchor="middle" font-family="{FAM}" font-size="{fs:.0f}" '
                      f'font-weight="800" fill="{WHITE}" letter-spacing="{-fs * 0.02:.1f}">{rich(l)}</text>')
         y += fs * 1.22
     if sub_lines:
         y += gap2 - fs * 0.92 + sub_fs * 0.9     # y は次の行の基線にいるので、最終行の下端まで戻す
-        parts.append(f'<text x="100" y="{y:.0f}" font-family="{FAM}" font-size="{sub_fs:.0f}" '
+        parts.append(f'<text x="{W / 2:.0f}" y="{y:.0f}" text-anchor="middle" font-family="{FAM}" font-size="{sub_fs:.0f}" '
                      f'font-weight="600" fill="{WHITE}" fill-opacity=".78">{rich(sub_lines[0])}</text>')
 
     # 帯の下端：区切り線とサイト名
