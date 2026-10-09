@@ -97,6 +97,7 @@ def rank_item(a, p):
             "excerpt": a.get("excerpt", ""),
             # 価格・★。JSが assets/main.js の statsHtml() で組む。
             "st": card_stats_data(a),
+            "proof": bool(card_proof(a)),
             "score": a.get("rating", {}).get("score") or 0,
             "date": a.get("date", "")}
 
@@ -2000,14 +2001,16 @@ def v2_row(a, p, numbered=None, detail=False, flags=""):
             f'onerror="this.onerror=null;this.src=\'{e(fallback)}\';this.closest(\'.thumb\').classList.remove(\'is-shop\')">'
             f'<span class="card-flags" aria-hidden="true"></span>{no}</span>'
             f'<span class="row-body">'
-            f'<span class="row-meta">'
-            f'<span class="meta">{e(a.get("date",""))}</span>'
-            # 日付→VIEW→カテゴリーの順。閲覧数は assets/main.js が入れる。
-            f'<span class="card-views" hidden></span>'
-            f'<span class="row-cat">&nbsp;{e(cat)}&nbsp;</span></span>'
             f'<h3>{v2_title(a["title"])}</h3>'
             f'{card_stats(a)}'
-            f'<p>{e(v2_appeal(a))}</p></span></a>')
+            f'<p>{e(v2_appeal(a))}</p>'
+            f'<span class="card-badges">'
+            f'<span class="card-cat-out">&nbsp;{e(cat)}&nbsp;</span>'
+            f'{card_proof(a)}</span>'
+            f'<span class="row-meta">'
+            f'<span class="meta">{e(a.get("date",""))}</span>'
+            # New / VIEW / 日時は、ホームの横長タイルと同じ末尾行に置く。
+            f'<span class="card-views" hidden></span></span></span></a>')
 
 
 def v2_rows(items, p, numbered=False, narrow=False, detail=False, flags=""):
@@ -5926,6 +5929,8 @@ def main():
             "thumb": shop_thumb(a)[0] or auto_svg(a),
             "tags": a.get("tags", []), "date": a["date"],
             "score": a.get("rating", {}).get("score") or 0,
+            "st": card_stats_data(a),
+            "proof": bool(card_proof(a)),
             "url": f'articles/{a["slug"]}.html'} for a in PUBLISHED]
     write("search.json", json.dumps(idx, ensure_ascii=False, separators=(",", ":")))
     written.append("search.json")

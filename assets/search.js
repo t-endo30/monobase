@@ -86,6 +86,24 @@ function titleHtml(t) {
     return '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
   }
 
+  /* build.py の card_stats() と同じ表示。検索結果も、一覧・ランキング・
+     ホームの横長タイルと同じ価格／評価の行にする。 */
+  function statsHtml(st) {
+    st = st || {};
+    var cls = 'card-stats' + (st.r ? '' : ' is-no-rating');
+    var out = '';
+    if (st.p) {
+      out += '<span class="cs-price">¥' + Number(st.p).toLocaleString('ja-JP') + '</span>';
+      if (st.s) out += '<span class="cs-ship">送料込</span>';
+    }
+    if (st.n) {
+      if (st.r) out += '<span class="cs-star">★' + Number(st.r).toFixed(2) + '</span>';
+      out += '<span class="cs-rv"><span class="cs-n">' +
+        Number(st.n).toLocaleString('ja-JP') + '件</span></span>';
+    }
+    return '<span class="' + cls + '">' + out + '</span>';
+  }
+
   function dotDate(d) {
     d = String(d || '').slice(0, 10);
     return d.length === 10 ? esc(d).replace(/-/g, '.') : '';
@@ -94,22 +112,26 @@ function titleHtml(t) {
   /* 行の形は build.py の v2_row() と同じ（.row-item）にそろえてある。
      一覧・ランキングと見た目が一致し、記事タイルの実装がひとつで済む。 */
   function cardHtml(item, terms) {
-    var catch_ = item.excerpt
-      ? '<p>' + highlight(item.excerpt, terms) + '</p>' : '';
+    var catch_ = '<p>' + (item.excerpt ? highlight(item.excerpt, terms) : '') + '</p>';
     return '' +
       '<a class="row-item" href="./' + esc(item.url) + '"' +
         ' data-cat="' + esc(item.cat || '') + '" data-slug="' + esc(item.slug || '') +
         '" data-date="' + esc(item.date || '') + '">' +
-        '<span class="thumb">' +
+      '<span class="thumb">' +
           '<img src="./' + esc(item.thumb) + '" alt="" loading="lazy" decoding="async">' +
+          '<span class="card-flags" aria-hidden="true"></span>' +
         '</span>' +
         '<span class="row-body">' +
-          '<span class="row-meta">' +
-            '<span class="meta">' + esc(String(item.date || '').slice(0, 10)) + '</span>' +
-            '<span class="row-cat">' + esc(item.catLabel) + '</span>' +
-          '</span>' +
           '<h3>' + titleHtml(highlight(item.title, terms)) + '</h3>' +
+          statsHtml(item.st) +
           catch_ +
+          '<span class="card-badges">' +
+            '<span class="card-cat-out">&nbsp;' + esc(item.catLabel) + '&nbsp;</span>' +
+            (item.proof ? '<span class="card-proof" title="メーカー公式資料・個別商品ページ・レビュー本文を確認済み">&nbsp;出典確認済み&nbsp;</span>' : '') +
+          '</span>' +
+          '<span class="row-meta"><span class="meta">' +
+            esc(String(item.date || '').slice(0, 10)) +
+          '</span><span class="card-views" hidden></span></span>' +
         '</span>' +
       '</a>';
   }

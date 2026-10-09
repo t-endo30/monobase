@@ -667,19 +667,23 @@ document.addEventListener('touchstart', function () {}, { passive: true });
               (it.shop ? ' data-shop="' + esc(it.shop) + '"' : '') +
               (it.asin ? ' data-asin="' + esc(it.asin) + '"' : '') + '>' +
             '<img src="' + esc(it.thumb) + '" alt="" loading="lazy" decoding="async">' +
+            '<span class="card-flags" aria-hidden="true"></span>' +
             '<span class="row-no is-n' + (i + 1) + '">' + no + '</span>' +
           '</span>' +
           '<span class="row-body">' +
-            '<span class="row-meta">' +
-              '<span class="meta">' + esc(d) + '</span>' +
-              '<span class="card-views" hidden></span>' +
-              '<span class="row-cat">' + esc(it.cat) + '</span>' +
-            '</span>' +
             '<h3>' + titleHtml(it.title) + '</h3>' +
             /* 価格・★の行。build.py が組んだ文字列をそのまま入れる
                （中身が空でも枠は入れる。行の高さをそろえるため） */
             statsHtml(it.st) +
-            (it.excerpt ? '<p>' + esc(it.excerpt) + '</p>' : '') +
+            '<p>' + esc(it.excerpt || '') + '</p>' +
+            '<span class="card-badges">' +
+              '<span class="card-cat-out">&nbsp;' + esc(it.cat || '') + '&nbsp;</span>' +
+              (it.proof ? '<span class="card-proof" title="メーカー公式資料・個別商品ページ・レビュー本文を確認済み">&nbsp;出典確認済み&nbsp;</span>' : '') +
+            '</span>' +
+            '<span class="row-meta">' +
+              '<span class="meta">' + esc(d) + '</span>' +
+              '<span class="card-views" hidden></span>' +
+            '</span>' +
           '</span>' +
         '</a>';
     }).join('');
