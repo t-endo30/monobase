@@ -1958,9 +1958,12 @@ def v2_card(a, p, no=None, flags=""):
     stats = card_stats(a)
     note = f'<span class="card-note">{e(v2_appeal(a))}</span>'
     # FEATURE/RANKINGのカルーセルは、端末幅に依存しないようHTML自体を
-    # タイトル→価格・評価→バッジ→（FEATUREの一言）の順にする。
+    # タイトル→価格・評価→（FEATUREの一言）→バッジの順にする。
     if no or flags == "feature":
-        return href + thumb + title_html + stats + badges + (note if flags == "feature" else "") + '</a>'
+        feature_note = note if flags == "feature" else ""
+        # FEATUREだけは一言をバッジの前に置く。CSSの順序指定に頼らず、
+        # 1行・2行のタイトルが混在しても全カードを同じ並びにする。
+        return href + thumb + title_html + stats + feature_note + badges + '</a>'
     meta = (f'<span class="card-meta">'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
             # 閲覧数は GA4 の実数（content/ranking.json）を assets/main.js が入れる。
