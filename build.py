@@ -2618,6 +2618,36 @@ def feature_product_cards_in_context(html, a, p):
     if a.get("category") != "feature":
         return html
     by_slug = {x.get("slug"): x for x in ARTICLES}
+
+    def target_heading(src, pats):
+        """商品名が最も具体的に説明される特集見出しを選ぶ。
+
+        冒頭の比較説明には全商品名が出ることがあるため、後続の個別説明
+        が見つかる場合はそちらを優先する。特集ごとに見出しを固定する
+        テンプレートにはせず、実際の本文から配置先を決める。
+        """
+        sections = a.get("sections") or []
+        if not sections:
+            return ""
+        name_re = re.compile("|".join(pats), flags=re.I)
+        scored = []
+        for i, sec in enumerate(sections):
+            text = " ".join([
+                str(sec.get("heading") or ""),
+                " ".join(str(x) for x in (sec.get("paras") or [])),
+                str(sec.get("point") or ""),
+                str(sec.get("aside") or ""),
+            ])
+            count = len(name_re.findall(text))
+            if count:
+                scored.append((i, count, str(sec.get("heading") or "")))
+        if not scored:
+            return ""
+        detailed = [x for x in scored if x[0] > 0]
+        pool = detailed or scored
+        # 同数なら本文の前の見出しを選び、商品の説明順を保つ。
+        return max(pool, key=lambda x: (x[1], -x[0]))[2]
+
     for slug in a.get("feature_covers") or []:
         src = by_slug.get(slug)
         if not src or not shop_links(src):
@@ -2629,7 +2659,12 @@ def feature_product_cards_in_context(html, a, p):
         if not pats:
             continue
         name_re = re.compile("|".join(pats), flags=re.I)
+        heading = target_heading(src, pats)
         inserted = [False]
+
+        # 全商品の比較を行う冒頭段落ではなく、対象商品の説明見出しだけを
+        # 探す。これにより画像リンクが一箇所に縦積みされない。
+        chunks = re.split(r"(?=<h2[\s>])", html)
 
         def before_product(m):
             if inserted[0]:
@@ -2643,8 +2678,16 @@ def feature_product_cards_in_context(html, a, p):
             inserted[0] = True
             return card + m.group(0)
 
-        html = re.sub(r"<p([^>]*)>(.*?)</p>", before_product, html,
-                      flags=re.S | re.I)
+        def apply_to_chunk(chunk):
+            if heading:
+                hs = re.search(r"<h2[^>]*>(.*?)</h2>", chunk, flags=re.S | re.I)
+                plain_h = re.sub(r"<[^>]+>", "", hs.group(1)).strip() if hs else ""
+                if plain_h != heading:
+                    return chunk
+            return re.sub(r"<p([^>]*)>(.*?)</p>", before_product, chunk,
+                          flags=re.S | re.I)
+
+        html = "".join(apply_to_chunk(chunk) for chunk in chunks)
         if not inserted[0]:
             # 商品の最初の説明が要点リストに置かれている特集もあるため、
             # 段落で見つからない場合だけ、その li の本文直前へ置く。
@@ -2660,8 +2703,18 @@ def feature_product_cards_in_context(html, a, p):
                 inserted[0] = True
                 return f"<li{attrs}>{card}{inner}</li>"
 
-            html = re.sub(r"<li([^>]*)>(.*?)</li>", before_product_in_list,
-                          html, flags=re.S | re.I)
+            def apply_list_to_chunk(chunk):
+                if heading:
+                    hs = re.search(r"<h2[^>]*>(.*?)</h2>", chunk, flags=re.S | re.I)
+                    plain_h = re.sub(r"<[^>]+>", "", hs.group(1)).strip() if hs else ""
+                    if plain_h != heading:
+                        return chunk
+                return re.sub(r"<li([^>]*)>(.*?)</li>", before_product_in_list,
+                              chunk, flags=re.S | re.I)
+
+            # 再分割して、対象見出し内の要点リストだけを対象にする。
+            list_chunks = re.split(r"(?=<h2[\s>])", html)
+            html = "".join(apply_list_to_chunk(chunk) for chunk in list_chunks)
     return html
 
 
