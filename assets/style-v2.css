@@ -5070,6 +5070,30 @@ h1,h2,h3,h4,
 }
 .card-grid.is-feature.is-rank > .card .card-badges{order:5;}
 
+/* 横長タイルは、カルーセル以外の画面でも同じ配置基準にする。
+   通常カードのタイトル・一言と、ランキング一覧の本文は、後段の
+   共通記事タイル指定に左寄せへ戻されないようここで確定する。 */
+.row-item > .row-body{
+  align-self:stretch;width:100%;text-align:center;
+}
+.row-item .row-meta{justify-content:center;}
+.row-item h3,
+.row-item p{text-align:center !important;}
+.row-item .card-stats{justify-content:center;}
+@media (max-width:860px){
+  .card-grid:not(.is-rank) > .card > :not(.card-thumb){
+    align-self:stretch;width:100%;
+  }
+  .card-grid:not(.is-rank) > .card .card-title,
+  .card-grid:not(.is-rank) > .card .card-note{
+    text-align:center !important;
+  }
+  .card-grid:not(.is-rank) > .card .card-stats,
+  .card-grid:not(.is-rank) > .card .card-badges{
+    justify-content:center;
+  }
+}
+
 /* サイドバーを本体の横に並べられるが、器の外へ出す余地は無い幅
    （1440〜1879px）。本体の列からサイドバーぶんを取り、記事タイルは
    4列にする。1880px以上では下のブロックでサイドバーを器の外へ出し、
