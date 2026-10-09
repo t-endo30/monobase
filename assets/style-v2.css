@@ -552,11 +552,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .sec-more a{
   display:flex;align-items:center;justify-content:center;gap:12px;
   width:100%;padding:13px 32px;
-  border:1px solid var(--ink);background:var(--bg-2);
+  border:1px solid var(--ink);
+  background:linear-gradient(to bottom,#ffffff 0%,#f8f8f8 42%,#e3e3e3 100%);
   font-family:var(--font-en);font-size:11.5px;font-weight:700;letter-spacing:.18em;
   /* 板が一枚浮いているように見せる。下に硬い影を敷いて厚みを作り、
      その外側にやわらかい影を置いて面から離す */
-  box-shadow:0 4px 0 rgba(17,17,17,.16),0 8px 16px rgba(0,0,0,.10);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),
+             inset 0 -1px 0 rgba(17,17,17,.12),
+             0 4px 0 rgba(17,17,17,.16),0 8px 16px rgba(0,0,0,.10);
   transition:background .2s ease,color .2s ease,
              transform .28s ease,box-shadow .28s ease;
 }
