@@ -386,6 +386,19 @@ def main():
         if not has_shop_url:
             print(f"個別販売URL不足のため事前スキップ: {name[:50]}")
             continue
+        # 通常の自動候補は、公式資料・確認済みの根拠・レビュー本文が
+        # 付いていないものを本文生成へ送らない。これらを後段のGPT校閲で
+        # 落とすと、候補を次へ進めるまでに時間と費用がかかるためである。
+        # 手動で再調査した候補（--from）は、根拠を付与して渡す経路なので
+        # この条件を適用せず、通常候補と区別して扱う。
+        normal_candidates = os.path.normpath(args.src) == os.path.normpath(
+            "content/candidates.json")
+        has_evidence = bool(
+            c.get("official_url") and c.get("facts") and
+            c.get("source_notes") and c.get("review_texts"))
+        if normal_candidates and not has_evidence:
+            print(f"公式資料・レビュー本文不足のため事前スキップ: {name[:50]}")
+            continue
         # すでに書いた商品は飛ばす。JANが無い場合は名前の頭かURLで見る。
         if c.get("jan") and str(c["jan"]) in seen_jan:
             continue
