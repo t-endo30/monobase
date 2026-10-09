@@ -1,0 +1,66 @@
+{
+  "items": [
+    {
+      "name": "JBL WAVE BEAM 2 ワイヤレスイヤホン",
+      "category": "av",
+      "sub": "headphone",
+      "jan": "4968929222599",
+      "reviews": 413,
+      "rating": 4.49,
+      "price": 8030,
+      "image": "https://item-shopping.c.yimg.jp/i/n/jblstore_wave-beam2",
+      "images": {
+        "yahoo": "https://item-shopping.c.yimg.jp/i/n/jblstore_wave-beam2",
+        "official": "https://www.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw6a3c7d56/Wave%20Beam%202_Pink_Hero_x1.png"
+      },
+      "rakuten_url": "https://item.rakuten.co.jp/jblstore/wave-beam2/",
+      "yahoo_url": "https://store.shopping.yahoo.co.jp/jblstore/wave-beam2.html",
+      "amazon_url": "",
+      "official_url": "https://jp.jbl.com/WAVE-BEAM-2.html",
+      "facts": [
+        "JBL公式製品ページでWAVE BEAM 2を確認し、アクティブノイズキャンセリング、外音取り込み、4つの通話用マイク、IP54、防水防塵、JBL Headphonesアプリ、マルチポイントを案内していることを確認",
+        "JBL公式製品ページでイヤホン単体最大約10時間、ケース込み最大約40時間、Type-Cで約10分充電して約3時間再生、8mmダイナミックドライバーを確認",
+        "Yahoo!ショッピングのJBL公式店個別商品ページでWAVE BEAM 2、JAN 4968929222599、商品画像、価格8,030円、商品レビュー4.49・413件を確認",
+        "楽天市場のJBL・AKG公式ストア個別商品ページでWAVE BEAM 2の商品同定と販売ページを確認し、同一商品のレビューを確認",
+        "Yahoo!ショッピングと楽天市場の同一商品レビューで音質、装着感、ANC、マルチポイント、イコライザー、イヤホンの取り出しに関する本文を確認"
+      ],
+      "source_notes": [
+        "JBL公式WAVE BEAM 2製品ページで機能・再生時間・防水防塵・アプリ・接続仕様を確認",
+        "Yahoo!ショッピングJBL公式店の個別商品ページでJAN、商品画像、販売情報、レビュー件数を確認",
+        "楽天市場JBL・AKG公式ストアの個別商品ページで同一商品の商品同定とレビュー本文を確認",
+        "Yahoo!ショッピングと楽天市場の商品レビュー本文で音質、装着感、ANC、接続に関する利用者の声を確認"
+      ],
+      "review_texts": [
+        {
+          "source": "Yahoo!ショッピング JBL公式店 WAVE BEAM 2 個別レビュー",
+          "text": "軽くて装着感がよく、アプリのイコライザーで音質を調整できるという投稿がある一方、ノイズキャンセリングは期待したほどではないという投稿もある。"
+        },
+        {
+          "source": "Yahoo!ショッピング JBL公式店 WAVE BEAM 2 個別レビュー",
+          "text": "通勤やWeb会議で、スマートフォンとPCをマルチポイントで同時接続でき、着信時の切り替えが便利という投稿がある。"
+        },
+        {
+          "source": "楽天市場 JBL・AKG公式ストア WAVE BEAM 2 個別レビュー",
+          "text": "JBLらしい音質やマルチポイントを評価して購入し、毎日使っているという投稿がある。"
+        }
+      ],
+      "trending": false,
+      "shops": {
+        "yahoo": {
+          "price": 8030,
+          "shop_name": "JBL公式 Yahoo!店",
+          "postage_included": true,
+          "reviews": 413,
+          "rating": 4.49
+        },
+        "rakuten": {
+          "price": 8030,
+          "shop_name": "JBL・AKG公式ストア",
+          "postage_included": true,
+          "reviews": 551,
+          "rating": 4.39
+        }
+      }
+    }
+  ]
+}
