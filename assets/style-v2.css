@@ -707,6 +707,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);
   line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
+/* 外側のカテゴリーバッジは、横長スマホカードでも行全体に伸ばさず
+   文字幅だけの枠にする。これによりNEW・日付まで囲う線が出ない。 */
+.card-cat-out{display:table;width:max-content;max-width:calc(100% - 28px);
+  margin:0;flex:none;text-align:left;}
 /* 持ち上げに重ねて、斜めに切った面が左上と右下から入ってきて、
    タイルの白い面を黒に置き換える。三角に切った2枚が対角線で合わさる形。
    タイルの縦横比が変わっても隙間や取り残しが出ない置き方にしているので、
