@@ -5014,6 +5014,17 @@ h1,h2,h3,h4,
 .card-grid.is-rank > .card .card-title .tt-sub{
   text-align:center !important;
 }
+/* カルーセルはタイトルだけでなく、価格・評価・説明・バッジも
+   カード中央を基準にする。スマホ共通の align-items:start で各要素の
+   箱が内容幅まで縮むと、justify-content や text-align だけでは
+   中央に見えないため、サムネイル以外をカード幅まで広げる。 */
+.card-grid.is-rank > .card > :not(.card-thumb){
+  align-self:stretch;width:100%;text-align:center;
+}
+.card-grid.is-rank > .card .card-stats,
+.card-grid.is-rank > .card .card-badges{
+  justify-content:center;
+}
 .card-grid.is-rank > .card .card-stats{
   order:3;justify-content:center;
 }
