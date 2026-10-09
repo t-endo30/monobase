@@ -240,6 +240,14 @@ def make_draft(c, site, taken):
     if stats:
         stats["checked"] = today
         a["review_stats"] = stats
+    # 事前調査で確認済みの根拠を下書きへ引き継ぐ。候補収集時に公式URLや
+    # 個別レビュー本文まで確保できた商品を、下書き化したあとに失わない。
+    # これらは候補JSONに無い場合もあるため、空値では上書きしない。
+    for key in ("official_url", "official_ogp_image", "official_ogp_title",
+                "facts", "source_notes", "review_texts"):
+        value = c.get(key)
+        if value:
+            a[key] = value
     # Amazonへの導線は必ず1本入れる。商品ページが分からないときは検索結果へ。
     if not (a.get("asin") or a.get("amazon_url")):
         a["amazon_url"] = amazon_search_url(name, c.get("jan"))
