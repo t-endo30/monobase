@@ -1,0 +1,127 @@
+{
+  "items": [
+    {
+      "name": "VITAS バイタス ホエイプロテイン100 WPC 1kg",
+      "category": "health",
+      "sub": "supplement",
+      "price": 5480,
+      "reviews": 5342,
+      "rating": 4.77,
+      "images": {"rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/toyomarket/cabinet/protein/imgrc0152839430.jpg?_ex=128x128"},
+      "rakuten_url": "https://item.rakuten.co.jp/toyomarket/vitas006/",
+      "official_url": "https://vitas.fitness/shop/",
+      "facts": [
+        "VITAS公式オンラインストアでPROTEINを商品カテゴリとして案内していることを確認",
+        "VITAS公式のブランド情報でプロテインを含むフィットネス関連商品を展開していることを確認",
+        "楽天市場のVITAS公式店の商品ページでホエイプロテイン100、WPC、700g・1kg、複数フレーバーの販売情報を確認",
+        "商品レビューではフレーバーごとの飲みやすさや溶け方に評価が分かれるため、味の感じ方は個人差のある利用者の声として扱う"
+      ],
+      "source_notes": [
+        {"type":"official_product","url":"https://vitas.fitness/shop/","title":"VITAS公式オンラインストア","checked_at":"2026-10-09"},
+        {"type":"product_page","url":"https://item.rakuten.co.jp/toyomarket/vitas006/","title":"楽天市場 VITAS ホエイプロテイン100 個別商品ページ","checked_at":"2026-10-09"},
+        {"type":"review_page","url":"https://review.rakuten.co.jp/review/item/1/366655_10000219/1.1/","title":"楽天市場 VITAS ホエイプロテイン100 個別レビュー","checked_at":"2026-10-09"}
+      ],
+      "review_texts": [{"source":"楽天市場 VITAS公式店 個別レビュー","text":"同一商品の利用者の声では、フレーバーの飲みやすさや溶けやすさを評価する投稿がある一方、割る飲料や味によって感じ方が変わるという内容も確認できます。味や続けやすさは個人差のある感想として扱います。"}],
+      "shops": {"rakuten":{"price":5480,"shop_name":"VITAS 楽天市場店","postage_included":true,"reviews":5342,"rating":4.77}}
+    },
+    {
+      "name": "武内製薬 THE PROTEIN ホエイプロテイン1kg",
+      "category": "health",
+      "sub": "supplement",
+      "price": 3980,
+      "reviews": 13669,
+      "rating": 4.58,
+      "images": {"rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/takeuchi-labo/cabinet/07385387/thepro/ta-the-pr/ta-the-pr.jpg?_ex=128x128"},
+      "rakuten_url": "https://item.rakuten.co.jp/takeuchi-labo/ta-the-pr/",
+      "official_url": "https://the-protein.com/",
+      "facts": [
+        "THE PROTEIN公式オンラインショップでホエイプロテイン1kgを複数フレーバーで展開していることを確認",
+        "公式FAQで保存方法や賞味期限の確認方法、体質・体調によって合わない場合の相談案内を確認",
+        "楽天市場の武内製薬公式オンラインストアでホエイプロテイン1kg、WPC、複数フレーバーの個別商品情報を確認",
+        "レビューでは甘さ、飲みやすさ、溶け方に評価が分かれるため、食品としての味の感想に限定して扱う"
+      ],
+      "source_notes": [
+        {"type":"official_product","url":"https://the-protein.com/","title":"THE PROTEIN公式オンラインショップ","checked_at":"2026-10-09"},
+        {"type":"product_page","url":"https://item.rakuten.co.jp/takeuchi-labo/ta-the-pr/","title":"楽天市場 武内製薬 THE PROTEIN 個別商品ページ","checked_at":"2026-10-09"},
+        {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/382281_10000425/1.1/sort3/","title":"楽天市場 THE PROTEIN 個別レビュー","checked_at":"2026-10-09"}
+      ],
+      "review_texts": [{"source":"楽天市場 武内製薬公式店 個別レビュー","text":"同一商品の利用者の声では、甘さが控えめで続けやすい、飲みやすいという投稿がある一方、味や甘さの感じ方には個人差があるという内容も確認できます。食品としての嗜好に関する感想として整理します。"}],
+      "shops": {"rakuten":{"price":3980,"shop_name":"武内製薬 公式オンラインストア","postage_included":true,"reviews":13669,"rating":4.58}}
+    },
+    {
+      "name": "NOR. AIRFITMASCARA エアフィットマスカラ",
+      "category": "beauty",
+      "sub": "makeup",
+      "reviews": 2167,
+      "rating": 4.33,
+      "price": 1683,
+      "images": {"rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/yumebank/cabinet/thum/normascara/11015931/imgrc0134658419.jpg?_ex=128x128"},
+      "rakuten_url": "https://item.rakuten.co.jp/yumebank/airfitmascara/",
+      "official_url": "https://yumebank.com/products/detail/norlongvol",
+      "facts": [
+        "YUMEBANKの商品ページでNOR. AIRFITMASCARAのロング、ボリューム、ナチュラル等のタイプを確認",
+        "メーカー発表資料でNOR. AIRFITMASCARAが日本製で、カールキープを主題とする商品であることを確認",
+        "楽天市場のYUMEBANK個別商品ページで商品画像、色・タイプの選択肢、販売条件を確認",
+        "Yahoo!ショッピングの同一商品の利用者の声で塗りやすさ、にじみにくさ、ダマになりやすさなど評価が分かれる点を確認"
+      ],
+      "source_notes": [
+        {"type":"official_product","url":"https://yumebank.com/products/detail/norlongvol","title":"YUMEBANK NOR. AIRFITMASCARA商品ページ","checked_at":"2026-10-09"},
+        {"type":"official_product","url":"https://prtimes.jp/main/html/rd/p/000000006.000012307.html","title":"YUMEBANK NOR. 発表資料","checked_at":"2026-10-09"},
+        {"type":"product_page","url":"https://item.rakuten.co.jp/yumebank/airfitmascara/","title":"楽天市場 NOR. AIRFITMASCARA 個別商品ページ","checked_at":"2026-10-09"},
+        {"type":"review_page","url":"https://shopping.yahoo.co.jp/review/item/list?page_key=airfitmascara-001&store_id=yumebank","title":"Yahoo!ショッピング NOR. 個別レビュー","checked_at":"2026-10-09"}
+      ],
+      "review_texts": [{"source":"Yahoo!ショッピング YUMEBANK 個別レビュー","text":"同一商品の利用者の声では、塗りやすさや夕方までの仕上がりを評価する投稿がある一方、重ね塗りでダマになりやすい、落とし方に注意が必要という内容も確認できます。仕上がりはタイプと塗り方による個人の感想として扱います。"}],
+      "shops": {"rakuten":{"price":1683,"shop_name":"YUMEBANK コスメ美容","postage_included":true,"reviews":2167,"rating":4.33}}
+    },
+    {
+      "name": "ヒロコーポレーション コンパクトケトル HKT-100",
+      "category": "kitchen",
+      "sub": "appliance",
+      "jan": "4562351023146",
+      "reviews": 2740,
+      "rating": 4.5,
+      "price": 1680,
+      "images": {"yahoo": "https://item-shopping.c.yimg.jp/i/g/insdenki-y_p7030579"},
+      "rakuten_url": "https://item.rakuten.co.jp/enetkome/7030579/",
+      "yahoo_url": "https://store.shopping.yahoo.co.jp/insdenki-y/p7030579.html",
+      "official_url": "https://support.kom408.com/wp-content/uploads/2024/06/HKT-100-manual_ALL.pdf",
+      "facts": [
+        "ヒロコーポレーションのHKT-100取扱説明書で商品型番、使用方法、保証案内を確認",
+        "販売ページで1Lのコンパクトケトル、空焚き防止、自動電源オフなどの商品情報を確認",
+        "楽天市場とYahoo!ショッピングの個別商品ページでHKT-100、JAN 4562351023146、商品画像と販売条件を確認",
+        "利用者の声では沸騰時間、におい、コードの長さ、こぼれにくさについて評価が分かれるため、設置場所と使い方に結びつけて扱う"
+      ],
+      "source_notes": [
+        {"type":"official_product","url":"https://support.kom408.com/wp-content/uploads/2024/06/HKT-100-manual_ALL.pdf","title":"ヒロコーポレーション HKT-100取扱説明書","checked_at":"2026-10-09"},
+        {"type":"product_page","url":"https://item.rakuten.co.jp/enetkome/7030579/","title":"楽天市場 HKT-100 個別商品ページ","checked_at":"2026-10-09"},
+        {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/239999_10074580/1.1/","title":"楽天市場 HKT-100 個別レビュー","checked_at":"2026-10-09"}
+      ],
+      "review_texts": [{"source":"楽天市場 HKT-100 個別レビュー","text":"同一商品の利用者の声では、プラスチック臭が気にならない、容量がちょうどよい、こぼれにくくコンパクトという投稿がある一方、沸騰までの時間や電源コードの長さを指摘する内容も確認できます。環境による感想として整理します。"}],
+      "shops": {"yahoo":{"price":1680,"shop_name":"ウエノ電器 Yahoo!店","postage_included":true,"reviews":2740,"rating":4.37},"rakuten":{"price":1680,"shop_name":"メガストア","postage_included":true,"reviews":8,"rating":4.5}}
+    },
+    {
+      "name": "Microsoft Surface Go 2 Model 1927 中古 8GB 128GB SSD",
+      "category": "pc",
+      "sub": "tablet",
+      "reviews": 311,
+      "rating": 4.48,
+      "price": 20990,
+      "images": {"rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/rainbowpc/cabinet/11368819/11799176/11807569/surface10-xxx-1.jpg?_ex=128x128"},
+      "rakuten_url": "https://item.rakuten.co.jp/rainbowpc/j10ay-ally0409xxxxy/",
+      "official_url": "https://support.microsoft.com/en-us/surface/surface-regulatory-information",
+      "facts": [
+        "Microsoft公式サポートでSurface Go 2に対応するモデル番号1927を確認",
+        "Microsoftの公式情報と販売ページを照合し、Surface Go 2のモデル番号と中古販売個体の構成を分けて扱う",
+        "楽天市場の個別商品ページでModel 1927、8GB、128GB SSD、Windows 11、タッチ対応の中古構成を確認",
+        "中古商品の利用者の声では外観や起動状態、梱包への評価が確認できる一方、個体差と付属品の確認が必要なため、販売ページの記載を優先する"
+      ],
+      "source_notes": [
+        {"type":"official_product","url":"https://support.microsoft.com/en-us/surface/surface-regulatory-information","title":"Microsoft Surface公式モデル番号情報","checked_at":"2026-10-09"},
+        {"type":"product_page","url":"https://item.rakuten.co.jp/rainbowpc/j10ay-ally0409xxxxy/","title":"楽天市場 Surface Go 2 Model 1927 個別商品ページ","checked_at":"2026-10-09"},
+        {"type":"review_page","url":"https://review.rakuten.co.jp/item/1/317532_10020865/1.1/","title":"楽天市場 Surface Go 2 Model 1927 個別レビュー","checked_at":"2026-10-09"}
+      ],
+      "review_texts": [{"source":"楽天市場 Surface Go 2 Model 1927 個別レビュー","text":"同一商品の利用者の声では、中古品でも状態がよく梱包が丁寧だったという投稿が確認できます。中古品は同じモデルでも外観、バッテリー、付属品、OS状態に差があるため、販売ページに記載された個体情報を優先して整理します。"}],
+      "shops": {"rakuten":{"price":20990,"shop_name":"レインボー家電","postage_included":true,"reviews":311,"rating":4.48}}
+    }
+  ]
+}
