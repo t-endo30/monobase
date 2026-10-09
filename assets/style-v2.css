@@ -4994,7 +4994,14 @@ h1,h2,h3,h4,
    いる」で検出した）。 */
 @media (min-width:861px){
   .card-grid.is-feature .card-thumb{aspect-ratio:16/9;}
-  .card-grid.is-feature .card-title{font-size:15px;}
+  /* 特集名は1行・2行が混在するため、タイトルの行間と領域を固定する。
+     これで「カメラアクセサリー」の下の折り返しが間延びせず、
+     その下のバッジと一言も左右のカードで同じ高さにそろう。 */
+  .card-grid.is-feature .card-title{
+    font-size:15px;line-height:1.45;min-height:2.9em;max-height:2.9em;
+    display:block;overflow:hidden;
+  }
+  .card-grid.is-feature .card-note{min-height:3.6em;}
 }
 
 /* サイドバーを本体の横に並べられるが、器の外へ出す余地は無い幅
