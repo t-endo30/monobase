@@ -2496,13 +2496,13 @@ def link_product_names(html, a):
         if not mapped:
             return html
         mapped.sort(key=lambda x: len(x[0]), reverse=True)
-        name_re = re.compile("|".join(x[0] for x in mapped))
+        name_re = re.compile("|".join(x[0] for x in mapped), flags=re.I)
     elif links and kind_of(a) == "review":
         pats = product_name_patterns(a)
         if not pats:
             return html
         mapped = [(pat, e(links[0][2]), "", "") for pat in pats]
-        name_re = re.compile("|".join(x[0] for x in mapped))
+        name_re = re.compile("|".join(x[0] for x in mapped), flags=re.I)
     else:
         return html
 
@@ -2511,7 +2511,7 @@ def link_product_names(html, a):
     def one_chunk(chunk):
 
         def para(m):
-            open_, inner, close = m.group(1), m.group(2), m.group(3)
+            open_, inner, close = m.group(1), m.group(3), m.group(4)
             if ("cta-note" in open_ or "scroll-hint" in open_
                     or "prod-name" in open_):
                 return m.group(0)
@@ -2546,9 +2546,12 @@ def link_product_names(html, a):
                     parts[i] = replace_text(part)
             if "<a class=\"plink\"" not in "".join(parts):
                 return m.group(0)
-            return "".join(cards) + open_ + "".join(parts) + close
+            prefix = "".join(cards) if re.match(r"<p(?:\s|>)", open_, re.I) else ""
+            return prefix + open_ + "".join(parts) + close
 
-        return re.sub(r"(<p(?:\s[^>]*)?>)(.*?)(</p>)", para, chunk, flags=re.S)
+        return re.sub(
+            r"(<(p|li|td|th|summary|h2|h3|h4)(?:\s[^>]*)?>)(.*?)(</\2>)",
+            para, chunk, flags=re.S | re.I)
 
     # 商品名の登場位置を維持するため、見出し単位の分割は残す。
     chunks = re.split(r"(?=<h2[\s>])", html)
