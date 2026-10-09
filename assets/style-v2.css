@@ -1986,16 +1986,16 @@ body.has-sticky-cta .fab{bottom:96px;}
   .card-thumb{grid-row:1 / span 5;aspect-ratio:1/1;margin:0;}
   /* 横長カードのカテゴリーバッジは本文側の先頭へ置き、サムネイルとの
      間隔はグリッドの14px＋左4pxで確保する。 */
-  /* スマホの横長カードは、タイトル・価格・バッジ・一言の順にして、
+  /* スマホの横長カードは、タイトル・価格・一言・バッジの順にして、
      新着札と日時を最後の行へまとめる。バッジ2つは同じ行に置く。 */
   .card-title{grid-column:2;grid-row:1;}
   .card-stats{grid-column:2;grid-row:2;}
-  .card-badges{display:flex;grid-column:2;grid-row:3;
+  .card-note{grid-column:2;grid-row:3;}
+  .card-badges{display:flex;grid-column:2;grid-row:4;
     align-items:center;gap:6px;min-width:0;margin-top:3px;}
   .card-cat-out{position:static;grid-column:auto;grid-row:auto;
     justify-self:auto;margin:0;max-width:100%;flex:0 1 auto;}
   .card-badges .card-proof{margin:0;flex:0 1 auto;}
-  .card-note{grid-column:2;grid-row:4;}
   /* 価格・★の行。中身が空でも1行ぶんの場所を取る（build.py が
      空の枠を必ず出す）。そうしないと価格のある記事だけ背が高くなり、
      縦に並べたタイルの高さがばらばらに見える。 */
@@ -2071,7 +2071,7 @@ body.has-sticky-cta .fab{bottom:96px;}
      タイルは枠と地のある器で、その「中に」写真と見出しを置く。 */
   .card-grid.is-rank > .card{
     flex:0 0 44%;scroll-snap-align:start;
-    display:block;padding:9px 9px 12px;
+    display:flex;flex-direction:column;padding:9px 9px 12px;
     background:var(--bg-2);border:1px solid var(--line);
   }
   .card-grid.is-rank > .card > :not(.card-thumb){padding-left:4px;padding-right:4px;}
@@ -2088,23 +2088,20 @@ body.has-sticky-cta .fab{bottom:96px;}
   /* 写真の下は「VIEW を左・カテゴリーを右」の1行だけ。
      .card-cat は margin-left:auto を持っているので、日付を消せば
      残る2つが両端に分かれる。 */
-  .card-grid.is-rank > .card .card-meta{
-    display:flex;align-items:baseline;gap:8px;margin:0 0 4px;
+  /* カルーセルは、タイトル→価格・評価→カテゴリー・出典の順だけを
+     見せる。日付・VIEWと一言は横送りのカードでは省く。 */
+  .card-grid.is-rank > .card .card-meta{display:none;}
+  .card-grid.is-rank > .card .card-title{display:block;order:2;}
+  .card-grid.is-rank > .card .card-stats{order:3;}
+  .card-grid.is-rank > .card .card-badges{
+    display:flex;order:4;align-items:center;gap:6px;min-width:0;
+    margin-top:5px;padding-left:4px;padding-right:4px;
   }
-  .card-grid.is-rank > .card .card-date{display:none;}
-  .card-grid.is-rank > .card .card-views{
-    flex:0 0 auto;order:1;text-align:left;
+  .card-grid.is-rank > .card .card-cat-in{display:none;}
+  .card-grid.is-rank > .card .card-cat-out{
+    display:inline-flex;position:static;max-width:100%;margin:0;
+    flex:0 1 auto;
   }
-  /* 右寄せは、通常のタイルでは行の最後にある日付（margin-left:auto）が
-     担っている（下の @media (max-width:599px) の並び替え）。この帯は
-     日付を出さないので、カテゴリー自身に右寄せを持たせ直す。
-     あちらは .card .card-cat（クラス2つ）なので、ここは必ずそれより
-     強い指定にしておく。 */
-  .card-grid.is-rank > .card .card-cat{
-    order:2;margin-left:auto;text-align:right;
-  }
-  .card-grid.is-rank > .card .card-title{display:block;}
-  /* 一言コメントは出さない */
   .card-grid.is-rank > .card .card-note{display:none;}
   /* 縦積み用の「5枚目以降は隠す／6枚目は切る」を打ち消し、10件まで出す */
   .card-grid.is-rank > .card:nth-child(n+5){display:block;}
@@ -5198,10 +5195,7 @@ h1,h2,h3,h4,
 @media (max-width:860px){
   .card-grid.is-feature.is-rank > .card:nth-child(n+4){display:block;}
   .card-grid.is-feature.is-rank > .card:nth-child(n+11){display:none;}
-  /* FEATUREは出典バッジの下に、特集の内容が分かる一文を残す。
-     RANKINGでは省いているカード説明をFEATUREだけ表示する。 */
-  .card-grid.is-feature.is-rank > .card .card-note{
-    display:block;margin-top:5px;font-size:11px;line-height:1.6;
-    max-height:3.2em;overflow:hidden;
-  }
+  /* FEATUREもRANKINGと同じカルーセル構成にし、タイトル・価格・評価・
+     カテゴリー・出典だけを見せる。 */
+  .card-grid.is-feature.is-rank > .card .card-note{display:none;}
 }
