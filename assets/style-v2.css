@@ -686,10 +686,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   position:absolute;right:6px;bottom:6px;z-index:2;
   margin:0;max-width:calc(100% - 12px);
   padding:3px 8px;
-  background:rgba(255,255,255,.92);border:1px solid var(--line-2);
-  color:var(--ink-2);font-size:10px;font-weight:700;letter-spacing:.04em;
+  background:rgba(235,245,237,.92);border:1px solid rgba(95,125,105,.35);
+  color:#55715e;font-size:10px;font-weight:700;letter-spacing:.04em;
   line-height:1.5;text-align:left;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:999px;
 }
 .card-cat-in{display:none;}
 /* 通常カードはサムネイルの外側で右上をそろえ、カルーセルだけは
@@ -697,10 +697,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .card-cat-out{
   position:absolute;top:14px;right:14px;z-index:3;
   max-width:calc(100% - 28px);padding:3px 8px;
-  background:rgba(255,255,255,.92);border:1px solid var(--line-2);
-  color:var(--ink-2);font-size:10px;font-weight:700;letter-spacing:.04em;
+  background:rgba(235,245,237,.92);border:1px solid rgba(95,125,105,.35);
+  color:#55715e;font-size:10px;font-weight:700;letter-spacing:.04em;
   line-height:1.5;text-align:left;white-space:nowrap;overflow:hidden;
-  text-overflow:ellipsis;border-radius:var(--r2);
+  text-overflow:ellipsis;border-radius:999px;
 }
 .card-grid.is-rank .card-cat-in{display:block;top:6px;right:6px;bottom:auto;}
 .card-grid.is-rank .card-cat-out{display:none;}
@@ -4326,6 +4326,11 @@ h1,h2,h3,h4,
 .side-tile,
 .search-panel,
 .hp-panel{border-radius:var(--r2);}
+
+/* ホームのセクション枠と同じ10pxで、記事タイルと操作ボタンの角を統一。 */
+.card,.row-item,.cat-cell,
+.sec-more a,.btn-line,.btn-solid,.btn-sub,.btn-shop,.btn-amazon,.btn-hero,
+.btn,.chip,.sub-chip,.rr-tab,.rail-btn{border-radius:10px;}
 
 /* 写真 */
 .card-thumb,

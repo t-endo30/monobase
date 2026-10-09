@@ -1921,7 +1921,7 @@ def card_proof(a):
     if not (official and product and review):
         return ""
     return ('<span class="card-proof" title="メーカー公式資料・個別商品ページ・'
-            'レビュー本文を確認済み">出典確認済み</span>')
+            'レビュー本文を確認済み">&nbsp;出典確認済み&nbsp;</span>')
 
 
 def v2_card(a, p, no=None, flags=""):

@@ -1417,6 +1417,25 @@ var monoPromos = (function () {
     window.addEventListener('resize', sync);
     sync();
 
+    /* 記事カルーセルは3秒ごとに次のカードへ進める。端まで来たら
+       先頭へ戻して循環させ、ユーザーが引いている最中と非表示タブでは
+       自動移動しない。 */
+    var autoTimer = null;
+    if (track.matches && track.matches('.card-grid.is-rank')
+        && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      autoTimer = window.setInterval(function () {
+        if (document.hidden || track.classList.contains('is-dragging')
+            || getComputedStyle(track).overflowX !== 'auto') return;
+        var max = track.scrollWidth - track.clientWidth;
+        if (max <= 4) return;
+        if (track.scrollLeft >= max - 4) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: step(), behavior: 'smooth' });
+        }
+      }, 3000);
+    }
+
     /* ---- 指やマウスで引く ----
        押した位置からの動きぶんだけ横に送る。少しでも動かしたときは
        クリックとして扱わない（引いた先の記事へ飛ばさないため）。 */
