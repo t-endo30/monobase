@@ -1429,7 +1429,7 @@
    "43型"
   ],
   "icon": "🎧",
-  "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/a-price/cabinet/4571495431953.jpg",
+  "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/a-price/cabinet/mailmaga/08814302/12654252/4571495431953.jpg?_ex=128x128",
   "asin": "",
   "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
@@ -1549,10 +1549,10 @@
   "rakuten_url": "https://item.rakuten.co.jp/a-price/4571495431953/",
   "yahoo_url": "https://store.shopping.yahoo.co.jp/aprice/4571495431953.html",
   "shop_images": {
-   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/a-price/cabinet/4571495431953.jpg"
+   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/a-price/cabinet/mailmaga/08814302/12654252/4571495431953.jpg?_ex=128x128"
   },
   "shop_images_verified": {
-   "rakuten": false
+   "rakuten": true
   },
   "shop_images_invalid_reason": "画像URLが404",
   "review_stats": {
@@ -1570,7 +1570,7 @@
     "average": 4.61,
     "shops": 7
    },
-   "checked": "2026-10-07"
+   "checked": "2026-10-09"
   },
   "official_url": "https://maxzen.jp/product/j43ch06/",
   "facts": [
