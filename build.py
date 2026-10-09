@@ -4636,12 +4636,6 @@ def build_index():
     # 中身が1行の帯なので、区画の上下の余白は他より詰める（is-stats）。
     body = v2_section(v2_home_stats(p), cls="is-stats")
 
-    # 最近見た記事。初訪問には出せないので中身は空のまま置いておき、
-    # JSが本人の履歴を見つけたときだけ中身を埋めて出す（v2_recent_views）。
-    # 新着より前、統計のすぐ下に置く：戻ってきた人には
-    # 「続きから」を新着より先に見せたい。
-    body += v2_recent_views(p)
-
     # ここから下（新着・特集・ランキング…）は、右にサイドバーを添えた
     # 器（.home-body）の中に入れる。サイドバーは記事ページと同じ考え方で
     # 区画の外に出す（2026-09-28、ユーザー判断）。
@@ -4784,6 +4778,12 @@ def build_index():
              + '    </div>\n'
              + v2_home_side()
              + '  </div>\n')
+
+    # 最近見た記事は、スマホではホーム本体の最後＝CATEGORYの下に置く。
+    # PCでは引き続き右サイドバー版（v2_home_side）を使い、この区画はCSSで
+    # 隠すため、PCの配置は変わらない。初訪問時はJSが履歴を見つけるまで
+    # 枠ごと hidden のままにする。
+    body += v2_recent_views(p)
 
     return page(f"{NAME}｜{SUBTITLE}", f"{SUBTITLE}。{SITE['description']}", "home", p, BASE_URL + "/", body,
                 body_class="is-home", hero_slot=v2_hero(p), extra_js=ld_js,
