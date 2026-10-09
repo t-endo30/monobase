@@ -688,6 +688,19 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   line-height:1.5;text-align:left;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
+.card-cat-in{display:none;}
+/* 通常カードはサムネイルの外側で右上をそろえ、カルーセルだけは
+   写真内の右上に重ねる。 */
+.card-cat-out{
+  position:absolute;top:14px;right:14px;z-index:3;
+  max-width:calc(100% - 28px);padding:3px 8px;
+  background:rgba(255,255,255,.92);border:1px solid var(--line-2);
+  color:var(--ink-2);font-size:10px;font-weight:700;letter-spacing:.04em;
+  line-height:1.5;text-align:left;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;border-radius:var(--r2);
+}
+.card-grid.is-rank .card-cat-in{display:block;top:6px;right:6px;bottom:auto;}
+.card-grid.is-rank .card-cat-out{display:none;}
 /* カテゴリーは日付・VIEWと同じ行の右端に置く（左に margin:auto で寄せる） */
 .card-cat{
   flex:0 1 auto;min-width:0;text-align:right;margin-left:auto;
@@ -4350,7 +4363,8 @@ h1,h2,h3,h4,
    変わって見える。 */
 .tt-main,.tt-sub{
   display:block;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  white-space:normal;overflow:visible;text-overflow:clip;
+  overflow-wrap:normal;word-break:auto-phrase;line-break:strict;
 }
 
 /* 結論の帯は両端揃えにするので、文節での折り返しは掛けない。
@@ -4747,6 +4761,13 @@ h1,h2,h3,h4,
   margin-top:6px;
   overflow:hidden;
   white-space:nowrap;}
+@media (max-width:860px){
+  /* ランキングの横長カードでは評価と件数をバッジの上に残し、
+     狭い幅でレビュー件数が途中で消えないよう折り返しを許可する。 */
+  .card-grid.is-rank > .card .card-stats{
+    overflow:visible;white-space:normal;flex-wrap:wrap;row-gap:2px;
+  }
+}
 .cs-price{font-family:var(--font-en);
   font-size:14.5px;
   font-weight:700;

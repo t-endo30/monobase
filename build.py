@@ -1947,7 +1947,8 @@ def v2_card(a, p, no=None, flags=""):
             # カテゴリーは写真の右下に札で乗せる（2026-09-28、ユーザー指摘）。
             # 日付・VIEWと同じ行に置いていたが、タイルの幅が足りず
             # 「家具・イン…」と見切れていた。写真の上なら行の幅に左右されない。
-            f'<span class="card-cat">{e(cat)}</span></span>'
+            f'<span class="card-cat card-cat-in">{e(cat)}</span></span>'
+            f'<span class="card-cat-out">{e(cat)}</span>'
             f'<span class="card-meta">'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
             # 閲覧数は GA4 の実数（content/ranking.json）を assets/main.js が入れる。
