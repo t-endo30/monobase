@@ -774,6 +774,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    触れている時間が短いので、面は速く渡し、文字はすぐ白へ返す。
    （押した指が離れるとすぐ元に戻り、当たり判定が残って見えることはない） */
 @media (hover:none){
+  /* スマホの記事カードでは、斜めの黒いトランジション自体を使わない。
+     カード外へ黒い棘が露出することがあるため、疑似要素を無効化する。 */
+  .card::before,.card::after{display:none;}
   .card::before,.card::after,
   .row-item::before,.row-item::after,
   .cat-cell::before,.cat-cell::after{transition-duration:.2s;}
