@@ -1885,7 +1885,7 @@ def card_stats_data(a):
     return out
 
 
-def card_stats(a):
+def card_stats(a, reserve_line=False):
     """一覧のタイルに出す、価格と口コミの短い行（HTML）。
 
        ホームも一覧も「写真＋題名＋一言」の同じ形が延々と続くため、
@@ -1896,6 +1896,12 @@ def card_stats(a):
        assets/main.js の statsHtml() が同じ形を組む。片方だけ直すと
        一覧とランキングで表記がずれるので、変えるときは両方直すこと。"""
     d = card_stats_data(a)
+    # 特集記事は複数商品をまとめた記事なので、ランキング上で個別商品の
+    # 価格・送料・評価を表示すると、特集そのものの価格に見えてしまう。
+    # 空のままではカードの高さが詰まるため、必要な場合だけ不可視の
+    # 1行を残して、通常記事との位置をそろえる。
+    if reserve_line:
+        return '<span class="card-stats"><span aria-hidden="true">&nbsp;</span></span>'
     bits = ""
     if d.get("p"):
         bits += f'<span class="cs-price">¥{d["p"]:,}</span>'
@@ -1955,7 +1961,7 @@ def v2_card(a, p, no=None, flags=""):
               f'<span class="card-cat-out">&nbsp;{e(cat)}&nbsp;</span>'
               f'{card_proof(a)}</span>')
     title_html = f'<span class="card-title">{v2_title(title)}</span>'
-    stats = card_stats(a)
+    stats = card_stats(a, reserve_line=bool(no and a.get("category") == "feature"))
     note = f'<span class="card-note">{e(v2_appeal(a))}</span>'
     # FEATURE/RANKINGのカルーセルは、端末幅に依存しないようHTML自体を
     # タイトル→価格・評価→（FEATUREの一言）→バッジの順にする。
