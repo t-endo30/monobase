@@ -269,10 +269,26 @@ def _category_map():
 CATEGORY_MAP = _category_map()
 
 
+def _compact_prompt_value(value):
+    """レビュー本文から空の入れ物だけを除く（事実・0・Falseは保持）。"""
+    if value is None:
+        return None
+    if isinstance(value, dict):
+        compact = {k: _compact_prompt_value(v) for k, v in value.items()}
+        return {k: v for k, v in compact.items()
+                if v is not None and v != "" and v != [] and v != {}}
+    if isinstance(value, list):
+        compact = [_compact_prompt_value(v) for v in value]
+        return [v for v in compact
+                if v is not None and v != "" and v != [] and v != {}]
+    return value
+
+
 def build_prompt(a, rules, hits, arts=()):
     """レビュー用のプロンプト。記事の全文と、機械検査の結果を渡す。"""
     found = "\n".join(f"・[{k}] {p}：{d}" for k, p, d in hits) or "（機械検査での指摘はありません）"
-    body = {k: a[k] for k in GEN_FIELDS if k in a}
+    # 空欄のスキャフォールドだけを省き、記事本文・数値・真偽値はそのまま渡す。
+    body = _compact_prompt_value({k: a[k] for k in GEN_FIELDS if k in a})
     evidence = {
         "official_url": a.get("official_url", ""),
         "facts": a.get("facts", []),

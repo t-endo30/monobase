@@ -26,6 +26,18 @@ INSTRUCTIONS = """あなたはモノベースの編集部員です。与えら�
 INSTRUCTIONS += "\n比較対象が1商品しかない個別商品記事では、specを確認済み仕様として整理し、『スペック比較表』という見出しや比較表現を使わないでください。"
 
 
+def generation_prompt_text(path):
+    """本文生成に必要な範囲だけをモデルへ渡す。
+
+    article-prompt.md の後半には管理画面の操作や公開手順も含まれるが、
+    それらは生成時の判断材料ではない。生成ルール自体は省略せず、
+    「管理画面から本文を作る」以降の運用説明だけを除外する。
+    """
+    text = io.open(path, encoding="utf-8").read()
+    marker = "\n## 管理画面から本文を作る"
+    return text.split(marker, 1)[0].rstrip() if marker in text else text
+
+
 def jev_context(article):
     """生成前にJevで主張リスクを確認し、結果を本文生成へ渡す。"""
     stats = {
@@ -61,7 +73,9 @@ def main():
 
     arts = load(ARTICLES)
     site = load("content/site.json")
-    prompt_md = io.open(os.path.join(ROOT, "docs", "article-prompt.md"), encoding="utf-8").read()
+    prompt_md = generation_prompt_text(
+        os.path.join(ROOT, "docs", "article-prompt.md")
+    )
     if args.drafts:
         targets = [a for a in arts if not a.get("published") and is_empty(a)]
     else:
