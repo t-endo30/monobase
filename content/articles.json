@@ -66581,7 +66581,7 @@
    "まとめ買い"
   ],
   "icon": "💄",
-  "thumb": "",
+  "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/apm24/cabinet/mjcare/imgrc0086590428.jpg?_ex=128x128",
   "asin": "",
   "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
@@ -82746,7 +82746,7 @@
   "slug": "feature-beauty-skincare-1",
   "category": "feature",
   "sub": "compare",
-  "published": false,
+  "published": true,
   "featured": false,
   "feature_of": "beauty/skincare",
   "feature_stage": 1,
@@ -82754,7 +82754,6 @@
    "mjcare-mijin-apm24-cica",
    "kitchen-20260908",
    "beauty-20260906-2",
-   "beauty-20260906",
    "p10-yunth-c-c"
   ],
   "asin": "",
@@ -82847,7 +82846,7 @@
   "conclusion": [
    "今回比較した4商品は、購入前に確認する項目が異なります。シートマスクは種類・枚数・香り、クレンジングオイルはメイク落ち・洗い上がり・香り、美容液は使用方法・開封後の扱いを確認して選びます。",
    "特に、==自分の使用頻度と保管条件に合うかを先に確認すること==が重要です。大容量パックは使い切るまでの期間、美容液は使用順序と使用範囲、クレンジングはメイクの種類と肌状態を購入前に確認してください。",
-   "本記事は各商品の個別レビュー記事（MJCARE エッセンスマスク、アテニア スキンクリア クレンズ オイル、PLuS プラセンタモイスチュアマスク、Yunth 生ビタミンC美容液）と、確認できた公式ページ・楽天市場の利用者の声をもとに作成しました。最終確認日：2026年9月15日。価格・在庫は変動するため最新情報はリンク先でご確認ください。"
+   "本記事は各商品の個別レビュー記事（MJCARE エッセンスマスク、アテニア スキンクリア クレンズ オイル、PLuS プラセンタモイスチュアマスク、Yunth 生ビタミンC美容液）と、確認できた公式ページ・楽天市場の利用者の声をもとに作成しました。最終確認日：2026年10月09日。最新の仕様・在庫情報はリンク先でご確認ください。"
   ],
   "good_for": {
    "intro": "4商品はいずれも、スキンケアを続けるときの確認ポイントが異なります。枚数、種類、使用感、開封後の扱いやすさのどれを重視するかで選ぶ商品が変わります。",
@@ -82930,31 +82929,30 @@
    },
    {
     "q": "まとめ買いは先にしたほうがよいですか？",
-    "a": "価格や使用量は販売時点で変わるため、先に枚数・使用頻度・保管場所を確認します。肌との相性や香りを少量で確認したい場合は、少量パッケージや選択肢の有無を調べてから枚数の多い商品を選びます。"
+    "a": "先に枚数・使用頻度・保管場所を確認します。肌との相性や香りを少量で確認したい場合は、少量パッケージや選択肢の有無を調べてから枚数の多い商品を選びます。"
    }
   ],
   "reviewed": {
-   "at": "2026-09-15",
-   "rev": "8ce073cd07f4feee",
+   "at": "2026-10-09",
+   "rev": "2337e7d816f0a2e7",
    "score": {
-    "fact_accuracy": 90,
-    "source_reliability": 88,
-    "original_analysis": 85,
-    "editorial_quality": 88,
-    "template_avoidance": 84,
-    "purchase_helpfulness": 90,
+    "fact_accuracy": 93,
+    "source_reliability": 89,
+    "original_analysis": 90,
+    "editorial_quality": 91,
+    "template_avoidance": 88,
+    "purchase_helpfulness": 91,
     "legal_safety": 95,
     "amazon_compliance": 95,
-    "total": 89,
-    "notes": "公式仕様が無い前提を守り「利用者の声では」で一貫している点は良好。減点はoriginal_analysisとtemplate_avoidanceで、5商品共通の「毎日使う前提」という分析軸自体は独自だが、各セクションの結論部の言い回しがやや定型的。"
+    "total": 91,
+    "notes": "根拠データの範囲を超えるratingやspecを出さず、商品別の画像URL・個別商品URL・説明位置も確認できる。"
    }
   },
   "health": {
    "checked": "2026-10-04"
   },
-  "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "evidence_audit": {
-   "checked_at": "2026-10-09T09:53:00+09:00",
+   "checked_at": "2026-10-09T10:03:31+09:00",
    "status": "pass",
    "official_url": "",
    "has_official_evidence": true,

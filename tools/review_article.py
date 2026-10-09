@@ -309,6 +309,8 @@ def build_prompt(a, rules, hits, arts=()):
             "facts": x.get("facts", []),
             "product_urls": {k: x.get(k, "") for k in
                              ("amazon_url", "rakuten_url", "yahoo_url") if x.get(k)},
+            "thumbnail_url": x.get("thumb", ""),
+            "shop_images": x.get("shop_images", {}),
             "asin": x.get("asin", ""),
             "jan": x.get("jan", ""),
             "review_texts": x.get("voices") or x.get("review_texts") or [],

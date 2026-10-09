@@ -2502,6 +2502,17 @@ def product_name_patterns(a):
         names += [t for t in re.findall(r"[A-Za-z0-9][A-Za-z0-9\-.]*[A-Za-z0-9]", n)
                   if len(t) >= 4 and re.search(r"\d", t) and re.search(r"[A-Za-z]", t)
                   and not _PL_SPEC.match(t)]
+    # 本文では、型番を省いた商品名や「ブランドの〜」という自然な
+    # 表記になることがある。商品名の末尾が型番なら、その短縮形と
+    # ブランド助詞形も同じ商品として扱う。
+    for x in list(names):
+        parts = x.split()
+        if len(parts) >= 3 and re.search(r"[A-Za-z0-9]", parts[-1]):
+            short = " ".join(parts[:-1])
+            if len(short) >= 4:
+                names.append(short)
+        if len(parts) >= 2:
+            names.append(parts[0] + "の" + " ".join(parts[1:]))
     pats = []
     for x in sorted(set(names), key=len, reverse=True):
         body = r"\s*".join(re.escape(ch) for ch in x.replace("　", " ").split(" "))
