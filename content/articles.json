@@ -72890,7 +72890,7 @@
   "slug": "gunze-agw112",
   "category": "fashion",
   "sub": "wear",
-  "published": false,
+  "published": true,
   "featured": false,
   "title": "グンゼ AGW112 レビュー｜アセドロンショート丈の確認済み情報と購入前チェック",
   "list_title": "グンゼ AGW112｜アセドロンショート丈を確認して選ぶポイント",
@@ -73111,7 +73111,6 @@
   "health": {
    "checked": "2026-10-04"
   },
-  "unpublished_reason": "商品ページが到達不能で、現在の販売・商品根拠を確認できないため（2026-10-06）",
   "official_url": "https://www.gunze.co.jp/corporate/news/2025/03/20250304001.html",
   "facts": [
    "グンゼ公式のアセドロン案内で、汗対策シリーズとして吸汗速乾・ムレにくさ・消臭などの訴求を確認。ただし商品ごとの仕様は販売ページで照合する",
@@ -73139,13 +73138,12 @@
    }
   ],
   "evidence_audit": {
-   "checked_at": "2026-10-06T11:00:00+09:00",
+   "checked_at": "2026-10-09T11:22:24+09:00",
    "status": "pass",
-   "official_url": "https://www.irisohyama.co.jp/products/electrical-appliances/lighting-equipment/ceiling-light/light-guide-plate-series/light-guide-plate-toning-type/",
+   "official_url": "https://www.gunze.co.jp/corporate/news/2025/03/20250304001.html",
    "has_official_evidence": true,
    "individual_product_urls": {
-    "rakuten_url": "https://item.rakuten.co.jp/luminous81023/rumda4412b9a2/",
-    "yahoo_url": "https://store.shopping.yahoo.co.jp/joylight/538005.html"
+    "rakuten_url": "https://item.rakuten.co.jp/tensyodo/gr-e9grdujjir/"
    },
    "has_product_identity": true,
    "has_review_text": true,
@@ -73154,19 +73152,19 @@
    "blockers": []
   },
   "reviewed": {
-   "at": "2026-10-07",
+   "at": "2026-10-09",
    "rev": "3e8d6e1fa3ca6c3a",
    "score": {
-    "fact_accuracy": 96,
-    "source_reliability": 94,
-    "original_analysis": 88,
-    "editorial_quality": 92,
+    "fact_accuracy": 94,
+    "source_reliability": 92,
+    "original_analysis": 84,
+    "editorial_quality": 91,
     "template_avoidance": 88,
-    "purchase_helpfulness": 94,
-    "legal_safety": 98,
+    "purchase_helpfulness": 91,
+    "legal_safety": 96,
     "amazon_compliance": 98,
-    "total": 94,
-    "notes": "根拠データの範囲を守り、公式シリーズ情報・商品同定・一件の利用者の声を分けて記述できています。商品別の公式仕様と評価統計を無理に補っておらず、購入前の確認項目も具体的です。"
+    "total": 92,
+    "notes": "根拠データにない仕様・評価点・価格を追加せず、シリーズ情報とAGW112個別情報、1件の利用者の声を区別できています。商品別仕様が不足するため、比較分析と独自性は限定的です。"
    }
   },
   "review_stats": {
