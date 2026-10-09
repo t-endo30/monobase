@@ -47,13 +47,15 @@ def rakuten_item_code(url):
     return ":".join(parts[:2]) if len(parts) >= 2 else ""
 
 
-def summarize(items):
-    """同じ商品を売っている店舗の一覧から、価格と口コミをまとめる。
+def summarize(items, target_url=""):
+    """価格と、1つの販売ページに表示された口コミ件数をまとめる。
 
-       口コミは店舗ごとに別に付くので件数は合計、平均は件数で重みを
-       付けた平均にする。価格は最安値（読者が実際に払う額に一番近い）。
-       口コミが1件も無くても価格だけは出す（数字が1つも無いページを
-       減らすのが目的なので、片方だけでも載せる価値がある）。"""
+       同じ商品でも販売店ごとにレビュー集合が異なるため、店舗をまたいで
+       件数を合算すると「同じ商品の口コミ総数」に見えてしまう。特にJAN
+       検索は複数店舗を返すため、以前の合算方式では件数が不自然に膨らむ
+       ことがあった。対象URLに一致する結果を最優先し、それが無い場合も
+       API結果の1件だけを採用する。平均評価も同じ1件の表示値を使う。
+       価格は最安値（読者が実際に払う額に一番近い）。"""
     out = {}
     priced = [x for x in items if x.get("price")]
     if priced:
@@ -62,10 +64,15 @@ def summarize(items):
         out["postage_included"] = bool(best.get("postage_included"))
     rated = [x for x in items if x.get("reviews")]
     if rated:
-        n = sum(x["reviews"] for x in rated)
-        out["count"] = n
-        out["average"] = round(sum(x["reviews"] * x["rating"] for x in rated) / n, 2)
-        out["shops"] = len(rated)
+        target = item_key(target_url) if target_url else ""
+        exact = [x for x in rated if target and item_key(x.get("url")) == target]
+        # API結果はレビュー件数順で返るため、URL一致が無い場合は先頭を
+        # 採用する。どのケースでも複数販売店の件数は合算しない。
+        chosen = exact[0] if exact else rated[0]
+        out["count"] = int(chosen["reviews"])
+        out["average"] = round(float(chosen.get("rating") or 0), 2)
+        out["shops"] = 1
+        out["count_scope"] = "single_listing"
     return out
 
 
@@ -120,7 +127,7 @@ def stats_for(jan, rk_id, rk_key, yh_id, rakuten_url=""):
                 items = []
         else:
             items = rakuten_for_url(rk_id, rk_key, rakuten_url)
-        got = summarize(items)
+        got = summarize(items, rakuten_url)
         if got:
             out["rakuten"] = got
     if yh_id and jan:
@@ -129,7 +136,7 @@ def stats_for(jan, rk_id, rk_key, yh_id, rakuten_url=""):
         except Exception as ex:                       # noqa: BLE001
             print(f"    （Yahoo!を引けませんでした: {ex}）")
             items = []
-        got = summarize(items)
+        got = summarize(items, "")
         if got:
             out["yahoo"] = got
     return out
@@ -148,7 +155,7 @@ def describe(st):
             bits.append(f"{v['price']:,}円（{ship}）")
         if v.get("count"):
             bits.append(f"レビュー {v['count']:,}件、"
-                        f"平均 {v['average']}／5.0（{v['shops']}店舗の合計）")
+                        f"平均 {v['average']}／5.0（参照した販売ページの表示件数）")
         if bits:
             lines.append(f"{ja}：" + "、".join(bits))
     return lines

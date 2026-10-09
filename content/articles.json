@@ -1412,7 +1412,7 @@
   "slug": "maxzen-j43ch06",
   "category": "av",
   "sub": "tv",
-  "published": false,
+  "published": true,
   "featured": false,
   "title": "MAXZEN J43CH06 利用者の声｜43型テレビの見やすさと録画の確認点",
   "list_title": "MAXZEN J43CH06 利用者の声",
@@ -1543,7 +1543,7 @@
    "MAXZEN J43CH06は、地上・BS・110度CSを43型の画面で見たい人に向く液晶テレビです。利用者の声では画面の大きさや映像の見やすさに関する内容が確認されています。外付けHDD録画、ゲームモード、HDMI接続にも対応すると案内されています。",
    "このテレビを選ぶときは、画面サイズだけでなく、設置場所、視聴距離、録画用HDD、接続機器の条件を確認してください。特定の解像度やゲーム機能を重視する場合は、公式仕様で必要な数値を照合することが重要です。",
    "購入後の使い方を具体化するには、放送の視聴だけか、外付けHDD録画も使うか、ゲーム機やレコーダーを何台つなぐかを先に整理します。そのうえで、本体寸法、付属品、端子数、対応する映像条件を公式資料と販売ページで照合してください。",
-   "主な情報源はMAXZEN公式の商品情報・仕様案内と楽天市場の利用者の声です。最終確認日：2026年10月07日。販売条件はリンク先で確認してください。"
+   "主な情報源はMAXZEN公式の商品情報・仕様案内と楽天市場の利用者の声です。最終確認日：2026年10月09日。販売条件はリンク先で確認してください。"
   ],
   "jan": "4571495431953",
   "rakuten_url": "https://item.rakuten.co.jp/a-price/4571495431953/",
@@ -1708,7 +1708,7 @@
    }
   ],
   "evidence_audit": {
-   "checked_at": "2026-10-09T10:13:05+09:00",
+   "checked_at": "2026-10-09T10:15:45+09:00",
    "status": "pass",
    "official_url": "https://maxzen.jp/product/j43ch06/",
    "has_official_evidence": true,
@@ -1722,25 +1722,24 @@
    "missing": [],
    "blockers": []
   },
-  "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "reviewed": {
-   "at": "2026-10-07",
-   "rev": "fb922f96c237b5c4",
+   "at": "2026-10-09",
+   "rev": "84aebb9c7857dada",
    "score": {
     "fact_accuracy": 96,
     "source_reliability": 95,
-    "original_analysis": 84,
-    "editorial_quality": 91,
-    "template_avoidance": 82,
+    "original_analysis": 80,
+    "editorial_quality": 89,
+    "template_avoidance": 80,
     "purchase_helpfulness": 92,
     "legal_safety": 98,
-    "amazon_compliance": 100,
-    "total": 92,
-    "notes": "確認済みの公式情報と利用者の声の範囲で構成され、未確認のratingやspecもありません。機能説明と購入前確認の反復がやや多く、独自分析の厚みは限定的です。"
+    "amazon_compliance": 98,
+    "total": 91,
+    "notes": "確認済みの公式仕様と利用者の声の範囲内で構成され、未確認のratingや価格、Amazonレビューの記載もない。類似表現の反復はあるが、購入前の確認項目は具体的である。"
    }
   },
   "spec": {
-   "intro": "公式商品情報で確認できたJ43CH06の仕様を、放送視聴・録画・接続の購入前確認項目として整理しています。",
+   "intro": "公式商品情報で確認できたJ43CH06の仕様を、放送視聴・録画・接続という主な用途別の購入前確認項目として整理しています。",
    "headers": [
     "確認項目",
     "MAXZEN J43CH06"
