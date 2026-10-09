@@ -1,0 +1,39 @@
+{"items": [{
+  "name": "SwitchBot ハブ2 W3202106 スマートリモコン",
+  "category": "appliance",
+  "sub": "smart_home",
+  "jan": "0850043739784",
+  "reviews": 15,
+  "rating": 4.6,
+  "price": 11080,
+  "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/r-kojima/cabinet/n0000000816/0850043739784_1.jpg",
+  "images": {"rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/r-kojima/cabinet/n0000000816/0850043739784_1.jpg"},
+  "rakuten_url": "https://item.rakuten.co.jp/r-kojima/0850043739784/",
+  "yahoo_url": "",
+  "amazon_url": "",
+  "official_url": "https://www.switchbot.jp/pages/switchbot-hub2",
+  "official_ogp_title": "SwitchBot ハブ2 W3202106",
+  "facts": [
+    "SwitchBot公式製品ページでSwitchBot ハブ2を4-in-1温湿度計付きスマートリモコンとして確認",
+    "公式製品ページで赤外線受信距離最大15m、赤外線家電の操作、温湿度・照度の可視化、アプリ通知を案内していることを確認",
+    "公式製品ページでSwitchBotデバイスと赤外線家電をハブ2経由でMatter対応にできること、対応アクセサリ追加にはホームハブが必要と確認",
+    "楽天市場の個別商品ページでSwitchBot ハブ2 W3202106、JAN 0850043739784、商品画像と販売条件を確認"
+  ],
+  "source_notes": [
+    "SwitchBot公式製品ページでハブ2の用途、赤外線操作、センサー、Matter連携を確認",
+    "楽天市場コジマ楽天市場店の個別商品ページでW3202106とJANを照合",
+    "楽天市場の同一型番の個別レビューで温度管理、設置、設定、リモコン登録に関する本文を確認"
+  ],
+  "review_texts": [
+    {
+      "source": "楽天市場 SwitchBot ハブ2 W3202106 個別商品レビュー",
+      "text": "外出先からエアコンの温度管理ができて安心という投稿があり、ペットや離れて暮らす家族の部屋を管理する用途が挙げられている。"
+    },
+    {
+      "source": "楽天市場 SwitchBot ハブ2 W3202106 個別商品レビュー",
+      "text": "温度・湿度が見やすい、赤外線の反応がよいという投稿がある一方、設定に時間がかかった、リモコンの細かなボタンは自分で登録が必要という内容も確認できる。"
+    }
+  ],
+  "trending": false,
+  "shops": {"rakuten": {"price": 11080, "shop_name": "コジマ楽天市場店", "postage_included": true, "reviews": 15, "rating": 4.6}}
+}]}

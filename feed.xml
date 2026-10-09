@@ -7,6 +7,14 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>SwitchBot ハブ2 W3202106</title>
+    <link>https://monobase.site/articles/switchbot-w3202106</link>
+    <guid isPermaLink="true">https://monobase.site/articles/switchbot-w3202106</guid>
+    <description>赤外線家電の操作と温湿度管理をまとめるSwitchBot ハブ2の仕様・用途・確認点を解説。</description>
+    <category>家電</category>
+    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>くれない K-wave-L-total</title>
     <link>https://monobase.site/articles/k-wave-l-total-high</link>
     <guid isPermaLink="true">https://monobase.site/articles/k-wave-l-total-high</guid>
@@ -157,14 +165,6 @@
     <description>24型で放送・録画・ゲームをまとめやすい小型テレビ。利用者の声から設置時の注意点も整理します。</description>
     <category>AV機器</category>
     <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>BUFFALO WSR-3000AX4P口コミ</title>
-    <link>https://monobase.site/articles/buffalo-wsr-3000ax4p-wi-fi-lan</link>
-    <guid isPermaLink="true">https://monobase.site/articles/buffalo-wsr-3000ax4p-wi-fi-lan</guid>
-    <description>Wi-Fi 6とEasyMesh対応のWSR-3000AX4Pを、口コミと公式情報から購入前の確認点まで整理。</description>
-    <category>パソコン</category>
-    <pubDate>Wed, 07 Oct 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
 </rss>

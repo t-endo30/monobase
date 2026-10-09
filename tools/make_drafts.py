@@ -399,18 +399,21 @@ def main():
         if normal_candidates and not has_evidence:
             print(f"公式資料・レビュー本文不足のため事前スキップ: {name[:50]}")
             continue
-        # すでに書いた商品は飛ばす。JANが無い場合は名前の頭かURLで見る。
+        # すでに書いた商品は飛ばす。型番が取れる商品は、共通する商品名の
+        # 先頭より型番を優先する。同じシリーズでもW3202100とW3202106の
+        # ようにSKUが異なる場合まで、名前の先頭一致だけで落とさない。
+        candidate_models = model_codes(name)
         if c.get("jan") and str(c["jan"]) in seen_jan:
-            continue
-        if name[:20] in seen_name:
             continue
         if any(url_key(c.get(k)) in seen_url for k in ("rakuten_url", "yahoo_url")
                if c.get(k)):
             continue
-        if model_codes(name) & seen_models:
+        if candidate_models & seen_models:
+            continue
+        if not candidate_models and name[:20] in seen_name:
             continue
         seen_name.add(name[:20])
-        seen_models |= model_codes(name)
+        seen_models |= candidate_models
         if c.get("jan"):
             seen_jan.add(str(c["jan"]))
         for k in ("rakuten_url", "yahoo_url"):
