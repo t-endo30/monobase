@@ -773,16 +773,10 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   /* .is-tapping は main.js が押した時点で付けるしるし。指を離しても
      面が渡りきるまで遷移を待たせるので、:active より長く見える。
      JS が動かない場合でも :active だけで同じ動きになる */
-  .card:active::before,.card:active::after,
-  .card.is-tapping::before,.card.is-tapping::after,
   .row-item:active::before,.row-item:active::after,
   .row-item.is-tapping::before,.row-item.is-tapping::after,
   .cat-cell:active::before,.cat-cell:active::after,
   .cat-cell.is-tapping::before,.cat-cell.is-tapping::after{transform:translate(0,0);}
-  .card:active .card-title,.card.is-tapping .card-title,
-  .card:active .card-date,.card.is-tapping .card-date,
-  .card:active .card-cat,.card.is-tapping .card-cat,
-  .card:active .card-note,.card.is-tapping .card-note,
   .row-item:active h3,.row-item.is-tapping h3,
   .row-item:active p,.row-item.is-tapping p,
   .row-item:active .meta,.row-item.is-tapping .meta,
