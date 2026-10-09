@@ -23,7 +23,7 @@
   "icon": "🩺",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/toyomarket/cabinet/protein/imgrc0152839430.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=VITAS%20%E3%83%90%E3%82%A4%E3%82%BF%E3%82%B9%20%E3%83%9B%E3%82%A8%E3%82%A4%E3%83%97%E3%83%AD%E3%83%86%E3%82%A4%E3%83%B3100%20WPC%201kg&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：WPC・1kg・複数フレーバーから選びたい人には候補。栄養成分や摂取量を細かく比較する人は表示確認を",
   "summary": [
@@ -327,6 +327,12 @@
     "total": 92,
     "notes": "確認済みの根拠を超える rating・spec・レビュー数値を使わず、WPC・容量・フレーバーごとの確認点に整理できています。類似表現の反復はややありますが、商品固有の判断軸は保たれています。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=VITAS%20%E3%83%90%E3%82%A4%E3%82%BF%E3%82%B9%20%E3%83%9B%E3%82%A8%E3%82%A4%E3%83%97%E3%83%AD%E3%83%86%E3%82%A4%E3%83%B3100%20WPC%201kg&i=aps"
+   ]
   }
  },
  {
@@ -352,7 +358,7 @@
   "icon": "🩺",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/takeuchi-labo/cabinet/07385387/thepro/ta-the-pr/ta-the-pr.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E6%AD%A6%E5%86%85%E8%A3%BD%E8%96%AC%20THE%20PROTEIN%20%E3%83%9B%E3%82%A8%E3%82%A4%E3%83%97%E3%83%AD%E3%83%86%E3%82%A4%E3%83%B31kg&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：味を選びながら継続したい人に向く。甘さや溶け方を細かく指定したい人はフレーバー選びを慎重に",
   "summary": [
@@ -651,6 +657,12 @@
     "total": 91,
     "notes": "提示された根拠データの範囲内で、未確認のrating・specや価格、Amazonレビューの利用はありません。商品固有の1kg・WPC・複数フレーバー・味と溶け方の確認軸も整理されています。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E6%AD%A6%E5%86%85%E8%A3%BD%E8%96%AC%20THE%20PROTEIN%20%E3%83%9B%E3%82%A8%E3%82%A4%E3%83%97%E3%83%AD%E3%83%86%E3%82%A4%E3%83%B31kg&i=aps"
+   ]
   }
  },
  {
@@ -676,7 +688,7 @@
   "icon": "💄",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/yumebank/cabinet/thum/normascara/11015931/imgrc0134658419.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=NOR.%20AIRFITMASCARA%20%E3%82%A8%E3%82%A2%E3%83%95%E3%82%A3%E3%83%83%E3%83%88%E3%83%9E%E3%82%B9%E3%82%AB%E3%83%A9&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：カールキープと仕上がりの選択肢を重視する人には候補。ダマの出にくさを最優先するなら塗り方を確認したい",
   "summary": [
@@ -996,6 +1008,12 @@
     "total": 91,
     "notes": "根拠データの範囲内で仕様・利用者の声・未確認事項を区別しており、ratingとspecも適切に省かれています。商品固有の判断軸はありますが、購入前確認の定型的な説明がやや多く、テンプレート感をわずかに残します。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=NOR.%20AIRFITMASCARA%20%E3%82%A8%E3%82%A2%E3%83%95%E3%82%A3%E3%83%83%E3%83%88%E3%83%9E%E3%82%B9%E3%82%AB%E3%83%A9&i=aps"
+   ]
   }
  },
  {
@@ -1021,7 +1039,7 @@
   "icon": "🍳",
   "thumb": "https://item-shopping.c.yimg.jp/i/g/insdenki-y_p7030579",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4562351023146&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：少量のお湯を省スペースで用意したい人向け。沸騰時間やコード長は購入前に確認",
   "summary": [
@@ -1388,6 +1406,12 @@
     "total": 90,
     "notes": "確認済みの仕様と利用者の声の範囲を守り、Amazon由来のレビュー数や星を本文に使用していない。補助欄のラベルに本文との不一致があったため修正したが、具体的な外形寸法やコード長など未確認項目は購入前確認として扱われている。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4562351023146&i=aps"
+   ]
   }
  },
  {
@@ -1414,7 +1438,7 @@
   "icon": "💻",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/rainbowpc/cabinet/11368819/11799176/11807569/surface10-xxx-1.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=Microsoft%20Surface%20Go%202%20Model%201927%20%E4%B8%AD%E5%8F%A4%208GB%20128GB%20SSD&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：軽い作業用の中古Surfaceを探す人には候補。状態と付属品を確認できない人には不向き",
   "summary": [
@@ -1727,6 +1751,12 @@
     "total": 91,
     "notes": "確認済みの公式情報・販売情報・利用者の声に基づく構成で、ratingも根拠と減点理由が明示されています。商品固有性は十分ですが、未確認仕様を避けるため一般的な購入確認表現を一部整理しました。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=Microsoft%20Surface%20Go%202%20Model%201927%20%E4%B8%AD%E5%8F%A4%208GB%20128GB%20SSD&i=aps"
+   ]
   }
  },
  {
@@ -1752,7 +1782,7 @@
   "icon": "🩺",
   "thumb": "https://item-shopping.c.yimg.jp/i/n/s-pln_mt-rb2-24g",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4580058722186&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：深さ・速さを部位ごとに調整したい人向け。軽量さや連続使用時間を最優先するなら確認が必要",
   "summary": [
@@ -2120,6 +2150,12 @@
     "total": 93.5,
     "notes": "根拠データに沿って仕様・利用者の声・Yahoo!の評価表示を扱えている。価格への言及を一部修正したが、記事全体には定型的な購入前確認表現がやや残る。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4580058722186&i=aps"
+   ]
   }
  },
  {
@@ -2146,7 +2182,7 @@
   "icon": "🎧",
   "thumb": "https://item-shopping.c.yimg.jp/i/n/jblstore_wave-beam2",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4968929222599&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：通勤・作業用に機能をまとめたい人には買い。装着感と音の好みを最優先するなら利用者の声を確認",
   "summary": [
@@ -2483,6 +2519,12 @@
     "total": 93,
     "notes": "提示された公式仕様と利用者の声に概ね対応しており、根拠のないspecはありません。独自評価の明示と、根拠データにない具体的な充電上の注意を修正しました。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4968929222599&i=aps"
+   ]
   }
  },
  {
@@ -2507,7 +2549,7 @@
   "icon": "🎧",
   "thumb": "https://image.rakuten.co.jp/braveyoung/cabinet/c30/b-c30.jpg",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4582660314421&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：長時間再生と適応型ANCを重視する人の候補。購入前に接続条件と装着感を確認したい",
   "summary": [
@@ -2817,6 +2859,12 @@
     "total": 92,
     "notes": "確認済み仕様とYahoo!ショッピングの利用者の声に基づき、価格・Amazonレビュー評価・rating/specの不適切な使用はない。レビュー出典の表現を修正した。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4582660314421&i=aps"
+   ]
   }
  },
  {
@@ -2842,7 +2890,7 @@
   "icon": "📷",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/tplinkdirect/cabinet/06321509/tapo-c5.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4895252504279&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：屋外の広い範囲とAI検知を確認したい人向け。設置条件と保存方法を先に確認",
   "summary": [
@@ -3143,6 +3191,12 @@
     "total": 94,
     "notes": "公式仕様とYahoo!ショッピングの確認済みレビューを区別しており、未確認のratingやspec、価格、Amazonレビュー評価もありません。表現の一部に一般的な導入注意と反復が残るため、独自分析とテンプレート回避は満点にしていません。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4895252504279&i=aps"
+   ]
   }
  },
  {
@@ -3168,7 +3222,7 @@
   "icon": "🏠",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/r-kojima/cabinet/n0000000816/0850043739784_1.jpg",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=0850043739784&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：赤外線家電と室内環境をまとめて管理したい人向け。対応機種とホームハブ条件は購入前に確認を",
   "summary": [
@@ -3493,6 +3547,12 @@
     "total": 92,
     "notes": "確認済みの公式仕様と楽天市場の利用者の声に沿っており、購入前の対応機種・設置・Matter条件も具体的です。点数の算定基準が確認できない rating は削除しました。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=0850043739784&i=aps"
+   ]
   }
  },
  {
@@ -3519,7 +3579,7 @@
   "icon": "🪑",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/kurenai/cabinet/cart_img2/totalhigh_kago01.jpg?_ex=600x600",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%E3%81%8F%E3%82%8C%E3%81%AA%E3%81%84%20K-wave-L-total%20high%20%E3%83%9F%E3%83%A9%E3%83%BC%E3%83%AC%E3%83%BC%E3%82%B9%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：外からの視線と室内の明るさを両立したい人向け。サイズと透け感の確認は購入前に",
   "summary": [
@@ -3829,6 +3889,12 @@
     "total": 93,
     "notes": "確認済みの公式情報と楽天の利用者の声の範囲で構成され、未確認の数値やAmazonレビュー評価を使用していません。夜間の見え方や具体的な性能率を未確認として扱えており、購入前の確認項目も具体的です。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%E3%81%8F%E3%82%8C%E3%81%AA%E3%81%84%20K-wave-L-total%20high%20%E3%83%9F%E3%83%A9%E3%83%BC%E3%83%AC%E3%83%BC%E3%82%B9%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3&i=aps"
+   ]
   }
  },
  {
@@ -3855,7 +3921,7 @@
   "icon": "💄",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/mtgec-beauty/cabinet/refa/dry_me/08_refa_dry_me.jpg?_ex=600x600",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=ReFa%20%E3%83%AA%E3%83%95%E3%82%A1%E3%83%89%E3%83%A9%E3%82%A4%E3%83%9F%E3%83%BC&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：ドライヤーとブラッシングを同時に行う用途で、集風ウイングとピン設計を確認して選ぶブラシ",
   "summary": [
@@ -4160,6 +4226,12 @@
     "total": 90,
     "notes": "確認済みの公式情報と利用者の声を分け、未確認の寸法や使用条件を断定していない。テンプレート感は残るが、商品固有の構造・重さ・形状相性を軸に補強した。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=ReFa%20%E3%83%AA%E3%83%95%E3%82%A1%E3%83%89%E3%83%A9%E3%82%A4%E3%83%9F%E3%83%BC&i=aps"
+   ]
   }
  },
  {
@@ -4184,7 +4256,7 @@
   "icon": "📷",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/seimina/cabinet/11635226/11677835/zhutu4.jpg?_ex=600x600",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=Bebird%20C3%20%E3%82%AB%E3%83%A1%E3%83%A9%E4%BB%98%E3%81%8D%E8%80%B3%E3%81%8B%E3%81%8D&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：耳の状態を見ながら使いたい人には候補。対応環境と焦点距離を確認して選びたい",
   "summary": [
@@ -4489,6 +4561,12 @@
     "total": 90,
     "notes": "公式仕様と楽天・Yahoo!の利用者の声に基づき、Amazonレビューや価格は使用していない。レンズ径と先端寸法の混同、未確認項目を判断不能と表現する箇所を修正した。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=Bebird%20C3%20%E3%82%AB%E3%83%A1%E3%83%A9%E4%BB%98%E3%81%8D%E8%80%B3%E3%81%8B%E3%81%8D&i=aps"
+   ]
   }
  },
  {
@@ -4514,7 +4592,7 @@
   "icon": "🪑",
   "thumb": "https://item-shopping.c.yimg.jp/i/g/petkan_m7058266",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4967576211246&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：ゆったり倒せる大型チェアを求める人には買い。省スペース性や搬入のしやすさを優先するなら別を",
   "summary": [
@@ -4848,6 +4926,12 @@
     "total": 92,
     "notes": "確認済みの公式仕様と利用者の声の範囲で構成され、ratingとspecにも根拠があります。Amazon検索URLは、同一商品を照合できるYahoo!個別商品URLがあるため既存導線として問題ありません。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4967576211246&i=aps"
+   ]
   }
  },
  {
@@ -4873,7 +4957,7 @@
   "icon": "🧺",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/toucher-home/cabinet/image02/hsls501w_01x.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%83%92%E3%82%AA%E3%83%AA%E3%82%A8%20%E3%83%9B%E3%83%86%E3%83%AB%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%82%BF%E3%82%AA%E3%83%AB%20%E3%83%90%E3%82%B9%E3%82%BF%E3%82%AA%E3%83%AB%20%E5%90%8C%E8%89%B22%E6%9E%9A%E3%82%BB%E3%83%83%E3%83%88%20HSLs501W&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：綿100％・厚手・同色2枚のバスタオルを選びたい人向け。サイズと毛羽落ちの注意事項を確認して選ぶ",
   "summary": [
@@ -5215,6 +5299,12 @@
     "total": 93,
     "notes": "根拠データの範囲を守り、Amazonレビューの星・件数や価格を本文で使用していない。比較対象の不足をconsから除き、収納確認の表現を実寸に即して修正した。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%83%92%E3%82%AA%E3%83%AA%E3%82%A8%20%E3%83%9B%E3%83%86%E3%83%AB%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%82%BF%E3%82%AA%E3%83%AB%20%E3%83%90%E3%82%B9%E3%82%BF%E3%82%AA%E3%83%AB%20%E5%90%8C%E8%89%B22%E6%9E%9A%E3%82%BB%E3%83%83%E3%83%88%20HSLs501W&i=aps"
+   ]
   }
  },
  {
@@ -5241,7 +5331,7 @@
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/kerastase-varie/cabinet/thumbna/dp-nightserumor_90/260715-1.jpg?_ex=128x128",
   "asin": "",
   "jan": "3474637155025",
-  "amazon_url": "https://www.amazon.co.jp/s?k=3474637155025&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：朝のまとまりと質感を重視する人向け。香りや仕上がりは確認を",
   "summary": [
@@ -5580,6 +5670,12 @@
     "total": 92,
     "notes": "根拠データの範囲内で仕様・利用者の声・編集部判断が分けられており、禁止表現やAmazon由来の評価表示もありません。内容はやや確認表現が反復しますが、商品固有の判断軸は確保されています。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=3474637155025&i=aps"
+   ]
   }
  },
  {
@@ -5606,7 +5702,7 @@
   "icon": "🩺",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/leapgrow/cabinet/mytrex/p10/p10_rbm_1000.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4580058720588&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：部位ごとの使い分けと充電式の携帯性を重視する人向け。医療機器としての効果や極端な軽さを求めるなら別を",
   "summary": [
@@ -5981,6 +6077,12 @@
     "total": 94,
     "notes": "根拠データの公式仕様と利用者の声に沿っており、Amazon由来の評価や価格を本文で使用していません。商品固有の重量・アタッチメント・充電条件を購入判断に結び付けています。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4580058720588&i=aps"
+   ]
   }
  },
  {
@@ -6007,7 +6109,7 @@
   "icon": "🏠",
   "thumb": "https://item-shopping.c.yimg.jp/i/g/joylight_249316",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4967576687447&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：6畳で調光と簡単な交換を重視する人向け。調色まで求めるなら別機種を",
   "summary": [
@@ -6356,6 +6458,12 @@
     "total": 92,
     "notes": "公式根拠のある仕様とYahoo!の確認済み利用者の声に基づき、未確認の価格やAmazonレビュー評価も使用していません。比較対象がなく、比較表の基準が弱かったため修正しました。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4967576687447&i=aps"
+   ]
   }
  },
  {
@@ -6381,7 +6489,7 @@
   "icon": "💄",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/mtgec-beauty/cabinet/refa/refa_lock_treatment/imgrc0120386132.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=MTG%20ReFa%20LOCK%20TREATMENT%20%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AD%E3%83%83%E3%82%AF%E3%83%88%E3%83%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%B3%E3%83%88%20RC-BG-00A%20100g&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：ドライ前に使うミルクタイプを、使用方法と香りで選びたい人向け",
   "summary": [
@@ -6721,6 +6829,12 @@
     "total": 90,
     "notes": "未確認の毛先中心という表現を修正し、公式仕様と楽天市場の利用者の声に限定しました。比較対象がないため、競合差の分析と独自性はやや限定的です。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=MTG%20ReFa%20LOCK%20TREATMENT%20%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AD%E3%83%83%E3%82%AF%E3%83%88%E3%83%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%B3%E3%83%88%20RC-BG-00A%20100g&i=aps"
+   ]
   }
  },
  {
@@ -6974,6 +7088,9 @@
     "total": 93,
     "notes": "根拠データの範囲を超える rating や spec を置かず、商品ごとの用途・適合条件・購入前確認を具体化できている。特集のタイトルと一覧名も個別商品名を含まず、画像付きリンクは feature_sources の自動挿入経路で成立している。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09"
   }
  },
  {
@@ -6999,7 +7116,7 @@
   "icon": "🏠",
   "thumb": "https://item-shopping.c.yimg.jp/i/g/insdenki-y_273711",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4967576541688&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：ツインノズルと温度・時間設定を重視する人向け。販売ページで型番と使用条件を確認",
   "summary": [
@@ -7316,6 +7433,12 @@
     "total": 93,
     "notes": "確認済みの公式情報とYahoo!の利用者の声を区別して記述しており、未確認の数値仕様やAmazonレビュー評価も使用していません。個別使用例に依存する部分はあるものの、購入前の確認項目が具体化されています。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4967576541688&i=aps"
+   ]
   }
  },
  {
@@ -7342,7 +7465,7 @@
   "icon": "🐾",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/beisia/cabinet/09095992/4903351011250.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4903351011250&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：鉱物系の固まり方とニオイ対策を重視する人には候補。軽さや処分方法を優先するなら別タイプを",
   "summary": [
@@ -7641,6 +7764,12 @@
     "total": 92,
     "notes": "確認済みの仕様と楽天市場の利用者の声に沿っており、未確認の重量・粒サイズ・処分方法なども断定していません。表現の反復がやや多く、独自評価の明示を追加しました。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4903351011250&i=aps"
+   ]
   }
  },
  {
@@ -7842,6 +7971,9 @@
     "total": 93,
     "notes": "根拠データにない数値や評価を補わず、feature記事としてrating・spec・voicesを使用していない。5候補の用途差と注文前の照合項目が具体的で、公開を妨げる問題は確認できない。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09"
   }
  },
  {
@@ -8037,6 +8169,9 @@
     "total": 92,
     "notes": "根拠データにある2商品の個別URL・画像URL・仕様および利用者の声の範囲で記述され、根拠のないratingやspecもありません。用途の異なる商品を保存と保持撮影に分けて説明しており、feature記事として公開可能な水準です。"
    }
+  },
+  "health": {
+   "checked": "2026-10-09"
   }
  },
  {
@@ -20396,7 +20531,7 @@
   "icon": "👕",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/mobacaba/cabinet/img_c3601-c3700/c3655_750_r.jpg?_ex=600x600",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%83%AA%E3%83%96%E3%82%AB%E3%83%83%E3%83%88%E3%82%BD%E3%83%BC%20T%E3%82%B7%E3%83%A3%E3%83%84%20%E9%95%B7%E8%A2%96%20%E3%83%AC%E3%83%87%E3%82%A3%E3%83%BC%E3%82%B9%20%E3%83%88%E3%83%83%E3%83%97%E3%82%B9%20S%20M%20L%20XL%20%E9%81%B8%E3%81%B9%E3%82%8B%E3%83%8D%E3%83%83%E3%82%AF%20%E7%A7%8B%20%E7%A7%8B%E6%9C%8D%20%E3%83%AA%E3%83%96%20%E3%82%AB%E3%83%83%E3%83%88%E3%82%BD%E3%83%BC%20%E3%83%97%E3%83%AB%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%20%E3%82%B9%E3%82%AF%E3%82%A8%E3%82%A2%E3%83%8D%E3%83%83%E3%82%AF%20V%E3%83%8D%E3%83%83%E3%82%AF%20%E3%83%9C%E3%83%BC%E3%83%88%E3%83%8D%E3%83%83%E3%82%AF%20%E3%83%AD%E3%83%B3T%20%E9%80%8F%E3%81%91%E3%81%AA%E3%81%84%20C3655%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：襟元を選べる神戸レタス C3655。重ね着用の長袖を探す人はサイズと色を確認",
   "summary": [
@@ -20691,7 +20826,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-30"
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%83%AA%E3%83%96%E3%82%AB%E3%83%83%E3%83%88%E3%82%BD%E3%83%BC%20T%E3%82%B7%E3%83%A3%E3%83%84%20%E9%95%B7%E8%A2%96%20%E3%83%AC%E3%83%87%E3%82%A3%E3%83%BC%E3%82%B9%20%E3%83%88%E3%83%83%E3%83%97%E3%82%B9%20S%20M%20L%20XL%20%E9%81%B8%E3%81%B9%E3%82%8B%E3%83%8D%E3%83%83%E3%82%AF%20%E7%A7%8B%20%E7%A7%8B%E6%9C%8D%20%E3%83%AA%E3%83%96%20%E3%82%AB%E3%83%83%E3%83%88%E3%82%BD%E3%83%BC%20%E3%83%97%E3%83%AB%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%20%E3%82%B9%E3%82%AF%E3%82%A8%E3%82%A2%E3%83%8D%E3%83%83%E3%82%AF%20V%E3%83%8D%E3%83%83%E3%82%AF%20%E3%83%9C%E3%83%BC%E3%83%88%E3%83%8D%E3%83%83%E3%82%AF%20%E3%83%AD%E3%83%B3T%20%E9%80%8F%E3%81%91%E3%81%AA%E3%81%84%20C3655%20%E3%83%A1%E3%83%BC%E3%83%AB%E4%BE%BF&i=aps"
+   ]
   },
   "spec": {
    "intro": "公式で確認できる商品仕様と、購入前に販売ページで確認する項目を整理しています。価格帯や他商品との比較表ではありません。",
@@ -22434,7 +22572,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-29"
+   "checked": "2026-10-09"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T09:01:24+09:00",
@@ -22674,7 +22812,7 @@
   ],
   "personal_note": "",
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-09"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T08:57:36+09:00",
@@ -29166,7 +29304,7 @@
   "description": "パナソニック A75C4419を公式資料と口コミから分析。CWA75C4418Xとの対応関係、故障時の交換用途、購入前に必要な適合確認を整理します。",
   "excerpt": "A75C4419は対応機種の照合が重要な交換用リモコンです。",
   "date": "2026-09-25",
-  "updated": "2026-10-06",
+  "updated": "2026-10-09",
   "tags": [
    "パナソニック",
    "A75C4419",
@@ -29177,7 +29315,7 @@
   "icon": "🏠",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/aucshop888/cabinet/130/dsc05302.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=A75C4419%20%E3%83%91%E3%83%8A%E3%82%BD%E3%83%8B%E3%83%83%E3%82%AF%20Panasonic%20%E3%82%A8%E3%82%A2%E3%82%B3%E3%83%B3%E7%94%A8%E3%83%AA%E3%83%A2%E3%82%B3%E3%83%B3%20%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E7%99%BA%E9%80%81%20%E5%8D%B3%E6%B1%BA%20%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%20%E4%B8%8D%E8%89%AF%E5%93%81%E8%BF%94%E9%87%91%E4%BF%9D%E8%A8%BC%20%E7%B4%94%E6%AD%A3%20D2613&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：同じ対応機種の交換用リモコンを探している人には買い候補。型番照合を省きたい人には向きません",
   "summary": [
@@ -29419,7 +29557,10 @@
    "checked": "2026-10-09"
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=A75C4419%20%E3%83%91%E3%83%8A%E3%82%BD%E3%83%8B%E3%83%83%E3%82%AF%20Panasonic%20%E3%82%A8%E3%82%A2%E3%82%B3%E3%83%B3%E7%94%A8%E3%83%AA%E3%83%A2%E3%82%B3%E3%83%B3%20%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E7%99%BA%E9%80%81%20%E5%8D%B3%E6%B1%BA%20%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%20%E4%B8%8D%E8%89%AF%E5%93%81%E8%BF%94%E9%87%91%E4%BF%9D%E8%A8%BC%20%E7%B4%94%E6%AD%A3%20D2613&i=aps"
+   ]
   },
   "unpublished_reason": "",
   "official_url": "https://panasonic.jp/manualdl/p-db/cs/cs_634_804_x.pdf",
@@ -30416,7 +30557,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-09"
   },
   "review_stats": {
    "rakuten": {
@@ -30753,7 +30894,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-09"
   },
   "review_stats": {
    "rakuten": {
@@ -31029,7 +31170,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-09"
   },
   "review_stats": {
    "rakuten": {
@@ -31323,7 +31464,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-01"
+   "checked": "2026-10-09"
   },
   "review_stats": {
    "rakuten": {
@@ -35484,7 +35625,7 @@
    "印刷可能ページ数は使用条件により変動し、公式は目安として扱っている"
   ],
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%A8%E3%83%97%E3%82%BD%E3%83%B3%20LP-S6160%E7%94%A8%E7%92%B0%E5%A2%83%E6%8E%A8%E9%80%B2%E3%83%88%E3%83%8A%E3%83%BC%20M%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20LPC3T35KV&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：LP-S6160向けトナーを型番で確認して選ぶ商品",
   "summary": [
@@ -35722,7 +35863,10 @@
    }
   },
   "health": {
-   "checked": "2026-09-28"
+   "checked": "2026-10-09",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%A8%E3%83%97%E3%82%BD%E3%83%B3%20LP-S6160%E7%94%A8%E7%92%B0%E5%A2%83%E6%8E%A8%E9%80%B2%E3%83%88%E3%83%8A%E3%83%BC%20M%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20LPC3T35KV&i=aps"
+   ]
   },
   "review_stats": {
    "rakuten": {
@@ -39427,7 +39571,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-30"
+   "checked": "2026-10-09"
   },
   "review_stats": {
    "rakuten": {
@@ -39727,7 +39871,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-30"
+   "checked": "2026-10-09"
   },
   "official_url": "https://www.thermal-grizzly.com/en/cpu-contact-frame/s-tg-cf-i1700-lt",
   "facts": [
@@ -49668,7 +49812,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-29"
+   "checked": "2026-10-09"
   },
   "review_stats": {
    "rakuten": {
@@ -53141,7 +53285,7 @@
    }
   },
   "health": {
-   "checked": "2026-09-30"
+   "checked": "2026-10-09"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T02:43:28+09:00",
@@ -54494,7 +54638,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/angfa/cabinet/2025/item/1080_packsd_rakuten2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-29"
+   "checked": "2026-10-09"
   },
   "scenes": [
    {
@@ -55167,7 +55311,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/thum/bota-01_20off.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-09-30"
+   "checked": "2026-10-09"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T12:04:08+09:00",
@@ -56178,7 +56322,7 @@
    }
   ],
   "health": {
-   "checked": "2026-09-29"
+   "checked": "2026-10-09"
   },
   "scenes": [
    {
