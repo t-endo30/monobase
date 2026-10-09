@@ -2442,11 +2442,8 @@ def shop_links(a):
 
 # 本文中の商品名を、その記事の販売先リンクにする。
 #   リンク先は Amazon → 楽天 → Yahoo! の順で最初に見つかったもの（shop_links の順）。
-#   付けるのは1つの商品を扱うレビュー記事だけ。選び方・特集・セールは
-#   複数の商品が出てくるので、どの名前がどの商品か機械では決められない。
-#   付けすぎるとリンクだらけの読みにくい本文になり、検索エンジンからも
-#   「広告リンクを並べただけのページ」に見えやすいので、見出しで区切った
-#   段ごとに最初の1回だけにする。
+#   レビュー記事は本文の商品名、特集は掲載元記事と対応づけた商品名を
+#   すべて対象にする。既存リンクの内側は触らず、二重リンクだけを避ける。
 _PL_SPEC = re.compile(
     r"^(\d+(\.\d+)?(GB|TB|MB|L|W|mAh|cm|mm|m|ml|g|kg|K|Hz|V|A|in|inch|way|P|個|枚|本|型|インチ)"
     r"|\d+TYPE|DDR\d\w*|USB[\d.]*\w*|PC\d-\d+\w*|Wi-?Fi\d*|Bluetooth[\d.]*|BT[\d.]+"
@@ -2478,8 +2475,12 @@ def product_name_patterns(a):
 
 
 def link_product_names(html, a):
-    """記事本文のHTMLのうち、地の文の段落（<p>）にある商品名を1段に1回だけ
-       リンクにする。見出し・ボタン・注記・既にリンクを含む段落は触らない。"""
+    """本文中に出る商品名へ販売先リンクを付ける。
+
+    商品名を段落ごとに1回だけに制限すると、特集ではリンクのない商品名が
+    残る。地の文にある未リンクの商品名はすべて対象にし、特集ではその商品を
+    最初に説明している段落の直前へ、対応する画像付き購入リンクを置く。
+    """
     links = shop_links(a)
     if a.get("category") == "feature" and a.get("feature_covers"):
         # 特集は掲載元記事ごとに商品名と優先販売先を対応させる。
@@ -2491,50 +2492,65 @@ def link_product_names(html, a):
                 continue
             href = e(shop_links(src)[0][2])
             for pat in product_name_patterns(src):
-                mapped.append((pat, href))
+                mapped.append((pat, href, slug, product_card(src, "../", with_img=True)))
         if not mapped:
             return html
         mapped.sort(key=lambda x: len(x[0]), reverse=True)
         name_re = re.compile("|".join(x[0] for x in mapped))
-        href = mapped[0][1]
     elif links and kind_of(a) == "review":
         pats = product_name_patterns(a)
         if not pats:
             return html
-        name_re = re.compile("|".join(pats))
-        href = e(links[0][2])
+        mapped = [(pat, e(links[0][2]), "", "") for pat in pats]
+        name_re = re.compile("|".join(x[0] for x in mapped))
     else:
         return html
 
+    placed = set()
+
     def one_chunk(chunk):
-        done = [False]
 
         def para(m):
             open_, inner, close = m.group(1), m.group(2), m.group(3)
-            if (done[0] or "<a " in inner or "cta-note" in open_
-                    or "scroll-hint" in open_ or "prod-name" in open_):
+            if ("cta-note" in open_ or "scroll-hint" in open_
+                    or "prod-name" in open_):
                 return m.group(0)
             parts = re.split(r"(<[^>]+>)", inner)
-            for i in range(0, len(parts), 2):   # タグの外側（文字の部分）だけを見る
-                mm = name_re.search(parts[i])
-                if mm:
-                    target = href
-                    if a.get("category") == "feature" and a.get("feature_covers"):
-                        for pat, mapped_href in mapped:
-                            if re.fullmatch(pat, mm.group(0), flags=re.I):
-                                target = mapped_href
-                                break
-                    parts[i] = (parts[i][:mm.start()]
-                                + f'<a class="plink" href="{target}" target="_blank" '
-                                  f'rel="nofollow sponsored noopener">{mm.group(0)}</a>'
-                                + parts[i][mm.end():])
-                    done[0] = True
-                    return open_ + "".join(parts) + close
-            return m.group(0)
+            cards = []
+
+            def replace_text(text):
+                def repl(mm):
+                    target = ""
+                    source_slug = ""
+                    card = ""
+                    for pat, mapped_href, slug, mapped_card in mapped:
+                        if re.fullmatch(pat, mm.group(0), flags=re.I):
+                            target, source_slug, card = mapped_href, slug, mapped_card
+                            break
+                    if card and source_slug and source_slug not in placed:
+                        placed.add(source_slug)
+                        cards.append(card)
+                    return (f'<a class="plink" href="{target}" target="_blank" '
+                            f'rel="nofollow sponsored noopener">{mm.group(0)}</a>')
+                return name_re.sub(repl, text)
+
+            in_anchor = False
+            for i in range(len(parts)):
+                part = parts[i]
+                if part.startswith("<"):
+                    if re.match(r"<a(?:\s|>)", part, flags=re.I):
+                        in_anchor = True
+                    elif re.match(r"</a\s*>", part, flags=re.I):
+                        in_anchor = False
+                elif not in_anchor:   # 既存リンクの内側では二重リンクを作らない
+                    parts[i] = replace_text(part)
+            if "<a class=\"plink\"" not in "".join(parts):
+                return m.group(0)
+            return "".join(cards) + open_ + "".join(parts) + close
 
         return re.sub(r"(<p(?:\s[^>]*)?>)(.*?)(</p>)", para, chunk, flags=re.S)
 
-    # 見出し（h2）ごとに区切って、それぞれで最初の1回だけ
+    # 商品名の登場位置を維持するため、見出し単位の分割は残す。
     chunks = re.split(r"(?=<h2[\s>])", html)
     return "".join(one_chunk(c) for c in chunks)
 
@@ -3457,10 +3473,9 @@ def render_article(a):
 ''')
 
 
-    # 特集記事の商品カードは、比較表を読んだあとの本文中に置く
-    if a.get("category") == "feature":
-        add(feature_product_cards(a, p))
-    elif not top_card:
+    # 特集の商品カードは、本文中でその商品名を最初に説明する位置へ
+    # link_product_names() が差し込む。商品カードだけをまとめて並べない。
+    if a.get("category") != "feature" and not top_card:
         add(product_card(a, p))
 
     # 8. 次に困りそうなこと・併売の提案（回遊導線）
