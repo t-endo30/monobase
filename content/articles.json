@@ -58302,7 +58302,7 @@
   "slug": "chromelite-ultracush-s",
   "category": "travel",
   "sub": "luggage",
-  "published": false,
+  "published": true,
   "featured": false,
   "title": "C.jutro ChromeLite×UltraCush（ASIN B0F9VFYC1Z）確認点｜機内持ち込みと素材",
   "list_title": "C.jutro ChromeLite×UltraCush（ASIN B0F9VFYC1Z）確認点",
@@ -58560,7 +58560,6 @@
   "health": {
    "checked": "2026-10-06"
   },
-  "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "image_prompt": "A photograph of ChromeLite×UltraCush, which is a スーツケース, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "official_url": "https://cjutro.jp/pages/chromelite",
   "facts": [
@@ -58589,7 +58588,7 @@
    }
   ],
   "evidence_audit": {
-   "checked_at": "2026-10-09T10:50:19+09:00",
+   "checked_at": "2026-10-09T11:18:19+09:00",
    "status": "pass",
    "official_url": "https://cjutro.jp/pages/chromelite",
    "has_official_evidence": true,
@@ -58604,19 +58603,19 @@
    "blockers": []
   },
   "reviewed": {
-   "at": "2026-10-06",
-   "rev": "babf8ff0cadc4294",
+   "at": "2026-10-09",
+   "rev": "b070cce390118497",
    "score": {
     "fact_accuracy": 94,
     "source_reliability": 94,
-    "original_analysis": 88,
-    "editorial_quality": 90,
-    "template_avoidance": 84,
+    "original_analysis": 86,
+    "editorial_quality": 89,
+    "template_avoidance": 87,
     "purchase_helpfulness": 91,
-    "legal_safety": 97,
-    "amazon_compliance": 98,
+    "legal_safety": 96,
+    "amazon_compliance": 96,
     "total": 92,
-    "notes": "確認済みの公式情報と楽天市場の利用者の声の範囲を守り、未確認のrating・specや価格を追加していません。数値仕様がないため比較記事としての具体性には限界がありますが、その不足自体を明示できています。"
+    "notes": "確認済みの公式情報と楽天市場の利用者の声の範囲を超える数値・評価・仕様を追加しておらず、ratingとspecも省かれています。購入前の確認項目も具体的で、重大な修正点はありません。"
    }
   }
  },
