@@ -80113,7 +80113,7 @@
   }
  },
  {
-  "published": false,
+  "published": true,
   "featured": false,
   "amazon_url": "https://www.amazon.co.jp/dp/B09N6F7TPG",
   "thumb": "https://www.ankerjapan.com/cdn/shop/products/A3307001_1200x1200.jpg?v=1646024880",
@@ -80422,9 +80422,8 @@
   "image_prompt": "A photograph of Anker PowerConf S360, which is a スピーカーフォン, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "official_ogp_title": "Anker PowerConf S360 | 会議用マイクスピーカーの製品情報",
   "official_ogp_image": "https://www.ankerjapan.com/cdn/shop/products/A3307001_1200x1200.jpg?v=1646024880",
-  "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "evidence_audit": {
-   "checked_at": "2026-10-09T10:13:34+09:00",
+   "checked_at": "2026-10-09T11:14:10+09:00",
    "status": "pass",
    "official_url": "https://www.ankerjapan.com/products/a3307",
    "has_official_evidence": true,
@@ -80452,19 +80451,19 @@
    }
   ],
   "reviewed": {
-   "at": "2026-10-06",
-   "rev": "9e4b5e28f76f8260",
+   "at": "2026-10-09",
+   "rev": "e3d7c0b837e0a481",
    "score": {
     "fact_accuracy": 94,
-    "source_reliability": 93,
-    "original_analysis": 90,
-    "editorial_quality": 87,
-    "template_avoidance": 86,
-    "purchase_helpfulness": 94,
-    "legal_safety": 99,
-    "amazon_compliance": 100,
+    "source_reliability": 91,
+    "original_analysis": 88,
+    "editorial_quality": 91,
+    "template_avoidance": 89,
+    "purchase_helpfulness": 93,
+    "legal_safety": 96,
+    "amazon_compliance": 95,
     "total": 92,
-    "notes": "公式仕様と利用者の声の帰属が明確で、購入条件への落とし込みも具体的です。接続条件と3m推奨の説明はやや反復していますが、購入判断に必要な内容です。"
+    "notes": "根拠データの範囲内で仕様・利用者の声・編集部分析を分けており、購入前の確認点も具体的です。比較対象や対応OSなど未確認情報を断定していません。"
    }
   }
  },
