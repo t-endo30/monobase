@@ -156,9 +156,10 @@
    "rakuten": {
     "price": 5480,
     "postage_included": true,
-    "count": 5342,
+    "count": 5346,
     "average": 4.77,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -485,9 +486,10 @@
    "rakuten": {
     "price": 3980,
     "postage_included": true,
-    "count": 13669,
+    "count": 13670,
     "average": 4.58,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -819,7 +821,8 @@
     "postage_included": true,
     "count": 2167,
     "average": 4.33,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -1230,14 +1233,16 @@
     "postage_included": true,
     "count": 8,
     "average": 4.5,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "yahoo": {
     "price": 1680,
     "postage_included": true,
     "count": 2740,
     "average": 4.37,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -1577,7 +1582,8 @@
     "postage_included": true,
     "count": 311,
     "average": 4.48,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -1973,14 +1979,19 @@
   "review_stats": {
    "rakuten": {
     "price": 25960,
-    "postage_included": true
+    "postage_included": true,
+    "count": 405,
+    "average": 4.71,
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "yahoo": {
     "price": 25960,
     "postage_included": true,
-    "count": 377,
+    "count": 379,
     "average": 4.74,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -2329,16 +2340,18 @@
    "rakuten": {
     "price": 8030,
     "postage_included": true,
-    "count": 551,
+    "count": 576,
     "average": 4.39,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "yahoo": {
     "price": 8030,
     "postage_included": true,
-    "count": 413,
+    "count": 414,
     "average": 4.49,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -2683,19 +2696,13 @@
    "rakuten": "https://image.rakuten.co.jp/braveyoung/cabinet/c30/b-c30.jpg"
   },
   "review_stats": {
-   "rakuten": {
-    "price": 3735,
-    "postage_included": true,
-    "count": 34,
-    "average": 4.38,
-    "shops": 1
-   },
    "yahoo": {
     "price": 5280,
     "postage_included": true,
-    "count": 32,
-    "average": 4.31,
-    "shops": 1
+    "count": 330,
+    "average": 4.48,
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -3022,16 +3029,18 @@
    "rakuten": {
     "price": 7700,
     "postage_included": true,
-    "count": 2343,
+    "count": 2345,
     "average": 4.51,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "yahoo": {
     "price": 9500,
     "postage_included": true,
     "count": 2294,
     "average": 4.63,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -3384,11 +3393,20 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 11080,
+    "price": 7958,
     "postage_included": true,
-    "count": 15,
-    "average": 4.6,
-    "shops": 1
+    "count": 18,
+    "average": 4.56,
+    "shops": 1,
+    "count_scope": "single_listing"
+   },
+   "yahoo": {
+    "price": 7570,
+    "postage_included": true,
+    "count": 534,
+    "average": 4.68,
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -4043,14 +4061,11 @@
   "review_stats": {
    "rakuten": {
     "price": 4400,
-    "postage_included": true
-   },
-   "yahoo": {
-    "price": 4400,
     "postage_included": true,
-    "count": 118,
-    "average": 4.61,
-    "shops": 1
+    "count": 221,
+    "average": 4.43,
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -4771,7 +4786,11 @@
   "review_stats": {
    "yahoo": {
     "price": 17900,
-    "postage_included": true
+    "postage_included": true,
+    "count": 631,
+    "average": 4.3,
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -5468,9 +5487,18 @@
    "rakuten": {
     "price": 2970,
     "postage_included": true,
-    "count": 2349,
+    "count": 2353,
     "average": 4.73,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
+   },
+   "yahoo": {
+    "price": 6616,
+    "postage_included": false,
+    "count": 84,
+    "average": 4.81,
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -5892,18 +5920,20 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 14960,
+    "price": 748,
     "postage_included": true,
     "count": 8337,
     "average": 4.67,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 14960,
+    "price": 6930,
     "postage_included": true,
     "count": 2373,
     "average": 4.71,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -6286,12 +6316,21 @@
    "yahoo": "https://item-shopping.c.yimg.jp/i/g/joylight_249316"
   },
   "review_stats": {
-   "yahoo": {
-    "price": 3480,
+   "rakuten": {
+    "price": 2981,
     "postage_included": true,
-    "count": 20,
-    "average": 4.0,
-    "shops": 1
+    "count": 1573,
+    "average": 4.55,
+    "shops": 1,
+    "count_scope": "single_listing"
+   },
+   "yahoo": {
+    "price": 2980,
+    "postage_included": true,
+    "count": 1254,
+    "average": 4.52,
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -6612,7 +6651,8 @@
     "postage_included": false,
     "count": 126,
     "average": 4.61,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -7245,12 +7285,21 @@
    "yahoo": "https://item-shopping.c.yimg.jp/i/g/insdenki-y_273711"
   },
   "review_stats": {
-   "yahoo": {
-    "price": 12800,
+   "rakuten": {
+    "price": 11700,
     "postage_included": true,
-    "count": 2406,
-    "average": 4.58,
-    "shops": 1
+    "count": 54,
+    "average": 4.43,
+    "shops": 1,
+    "count_scope": "single_listing"
+   },
+   "yahoo": {
+    "price": 11800,
+    "postage_included": true,
+    "count": 1027,
+    "average": 4.57,
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -7589,11 +7638,20 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 3190,
-    "postage_included": true,
-    "count": 1032,
+    "price": 742,
+    "postage_included": false,
+    "count": 1035,
     "average": 4.69,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
+   },
+   "yahoo": {
+    "price": 742,
+    "postage_included": true,
+    "count": 588,
+    "average": 4.83,
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -8195,7 +8253,7 @@
    "キッチン家電"
   ],
   "icon": "🍳",
-  "thumb": "https://www.siroca.co.jp/wp-content/uploads/2022/04/dishwasher_largecapacity_top-box_SS-MA351.png",
+  "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/a-price/cabinet/orj/48/0-4589919848539.jpg?_ex=128x128",
   "official_product_image": "https://www.siroca.co.jp/wp-content/uploads/2022/04/dishwasher_largecapacity_top-box_SS-MA351.png",
   "asin": "",
   "amazon_url": "",
@@ -8326,16 +8384,16 @@
   "jan": "4589919826841",
   "rakuten_url": "https://item.rakuten.co.jp/ec-current/4589919826841/",
   "shop_images": {
-   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/ec-current/cabinet/4589919826841.jpg"
+   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/a-price/cabinet/orj/48/0-4589919848539.jpg?_ex=128x128"
   },
   "shop_images_verified": {
-   "rakuten": false
+   "rakuten": true
   },
   "review_stats": {
    "rakuten": {
     "price": 39380,
     "postage_included": false,
-    "count": 223,
+    "count": 224,
     "average": 4.41,
     "shops": 1,
     "count_scope": "single_listing"
@@ -8516,7 +8574,7 @@
    "ストレージ"
   ],
   "icon": "💻",
-  "thumb": "https://www.fanxiangssd.com/cdn/shop/files/e1ae47baff011800e1aa745521ab27b_ea596bff-695e-4eda-9aba-7a0365add676.jpg?v=1733122491",
+  "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/fanxiang-official/cabinet/13817330/ps2000w.jpg?_ex=128x128",
   "official_product_image": "https://www.fanxiangssd.com/cdn/shop/files/e1ae47baff011800e1aa745521ab27b_ea596bff-695e-4eda-9aba-7a0365add676.jpg?v=1733122491",
   "asin": "",
   "amazon_url": "",
@@ -8636,10 +8694,10 @@
   ],
   "rakuten_url": "https://item.rakuten.co.jp/fanxiang-official/ps2000w-1tb/",
   "shop_images": {
-   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/fanxiang-official/cabinet/ps2000w.jpg"
+   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/fanxiang-official/cabinet/13817330/ps2000w.jpg?_ex=128x128"
   },
   "shop_images_verified": {
-   "rakuten": false
+   "rakuten": true
   },
   "shop_images_invalid_reason": "画像URLが404",
   "review_stats": {
@@ -9335,8 +9393,8 @@
   "shop_images_invalid_reason": "画像URLが404",
   "review_stats": {
    "rakuten": {
-    "price": 35480,
-    "postage_included": true,
+    "price": 35460,
+    "postage_included": false,
     "count": 225,
     "average": 4.38,
     "shops": 1,
@@ -9573,7 +9631,7 @@
    "ゲームモード"
   ],
   "icon": "🎧",
-  "thumb": "https://maxzen.jp/wp-content/uploads/2022/09/4571495432677.png",
+  "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/maxzen/cabinet/orj/01/0-4571495432677.jpg?_ex=128x128",
   "official_product_image": "https://maxzen.jp/wp-content/uploads/2022/09/4571495432677.png",
   "asin": "",
   "amazon_url": "https://www。amazon。co。jp/s?k=4571495432677&i=aps",
@@ -9705,15 +9763,15 @@
   "rakuten_url": "https://item。rakuten。co。jp/maxzen/4571495432677/",
   "yahoo_url": "https://store。shopping。yahoo。co。jp/maxzen/4571495432677。html",
   "shop_images": {
-   "rakuten": "https://thumbnail。image。rakuten。co。jp/@0_mall/maxzen/cabinet/j24ch06。jpg"
+   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/maxzen/cabinet/orj/01/0-4571495432677.jpg?_ex=128x128"
   },
   "shop_images_verified": {
-   "rakuten": false
+   "rakuten": true
   },
   "shop_images_invalid_reason": "画像URLが不正",
   "review_stats": {
    "rakuten": {
-    "price": 21480,
+    "price": 21439,
     "postage_included": true,
     "count": 353,
     "average": 4.5,
@@ -10303,7 +10361,7 @@
    "家具・インテリア"
   ],
   "icon": "🪑",
-  "thumb": "https://shop.r10s.jp/luminous-club/cabinet/item-img/lumi_el/el25-90185_v3.jpg",
+  "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/luminous-club/cabinet/item-img/lumi_el/el25-90185_v3.jpg?_ex=128x128",
   "official_product_image": "https://shop.r10s.jp/luminous-club/cabinet/item-img/lumi_el/el25-90185_v3.jpg",
   "official_url": "https://luminoussuppl.com/",
   "asin": "",
@@ -10446,10 +10504,10 @@
   "rakuten_url": "https://item.rakuten.co.jp/luminous-club/ol-90185/",
   "yahoo_url": "https://store.shopping.yahoo.co.jp/luminous-club/zsh-90185.html",
   "shop_images": {
-   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luminous-club/cabinet/ol/ol-90185.jpg"
+   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/luminous-club/cabinet/item-img/lumi_el/el25-90185_v3.jpg?_ex=128x128"
   },
   "shop_images_verified": {
-   "rakuten": false
+   "rakuten": true
   },
   "shop_images_invalid_reason": "画像URLが404",
   "review_stats": {
@@ -12872,7 +12930,7 @@
    "rakuten": {
     "price": 1999,
     "postage_included": false,
-    "count": 934,
+    "count": 936,
     "average": 4.63,
     "shops": 1,
     "count_scope": "single_listing"
@@ -15707,7 +15765,7 @@
    "rakuten": {
     "price": 53890,
     "postage_included": true,
-    "count": 468,
+    "count": 471,
     "average": 4.5,
     "shops": 1,
     "count_scope": "single_listing"
@@ -17038,8 +17096,8 @@
    "rakuten": {
     "price": 2178,
     "postage_included": true,
-    "count": 41,
-    "average": 4.78,
+    "count": 42,
+    "average": 4.79,
     "shops": 1,
     "count_scope": "single_listing"
    },
@@ -18332,7 +18390,7 @@
    "rakuten": {
     "price": 1880,
     "postage_included": false,
-    "count": 546,
+    "count": 547,
     "average": 4.32,
     "shops": 1,
     "count_scope": "single_listing"
@@ -20294,7 +20352,7 @@
    "rakuten": {
     "price": 1680,
     "postage_included": true,
-    "count": 3084,
+    "count": 3089,
     "average": 4.51,
     "shops": 1,
     "count_scope": "single_listing"
@@ -20680,8 +20738,8 @@
    "rakuten": {
     "price": 1790,
     "postage_included": true,
-    "count": 1041,
-    "average": 4.15,
+    "count": 1043,
+    "average": 4.16,
     "shops": 1,
     "count_scope": "single_listing"
    },
@@ -28160,7 +28218,7 @@
     "price": 4397,
     "postage_included": false
    },
-   "checked": "2026-10-08"
+   "checked": "2026-10-09"
   },
   "health": {
    "checked": "2026-10-02"
@@ -30561,10 +30619,14 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 111863,
-    "postage_included": false
+    "price": 111862,
+    "postage_included": true
    },
-   "checked": "2026-10-05"
+   "yahoo": {
+    "price": 108601,
+    "postage_included": true
+   },
+   "checked": "2026-10-09"
   },
   "official_url": "https://www.epson.jp/products/receiptprinter/tml90/spec.htm",
   "jan": "4988617314023",
@@ -31177,7 +31239,7 @@
     "price": 9834,
     "postage_included": false
    },
-   "checked": "2026-10-05"
+   "checked": "2026-10-09"
   },
   "official_url": "https://www.lion-jimuki.co.jp/",
   "facts": [
@@ -31468,10 +31530,14 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 39436,
+    "price": 38750,
+    "postage_included": false
+   },
+   "yahoo": {
+    "price": 48989,
     "postage_included": true
    },
-   "checked": "2026-10-05"
+   "checked": "2026-10-09"
   },
   "official_url": "https://inweb1.iodata.jp/product/memory/desktop/d5r4800/index.htm",
   "jan": "4957180177595",
@@ -32218,6 +32284,21 @@
     ]
    ],
    "read": "2台のPCで1組の操作機器を共有する用途では、基本機能と切替方法が確認できます。接続端子や個別周辺機器の適合性は、使用機器の型番を照合してください。"
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 13869,
+    "postage_included": false
+   },
+   "yahoo": {
+    "price": 10000,
+    "postage_included": true,
+    "count": 1,
+    "average": 0.0,
+    "shops": 1,
+    "count_scope": "single_listing"
+   },
+   "checked": "2026-10-09"
   }
  },
  {
@@ -32478,8 +32559,20 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 7480,
-    "postage_included": false
+    "price": 2750,
+    "postage_included": true,
+    "count": 16,
+    "average": 4.31,
+    "shops": 1,
+    "count_scope": "single_listing"
+   },
+   "yahoo": {
+    "price": 2750,
+    "postage_included": true,
+    "count": 5,
+    "average": 4.4,
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-10-09"
   },
@@ -35538,7 +35631,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 9904,
+    "price": 8930,
     "postage_included": true
    },
    "checked": "2026-10-09"
@@ -37269,7 +37362,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 2587,
+    "price": 2487,
     "postage_included": false,
     "count": 3,
     "average": 4.67,
@@ -39575,10 +39668,10 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 3136,
+    "price": 3285,
     "postage_included": false
    },
-   "checked": "2026-10-05"
+   "checked": "2026-10-09"
   },
   "facts": [
    "ODELIC OD361234MLRを商品番号で同定",
@@ -39918,6 +40011,17 @@
    "review_stats_present": false,
    "missing": [],
    "blockers": []
+  },
+  "review_stats": {
+   "rakuten": {
+    "price": 2788,
+    "postage_included": false
+   },
+   "yahoo": {
+    "price": 11600,
+    "postage_included": true
+   },
+   "checked": "2026-10-09"
   }
  },
  {
@@ -41624,7 +41728,7 @@
    "rakuten": {
     "price": 13200,
     "postage_included": true,
-    "count": 3981,
+    "count": 3983,
     "average": 4.67,
     "shops": 1,
     "count_scope": "single_listing"
@@ -49818,7 +49922,7 @@
    "rakuten": {
     "price": 4480,
     "postage_included": false,
-    "count": 14887,
+    "count": 14893,
     "average": 4.56,
     "shops": 1,
     "count_scope": "single_listing"
@@ -52375,7 +52479,7 @@
    "rakuten": {
     "price": 2990,
     "postage_included": false,
-    "count": 19015,
+    "count": 19016,
     "average": 4.37,
     "shops": 1,
     "count_scope": "single_listing"
@@ -53914,7 +54018,7 @@
    "rakuten": {
     "price": 6160,
     "postage_included": true,
-    "count": 22292,
+    "count": 22293,
     "average": 4.42,
     "shops": 1,
     "count_scope": "single_listing"
@@ -55614,7 +55718,7 @@
    "rakuten": {
     "price": 2200,
     "postage_included": true,
-    "count": 40226,
+    "count": 40236,
     "average": 4.75,
     "shops": 1,
     "count_scope": "single_listing"
@@ -55957,7 +56061,7 @@
    "rakuten": {
     "price": 13980,
     "postage_included": true,
-    "count": 6612,
+    "count": 6613,
     "average": 4.34,
     "shops": 1,
     "count_scope": "single_listing"
@@ -57733,7 +57837,7 @@
    "rakuten": {
     "price": 1999,
     "postage_included": true,
-    "count": 49356,
+    "count": 49374,
     "average": 4.14,
     "shops": 1,
     "count_scope": "single_listing"
@@ -58081,7 +58185,7 @@
    "rakuten": {
     "price": 3960,
     "postage_included": true,
-    "count": 45267,
+    "count": 45275,
     "average": 4.69,
     "shops": 1,
     "count_scope": "single_listing"
@@ -58845,7 +58949,7 @@
    "rakuten": {
     "price": 3630,
     "postage_included": true,
-    "count": 49597,
+    "count": 49610,
     "average": 4.8,
     "shops": 1,
     "count_scope": "single_listing"
@@ -61867,7 +61971,7 @@
     "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 21780,
+    "price": 6370,
     "postage_included": true,
     "count": 159,
     "average": 4.66,
@@ -62252,7 +62356,7 @@
   "official_ogp_image": "https://www.zojirushi.co.jp/syohin/assets/img/pot_kettle/kettle/ck-ax/ogp.png",
   "review_stats": {
    "rakuten": {
-    "price": 17739,
+    "price": 17513,
     "postage_included": true
    },
    "yahoo": {
@@ -64360,13 +64464,13 @@
    "rakuten": {
     "price": 7980,
     "postage_included": true,
-    "count": 1980,
+    "count": 1981,
     "average": 4.61,
     "shops": 1,
     "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 9980,
+    "price": 8570,
     "postage_included": true,
     "count": 41,
     "average": 4.68,
