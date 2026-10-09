@@ -37,12 +37,29 @@ def _strings(value):
             yield from _strings(item)
 
 def review_text_present(article):
-    """レビュー本文を保持しているか。件数・平均点だけでは真にしない。"""
-    voices = article.get("voices")
-    if isinstance(voices, list) and any(len("".join(_strings(v))) >= 30 for v in voices):
-        return True
+    """出典をたどれるレビュー本文を保持しているか。
+
+    ``voices`` は記事生成時の要約欄でもあるため、単に「利用者」とだけ
+    書かれた一般論をレビュー本文として扱わない。販売ページ・個別投稿・
+    モール名など、出典を示す語が確認できる場合だけ補助的に認め、可能な
+    限り review_texts（URL付きの本文）を優先する。
+    """
     text = "\n".join(_strings(article.get("review_texts")))
-    return bool(len(text) >= 60 and not re.search(r"口コミ本文は(?:取得|未取得)していない", text))
+    if len(text) >= 60 and not re.search(r"口コミ本文は(?:取得|未取得)していない", text):
+        return True
+    source_markers = re.compile(
+        r"楽天|Yahoo!?|Amazon|販売ページ|商品ページ|個別投稿|みんなのレビュー|レビュー"
+    )
+    voices = article.get("voices")
+    return bool(
+        isinstance(voices, list)
+        and any(
+            isinstance(v, dict)
+            and len(str(v.get("text") or "")) >= 30
+            and source_markers.search(" ".join(str(v.get(k) or "") for k in ("who", "heading", "text")))
+            for v in voices
+        )
+    )
 
 def assessment(article):
     official = _url(article.get("official_url"))
