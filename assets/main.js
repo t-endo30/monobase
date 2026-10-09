@@ -1419,19 +1419,54 @@ var monoPromos = (function () {
 
     /* 記事カルーセルは3秒ごとに次のカードへ進める。端まで来たら
        先頭へ戻して循環させ、ユーザーが引いている最中と非表示タブでは
-       自動移動しない。 */
+       自動移動しない。iOS Safariでは scrollBy({behavior:'smooth'}) が
+       横スクロールのスナップと組み合わさると動かない場合があるため、
+       scrollLeft を requestAnimationFrame で補間する。 */
     var autoTimer = null;
-    if (track.matches && track.matches('.card-grid.is-rank')
-        && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (track.matches && track.matches('.card-grid.is-rank')) {
+      var autoMoving = false;
+
+      function animateAutoTo(target) {
+        if (autoMoving) return;
+        var max = Math.max(0, track.scrollWidth - track.clientWidth);
+        var from = track.scrollLeft;
+        var to = Math.max(0, Math.min(target, max));
+        var distance = to - from;
+        if (Math.abs(distance) < 1) {
+          track.scrollLeft = to;
+          sync();
+          return;
+        }
+
+        autoMoving = true;
+        var started = performance.now();
+        var duration = 520;
+        function frame(now) {
+          var progress = Math.min(1, (now - started) / duration);
+          /* easeInOutQuad：開始と停止をなめらかにする */
+          var eased = progress < 0.5
+            ? 2 * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+          track.scrollLeft = from + distance * eased;
+          sync();
+          if (progress < 1) {
+            window.requestAnimationFrame(frame);
+          } else {
+            autoMoving = false;
+          }
+        }
+        window.requestAnimationFrame(frame);
+      }
+
       autoTimer = window.setInterval(function () {
         if (document.hidden || track.classList.contains('is-dragging')
             || getComputedStyle(track).overflowX !== 'auto') return;
         var max = track.scrollWidth - track.clientWidth;
         if (max <= 4) return;
         if (track.scrollLeft >= max - 4) {
-          track.scrollTo({ left: 0, behavior: 'smooth' });
+          animateAutoTo(0);
         } else {
-          track.scrollBy({ left: step(), behavior: 'smooth' });
+          animateAutoTo(track.scrollLeft + step());
         }
       }, 3000);
     }
