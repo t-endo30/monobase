@@ -5004,30 +5004,30 @@ h1,h2,h3,h4,
   .card-grid.is-feature .card-note{min-height:3.6em;}
 }
 
-/* FEATUREのカルーセルは、PCでもスマホと同じ順序・中央揃えにする。
+/* カルーセルは、PCでもスマホと同じ順序・中央揃えにする。
    ここをスマホのメディアクエリだけに置くと、PCではDOM順（バッジ→題名）
    に戻り、タイトルが1行か2行かでバッジの高さもずれてしまう。 */
-.card-grid.is-feature.is-rank > .card{
+.card-grid.is-rank > .card{
   display:flex;flex-direction:column;
 }
-.card-grid.is-feature.is-rank > .card .card-thumb{order:1;}
-.card-grid.is-feature.is-rank > .card .card-meta{display:none;}
-.card-grid.is-feature.is-rank > .card .card-title{
+.card-grid.is-rank > .card .card-thumb{order:1;}
+.card-grid.is-rank > .card .card-meta{display:none;}
+.card-grid.is-rank > .card .card-title{
   order:2;text-align:center;
 }
-.card-grid.is-feature.is-rank > .card .card-stats{
+.card-grid.is-rank > .card .card-stats{
   order:3;justify-content:center;
 }
-.card-grid.is-feature.is-rank > .card .card-badges{
+.card-grid.is-rank > .card .card-badges{
   display:flex;order:4;align-items:center;justify-content:center;
   gap:6px;min-width:0;margin-top:5px;padding-left:4px;padding-right:4px;
 }
-.card-grid.is-feature.is-rank > .card .card-cat-in{display:none;}
-.card-grid.is-feature.is-rank > .card .card-cat-out{
+.card-grid.is-rank > .card .card-cat-in{display:none;}
+.card-grid.is-rank > .card .card-cat-out{
   display:inline-flex;position:static;max-width:100%;margin:0;flex:0 1 auto;
 }
-.card-grid.is-feature.is-rank > .card .card-proof{align-self:center;}
-.card-grid.is-feature.is-rank > .card .card-note{display:none;}
+.card-grid.is-rank > .card .card-proof{align-self:center;}
+.card-grid.is-rank > .card .card-note{display:none;}
 
 /* サイドバーを本体の横に並べられるが、器の外へ出す余地は無い幅
    （1440〜1879px）。本体の列からサイドバーぶんを取り、記事タイルは
