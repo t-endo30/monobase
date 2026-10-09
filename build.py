@@ -1953,7 +1953,9 @@ def v2_card(a, p, no=None, flags=""):
             # 日付・VIEWと同じ行に置いていたが、タイルの幅が足りず
             # 「家具・イン…」と見切れていた。写真の上なら行の幅に左右されない。
             f'<span class="card-cat card-cat-in">&nbsp;{e(cat)}&nbsp;</span></span>'
+            f'<span class="card-badges">'
             f'<span class="card-cat-out">&nbsp;{e(cat)}&nbsp;</span>'
+            f'{card_proof(a)}</span>'
             f'<span class="card-meta">'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
             # 閲覧数は GA4 の実数（content/ranking.json）を assets/main.js が入れる。
@@ -1961,7 +1963,6 @@ def v2_card(a, p, no=None, flags=""):
             f'<span class="card-views" hidden></span></span>'
             f'<span class="card-title">{v2_title(title)}</span>'
             f'{card_stats(a)}'
-            f'{card_proof(a)}'
             f'<span class="card-note">{e(v2_appeal(a))}</span></a>')
 
 

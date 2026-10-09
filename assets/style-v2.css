@@ -677,6 +677,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   font-size:9px;line-height:1.35;letter-spacing:.03em;
   white-space:nowrap;
 }
+.card-badges{display:contents;}
 /* カテゴリーは写真の右下に札で乗せる（2026-09-28、ユーザー指摘）。
    日付・VIEWと同じ行の右端に置いていたが、タイルの幅が足りず
    「家具・イン…」と見切れていた。写真の上なら行の幅に左右されない。
@@ -1982,11 +1983,19 @@ body.has-sticky-cta .fab{bottom:96px;}
      写真は正方形のままなので、価格のある記事・無い記事でタイルの
      見た目は変わらない。span 5 は、価格の行が1つ増えたぶん。 */
   .card{grid-template-columns:120px minmax(0,1fr);}
-  .card-thumb{grid-row:1 / span 6;aspect-ratio:1/1;margin:0;}
+  .card-thumb{grid-row:1 / span 5;aspect-ratio:1/1;margin:0;}
   /* 横長カードのカテゴリーバッジは本文側の先頭へ置き、サムネイルとの
      間隔はグリッドの14px＋左4pxで確保する。 */
-  .card-cat-out{position:static;grid-column:2;grid-row:1;
-    justify-self:start;margin:3px 0 4px 4px;}
+  /* スマホの横長カードは、タイトル・価格・バッジ・一言の順にして、
+     新着札と日時を最後の行へまとめる。バッジ2つは同じ行に置く。 */
+  .card-title{grid-column:2;grid-row:1;}
+  .card-stats{grid-column:2;grid-row:2;}
+  .card-badges{display:flex;grid-column:2;grid-row:3;
+    align-items:center;gap:6px;min-width:0;margin-top:3px;}
+  .card-cat-out{position:static;grid-column:auto;grid-row:auto;
+    justify-self:auto;margin:0;max-width:100%;flex:0 1 auto;}
+  .card-badges .card-proof{margin:0;flex:0 1 auto;}
+  .card-note{grid-column:2;grid-row:4;}
   /* 価格・★の行。中身が空でも1行ぶんの場所を取る（build.py が
      空の枠を必ず出す）。そうしないと価格のある記事だけ背が高くなり、
      縦に並べたタイルの高さがばらばらに見える。 */
@@ -1996,7 +2005,8 @@ body.has-sticky-cta .fab{bottom:96px;}
   .cs-star{font-size:11px;}
   .cs-rv{font-size:10.5px;}
   .card-cat{font-size:9.5px;}
-  .card-meta{margin:0 0 3px;}
+  .card-meta{grid-column:2;grid-row:5;margin:3px 0 0;
+    justify-content:flex-end;}
   .card-date{font-size:10px;}
   /* 見出しは2行までに切る（上限のみ）。以前は下限も3.2emに固定して
      タイルの高さをそろえていたが、1行で収まる見出しの下に空白の行が
