@@ -5031,7 +5031,7 @@ h1,h2,h3,h4,
 /* FEATUREは特集内容が分かる一文を残す。RANKINGだけは上で非表示にする。 */
 .card-grid.is-feature.is-rank > .card .card-note{
   display:block;order:4;text-align:center;margin-top:6px;
-  line-height:1.6;min-height:3.2em;max-height:3.2em;overflow:hidden;
+  line-height:1.6;min-height:4.8em;max-height:none;overflow:visible;
 }
 .card-grid.is-feature.is-rank > .card .card-badges{order:5;}
 
@@ -5232,8 +5232,8 @@ h1,h2,h3,h4,
   /* FEATUREは特集内容が分かる一文を残す。 */
   .card-grid.is-feature.is-rank > .card .card-note{
     display:block;order:4;text-align:center;margin-top:6px;
-    font-size:11px;line-height:1.6;min-height:3.2em;max-height:3.2em;
-    overflow:hidden;
+    font-size:11px;line-height:1.6;min-height:4.8em;max-height:none;
+    overflow:visible;
   }
   .card-grid.is-feature.is-rank > .card .card-badges{order:5;}
 }
