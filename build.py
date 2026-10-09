@@ -602,7 +602,7 @@ def ads_head():
     src = ("https://pagead2.googlesyndication.com/pagead/js/"
            f'adsbygoogle.js?client={ADS["client"].strip()}')
     return ('<script>(function () {\n'
-            "  try { if (localStorage.getItem('mb.notrack') === '1') return; } catch (err) {}\n"
+            "  try { if (localStorage.getItem('mb.notrack') === '1' || /[?&]preview=family(?:&|$)/.test(location.search)) return; } catch (err) {}\n"
             "  var s = document.createElement('script');\n"
             f"  s.async = true; s.crossOrigin = 'anonymous'; s.src = {json.dumps(src)};\n"
             '  document.head.appendChild(s);\n'
@@ -1112,7 +1112,7 @@ def head(title, desc, current, p, canonical, extra="", body_class="", image="",
     try {{
       var q = /[?&]notrack=([01])/.exec(location.search);
       if (q) localStorage.setItem('mb.notrack', q[1]);
-      if (localStorage.getItem('mb.notrack') === '1') off = true;
+      if (localStorage.getItem('mb.notrack') === '1' || /[?&]preview=family(?:&|$)/.test(location.search)) off = true;
     }} catch (err) {{}}
     if (off) window['ga-disable-{e(GA)}'] = true;
   }})();

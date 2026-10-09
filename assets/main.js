@@ -8,6 +8,16 @@ function titleHtml(t) {
   return '<span class="tt-main">' + t.slice(0, i).trim() + '</span>' +
          '<span class="tt-sub">' + t.slice(i + 1).trim() + '</span>';
 }
+/* 家族閲覧モードなどの一時的なクエリは、共有URLには持ち出さない。 */
+function mbShareUrl(url) {
+  try {
+    var u = new URL(url || location.href, location.href);
+    u.searchParams.delete('preview');
+    return u.href;
+  } catch (e) {
+    return url || location.href;
+  }
+}
 /* 一覧タイルに出す価格・★の行。build.py の card_stats() と同じ形を組む。
    ランキングと今日のピックアップは JS で組み直すので、ここでも同じ形が
    要る。片方だけ直すと一覧とランキングで表記がずれるため、変えるときは
@@ -1080,7 +1090,7 @@ var monoPromos = (function () {
     var isIcon = btn.classList.contains('fab-item');
     var label = btn.textContent;
     btn.addEventListener('click', function () {
-      var url = btn.getAttribute('data-copy-url') || location.href;
+      var url = mbShareUrl(btn.getAttribute('data-copy-url') || location.href);
       navigator.clipboard.writeText(url).then(function () {
         if (!isIcon) btn.textContent = 'コピーしました';
         btn.classList.add('is-copied');
@@ -1125,7 +1135,7 @@ var monoPromos = (function () {
     built = true;
     var x = fab.getAttribute('data-x') || '';
     var line = fab.getAttribute('data-line') || '';
-    var url = fab.getAttribute('data-url') || location.href;
+    var url = mbShareUrl(fab.getAttribute('data-url') || location.href);
 
     function item(href, label, inner, cls) {
       var el = document.createElement(href ? 'a' : 'button');
@@ -2131,18 +2141,19 @@ var monoPromos = (function () {
   });
 })();
 
-/* 運営者モード（2026-09-29）。管理画面を開いた端末、または ?notrack=1 を
-   開いた端末（localStorage の mb.notrack=1。build.py の head() が付ける）では、
-   広告・アフィリエイトのリンクを踏めないようにする。自分のクリックは
-   AdSense では無効なトラフィック、Amazonアソシエイト等では自己購入として
-   規約違反になるため。GA4 への送信と AdSense の読み込みは head 側で止めている。
-   広告は promos.json から後で差し込まれるので、個々のリンクではなく
-   document で拾う。 */
+/* 運営者モードと家族閲覧モード。管理画面を開いた端末、?notrack=1、または
+   ?preview=family を開いた端末では、広告・アフィリエイトのリンクを踏めない
+   ようにする。広告は後から差し込まれるため、個々のリンクを書き換えず
+   document のイベント捕捉で止める。共有URLは mbShareUrl() で preview だけを
+   外すので、家族閲覧用の一時指定を通常の共有URLへ持ち出さない。 */
 (function () {
   'use strict';
   var owner = false;
+  var family = false;
   try { owner = localStorage.getItem('mb.notrack') === '1'; } catch (e) {}
-  if (!owner) return;
+  try { family = new URL(location.href).searchParams.get('preview') === 'family'; }
+  catch (e) {}
+  if (!owner && !family) return;
 
   var AFF = /(^|\.)(amazon\.co\.jp|amzn\.to|amzn\.asia|rakuten\.co\.jp|valuecommerce\.com|valuecommerce\.ne\.jp|a8\.net|shopping\.yahoo\.co\.jp|paypaymall\.yahoo\.co\.jp|moshimo\.com|accesstrade\.net|afi-b\.com|linksynergy\.com|googleadservices\.com|doubleclick\.net)$/;
 
@@ -2162,7 +2173,9 @@ var monoPromos = (function () {
         'z-index:2147483647;max-width:calc(100% - 32px);padding:10px 16px;border-radius:8px;' +
         'background:#222;color:#fff;font-size:13px;line-height:1.5;text-align:center;' +
         'box-shadow:0 4px 16px rgba(0,0,0,.25);';
-      toast.textContent = '運営者モードのため、広告・販売先へのリンクは無効です';
+      toast.textContent = family
+        ? '家族閲覧モードのため、広告・販売先へのリンクは無効です'
+        : '運営者モードのため、広告・販売先へのリンクは無効です';
       document.body.appendChild(toast);
     }
     toast.hidden = false;
@@ -2182,20 +2195,40 @@ var monoPromos = (function () {
     document.addEventListener(t, block, true);
   });
 
-  /* モード中だと分かる印。押すと解除できる。 */
+  /* モード中だと分かる印。家族閲覧モードでは通常URLをコピーできる。 */
   function badge() {
-    var b = document.createElement('a');
-    b.href = '?notrack=0';
-    b.title = '押すと運営者モードを解除します（計測・広告が通常に戻ります）';
-    b.textContent = '運営者モード';
+    var b = document.createElement('div');
     b.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:2147483646;' +
       'padding:3px 8px;border-radius:4px;background:rgba(34,34,34,.75);color:#fff;' +
-      'font-size:11px;line-height:1.6;text-decoration:none;';
-    b.addEventListener('click', function (ev) {
-      if (!confirm('運営者モードを解除しますか？\nこの端末からの閲覧が GA4 に記録され、広告リンクも押せるようになります。')) {
-        ev.preventDefault();
-      }
-    });
+      'font-size:11px;line-height:1.6;text-decoration:none;display:flex;gap:8px;align-items:center;';
+    var label = document.createElement('span');
+    label.textContent = family ? '家族閲覧モード' : '運営者モード';
+    b.appendChild(label);
+    if (family) {
+      var copy = document.createElement('button');
+      copy.type = 'button';
+      copy.textContent = '通常URLをコピー';
+      copy.title = 'preview=familyを外したURLをコピー';
+      copy.style.cssText = 'border:0;border-radius:3px;padding:2px 5px;background:#fff;color:#222;' +
+        'font-size:11px;line-height:1.4;cursor:pointer;';
+      copy.addEventListener('click', function () {
+        var url = mbShareUrl(location.href);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () {
+            copy.textContent = 'コピーしました';
+            window.setTimeout(function () { copy.textContent = '通常URLをコピー'; }, 1800);
+          }).catch(function () {});
+        }
+      });
+      b.appendChild(copy);
+    } else {
+      var off = document.createElement('a');
+      off.href = '?notrack=0';
+      off.title = '押すと運営者モードを解除します（計測・広告が通常に戻ります）';
+      off.textContent = '解除';
+      off.style.cssText = 'color:#fff;text-decoration:underline;cursor:pointer;';
+      b.appendChild(off);
+    }
     document.body.appendChild(b);
   }
   if (document.body) badge();
