@@ -1943,27 +1943,29 @@ def v2_card(a, p, no=None, flags=""):
     title = a.get("list_title") or a["title"]
     cat = CAT_LABEL.get(a.get("category", ""), "")
     fl = f' data-flags="{flags}"' if flags else ""
-    return (f'<a class="card" href="{p}articles/{e(a["slug"])}.html" '
+    href = (f'<a class="card" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
-            f'data-date="{e(a.get("date",""))}"{fl}>'
-            f'<span class="card-thumb{tcls}"{tsrc}><img src="{e(src)}" alt="" loading="lazy" '
-            f'onerror="this.onerror=null;this.src=\'{e(fallback)}\';this.closest(\'.card-thumb\').classList.remove(\'is-shop\')">'
-            f'<span class="card-flags" aria-hidden="true"></span>{rank}'
-            # カテゴリーは写真の右下に札で乗せる（2026-09-28、ユーザー指摘）。
-            # 日付・VIEWと同じ行に置いていたが、タイルの幅が足りず
-            # 「家具・イン…」と見切れていた。写真の上なら行の幅に左右されない。
-            f'<span class="card-cat card-cat-in">&nbsp;{e(cat)}&nbsp;</span></span>'
-            f'<span class="card-badges">'
-            f'<span class="card-cat-out">&nbsp;{e(cat)}&nbsp;</span>'
-            f'{card_proof(a)}</span>'
-            f'<span class="card-meta">'
+            f'data-date="{e(a.get("date",""))}"{fl}>')
+    thumb = (f'<span class="card-thumb{tcls}"{tsrc}><img src="{e(src)}" alt="" loading="lazy" '
+             f'onerror="this.onerror=null;this.src=\'{e(fallback)}\';this.closest(\'.card-thumb\').classList.remove(\'is-shop\')">'
+             f'<span class="card-flags" aria-hidden="true"></span>{rank}'
+             # カテゴリーは写真の右下に札で乗せる（2026-09-28、ユーザー指摘）。
+             f'<span class="card-cat card-cat-in">&nbsp;{e(cat)}&nbsp;</span></span>')
+    badges = (f'<span class="card-badges">'
+              f'<span class="card-cat-out">&nbsp;{e(cat)}&nbsp;</span>'
+              f'{card_proof(a)}</span>')
+    title_html = f'<span class="card-title">{v2_title(title)}</span>'
+    stats = card_stats(a)
+    note = f'<span class="card-note">{e(v2_appeal(a))}</span>'
+    # FEATURE/RANKINGのカルーセルは、端末幅に依存しないようHTML自体を
+    # タイトル→価格・評価→バッジ→（FEATUREの一言）の順にする。
+    if no or flags == "feature":
+        return href + thumb + title_html + stats + badges + (note if flags == "feature" else "") + '</a>'
+    meta = (f'<span class="card-meta">'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
             # 閲覧数は GA4 の実数（content/ranking.json）を assets/main.js が入れる。
-            # 数字が無いあいだは空のまま隠しておく。
-            f'<span class="card-views" hidden></span></span>'
-            f'<span class="card-title">{v2_title(title)}</span>'
-            f'{card_stats(a)}'
-            f'<span class="card-note">{e(v2_appeal(a))}</span></a>')
+            f'<span class="card-views" hidden></span></span>')
+    return href + thumb + badges + meta + title_html + stats + note + '</a>'
 
 
 def v2_row(a, p, numbered=None, detail=False, flags=""):
