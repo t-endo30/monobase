@@ -1,0 +1,66 @@
+{
+  "items": [
+    {
+      "name": "SOUNDPEATS C30 ワイヤレスイヤホン",
+      "category": "av",
+      "sub": "headphone",
+      "jan": "4582660314421",
+      "reviews": 32,
+      "rating": 4.31,
+      "price": 5280,
+      "image": "https://shopping.c.yimg.jp/lib/gintoshop/c30-bk-1.jpg",
+      "images": {
+        "yahoo": "https://shopping.c.yimg.jp/lib/gintoshop/c30-bk-1.jpg",
+        "rakuten": "https://image.rakuten.co.jp/braveyoung/cabinet/c30/b-c30.jpg"
+      },
+      "rakuten_url": "https://item.rakuten.co.jp/braveyoung/b-c30/",
+      "yahoo_url": "https://store.shopping.yahoo.co.jp/gintoshop/c30-sp-yh-jp.html",
+      "amazon_url": "",
+      "official_url": "https://jp.soundpeats.com/products/c30",
+      "facts": [
+        "SOUNDPEATS公式製品ページでC30を確認し、適応型ANC、LDAC・AAC・SBC、12mmドライバー、マルチポイント、片耳約4g、イヤホン10時間・ケース込み52時間の仕様を確認",
+        "公式FAQでC30のBluetooth接続、PC通話時のHands-Free AG Audio、Type-C充電、急速充電器を使わない注意、使用環境による再生時間の変動を確認",
+        "Yahoo!ショッピングのGinto Shop個別商品ページでC30（新型）、JAN 4582660314421、商品画像、価格5,280円、商品レビュー4.31・32件を確認",
+        "楽天市場の個別商品ページでSOUNDPEATS C30の商品同定と販売ページを確認し、同商品の楽天レビューで4.38・34件を確認",
+        "Yahoo!ショッピング同一商品レビューで接続、外音取り込み、ANC、音質、装着感、アプリ操作に関する本文を確認"
+      ],
+      "source_notes": [
+        "SOUNDPEATS JAPAN公式C30製品ページと公式FAQで仕様・接続・充電条件を確認",
+        "Yahoo!ショッピングGinto ShopのC30個別商品ページでJAN、商品画像、販売情報、レビュー件数を確認",
+        "楽天市場ブレイブヤングのC30個別商品ページと同一商品のレビュー画面で商品同定とレビュー件数を確認",
+        "Yahoo!ショッピングの商品レビュー本文で接続、ANC、外音取り込み、音質、装着感、アプリに関する利用者の声を確認"
+      ],
+      "review_texts": [
+        {
+          "source": "Yahoo!ショッピング Ginto Shop SOUNDPEATS C30 個別レビュー",
+          "text": "ペアリング後はケースから取り出すと自動接続し、外音取り込みは会話を聞き取りやすくする一方、水音や掃除機の音も拾うため場面に応じたモード選択が必要という投稿がある。"
+        },
+        {
+          "source": "Yahoo!ショッピング Ginto Shop SOUNDPEATS C30 個別レビュー",
+          "text": "アプリのイコライザーで音質を調整でき、ANCは電車や屋外で効果を感じたという投稿がある一方、タッチ操作やアプリ接続の扱いにくさを指摘する投稿もある。"
+        },
+        {
+          "source": "楽天市場 ブレイブヤング SOUNDPEATS C30 個別レビュー",
+          "text": "楽天の商品レビュー画面でC30の商品レビューが掲載され、4.38・34件の評価表示を確認した。"
+        }
+      ],
+      "trending": false,
+      "shops": {
+        "yahoo": {
+          "price": 5280,
+          "shop_name": "Ginto Shop",
+          "postage_included": true,
+          "reviews": 32,
+          "rating": 4.31
+        },
+        "rakuten": {
+          "price": 3735,
+          "shop_name": "ブレイブヤング楽天市場店",
+          "postage_included": true,
+          "reviews": 34,
+          "rating": 4.38
+        }
+      }
+    }
+  ]
+}

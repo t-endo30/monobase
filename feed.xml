@@ -7,6 +7,14 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>SOUNDPEATS C30｜ANCと長時間再生の確認点</title>
+    <link>https://monobase.site/articles/soundpeats-c30</link>
+    <guid isPermaLink="true">https://monobase.site/articles/soundpeats-c30</guid>
+    <description>SOUNDPEATS C30のANC・LDAC・52時間再生と、購入前の接続・充電条件を解説。</description>
+    <category>AV機器</category>
+    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>TP-Link Tapo C520WS｜屋外カメラの設置とAI検知の確認点</title>
     <link>https://monobase.site/articles/tp-link-tapo-c520ws-a-wi-fi</link>
     <guid isPermaLink="true">https://monobase.site/articles/tp-link-tapo-c520ws-a-wi-fi</guid>
@@ -157,14 +165,6 @@
     <description>iPhone 14の色を見せたい人向け。透明感・装着感の利用者の声と購入前の確認点を整理。</description>
     <category>スマートフォン</category>
     <pubDate>Wed, 07 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>MAXZEN J43CH06 43型テレビの見やすさと録画の確認点</title>
-    <link>https://monobase.site/articles/maxzen-j43ch06</link>
-    <guid isPermaLink="true">https://monobase.site/articles/maxzen-j43ch06</guid>
-    <description>43型の画面と外付けHDD録画、購入前に確認したい条件を整理。</description>
-    <category>AV機器</category>
-    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
 </rss>

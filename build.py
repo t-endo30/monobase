@@ -3376,7 +3376,10 @@ def render_article(a):
         if a.get("scenes"):                   toc.append(("sec-scenes", "この商品で変わる生活シーン"))
         if a.get("pros") or a.get("cons"):    toc.append(("sec-proscons", "メリットとデメリット"))
         if a.get("products"):                 toc.append(("sec-products", "比較した商品"))
-        if a.get("spec", {}).get("rows"):     toc.append(("spec", "スペック比較表"))
+        if a.get("spec", {}).get("rows"):
+            spec_headers = a.get("spec", {}).get("headers") or []
+            spec_label = "確認した仕様" if len(spec_headers) <= 2 else "スペック比較表"
+            toc.append(("spec", spec_label))
         elif official_link(a):                toc.append(("spec", "メーカー公式情報"))
         for i, sec in enumerate(a.get("sections", []), start=1):
             toc.append((f"sec-note{i}", sec.get("heading", "")))
@@ -3505,9 +3508,11 @@ def render_article(a):
     # 比較した商品（特集用）
     add(product_table(a, p))
 
-    # スペック比較表
+    # スペック表。比較対象が1商品だけなら「比較表」と呼ばない。
     sp = a.get("spec", {})
     if sp.get("rows"):
+        spec_headers = sp.get("headers") or []
+        spec_title = "確認した仕様" if len(spec_headers) <= 2 else "スペック比較表"
         HL = ' class="col-highlight"'
         th = "".join('<th scope="col"%s>%s</th>' % (HL if i == 1 else "", h)
                      for i, h in enumerate(sp["headers"]))
@@ -3516,10 +3521,10 @@ def render_article(a):
             tds = "".join("<td%s>%s</td>" % (HL if i == 1 else "", v)
                           for i, v in enumerate(r[1:], start=1))
             rows += f'                <tr><th scope="row">{r[0]}</th>{tds}</tr>\n'
-        add(f'''          <h2 id="spec">スペック比較表</h2>
+        add(f'''          <h2 id="spec">{spec_title}</h2>
           <p>{mark(sp.get("intro",""))}</p>
           <p class="scroll-hint">← 横にスクロールできます →</p>
-          <div class="table-scroll" tabindex="0" role="region" aria-label="スペック比較表">
+          <div class="table-scroll" tabindex="0" role="region" aria-label="{spec_title}">
             <table>
               <thead>
                 <tr>{th}</tr>
