@@ -5009,6 +5009,7 @@ h1,h2,h3,h4,
 .card-grid.is-rank > .card .card-meta{display:none;}
 .card-grid.is-rank > .card .card-title{
   order:2;align-self:stretch;width:100%;text-align:center !important;
+  max-height:none;overflow:visible;
 }
 .card-grid.is-rank > .card .card-title .tt-main,
 .card-grid.is-rank > .card .card-title .tt-sub{
@@ -5041,8 +5042,9 @@ h1,h2,h3,h4,
 /* FEATUREは特集内容が分かる一文を残す。RANKINGだけは上で非表示にする。 */
 .card-grid.is-feature.is-rank > .card .card-title{
   /* 1行タイトルも2行ぶんの高さを確保し、説明文・バッジの開始位置を
-     2行タイトルのカードとそろえる。スマホの横長カルーセルにも適用する。 */
-  min-height:2.7em;max-height:2.7em;display:block;overflow:hidden;
+     2行タイトルのカードとそろえる。2行を超えるタイトルも切らずに
+     そのまま表示する。 */
+  min-height:2.7em;max-height:none;display:block;overflow:visible;
 }
 .card-grid.is-feature.is-rank > .card .card-note{
   display:block;order:4;text-align:center;margin-top:6px;
