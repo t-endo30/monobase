@@ -80116,7 +80116,7 @@
   "published": false,
   "featured": false,
   "amazon_url": "https://www.amazon.co.jp/dp/B09N6F7TPG",
-  "thumb": "assets/img/gen/speakerphone-conference-review.jpg",
+  "thumb": "https://www.ankerjapan.com/cdn/shop/products/A3307001_1200x1200.jpg?v=1646024880",
   "cta_label": "Amazonで価格と詳細を確認する",
   "date": "2026-08-24",
   "updated": "2026-10-09",
@@ -80412,6 +80412,7 @@
    }
   ],
   "official_url": "https://www.ankerjapan.com/products/a3307",
+  "official_product_image": "https://www.ankerjapan.com/cdn/shop/products/A3307001_1200x1200.jpg?v=1646024880",
   "facts": [
    "Anker公式商品ページでPowerConf S360、型番A3307041を確認",
    "公式仕様でUSB-C有線接続、Bluetooth非対応、内蔵バッテリーなしを確認",

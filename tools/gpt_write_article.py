@@ -26,12 +26,19 @@ INSTRUCTIONS = """あなたはモノベースの編集部員です。与えら�
 
 def jev_context(article):
     """生成前にJevで主張リスクを確認し、結果を本文生成へ渡す。"""
+    stats = {
+        shop: value for shop, value in (article.get("review_stats") or {}).items()
+        if isinstance(value, dict)
+        and ("count" not in value or
+             (value.get("count_scope") == "single_listing" and value.get("shops") == 1))
+    }
     result = jev_judge({
         "task": "article_claim_risk_before_generation",
         "slug": article.get("slug"),
         "article": {k: article.get(k) for k in
                      ("title", "official_url", "rakuten_url", "yahoo_url",
-                      "facts", "voices", "review_stats", "source_notes")},
+                      "facts", "voices", "source_notes")}
+        | {"review_stats": stats},
     })
     if result.get("status") != "ok":
         return "Jevは利用できなかったため、提供された根拠だけで生成してください。"

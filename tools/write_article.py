@@ -474,7 +474,7 @@ def reviews_block(a):
             ship = "送料込" if v.get("postage_included") else "送料別"
             bits.append(f"価格 {int(v['price']):,}円（{ship}）")
             has_price = True
-        if v.get("count"):
+        if v.get("count") and v.get("count_scope") == "single_listing" and v.get("shops") == 1:
             bits.append(f"レビュー {int(v['count']):,}件、"
                         f"平均 {v.get('average', '?')}／5.0"
                         "（参照した販売ページの表示件数）")
@@ -768,7 +768,10 @@ def review_count(a):
     """下書きに入っている口コミ件数の最大値。取れていなければ None。"""
     st = a.get("review_stats") or {}
     counts = [v.get("count") for v in st.values()
-              if isinstance(v, dict) and v.get("count") is not None]
+              if isinstance(v, dict)
+              and v.get("count") is not None
+              and v.get("count_scope") == "single_listing"
+              and v.get("shops") == 1]
     return max(counts) if counts else None
 
 
