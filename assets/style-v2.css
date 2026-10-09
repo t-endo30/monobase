@@ -4998,11 +4998,36 @@ h1,h2,h3,h4,
      これで「カメラアクセサリー」の下の折り返しが間延びせず、
      その下のバッジと一言も左右のカードで同じ高さにそろう。 */
   .card-grid.is-feature .card-title{
-    font-size:15px;line-height:1.45;min-height:2.9em;max-height:2.9em;
+    font-size:15px;line-height:1.35;min-height:2.7em;max-height:2.7em;
     display:block;overflow:hidden;
   }
   .card-grid.is-feature .card-note{min-height:3.6em;}
 }
+
+/* FEATUREのカルーセルは、PCでもスマホと同じ順序・中央揃えにする。
+   ここをスマホのメディアクエリだけに置くと、PCではDOM順（バッジ→題名）
+   に戻り、タイトルが1行か2行かでバッジの高さもずれてしまう。 */
+.card-grid.is-feature.is-rank > .card{
+  display:flex;flex-direction:column;
+}
+.card-grid.is-feature.is-rank > .card .card-thumb{order:1;}
+.card-grid.is-feature.is-rank > .card .card-meta{display:none;}
+.card-grid.is-feature.is-rank > .card .card-title{
+  order:2;text-align:center;
+}
+.card-grid.is-feature.is-rank > .card .card-stats{
+  order:3;justify-content:center;
+}
+.card-grid.is-feature.is-rank > .card .card-badges{
+  display:flex;order:4;align-items:center;justify-content:center;
+  gap:6px;min-width:0;margin-top:5px;padding-left:4px;padding-right:4px;
+}
+.card-grid.is-feature.is-rank > .card .card-cat-in{display:none;}
+.card-grid.is-feature.is-rank > .card .card-cat-out{
+  display:inline-flex;position:static;max-width:100%;margin:0;flex:0 1 auto;
+}
+.card-grid.is-feature.is-rank > .card .card-proof{align-self:center;}
+.card-grid.is-feature.is-rank > .card .card-note{display:none;}
 
 /* サイドバーを本体の横に並べられるが、器の外へ出す余地は無い幅
    （1440〜1879px）。本体の列からサイドバーぶんを取り、記事タイルは
