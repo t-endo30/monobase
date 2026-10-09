@@ -1414,12 +1414,52 @@ var monoPromos = (function () {
       track.classList.toggle('is-end', x >= max - 4);
     }
 
-    /* 送ったあとは、動きが終わるのを待たずにボタンの出し分けも見直す。
-       scroll の通知だけに頼ると、環境によっては更新が遅れる */
+    /* iOS Safariでは scrollBy({behavior:'smooth'}) と scroll-snap の組み合わせが
+       瞬間移動のように見えることがあるため、ボタン送りも自前で補間する。
+       自動送りと同じ経路にして、PC・Android・iPhoneで動きをそろえる。 */
+    var scrollAnimation = null;
+    function stopAnimation() {
+      if (!scrollAnimation) return;
+      window.cancelAnimationFrame(scrollAnimation.raf);
+      scrollAnimation = null;
+      track.classList.remove('is-animating');
+    }
+    function animateTo(target, duration) {
+      stopAnimation();
+      var max = Math.max(0, track.scrollWidth - track.clientWidth);
+      var from = track.scrollLeft;
+      var to = Math.max(0, Math.min(target, max));
+      var distance = to - from;
+      if (Math.abs(distance) < 1) {
+        track.scrollLeft = to;
+        sync();
+        return;
+      }
+
+      track.classList.add('is-animating');
+      var started = performance.now();
+      function frame(now) {
+        if (!scrollAnimation) return;
+        var progress = Math.min(1, (now - started) / duration);
+        /* easeInOutCubic：開始・中間・停止を連続的につなぐ */
+        var eased = progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        track.scrollLeft = from + distance * eased;
+        sync();
+        if (progress < 1) {
+          scrollAnimation.raf = window.requestAnimationFrame(frame);
+        } else {
+          track.scrollLeft = to;
+          track.classList.remove('is-animating');
+          scrollAnimation = null;
+          sync();
+        }
+      }
+      scrollAnimation = { raf: window.requestAnimationFrame(frame) };
+    }
     function go(dir) {
-      track.scrollBy({ left: dir * step(), behavior: 'smooth' });
-      window.setTimeout(sync, 60);
-      window.setTimeout(sync, 420);
+      animateTo(track.scrollLeft + dir * step(), 560);
     }
     prev.addEventListener('click', function () { go(-1); });
     next.addEventListener('click', function () { go(1); });
@@ -1435,49 +1475,16 @@ var monoPromos = (function () {
        scrollLeft を requestAnimationFrame で補間する。 */
     var autoTimer = null;
     if (track.matches && track.matches('.card-grid.is-rank')) {
-      var autoMoving = false;
-
-      function animateAutoTo(target) {
-        if (autoMoving) return;
-        var max = Math.max(0, track.scrollWidth - track.clientWidth);
-        var from = track.scrollLeft;
-        var to = Math.max(0, Math.min(target, max));
-        var distance = to - from;
-        if (Math.abs(distance) < 1) {
-          track.scrollLeft = to;
-          sync();
-          return;
-        }
-
-        autoMoving = true;
-        var started = performance.now();
-        var duration = 520;
-        function frame(now) {
-          var progress = Math.min(1, (now - started) / duration);
-          /* easeInOutQuad：開始と停止をなめらかにする */
-          var eased = progress < 0.5
-            ? 2 * progress * progress
-            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-          track.scrollLeft = from + distance * eased;
-          sync();
-          if (progress < 1) {
-            window.requestAnimationFrame(frame);
-          } else {
-            autoMoving = false;
-          }
-        }
-        window.requestAnimationFrame(frame);
-      }
-
       autoTimer = window.setInterval(function () {
         if (document.hidden || track.classList.contains('is-dragging')
+            || scrollAnimation
             || getComputedStyle(track).overflowX !== 'auto') return;
         var max = track.scrollWidth - track.clientWidth;
         if (max <= 4) return;
         if (track.scrollLeft >= max - 4) {
-          animateAutoTo(0);
+          animateTo(0, 560);
         } else {
-          animateAutoTo(track.scrollLeft + step());
+          animateTo(track.scrollLeft + step(), 560);
         }
       }, 3000);
     }
@@ -1488,6 +1495,7 @@ var monoPromos = (function () {
     var down = false, moved = false, startX = 0, startLeft = 0;
 
     track.addEventListener('pointerdown', function (ev) {
+      stopAnimation();
       if (ev.pointerType === 'touch') return;   /* 指は端末の慣性に任せる */
       down = true; moved = false;
       startX = ev.clientX; startLeft = track.scrollLeft;

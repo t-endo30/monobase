@@ -1487,6 +1487,7 @@ body.has-sticky-cta .fab{bottom:96px;}
 }
 /* 指で引いているあいだは、押した先へ飛ばさない */
 .cat-grid.is-rail.is-dragging{scroll-snap-type:none;cursor:grabbing;}
+.cat-grid.is-rail.is-animating{scroll-snap-type:none;}
 .cat-grid.is-rail.is-dragging a{pointer-events:none;}
 
 .rail-btn{
@@ -2054,6 +2055,7 @@ body.has-sticky-cta .fab{bottom:96px;}
   }
   .card-grid.is-rank::-webkit-scrollbar{display:none;}
   .card-grid.is-rank.is-dragging{scroll-snap-type:none;}
+  .card-grid.is-rank.is-animating{scroll-snap-type:none;}
   /* 以前は前後に28%ずつ空き枠を作って1件目を帯の中央に置いていたが、
      それが「左側の余白」に見えてしまうため取りやめ、1件目は
      コンテナの余白（--gut）にそのまま接する位置に置く。
