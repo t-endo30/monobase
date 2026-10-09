@@ -172,6 +172,46 @@ PUBLISHED = sorted([a for a in ARTICLES
                     and has_publishable_review(a)],
                    key=lambda a: a.get("date", ""), reverse=True)
 
+
+def refresh_editorial_titles(items):
+    """機械的な「商品名＋口コミ」だけの表示を、本文の論点へ寄せる。
+
+    既存JSONを一括で書き換えず、生成時の公開タイトルだけを安全に整える。
+    新規記事にも同じルールが働くため、本文にある最初の判断軸を使う。
+    意味のある「口コミ分析」「口コミと選び方」などは変更しない。
+    """
+    suffix = re.compile(r"\s*(?:口コミ(?:レビュー)?|レビュー|評判)\s*$")
+    marker = re.compile(r"\s*(?:口コミ(?:レビュー)?|レビュー|評判)\s*｜")
+    for a in items:
+        if a.get("category") == "feature":
+            continue
+        axis = ""
+        for sec in a.get("sections") or []:
+            axis = str(sec.get("heading") or "").strip()
+            if axis:
+                break
+        if not axis:
+            continue
+        for key in ("title", "list_title"):
+            value = str(a.get(key) or "").strip()
+            marked = marker.search(value)
+            if marked:
+                base = marker.sub("｜", value, count=1).strip()
+            else:
+                base = suffix.sub("", value).strip()
+            if base == value or not base:
+                continue
+            if "｜" in base:
+                subject, tail = base.split("｜", 1)
+                a[key] = f"{subject.strip()}｜{tail.strip()}"[:35]
+                continue
+            # 一覧で末尾が切れすぎないよう、主題を優先して35字以内にする。
+            tail = axis[:20]
+            a[key] = f"{base}｜{tail}"[:35]
+
+
+refresh_editorial_titles(PUBLISHED)
+
 # 検索エンジンに見せる記事の線引き（2026-09-29）。
 # AdSense の審査が「有用性の低いコンテンツ」で2度落ち、Search Console でも
 # sitemap の23%しか登録されていなかった。1か月で200本を超えた自動生成の
@@ -1870,6 +1910,20 @@ def card_stats(a):
     return f'<span class="card-stats">{bits}</span>'
 
 
+def card_proof(a):
+    """カード内に根拠確認を小さく示す。詳細はツールチップに集約する。"""
+    audit = a.get("evidence_audit") or {}
+    if audit.get("status") != "pass":
+        return ""
+    official = bool(audit.get("has_official_evidence"))
+    product = bool(audit.get("individual_product_urls"))
+    review = bool(audit.get("has_review_text"))
+    if not (official and product and review):
+        return ""
+    return ('<span class="card-proof" title="メーカー公式資料・個別商品ページ・'
+            'レビュー本文を確認済み">根拠確認済み</span>')
+
+
 def v2_card(a, p, no=None, flags=""):
     """一覧の記事タイル。日付とカテゴリーを1行目に並べ、見出し、一言と続く。
        no を渡すと、順位の札を写真の左上に重ねる（ランキング用）。
@@ -1901,6 +1955,7 @@ def v2_card(a, p, no=None, flags=""):
             f'<span class="card-views" hidden></span></span>'
             f'<span class="card-title">{v2_title(title)}</span>'
             f'{card_stats(a)}'
+            f'{card_proof(a)}'
             f'<span class="card-note">{e(v2_appeal(a))}</span></a>')
 
 
@@ -4590,7 +4645,20 @@ def build_index():
     # ここから下（新着・特集・ランキング…）は、右にサイドバーを添えた
     # 器（.home-body）の中に入れる。サイドバーは記事ページと同じ考え方で
     # 区画の外に出す（2026-09-28、ユーザー判断）。
+    # ヒーローの次に特集を置く。特集は「今週読む入口」として先に見せ、
+    # その後に個別商品の新着を続けると、カードの羅列に見えにくい。
+    feats = [a for a in PUBLISHED if a.get("category") == "feature"
+             or kind_of(a) in ("guide", "roundup")][:4]
     main_html = ""
+    if feats:
+        main_html += v2_section(
+            v2_sec_head("FEATURE", "編集部の特集",
+                        cls="has-feat-ad has-side-ad")
+            + '      <div class="card-grid is-feature">'
+            + "".join(v2_card(a, p) for a in feats) + "</div>\n"
+            + v2_sec_more(f"{p}category-feature.html",
+                          cls="has-feat-ad has-side-ad"),
+            cls="is-section-frame")
 
     main_html += v2_section(
         v2_sec_head("NEW", "新着記事", cls="has-feat-ad has-side-ad")
@@ -4609,25 +4677,6 @@ def build_index():
     # 決める。直近の閲覧数があればそれを、無ければ累計を使い、同数なら
     # 新しい順。ここを PUBLISHED の頭から取ると、新着と同じ並びになる。
     # ホームのランキングは「週間」で並べる（ランキングのページの既定タブと同じ）
-    # 特集・比較の帯。個別のレビューを読む前の「全体像」への入口で、
-    # 単品レビューより検索に強い。ホームからの導線が category-feature
-    # へのリンク1本しか無く、せっかく書いた比較記事に人が来ていなかった。
-    # 3列で大きめに出し、続きは VIEW ALL から。
-    # 他のカテゴリーに置いた選び方・比較も入れる（2026-10-01、ユーザー指摘）。
-    # 内部リンクのためにレビューと同じカテゴリーへ置いた選び方ガイドが、
-    # 「比較・選び方の特集」の帯に1本も出ていなかった。
-    feats = [a for a in PUBLISHED if a.get("category") == "feature"
-             or kind_of(a) in ("guide", "roundup")][:4]   # 4本目はスマホだけ、見切れさせて出す（CSS）
-    if feats:
-        main_html += v2_section(
-            v2_sec_head("FEATURE", "比較・選び方の特集",
-                        cls="has-feat-ad has-side-ad")
-            + '      <div class="card-grid is-feature">'
-            + "".join(v2_card(a, p) for a in feats) + "</div>\n"
-            + v2_sec_more(f"{p}category-feature.html",
-                          cls="has-feat-ad has-side-ad"),
-            cls="is-section-frame")
-
     rank_base = RANKING_HOME
     # 新着と同じく、のぞかせる1行ぶんを足して15件渡す
     top = sorted(PUBLISHED,
