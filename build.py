@@ -181,11 +181,11 @@ PUBLISHED = sorted([a for a in ARTICLES
 # 条件を満たせば次のビルドで自動的に index へ戻る。
 # 記事ごとに "index": true / false を書けば、この判定より優先する。
 INDEX_MIN_VIEWS = 5        # GA4の累計閲覧数。読まれている記事は外さない
-INDEX_MIN_REVIEWS = 30     # 口コミ件数。数字の裏づけとして読める量
+INDEX_MIN_REVIEWS = 30     # レビュー件数。数字の裏づけとして読める量
 INDEX_MIN_BODY = 1300      # 本文の文字数（見出しの下の段落の合計）
 
 def verified_review_stat(value):
-    """単一販売ページとして再確認できた口コミ件数だけを返す。"""
+    """単一の商品ページとして再確認できたレビュー件数だけを返す。"""
     if not isinstance(value, dict) or not value.get("count"):
         return None
     if value.get("count_scope") != "single_listing" or value.get("shops") != 1:
@@ -2022,9 +2022,9 @@ def v2_home_stats(p, raw=False):
     nums = [("", f"{len(counts)}", "カテゴリー"),
             ("", f"{len(PUBLISHED)}", "記事")]
 
-    # 口コミ件数は販売ページごとに異なり、合算するとユニークな
-    # 口コミ数やサイト全体の利用者数に見えるため、ホームでは合計せず、
-    # 単一販売ページとして確認できたページ数だけを表示する。
+    # レビュー件数は商品ページごとに異なり、合算するとユニークな
+    # レビュー数やサイト全体の利用者数に見えるため、ホームでは合計せず、
+    # 単一の商品ページとして確認できたページ数だけを表示する。
     review_pages = 0
     for a in PUBLISHED:
         st = a.get("review_stats")
@@ -2036,10 +2036,10 @@ def v2_home_stats(p, raw=False):
             if count:
                 review_pages += 1
     if review_pages:
-        # 販売ページごとの件数を合算すると、ユニークな口コミ数や
+        # 商品ページごとの件数を合算すると、ユニークなレビュー数や
         # サイト全体の利用者数に見えるため、ホームでは確認できた
-        # 個別販売ページ数だけを表示する。
-        nums.append(("", f"{review_pages:,}", "販売ページ", "で口コミ件数を確認"))
+        # 個別商品ページ数だけを表示する。
+        nums.append(("", f"{review_pages:,}", "個別商品ページ", "でレビュー件数を確認"))
 
     # 数字と単位は .hs-val でひとまとめにする。スマホでは各項目を
     # 「数字／単位」「数字＋件／の口コミを参照」の2段に積んで3項目を
