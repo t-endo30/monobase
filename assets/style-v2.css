@@ -5068,10 +5068,19 @@ h1,h2,h3,h4,
   display:flex;
   justify-content:center;
 }
+/* 星評価が無いタイルも、評価行ぶんを残してバッジの高さをそろえる。 */
+.card-grid.is-rank > .card .card-stats.is-no-rating{
+  min-height:2.4em;
+}
 .card-grid.is-rank > .card .card-cat-out,
 .card-grid.is-rank > .card .card-proof{
   margin-left:0;
   margin-right:0;
+}
+@media (max-width:860px){
+  .card-grid.is-rank > .card .card-stats.is-no-rating{
+    min-height:36px;
+  }
 }
 
 /* サイドバーを本体の横に並べられるが、器の外へ出す余地は無い幅

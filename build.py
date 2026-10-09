@@ -1902,6 +1902,11 @@ def card_stats(a, reserve_line=False):
     # 1行を残して、通常記事との位置をそろえる。
     if reserve_line:
         return '<span class="card-stats"><span aria-hidden="true">&nbsp;</span></span>'
+    stats_cls = "card-stats"
+    # 星評価が無い記事も、カルーセルでは評価行ぶんを確保して
+    # カテゴリーバッジ・出典バッジの位置を他のタイルとそろえる。
+    if not d.get("r"):
+        stats_cls += " is-no-rating"
     bits = ""
     if d.get("p"):
         bits += f'<span class="cs-price">¥{d["p"]:,}</span>'
@@ -1918,7 +1923,7 @@ def card_stats(a, reserve_line=False):
     # 「日付／見出し／価格／一言」を積む組み方なので、価格のある記事だけ
     # 1行ぶん背が高くなると、タイルの高さがばらばらに見える
     # （2026-09-27に指摘を受けた）。空の枠はCSSが場所だけ取る。
-    return f'<span class="card-stats">{bits}</span>'
+    return f'<span class="{stats_cls}">{bits}</span>'
 
 
 def card_proof(a):

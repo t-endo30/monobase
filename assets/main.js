@@ -58,6 +58,7 @@ function cardHtml(a) {
 function statsHtml(d) {
   var b = '';
   if (!d) d = {};
+  var cls = 'card-stats' + (d.r ? '' : ' is-no-rating');
   if (d.p) {
     b += '<span class="cs-price">¥' + Number(d.p).toLocaleString('en-US') + '</span>';
     if (d.s) b += '<span class="cs-ship">送料込</span>';
@@ -67,7 +68,7 @@ function statsHtml(d) {
     b += '<span class="cs-rv">' + star +
          '<span class="cs-n">' + Number(d.n).toLocaleString('en-US') + '件</span></span>';
   }
-  return '<span class="card-stats">' + b + '</span>';
+  return '<span class="' + cls + '">' + b + '</span>';
 }
 /* ============================================================
    重ねて出すものを開いているあいだ、背面のスクロールを止める
