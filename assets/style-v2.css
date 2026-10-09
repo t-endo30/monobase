@@ -2101,6 +2101,15 @@ body.has-sticky-cta .fab{bottom:96px;}
   }
   .card-grid > .card:nth-child(n+7){display:none;}
 
+  /* PICKにはVIEW ALLを置かないため、6枚目も途中で切らずに表示する。
+     新着・ランキングなどの「続きはVIEW ALL」用の共通クリップだけを
+     PICKでは打ち消す。 */
+  .review-rank .card-grid > .card:nth-child(6){
+    max-height:none;overflow:visible;padding-top:12px;padding-bottom:12px;
+    border-bottom:0;pointer-events:auto;
+    -webkit-mask-image:none;mask-image:none;
+  }
+
   /* トップは3行まで。3行目はわざと切って、続きが下の VIEW ALL に
      あることを見た目で伝える（新着やランキングと同じ扱い）。
      2列なので、5・6番目が3行目にあたる */
