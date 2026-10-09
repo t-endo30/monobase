@@ -2686,7 +2686,7 @@ def feature_product_cards_in_context(html, a, p):
         return html
     by_slug = {x.get("slug"): x for x in ARTICLES}
 
-    def target_heading(src, pats):
+    def target_heading(src, pats, cover_index):
         """商品名が最も具体的に説明される特集見出しを選ぶ。
 
         冒頭の比較説明には全商品名が出ることがあるため、後続の個別説明
@@ -2708,25 +2708,66 @@ def feature_product_cards_in_context(html, a, p):
             count = len(name_re.findall(text))
             if count:
                 scored.append((i, count, str(sec.get("heading") or "")))
-        if not scored:
-            return ""
-        detailed = [x for x in scored if x[0] > 0]
-        pool = detailed or scored
-        # 同数なら本文の前の見出しを選び、商品の説明順を保つ。
-        return max(pool, key=lambda x: (x[1], -x[0]))[2]
+        if scored:
+            # 同数なら本文の前の見出しを選び、商品の説明順を保つ。
+            return max(scored, key=lambda x: (x[1], -x[0]))[2]
 
-    for slug in a.get("feature_covers") or []:
+        # 本文では「クレーリナのアイブロウ」のように、掲載元記事の
+        # 正式商品名を短く書くことがある。ブランド名とタグを補助語に
+        # 使うが、FAQまで検索して配置先を決めることはしない。
+        base_name = str(src.get("product_name") or src.get("title") or "")
+        base_name = re.split(r"[｜|]", base_name, maxsplit=1)[0].strip()
+        terms = []
+        first = re.split(r"[\s　]+", base_name, maxsplit=1)[0].strip()
+        if len(first) >= 2:
+            terms.append(first)
+        generic = {"公式", "レビュー", "口コミ", "評判", "選び方", "比較",
+                   "利用者", "仕様", "確認", "購入前"}
+        for tag in src.get("tags") or []:
+            tag = str(tag).strip()
+            if len(tag) >= 2 and tag not in generic and tag not in terms:
+                terms.append(tag)
+        relaxed = []
+        for i, sec in enumerate(sections):
+            text = " ".join([
+                str(sec.get("heading") or ""),
+                " ".join(str(x) for x in (sec.get("paras") or [])),
+                str(sec.get("point") or ""),
+                str(sec.get("aside") or ""),
+            ])
+            hits = sum(1 for term in terms if term and term in text)
+            if hits:
+                relaxed.append((i, hits, str(sec.get("heading") or "")))
+        if relaxed:
+            best = max(relaxed, key=lambda x: (x[1], -x[0]))
+            # ブランドだけが共通する記事では誤配置しやすいので、
+            # 補助語が2つ以上一致した場合だけ採用する。
+            if best[1] >= 2:
+                return best[2]
+
+        # 特集の掲載順と本文の個別説明が1対1で並ぶ場合に限り、最後の
+        # 安全なフォールバックとして同じ順番の見出しへ置く。
+        if len(sections) == len(a.get("feature_covers") or []) and cover_index < len(sections):
+            return str(sections[cover_index].get("heading") or "")
+        return ""
+
+    covers = a.get("feature_covers") or []
+    for cover_index, slug in enumerate(covers):
         src = by_slug.get(slug)
-        if not src or not shop_links(src):
+        # 商品カードは、実物として確認できた公式画像または楽天/Yahoo画像
+        # がある商品だけを対象にする。自動生成画像で件数を水増ししない。
+        if not src or not shop_links(src) or not shop_image(src)[0]:
             continue
-        card = product_card(src, p, with_img=True)
+        card = product_card(src, p, with_img=True, feature_card=True)
         if not card:
             continue
         pats = product_name_patterns(src)
         if not pats:
             continue
         name_re = re.compile("|".join(pats), flags=re.I)
-        heading = target_heading(src, pats)
+        heading = target_heading(src, pats, cover_index)
+        if not heading:
+            continue
         inserted = [False]
 
         # 全商品の比較を行う冒頭段落ではなく、対象商品の説明見出しだけを
@@ -2746,42 +2787,26 @@ def feature_product_cards_in_context(html, a, p):
             return card + m.group(0)
 
         def apply_to_chunk(chunk):
-            if heading:
-                hs = re.search(r"<h2[^>]*>(.*?)</h2>", chunk, flags=re.S | re.I)
-                plain_h = re.sub(r"<[^>]+>", "", hs.group(1)).strip() if hs else ""
-                if plain_h != heading:
-                    return chunk
-            return re.sub(r"<p([^>]*)>(.*?)</p>", before_product, chunk,
+            hs = re.search(r"<h2[^>]*>(.*?)</h2>", chunk, flags=re.S | re.I)
+            plain_h = re.sub(r"<[^>]+>", "", hs.group(1)).strip() if hs else ""
+            if plain_h != heading:
+                return chunk
+            out = re.sub(r"<p([^>]*)>(.*?)</p>", before_product, chunk,
+                         flags=re.S | re.I)
+            if inserted[0]:
+                return out
+            # 商品名を短く書いた本文では、対象見出しの最初の段落の前へ
+            # 置く。対象外の見出しやFAQへ流すことはしない。
+            m = re.search(r"<p(?:\s[^>]*)?>|<li(?:\s[^>]*)?>", out,
                           flags=re.S | re.I)
+            if not m:
+                return out
+            inserted[0] = True
+            return out[:m.start()] + card + out[m.start():]
 
         html = "".join(apply_to_chunk(chunk) for chunk in chunks)
-        if not inserted[0]:
-            # 商品の最初の説明が要点リストに置かれている特集もあるため、
-            # 段落で見つからない場合だけ、その li の本文直前へ置く。
-            def before_product_in_list(m):
-                if inserted[0]:
-                    return m.group(0)
-                attrs, inner = m.group(1), m.group(2)
-                if "prod-name" in attrs:
-                    return m.group(0)
-                plain = re.sub(r"<[^>]+>", "", inner)
-                if not name_re.search(plain):
-                    return m.group(0)
-                inserted[0] = True
-                return f"<li{attrs}>{card}{inner}</li>"
-
-            def apply_list_to_chunk(chunk):
-                if heading:
-                    hs = re.search(r"<h2[^>]*>(.*?)</h2>", chunk, flags=re.S | re.I)
-                    plain_h = re.sub(r"<[^>]+>", "", hs.group(1)).strip() if hs else ""
-                    if plain_h != heading:
-                        return chunk
-                return re.sub(r"<li([^>]*)>(.*?)</li>", before_product_in_list,
-                              chunk, flags=re.S | re.I)
-
-            # 再分割して、対象見出し内の要点リストだけを対象にする。
-            list_chunks = re.split(r"(?=<h2[\s>])", html)
-            html = "".join(apply_list_to_chunk(chunk) for chunk in list_chunks)
+        # 見出しに本文が無い場合はカードを挿入しない。ビルド時の
+        # validate_feature_cards が件数不足として公開を止める。
     return html
 
 
@@ -2987,7 +3012,7 @@ def shop_stats(a):
             f'（{e(when)}）。{tail}</p>\n')
 
 
-def product_card(a, p, eager=False, with_img=True):
+def product_card(a, p, eager=False, with_img=True, feature_card=False):
     """商品画像つきのリンクカード。写真・商品名・販売先ボタンをまとめる。
        本文中のボタン3か所とは別枠なので、数には数えない。
 
@@ -3044,7 +3069,9 @@ def product_card(a, p, eager=False, with_img=True):
             {t_img}
           </a>''' if with_img else ""
     cls = "prod-card" if with_img else "prod-card is-noimg"
-    return f'''        <div class="{cls}">{thumb}
+    slug_attr = (f' data-product-slug="{e(a.get("slug"))}"'
+                 if feature_card and a.get("slug") else "")
+    return f'''        <div class="{cls}"{slug_attr}>{thumb}
           <div class="prod-body">
             <p class="prod-name"><a class="plink" href="{e(first)}" target="_blank" rel="nofollow sponsored noopener">{e(name)}</a></p>{note}
 {shop_stats(a)}            <div class="prod-links is-n{min(len(links), 3)}">
@@ -5695,6 +5722,85 @@ def validate_articles():
     return ng
 
 
+def feature_expected_count(a):
+    """特集タイトルに書いた選定数を取り出す。
+
+    「3選」「5点」のような明示が無い選び方特集は、feature_covers の
+    件数を期待値にする。タイトルと本文の画像付き商品リンク数を別々に
+    管理すると今回のような見た目の欠落を見逃すため、公開前に必ず照合
+    する。
+    """
+    for value in (a.get("title"), a.get("list_title")):
+        m = re.search(r"(?<!\d)(\d+)\s*(?:選|点|本|商品)",
+                      str(value or ""))
+        if m:
+            return int(m.group(1))
+    return len(a.get("feature_covers") or [])
+
+
+def validate_feature_cards(paths):
+    """特集の選定数と、本文内の商品画像リンク数を照合する。
+
+    商品カードがFAQやまとめ欄へ流れても、HTML全体のカード数だけを数える
+    と不備を見逃す。そこで、特集の個別説明見出し（sections）内に、各
+    feature_covers が1件ずつ、実物画像を持つカードとして置かれているかを
+    検査する。失敗した記事はビルドを止め、公開物へ進ませない。
+    """
+    ng = []
+    path_set = set(paths)
+    section_re = re.compile(r"<h2[^>]*>(.*?)</h2>", re.S | re.I)
+    card_re = re.compile(
+        r'<div class="prod-card"[^>]*data-product-slug="([^"]+)"', re.S | re.I)
+    for a in PUBLISHED:
+        if a.get("category") != "feature":
+            continue
+        slug = str(a.get("slug") or "")
+        path = f"articles/{slug}.html"
+        covers = list(a.get("feature_covers") or [])
+        expected = feature_expected_count(a)
+        if len(covers) != expected:
+            ng.append(f"{slug}: タイトルの選定数 {expected} 件に対して "
+                      f"feature_covers が {len(covers)} 件です")
+        if len(set(covers)) != len(covers):
+            ng.append(f"{slug}: feature_covers に重複した商品があります")
+        if path not in path_set or not os.path.exists(path):
+            ng.append(f"{slug}: 特集HTMLが生成されていません")
+            continue
+        html = io.open(path, encoding="utf-8").read()
+        headings = {str(sec.get("heading") or "").strip()
+                    for sec in (a.get("sections") or [])}
+        section_chunks = []
+        for chunk in re.split(r"(?=<h2[\s>])", html):
+            hs = section_re.search(chunk)
+            heading = re.sub(r"<[^>]+>", "", hs.group(1)).strip() if hs else ""
+            if heading and heading in headings:
+                section_chunks.append(chunk)
+        section_cards = []
+        invalid_cards = 0
+        for chunk in section_chunks:
+            matches = list(card_re.finditer(chunk))
+            for i, match in enumerate(matches):
+                end = matches[i + 1].start() if i + 1 < len(matches) else len(chunk)
+                body = chunk[match.start():end]
+                if re.search(r'<a class="prod-thumb\b[^>]*>.*?<img\b',
+                             body, flags=re.S | re.I):
+                    section_cards.append(match.group(1))
+                else:
+                    invalid_cards += 1
+        if invalid_cards:
+            ng.append(f"{slug}: 実物画像リンクでない商品カードが "
+                      f"{invalid_cards} 件あります")
+        if len(section_cards) != expected:
+            ng.append(f"{slug}: 本文の個別説明内に実物画像リンクが "
+                      f"{len(section_cards)} 件しかありません（期待値 {expected} 件）")
+        for cover in covers:
+            count = section_cards.count(cover)
+            if count != 1:
+                ng.append(f"{slug}: 商品 {cover} の本文内画像リンクが "
+                          f"{count} 件です（期待値 1 件）")
+    return ng
+
+
 def validate_ld(paths):
     """書き出した HTML の JSON-LD を読み直して、Google が弾く形を探す。"""
     ng = []
@@ -6064,7 +6170,8 @@ def main():
     # offers / review / aggregateRating のどれも持たない Product があると
     # 「無効なアイテム」になりリッチリザルトから外れる。過去に一度やらかして
     # いるので、書き出した HTML を読み直して機械的に止める。
-    ng = validate_articles() + validate_ld(written)
+    ng = (validate_articles() + validate_feature_cards(written) +
+          validate_ld(written))
     if ng:
         print("\n❌ 公開前の検査で不備が見つかりました")
         for line in ng:
