@@ -49,6 +49,11 @@ on:
         type: boolean
         required: false
         default: false
+      skip_images:
+        description: '商品画像の再照合を省略し、価格・口コミ件数だけ更新する'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write
@@ -69,6 +74,7 @@ jobs:
           python-version: '3.12'
 
       - name: 商品カードの写真を探す
+        if: inputs.skip_images != true
         env:
           RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
           RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
