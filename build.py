@@ -1921,7 +1921,7 @@ def card_proof(a):
     if not (official and product and review):
         return ""
     return ('<span class="card-proof" title="メーカー公式資料・個別商品ページ・'
-            'レビュー本文を確認済み">根拠確認済み</span>')
+            'レビュー本文を確認済み">出典確認済み</span>')
 
 
 def v2_card(a, p, no=None, flags=""):
@@ -4648,8 +4648,14 @@ def build_index():
         main_html += v2_section(
             v2_sec_head("FEATURE", "編集部の特集",
                         cls="has-feat-ad has-side-ad")
-            + '      <div class="card-grid is-feature">'
+            + '      <div class="card-rail" data-rail>\n'
+            + '        <button type="button" class="rail-btn is-prev" '
+            'aria-label="前の特集" hidden><span aria-hidden="true"></span></button>\n'
+            + '        <div class="card-grid is-feature is-rank">'
             + "".join(v2_card(a, p) for a in feats) + "</div>\n"
+            + '        <button type="button" class="rail-btn is-next" '
+            'aria-label="次の特集" hidden><span aria-hidden="true"></span></button>\n'
+            + '      </div>\n'
             + v2_sec_more(f"{p}category-feature.html",
                           cls="has-feat-ad has-side-ad"),
             cls="is-section-frame")

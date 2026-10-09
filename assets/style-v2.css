@@ -667,7 +667,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   overflow:hidden;max-height:3.6em;
 }
 .card-proof{
-  display:inline-block;margin-top:5px;padding:2px 6px;
+  display:table;align-self:flex-start;width:max-content;max-width:100%;
+  box-sizing:border-box;margin-top:5px;padding:2px 6px;
   border:1px solid rgba(95,125,105,.35);border-radius:999px;
   color:#55715e;background:rgba(235,245,237,.7);
   font-size:9px;line-height:1.35;letter-spacing:.03em;
@@ -5126,15 +5127,11 @@ h1,h2,h3,h4,
     -webkit-line-clamp:2;max-height:3em;}
 }
 
-/* ホームの FEATURE は4本入れてある。PCは3列なので3本だけ出し、スマホでは
-   4本目を新着などと同じく上の方だけ見せてぼかし、続きが VIEW ALL にあると
-   伝える（2026-10-01、ユーザー指摘）。切り方は .card-grid > .card:nth-child(6)
-   （スマホの新着）とそろえる。 */
+/* ホームの FEATURE はPCでは通常の3列、スマホではRANKINGと同じ横送りにする。
+   特集カードは場所を取りやすいため、スマホで縦に積まず、1枚目と次の
+   カードの一部を見せて続きがあることを伝える。 */
 .card-grid.is-feature > .card:nth-child(n+4){display:none;}
 @media (max-width:860px){
-  .card-grid.is-feature > .card:nth-child(4){display:grid;
-    max-height:34px;overflow:hidden;padding-top:12px;padding-bottom:0;
-    border-bottom:0;pointer-events:none;
-    -webkit-mask-image:linear-gradient(180deg,#000 10%,transparent 100%);
-    mask-image:linear-gradient(180deg,#000 10%,transparent 100%);}
+  .card-grid.is-feature.is-rank > .card:nth-child(n+4){display:block;}
+  .card-grid.is-feature.is-rank > .card:nth-child(n+11){display:none;}
 }
