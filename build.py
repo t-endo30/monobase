@@ -2475,6 +2475,9 @@ def product_name_patterns(a):
 
     n = clean_title(a.get("title", ""))
     names = [n]
+    # 特集で個別記事がまだない商品は、記事側に明示した型番・商品名を
+    # 画像付きリンクの挿入位置の手がかりとして使う。
+    names.extend(str(x).strip() for x in (a.get("product_names") or []) if str(x).strip())
     listed = clean_title(a.get("list_title", ""))
     if listed:
         names.append(listed)
