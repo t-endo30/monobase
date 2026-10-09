@@ -4866,6 +4866,25 @@ def build_sitemap():
        「どこに何があるか」を一枚で見渡すための一覧。"""
     p = "./"
 
+    # sitemap.xml と同じ判定で内訳を算出し、閲覧者にも「261件」の意味が
+    # 分かるようにする。記事数と sitemap のURL数を混同させないため、
+    # noindex の記事・小分類は件数に含めない。
+    sitemap_article_count = sum(1 for a in PUBLISHED if indexable(a))
+    sitemap_main_count = sum(
+        1 for c in CATS
+        if any(a["category"] == c["key"] for a in PUBLISHED)
+    )
+    sitemap_sub_count = sum(
+        1 for c in CATS for sc in c.get("sub", [])
+        if subcat_indexable(c["key"], sc["key"])
+    )
+    sitemap_entry_count = 3  # ホーム・新着記事・カテゴリー一覧
+    sitemap_entry_count += 6  # 運営者情報等の固定ページ
+    if FEAT.get("contact_form"):
+        sitemap_entry_count += 1
+    sitemap_url_count = (sitemap_entry_count + sitemap_main_count
+                         + sitemap_sub_count + sitemap_article_count)
+
     def links(items):
         return "".join(f'<li><a href="{e(u)}">{e(t)}</a></li>' for t, u in items)
 
@@ -4916,12 +4935,18 @@ def build_sitemap():
                   + (f'        <ul class="sitemap-list is-cols">{subs}</ul>\n' if subs else "")
                   + f'        <ul class="sitemap-list is-cols">{rows}</ul></div>\n')
 
+    sitemap_lead = (
+        f"検索エンジン向け sitemap.xml は {sitemap_url_count} URL です。"
+        f"内訳は公開記事 {sitemap_article_count} 本、"
+        f"大分類 {sitemap_main_count} ページ、索引対象の小分類 {sitemap_sub_count} ページ、"
+        f"入口・固定ページ {sitemap_entry_count} ページです。"
+    )
     body = v2_page_head("サイトマップ",
                         crumbs=[("ホーム", f"{p}index.html"), ("サイトマップ", None)],
-                        lead="このサイトにあるページの一覧です。")
+                        lead=sitemap_lead)
     body += v2_section(inner, style="padding:40px 0 80px")
     return page(f"サイトマップ - {NAME}",
-                f"{NAME}のサイトマップです。{len(CATS)}分野のカテゴリーと、公開中の全記事、運営者情報などの固定ページを一覧にまとめています。", "", p,
+                f"{NAME}のサイトマップです。sitemap.xml は {sitemap_url_count} URL（公開記事 {sitemap_article_count} 本、大分類 {sitemap_main_count} ページ、索引対象の小分類 {sitemap_sub_count} ページ、入口・固定ページ {sitemap_entry_count} ページ）です。", "", p,
                 f"{BASE_URL}/sitemap.html", body, body_class="is-listing",
                 crumbs=[("ホーム", f"{p}index.html"), ("サイトマップ", None)],
                 extra_js=breadcrumb_ld([("ホーム", f"{BASE_URL}/"),
