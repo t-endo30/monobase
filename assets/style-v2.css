@@ -5094,6 +5094,28 @@ h1,h2,h3,h4,
   }
 }
 
+/* カルーセル内は、タイトルだけでなく価格・評価・バッジもカードの
+   中央線を基準にする。カード側の align-items や、内容幅に縮む子要素の
+   影響を受けないよう、カルーセル専用の最終指定として幅と揃え方を固定する。 */
+.card-grid.is-rank > .card{align-items:center;}
+.card-grid.is-rank > .card .card-title,
+.card-grid.is-rank > .card .card-stats,
+.card-grid.is-rank > .card .card-badges{
+  align-self:stretch;
+  width:100%;
+  text-align:center !important;
+}
+.card-grid.is-rank > .card .card-stats,
+.card-grid.is-rank > .card .card-badges{
+  display:flex;
+  justify-content:center;
+}
+.card-grid.is-rank > .card .card-cat-out,
+.card-grid.is-rank > .card .card-proof{
+  margin-left:0;
+  margin-right:0;
+}
+
 /* サイドバーを本体の横に並べられるが、器の外へ出す余地は無い幅
    （1440〜1879px）。本体の列からサイドバーぶんを取り、記事タイルは
    4列にする。1880px以上では下のブロックでサイドバーを器の外へ出し、
