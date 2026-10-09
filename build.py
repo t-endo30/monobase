@@ -4701,7 +4701,7 @@ def build_index():
             + '      <div class="card-rail" data-rail>\n'
             + '        <button type="button" class="rail-btn is-prev" '
             'aria-label="前の特集" hidden><span aria-hidden="true"></span></button>\n'
-            + '        <div class="card-grid is-feature is-rank">'
+            + '        <div class="card-grid is-feature is-rank is-home-feature">'
             + "".join(v2_card(a, p, flags="feature") for a in feats) + "</div>\n"
             + '        <button type="button" class="rail-btn is-next" '
             'aria-label="次の特集" hidden><span aria-hidden="true"></span></button>\n'

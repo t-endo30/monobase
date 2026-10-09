@@ -5287,3 +5287,36 @@ h1,h2,h3,h4,
   }
   .card-grid.is-feature.is-rank > .card .card-badges{order:5;}
 }
+
+/* カルーセルはタイトルを3行ぶん確保する。2行以下のタイトルでも
+   価格・評価・バッジの開始位置をそろえ、長いタイトルは見切らない。 */
+.card-grid.is-rank > .card .card-title{
+  min-height:5.1em; /* line-height 1.7 × 3行 */
+  max-height:none;
+  overflow:visible;
+}
+.card-grid.is-feature.is-rank > .card .card-title{
+  min-height:4.05em; /* line-height 1.35 × 3行 */
+}
+@media (max-width:860px){
+  .card-grid.is-rank > .card .card-title,
+  .card-grid.is-feature.is-rank > .card .card-title{
+    min-height:4.5em; /* line-height 1.5 × 3行 */
+  }
+}
+
+/* ホームのFEATUREはサムネイル内にタイトルを描いているため、画面上では
+   下の重複タイトルを消す。ただしテキスト自体はDOMに残し、リンクの名前と
+   SEO上の主題を失わないよう、視覚的にだけ隠す。 */
+.card-grid.is-home-feature > .card .card-title{
+  position:absolute !important;
+  width:1px !important;
+  height:1px !important;
+  padding:0 !important;
+  margin:-1px !important;
+  overflow:hidden !important;
+  clip:rect(0 0 0 0) !important;
+  clip-path:inset(50%) !important;
+  white-space:nowrap !important;
+  border:0 !important;
+}
