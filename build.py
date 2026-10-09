@@ -1958,11 +1958,12 @@ def v2_card(a, p, no=None, flags=""):
     href = (f'<a class="card" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
             f'data-date="{e(a.get("date",""))}"{fl}>')
+    cat_in = "" if flags == "feature" else f'<span class="card-cat card-cat-in">&nbsp;{e(cat)}&nbsp;</span>'
     thumb = (f'<span class="card-thumb{tcls}"{tsrc}><img src="{e(src)}" alt="" loading="lazy" '
              f'onerror="this.onerror=null;this.src=\'{e(fallback)}\';this.closest(\'.card-thumb\').classList.remove(\'is-shop\')">'
              f'<span class="card-flags" aria-hidden="true"></span>{rank}'
              # カテゴリーは写真の右下に札で乗せる（2026-09-28、ユーザー指摘）。
-             f'<span class="card-cat card-cat-in">&nbsp;{e(cat)}&nbsp;</span></span>')
+             f'{cat_in}</span>')
     badges = (f'<span class="card-badges">'
               f'<span class="card-cat-out">&nbsp;{e(cat)}&nbsp;</span>'
               f'{card_proof(a)}</span>')
@@ -1973,9 +1974,11 @@ def v2_card(a, p, no=None, flags=""):
     # タイトル→価格・評価→（FEATUREの一言）→バッジの順にする。
     if no or flags == "feature":
         feature_note = note if flags == "feature" else ""
+        feature_stats = "" if flags == "feature" else stats
+        feature_badges = "" if flags == "feature" else badges
         # FEATUREだけは一言をバッジの前に置く。CSSの順序指定に頼らず、
         # 1行・2行のタイトルが混在しても全カードを同じ並びにする。
-        return href + thumb + title_html + stats + feature_note + badges + '</a>'
+        return href + thumb + title_html + feature_stats + feature_note + feature_badges + '</a>'
     meta = (f'<span class="card-meta">'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
             # 閲覧数は GA4 の実数（content/ranking.json）を assets/main.js が入れる。
