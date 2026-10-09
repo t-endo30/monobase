@@ -685,9 +685,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .card-thumb .card-cat{
   position:absolute;right:6px;bottom:6px;z-index:2;
   margin:0;max-width:calc(100% - 12px);
-  padding:3px 8px;
-  background:rgba(235,245,237,.92);border:1px solid rgba(95,125,105,.35);
-  color:#55715e;font-size:10px;font-weight:700;letter-spacing:.04em;
+  padding:3px 5px;
+  background:rgba(246,239,226,.95);border:1px solid rgba(142,112,68,.38);
+  color:#6b5534;font-size:10px;font-weight:700;letter-spacing:.04em;
   line-height:1.5;text-align:left;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:999px;
 }
@@ -696,9 +696,9 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    写真内の右上に重ねる。 */
 .card-cat-out{
   position:absolute;top:14px;right:14px;z-index:3;
-  max-width:calc(100% - 28px);padding:3px 8px;
-  background:rgba(235,245,237,.92);border:1px solid rgba(95,125,105,.35);
-  color:#55715e;font-size:10px;font-weight:700;letter-spacing:.04em;
+  max-width:calc(100% - 28px);padding:3px 5px;
+  background:rgba(246,239,226,.95);border:1px solid rgba(142,112,68,.38);
+  color:#6b5534;font-size:10px;font-weight:700;letter-spacing:.04em;
   line-height:1.5;text-align:left;white-space:nowrap;overflow:hidden;
   text-overflow:ellipsis;border-radius:999px;
 }
@@ -707,7 +707,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* カテゴリーは日付・VIEWと同じ行の右端に置く（左に margin:auto で寄せる） */
 .card-cat{
   flex:0 1 auto;min-width:0;text-align:right;margin-left:auto;
-  font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);
+  font-size:10.5px;font-weight:700;letter-spacing:.04em;color:#6b5534;
   line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 /* 外側のカテゴリーバッジは、横長スマホカードでも行全体に伸ばさず
