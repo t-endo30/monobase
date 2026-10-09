@@ -3339,23 +3339,44 @@ def render_article(a):
 {gb}{cta}        </section>
 ''')
 
-    # 目次
+    # 目次。特集は固定の汎用見出しを並べず、記事ごとの sections を主軸にする。
+    # 将来のGPT生成では toc_items を明示でき、既存記事は実際の本文見出しから自然に組み立てる。
     toc = []
-    if a.get("good_for", {}).get("items"): toc.append(("sec-goodfor", "こんな人におすすめ"))
-    if a.get("not_for", {}).get("items"): toc.append(("sec-notfor", "こんな人にはおすすめしない"))
-    if a.get("highlights", {}).get("items"): toc.append(("sec-highlights", "この商品の強み"))
-    if a.get("scenes"):                   toc.append(("sec-scenes", "この商品で変わる生活シーン"))
-    if a.get("pros") or a.get("cons"):    toc.append(("sec-proscons", "メリットとデメリット"))
-    if a.get("products"):                 toc.append(("sec-products", "比較した商品"))
-    if a.get("spec", {}).get("rows"):     toc.append(("spec", "スペック比較表"))
-    elif official_link(a):                toc.append(("spec", "メーカー公式情報"))
-    for i, sec in enumerate(a.get("sections", []), start=1):
-        toc.append((f"sec-note{i}", sec.get("heading", "")))
-    if a.get("voices"):                   toc.append(("sec-voice", "共通の不満点と対処法"))
-    if a.get("next_problem", {}).get("items"): toc.append(("sec-next", "次に困りそうなこと"))
-    if a.get("faq"):                      toc.append(("sec-faq", "よくある質問"))
-    if featured_in(a, p):                 toc.append(("sec-featured-in", "この商品を比較した特集"))
-    if a.get("conclusion"):               toc.append(("sec-conclusion", "まとめ"))
+    if a.get("category") == "feature":
+        custom_toc = a.get("toc_items") or []
+        if custom_toc:
+            for item in custom_toc:
+                if not isinstance(item, dict):
+                    continue
+                item_id = str(item.get("id", "")).strip()
+                label = str(item.get("label", item.get("title", ""))).strip()
+                if item_id and label:
+                    toc.append((item_id, label))
+        else:
+            for i, sec in enumerate(a.get("sections", []), start=1):
+                heading = str(sec.get("heading", "")).strip()
+                if heading:
+                    toc.append((f"sec-note{i}", heading))
+            if a.get("faq"):
+                toc.append(("sec-faq", "よくある質問"))
+            if a.get("conclusion"):
+                toc.append(("sec-conclusion", a.get("conclusion_title") or "まとめ"))
+    else:
+        if a.get("good_for", {}).get("items"): toc.append(("sec-goodfor", "こんな人におすすめ"))
+        if a.get("not_for", {}).get("items"): toc.append(("sec-notfor", "こんな人にはおすすめしない"))
+        if a.get("highlights", {}).get("items"): toc.append(("sec-highlights", "この商品の強み"))
+        if a.get("scenes"):                   toc.append(("sec-scenes", "この商品で変わる生活シーン"))
+        if a.get("pros") or a.get("cons"):    toc.append(("sec-proscons", "メリットとデメリット"))
+        if a.get("products"):                 toc.append(("sec-products", "比較した商品"))
+        if a.get("spec", {}).get("rows"):     toc.append(("spec", "スペック比較表"))
+        elif official_link(a):                toc.append(("spec", "メーカー公式情報"))
+        for i, sec in enumerate(a.get("sections", []), start=1):
+            toc.append((f"sec-note{i}", sec.get("heading", "")))
+        if a.get("voices"):                   toc.append(("sec-voice", "共通の不満点と対処法"))
+        if a.get("next_problem", {}).get("items"): toc.append(("sec-next", "次に困りそうなこと"))
+        if a.get("faq"):                      toc.append(("sec-faq", "よくある質問"))
+        if featured_in(a, p):                 toc.append(("sec-featured-in", "この商品を比較した特集"))
+        if a.get("conclusion"):               toc.append(("sec-conclusion", "まとめ"))
     if toc:
         li = "".join(f'            <li><a href="#{i}">{e_wbr(t)}</a></li>\n' for i, t in toc)
         add(f'''        <nav class="toc" aria-label="目次">
