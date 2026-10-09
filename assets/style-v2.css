@@ -2006,6 +2006,19 @@ body.has-sticky-cta .fab{bottom:96px;}
     gap:0 14px;align-items:center;
     padding:12px 14px 12px 12px;border-bottom:0;
   }
+  /* PICKの縦積みカードも親の幅に収める。flex itemの自動幅に任せると、
+     バッジや価格行の最小幅をカード幅として採用し、PICKの枠だけが
+     画面の外へ広がってページ全体の横スクロールを発生させる。 */
+  .review-rank > .card-grid > .card{
+    width:100%;min-width:0;
+  }
+  /* PICKは縦積みなので、評価バッジなどの内部計算が作る横方向の
+     scrollWidthを外へ伝播させない。横スクロールを使うRANKINGとは違い、
+     PICKは画面内で読む一覧なので、ここは切り落とさず親幅で収める。 */
+  .review-rank,
+  .review-rank > .card-grid{
+    overflow-x:hidden;
+  }
   .card > :not(.card-thumb){padding-left:0;padding-right:0;}
   .card > :last-child{padding-bottom:0;}
   /* 札は写真の左上に重ねる。写真が小さいので、札も小さくする */

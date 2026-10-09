@@ -96,7 +96,7 @@ window.addEventListener('load', function () { setTimeout(function () {
      PICK UP と RANKING（is-rank）は縦積みではなく横並びで、写真の
      大きさもその区画ごとに決めているので、ここの比較からは外す */
   var cards = document.querySelectorAll(
-    '.card-grid:not(.is-rank) .card:not(.is-lead):not(:nth-child(n+6)) .card-thumb');
+    '.card-grid:not(.is-rank) .card:not(.is-lead):not(.promo-slot):not(:nth-child(n+6)) .card-thumb');
   cards = Array.prototype.filter.call(cards, function (c) {
     return !c.closest('#pickGrid');
   });
