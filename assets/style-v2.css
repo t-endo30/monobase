@@ -666,7 +666,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* 見出しの下の一言。どんな記事かが一覧のまま分かるようにする */
 .card-note{
   margin-top:7px;font-size:12px;line-height:1.8;color:var(--muted);
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  display:block;
   overflow:hidden;max-height:3.6em;
 }
 .card-proof{
@@ -2008,7 +2008,7 @@ body.has-sticky-cta .fab{bottom:96px;}
   }
   /* 一言は、写真の右の残りに収まる分だけ。ここも2行ぶんで高さを固定する */
   .card-note{
-    margin-top:3px;font-size:11px;line-height:1.6;-webkit-line-clamp:2;
+    margin-top:3px;font-size:11px;line-height:1.6;display:block;
     min-height:3.2em;max-height:3.2em;grid-column:2;
   }
   .card-cat{margin-top:4px;font-size:10px;}
@@ -4379,6 +4379,10 @@ h1,h2,h3,h4,
   white-space:normal;overflow:visible;text-overflow:clip;
   overflow-wrap:normal;word-break:auto-phrase;line-break:strict;
 }
+.card-grid.is-feature .tt-main,
+.card-grid.is-feature .tt-sub{
+  word-break:keep-all;overflow-wrap:normal;
+}
 
 /* 結論の帯は両端揃えにするので、文節での折り返しは掛けない。
    両方を効かせると、行が早めに折れたうえで字間を伸ばすことになり、
@@ -5180,7 +5184,7 @@ h1,h2,h3,h4,
   /* FEATUREは出典バッジの下に、特集の内容が分かる一文を残す。
      RANKINGでは省いているカード説明をFEATUREだけ表示する。 */
   .card-grid.is-feature.is-rank > .card .card-note{
-    display:-webkit-box;margin-top:5px;font-size:11px;line-height:1.6;
-    -webkit-line-clamp:2;max-height:3.2em;
+    display:block;margin-top:5px;font-size:11px;line-height:1.6;
+    max-height:3.2em;overflow:hidden;
   }
 }

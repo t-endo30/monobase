@@ -1807,7 +1807,7 @@ def v2_appeal(a):
             break
     src = out or src
     if len(src) > 56:
-        src = src[:55].rstrip("、。・ ") + "…"
+        src = src[:56].rstrip("、。・ ")
     return src
 
 
@@ -1817,11 +1817,16 @@ def v2_title(t):
        語の途中で割れる。区切りで折れば、どのタイルも
        1行目が主題・2行目が補足という同じ形になる。"""
     t = str(t or "")
+    def natural_breaks(value):
+        # 複合語の途中ではなく、助詞の前を折り返し候補にする。
+        value = e(value)
+        return re.sub(r'(より|から|まで|の|と|を|で|に|が|は|へ|や|・)',
+                      r'<wbr>\1', value)
     if "｜" in t:
         main, sub = t.split("｜", 1)
-        return (f'<span class="tt-main">{e(main.strip())}</span>'
-                f'<span class="tt-sub">{e(sub.strip())}</span>')
-    return e(t)
+        return (f'<span class="tt-main">{natural_breaks(main.strip())}</span>'
+                f'<span class="tt-sub">{natural_breaks(sub.strip())}</span>')
+    return f'<span class="tt-main">{natural_breaks(t)}</span>'
 
 
 SUB_LABEL = {(c["key"], sc["key"]): sc["label"]
