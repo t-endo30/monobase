@@ -477,7 +477,7 @@ def reviews_block(a):
         if v.get("count") and v.get("count_scope") == "single_listing" and v.get("shops") == 1:
             bits.append(f"レビュー {int(v['count']):,}件、"
                         f"平均 {v.get('average', '?')}／5.0"
-                        "（参照した販売ページの表示件数）")
+                        "（対象商品ページの表示件数）")
         if bits:
             lines.append(f"・{ja}：" + "、".join(bits))
     if not lines:

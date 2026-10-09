@@ -48,7 +48,7 @@ def rakuten_item_code(url):
 
 
 def summarize(items, target_url=""):
-    """価格と、1つの販売ページに表示された口コミ件数をまとめる。
+    """価格と、選択した1商品ページに表示された口コミ件数をまとめる。
 
        同じ商品でも販売店ごとにレビュー集合が異なるため、店舗をまたいで
        件数を合算すると「同じ商品の口コミ総数」に見えてしまう。特にJAN
@@ -155,7 +155,7 @@ def describe(st):
             bits.append(f"{v['price']:,}円（{ship}）")
         if v.get("count"):
             bits.append(f"レビュー {v['count']:,}件、"
-                        f"平均 {v['average']}／5.0（参照した販売ページの表示件数）")
+                        f"平均 {v['average']}／5.0（対象商品ページの表示件数）")
         if bits:
             lines.append(f"{ja}：" + "、".join(bits))
     return lines
