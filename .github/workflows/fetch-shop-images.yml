@@ -1,6 +1,6 @@
 name: Fetch shop data
 
-# 既存記事に、商品カードへ出す「実物の商品写真」と、価格・口コミの
+# 既存記事に、商品カードへ出す「実物の商品写真」と、価格・レビューの
 # 件数・平均評価を埋める。どちらも楽天・Yahoo!の公式APIが返した値で、
 # このサイトが記事に載せられる数少ない一次データにあたる。
 #
@@ -50,7 +50,7 @@ on:
         required: false
         default: false
       skip_images:
-        description: '商品画像の再照合を省略し、価格・口コミ件数だけ更新する'
+        description: '商品画像の再照合を省略し、価格・レビュー件数だけ更新する'
         type: boolean
         required: false
         default: false
@@ -87,7 +87,7 @@ jobs:
             ${{ inputs.debug && '--debug' || '' }} \
             ${{ (github.event_name == 'schedule' || inputs.apply) && '--apply' || '' }}
 
-      # 価格・口コミ件数・平均評価も同じ回で拾い直す。
+      # 価格・レビュー件数・平均評価も同じ回で拾い直す。
       #
       # 記事に載る唯一の一次データで、これが空だと本文は「〜とされて
       # います」だけになり、読者から見て中身の薄いページになる
@@ -98,7 +98,7 @@ jobs:
       # continue-on-error にはしない。取れなかった記事は review_stats が
       # 前の値のまま残るだけで、ここが落ちるのはAPIの鍵が切れたときなど
       # 本物の異常だけ。
-      - name: 価格・口コミの件数と平均評価を取る
+      - name: 価格・レビュー件数と平均評価を取る
         if: github.event_name == 'schedule' || inputs.apply
         env:
           RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
@@ -128,7 +128,7 @@ jobs:
           git add content/articles.json articles assets/img/auto
           git add -u
           git diff --cached --stat
-          git commit -m "商品カードの写真・価格・口コミを既存記事に補う（自動）"
+          git commit -m "商品カードの写真・価格・レビュー件数を既存記事に補う（自動）"
           # 価格を毎日入れ直すようになって、このジョブは毎日コミットする。
           # そのぶん、走っているあいだに別のワークフロー（記事公開・
           # サイト再生成）が origin/main を進めている確率も上がった。
