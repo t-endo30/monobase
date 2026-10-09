@@ -1,0 +1,44 @@
+{"items": [{
+  "name": "TP-Link Tapo C520WS/A 屋外パンチルトセキュリティWi-Fiカメラ",
+  "category": "camera",
+  "sub": "security",
+  "jan": "4895252504279",
+  "reviews": 2294,
+  "rating": 4.63,
+  "price": 9500,
+  "image": "https://item-shopping.c.yimg.jp/i/g/tplink_4895252504279",
+  "images": {
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/tplink_4895252504279",
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tplinkdirect/cabinet/06321509/tapo-c5.jpg?_ex=128x128"
+  },
+  "rakuten_url": "https://item.rakuten.co.jp/tplinkdirect/4895252504279/",
+  "yahoo_url": "https://store.shopping.yahoo.co.jp/tplink/4895252504279.html",
+  "amazon_url": "",
+  "official_url": "https://www.tp-link.com/jp/home-networking/cloud-camera/tapo-c520ws/",
+  "facts": [
+    "TP-Link公式製品ページでTapo C520WSを屋外パンチルトセキュリティWi-Fiカメラとして確認",
+    "公式製品ページで2K QHD、高度な人物・ペット・車両AI検知、360度広範囲カバー、IP66準拠、音声・ライトアラーム、microSD最大512GBを案内していることを確認",
+    "楽天市場とYahoo!ショッピングの個別商品ページでTapo C520WS/A、JAN 4895252504279、商品画像と販売条件を確認",
+    "Yahoo!ショッピングの同一商品レビューで設定、画質、検知・自動追尾、設置、電源・SDカードに関する本文を確認"
+  ],
+  "source_notes": [
+    "TP-Link公式製品ページでTapo C520WSの用途・解像度・検知・防水防塵・保存条件を確認",
+    "TP-Link公式ダイレクトのYahoo!個別商品ページでTapo C520WS/AとJANを照合",
+    "Yahoo!ショッピング同一商品レビューで設定の難しさ、画質、検知・自動追尾、設置条件に関する本文を確認"
+  ],
+  "review_texts": [
+    {
+      "source": "Yahoo!ショッピング TP-Link公式ダイレクト Tapo C520WS/A 個別レビュー",
+      "text": "設定は日本語のかんたん設定ガイドに沿えば進めやすく、画像が鮮明で検知機能や自動追尾もしっかりしているという投稿がある。"
+    },
+    {
+      "source": "Yahoo!ショッピング TP-Link公式ダイレクト Tapo C520WS/A 個別レビュー",
+      "text": "屋外設置で有線LAN接続を使ったという投稿がある一方、microSDカードの不具合で交換になった、電源コードや防水接続部の設置条件を確認したいという内容もある。"
+    }
+  ],
+  "trending": false,
+  "shops": {
+    "yahoo": {"price": 9500, "shop_name": "TP-Link公式ダイレクト", "postage_included": true, "reviews": 2294, "rating": 4.63},
+    "rakuten": {"price": 7700, "shop_name": "TP-Linkダイレクト 楽天市場店", "postage_included": true, "reviews": 2343, "rating": 4.51}
+  }
+}]}
