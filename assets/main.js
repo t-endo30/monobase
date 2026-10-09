@@ -463,7 +463,7 @@ document.addEventListener('touchstart', function () {}, { passive: true });
       if (card.querySelector('.row-no,.arow-no')) return;
       var only = card.getAttribute('data-flags') || '';
       var d = card.getAttribute('data-date');
-      if (d) {
+      if (d && only !== 'feature') {
         var t = new Date(d + 'T00:00:00').getTime();
         if (!isNaN(t) && Date.now() - t < NEW_SPAN) {
           box.insertAdjacentHTML('beforeend', '<span class="flag flag-new">New</span>');

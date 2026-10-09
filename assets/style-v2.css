@@ -5143,4 +5143,10 @@ h1,h2,h3,h4,
 @media (max-width:860px){
   .card-grid.is-feature.is-rank > .card:nth-child(n+4){display:block;}
   .card-grid.is-feature.is-rank > .card:nth-child(n+11){display:none;}
+  /* FEATUREは出典バッジの下に、特集の内容が分かる一文を残す。
+     RANKINGでは省いているカード説明をFEATUREだけ表示する。 */
+  .card-grid.is-feature.is-rank > .card .card-note{
+    display:-webkit-box;margin-top:5px;font-size:11px;line-height:1.6;
+    -webkit-line-clamp:2;max-height:3.2em;
+  }
 }
