@@ -5030,9 +5030,10 @@ h1,h2,h3,h4,
 .card-grid.is-rank > .card .card-note{display:none;}
 /* FEATUREは特集内容が分かる一文を残す。RANKINGだけは上で非表示にする。 */
 .card-grid.is-feature.is-rank > .card .card-note{
-  display:block;order:5;text-align:center;margin-top:6px;
+  display:block;order:4;text-align:center;margin-top:6px;
   line-height:1.6;min-height:3.2em;max-height:3.2em;overflow:hidden;
 }
+.card-grid.is-feature.is-rank > .card .card-badges{order:5;}
 
 /* サイドバーを本体の横に並べられるが、器の外へ出す余地は無い幅
    （1440〜1879px）。本体の列からサイドバーぶんを取り、記事タイルは
@@ -5230,8 +5231,9 @@ h1,h2,h3,h4,
   .card-grid.is-feature.is-rank > .card:nth-child(n+11){display:none;}
   /* FEATUREは特集内容が分かる一文を残す。 */
   .card-grid.is-feature.is-rank > .card .card-note{
-    display:block;order:5;text-align:center;margin-top:6px;
+    display:block;order:4;text-align:center;margin-top:6px;
     font-size:11px;line-height:1.6;min-height:3.2em;max-height:3.2em;
     overflow:hidden;
   }
+  .card-grid.is-feature.is-rank > .card .card-badges{order:5;}
 }
