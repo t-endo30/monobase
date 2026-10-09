@@ -7,6 +7,14 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>Bebird C3｜カメラ付き耳かきの焦点距離と接続確認</title>
+    <link>https://monobase.site/articles/bebird-c3</link>
+    <guid isPermaLink="true">https://monobase.site/articles/bebird-c3</guid>
+    <description>Bebird C3の焦点距離・レンズ径・重量を整理し、カメラ付き耳かきの選び方と確認事項を紹介します。</description>
+    <category>カメラ</category>
+    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>アイリスオーヤマ H-8800L｜170度リクライニングの設置条件</title>
     <link>https://monobase.site/articles/h-8800l</link>
     <guid isPermaLink="true">https://monobase.site/articles/h-8800l</guid>
@@ -156,14 +164,6 @@
     <guid isPermaLink="true">https://monobase.site/articles/200-dgcam016</guid>
     <description>4段伸縮・約60〜180cmの一脚。軽さと収納性の評価、購入前に見るべき機材条件を整理。</description>
     <category>カメラ</category>
-    <pubDate>Wed, 07 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>Samsung Galaxy A57 5G 128GB 仕様と購入前の確認点</title>
-    <link>https://monobase.site/articles/samsung-galaxy-a57-128gb-awesome-navy</link>
-    <guid isPermaLink="true">https://monobase.site/articles/samsung-galaxy-a57-128gb-awesome-navy</guid>
-    <description>Galaxy A57 5Gの公式仕様と利用者の声を整理。大画面や防水防塵に加え、128GBとmicroSD非対応を確認します。</description>
-    <category>スマートフォン</category>
     <pubDate>Wed, 07 Oct 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>

@@ -1,0 +1,49 @@
+{"items": [{
+  "name": "Bebird C3 カメラ付き耳かき",
+  "category": "camera",
+  "sub": "lens",
+  "reviews": 213,
+  "rating": 4.15,
+  "price": 2980,
+  "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/seimina/cabinet/11635226/11677835/zhutu4.jpg?_ex=600x600",
+  "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/seimina/cabinet/11635226/11677835/zhutu4.jpg?_ex=600x600"
+  },
+  "rakuten_url": "https://item.rakuten.co.jp/seimina/po_366_367_earpick_fc/",
+  "yahoo_url": "https://shopping.yahoo.co.jp/review/item/list?page_key=fk12025-a2106&sc_i=shopping-pc-web-result-ranking-srk01_01-rvw&store_id=largo1991",
+  "amazon_url": "",
+  "official_url": "https://www.bebirdintl.com/products/young/feng-niao-cai-er-bebird-c3ying-wen-ban-zhi-nen-ke-shi-er-shao-cai-er-bang.html",
+  "official_ogp_image": "https://www.bebirdintl.com/uploadfile/2021/06/16/20210616162449zxRkUD.jpg",
+  "official_ogp_title": "黒蜂智造bebird C3（英文版）智能可视耳勺采耳棒",
+  "facts": [
+    "公式製品ページでbebird C3（英文版）として商品名を確認",
+    "公式製品ページで重量16g、カメラ300万画素、PC外装、3軸ジャイロ、焦点距離1.5〜2cm、レンズ径4.5mmを確認",
+    "公式製品ページで色は黒・白・ピンク・青、電池は300mAh・4.2V、動作時間70分・充電時間1時間と確認",
+    "公式製品ページで本体は耳の状態を確認するためのカメラ付き耳かきとして案内されていることを確認"
+  ],
+  "source_notes": [
+    "公式製品ページでBebird C3を商品同定し、仕様を確認",
+    "楽天市場の個別商品ページでBEBIRD C3の販売ページと商品掲載レビューを確認",
+    "Yahoo!ショッピングのBebird C3個別商品レビューで接続、見え方、先端部品、操作に関する本文を確認"
+  ],
+  "review_texts": [
+    {
+      "source": "楽天市場 Seimina Bebird C3 個別商品ページ",
+      "text": "簡単に操作できる、カメラ画像が鮮明、接続が簡単という投稿がある一方、先端の扱いやすさ・力加減について確認したいという投稿もある。"
+    },
+    {
+      "source": "Yahoo!ショッピング LARGO Bebird C3 個別商品レビュー",
+      "text": "スマートフォンとの接続が簡単で、耳の中がよく見えるという投稿がある。一方、先端部品が壊れた、操作やカメラ位置に慣れが必要という投稿も確認できる。"
+    }
+  ],
+  "trending": false,
+  "shops": {
+    "rakuten": {
+      "price": 2980,
+      "shop_name": "Seimina",
+      "postage_included": true,
+      "reviews": 213,
+      "rating": 4.15
+    }
+  }
+}]}

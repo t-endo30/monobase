@@ -375,7 +375,7 @@ def main():
         # 方が高くつくので、ここで落とす。取りこぼしが問題になるときは
         # --allow-unidentifiable を付ける。
         if not args.allow_unidentifiable and not looks_identifiable(
-                name, c.get("shops")):
+                name, c.get("shops"), c.get("official_url")):
             unidentifiable.append(name)
             continue
         # 根拠ゲートと公開条件を満たせない候補は、本文生成前に落とす。

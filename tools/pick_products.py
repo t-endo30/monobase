@@ -169,9 +169,14 @@ BRAND_WITH_READING = re.compile(
     r"(?<![A-Za-z])[A-Z][A-Za-z&]{3,}[\s　]+[ァ-ヶー]{3,}")
 
 
-def looks_identifiable(name, shops):
+def looks_identifiable(name, shops, official_url=""):
     """メーカー名・型番で読者・校閲が商品を特定できそうか（目安）。"""
     if any(is_official(v) for v in (shops or {}).values()):
+        return True
+    # 手動調査でメーカー公式の個別製品ページまで確認できた候補は、
+    # C3のように短い型番でも公式資料と販売ページを組み合わせて同定できる。
+    # 公式URLの有無は後段の根拠ゲートでも必須にする。
+    if official_url and re.match(r"https?://", str(official_url)):
         return True
     # 「PUPPIA パピア」「NIPLUX ニップラックス」のように、英字の名前の直後に
     # その読みのカタカナが付いていればブランド名。型番が無くてもメーカー名で
