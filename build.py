@@ -1812,6 +1812,21 @@ def v2_appeal(a):
     return src
 
 
+def v2_feature_appeal(a):
+    """特集一覧で使う説明文。短いカード用の一言ではなく、
+       特集の説明と最初の整理ポイントをつなげて、最大6行で読ませる。"""
+    desc = str(a.get("description", "") or a.get("excerpt", "")).strip()
+    summary = a.get("summary") or []
+    first = summary[0].get("text", "") if summary and isinstance(summary[0], dict) else ""
+    text = " ".join(x for x in (desc, str(first).strip()) if x)
+    text = re.sub(r"<[^>]+>", "", text).replace("==", "")
+    if len(text) > 180:
+        cut = text[:180]
+        end = max(cut.rfind("。"), cut.rfind("．"))
+        text = cut[:end + 1] if end >= 80 else cut.rstrip("、。・ ") + "…"
+    return text
+
+
 def v2_title(t):
     """タイルの見出し。「主題｜補足」は必ず「｜」で折る。
        成り行きに任せると「ダマに／なりにくさと合う人」のように
@@ -1986,7 +2001,7 @@ def v2_card(a, p, no=None, flags=""):
     return href + thumb + badges + meta + title_html + stats + note + '</a>'
 
 
-def v2_row(a, p, numbered=None, detail=False, flags=""):
+def v2_row(a, p, numbered=None, detail=False, flags="", feature_list=False):
     """横長の記事タイル。日付とカテゴリーを1行目に並べ、見出し、一言と続く。
        detail=True で、分野の名前をサブ区分まで細かく出す。"""
     src, is_shop, shop = card_visual(a, p)
@@ -1997,6 +2012,12 @@ def v2_row(a, p, numbered=None, detail=False, flags=""):
           if numbered else "")
     cat = v2_cat_text(a, detail)
     fl = f' data-flags="{flags}"' if flags else ""
+    stats = "" if feature_list else card_stats(a)
+    note = v2_feature_appeal(a) if feature_list else v2_appeal(a)
+    badges = "" if feature_list else (
+        f'<span class="card-badges">'
+        f'<span class="card-cat-out">&nbsp;{e(cat)}&nbsp;</span>'
+        f'{card_proof(a)}</span>')
     return (f'<a class="row-item" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
             f'data-date="{e(a.get("date",""))}"{fl}>'
@@ -2005,22 +2026,22 @@ def v2_row(a, p, numbered=None, detail=False, flags=""):
             f'<span class="card-flags" aria-hidden="true"></span>{no}</span>'
             f'<span class="row-body">'
             f'<h3>{v2_title(a["title"])}</h3>'
-            f'{card_stats(a)}'
-            f'<p>{e(v2_appeal(a))}</p>'
-            f'<span class="card-badges">'
-            f'<span class="card-cat-out">&nbsp;{e(cat)}&nbsp;</span>'
-            f'{card_proof(a)}</span>'
+            f'{stats}'
+            f'<p>{e(note)}</p>'
+            f'{badges}'
             f'<span class="row-meta">'
             f'<span class="meta">{e(a.get("date",""))}</span>'
             # New / VIEW / 日時は、ホームの横長タイルと同じ末尾行に置く。
             f'<span class="card-views" hidden></span></span></span></a>')
 
 
-def v2_rows(items, p, numbered=False, narrow=False, detail=False, flags=""):
+def v2_rows(items, p, numbered=False, narrow=False, detail=False, flags="", feature_list=False):
     # is-narrow はトップの区画。新着と同じく6件目をわざと切って、
     # 続きが下の VIEW ALL にあることを見た目で伝える
     cls = "row-list is-narrow" if narrow else "row-list"
-    inner = "".join(v2_row(a, p, (i + 1) if numbered else None, detail, flags)
+    if feature_list:
+        cls += " is-feature-list"
+    inner = "".join(v2_row(a, p, (i + 1) if numbered else None, detail, flags, feature_list)
                     for i, a in enumerate(items))
     return f'      <div class="{cls}">{inner}</div>\n'
 
@@ -4899,7 +4920,9 @@ def build_category(c):
     # 予算の3枚とこの一覧が同じ形のタイルで続き、区画の境目が「一覧の途中の
     # 謎の隙間」に見えていた（2026-09-30、ユーザー指摘）。
     all_head = v2_sec_head("ALL", "すべての記事") if budget else ""
-    body += v2_section(all_head + v2_rows(items, p, detail=True) + promo_row_slot(),
+    body += v2_section(all_head + v2_rows(items, p, detail=True,
+                                          feature_list=c["key"] == "feature")
+                       + promo_row_slot(),
                        style=LIST_PAD)
     return page(f'{c["label"]}の記事一覧 - {NAME}',
                 c["lead"][:110], c["key"], p,
@@ -4948,7 +4971,9 @@ def build_subcategory(c, sc):
     if budget:
         body += v2_section(v2_sec_head("BUDGET", "予算で探す") + budget)
     all_head = v2_sec_head("ALL", "すべての記事") if budget else ""   # build_category と同じ
-    body += v2_section(all_head + v2_rows(items, p), style="padding:40px 0 80px")
+    body += v2_section(all_head + v2_rows(items, p,
+                                          feature_list=c["key"] == "feature"),
+                       style="padding:40px 0 80px")
     return page(f'{sc["label"]}の記事一覧 - {NAME}',
                 f'{NAME}の{sc["label"]}に関する記事一覧です。利用者の声と仕様をもとに整理しています。',
                 c["key"], p,

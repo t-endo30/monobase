@@ -853,6 +853,19 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .row-item .card-proof{margin:0;flex:0 1 auto;}
 .row-item .row-meta{order:5;}
 .row-item .card-stats.is-no-rating{min-height:1.9em;}
+
+/* 特集・まとめ一覧は、サムネイル内に主題が入っているため、下のタイトルと
+   商品用バッジを重ねない。一言説明を主役にして、最大6行まで表示する。 */
+.row-list.is-feature-list .row-item h3{
+  position:absolute;width:1px;height:1px;min-height:0;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
+}
+.row-list.is-feature-list .row-item .card-stats,
+.row-list.is-feature-list .row-item .card-badges{display:none;}
+.row-list.is-feature-list .row-item p{
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;
+  overflow:hidden;min-height:0;margin-top:0;line-height:1.85;
+}
 .row-cat{
   flex:0 1 auto;min-width:0;text-align:right;margin-left:auto;
   font-size:10.5px;font-weight:700;letter-spacing:.04em;color:var(--muted);
@@ -2204,6 +2217,9 @@ body.has-sticky-cta .fab{bottom:96px;}
   .row-item .meta{font-size:10px;}
   .row-item .card-badges{margin-top:3px;}
   .row-item .card-stats.is-no-rating{min-height:17px;}
+  .row-list.is-feature-list .row-item p{
+    -webkit-line-clamp:6;line-height:1.7;
+  }
 
   .page-head{padding:22px 0 18px;}
   .article-wrap{padding:32px 0 56px;gap:44px;}
