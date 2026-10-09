@@ -41584,7 +41584,7 @@
    "バックアップ"
   ],
   "icon": "💻",
-  "thumb": "https://www.iodata.jp/image/hdl2-le_l.jpg",
+  "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/r-kojima/cabinet/n0000001236/4957180173344_1.jpg?_ex=128x128",
   "official_product_image": "https://www.iodata.jp/image/hdl2-le_l.jpg",
   "jan": "4957180173344",
   "asin": "",
@@ -41715,10 +41715,10 @@
   ],
   "rakuten_url": "https://item.rakuten.co.jp/pc-express/4957180173399/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
   "shop_images": {
-   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/pc-express/cabinet/noimage2.jpg?_ex=128x128"
+   "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/r-kojima/cabinet/n0000001236/4957180173344_1.jpg?_ex=128x128"
   },
   "shop_images_verified": {
-   "rakuten": false
+   "rakuten": true
   },
   "good_for": {
    "intro": "次のような環境なら、HDL2-LE04の機能が用途に直結します。",
@@ -41857,18 +41857,20 @@
    "rakuten": {
     "price": 4114,
     "postage_included": true,
-    "count": 3,
+    "count": 2,
     "average": 5.0,
-    "shops": 2
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "yahoo": {
     "price": 68280,
     "postage_included": true,
     "count": 1,
     "average": 0.0,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
-   "checked": "2026-10-07"
+   "checked": "2026-10-09"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.iodata.jp/product/nas/personal/hdl2-le/index.htm",
