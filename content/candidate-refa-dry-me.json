@@ -1,0 +1,42 @@
+{"items": [{
+  "name": "ReFa リファドライミー",
+  "category": "beauty",
+  "sub": "device",
+  "reviews": 118,
+  "rating": 4.61,
+  "price": 4400,
+  "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/mtgec-beauty/cabinet/refa/dry_me/08_refa_dry_me.jpg?_ex=600x600",
+  "images": {"rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/mtgec-beauty/cabinet/refa/dry_me/08_refa_dry_me.jpg?_ex=600x600"},
+  "rakuten_url": "https://item.rakuten.co.jp/mtgec-beauty/1229610101/",
+  "yahoo_url": "https://shopping.yahoo.co.jp/products/0b1ae59bae/review/4/",
+  "amazon_url": "",
+  "official_url": "https://www.mtgec.jp/shop/g/g1229610101/",
+  "official_ogp_image": "https://thumbnail.image.rakuten.co.jp/@0_mall/mtgec-beauty/cabinet/refa/dry_me/08_refa_dry_me.jpg?_ex=600x600",
+  "official_ogp_title": "リファドライミー（ヘアドライ用）",
+  "facts": [
+    "MTG ONLINESHOPの公式商品ページでリファドライミー（ブラック）を確認",
+    "公式商品ページでヘアドライ用ブラシとして案内され、ドライヤーの風を集めるウイング構造とピン設計を確認",
+    "公式商品ページでカラーはブラック、エムピンク、エムミントグリーン、エムパープルを確認",
+    "アットコスメの商品情報で内容量70gとJAN 4974011812296を確認"
+  ],
+  "source_notes": [
+    "MTG ONLINESHOPの公式商品ページで商品名・用途・構造・カラーを確認",
+    "Yahoo!ショッピングの商品レビュー一覧でリファドライミーの商品名、評価、本文を確認",
+    "アットコスメの商品情報で70gとJANを補助確認"
+  ],
+  "review_texts": [
+    {
+      "source": "Yahoo!ショッピング ReFa リファドライミー 個別商品レビュー",
+      "text": "濡れた髪をブラッシングしながら乾かせる、軽くて使いやすいという投稿がある。頭に沿うカーブが使いやすく、ドライヤー時間が短くなったという投稿も確認できる。"
+    },
+    {
+      "source": "Yahoo!ショッピング ReFa リファドライミー 個別商品レビュー",
+      "text": "一方で、ブラシが大きく感じる、形状や質感に慣れが必要という投稿もある。感じ方は髪の長さ・量・乾かし方で変わるため、購入前にサイズ感を確認する。"
+    }
+  ],
+  "trending": true,
+  "shops": {
+    "rakuten": {"price": 4400, "shop_name": "MTG ONLINESHOP", "postage_included": true, "reviews": 0, "rating": 0},
+    "yahoo": {"price": 4400, "shop_name": "MTGYahoo!ショッピング店", "postage_included": true, "reviews": 118, "rating": 4.61}
+  }
+}]}
