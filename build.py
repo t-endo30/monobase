@@ -184,6 +184,14 @@ INDEX_MIN_VIEWS = 5        # GA4の累計閲覧数。読まれている記事は
 INDEX_MIN_REVIEWS = 30     # 口コミ件数。数字の裏づけとして読める量
 INDEX_MIN_BODY = 1300      # 本文の文字数（見出しの下の段落の合計）
 
+def verified_review_stat(value):
+    """単一販売ページとして再確認できた口コミ件数だけを返す。"""
+    if not isinstance(value, dict) or not value.get("count"):
+        return None
+    if value.get("count_scope") != "single_listing" or value.get("shops") != 1:
+        return None
+    return int(value["count"])
+
 
 def indexable(a):
     if isinstance(a.get("index"), bool):
@@ -202,7 +210,7 @@ def indexable(a):
     if a.get("spec"):
         return True
     st = a.get("review_stats") or {}
-    count = max([v.get("count") or 0 for v in st.values() if isinstance(v, dict)],
+    count = max([verified_review_stat(v) or 0 for v in st.values()],
                 default=0)
     body = sum(len(p) for s in a.get("sections") or [] for p in s.get("paras") or [])
     return count >= INDEX_MIN_REVIEWS and body >= INDEX_MIN_BODY
@@ -1816,8 +1824,9 @@ def card_stats_data(a):
             # 送料込みかどうかは、その最安値を出している店のもの。
             # 別の店の条件を混ぜると、出している値段と噛み合わなくなる。
             ship = bool(v.get("postage_included"))
-        if v.get("count") and (not best_rv or int(v["count"]) > best_rv["count"]):
-            best_rv = {"count": int(v["count"]),
+        count = verified_review_stat(v)
+        if count and (not best_rv or count > best_rv["count"]):
+            best_rv = {"count": count,
                        "average": float(v.get("average") or 0)}
     out = {}
     if price:
@@ -2027,8 +2036,9 @@ def v2_home_stats(p, raw=False):
             continue
         for shop in ("rakuten", "yahoo"):
             v = st.get(shop)
-            if isinstance(v, dict) and v.get("count"):
-                voices += int(v["count"])
+            count = verified_review_stat(v)
+            if count:
+                voices += count
     if voices >= 10000:
         # 「670,873件の口コミを参照」と数字を先に置く（2026-09-29、
         # ユーザー判断。以前は「参考にした口コミ 670,873件」）。
@@ -2836,11 +2846,12 @@ def shop_stats(a):
             ship = "送料込" if v.get("postage_included") else "送料別"
             bits += (f'<span class="ps-price">¥{int(v["price"]):,}</span>'
                      f'<span class="ps-ship">{ship}</span>')
-        if v.get("count"):
+        count = verified_review_stat(v)
+        if count:
             avg = float(v.get("average") or 0)
             star = f'<span class="ps-star">★{avg:.2f}</span>' if avg else ""
             bits += (f'<span class="ps-rv">{star}'
-                     f'<span class="ps-n">口コミ{int(v["count"]):,}件</span></span>')
+                     f'<span class="ps-n">口コミ{count:,}件</span></span>')
         if bits:
             rows.append(f'<li class="is-{shop}">'
                         f'<span class="ps-shop">{e(SHOP_JA[shop])}</span>{bits}</li>')
