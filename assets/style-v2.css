@@ -2191,6 +2191,26 @@ body.has-sticky-cta .fab{bottom:96px;}
   }
   .row-item .meta{font-size:10px;}
 
+  /* 横長タイルの配置は、ホームのカルーセルだけ特別扱いにせず、
+     新着一覧・PICK・最近見た記事・ランキング一覧でも同じ中央基準に
+     そろえる。横幅のある箱を先に作らないと、align-items:start の影響で
+     文字幅の箱だけが左へ縮み、中央寄せが効かない。 */
+  .card-grid:not(.is-rank) > .card > :not(.card-thumb),
+  .row-item > .row-body{
+    align-self:stretch;width:100%;text-align:center;
+  }
+  .card-grid:not(.is-rank) > .card .card-stats,
+  .card-grid:not(.is-rank) > .card .card-badges,
+  .row-item .row-meta{
+    justify-content:center;
+  }
+  .card-grid:not(.is-rank) > .card .card-title,
+  .card-grid:not(.is-rank) > .card .card-note,
+  .row-item h3,
+  .row-item p{
+    text-align:center;
+  }
+
   .page-head{padding:22px 0 18px;}
   .article-wrap{padding:32px 0 56px;gap:44px;}
   .prose h2{font-size:18px;margin:40px 0 18px;}
