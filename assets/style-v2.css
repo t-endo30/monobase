@@ -3098,13 +3098,13 @@ p,li,.card-desc{text-wrap:pretty;}
   .table-scroll thead th:not(:first-child){min-width:clamp(140px,40vw,180px);}
 }
 .card-flags{position:absolute;
-  top:8px;left:8px;
+  top:8px;right:8px;left:auto;
   display:flex;
   gap:4px;
   z-index:2;
   pointer-events:none;}
 @media (max-width:599px){
-  .card-flags{top:6px;left:6px;}
+  .card-flags{top:6px;right:6px;left:auto;}
 }
 .rank-list{list-style:none;
   margin:0;
@@ -3856,10 +3856,9 @@ p,li,.card-desc{text-wrap:pretty;}
   min-width:0;}
 .card-head{margin-bottom:9px;}
 .rank-page .rank-box{padding:6px 6px 10px;}
-/* New / Hot の札は写真の左上に。順位の数字（.arow-no）も左上にあるときは、
-   重ならないようその右へずらす。 */
-.arow-thumb .card-flags{top:4px;left:4px;}
-.arow-thumb:has(.arow-no) .card-flags{left:28px;}
+/* New / Hot の札は写真の右上に置く。順位の数字は左上に残す。 */
+.arow-thumb .card-flags{top:4px;right:4px;left:auto;}
+.arow-thumb:has(.arow-no) .card-flags{right:4px;}
 /* ============================================================
    「当サイト独自評価」の札
    ------------------------------------------------------------
@@ -4528,10 +4527,9 @@ h1,h2,h3,h4,
   box-shadow:0 1px 4px rgba(0,0,0,.28);
 }
 .flag-new{background:var(--ink);color:#fff;}
-/* 札は日付の左に置く（2026-09-29、ユーザー判断。以前は写真の左上）。
-   main.js が札を付けたタイルだけ、札の箱を日付の直前へ移して is-inline を付ける。
-   写真の上ではないので、浮かせる影は要らない */
-.card-flags.is-inline{position:static;display:inline-flex;align-self:center;flex:0 0 auto;}
+/* 札はタイル内の右上に置く。古いHTMLに is-inline が残っていても
+   日付の横へ流れないよう、同じ位置に戻す。 */
+.card-flags.is-inline{position:absolute;top:8px;right:8px;left:auto;display:flex;align-self:auto;flex:0 0 auto;}
 .card-flags.is-inline .flag{box-shadow:none;}
 /* 札が付くと、幅の狭いタイルでは札＋日付＋VIEW が1行に入りきらない。
    PCは日付→VIEWの並びなので、入りきらない VIEW は次の行へ送る。 */
@@ -4566,9 +4564,9 @@ h1,h2,h3,h4,
     word-break:keep-all;overflow-wrap:anywhere;text-wrap:balance;}
   .article-page .toc li::before{position:absolute;left:0;top:7px;display:block;margin-right:0;}
 }
-/* 写真の左上。順位の札が乗るタイルには、そもそも札を出さない（main.js） */
+/* 写真の右上。順位の札が乗るタイルには、そもそもNew/Hotを出さない（main.js） */
 .card-thumb .card-flags,
-.row-item .thumb .card-flags{top:8px;left:8px;}
+.row-item .thumb .card-flags{top:8px;right:8px;left:auto;}
 
 /* ---- フッター上のAmazon導線 ----
    価格も商品画像もAmazonのロゴも使わず、文字とボタンだけで作る。 */
