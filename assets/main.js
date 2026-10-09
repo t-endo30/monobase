@@ -45,9 +45,9 @@ function cardHtml(a) {
     ' data-date="' + esc(a.d) + '">' +
     '<span class="card-thumb' + tcls + '"' + tattr + '>' +
       '<img src="' + esc(a.th) + '" alt="" loading="lazy">' +
-      '<span class="card-flags" aria-hidden="true"></span>' +
       /* カテゴリーは写真の右下の札。build.py の v2_card() と同じ並び */
       '<span class="card-cat">' + esc(a.c) + '</span></span>' +
+    '<span class="card-flags" aria-hidden="true"></span>' +
     '<span class="card-meta">' +
       '<span class="card-date">' + esc(a.d) + '</span>' +
       '<span class="card-views" hidden></span></span>' +
@@ -663,9 +663,9 @@ document.addEventListener('touchstart', function () {}, { passive: true });
               (it.shop ? ' data-shop="' + esc(it.shop) + '"' : '') +
               (it.asin ? ' data-asin="' + esc(it.asin) + '"' : '') + '>' +
             '<img src="' + esc(it.thumb) + '" alt="" loading="lazy" decoding="async">' +
-            '<span class="card-flags" aria-hidden="true"></span>' +
             '<span class="row-no is-n' + (i + 1) + '">' + no + '</span>' +
           '</span>' +
+          '<span class="card-flags" aria-hidden="true"></span>' +
           '<span class="row-body">' +
             '<h3>' + titleHtml(it.title) + '</h3>' +
             /* 価格・★の行。build.py が組んだ文字列をそのまま入れる

@@ -1976,7 +1976,7 @@ def v2_card(a, p, no=None, flags=""):
     cat_in = "" if flags == "feature" else f'<span class="card-cat card-cat-in">&nbsp;{e(cat)}&nbsp;</span>'
     thumb = (f'<span class="card-thumb{tcls}"{tsrc}><img src="{e(src)}" alt="" loading="lazy" '
              f'onerror="this.onerror=null;this.src=\'{e(fallback)}\';this.closest(\'.card-thumb\').classList.remove(\'is-shop\')">'
-             f'<span class="card-flags" aria-hidden="true"></span>{rank}'
+             f'{rank}'
              # カテゴリーは写真の右下に札で乗せる（2026-09-28、ユーザー指摘）。
              f'{cat_in}</span>')
     badges = (f'<span class="card-badges">'
@@ -1993,12 +1993,14 @@ def v2_card(a, p, no=None, flags=""):
         feature_badges = "" if flags == "feature" else badges
         # FEATUREだけは一言をバッジの前に置く。CSSの順序指定に頼らず、
         # 1行・2行のタイトルが混在しても全カードを同じ並びにする。
-        return href + thumb + title_html + feature_stats + feature_note + feature_badges + '</a>'
+        return (href + thumb + '<span class="card-flags" aria-hidden="true"></span>'
+                + title_html + feature_stats + feature_note + feature_badges + '</a>')
     meta = (f'<span class="card-meta">'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
             # 閲覧数は GA4 の実数（content/ranking.json）を assets/main.js が入れる。
             f'<span class="card-views" hidden></span></span>')
-    return href + thumb + badges + meta + title_html + stats + note + '</a>'
+    return (href + thumb + '<span class="card-flags" aria-hidden="true"></span>'
+            + badges + meta + title_html + stats + note + '</a>')
 
 
 def v2_row(a, p, numbered=None, detail=False, flags="", feature_list=False):
@@ -2023,7 +2025,8 @@ def v2_row(a, p, numbered=None, detail=False, flags="", feature_list=False):
             f'data-date="{e(a.get("date",""))}"{fl}>'
             f'<span class="thumb{tcls}"{tsrc}><img src="{e(src)}" alt="" loading="lazy" '
             f'onerror="this.onerror=null;this.src=\'{e(fallback)}\';this.closest(\'.thumb\').classList.remove(\'is-shop\')">'
-            f'<span class="card-flags" aria-hidden="true"></span>{no}</span>'
+            f'{no}</span>'
+            f'<span class="card-flags" aria-hidden="true"></span>'
             f'<span class="row-body">'
             f'<h3>{v2_title(a["title"])}</h3>'
             f'{stats}'

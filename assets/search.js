@@ -119,8 +119,8 @@ function titleHtml(t) {
         '" data-date="' + esc(item.date || '') + '">' +
       '<span class="thumb">' +
           '<img src="./' + esc(item.thumb) + '" alt="" loading="lazy" decoding="async">' +
-          '<span class="card-flags" aria-hidden="true"></span>' +
         '</span>' +
+        '<span class="card-flags" aria-hidden="true"></span>' +
         '<span class="row-body">' +
           '<h3>' + titleHtml(highlight(item.title, terms)) + '</h3>' +
           statsHtml(item.st) +
