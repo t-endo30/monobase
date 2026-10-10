@@ -51,6 +51,14 @@ function titleHtml(t) {
     });
   }
 
+  function thumbUrl(src) {
+    src = String(src || '');
+    /* 商品画像は絶対URLで格納される。絶対URLに ./ を足すと
+       monobase.site/https://... になり、検索結果だけ画像が壊れる。 */
+    if (/^(?:https?:)?\/\//i.test(src) || src.charAt(0) === '/') return src;
+    return './' + src.replace(/^\.\//, '');
+  }
+
   /* ---- スコアリング：タイトル一致を最優先 ---- */
   function score(item, terms) {
     if (!terms.length) return 1;
@@ -118,7 +126,7 @@ function titleHtml(t) {
         ' data-cat="' + esc(item.cat || '') + '" data-slug="' + esc(item.slug || '') +
         '" data-date="' + esc(item.date || '') + '">' +
       '<span class="thumb">' +
-          '<img src="./' + esc(item.thumb) + '" alt="" loading="lazy" decoding="async">' +
+          '<img src="' + esc(thumbUrl(item.thumb)) + '" alt="" loading="lazy" decoding="async">' +
         '</span>' +
         '<span class="card-flags" aria-hidden="true"></span>' +
         '<span class="row-body">' +

@@ -2251,13 +2251,6 @@ var monoPromos = (function () {
         }
       });
       b.appendChild(copy);
-    } else {
-      var off = document.createElement('a');
-      off.href = '?notrack=0';
-      off.title = '押すと運営者モードを解除します（計測・広告が通常に戻ります）';
-      off.textContent = '解除';
-      off.style.cssText = 'color:#fff;text-decoration:underline;cursor:pointer;';
-      b.appendChild(off);
     }
     document.body.appendChild(b);
   }
