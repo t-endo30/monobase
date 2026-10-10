@@ -2251,14 +2251,6 @@ var monoPromos = (function () {
         }
       });
       b.appendChild(copy);
-      var off = document.createElement('a');
-      var offUrl = new URL(location.href);
-      offUrl.searchParams.set('preview', 'normal');
-      off.href = offUrl.href;
-      off.textContent = '解除';
-      off.title = '家族閲覧モードを解除';
-      off.style.cssText = 'color:#fff;text-decoration:underline;cursor:pointer;';
-      b.appendChild(off);
     } else {
       var off = document.createElement('a');
       off.href = '?notrack=0';
