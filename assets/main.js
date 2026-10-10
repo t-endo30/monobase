@@ -2159,9 +2159,14 @@ var monoPromos = (function () {
   'use strict';
   var owner = false;
   var family = false;
+  var familyKey = 'mb.family-preview';
   try { owner = localStorage.getItem('mb.notrack') === '1'; } catch (e) {}
-  try { family = new URL(location.href).searchParams.get('preview') === 'family'; }
-  catch (e) {}
+  try {
+    var preview = new URL(location.href).searchParams.get('preview');
+    if (preview === 'family') sessionStorage.setItem(familyKey, '1');
+    if (preview === 'normal') sessionStorage.removeItem(familyKey);
+    family = preview === 'family' || sessionStorage.getItem(familyKey) === '1';
+  } catch (e) {}
   if (!owner && !family) return;
 
   var AFF = /(^|\.)(amazon\.co\.jp|amzn\.to|amzn\.asia|rakuten\.co\.jp|valuecommerce\.com|valuecommerce\.ne\.jp|a8\.net|shopping\.yahoo\.co\.jp|paypaymall\.yahoo\.co\.jp|moshimo\.com|accesstrade\.net|afi-b\.com|linksynergy\.com|googleadservices\.com|doubleclick\.net)$/;
@@ -2204,6 +2209,22 @@ var monoPromos = (function () {
     document.addEventListener(t, block, true);
   });
 
+  /* 家族閲覧中の内部遷移にも一時指定を引き継ぐ。セッションにも記録して
+     いるので、JavaScript遷移や履歴移動でクエリが落ちてもモードは続く。 */
+  function keepFamily(ev) {
+    if (!family || ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+    var a = ev.target && ev.target.closest && ev.target.closest('a[href]');
+    if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+    try {
+      var u = new URL(a.href, location.href);
+      if (u.origin !== location.origin || (u.protocol !== 'http:' && u.protocol !== 'https:')) return;
+      if (u.searchParams.get('preview') === 'normal') return;
+      u.searchParams.set('preview', 'family');
+      a.href = u.href;
+    } catch (e) {}
+  }
+  document.addEventListener('click', keepFamily, true);
+
   /* モード中だと分かる印。家族閲覧モードでは通常URLをコピーできる。 */
   function badge() {
     var b = document.createElement('div');
@@ -2230,6 +2251,14 @@ var monoPromos = (function () {
         }
       });
       b.appendChild(copy);
+      var off = document.createElement('a');
+      var offUrl = new URL(location.href);
+      offUrl.searchParams.set('preview', 'normal');
+      off.href = offUrl.href;
+      off.textContent = '解除';
+      off.title = '家族閲覧モードを解除';
+      off.style.cssText = 'color:#fff;text-decoration:underline;cursor:pointer;';
+      b.appendChild(off);
     } else {
       var off = document.createElement('a');
       off.href = '?notrack=0';

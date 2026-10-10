@@ -29,14 +29,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" media="print" onload="this.media='all';this.onload=null">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap"></noscript>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&text=%E3%82%B9%E3%83%8E%E3%83%99%E3%83%A2%E3%83%BC&display=swap" media="print" onload="this.media='all';this.onload=null">
-<link rel="stylesheet" href="../assets/style-v2.css?v=5923d64e">
+<link rel="stylesheet" href="../assets/style-v2.css?v=6a298e37">
 <script>
   (function () {
     var off = location.hostname !== 'monobase.site';
     try {
       var q = /[?&]notrack=([01])/.exec(location.search);
       if (q) localStorage.setItem('mb.notrack', q[1]);
-      if (localStorage.getItem('mb.notrack') === '1' || /[?&]preview=family(?:&|$)/.test(location.search)) off = true;
+      if (/[?&]preview=family(?:&|$)/.test(location.search)) sessionStorage.setItem('mb.family-preview', '1');
+      if (/[?&]preview=normal(?:&|$)/.test(location.search)) sessionStorage.removeItem('mb.family-preview');
+      if (localStorage.getItem('mb.notrack') === '1' || /[?&]preview=family(?:&|$)/.test(location.search) || sessionStorage.getItem('mb.family-preview') === '1') off = true;
     } catch (err) {}
     if (off) window['ga-disable-G-YJ85V2J7EK'] = true;
   })();
@@ -49,7 +51,7 @@
   gtag('config', 'G-YJ85V2J7EK');
 </script>
 <script>(function () {
-  try { if (localStorage.getItem('mb.notrack') === '1' || /[?&]preview=family(?:&|$)/.test(location.search)) return; } catch (err) {}
+  try { if (/[?&]preview=family(?:&|$)/.test(location.search)) sessionStorage.setItem('mb.family-preview', '1'); if (/[?&]preview=normal(?:&|$)/.test(location.search)) sessionStorage.removeItem('mb.family-preview'); if (localStorage.getItem('mb.notrack') === '1' || /[?&]preview=family(?:&|$)/.test(location.search) || sessionStorage.getItem('mb.family-preview') === '1') return; } catch (err) {}
   var s = document.createElement('script');
   s.async = true; s.crossOrigin = 'anonymous'; s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4017242913861863";
   document.head.appendChild(s);
@@ -710,7 +712,7 @@
 
 <button class="to-top" id="toTop" aria-label="ページ上部へ戻る">▲</button>
 
-<script src="../assets/main.js?v=5923d64e" defer></script>
+<script src="../assets/main.js?v=6a298e37" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "ロジクール MX Master 3S（MX2300CR）アドバンス ワイヤレスマウス｜仕様と購入前の確認点", "description": "ロジクール MX Master 3S アドバンス ワイヤレスマウスの確認済み仕様と、購入前に確認したい寸法・接続方式・SKUごとの違いを整理。静音クリックの騒音値は公表されていません。", "datePublished": "2026-08-24", "dateModified": "2026-10-09", "author": {"@type": "Person", "name": "モノベース運営事務局", "url": "https://monobase.site/about"}, "publisher": {"@type": "Organization", "name": "モノベース", "url": "https://monobase.site", "logo": {"@type": "ImageObject", "url": "https://monobase.site/assets/img/apple-touch-icon.png", "width": 180, "height": 180}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://monobase.site/articles/mx-master-3s-review"}, "inLanguage": "ja", "keywords": "ロジクール、MX Master 3S、ワイヤレスマウス、静音クリック"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://monobase.site/"}, {"@type": "ListItem", "position": 2, "name": "パソコン", "item": "https://monobase.site/category-pc"}, {"@type": "ListItem", "position": 3, "name": "ロジクール MX Master 3S アドバンス ワイヤレスマウスの仕様と選び方", "item": "https://monobase.site/articles/mx-master-3s-review"}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "クリック音は何dBですか。", "acceptedAnswer": {"@type": "Answer", "text": "メーカーは静音クリックと説明していますが、騒音値（dB）は公表されていません。騒音値がないため、数値による比較はできません。必要な音量水準がある場合は、販売ページの追加情報や購入前に確認できる実機情報を確認してください。"}}, {"@type": "Question", "name": "購入する商品にもLogi Bolt USB-Cレシーバーが付属しますか。", "acceptedAnswer": {"@type": "Answer", "text": "SKUによって付属レシーバーが異なる場合があります。販売ページの型番と同梱物を注文前に確認してください。"}}, {"@type": "Question", "name": "寸法や重量はどのSKUでも同じですか。", "acceptedAnswer": {"@type": "Answer", "text": "根拠データにある84.3×124.9×51mm、141g（電池含む）はMX Master 3S Bluetooth edition（MX2300CR）についての公表値です。購入予定SKUの商品情報を確認してください。"}}, {"@type": "Question", "name": "バッテリーはどのくらい持ちますか。", "acceptedAnswer": {"@type": "Answer", "text": "MX2300CRについて、メーカー公表仕様は充電式リチウムポリマー電池でフル充電から最長70日間です。別SKUの場合は、そのSKUの商品情報をご確認ください。"}}, {"@type": "Question", "name": "購入時に保証期間も確認したほうがよいですか。", "acceptedAnswer": {"@type": "Answer", "text": "はい。根拠データでは、SKUによって保証期間が1年または2年とされています。販売ページの保証条件を確認してください。"}}]}</script>
