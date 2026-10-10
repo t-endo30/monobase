@@ -11,12 +11,11 @@
 
 下書きは published=false で作る。公開は管理画面から手で行う。
 
-Amazonへの導線は、どの下書きにも必ず1本入れる。候補は楽天とYahoo!の
-商品検索から集めるので、Amazonの商品ページ（ASIN）は分からない。その
-場合はAmazonの検索結果へのリンクを入れておく。ASINが分かったら記事の
-asin を埋めれば、商品ページへの直リンクに切り替わる。
+個別商品記事は、AmazonのASINまたは個別商品URLと、楽天またはYahoo!の
+個別商品URL・確認済み商品画像がそろった候補だけを下書きにする。Amazonの
+検索結果URLは商品を特定できないため、Amazon導線として扱わない。
 """
-import json, io, os, re, sys, time, argparse, urllib.parse
+import json, io, os, re, sys, time, argparse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -93,25 +92,32 @@ def clean_name(s):
     return MALL_HEAD.sub("", s).strip()
 
 
-def amazon_search_url(name, jan=""):
-    """Amazonの検索結果へのリンクを作る。
+ASIN_RE = re.compile(r"^[A-Z0-9]{10}$", re.I)
+AMAZON_PRODUCT_RE = re.compile(
+    r"^https?://(?:www\.)?amazon\.co\.jp/"
+    r"(?:dp|gp/product|gp/aw/d)/[A-Z0-9]{10}(?:[/?#]|$)", re.I)
 
-       候補は楽天とYahoo!の商品検索から集めているため、Amazonの商品ページ
-       （ASIN）は分からない。PA-APIの承認が下りるまで、これは埋まらない。
-       それでも記事にはAmazonへの導線を必ず1本置く。読者の多くはAmazonで
-       買うため、経路が無い記事は取りこぼしになる。
 
-       JANがあれば型番で絞れるので、それを検索語にする。無ければ商品名。
-       アソシエイトIDは build.py の amazon_tagged が付ける（Amazonは
-       検索結果へのリンクでも成果を計上する）。
+def has_amazon_product(value):
+    """検索結果URLではなく、商品を一意に指すAmazon導線か判定する。"""
+    value = str(value or "").strip()
+    return bool(ASIN_RE.fullmatch(value) or AMAZON_PRODUCT_RE.match(value))
 
-       ASINが分かったら記事の asin を埋めればよい。build.py は asin を
-       優先するので、商品ページへの直リンクに自動で切り替わる。"""
-    q = str(jan or "").strip() or str(name or "").strip()
-    if not q:
-        return ""
-    return ("https://www.amazon.co.jp/s?k="
-            + urllib.parse.quote(q, safe="") + "&i=aps")
+
+def has_verified_candidate_image(candidate):
+    """下書き化した時点でサムネイルへ引き継げる画像があるか判定する。
+
+    `image` 単体はどの商品ページ由来か分からないため採用せず、記事に
+    引き継ぐショップURLと同じキーの画像だけを対象にする。
+    """
+    images = candidate.get("images") or {}
+    for shop, url_key in (("rakuten", "rakuten_url"), ("yahoo", "yahoo_url")):
+        image = str(images.get(shop) or "").strip()
+        if (candidate.get(url_key) and
+                image.startswith(("http://", "https://"))):
+            return True
+    official = str(candidate.get("official_product_image") or "").strip()
+    return official.startswith(("http://", "https://"))
 
 
 # URLに使わない語。数字だけ・単位つき・売り文句は、商品を指さない。
@@ -248,23 +254,21 @@ def make_draft(c, site, taken):
         value = c.get(key)
         if value:
             a[key] = value
-    # Amazonへの導線は必ず1本入れる。商品ページが分からないときは検索結果へ。
-    if not (a.get("asin") or a.get("amazon_url")):
-        a["amazon_url"] = amazon_search_url(name, c.get("jan"))
     return a
 
 
 def fill_existing(dry_run):
-    """すでにある記事で、Amazonへの導線が無いものに検索リンクを入れる。
+    """既存記事のAmazon導線不足を報告する（検索結果URLは自動追加しない）。
 
-       対象は商品を1つ扱っている記事だけ。特集や選び方の記事は、扱う商品が
-       1つに決まらないため、商品名で検索させても読者の役に立たない。
-       楽天かYahoo!の商品URL、またはJANを持っていることを目印にする。"""
+       検索結果URLは商品を一意に特定できず、Amazonの商品リンクとして
+       扱えない。ASINまたは個別商品URLは、商品同定を確認したうえで
+       明示的に補う。
+    """
     path = os.path.join(ROOT, "content", "articles.json")
     arts = json.load(io.open(path, encoding="utf-8"))
     done, skipped = [], []
     for a in arts:
-        if (a.get("asin") or "").strip() or (a.get("amazon_url") or "").strip():
+        if has_amazon_product(a.get("asin")) or has_amazon_product(a.get("amazon_url")):
             continue
         product = bool(a.get("jan") or a.get("rakuten_url") or a.get("yahoo_url"))
         # 「｜」以降の説明と、末尾の「レビュー」「口コミ」を落として商品名にする
@@ -275,22 +279,13 @@ def fill_existing(dry_run):
         if not product or not name:
             skipped.append(a.get("slug", ""))
             continue
-        a["amazon_url"] = amazon_search_url(name, a.get("jan"))
         done.append((a.get("slug", ""), name))
 
-    print(f"Amazonへの導線が無い記事：{len(done) + len(skipped)} 本")
+    print(f"Amazonの個別商品導線が無い記事：{len(done) + len(skipped)} 本")
     for slug, name in done:
-        print(f"  埋める  {slug}  ← 「{name[:34]}」で検索")
+        print(f"  要確認  {slug}  ← 「{name[:34]}」のASINまたは個別商品URLが必要")
     for slug in skipped:
         print(f"  見送り  {slug}（商品を1つに絞れない記事）")
-    if not done:
-        return 0
-    if dry_run:
-        print("\n（--dry-run のため書き込んでいません）")
-        return 0
-    with io.open(path, "w", encoding="utf-8") as f:
-        json.dump(arts, f, ensure_ascii=False, indent=1)
-    print(f"\n{len(done)} 本に書き込みました。python3 build.py で反映します。")
     return 0
 
 
@@ -302,7 +297,7 @@ def main():
     ap.add_argument("--allow-unidentifiable", action="store_true",
                     help="メーカー名・型番を特定できない候補も下書きにする")
     ap.add_argument("--fill-existing", action="store_true",
-                    help="すでにある記事のうち、Amazonへの導線が無いものを埋める")
+                    help="Amazon個別商品導線が無い既存記事を報告する")
     args = ap.parse_args()
 
     if args.fill_existing:
@@ -379,12 +374,20 @@ def main():
             unidentifiable.append(name)
             continue
         # 根拠ゲートと公開条件を満たせない候補は、本文生成前に落とす。
-        # Amazon検索URLだけの商品は、生成してから不合格にするより
-        # 次候補へ進むほうが速い。一方、候補収集直後は画像情報が未取得の
-        # ことがあるため、サムネイル判定は既存の画像取得・レビュー側に任せる。
+        # Amazon検索URLだけの商品は個別商品を特定できず、Amazon導線として
+        # 扱わない。楽天またはYahoo!の商品画像が同じ商品ページから確認
+        # できる候補だけを本文生成へ送る。
+        has_amazon = (has_amazon_product(c.get("asin")) or
+                      has_amazon_product(c.get("amazon_url")))
+        if not has_amazon:
+            print(f"Amazon個別商品導線不足のため事前スキップ: {name[:50]}")
+            continue
         has_shop_url = bool(c.get("rakuten_url") or c.get("yahoo_url"))
         if not has_shop_url:
             print(f"個別販売URL不足のため事前スキップ: {name[:50]}")
+            continue
+        if not has_verified_candidate_image(c):
+            print(f"楽天/Yahoo!の商品画像不足のため事前スキップ: {name[:50]}")
             continue
         # 通常の自動候補は、公式資料・確認済みの根拠・レビュー本文が
         # 付いていないものを本文生成へ送らない。これらを後段のGPT校閲で
