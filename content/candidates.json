@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-10T09:11:56+09:00",
+ "generated": "2026-10-10T14:59:58+09:00",
  "count": 30,
  "items": [
   {
@@ -60,7 +60,7 @@
    "category": "kitchen",
    "sub": "appliance",
    "reviews": 2724,
-   "rating": 4.41,
+   "rating": 4.42,
    "price": 4980,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/myhomeshop/cabinet/10352264/11477094/11675980/imgrc0332213479.jpg?_ex=128x128",
    "images": {
@@ -76,33 +76,33 @@
      "shop_name": "My Home Shop 日用品楽天市場店",
      "postage_included": true,
      "reviews": 2724,
-     "rating": 4.41
+     "rating": 4.42
     }
    }
   },
   {
-   "name": "Hakusan ハクサン ゼロハーネス 犬 犬用ハーネス 小型犬 大型犬 中型犬 抜けない 脱げない 負担が少ない クッション 散歩 お出かけ 丈夫 頑丈 Y型 気管 喉に優しい 気管虚脱 脇擦れ対策 簡単装着 サイズ調整 トレーニング 首 快適 軽量 胴輪",
+   "name": "犬 ハーネス 負担が少ない 着けやすい 簡単装着 快適 メッシュ 小型犬 中型犬 大型犬 Truelove アウトドア 散歩 ひっぱり防止 しつけ トレーニング 耐久性抜群 丈夫 ナイロン ソフトパッド 軽量 新型バックル イージークリックハーネス TLH5653 TLH56512",
    "jan": "",
    "category": "pet",
    "sub": "dog",
-   "reviews": 60,
-   "rating": 4.75,
-   "price": 4950,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/tsumugu-d/cabinet/homepage/hakusan/imgrc0083961573.jpg?_ex=128x128",
+   "reviews": 120,
+   "rating": 4.73,
+   "price": 4380,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/wansuku/cabinet/tlh56512/tlh56512sam9.jpg?_ex=128x128",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tsumugu-d/cabinet/homepage/hakusan/imgrc0083961573.jpg?_ex=128x128"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/wansuku/cabinet/tlh56512/tlh56512sam9.jpg?_ex=128x128"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/tsumugu-d/zeroharness_01/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/wansuku/tlh56512/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": true,
    "shops": {
     "rakuten": {
-     "price": 4950,
-     "shop_name": "つむぐデザイン",
+     "price": 4380,
+     "shop_name": "Wanwan Square Garden",
      "postage_included": true,
-     "reviews": 60,
-     "rating": 4.75
+     "reviews": 120,
+     "rating": 4.73
     }
    }
   },
@@ -185,32 +185,6 @@
    }
   },
   {
-   "name": "Anker Soundcore 3 (Bluetooth スピーカー)【イコライザー設定 チタニウムドライバー BassUpテクノロジー PartyCast機能 IPX7 防水規格 24時間連続再生 USB-C接続】",
-   "jan": "",
-   "category": "av",
-   "sub": "speaker",
-   "reviews": 1243,
-   "rating": 4.63,
-   "price": 6990,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/anker/cabinet/daily/point/a3117_p20_261010.jpg?_ex=128x128",
-   "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/anker/cabinet/daily/point/a3117_p20_261010.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/anker/a3117/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "",
-   "amazon_url": "",
-   "trending": true,
-   "shops": {
-    "rakuten": {
-     "price": 6990,
-     "shop_name": "アンカー・ダイレクト楽天市場店",
-     "postage_included": true,
-     "reviews": 1243,
-     "rating": 4.63
-    }
-   }
-  },
-  {
    "name": "低温 ドライヤー ヘアドライヤー ドライヤー 大風量 速乾 6億マイナスイオン 高速ドライヤー 軽量 静電気除去 コンパクト 人気 髪質改善 美容家電 ヘアケア 美髪 1300W 時短 静音 恒温 ヘアサロン",
    "jan": "",
    "category": "beauty",
@@ -289,28 +263,28 @@
    }
   },
   {
-   "name": "タオル 6枚 セット フェイスタオル 8年タオル 色が選べる 綿100 速乾 送料無料 240匁 業務用 まとめ買い [M便 1/1] f1014",
+   "name": "【ふるさと納税】 今治タオル ふわふわ 贅沢 フェイスタオル 3〜12枚セット＜オフホワイト ライトブラウン ミストグレー アクア モスピンク チャコール＞ヒオリエ【I001160】 愛媛県 今治フェイスタオル 高級タオル フェイスタオルセット ふんわりタオル ふるさと納税制度",
    "jan": "",
    "category": "daily",
    "sub": "misc",
-   "reviews": 8023,
-   "rating": 4.52,
-   "price": 1920,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/takatoshi-bussan/cabinet/8171-8ft6emb-sam.jpg?_ex=128x128",
+   "reviews": 639,
+   "rating": 4.8,
+   "price": 13000,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/f382027-imabari/cabinet/syashin1/10279645/12648268/fface_01.jpg?_ex=128x128",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/takatoshi-bussan/cabinet/8171-8ft6emb-sam.jpg?_ex=128x128"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/f382027-imabari/cabinet/syashin1/10279645/12648268/fface_01.jpg?_ex=128x128"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/takatoshi-bussan/towel_1f_2830/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/f382027-imabari/i001160/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": true,
    "shops": {
     "rakuten": {
-     "price": 1920,
-     "shop_name": "8年タオルのお店 ふわりら",
+     "price": 13000,
+     "shop_name": "愛媛県今治市",
      "postage_included": true,
-     "reviews": 8023,
-     "rating": 4.52
+     "reviews": 639,
+     "rating": 4.8
     }
    }
   },
@@ -419,62 +393,28 @@
    }
   },
   {
-   "name": "＼クーポンで10％OFF／パソコンケース ノートパソコン 13.3インチ 14.1インチ 15.6インチ ケース PC pcケース 撥水 パソコンバッグ インナーバッグ 就活 インナーケース タブレットケース 学校用 軽量 衝撃吸収",
+   "name": "【公式】ZERO ウイルスセキュリティ 1台用 無期限【ダウンロード版】DL_SNR [Windows / Mac / iOS / Android対応][セキュリティソフト]セキュリティウイルス対策 更新料無料",
    "jan": "",
    "category": "pc",
-   "sub": "tablet",
-   "reviews": 2676,
-   "rating": 4.62,
-   "price": 2180,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/travel-depart/cabinet/thumbnail001/pc0805.jpg?_ex=128x128",
+   "sub": "software",
+   "reviews": 792,
+   "rating": 4.49,
+   "price": 2970,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/pocketalk/cabinet/shuppin6/vs_dl_test.jpg?_ex=128x128",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/travel-depart/cabinet/thumbnail001/pc0805.jpg?_ex=128x128"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/pocketalk/cabinet/shuppin6/vs_dl_test.jpg?_ex=128x128"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/travel-depart/various-10-2/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/pocketalk/0000274750/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
-   "trending": false,
+   "trending": true,
    "shops": {
     "rakuten": {
-     "price": 2180,
-     "shop_name": "リバーブ セレクト",
+     "price": 2970,
+     "shop_name": "ソースネクスト 公式ショップ",
      "postage_included": true,
-     "reviews": 2676,
-     "rating": 4.62
-    }
-   }
-  },
-  {
-   "name": "Anker SoundCore 2 (12W Bluetooth 6.0 スピーカー 24時間連続再生)【完全ワイヤレスステレオ対応/強化された低音 / IPX7防水規格】",
-   "jan": "4571411186158",
-   "category": "av",
-   "sub": "speaker",
-   "reviews": 2656,
-   "rating": 5.0,
-   "price": 5290,
-   "image": "https://item-shopping.c.yimg.jp/i/g/ankerdirect_a3105",
-   "images": {
-    "yahoo": "https://item-shopping.c.yimg.jp/i/g/ankerdirect_a3105",
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/lifestyle-007/cabinet/new_thumbnail/72087.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/lifestyle-007/72087/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "https://store.shopping.yahoo.co.jp/ankerdirect/a3105.html",
-   "amazon_url": "",
-   "trending": false,
-   "shops": {
-    "yahoo": {
-     "price": 5290,
-     "shop_name": "AnkerDirect",
-     "postage_included": true,
-     "reviews": 2656,
-     "rating": 4.61
-    },
-    "rakuten": {
-     "price": 5690,
-     "shop_name": "ライフスタイル 生活のお手伝い",
-     "postage_included": true,
-     "reviews": 1,
-     "rating": 5.0
+     "reviews": 792,
+     "rating": 4.49
     }
    }
   },
@@ -609,28 +549,28 @@
    }
   },
   {
-   "name": "【まとめ買い対象】【ご愛顧SALE】ラディカ 犬 ハーネス 小型犬 犬用 犬具 radica 迷子防止 脱走防止 胴輪 散歩 お出かけ 簡単装着 おしゃれ かわいい ブランド 交換OK/返品不可 メール便可 RADICA+Y ハーネス 単品 S M L LL MF",
+   "name": "Hakusan ハクサン ゼロハーネス 犬 犬用ハーネス 小型犬 大型犬 中型犬 抜けない 脱げない 負担が少ない クッション 散歩 お出かけ 丈夫 頑丈 Y型 気管 喉に優しい 気管虚脱 脇擦れ対策 簡単装着 サイズ調整 トレーニング 首 快適 軽量 胴輪",
    "jan": "",
    "category": "pet",
    "sub": "dog",
-   "reviews": 2593,
-   "rating": 4.61,
-   "price": 2990,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/radica/cabinet/2026ss/r5031-rstamp_a.jpg?_ex=128x128",
+   "reviews": 60,
+   "rating": 4.75,
+   "price": 4950,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/tsumugu-d/cabinet/homepage/hakusan/imgrc0083961573.jpg?_ex=128x128",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/radica/cabinet/2026ss/r5031-rstamp_a.jpg?_ex=128x128"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tsumugu-d/cabinet/homepage/hakusan/imgrc0083961573.jpg?_ex=128x128"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/radica/r5031-0126/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/tsumugu-d/zeroharness_01/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": true,
    "shops": {
     "rakuten": {
-     "price": 2990,
-     "shop_name": "犬の服 RADICA(ラディカ)",
-     "postage_included": false,
-     "reviews": 2593,
-     "rating": 4.61
+     "price": 4950,
+     "shop_name": "つむぐデザイン",
+     "postage_included": true,
+     "reviews": 60,
+     "rating": 4.75
     }
    }
   },
@@ -687,54 +627,28 @@
    }
   },
   {
-   "name": "MS Office 2024 H&B 搭載｜中古 2in1 ノートパソコン Windows11 Office付き｜HP Elite Dragonfly 2in1｜Core i5 第8世代 8265U メモリ 8GB SSD 256GB 13.3型 FHD 1,920×1,080 タッチパネル WEBカメラ LTE 対応｜中古 パソコン 2-in-1 タブレットPC",
+   "name": "＼クーポンで10％OFF／パソコンケース ノートパソコン 13.3インチ 14.1インチ 15.6インチ ケース PC pcケース 撥水 パソコンバッグ インナーバッグ 就活 インナーケース タブレットケース 学校用 軽量 衝撃吸収",
    "jan": "",
    "category": "pc",
    "sub": "tablet",
-   "reviews": 1522,
-   "rating": 4.45,
-   "price": 42800,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/upc1114/cabinet/12072869/13126322/imgrc0115898649.jpg?_ex=128x128",
+   "reviews": 2676,
+   "rating": 4.62,
+   "price": 2180,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/travel-depart/cabinet/thumbnail001/pc0805.jpg?_ex=128x128",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/upc1114/cabinet/12072869/13126322/imgrc0115898649.jpg?_ex=128x128"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/travel-depart/cabinet/thumbnail001/pc0805.jpg?_ex=128x128"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/upc1114/10000203/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/travel-depart/various-10-2/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": false,
    "shops": {
     "rakuten": {
-     "price": 42800,
-     "shop_name": "中古パソコン 遼南商店",
+     "price": 2180,
+     "shop_name": "リバーブ セレクト",
      "postage_included": true,
-     "reviews": 1522,
-     "rating": 4.45
-    }
-   }
-  },
-  {
-   "name": "Marshall 公式ストア EMBERTON III Bluetoothスピーカー マーシャル エンバートン3 EMBERTON3 国内正規品 防水 防塵 大音量 高音質 持ち運び 小型 ワイヤレス お風呂 屋外 アウトドア 重低音 IP67 32時間 急速充電 プレゼント ギフト おしゃれ ポータブル マイク",
-   "jan": "",
-   "category": "av",
-   "sub": "speaker",
-   "reviews": 302,
-   "rating": 4.88,
-   "price": 28980,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/marshall-official/cabinet/portable_speakers/emberton3/imgrc0122980681.jpg?_ex=128x128",
-   "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/marshall-official/cabinet/portable_speakers/emberton3/imgrc0122980681.jpg?_ex=128x128"
-   },
-   "rakuten_url": "https://item.rakuten.co.jp/marshall-official/7340055399449/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
-   "yahoo_url": "",
-   "amazon_url": "",
-   "trending": true,
-   "shops": {
-    "rakuten": {
-     "price": 28980,
-     "shop_name": "Marshall公式ストア",
-     "postage_included": true,
-     "reviews": 302,
-     "rating": 4.88
+     "reviews": 2676,
+     "rating": 4.62
     }
    }
   },
@@ -787,6 +701,84 @@
      "postage_included": true,
      "reviews": 697,
      "rating": 4.44
+    }
+   }
+  },
+  {
+   "name": "48H限定！クーポンで2,780円【楽天1位&ヘルメット対応】 レインコート 自転車 通学 通勤 リュック 保育園 レインポンチョ 二重ツバ 反射テープ アウトドア キャンプ 防災 バイク 野外フェスレインコート 安全ロング丈 クリア視野 リュック対応 カッパ ランドセル対応",
+   "jan": "",
+   "category": "fashion",
+   "sub": "bag",
+   "reviews": 9117,
+   "rating": 4.26,
+   "price": 5380,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/azusa/cabinet/rain/109yy_main05.jpg?_ex=128x128",
+   "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/azusa/cabinet/rain/109yy_main05.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/azusa/b1yy109he/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "yahoo_url": "",
+   "amazon_url": "",
+   "trending": false,
+   "shops": {
+    "rakuten": {
+     "price": 5380,
+     "shop_name": "春夏秋冬",
+     "postage_included": true,
+     "reviews": 9117,
+     "rating": 4.26
+    }
+   }
+  },
+  {
+   "name": "タオル 6枚 セット フェイスタオル 8年タオル 色が選べる 綿100 速乾 送料無料 240匁 業務用 まとめ買い [M便 1/1] f1014",
+   "jan": "",
+   "category": "daily",
+   "sub": "misc",
+   "reviews": 8023,
+   "rating": 4.52,
+   "price": 1920,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/takatoshi-bussan/cabinet/8171-8ft6emb-sam.jpg?_ex=128x128",
+   "images": {
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/takatoshi-bussan/cabinet/8171-8ft6emb-sam.jpg?_ex=128x128"
+   },
+   "rakuten_url": "https://item.rakuten.co.jp/takatoshi-bussan/towel_1f_2830/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "yahoo_url": "",
+   "amazon_url": "",
+   "trending": false,
+   "shops": {
+    "rakuten": {
+     "price": 1920,
+     "shop_name": "8年タオルのお店 ふわりら",
+     "postage_included": true,
+     "reviews": 8023,
+     "rating": 4.52
+    }
+   }
+  },
+  {
+   "name": "【10/10注目商品】硬度NO1【評価1100件越え】フライパン 26cm 人気 IH対応 ガス火 焦げ付きにくい ダイヤモンド 送料無料- 80N◇ CFダイヤフライパン",
+   "jan": "",
+   "category": "kitchen",
+   "sub": "tool",
+   "reviews": 1289,
+   "rating": 3.88,
+   "price": 1779,
+   "image": "https://item-shopping.c.yimg.jp/i/g/top1-price_20190507-cop-frypan",
+   "images": {
+    "yahoo": "https://item-shopping.c.yimg.jp/i/g/top1-price_20190507-cop-frypan"
+   },
+   "rakuten_url": "",
+   "yahoo_url": "https://store.shopping.yahoo.co.jp/top1-price/20190507-cop-frypan.html",
+   "amazon_url": "",
+   "trending": false,
+   "shops": {
+    "yahoo": {
+     "price": 1779,
+     "shop_name": "TOP1!プライス",
+     "postage_included": true,
+     "reviews": 1289,
+     "rating": 3.88
     }
    }
   }
