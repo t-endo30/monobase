@@ -344,6 +344,9 @@
    "review_stats_present": true,
    "missing": [],
    "blockers": []
+  },
+  "health": {
+   "checked": "2026-10-10"
   }
  },
  {
@@ -705,6 +708,9 @@
    "review_stats_present": true,
    "missing": [],
    "blockers": []
+  },
+  "health": {
+   "checked": "2026-10-10"
   }
  },
  {
@@ -16055,7 +16061,7 @@
   "description": "サンワダイレクト 200-BG019シリーズの利用者評価と公式情報を整理。仕切り配置・クッション材の説明、購入前に測るサイズの確認点、向く人・向かない人を解説。",
   "excerpt": "仕切りを配置できるサンワダイレクト 200-BG019シリーズ。利用者評価と、購入前に必要な機材・外バッグの寸法確認点を整理。",
   "date": "2026-10-04",
-  "updated": "2026-10-06",
+  "updated": "2026-10-10",
   "tags": [
    "サンワダイレクト",
    "200-BG019",
@@ -16068,7 +16074,7 @@
   "icon": "📷",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/sanwadirect/cabinet/2/200-bg019.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4969887352687&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：サンワダイレクト 200-BG019シリーズは、仕切りを調整して手持ちのバッグでカメラを運びたい人の候補。購入前に選択型番と寸法を照合",
   "summary": [
@@ -16311,7 +16317,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4969887352687&i=aps"
+   ]
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://direct.sanwa.co.jp/ItemPage/200-BG019LBK",
@@ -16954,7 +16963,7 @@
   "description": "Extage CLEARLABO ELECTRIC TOOTHBRUSHを、IPX8防水設計や2分自動停止、利用者の声から分析。向く人と購入前の確認点を紹介します。",
   "excerpt": "IPX8防水と2分自動停止を備えるCLEARLABO電動歯ブラシを、公式仕様と利用者の声から分析。",
   "date": "2026-10-04",
-  "updated": "2026-10-06",
+  "updated": "2026-10-10",
   "tags": [
    "電動歯ブラシ",
    "IPX8",
@@ -16965,7 +16974,7 @@
   "icon": "🩺",
   "thumb": "https://item-shopping.c.yimg.jp/i/g/excitech_clear-elec-brush-001",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=TV%E3%81%A7%E7%B4%B9%E4%BB%8B%20%E9%9B%BB%E5%8B%95%E6%AD%AF%E3%83%96%E3%83%A9%E3%82%B7%20%E7%8F%BE%E5%BD%B9%E6%AD%AF%E7%A7%91%E5%8C%BB%E5%B8%AB%E7%9B%A3%E4%BF%AE%20%E3%82%BD%E3%83%8B%E3%83%83%E3%82%AF%20%E9%9F%B3%E6%B3%A2%E3%83%96%E3%83%A9%E3%82%B7%20%E3%83%8A%E3%83%8E%E6%AD%AF%E3%83%96%E3%83%A9%E3%82%B7%20IPX8%20%E9%98%B2%E6%B0%B4%20%E8%99%AB%E6%AD%AF%E4%BA%88%E9%98%B2%20%E6%AD%AF%E5%91%A8%E7%97%85%E4%BA%88%E9%98%B2%20%E6%AD%AF%E5%9E%A2%E9%99%A4%E5%8E%BB%20%E6%AD%AF%E7%A3%A8%E3%81%8D%20%E6%AD%AF%E9%96%93%20%E5%85%85%E9%9B%BB%E5%BC%8F%20%E6%9B%BF%E3%81%88%E3%83%96%E3%83%A9%E3%82%B7%E4%BB%98%E3%81%8D&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：防水性と磨く時間の管理を重視する人には買い。細かな付属品や交換時期まで比較したいなら販売ページを確認してから",
   "summary": [
@@ -17173,7 +17182,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=TV%E3%81%A7%E7%B4%B9%E4%BB%8B%20%E9%9B%BB%E5%8B%95%E6%AD%AF%E3%83%96%E3%83%A9%E3%82%B7%20%E7%8F%BE%E5%BD%B9%E6%AD%AF%E7%A7%91%E5%8C%BB%E5%B8%AB%E7%9B%A3%E4%BF%AE%20%E3%82%BD%E3%83%8B%E3%83%83%E3%82%AF%20%E9%9F%B3%E6%B3%A2%E3%83%96%E3%83%A9%E3%82%B7%20%E3%83%8A%E3%83%8E%E6%AD%AF%E3%83%96%E3%83%A9%E3%82%B7%20IPX8%20%E9%98%B2%E6%B0%B4%20%E8%99%AB%E6%AD%AF%E4%BA%88%E9%98%B2%20%E6%AD%AF%E5%91%A8%E7%97%85%E4%BA%88%E9%98%B2%20%E6%AD%AF%E5%9E%A2%E9%99%A4%E5%8E%BB%20%E6%AD%AF%E7%A3%A8%E3%81%8D%20%E6%AD%AF%E9%96%93%20%E5%85%85%E9%9B%BB%E5%BC%8F%20%E6%9B%BF%E3%81%88%E3%83%96%E3%83%A9%E3%82%B7%E4%BB%98%E3%81%8D&i=aps"
+   ]
   },
   "unpublished_reason": "",
   "official_url": "https://extage.jp/brand/clear-elec-brush-001/",
@@ -17307,7 +17319,7 @@
   "description": "LOOKIT LKD-127を公式仕様と楽天市場の販売情報から分析。幅1200×奥行700mm、天板100kg、片袖収納の耐荷重、配送・組立条件を整理します。",
   "excerpt": "幅1200×奥行700mmと片袖収納が特徴のLOOKIT LKD-127を、公式仕様と販売情報から確認します。",
   "date": "2026-10-04",
-  "updated": "2026-10-06",
+  "updated": "2026-10-10",
   "tags": [
    "LOOKIT",
    "LKD-127",
@@ -17319,7 +17331,7 @@
   "icon": "🪑",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/look-it/cabinet/nf-001/nf-015/lkd-127_s_thum_r.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E3%83%87%E3%82%B9%E3%82%AF%20%E7%89%87%E8%A2%96%E6%9C%BA%20%E5%B9%851200%C3%97%E5%A5%A5%E8%A1%8C700mm%20%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%87%E3%82%B9%E3%82%AF%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E3%83%87%E3%82%B9%E3%82%AF%20%E4%BA%8B%E5%8B%99%E6%9C%BA%20PC%E3%83%87%E3%82%B9%E3%82%AF%20%E7%89%87%E8%A2%96%E3%83%87%E3%82%B9%E3%82%AF%20%E3%82%B9%E3%83%81%E3%83%BC%E3%83%AB%E3%83%87%E3%82%B9%E3%82%AF%20%E5%BC%95%E3%81%8D%E5%87%BA%E3%81%97%E4%BB%98%E3%81%8D%20%E5%8F%8E%E7%B4%8D%20LKD-127&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：幅1200mmの作業面と片袖収納を求める人には買い。配送・組立条件を細かく確認したい人は販売ページを先に確認",
   "summary": [
@@ -17550,7 +17562,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E3%83%87%E3%82%B9%E3%82%AF%20%E7%89%87%E8%A2%96%E6%9C%BA%20%E5%B9%851200%C3%97%E5%A5%A5%E8%A1%8C700mm%20%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%87%E3%82%B9%E3%82%AF%20%E3%83%91%E3%82%BD%E3%82%B3%E3%83%B3%E3%83%87%E3%82%B9%E3%82%AF%20%E4%BA%8B%E5%8B%99%E6%9C%BA%20PC%E3%83%87%E3%82%B9%E3%82%AF%20%E7%89%87%E8%A2%96%E3%83%87%E3%82%B9%E3%82%AF%20%E3%82%B9%E3%83%81%E3%83%BC%E3%83%AB%E3%83%87%E3%82%B9%E3%82%AF%20%E5%BC%95%E3%81%8D%E5%87%BA%E3%81%97%E4%BB%98%E3%81%8D%20%E5%8F%8E%E7%B4%8D%20LKD-127&i=aps"
+   ]
   },
   "unpublished_reason": "",
   "official_url": "https://www.look-it.jp/view/item/000000008428",
@@ -17687,7 +17702,7 @@
   "description": "SALONIA ロックスタイルミルクを公式仕様と楽天市場の利用者の声から分析。朝夜の使い方、乾いた髪への使用、向く人と購入前の確認点を整理します。",
   "excerpt": "朝夜に使えるSALONIAロックスタイルミルクの利用者の声と、向く人・確認点を公式情報から整理.",
   "date": "2026-10-04",
-  "updated": "2026-10-06",
+  "updated": "2026-10-10",
   "tags": [
    "SALONIA",
    "ロックスタイルミルク",
@@ -17698,7 +17713,7 @@
   "icon": "💄",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/skindesign/cabinet/cosme/vt/cica_toner_pad/vt-cica-pad03_.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=SALONIA%20%E3%83%AD%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AA%E3%83%B3%E3%82%B0%E5%89%A4%20%E5%8D%98%E5%93%81%20%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A3%9C%E4%BF%AE%20%E6%AF%9B%E5%85%88%20%E3%81%BE%E3%81%A8%E3%81%BE%E3%82%8A%20%E3%82%AD%E3%83%BC%E3%83%97%E5%8A%9B%20%E5%B4%A9%E3%82%8C%E3%81%AA%E3%81%84%20%E6%B9%BF%E6%B0%97%20%E3%82%A2%E3%82%A4%E3%83%AD%E3%83%B3%E7%94%A8%20%E3%83%89%E3%83%A9%E3%82%A4%E3%83%A4%E3%83%BC%20%E6%BD%A4%E3%81%84%20%E6%9D%9F%E6%84%9F%20%E4%B9%BE%E7%87%A5%20%E3%83%91%E3%82%B5%E3%81%A4%E3%81%8D%20%E5%BA%83%E3%81%8C%E3%82%8A%20%E5%AF%9D%E7%99%96%E7%9B%B4%E3%81%97%20%E6%9C%9D%E6%B4%BB%20%E7%BE%8E%E5%AE%B9%E5%AE%A4%20%E8%89%B6%E9%AB%AA%20%E6%B5%B8%E9%80%8F%E8%A3%9C%E4%BF%AE%20%E7%84%A1%E6%B7%BB%E5%8A%A0%20%E8%A3%9C%E4%BF%AE%E6%88%90%E5%88%86&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：朝夜で使い分けたい人には買い。強い固定力だけを求めるなら別タイプを",
   "summary": [
@@ -17929,7 +17944,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=SALONIA%20%E3%83%AD%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AA%E3%83%B3%E3%82%B0%E5%89%A4%20%E5%8D%98%E5%93%81%20%E3%83%80%E3%83%A1%E3%83%BC%E3%82%B8%E8%A3%9C%E4%BF%AE%20%E6%AF%9B%E5%85%88%20%E3%81%BE%E3%81%A8%E3%81%BE%E3%82%8A%20%E3%82%AD%E3%83%BC%E3%83%97%E5%8A%9B%20%E5%B4%A9%E3%82%8C%E3%81%AA%E3%81%84%20%E6%B9%BF%E6%B0%97%20%E3%82%A2%E3%82%A4%E3%83%AD%E3%83%B3%E7%94%A8%20%E3%83%89%E3%83%A9%E3%82%A4%E3%83%A4%E3%83%BC%20%E6%BD%A4%E3%81%84%20%E6%9D%9F%E6%84%9F%20%E4%B9%BE%E7%87%A5%20%E3%83%91%E3%82%B5%E3%81%A4%E3%81%8D%20%E5%BA%83%E3%81%8C%E3%82%8A%20%E5%AF%9D%E7%99%96%E7%9B%B4%E3%81%97%20%E6%9C%9D%E6%B4%BB%20%E7%BE%8E%E5%AE%B9%E5%AE%A4%20%E8%89%B6%E9%AB%AA%20%E6%B5%B8%E9%80%8F%E8%A3%9C%E4%BF%AE%20%E7%84%A1%E6%B7%BB%E5%8A%A0%20%E8%A3%9C%E4%BF%AE%E6%88%90%E5%88%86&i=aps"
+   ]
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://salonia.jp/product/hair/stylingitem/rockstylemilk/",
@@ -27610,7 +27628,7 @@
   "description": "エレコム ASNAD-CHDMIBK2X5の利用者の声と公式対応情報を整理。USB Type-CからHDMIへ映像を出す条件、5個セットが合う人、購入前の確認点を解説します。",
   "excerpt": "USB Type-CからHDMIへ変換する5個セット。対応機器の条件と、単品との選び分けを整理します。",
   "date": "2026-09-26",
-  "updated": "2026-10-06",
+  "updated": "2026-10-10",
   "tags": [
    "エレコム",
    "ASNAD-CHDMIBK2X5",
@@ -27622,7 +27640,7 @@
   "icon": "🎧",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/ryoccado/cabinet/asnitems2/item79/4589453000479.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=5%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%20%E3%82%A8%E3%83%AC%E3%82%B3%E3%83%A0%20Type-C%E6%98%A0%E5%83%8F%E5%A4%89%E6%8F%9B%E3%82%A2%E3%83%80%E3%83%97%E3%82%BF%20TypeC-HDMI%2030Hz%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20ASNAD-CHDMIBK2X5%20%E5%AE%B6%E9%9B%BB%20%E3%82%AA%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AA%E9%96%A2%E9%80%A3%20AV%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：複数の対応機器をHDMIディスプレイへつなぐ人には買い。1台だけの利用や端子の映像出力が不明な人は先に確認を",
   "summary": [
@@ -27868,7 +27886,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=5%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%20%E3%82%A8%E3%83%AC%E3%82%B3%E3%83%A0%20Type-C%E6%98%A0%E5%83%8F%E5%A4%89%E6%8F%9B%E3%82%A2%E3%83%80%E3%83%97%E3%82%BF%20TypeC-HDMI%2030Hz%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20ASNAD-CHDMIBK2X5%20%E5%AE%B6%E9%9B%BB%20%E3%82%AA%E3%83%BC%E3%83%87%E3%82%A3%E3%82%AA%E9%96%A2%E9%80%A3%20AV%E3%82%B1%E3%83%BC%E3%83%96%E3%83%AB&i=aps"
+   ]
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www2.elecom.co.jp/tables/slatepc/top.aspx?_isquery=&keyWordInput=AD-CHDMIBK2&ngWordInput=",
@@ -27966,7 +27987,7 @@
   "description": "サンワダイレクト200-BAGIN006を公式仕様と利用者の声から分析。5ポケット、ストラップ、収納寸法、長いケーブルや大型機器との相性を整理します。",
   "excerpt": "5ポケットのガジェットポーチ。収納力とサイズ上の注意を利用者の声から整理。",
   "date": "2026-09-26",
-  "updated": "2026-10-06",
+  "updated": "2026-10-10",
   "tags": [
    "トラベルポーチ",
    "ガジェットポーチ",
@@ -27978,7 +27999,7 @@
   "icon": "📱",
   "thumb": "https://cdn.sanwadirect.jp/images/goods/200-BAGIN006BK_MX.JPG",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4969887744758&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：旅行用ガジェットを小分けしたい人には買い。大型機器や長いケーブルをまとめたいなら別を",
   "summary": [
@@ -28242,7 +28263,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4969887744758&i=aps"
+   ]
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://direct.sanwa.co.jp/ItemPage/200-BAGIN006BK",
@@ -28680,7 +28704,7 @@
   "description": "パナソニック LSEW5046LE1を、軒下用の埋込型LED照明として品番・埋込穴・防雨防湿条件から確認。光色など未確認点も整理します。",
   "excerpt": "LSEW5046LE1の軒下設置条件と、購入前に確認したい品番・埋込穴・光色を整理。",
   "date": "2026-09-26",
-  "updated": "2026-10-09",
+  "updated": "2026-10-10",
   "tags": [
    "パナソニック",
    "LSEW5046LE1",
@@ -28692,7 +28716,7 @@
   "icon": "🏠",
   "thumb": "https://shop.r10s.jp/yumori/cabinet/f5ju7kvfuja6jln7upzfmdcgha.jpg",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%83%91%E3%83%8A%E3%82%BD%E3%83%8B%E3%83%83%E3%82%AF%20Panasonic%20%E5%A4%A9%E4%BA%95%E5%9F%8B%E8%BE%BC%E5%9E%8B%20LED%20%E9%9B%BB%E7%90%83%E8%89%B2%20%E8%BB%92%E4%B8%8B%E7%94%A8%E3%83%80%E3%82%A6%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%88%20%E6%B5%85%E5%9E%8B8H%E3%83%BB%E9%AB%98%E6%B0%97%E5%AF%86SB%E5%BD%A2%E3%83%BB%E6%8B%A1%E6%95%A3%E3%82%BF%E3%82%A4%E3%83%97%20%E3%83%9E%E3%82%A4%E3%83%AB%E3%83%89%E9%85%8D%E5%85%89%20%E9%98%B2%E6%B9%BF%E5%9E%8B%E3%83%BB%E9%98%B2%E9%9B%A8%E5%9E%8B%20%E5%9F%8B%E8%BE%BC%E7%A9%B4%CF%86100%20LSEW5046LE1&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：施工条件と器具ラベルを照合できる人向け。光色や詳細仕様は購入前に追加確認を",
   "summary": [
@@ -28929,7 +28953,10 @@
    "checked": "2026-10-09"
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%83%91%E3%83%8A%E3%82%BD%E3%83%8B%E3%83%83%E3%82%AF%20Panasonic%20%E5%A4%A9%E4%BA%95%E5%9F%8B%E8%BE%BC%E5%9E%8B%20LED%20%E9%9B%BB%E7%90%83%E8%89%B2%20%E8%BB%92%E4%B8%8B%E7%94%A8%E3%83%80%E3%82%A6%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%88%20%E6%B5%85%E5%9E%8B8H%E3%83%BB%E9%AB%98%E6%B0%97%E5%AF%86SB%E5%BD%A2%E3%83%BB%E6%8B%A1%E6%95%A3%E3%82%BF%E3%82%A4%E3%83%97%20%E3%83%9E%E3%82%A4%E3%83%AB%E3%83%89%E9%85%8D%E5%85%89%20%E9%98%B2%E6%B9%BF%E5%9E%8B%E3%83%BB%E9%98%B2%E9%9B%A8%E5%9E%8B%20%E5%9F%8B%E8%BE%BC%E7%A9%B4%CF%86100%20LSEW5046LE1&i=aps"
+   ]
   },
   "shop_images_verified": {
    "rakuten": true
@@ -29338,7 +29365,7 @@
   "description": "いなば CIAO とろみ A-42の公式仕様と楽天市場の利用者の声を整理。ささみ・まぐろ・かつお節入りの特徴、とろみ、向く猫、購入前の確認点を解説します。",
   "excerpt": "A-42の公式仕様と利用者の声から、味・とろみ・向く猫・購入前の確認点を整理。",
   "date": "2026-09-26",
-  "updated": "2026-10-06",
+  "updated": "2026-10-10",
   "tags": [
    "いなば",
    "CIAO",
@@ -29351,7 +29378,7 @@
   "icon": "🐾",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/a-price/cabinet/pics/735/2980000440458.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=48%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%20%E3%81%84%E3%81%AA%E3%81%B0%E3%83%9A%E3%83%83%E3%83%88%E3%83%95%E3%83%BC%E3%83%89%20%E3%83%81%E3%83%A3%E3%82%AA%E3%81%A8%E3%82%8D%E3%81%BF%20%E3%81%95%E3%81%95%E3%81%BF%E3%81%BE%E3%81%90%E3%82%8D%E3%82%AB%E3%83%84%E3%82%AA%E7%AF%80%E5%85%A5A-42%20%E7%8C%AB%20%E3%82%A6%E3%82%A7%E3%83%83%E3%83%88%E3%83%95%E3%83%BC%E3%83%89%20%E3%82%AD%E3%83%A3%E3%83%83%E3%83%88%E3%83%95%E3%83%BC%E3%83%89%20%E3%81%84%E3%81%AA%E3%81%B0%20%E7%BC%B6%E8%A9%B0%20%E6%B0%B4%E5%88%86%E8%A3%9C%E7%B5%A6%20%E3%81%A8%E3%82%8D%E3%81%BF%20%E3%81%95%E3%81%95%E3%81%BF&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：とろみのある魚・鶏系ウェットを試したい猫には候補。好みや給餌量を細かく見たい場合は少量から確認を",
   "summary": [
@@ -29595,7 +29622,10 @@
    "checked": "2026-10-09"
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=48%E5%80%8B%E3%82%BB%E3%83%83%E3%83%88%20%E3%81%84%E3%81%AA%E3%81%B0%E3%83%9A%E3%83%83%E3%83%88%E3%83%95%E3%83%BC%E3%83%89%20%E3%83%81%E3%83%A3%E3%82%AA%E3%81%A8%E3%82%8D%E3%81%BF%20%E3%81%95%E3%81%95%E3%81%BF%E3%81%BE%E3%81%90%E3%82%8D%E3%82%AB%E3%83%84%E3%82%AA%E7%AF%80%E5%85%A5A-42%20%E7%8C%AB%20%E3%82%A6%E3%82%A7%E3%83%83%E3%83%88%E3%83%95%E3%83%BC%E3%83%89%20%E3%82%AD%E3%83%A3%E3%83%83%E3%83%88%E3%83%95%E3%83%BC%E3%83%89%20%E3%81%84%E3%81%AA%E3%81%B0%20%E7%BC%B6%E8%A9%B0%20%E6%B0%B4%E5%88%86%E8%A3%9C%E7%B5%A6%20%E3%81%A8%E3%82%8D%E3%81%BF%20%E3%81%95%E3%81%95%E3%81%BF&i=aps"
+   ]
   },
   "unpublished_reason": "商品ページが到達不能で、現在の販売・商品根拠を確認できないため（2026-10-06）",
   "official_url": "https://www.inaba-petfood.co.jp/product/detail/CIAO%2B%E3%81%A8%E3%82%8D%E3%81%BF/1563",
@@ -37703,7 +37733,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -38017,7 +38047,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://limanatural.net/item-detail/910448",
@@ -38355,7 +38385,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -38676,7 +38706,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -38964,7 +38994,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -42430,7 +42460,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-goods/cabinet/th/ry1103674_th.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -42785,7 +42815,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/rcmdin/cabinet/eb06/eb-4582226844157.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://simplus.style/sp-rcmc4/",
@@ -43113,7 +43143,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/aimere/cabinet/00785232/03220785/imgrc0121669408.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://recolte-jp.com/admin/wp-content/uploads/2023/01/RSB-4_Manual_4.pdf",
@@ -43392,7 +43422,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-kurashi/cabinet/main-img/012/main-r4f13.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://book.yamazen.co.jp/product/detail/I00005725",
@@ -43764,7 +43794,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tplinkdirect/cabinet/06321509/tapo-c200.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.tp-link.com/jp/smart-home/tapo/tapo-c200/?app=t",
@@ -44096,7 +44126,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_sound3/slide/samune_ver2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T01:30:02+09:00",
@@ -44437,7 +44467,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/photolink/cabinet/fotopro/4906238810830_nnv11.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.asanumashoukai.co.jp/info/wp-content/uploads/2022/08/asanuma_price_revision20221001.pdf",
@@ -45493,7 +45523,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -45820,7 +45850,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_portable/slide/samune_black.jpg?_ex=600x600"
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -46162,7 +46192,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/pika831/cabinet/00176847/12211284/0624_h70ft_snbaaa.jpg?_ex=600x600"
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -47269,7 +47299,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/secupcs/cabinet/1st-img/red/xbtb.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T01:42:45+09:00",
@@ -47578,7 +47608,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -47935,7 +47965,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.plusminuszero.jp/faq/garment-steamer%EF%BC%88スタイルスチーマー%EF%BC%89/",
@@ -48256,7 +48286,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "voices_intro": "確認できた利用者の声は、楽天市場の同一商品ページに掲載されたものです。個別環境の感想として、仕様の断定には使いません。",
@@ -48552,7 +48582,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/roomy/cabinet/500cart_all/500cart_11g/p10n-4/win2006-mt005-1_gt01.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://recolte-jp.com/products/capsule-cutter-bonne/",
@@ -49564,7 +49594,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -52299,7 +52329,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/d-ray/cabinet/09802265/10566858/260902_th_fdn.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T03:23:17+09:00",
@@ -52599,7 +52629,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T02:39:40+09:00",
@@ -52844,7 +52874,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T03:06:10+09:00",
@@ -53181,7 +53211,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tu-hacci/cabinet/bero/90389r_dtrc_clr.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -56420,7 +56450,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/attenir/cabinet/thum/166011_main_2609.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -56763,7 +56793,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -57427,7 +57457,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "yahoo": {
@@ -58539,7 +58569,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/darkangel/cabinet/12863863/13830759/2536-main-260901-4.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-10"
   },
   "review_stats": {
    "rakuten": {
@@ -63657,7 +63687,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-10-02"
+   "checked": "2026-10-10"
   },
   "good_for": {
    "intro": "次のような環境では、BenQ ScreenBar（無印）が選択肢になります。対応条件と仕様は公式情報で確認してください。",
