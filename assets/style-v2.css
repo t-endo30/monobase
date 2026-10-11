@@ -737,8 +737,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     position:static;display:inline-flex;top:auto;right:auto;transform:none;
     flex:0 1 auto;max-width:100%;margin:0;
   }
-  .card-grid:not(.is-rank) > .card .card-badges{
+.card-grid:not(.is-rank) > .card .card-badges{
     display:flex;align-items:center;gap:6px;min-width:0;margin-left:auto;
+  }
+  .card-grid:not(.is-rank) > .card .card-meta{
+    justify-content:flex-start;
   }
 }
 /* 持ち上げに重ねて、斜めに切った面が左上と右下から入ってきて、
@@ -2065,7 +2068,12 @@ body.has-sticky-cta .fab{bottom:96px;}
   .cs-rv{font-size:10.5px;}
   .card-cat{font-size:9.5px;}
   .card-meta{grid-column:2;grid-row:5;margin:3px 0 0;
-    justify-content:flex-end;}
+    justify-content:flex-end;gap:0;}
+  /* スマホでも日付の直後にカテゴリー・出典札を置く。日付だけを
+     右端へ寄せたり、札を別の行へ送ったりしない。 */
+  .card-meta .card-badges{
+    display:flex;align-items:center;gap:6px;min-width:0;margin-left:10px;
+  }
   .card-date{font-size:10px;}
   /* 見出しは2行までに切る（上限のみ）。以前は下限も3.2emに固定して
      タイルの高さをそろえていたが、1行で収まる見出しの下に空白の行が

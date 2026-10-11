@@ -864,7 +864,10 @@ def build_candidates(rakuten_id, rakuten_key, yahoo_id, categories,
             floor = MIN_REVIEWS_TRENDING if e.get("trending") else MIN_REVIEWS
             if e["reviews"] < floor:
                 continue
-            if e["rating"] and e["rating"] < MIN_RATING:
+            # 評価が取得できない候補を「3.0以上」とみなさない。
+            # 空値や0を通すと、今回の候補条件を満たさない商品が本文生成まで進み、
+            # 後段で破棄されるため、ここで明確に除外する。
+            if e["rating"] < MIN_RATING:
                 continue
             if not (MIN_PRICE <= e["price"] <= MAX_PRICE):
                 continue
