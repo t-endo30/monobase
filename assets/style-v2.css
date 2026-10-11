@@ -737,7 +737,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
     position:static;display:inline-flex;top:auto;right:auto;transform:none;
     flex:0 1 auto;max-width:100%;margin:0;
   }
-.card-grid:not(.is-rank) > .card .card-badges{
+  .card-grid:not(.is-rank) > .card .card-badges{
     display:flex;align-items:center;gap:6px;min-width:0;margin-left:auto;
   }
   .card-grid:not(.is-rank) > .card .card-meta{
@@ -4609,6 +4609,51 @@ h1,h2,h3,h4,
 .flag-hot{background:var(--amazon);color:var(--amazon-ink);}
 @media (max-width:599px){
   .flag{padding:2px 6px;font-size:9px;}
+}
+
+/* 通常タイルの最終配置。カテゴリー・出典札は、写真や一言の下で
+   日付の右側にまとめる。PCだけでなくスマホでも同じDOM順を使い、
+   旧指定の order や margin:auto が別行・左側へ戻さないようにする。 */
+.card:not(.is-rank) > .card-meta,
+.row-item .row-meta{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  flex-wrap:nowrap;
+  gap:10px;
+}
+.card:not(.is-rank) > .card-meta > .card-date,
+.row-item .row-meta > .meta{
+  order:1;
+  flex:0 0 auto;
+  margin-left:0;
+}
+.card:not(.is-rank) > .card-meta > .card-badges,
+.row-item .row-meta > .card-badges{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  order:2;
+  flex:0 1 auto;
+  min-width:0;
+  gap:6px;
+  margin:0;
+}
+.card:not(.is-rank) > .card-meta > .card-views,
+.row-item .row-meta > .card-views{
+  order:3;
+  margin-left:auto;
+}
+@media (max-width:860px){
+  .card:not(.is-rank) > .card-meta,
+  .row-item .row-meta{
+    justify-content:flex-start;
+    gap:8px;
+  }
+  .card:not(.is-rank) > .card-meta > .card-badges,
+  .row-item .row-meta > .card-badges{
+    margin-left:0;
+  }
 }
 
 /* スマホでも番号は行の左に置いたまま、まとまりごと枠の中央へ寄せる。
