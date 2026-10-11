@@ -7,6 +7,22 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>スピーカーおすすめ5選の選び方</title>
+    <link>https://monobase.site/articles/feature-av-speaker-1</link>
+    <guid isPermaLink="true">https://monobase.site/articles/feature-av-speaker-1</guid>
+    <description>テレビ、持ち運び、水回り、CD・MD・カセットの用途別に5製品を整理。</description>
+    <category>特集・まとめ</category>
+    <pubDate>Mon, 12 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>ノートPCと作業環境用品の選び方</title>
+    <link>https://monobase.site/articles/feature-pc-laptop-1</link>
+    <guid isPermaLink="true">https://monobase.site/articles/feature-pc-laptop-1</guid>
+    <description>ノートPC本体と作業環境用品5製品を、用途・設置条件・中古状態で分けて選ぶ特集です。</description>
+    <category>特集・まとめ</category>
+    <pubDate>Mon, 12 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>Fasoul Q1｜1本2回加熱と対応スティックの確認点</title>
     <link>https://monobase.site/articles/fasoul-q1</link>
     <guid isPermaLink="true">https://monobase.site/articles/fasoul-q1</guid>
@@ -148,22 +164,6 @@
     <guid isPermaLink="true">https://monobase.site/articles/refa</guid>
     <description>集風ウイングとピン設計、内容量70g、利用者の声から購入前の確認点を整理。</description>
     <category>美容・コスメ</category>
-    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>Bebird C3｜カメラ付き耳かきの焦点距離と接続確認</title>
-    <link>https://monobase.site/articles/bebird-c3</link>
-    <guid isPermaLink="true">https://monobase.site/articles/bebird-c3</guid>
-    <description>Bebird C3の焦点距離・レンズ径・重量を整理し、カメラ付き耳かきの選び方と確認事項を紹介します。</description>
-    <category>カメラ</category>
-    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>アイリスオーヤマ H-8800L｜170度リクライニングの設置条件</title>
-    <link>https://monobase.site/articles/h-8800l</link>
-    <guid isPermaLink="true">https://monobase.site/articles/h-8800l</guid>
-    <description>170度リクライニングと大型ハイバックの利点、設置・搬入前の確認点を解説。</description>
-    <category>家具・インテリア</category>
     <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
