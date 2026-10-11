@@ -730,13 +730,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    文字幅だけの枠にする。これによりNEW・日付まで囲う線が出ない。 */
 .card-cat-out{display:table;width:max-content;max-width:calc(100% - 28px);
   margin:0;flex:none;text-align:left;}
-/* PCの通常タイルではカテゴリー札を画像の中に沈めず、
-   サムネイル上端に半分だけ外側へ掛ける。従来は card 全体の
-   top:14px と画像の開始位置が一致し、画像内の右上に見えていた。
-   ランキング／FEATUREのカルーセルは画像内の札を使うため対象外。 */
+/* PCの通常タイルは、本文の一言の後の日付行へカテゴリー・確認札を置く。
+   カルーセル（ランキング／FEATURE）は画像内の札を使うため対象外。 */
 @media (min-width:861px){
   .card-grid:not(.is-rank) > .card .card-cat-out{
-    top:14px;right:14px;transform:translateY(-50%);
+    position:static;display:inline-flex;top:auto;right:auto;transform:none;
+    flex:0 1 auto;max-width:100%;margin:0;
+  }
+  .card-grid:not(.is-rank) > .card .card-badges{
+    display:flex;align-items:center;gap:6px;min-width:0;margin-left:auto;
   }
 }
 /* 持ち上げに重ねて、斜めに切った面が左上と右下から入ってきて、
@@ -865,13 +867,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* 横長タイルはホームと同じ順序にする：見出し／価格・評価／一言／
    カテゴリー・出典／新着・日時。 */
 .row-meta{
-  display:flex;align-items:baseline;justify-content:flex-end;gap:10px;
+  display:flex;align-items:center;justify-content:flex-start;gap:10px;
   width:100%;margin-top:7px;
 }
 .row-item .card-stats{order:2;}
 .row-item p{order:3;margin-top:3px;}
 .row-item .card-badges{order:4;display:flex;align-items:center;gap:6px;
   min-width:0;margin-top:5px;}
+.row-item .row-meta .card-badges{order:initial;margin:0 0 0 auto;}
 .row-item .card-cat-out{position:static;top:auto;right:auto;display:inline-flex;
   flex:0 1 auto;max-width:100%;margin:0;}
 .row-item .card-proof{margin:0;flex:0 1 auto;}

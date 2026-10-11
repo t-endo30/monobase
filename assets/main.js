@@ -44,16 +44,19 @@ function cardHtml(a) {
     ' data-cat="' + esc(a.k) + '" data-slug="' + esc(a.s) + '"' +
     ' data-date="' + esc(a.d) + '">' +
     '<span class="card-thumb' + tcls + '"' + tattr + '>' +
-      '<img src="' + esc(a.th) + '" alt="" loading="lazy">' +
-      /* カテゴリーは写真の右下の札。build.py の v2_card() と同じ並び */
-      '<span class="card-cat">' + esc(a.c) + '</span></span>' +
+      '<img src="' + esc(a.th) + '" alt="" loading="lazy"></span>' +
     '<span class="card-flags" aria-hidden="true"></span>' +
-    '<span class="card-meta">' +
-      '<span class="card-date">' + esc(a.d) + '</span>' +
-      '<span class="card-views" hidden></span></span>' +
     '<span class="card-title">' + titleHtml(a.t) + '</span>' +
     statsHtml(a.st) +
-    '<span class="card-note">' + esc(a.x) + '</span></a>';
+    '<span class="card-note">' + esc(a.x) + '</span>' +
+    '<span class="card-meta">' +
+      '<span class="card-date">' + esc(a.d) + '</span>' +
+      '<span class="card-badges">' +
+        '<span class="card-cat-out">&nbsp;' + esc(a.c) + '&nbsp;</span>' +
+        (a.proof ? '<span class="card-proof" title="メーカー公式資料・個別商品ページ・レビュー本文を確認済み">&nbsp;出典確認済み&nbsp;</span>' : '') +
+      '</span>' +
+      '<span class="card-views" hidden></span></span>' +
+    '</a>';
 }
 function statsHtml(d) {
   var b = '';
@@ -672,12 +675,12 @@ document.addEventListener('touchstart', function () {}, { passive: true });
                （中身が空でも枠は入れる。行の高さをそろえるため） */
             statsHtml(it.st) +
             '<p>' + esc(it.excerpt || '') + '</p>' +
-            '<span class="card-badges">' +
-              '<span class="card-cat-out">&nbsp;' + esc(it.cat || '') + '&nbsp;</span>' +
-              (it.proof ? '<span class="card-proof" title="メーカー公式資料・個別商品ページ・レビュー本文を確認済み">&nbsp;出典確認済み&nbsp;</span>' : '') +
-            '</span>' +
             '<span class="row-meta">' +
               '<span class="meta">' + esc(d) + '</span>' +
+              '<span class="card-badges">' +
+                '<span class="card-cat-out">&nbsp;' + esc(it.cat || '') + '&nbsp;</span>' +
+                (it.proof ? '<span class="card-proof" title="メーカー公式資料・個別商品ページ・レビュー本文を確認済み">&nbsp;出典確認済み&nbsp;</span>' : '') +
+              '</span>' +
               '<span class="card-views" hidden></span>' +
             '</span>' +
           '</span>' +

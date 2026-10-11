@@ -1975,7 +1975,9 @@ def v2_card(a, p, no=None, flags=""):
     href = (f'<a class="card" href="{p}articles/{e(a["slug"])}.html" '
             f'data-cat="{e(a.get("category",""))}" data-slug="{e(a["slug"])}" '
             f'data-date="{e(a.get("date",""))}"{fl}>')
-    cat_in = "" if flags == "feature" else f'<span class="card-cat card-cat-in">&nbsp;{e(cat)}&nbsp;</span>'
+    # 通常のタイルはカテゴリーを本文側の日付行へ置く。ランキングだけは
+    # カルーセルの画像右上にカテゴリー札を重ねるため、画像内版を残す。
+    cat_in = f'<span class="card-cat card-cat-in">&nbsp;{e(cat)}&nbsp;</span>' if no else ""
     thumb = (f'<span class="card-thumb{tcls}"{tsrc}><img src="{e(src)}" alt="" loading="lazy" '
              f'onerror="this.onerror=null;this.src=\'{e(fallback)}\';this.closest(\'.card-thumb\').classList.remove(\'is-shop\')">'
              f'{rank}'
@@ -1999,10 +2001,12 @@ def v2_card(a, p, no=None, flags=""):
                 + title_html + feature_stats + feature_note + feature_badges + '</a>')
     meta = (f'<span class="card-meta">'
             f'<span class="card-date">{e(a.get("date",""))}</span>'
+            # PCでは日付の右側にカテゴリー・確認バッジを置く。
+            f'{badges}'
             # 閲覧数は GA4 の実数（content/ranking.json）を assets/main.js が入れる。
             f'<span class="card-views" hidden></span></span>')
     return (href + thumb + '<span class="card-flags" aria-hidden="true"></span>'
-            + badges + meta + title_html + stats + note + '</a>')
+            + title_html + stats + note + meta + '</a>')
 
 
 def v2_row(a, p, numbered=None, detail=False, flags="", feature_list=False):
@@ -2033,9 +2037,9 @@ def v2_row(a, p, numbered=None, detail=False, flags="", feature_list=False):
             f'<h3>{v2_title(a["title"])}</h3>'
             f'{stats}'
             f'<p>{e(note)}</p>'
-            f'{badges}'
             f'<span class="row-meta">'
             f'<span class="meta">{e(a.get("date",""))}</span>'
+            f'{badges}'
             # New / VIEW / 日時は、ホームの横長タイルと同じ末尾行に置く。
             f'<span class="card-views" hidden></span></span></span></a>')
 
@@ -4303,6 +4307,7 @@ def v2_pool_json(items, p):
             "sp": shop,
             "as": str(a.get("asin") or "").strip(),
             "st": card_stats_data(a),
+            "proof": bool(card_proof(a)),
         })
     return pool
 
