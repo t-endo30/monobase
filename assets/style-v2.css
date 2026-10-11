@@ -730,6 +730,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
    文字幅だけの枠にする。これによりNEW・日付まで囲う線が出ない。 */
 .card-cat-out{display:table;width:max-content;max-width:calc(100% - 28px);
   margin:0;flex:none;text-align:left;}
+/* PCの通常タイルではカテゴリー札を画像の中に沈めず、
+   サムネイル上端に半分だけ外側へ掛ける。従来は card 全体の
+   top:14px と画像の開始位置が一致し、画像内の右上に見えていた。
+   ランキング／FEATUREのカルーセルは画像内の札を使うため対象外。 */
+@media (min-width:861px){
+  .card-grid:not(.is-rank) > .card .card-cat-out{
+    top:14px;right:14px;transform:translateY(-50%);
+  }
+}
 /* 持ち上げに重ねて、斜めに切った面が左上と右下から入ってきて、
    タイルの白い面を黒に置き換える。三角に切った2枚が対角線で合わさる形。
    タイルの縦横比が変わっても隙間や取り残しが出ない置き方にしているので、
