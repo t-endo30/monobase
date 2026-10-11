@@ -219,6 +219,9 @@
     "total": 91,
     "notes": "確認済みの製品情報と利用者の声の範囲内で構成され、特集向けの用途別分析も成立しています。公式仕様の横断比較や数値評価を無理に補っておらず、公開を妨げる根拠不明のrating・spec・レビュー表現もありません。"
    }
+  },
+  "health": {
+   "checked": "2026-10-11"
   }
  },
  {
@@ -454,6 +457,9 @@
     "total": 92,
     "notes": "確認済みの公式情報・販売情報・利用者の声の範囲で構成され、根拠のないratingやspecもありません。目次欠落を補正しました。"
    }
+  },
+  "health": {
+   "checked": "2026-10-11"
   }
  },
  {
@@ -795,6 +801,9 @@
     "total": 94,
     "notes": "確認済み仕様と利用者の声を概ね分離しており、価格・Amazon由来の評価数値・未確認仕様の断定も避けています。根拠のない商品属性タグのみ修正しました。"
    }
+  },
+  "health": {
+   "checked": "2026-10-11"
   }
  },
  {
@@ -1113,6 +1122,9 @@
     "total": 92,
     "notes": "根拠データにある仕様と楽天市場の利用者の声を概ね区別できており、ratingも独自評価として根拠と減点理由が示されています。タイトルと出典区分の表記を修正しました。"
    }
+  },
+  "health": {
+   "checked": "2026-10-11"
   }
  },
  {
@@ -1480,6 +1492,9 @@
     "total": 94,
     "notes": "確認済みの公式仕様・商品同定情報・利用者の声の範囲で構成され、未確認のratingやspecはありません。独自評価の明示を追加しました。"
    }
+  },
+  "health": {
+   "checked": "2026-10-11"
   }
  },
  {
@@ -1714,6 +1729,9 @@
     "total": 91,
     "notes": "根拠データの範囲内で仕様・利用者の声・編集判断をおおむね分離できている。根拠のないratingやspecもなく、商品ごとの用途差と確認項目も具体的。"
    }
+  },
+  "health": {
+   "checked": "2026-10-11"
   }
  },
  {
@@ -14632,7 +14650,7 @@
   "description": "アイリスオーヤマ IPDCI-T13を、公式仕様とYahoo!ショッピングの口コミ傾向から分析。IH・ガス火対応、取っ手が取れる13点セットの向き不向きと確認点を整理します。",
   "excerpt": "取っ手が取れる13点鍋セット。IH・ガス火対応と口コミの確認点を整理。",
   "date": "2026-10-06",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "アイリスオーヤマ",
    "IPDCI-T13",
@@ -14643,7 +14661,7 @@
   "icon": "🍳",
   "thumb": "https://item-shopping.c.yimg.jp/i/g/irisplaza_h527380",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4967576825740&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：収納をすっきりさせたい人は候補にしやすい。材質や付属品の細部を先に確定したい人は販売ページを確認してから",
   "summary": [
@@ -14967,7 +14985,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-06"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4967576825740&i=aps"
+   ]
   }
  },
  {
@@ -15201,10 +15222,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-06",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E6%97%A5%E7%AB%8B%20%E6%8E%83%E9%99%A4%E6%A9%9F%20%E3%82%B3%E3%83%BC%E3%83%89%E3%83%AC%E3%82%B9%20%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%8A%E3%83%BC%20%E3%83%A9%E3%82%AF%E3%81%8B%E3%82%8B%20%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AD%E3%83%B3%20%E8%BB%BD%E9%87%8F%201.1kg%20%E8%87%AA%E8%B5%B0%E5%BC%8F%20LED%E3%83%A9%E3%82%A4%E3%83%88%20%E3%83%8F%E3%83%B3%E3%83%87%E3%82%A3%20%E6%97%A5%E6%9C%AC%E8%A3%BD%20PV-BL2H%20N&i=aps"
-   ]
+   "checked": "2026-10-11"
   }
  },
  {
@@ -15218,7 +15236,7 @@
   "description": "タンスのゲン 86500001の利用者の声と公式仕様を整理。2枚・4枚セットの違い、幅丈の選び方、洗濯可能の案内、購入前の確認点を解説します。",
   "excerpt": "2枚・4枚セットの違いと、幅・丈・色・枚数の確認点を整理。",
   "date": "2026-10-06",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "遮光カーテン",
    "タンスのゲン",
@@ -15229,7 +15247,7 @@
   "icon": "🪑",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/tansu/cabinet/634/86500001_10a.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E9%81%AE%E5%85%89%20%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%202%E6%9E%9A%E3%82%BB%E3%83%83%E3%83%88%204%E6%9E%9A%E3%82%BB%E3%83%83%E3%83%88%20%E3%83%89%E3%83%AC%E3%83%BC%E3%83%97%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%20%E3%83%AC%E3%83%BC%E3%82%B9%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%20%E3%82%BF%E3%83%83%E3%82%BB%E3%83%AB%20%E7%84%A1%E5%9C%B0%20%E9%81%AE%E5%85%89%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%201%E7%B4%9A%202%E7%B4%9A%20%E9%81%AE%E5%85%89%E4%B8%80%E7%B4%9A%20%E6%97%A2%E8%A3%BD%E3%82%B5%E3%82%A4%E3%82%BA%20%E7%84%A1%E5%9C%B0%20%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%20%E3%83%AC%E3%83%BC%E3%82%B9%20%E3%83%9F%E3%83%A9%E3%83%BC%E3%83%AC%E3%83%BC%E3%82%B9%20%E9%80%8F%E3%81%91%E3%81%AA%E3%81%84%20%E9%81%AE%E5%83%8F%20UV%E3%82%AB%E3%83%83%E3%83%88%20%E6%96%AD%E7%86%B1%20%E6%B4%97%E3%81%88%E3%82%8B%202%E6%9E%9A%204%E6%9E%9A%20%E5%B9%85100cm%20%E5%B9%85150cm&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：窓まわりを一式で整えたい人には候補。寸法やセット内容を曖昧に選ぶ人には不向き",
   "summary": [
@@ -15553,7 +15571,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-06"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E9%81%AE%E5%85%89%20%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%202%E6%9E%9A%E3%82%BB%E3%83%83%E3%83%88%204%E6%9E%9A%E3%82%BB%E3%83%83%E3%83%88%20%E3%83%89%E3%83%AC%E3%83%BC%E3%83%97%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%20%E3%83%AC%E3%83%BC%E3%82%B9%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%20%E3%82%BF%E3%83%83%E3%82%BB%E3%83%AB%20%E7%84%A1%E5%9C%B0%20%E9%81%AE%E5%85%89%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%201%E7%B4%9A%202%E7%B4%9A%20%E9%81%AE%E5%85%89%E4%B8%80%E7%B4%9A%20%E6%97%A2%E8%A3%BD%E3%82%B5%E3%82%A4%E3%82%BA%20%E7%84%A1%E5%9C%B0%20%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%20%E3%83%AC%E3%83%BC%E3%82%B9%20%E3%83%9F%E3%83%A9%E3%83%BC%E3%83%AC%E3%83%BC%E3%82%B9%20%E9%80%8F%E3%81%91%E3%81%AA%E3%81%84%20%E9%81%AE%E5%83%8F%20UV%E3%82%AB%E3%83%83%E3%83%88%20%E6%96%AD%E7%86%B1%20%E6%B4%97%E3%81%88%E3%82%8B%202%E6%9E%9A%204%E6%9E%9A%20%E5%B9%85100cm%20%E5%B9%85150cm&i=aps"
+   ]
   }
  },
  {
@@ -15567,7 +15588,7 @@
   "description": "Cellularline GRIP（商品番号XL-GRIP）の車載スマホホルダーを、確認済みの販売情報と利用者の声から検討。粘着固定の設置条件、ケース付き端末の適合、レンタカーでの確認点を整理します。",
   "excerpt": "Cellularline GRIP（XL-GRIP）の粘着固定と端末の適合を確認するための要点を、販売情報と利用者の声から整理します。",
   "date": "2026-10-05",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "Cellularline",
    "GRIP",
@@ -15579,7 +15600,7 @@
   "icon": "📱",
   "thumb": "https://item-shopping.c.yimg.jp/i/g/lauda_cl-grip",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=Cellularline%20%E3%82%B9%E3%83%9E%E3%83%9B%E3%83%9B%E3%83%AB%E3%83%80%E3%83%BC%20%E8%BB%8A%20%E8%BB%8A%E8%BC%89%20%E3%82%B9%E3%83%9E%E3%83%9B%20%E8%BB%8A%E8%BC%89%E3%83%9B%E3%83%AB%E3%83%80%E3%83%BC%20%E3%83%9B%E3%83%AB%E3%83%80%E3%83%BC%20%E3%82%B9%E3%83%9E%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%B3%E3%83%9B%E3%83%AB%E3%83%80%E3%83%BC%20%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%89%20%E3%83%AC%E3%83%B3%E3%82%BF%E3%82%AB%E3%83%BC%20iPhone18Pro%20iPhone18ProMax&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：Cellularline GRIPは粘着固定の設置条件を確認できる人の候補",
   "summary": [
@@ -15872,7 +15893,10 @@
   },
   "rakuten_url": "https://item.rakuten.co.jp/lauda/cl-grip/",
   "health": {
-   "checked": "2026-10-06"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=Cellularline%20%E3%82%B9%E3%83%9E%E3%83%9B%E3%83%9B%E3%83%AB%E3%83%80%E3%83%BC%20%E8%BB%8A%20%E8%BB%8A%E8%BC%89%20%E3%82%B9%E3%83%9E%E3%83%9B%20%E8%BB%8A%E8%BC%89%E3%83%9B%E3%83%AB%E3%83%80%E3%83%BC%20%E3%83%9B%E3%83%AB%E3%83%80%E3%83%BC%20%E3%82%B9%E3%83%9E%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%B3%E3%83%9B%E3%83%AB%E3%83%80%E3%83%BC%20%E3%82%B9%E3%83%9E%E3%83%9B%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%89%20%E3%83%AC%E3%83%B3%E3%82%BF%E3%82%AB%E3%83%BC%20iPhone18Pro%20iPhone18ProMax&i=aps"
+   ]
   }
  },
  {
@@ -16180,7 +16204,7 @@
   "description": "ブラシモ SM6078-JPのソニッケアー互換替えブラシを、確認できた対応表示、ミニサイズ8本入、DuPont素材、利用者の声から整理。対応ハンドルの照合手順と、購入前の確認点を解説します。",
   "excerpt": "ブラシモSM6078-JPのミニサイズ8本入互換ブラシ。口コミを見る前に、手元のソニッケアー型番と対応表示を照合しましょう。",
   "date": "2026-10-05",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "ソニッケアー",
    "互換ブラシ",
@@ -16193,7 +16217,7 @@
   "icon": "🩺",
   "thumb": "https://item-shopping.c.yimg.jp/i/g/sonimart_sm6078-jp",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%86%85%E3%81%AE%E6%AD%AF%E7%A7%91%E5%8C%BB%E9%99%A2%E3%81%AB%E3%81%A6%E5%8F%96%E6%89%B1%E3%81%84%E9%96%8B%E5%A7%8B%20%E3%83%95%E3%82%A3%E3%83%AA%E3%83%83%E3%83%97%E3%82%B9%20%E3%82%BD%E3%83%8B%E3%83%83%E3%82%B1%E3%82%A2%E3%83%BC%20%E6%9B%BF%E3%81%88%E3%83%96%E3%83%A9%E3%82%B7%20%E9%9B%BB%E5%8B%95%E6%AD%AF%E3%83%96%E3%83%A9%E3%82%B7%20%E5%AF%BE%E5%BF%9C%20%E3%83%80%E3%82%A4%E3%83%A4%E3%83%A2%E3%83%B3%E3%83%89%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%20%E3%83%9F%E3%83%8B8%E6%9C%AC%E5%85%A5%20%E3%83%96%E3%83%A9%E3%82%B7%E3%83%A2%20%E4%BA%92%E6%8F%9B%E6%9B%BF%E3%81%88%E3%83%96%E3%83%A9%E3%82%B7&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：SM6078-JPの対応表示を確認でき、ミニサイズ8本入を選びたい人向け。純正と同じ仕様・保証を前提にしない",
   "summary": [
@@ -16422,7 +16446,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%86%85%E3%81%AE%E6%AD%AF%E7%A7%91%E5%8C%BB%E9%99%A2%E3%81%AB%E3%81%A6%E5%8F%96%E6%89%B1%E3%81%84%E9%96%8B%E5%A7%8B%20%E3%83%95%E3%82%A3%E3%83%AA%E3%83%83%E3%83%97%E3%82%B9%20%E3%82%BD%E3%83%8B%E3%83%83%E3%82%B1%E3%82%A2%E3%83%BC%20%E6%9B%BF%E3%81%88%E3%83%96%E3%83%A9%E3%82%B7%20%E9%9B%BB%E5%8B%95%E6%AD%AF%E3%83%96%E3%83%A9%E3%82%B7%20%E5%AF%BE%E5%BF%9C%20%E3%83%80%E3%82%A4%E3%83%A4%E3%83%A2%E3%83%B3%E3%83%89%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%20%E3%83%9F%E3%83%8B8%E6%9C%AC%E5%85%A5%20%E3%83%96%E3%83%A9%E3%82%B7%E3%83%A2%20%E4%BA%92%E6%8F%9B%E6%9B%BF%E3%81%88%E3%83%96%E3%83%A9%E3%82%B7&i=aps"
+   ]
   },
   "unpublished_reason": "商品同定情報または個別商品URLが不足し、公式根拠を確認できないため（2026-10-06）",
   "official_url": "https://brushmo.co.jp/collections/brush-head-refills",
@@ -18379,7 +18406,7 @@
   "description": "サンワダイレクト 200-DGBG008BK の利用者の声を整理。一眼カメラ本体・交換レンズの収納、間仕切り、ショルダー・ベルトループ対応と購入前の確認点をまとめました。",
   "excerpt": "サンワダイレクト 200-DGBG008BKの利用者の声と、収納レイアウト・携行方法を選ぶ前の確認点を整理。",
   "date": "2026-10-04",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "サンワダイレクト",
    "200-DGBG008BK",
@@ -18391,7 +18418,7 @@
   "icon": "📷",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/sanwadirect/cabinet/2/200-dgbg008bk.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4969887353684&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：一眼カメラ本体と交換レンズを持ち出し、間仕切りで収納を調整したい人向け。大型機材や雨天の長時間撮影が中心なら確認項目を増やしたい",
   "summary": [
@@ -18613,7 +18640,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4969887353684&i=aps"
+   ]
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://direct.sanwa.co.jp/ItemPage/200-DGBG008BK",
@@ -26769,7 +26799,7 @@
   "description": "ニッソー NS-106の利用者の声と公式仕様を整理。曲げガラスの見た目、56Lの容量、設置寸法、外付けフィルター確認のポイントを解説します。",
   "excerpt": "曲げガラスの60cm水槽、ニッソー NS-106を公式仕様と利用者の声から確認。設置寸法や機器適合の注意点を整理します。",
   "date": "2026-09-27",
-  "updated": "2026-10-10",
+  "updated": "2026-10-11",
   "tags": [
    "ニッソー NS-106",
    "60cm水槽",
@@ -26780,7 +26810,7 @@
   "icon": "🐾",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/chanet/cabinet/123/12297-1.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%83%8B%E3%83%83%E3%82%BD%E3%83%BC%2060cm%E6%B0%B4%E6%A7%BD%20NEW%E3%82%B9%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%83%AC%E3%83%BC%20NS%E2%88%92106%20%E3%82%AC%E3%83%A9%E3%82%B9%E3%83%95%E3%82%BF%E7%84%A1%E3%81%97%20%E3%81%8A%E4%B8%80%E4%BA%BA%E6%A7%981%E7%82%B9%E9%99%90%E3%82%8A%20%E9%96%A2%E6%9D%B1%E5%BD%93%E6%97%A5%E4%BE%BF&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：曲げガラスの60cm水槽を選びたい人には向く。設置寸法や機器適合を手軽に済ませたい人は要確認",
   "summary": [
@@ -27051,7 +27081,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%83%8B%E3%83%83%E3%82%BD%E3%83%BC%2060cm%E6%B0%B4%E6%A7%BD%20NEW%E3%82%B9%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%83%AC%E3%83%BC%20NS%E2%88%92106%20%E3%82%AC%E3%83%A9%E3%82%B9%E3%83%95%E3%82%BF%E7%84%A1%E3%81%97%20%E3%81%8A%E4%B8%80%E4%BA%BA%E6%A7%981%E7%82%B9%E9%99%90%E3%82%8A%20%E9%96%A2%E6%9D%B1%E5%BD%93%E6%97%A5%E4%BE%BF&i=aps"
+   ]
   },
   "unpublished_reason": "",
   "official_url": "https://page.mkgr.jp/product/8592/",
@@ -27152,7 +27185,7 @@
   "description": "MOUTH MSB24101の仕様と楽天市場の利用者の声から、収納目安、普段使いへの切り替え、向く人と購入前の確認点を解説します。",
   "excerpt": "MOUTH MSB24101の収納目安と利用者の声から、街歩きに向く人と注意点を整理。",
   "date": "2026-09-27",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "MOUTH",
    "MSB24101",
@@ -27164,7 +27197,7 @@
   "icon": "📷",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/bostonclub/cabinet/25ss/msb09012-camera.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%AB%E3%83%A1%E3%83%A9%E3%83%90%E3%83%83%E3%82%B0%20%E3%83%9E%E3%82%A6%E3%82%B9%20%E3%83%9F%E3%83%A9%E3%83%BC%E3%83%AC%E3%82%B9%20%E4%B8%80%E7%9C%BC%E3%83%AC%E3%83%95%20%E3%82%AB%E3%83%A1%E3%83%A9%E5%A5%B3%E5%AD%90%20%E3%82%B7%E3%83%A7%E3%83%AB%E3%83%80%E3%83%BC%E3%83%90%E3%83%83%E3%82%B0%20MOUTH%20BUCKET%20MOUTH4%20%E3%83%90%E3%82%B1%E3%83%83%E3%83%88%E3%83%9E%E3%82%A6%E3%82%B94%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%81%8B%E3%82%8F%E3%81%84%E3%81%84%20%E3%82%AB%E3%83%A1%E3%83%A9%E3%82%B1%E3%83%BC%E3%82%B9%20%E4%BA%A4%E6%8F%9B%E3%83%AC%E3%83%B3%E3%82%BA%20%E3%82%AB%E3%82%B8%E3%83%A5%E3%82%A2%E3%83%AB%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%83%A1%E3%83%B3%E3%82%BA%20%E3%83%AC%E3%83%87%E3%82%A3%E3%83%BC%E3%82%B9%20MSB24101&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：街歩きと普段使いを一つにまとめたい人には買い。大型機材を多く持ち運ぶなら別を",
   "summary": [
@@ -27426,7 +27459,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%AB%E3%83%A1%E3%83%A9%E3%83%90%E3%83%83%E3%82%B0%20%E3%83%9E%E3%82%A6%E3%82%B9%20%E3%83%9F%E3%83%A9%E3%83%BC%E3%83%AC%E3%82%B9%20%E4%B8%80%E7%9C%BC%E3%83%AC%E3%83%95%20%E3%82%AB%E3%83%A1%E3%83%A9%E5%A5%B3%E5%AD%90%20%E3%82%B7%E3%83%A7%E3%83%AB%E3%83%80%E3%83%BC%E3%83%90%E3%83%83%E3%82%B0%20MOUTH%20BUCKET%20MOUTH4%20%E3%83%90%E3%82%B1%E3%83%83%E3%83%88%E3%83%9E%E3%82%A6%E3%82%B94%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%81%8B%E3%82%8F%E3%81%84%E3%81%84%20%E3%82%AB%E3%83%A1%E3%83%A9%E3%82%B1%E3%83%BC%E3%82%B9%20%E4%BA%A4%E6%8F%9B%E3%83%AC%E3%83%B3%E3%82%BA%20%E3%82%AB%E3%82%B8%E3%83%A5%E3%82%A2%E3%83%AB%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B1%E3%83%BC%E3%82%B9%20%E3%83%A1%E3%83%B3%E3%82%BA%20%E3%83%AC%E3%83%87%E3%82%A3%E3%83%BC%E3%82%B9%20MSB24101&i=aps"
+   ]
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://shop.mouth-jp.com/i/msb24101-blk",
@@ -27528,7 +27564,7 @@
   "description": "EastForce LUMBIRT 4.0の公式仕様と楽天市場の利用者の声を整理。調整機能、リクライニング、ヘッドレストの注意点から合う人を解説します。",
   "excerpt": "LUMBIRT 4.0の調整機能と利用者の声、購入前の確認点を整理。",
   "date": "2026-09-27",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "EastForce",
    "LUMBIRT 4.0",
@@ -27539,7 +27575,7 @@
   "icon": "🪑",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/kojistore/cabinet/item/eastforse/imgrc0163190343.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=1000%E5%86%86OFF%20EastForce%20LUMBIRT%204.0%20%E5%9B%BD%E5%86%85%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%20%E9%AB%98%E7%B4%9A%20%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E3%83%81%E3%82%A7%E3%82%A2%20%E3%83%87%E3%82%B9%E3%82%AF%E3%83%81%E3%82%A7%E3%82%A2%20%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%20%E3%83%8F%E3%82%A4%E3%83%90%E3%83%83%E3%82%AF%20%E3%83%AA%E3%82%AF%E3%83%A9%E3%82%A4%E3%83%8B%E3%83%B3%E3%82%B0%20%E3%83%98%E3%83%83%E3%83%89%E3%83%AC%E3%82%B9%E3%83%88%20%E3%83%95%E3%83%83%E3%83%88%E3%83%AC%E3%82%B9%E3%83%88%20%E3%82%A2%E3%83%BC%E3%83%A0%E3%83%AC%E3%82%B9%E3%83%88%20%E8%82%98%E4%BB%98%E3%81%8D%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20%E3%82%B0%E3%83%AC%E3%83%BC%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%82%AA%E3%83%83%E3%83%88%E3%83%9E%E3%83%B3%20%E4%BB%98%E3%81%8D%20%E4%BA%BA%E9%96%93%E5%B7%A5%E5%AD%A6%20%E5%A7%BF%E5%8B%A2%20%E8%85%B0%E7%97%9B%20%E8%85%B0%20%E9%95%B7%E6%99%82%E9%96%93%20%E7%96%B2%E3%82%8C%E3%81%AA%E3%81%84&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：細かな姿勢調整と休憩姿勢への切り替えを求める人には候補。ヘッドレストの保持感を重視するなら調整範囲を先に確認",
   "summary": [
@@ -27781,7 +27817,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=1000%E5%86%86OFF%20EastForce%20LUMBIRT%204.0%20%E5%9B%BD%E5%86%85%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%20%E9%AB%98%E7%B4%9A%20%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E3%83%81%E3%82%A7%E3%82%A2%20%E3%83%87%E3%82%B9%E3%82%AF%E3%83%81%E3%82%A7%E3%82%A2%20%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%20%E3%83%8F%E3%82%A4%E3%83%90%E3%83%83%E3%82%AF%20%E3%83%AA%E3%82%AF%E3%83%A9%E3%82%A4%E3%83%8B%E3%83%B3%E3%82%B0%20%E3%83%98%E3%83%83%E3%83%89%E3%83%AC%E3%82%B9%E3%83%88%20%E3%83%95%E3%83%83%E3%83%88%E3%83%AC%E3%82%B9%E3%83%88%20%E3%82%A2%E3%83%BC%E3%83%A0%E3%83%AC%E3%82%B9%E3%83%88%20%E8%82%98%E4%BB%98%E3%81%8D%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20%E3%82%B0%E3%83%AC%E3%83%BC%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%82%AA%E3%83%83%E3%83%88%E3%83%9E%E3%83%B3%20%E4%BB%98%E3%81%8D%20%E4%BA%BA%E9%96%93%E5%B7%A5%E5%AD%A6%20%E5%A7%BF%E5%8B%A2%20%E8%85%B0%E7%97%9B%20%E8%85%B0%20%E9%95%B7%E6%99%82%E9%96%93%20%E7%96%B2%E3%82%8C%E3%81%AA%E3%81%84&i=aps"
+   ]
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://eastforce.jp/products/eastforce-officechair-lumbirt",
@@ -27878,7 +27917,7 @@
   "description": "アイリスオーヤマ WSJ-4Lを公式情報と利用者の声から分析。4Lストレートタイプの使い方、非農耕地用の注意点、散布口や飛散への声を整理します。",
   "excerpt": "WSJ-4Lの使い方と利用者の声を分析。非農耕地用の注意点も整理。",
   "date": "2026-09-27",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "アイリスオーヤマ",
    "WSJ-4L",
@@ -27890,7 +27929,7 @@
   "icon": "🧺",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/kadenrand/cabinet/banner2/11089026/imgrc0097675032.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=4967576773195&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：非農耕地で希釈せず除草したい人は、散布条件と用途表示を確認して検討したい商品",
   "summary": [
@@ -28167,7 +28206,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=4967576773195&i=aps"
+   ]
   },
   "unpublished_reason": "",
   "official_url": "https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=110884F",
@@ -28230,7 +28272,7 @@
   "description": "アイリスオーヤマIHC-SG221の利用者の声と公式仕様を整理。200V電源、プラグ、コード長、設置条件から向く人を解説します。",
   "excerpt": "200V据置型2口IHの設置条件と利用者の声を整理。購入前に見るべき電源・プラグ・コード長を解説します。",
   "date": "2026-09-27",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "アイリスオーヤマ",
    "IHC-SG221",
@@ -28243,7 +28285,7 @@
   "icon": "🍳",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/k-home/cabinet/20190329samune2/561392.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%EF%BC%BC%E6%9C%80%E5%AE%89%E6%8C%91%E6%88%A6%20IH%E3%82%AF%E3%83%83%E3%82%AD%E3%83%B3%E3%82%B0%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20IH%E3%82%B3%E3%83%B3%E3%83%AD%202%E5%8F%A3%202%E5%8F%A3%20IH%E3%82%AF%E3%83%83%E3%82%AD%E3%83%B3%E3%82%B0%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20IHC-SG221%20%E6%8D%AE%E7%BD%AE%E5%9E%8B%20IH%E8%AA%BF%E7%90%86%E5%99%A8%20%E4%B8%A1%E9%9D%A2%E7%84%BC%E3%81%8D%E3%83%AF%E3%82%A4%E3%83%89%E3%82%B0%E3%83%AA%E3%83%AB%E6%90%AD%E8%BC%89%20IH%E8%AA%BF%E7%90%86%E6%A9%9F%20IH%E5%AF%BE%E5%BF%9C%20%E3%83%95%E3%83%A9%E3%82%A4%E3%83%91%E3%83%B3%20%E5%B7%A5%E4%BA%8B%E5%BF%85%E8%A6%81%20%E4%BA%8C%E5%8F%A3%20%E3%82%A2%E3%82%A4%E3%83%AA%E3%82%B9%E3%82%AA%E3%83%BC%E3%83%A4%E3%83%9E%20ih%E8%AA%BF%E7%90%86%E5%AE%B6%E9%9B%BB%20ih%E8%AA%BF%E7%90%86%E5%99%A8%20ih%E8%AA%BF%E7%90%86%E6%A9%9F&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：200Vの設置環境がある人には候補。電源工事や設置条件を確認できない人は別の選択肢を",
   "summary": [
@@ -28512,7 +28554,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%EF%BC%BC%E6%9C%80%E5%AE%89%E6%8C%91%E6%88%A6%20IH%E3%82%AF%E3%83%83%E3%82%AD%E3%83%B3%E3%82%B0%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20IH%E3%82%B3%E3%83%B3%E3%83%AD%202%E5%8F%A3%202%E5%8F%A3%20IH%E3%82%AF%E3%83%83%E3%82%AD%E3%83%B3%E3%82%B0%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20IHC-SG221%20%E6%8D%AE%E7%BD%AE%E5%9E%8B%20IH%E8%AA%BF%E7%90%86%E5%99%A8%20%E4%B8%A1%E9%9D%A2%E7%84%BC%E3%81%8D%E3%83%AF%E3%82%A4%E3%83%89%E3%82%B0%E3%83%AA%E3%83%AB%E6%90%AD%E8%BC%89%20IH%E8%AA%BF%E7%90%86%E6%A9%9F%20IH%E5%AF%BE%E5%BF%9C%20%E3%83%95%E3%83%A9%E3%82%A4%E3%83%91%E3%83%B3%20%E5%B7%A5%E4%BA%8B%E5%BF%85%E8%A6%81%20%E4%BA%8C%E5%8F%A3%20%E3%82%A2%E3%82%A4%E3%83%AA%E3%82%B9%E3%82%AA%E3%83%BC%E3%83%A4%E3%83%9E%20ih%E8%AA%BF%E7%90%86%E5%AE%B6%E9%9B%BB%20ih%E8%AA%BF%E7%90%86%E5%99%A8%20ih%E8%AA%BF%E7%90%86%E6%A9%9F&i=aps"
+   ]
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.irisohyama.co.jp/products/support/4905009992348",
@@ -28613,7 +28658,7 @@
   "description": "アズマ商事 旅美人 ヘアトリートメントを公式情報と楽天市場の利用者の声から分析。ドライヤー前の使い方、130g・3本入の確認点、向く人を紹介します。",
   "excerpt": "ドライヤー前用の旅美人ヘアトリートメントを、公式情報と利用者の声から整理。",
   "date": "2026-09-27",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "アズマ商事",
    "旅美人",
@@ -28626,7 +28671,7 @@
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/bayu/cabinet/20/t_sonota73.jpg?_ex=128x128",
   "jan": "4560118330575",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=3%E5%80%8B%E5%85%A5%E3%82%8A%20%E3%82%A2%E3%82%BA%E3%83%9E%E5%95%86%E4%BA%8B%20%E6%97%85%E7%BE%8E%E4%BA%BA%20%E3%83%89%E3%83%A9%E3%82%A4%E3%83%A4%E3%83%BC%E3%81%AE%E5%89%8D%E3%81%AB%E3%83%98%E3%82%A2%E3%83%88%E3%83%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%B3%E3%83%88%20%E3%83%89%E3%83%A9%E3%82%A4%E3%83%A4%E3%83%BC%E3%81%AE%E5%89%8D%E3%81%AB%E3%83%98%E3%82%A2%E3%83%88%E3%83%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%B3%E3%83%88%20130g%203%E6%9C%AC%E5%85%A5%E3%82%8A%20%E3%82%A2%E3%82%BA%E3%83%9E%E5%95%86%E4%BA%8B%20%E6%97%85%E7%BE%8E%E4%BA%BA%20%E3%83%89%E3%83%A9%E3%82%A4%E3%83%A4%E3%83%BC%E3%81%AE%E5%89%8D%E3%81%AB%E3%82%92%E3%83%89%E3%83%A9%E3%82%A4%E3%83%A4%E3%83%BC%E3%81%AE%E5%89%8D%E3%81%AB%E3%81%8A%E4%BD%BF%E3%81%84%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%20%E3%82%A2%E3%82%BA%E3%83%9E%E5%95%86%E4%BA%8B%20%E6%97%85%E7%BE%8E%E4%BA%BA&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：ドライヤー前のケアを続けたい人向け。仕上がりの特徴を確認したいなら成分表示を確認してから",
   "summary": [
@@ -28895,7 +28940,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=3%E5%80%8B%E5%85%A5%E3%82%8A%20%E3%82%A2%E3%82%BA%E3%83%9E%E5%95%86%E4%BA%8B%20%E6%97%85%E7%BE%8E%E4%BA%BA%20%E3%83%89%E3%83%A9%E3%82%A4%E3%83%A4%E3%83%BC%E3%81%AE%E5%89%8D%E3%81%AB%E3%83%98%E3%82%A2%E3%83%88%E3%83%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%B3%E3%83%88%20%E3%83%89%E3%83%A9%E3%82%A4%E3%83%A4%E3%83%BC%E3%81%AE%E5%89%8D%E3%81%AB%E3%83%98%E3%82%A2%E3%83%88%E3%83%AA%E3%83%BC%E3%83%88%E3%83%A1%E3%83%B3%E3%83%88%20130g%203%E6%9C%AC%E5%85%A5%E3%82%8A%20%E3%82%A2%E3%82%BA%E3%83%9E%E5%95%86%E4%BA%8B%20%E6%97%85%E7%BE%8E%E4%BA%BA%20%E3%83%89%E3%83%A9%E3%82%A4%E3%83%A4%E3%83%BC%E3%81%AE%E5%89%8D%E3%81%AB%E3%82%92%E3%83%89%E3%83%A9%E3%82%A4%E3%83%A4%E3%83%BC%E3%81%AE%E5%89%8D%E3%81%AB%E3%81%8A%E4%BD%BF%E3%81%84%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%20%E3%82%A2%E3%82%BA%E3%83%9E%E5%95%86%E4%BA%8B%20%E6%97%85%E7%BE%8E%E4%BA%BA&i=aps"
+   ]
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.tabibijin.com/",
@@ -29002,7 +29050,7 @@
   "description": "池永鉄工 IK2-60Wの利用者の声と公式仕様を分析。60cm用コンロカバーの用途、サイズ、耐荷重、油はね対策、固定方法の注意点を整理します。",
   "excerpt": "60cm用コンロカバーの用途と利用者の声を分析。調理スペース化と固定方法の注意点を紹介。",
   "date": "2026-09-27",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "池永鉄工",
    "IK2-60W",
@@ -29013,7 +29061,7 @@
   "icon": "🍳",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/kanamono-pro/cabinet/ikenaga/imgrc0123055646.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E6%97%A5%E6%9C%AC%E8%A3%BD%20%E6%B1%A0%E6%B0%B8%E9%89%84%E5%B7%A5%20%E3%82%B3%E3%83%B3%E3%83%AD%E3%82%AB%E3%83%90%E3%83%BC%2060cm%20IK2-60W%20%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%20%E3%83%93%E3%83%AB%E3%83%88%E3%82%A4%E3%83%B3%E3%82%B3%E3%83%B3%E3%83%AD%E7%94%A8%20%E3%82%AC%E3%82%B9%20IH%E5%AF%BE%E5%BF%9C%20%E6%B2%B9%E3%81%AF%E3%81%AD%E3%82%AC%E3%83%BC%E3%83%89%20%E4%BD%9C%E6%A5%AD%E5%8F%B0%20%E3%82%AD%E3%83%83%E3%83%81%E3%83%B3%E5%8F%8E%E7%B4%8D%20%E8%AA%BF%E7%90%86%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%E6%8B%A1%E5%BC%B5&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：60cmのビルトインコンロ上を作業台にしたい人には買い。固定方法を慎重に選びたい人は設置面を先に確認",
   "summary": [
@@ -29279,7 +29327,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E6%97%A5%E6%9C%AC%E8%A3%BD%20%E6%B1%A0%E6%B0%B8%E9%89%84%E5%B7%A5%20%E3%82%B3%E3%83%B3%E3%83%AD%E3%82%AB%E3%83%90%E3%83%BC%2060cm%20IK2-60W%20%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%20%E3%83%93%E3%83%AB%E3%83%88%E3%82%A4%E3%83%B3%E3%82%B3%E3%83%B3%E3%83%AD%E7%94%A8%20%E3%82%AC%E3%82%B9%20IH%E5%AF%BE%E5%BF%9C%20%E6%B2%B9%E3%81%AF%E3%81%AD%E3%82%AC%E3%83%BC%E3%83%89%20%E4%BD%9C%E6%A5%AD%E5%8F%B0%20%E3%82%AD%E3%83%83%E3%83%81%E3%83%B3%E5%8F%8E%E7%B4%8D%20%E8%AA%BF%E7%90%86%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%E6%8B%A1%E5%BC%B5&i=aps"
+   ]
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://ikenaga-iw.jp/products/livliv/fukin/",
@@ -38465,7 +38516,7 @@
   "description": "エプソンETカートリッジ LPC3T37K（ブラック・Sサイズ）の利用者の声と選び方。対応機種、印刷可能ページ数の目安、購入前の型番確認を整理しました。",
   "excerpt": "ブラック・SサイズのLPC3T37Kを選ぶ前に、対応機種と印刷可能ページ数の目安、販売ページの確認点を確認",
   "date": "2026-09-21",
-  "updated": "2026-10-09",
+  "updated": "2026-10-11",
   "tags": [
    "エプソン",
    "ETカートリッジ",
@@ -38476,7 +38527,7 @@
   "icon": "💻",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/marrygiftshop/cabinet/dsproducts/256/0002591955-1.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%A8%E3%83%97%E3%82%BD%E3%83%B3ET%E3%82%AB%E3%83%BC%E3%83%88%E3%83%AA%E3%83%83%E3%82%B8%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20S%E3%82%B5%E3%82%A4%E3%82%BA%20LPC3T37K%201%E5%80%8B&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：LP-S7180・LP-S8180・LP-M818シリーズでブラックのETカートリッジが必要な人向け。購入前に対応機種とLPC3T37Kの一致を確認する",
   "summary": [
@@ -38720,7 +38771,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%A8%E3%83%97%E3%82%BD%E3%83%B3ET%E3%82%AB%E3%83%BC%E3%83%88%E3%83%AA%E3%83%83%E3%82%B8%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20S%E3%82%B5%E3%82%A4%E3%82%BA%20LPC3T37K%201%E5%80%8B&i=aps"
+   ]
   },
   "review_stats": {
    "rakuten": {
@@ -43175,7 +43229,7 @@
   "description": "グリニーズプラス カロリーケア超小型犬用を、公式仕様と利用者の声から分析。対象体重、1本24kcal、原材料、向く人を整理します。",
   "excerpt": "2kg〜7kg向け、1本24kcal。原材料と利用者の声から選び方を整理。",
   "date": "2026-09-18",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "グリニーズプラス",
    "カロリーケア",
@@ -43190,7 +43244,7 @@
    "rakuten": true
   },
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%BB%E3%83%83%E3%83%88%E3%81%8C%E6%9B%B4%E3%81%AB%E3%81%8A%E5%BE%97%20%E3%82%B0%E3%83%AA%E3%83%8B%E3%83%BC%E3%82%BA%E3%83%97%E3%83%A9%E3%82%B9%20%E7%8A%AC%20%E6%AD%AF%E7%A3%A8%E3%81%8D%20%E3%82%AC%E3%83%A0%20%E3%82%AB%E3%83%AD%E3%83%AA%E3%83%BC%E3%82%B1%E3%82%A2%20%E8%B6%85%E5%B0%8F%E5%9E%8B%E7%8A%AC%E7%94%A8%2060%E6%9C%AC%20%E4%BD%93%E9%87%8D2-7kg%20%E3%81%8A%E3%82%84%E3%81%A4%20%E3%83%87%E3%83%B3%E3%82%BF%E3%83%AB%E3%82%AC%E3%83%A0%20%E7%B4%842%E3%83%B6%E6%9C%88%E5%88%86%20%E4%BD%8E%E3%82%AB%E3%83%AD%E3%83%AA%E3%83%BC%20%E3%83%80%E3%82%A4%E3%82%A8%E3%83%83%E3%83%88%20%E6%AD%AF%E5%9E%A2%20%E8%87%AA%E7%84%B6%E7%B4%A0%E6%9D%90%20%E6%88%90%E7%8A%AC%20%E3%82%A2%E3%83%80%E3%83%AB%E3%83%88%20%E7%B7%8F%E5%90%88%E6%A0%84%E9%A4%8A%E9%A3%9F%E5%9F%BA%E6%BA%96%20%E3%82%B0%E3%83%AA%E3%83%8B%E3%83%BC%E3%82%BA%20Greenies%20%E3%83%8B%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AD&i=aps",
+  "amazon_url": "",
   "jan": "4562358787928",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：2kg〜7kgの成犬に、24kcal/1本を基準に歯みがきガムを選びたい人向け。原材料制限や別体重区分なら別商品を",
@@ -43453,7 +43507,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%BB%E3%83%83%E3%83%88%E3%81%8C%E6%9B%B4%E3%81%AB%E3%81%8A%E5%BE%97%20%E3%82%B0%E3%83%AA%E3%83%8B%E3%83%BC%E3%82%BA%E3%83%97%E3%83%A9%E3%82%B9%20%E7%8A%AC%20%E6%AD%AF%E7%A3%A8%E3%81%8D%20%E3%82%AC%E3%83%A0%20%E3%82%AB%E3%83%AD%E3%83%AA%E3%83%BC%E3%82%B1%E3%82%A2%20%E8%B6%85%E5%B0%8F%E5%9E%8B%E7%8A%AC%E7%94%A8%2060%E6%9C%AC%20%E4%BD%93%E9%87%8D2-7kg%20%E3%81%8A%E3%82%84%E3%81%A4%20%E3%83%87%E3%83%B3%E3%82%BF%E3%83%AB%E3%82%AC%E3%83%A0%20%E7%B4%842%E3%83%B6%E6%9C%88%E5%88%86%20%E4%BD%8E%E3%82%AB%E3%83%AD%E3%83%AA%E3%83%BC%20%E3%83%80%E3%82%A4%E3%82%A8%E3%83%83%E3%83%88%20%E6%AD%AF%E5%9E%A2%20%E8%87%AA%E7%84%B6%E7%B4%A0%E6%9D%90%20%E6%88%90%E7%8A%AC%20%E3%82%A2%E3%83%80%E3%83%AB%E3%83%88%20%E7%B7%8F%E5%90%88%E6%A0%84%E9%A4%8A%E9%A3%9F%E5%9F%BA%E6%BA%96%20%E3%82%B0%E3%83%AA%E3%83%8B%E3%83%BC%E3%82%BA%20Greenies%20%E3%83%8B%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AD&i=aps"
+   ]
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://m.greenies.jp/dog_products",
@@ -43583,7 +43640,7 @@
   "description": "タイガー魔法瓶 KAE-G13Nを公式仕様と口コミから分析。庫内の広さ、1300Wの火力、焼き上がり、焦げやすさやタイマー調整の注意点を解説します。",
   "excerpt": "KAE-G13Nの庫内サイズ、火力、焼き上がりの口コミと購入前の注意点を整理。",
   "date": "2026-09-17",
-  "updated": "2026-10-06",
+  "updated": "2026-10-11",
   "tags": [
    "タイガー魔法瓶",
    "KAE-G13N",
@@ -43595,7 +43652,7 @@
   "icon": "🍳",
   "thumb": "https://shop.r10s.jp/tiger-online/cabinet/kae-g13nwe_ra251009.jpg",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%82%BF%E3%82%A4%E3%82%AC%E3%83%BC%E9%AD%94%E6%B3%95%E7%93%B6%20%E6%A5%BD%E5%A4%A9%E5%B8%82%E5%A0%B4%E5%BA%97%20%E3%80%8C%E3%81%86%E3%81%BE%E3%83%91%E3%83%B3%E3%83%88%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%80%8D%20KAE-G13N%20%E3%83%88%E3%83%AA%E3%83%97%E3%83%AB%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E3%83%8F%E3%82%A4%E3%83%91%E3%83%AF%E3%83%BC%201300W%2030%E5%88%86%20%E3%83%AD%E3%83%B3%E3%82%B0%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC%20%E3%83%88%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%20%E9%A3%9F%E3%83%91%E3%83%B3%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%83%AC%E3%83%83%E3%83%89%20%E3%83%9E%E3%83%83%E3%83%88%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20%E6%B8%A9%E8%AA%BF%20%E6%B8%A9%E5%BA%A6%E8%AA%BF%E7%AF%80%20%E3%82%B0%E3%83%A9%E3%82%BF%E3%83%B3%20%E3%83%94%E3%82%B6%20%E3%82%BF%E3%82%A4%E3%82%AC%E3%83%BC&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：庫内の広さと強い火力を重視する人には買い。細かな焼き色調整を最優先するなら別候補も比較を",
   "summary": [
@@ -43850,7 +43907,10 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tiger-online/cabinet/kae-g13n_ra260710.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%82%BF%E3%82%A4%E3%82%AC%E3%83%BC%E9%AD%94%E6%B3%95%E7%93%B6%20%E6%A5%BD%E5%A4%A9%E5%B8%82%E5%A0%B4%E5%BA%97%20%E3%80%8C%E3%81%86%E3%81%BE%E3%83%91%E3%83%B3%E3%83%88%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%E3%80%8D%20KAE-G13N%20%E3%83%88%E3%83%AA%E3%83%97%E3%83%AB%E3%83%92%E3%83%BC%E3%82%BF%E3%83%BC%20%E3%83%8F%E3%82%A4%E3%83%91%E3%83%AF%E3%83%BC%201300W%2030%E5%88%86%20%E3%83%AD%E3%83%B3%E3%82%B0%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC%20%E3%83%88%E3%83%BC%E3%82%B9%E3%82%BF%E3%83%BC%20%E9%A3%9F%E3%83%91%E3%83%B3%20%E3%81%8A%E3%81%97%E3%82%83%E3%82%8C%20%E3%83%AC%E3%83%83%E3%83%89%20%E3%83%9E%E3%83%83%E3%83%88%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20%E6%B8%A9%E8%AA%BF%20%E6%B8%A9%E5%BA%A6%E8%AA%BF%E7%AF%80%20%E3%82%B0%E3%83%A9%E3%82%BF%E3%83%B3%20%E3%83%94%E3%82%B6%20%E3%82%BF%E3%82%A4%E3%82%AC%E3%83%BC&i=aps"
+   ]
   },
   "review_stats": {
    "rakuten": {
@@ -46546,7 +46606,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/secupcs/cabinet/1st-img/red/db74.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://bs.secu.jp/view/item/000000000339?category_page_id=scview",
@@ -46880,7 +46940,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/roomy/cabinet/500cart_all/500cart_11g/p10n-4/ide2006-kx027-1_gt01.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://bruno-inc.com/?am=07760192&pg=product_detail",
@@ -50653,7 +50713,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=K285289",
@@ -50985,7 +51045,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T08:58:23+09:00",
@@ -55295,7 +55355,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/toucher-home/cabinet/image02/hsls201w_01x.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-11"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T02:33:17+09:00",
@@ -55515,7 +55575,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-03"
+   "checked": "2026-10-11"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T08:59:20+09:00",
@@ -56145,7 +56205,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "review_stats": {
    "rakuten": {
@@ -56468,7 +56528,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "review_stats": {
    "rakuten": {
@@ -59544,7 +59604,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://salonia.jp/support/hair/iron/straight.php",
@@ -59938,7 +59998,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "review_stats": {
    "rakuten": {
@@ -61072,7 +61132,7 @@
    "LOWYA公式の選択中仕様では商品番号C4SKT_PXT68V、起こした時は幅58×奥行52×高さ71cm、倒した時は幅58×奥行138×高さ14cm、重量約8kg、耐荷重約80kgと案内されている"
   ],
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "review_stats": {
    "rakuten": {
@@ -61399,7 +61459,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/attenir/cabinet/thum/166013_main_2608-2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "review_stats": {
    "rakuten": {
@@ -62845,7 +62905,7 @@
   "shop_images_invalid_reason": "画像URLが404",
   "image_prompt": "A photograph of グンゼ AGW112, which is a 靴下, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "official_url": "https://www.gunze.co.jp/corporate/news/2025/03/20250304001.html",
   "facts": [
@@ -70343,7 +70403,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T10:03:31+09:00",
@@ -70506,7 +70566,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T10:09:00+09:00",
@@ -70749,7 +70809,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T09:09:49+09:00",
@@ -70983,7 +71043,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T10:06:30+09:00",
@@ -71169,7 +71229,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-04"
+   "checked": "2026-10-11"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T09:12:07+09:00",
