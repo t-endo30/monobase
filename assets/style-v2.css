@@ -5440,3 +5440,18 @@ h1,h2,h3,h4,
   white-space:nowrap !important;
   border:0 !important;
 }
+
+/* カテゴリーと出典札は文字サイズが違っても枠の高さをそろえる。
+   特にスマホではカテゴリー側だけ小さい文字指定が後から掛かるため、
+   padding任せにすると2つの札の下端がずれる。高さを固定し、文字は
+   それぞれの枠の中央に置く。 */
+.card-cat-out,
+.card-proof{
+  display:inline-flex;
+  align-items:center;
+  box-sizing:border-box;
+  height:24px;
+  min-height:24px;
+  padding-block:0;
+  line-height:1;
+}
