@@ -222,7 +222,7 @@ refresh_editorial_titles(PUBLISHED)
 # 条件を満たせば次のビルドで自動的に index へ戻る。
 # 記事ごとに "index": true / false を書けば、この判定より優先する。
 INDEX_MIN_VIEWS = 5        # GA4の累計閲覧数。読まれている記事は外さない
-INDEX_MIN_REVIEWS = 30     # レビュー件数。数字の裏づけとして読める量
+INDEX_MIN_REVIEWS = 15     # レビュー件数。数字の裏づけとして読める量
 INDEX_MIN_BODY = 1300      # 本文の文字数（見出しの下の段落の合計）
 
 def verified_review_stat(value):

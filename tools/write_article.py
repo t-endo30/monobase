@@ -754,7 +754,7 @@ def parse_json(out):
 
 # build.py の indexable() と同じ基準。レビュー記事はこれを下回ると noindex に
 # なり、AdSense の審査では「有用性の低いページ」に数えられる。
-INDEX_MIN_REVIEWS = 30
+INDEX_MIN_REVIEWS = 15
 INDEX_MIN_SECTION_CHARS = 1300
 
 
@@ -1127,7 +1127,7 @@ def main():
         if fresh is not None:
             a.clear()
             a.update(fresh)
-        # 書く前に弾く（2026-10-01）。口コミが30件に満たないレビューは、
+        # 書く前に弾く。口コミが15件に満たないレビューは、
         # いくら書いても noindex になり1日の本数にも入らない。本文を
         # 書かせてから分かるより、ここで捨てるほうがサブスクの枠を使わない。
         # 件数が取れていない（None）ときは判断できないので通す。

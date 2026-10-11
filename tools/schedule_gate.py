@@ -87,7 +87,7 @@ def published_today(today):
 # 審査で「有用性の低いページ」に数えられるので、1日の本数には入れない
 # （2026-10-01、ユーザー判断：「低評価にならない記事を最低1日5本」）。
 # 基準を変えるときは build.py の INDEX_MIN_* と両方そろえること。
-INDEX_MIN_REVIEWS = 30
+INDEX_MIN_REVIEWS = 15
 INDEX_MIN_BODY = 1300
 
 
