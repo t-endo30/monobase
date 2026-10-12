@@ -136,17 +136,25 @@ def main():
         codes = sorted(model_codes(name))
         if codes:
             query = " ".join(codes)
+        rk_match = None
         try:
             if rk_id:
-                shops["rakuten"] = best(rakuten_search(rk_id, rk_key, keyword=query), name, category)
+                rk_match = best(rakuten_search(rk_id, rk_key, keyword=query), name, category)
+                if rk_match:
+                    shops["rakuten"] = rk_match
         except Exception as exc:  # noqa: BLE001
             print(f"楽天照合失敗: {exc}", file=sys.stderr)
-        time.sleep(1)
-        try:
-            if yh_id:
-                shops["yahoo"] = best(yahoo_search(yh_id, query=query), name, category)
-        except Exception as exc:  # noqa: BLE001
-            print(f"Yahoo照合失敗: {exc}", file=sys.stderr)
+        # 片方の個別商品ページで条件を満たせば十分。楽天で一致した
+        # 商品はYahoo!を呼ばず、API待ちを半分にする。
+        if not rk_match:
+            time.sleep(1)
+            try:
+                if yh_id:
+                    yh_match = best(yahoo_search(yh_id, query=query), name, category)
+                    if yh_match:
+                        shops["yahoo"] = yh_match
+            except Exception as exc:  # noqa: BLE001
+                print(f"Yahoo照合失敗: {exc}", file=sys.stderr)
         candidate = make_candidate(item, shops)
         if candidate:
             out.append(candidate)
