@@ -3846,6 +3846,51 @@ SOURCE = {
             {"type":"review_page","url":"https://item.rakuten.co.jp/wtw-cctv-camera/wtw-ipw108/","title":"楽天市場 WTW-IPW108 掲載レビュー","checked_at":"2026-10-07"}
         ]
     }
+    ,"ih-hb-2189": {
+        "official_url": "https://www.p-life-house.jp/",
+        "jan": "4549308521894",
+        "facts": [
+            "パール金属公式オンラインストアでHB-2189を商品同定し、9.5×17.5cmの皿内寸、全長320×幅105×高さ55mm、約310g、2層鋼、内面ふっ素樹脂塗膜加工を確認",
+            "公式商品ページでガス火・200V IH・ハロゲンヒーターなどオール熱源対応、電子レンジ不可、卵1～2個程度の少量調理向けという案内を確認",
+            "アズワンの商品仕様でもHB-2189、材質、寸法、重量、JANコード4549308521894を照合し、販売ページ間の商品同定を補強",
+            "パール金属公式オンラインストアの同一商品ページ掲載レビューで、サイズ・使い勝手、焼き上がりや熱伝導についての具体的な利用者の声を確認。個人の調理条件による感想として扱う",
+        ],
+        "review_texts": [{"source":"楽天市場 パール金属公式オンラインストア HB-2189 個別レビュー","text":"同一商品ページの利用者の声では、サイズと使い勝手を評価する投稿、熱伝導がよく短時間でふっくら焼けたという投稿が確認できます。一方で、焼き跡が付いたという投稿もあるため、調理内容・火力・手入れ条件による個別の感想として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.p-life-house.jp/","title":"パール金属公式 ハウスウェア事業部","checked_at":"2026-10-12"},
+            {"type":"product_page","url":"https://axel.as-1.co.jp/asone/d/63-2760-37/","title":"アズワン HB-2189 商品仕様","checked_at":"2026-10-12"},
+            {"type":"review_page","url":"https://item.rakuten.co.jp/pearlmetalstore/4549308521894/","title":"パール金属公式オンラインストア HB-2189 掲載レビュー","checked_at":"2026-10-12"}
+        ]
+    }
+    ,"dulton-ch04-h117": {
+        "official_url": "https://www.dulton.jp/cms/dulton/catalog/2024/dulpedia2024_houseware2.pdf",
+        "jan": "4997337411707",
+        "facts": [
+            "DULTON公式カタログでタオルホルダー ラウンド CH04-H117を商品同定し、直径55mm・奥行23mm、18-0ステンレススチールとTPR、強力両面テープ付き、ざらつきや凹凸面には取り付けできないことを確認",
+            "DULTON公式カタログで中央のホルダーへタオルの端を差し込むラウンドタイプとして、スクエアのCH04-H116と区別して確認",
+            "楽天市場の個別商品ページで同一型番とJAN 4997337411707を照合し、商品同定と販売導線を確認",
+            "楽天ビックの同一商品ページ掲載レビューで、見た目・コンパクトさ・使いやすさを評価する声と、粘着テープやタオル保持への不満を示す声を確認。設置面とタオル条件による個別の感想として扱う",
+        ],
+        "review_texts": [{"source":"楽天ビック DULTON CH04-H117 個別レビュー","text":"同一商品ページの利用者の声では、シンプルな見た目、コンパクトさ、使いやすさを評価する投稿がある一方、粘着テープで落下した、タオルが外れたという投稿も確認できます。設置面の状態とタオルの重さによって結果が変わる個別の感想として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://www.dulton.jp/cms/dulton/catalog/2024/dulpedia2024_houseware2.pdf","title":"DULTON公式カタログ CH04-H117","checked_at":"2026-10-12"},
+            {"type":"product_page","url":"https://item.rakuten.co.jp/point10/m-4997337411707-1/","title":"楽天市場 DULTON CH04-H117 個別商品ページ","checked_at":"2026-10-12"},
+            {"type":"review_page","url":"https://biccamera.rakuten.co.jp/item/4997337411707","title":"楽天ビック DULTON CH04-H117 掲載レビュー","checked_at":"2026-10-12"}
+        ]
+    }
+    ,"harudesign-led-gl-x-6k-ftw-5800k": {
+        "official_url": "https://harudesign.shop/collections/growlight/products/glx_6k_blk_ftw",
+        "facts": [
+            "HaruDesign公式ショップの商品ページでGL-X 6K FtWを商品同定し、ブラックボディ、白色系5800K、フラットウェーブLED、スクリューカバー、製品3年保証の案内を確認",
+            "公式ショップの商品説明で、Bridgelux社製LED、交換レンズによる照度・照射角度変更、多肉植物・観葉植物・家庭菜園・水草などの用途案内を確認。ただし植物の生育結果は環境依存として扱う",
+            "公式ショップの商品ページでレビュー17件・平均4.59と、広角変更、水草育成、強光による葉焼けや藻類への注意に関する個別の利用者の声を確認",
+        ],
+        "review_texts": [{"source":"楽天市場 HaruDesign公式ショップ GL-X 6K FtW 個別レビュー","text":"同一商品ページの利用者の声では、3個目を購入するほど広角変更を気に入っているという投稿、40cm離して水草を育てたが強光で葉焼けしたため配置や遮光が必要という投稿、植物が育ってデザインもよいという投稿が確認できます。植物種・距離・水槽や室内環境による個別の感想として扱います。"}],
+        "source_notes": [
+            {"type":"official_product","url":"https://harudesign.shop/collections/growlight/products/glx_6k_blk_ftw","title":"HaruDesign公式 GL-X 6K FtW","checked_at":"2026-10-12"},
+            {"type":"review_page","url":"https://item.rakuten.co.jp/harudesign/10002309/","title":"HaruDesign公式ショップ GL-X 6K FtW 掲載レビュー","checked_at":"2026-10-12"}
+        ]
+    }
 }
 
 
@@ -3859,7 +3904,6 @@ def main():
             continue
         article.update({k: v for k, v in data.items() if k != "source_notes"})
         article["source_notes"] = data["source_notes"]
-        article["updated"] = "2026-10-06"
         print(f"根拠を追加しました: {article['slug']}")
     with open(path, "w", encoding="utf-8") as f:
         json.dump(articles, f, ensure_ascii=False, indent=1)
