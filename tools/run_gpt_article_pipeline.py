@@ -23,6 +23,12 @@ def slugs_with_content():
     }
 
 
+def published_slugs():
+    with open(os.path.join(ROOT, "content", "articles.json"), encoding="utf-8") as f:
+        articles = json.load(f)
+    return {a.get("slug") for a in articles if a.get("published") and a.get("slug")}
+
+
 def reviewed_successes(slugs):
     with open(os.path.join(ROOT, "content", "articles.json"), encoding="utf-8") as f:
         articles = json.load(f)
@@ -107,12 +113,17 @@ def main():
             order_cmd.append("--publish")
         if args.jev:
             order_cmd.append("--jev")
+        published_before = published_slugs()
         order_code = subprocess.run(order_cmd, cwd=ROOT, check=False).returncode
+        order_published = len(published_slugs() - published_before)
+        remaining = max(0, args.take - order_published)
+        if remaining == 0:
+            print(f"目標達成: {args.take} 本（購入履歴由来 {order_published} 本）")
+            return 0
         if order_code:
-            print("購入履歴由来の記事を3本確保できなかったため、通常候補へ進みません。")
-            return order_code
+            print(f"購入履歴由来は {order_published}/3 本。残り {remaining} 本を通常候補へ切り替えます。")
         normal_cmd = [sys.executable, __file__, "--select", "--refresh-products",
-                      "--take", str(max(1, args.take - 3)), "--batch-size", str(args.batch_size),
+                      "--take", str(remaining), "--batch-size", str(args.batch_size),
                       "--model", args.model, "--review-model", args.review_model,
                       "--timeout", str(args.timeout)]
         if args.publish:
