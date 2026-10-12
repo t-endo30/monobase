@@ -71,6 +71,10 @@ def main():
     ap.add_argument("--drafts", action="store_true", help="空の下書きを生成")
     ap.add_argument("--select", action="store_true", help="商品候補を選定して新規記事を作る")
     ap.add_argument("--refresh-products", action="store_true", help="候補をAPIから再収集してから選ぶ")
+    ap.add_argument("--refresh-order-products", action="store_true",
+                    help="購入履歴ASINを優先して候補を再収集する")
+    ap.add_argument("--orders-first", action="store_true",
+                    help="1日5本のうち先に購入履歴由来を3本確保し、残りを通常候補で作る")
     ap.add_argument("--take", type=int, default=5, help="その日の目標記事数")
     ap.add_argument("--batch-size", type=int, default=2, help="1回に処理する候補数")
     ap.add_argument("slugs", nargs="*")
@@ -87,12 +91,40 @@ def main():
         ap.error("--drafts と slug は同時に指定しません")
     if args.refresh_products:
         args.select = True
+    if args.refresh_order_products or args.orders_first:
+        args.select = True
+    if args.orders_first and not args.dry_run:
+        # Amazon APIが使えない期間の固定運用。まず購入履歴由来を3本、
+        # その後に通常候補を2本処理する。各子プロセス自身がレビュー合格・
+        # 公開まで完了するため、片方が未達なら全体を成功扱いにしない。
+        order_cmd = [sys.executable, __file__, "--select", "--refresh-order-products",
+                     "--take", "3", "--batch-size", str(args.batch_size),
+                     "--model", args.model, "--review-model", args.review_model,
+                     "--timeout", str(args.timeout)]
+        if args.publish:
+            order_cmd.append("--publish")
+        if args.jev:
+            order_cmd.append("--jev")
+        order_code = subprocess.run(order_cmd, cwd=ROOT, check=False).returncode
+        if order_code:
+            print("購入履歴由来の記事を3本確保できなかったため、通常候補へ進みません。")
+            return order_code
+        normal_cmd = [sys.executable, __file__, "--select", "--refresh-products",
+                      "--take", str(max(1, args.take - 3)), "--batch-size", str(args.batch_size),
+                      "--model", args.model, "--review-model", args.review_model,
+                      "--timeout", str(args.timeout)]
+        if args.publish:
+            normal_cmd.append("--publish")
+        if args.jev:
+            normal_cmd.append("--jev")
+        return subprocess.run(normal_cmd, cwd=ROOT, check=False).returncode
     if args.select:
         target_count = max(1, args.take)
         batch_size = max(1, min(args.batch_size, target_count))
         succeeded = set()
         tried = 0
         refresh = args.refresh_products
+        order_refresh = args.refresh_order_products
         max_batches = max(1, (target_count * 3 + batch_size - 1) // batch_size)
         for batch_no in range(max_batches):
             remaining = target_count - len(succeeded)
@@ -101,7 +133,10 @@ def main():
             batch = min(batch_size, remaining)
             before = slugs_with_content()
             selection = [sys.executable, "tools/gpt_select_products.py", "--take", str(batch)]
-            if refresh:
+            if order_refresh:
+                selection.append("--refresh-orders")
+                order_refresh = False
+            elif refresh:
                 selection.append("--refresh")
             selected = subprocess.run(selection, cwd=ROOT, check=False)
             refresh = False

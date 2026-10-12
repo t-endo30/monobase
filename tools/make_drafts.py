@@ -195,6 +195,10 @@ def make_draft(c, site, taken):
         "voices_intro": "", "voices": [],
         "conclusion_title": "まとめ", "conclusion": "",
     }
+    if c.get("source"):
+        a["source"] = c["source"]
+    if c.get("order_date"):
+        a["order_date"] = c["order_date"]
     if c.get("jan"):
         a["jan"] = c["jan"]
     for key in ("rakuten_url", "yahoo_url", "amazon_url"):
@@ -399,7 +403,13 @@ def main():
         has_evidence = bool(
             c.get("official_url") and c.get("facts") and
             c.get("source_notes") and c.get("review_texts"))
-        if normal_candidates and not has_evidence:
+        # 購入履歴経路はモール照合段階でASIN・個別URL・画像・レビュー条件を
+        # 満たしている。公式ページとレビュー本文はGPT生成前の調査で補い、
+        # 最終公開時の article_evidence / GPTレビューで必ず再判定する。
+        # ここで証拠ゲートを緩めるのはこの専用sourceに限定し、通常候補は
+        # 従来どおり本文生成前に落とす。
+        order_history_candidate = c.get("source") == "amazon_order_history"
+        if normal_candidates and not has_evidence and not order_history_candidate:
             print(f"公式資料・レビュー本文不足のため事前スキップ: {name[:50]}")
             continue
         # すでに書いた商品は飛ばす。型番が取れる商品は、共通する商品名の

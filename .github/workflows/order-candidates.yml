@@ -1,0 +1,42 @@
+name: Check order-history candidates
+
+on:
+  workflow_dispatch:
+    inputs:
+      items_json:
+        description: 'Sanitized order items JSON (no raw order export)'
+        required: true
+      limit:
+        description: 'Maximum matched candidates'
+        required: false
+        default: '40'
+
+permissions:
+  contents: read
+
+jobs:
+  candidates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 入力を一時ファイルへ保存
+        env:
+          ITEMS_JSON: ${{ inputs.items_json }}
+        run: python3 -c 'import json,os; json.dump(json.loads(os.environ["ITEMS_JSON"]), open("/tmp/order-items.json","w",encoding="utf-8"), ensure_ascii=False)'
+      - name: 購入履歴ASINを非Amazon商品ページと照合
+        env:
+          RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
+          RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
+          YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
+        run: python3 tools/pick_order_products.py --input-json /tmp/order-items.json --limit '${{ inputs.limit || '40' }}' --out /tmp/candidates.json
+      - name: 候補artifactを保存
+        uses: actions/upload-artifact@v4
+        with:
+          name: order-product-candidates
+          path: /tmp/candidates.json
+          if-no-files-found: error
+          retention-days: 1

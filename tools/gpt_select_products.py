@@ -7,6 +7,8 @@
 モデルに商品を自由選択させない。
 """
 import argparse
+import csv
+import importlib.util
 import json
 import os
 import shutil
@@ -16,6 +18,124 @@ import tempfile
 import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def _order_classifier():
+    path = os.path.join(ROOT, "AmazonExport", "classify.py")
+    spec = importlib.util.spec_from_file_location("monobase_order_classifier", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def order_items(limit=80):
+    """購入履歴の全ASINを再分類し、既出商品を除いてworkflowへ渡す。
+
+    AmazonExport/candidates.csv は過去の分類結果なので信用せず、元の
+    Order History.csv を再分類する。ここでは商品名・ASIN・日付・価格だけを
+    渡し、注文番号や配送情報などは外へ出さない。
+    """
+    src = os.path.join(ROOT, "AmazonExport", "Order History.csv")
+    if not os.path.exists(src):
+        raise RuntimeError("AmazonExport/Order History.csv が見つかりません")
+    classifier = _order_classifier()
+    with open(src, encoding="utf-8-sig", newline="") as f:
+        rows = list(csv.DictReader(f))
+    with open(os.path.join(ROOT, "content", "articles.json"), encoding="utf-8") as f:
+        articles = json.load(f)
+    used = {str(a.get("asin") or "").upper() for a in articles if a.get("asin")}
+    seen = set()
+    groups = {}
+    for row in rows:
+        asin = str(row.get("ASIN") or "").strip().upper()
+        name = str(row.get("Product Name") or "").strip()
+        if len(asin) != 10 or asin in used or asin in seen or not name:
+            continue
+        seen.add(asin)
+        if classifier.excluded(name):
+            continue
+        category, sub, _matched = classifier.classify(name)
+        if not category or not sub:
+            continue
+        # adult を含む分類漏れと、カテゴリ内の明白な取り違えを二重に除外。
+        if any(x.lower() in name.lower() for x in classifier.EXCLUDE):
+            continue
+        groups.setdefault(category, []).append({
+            "asin": asin, "name": name, "category": category, "sub": sub,
+            "order_date": str(row.get("Order Date") or "")[:10],
+            "order_price": str(row.get("Unit Price") or ""),
+        })
+    for values in groups.values():
+        values.sort(key=lambda x: (x["order_date"], x["asin"]), reverse=True)
+    selected = []
+    while len(selected) < limit and any(groups.values()):
+        for category in sorted(groups):
+            if groups[category]:
+                selected.append(groups[category].pop(0))
+                if len(selected) >= limit:
+                    break
+    return selected
+
+
+def refresh_order_candidates(limit):
+    """購入履歴由来候補を、Secretsを持つGitHub Actionsで照合する。"""
+    if not shutil.which("gh"):
+        print("gh CLIが見つかりません", file=sys.stderr)
+        return 1
+    try:
+        items = order_items(max(60, limit * 12))
+    except (OSError, ValueError, RuntimeError) as exc:
+        print(f"購入履歴候補を準備できません: {exc}", file=sys.stderr)
+        return 1
+    if not items:
+        print("未記事化でカテゴリ一致するASIN候補がありません", file=sys.stderr)
+        return 1
+    payload = json.dumps(items, ensure_ascii=False, separators=(",", ":"))
+    started = time.time()
+    code = subprocess.run(["gh", "workflow", "run", "order-candidates.yml", "--repo",
+                           "t-endo30/monobase", "-f", f"items_json={payload}",
+                           "-f", f"limit={limit}"], cwd=ROOT, check=False).returncode
+    if code:
+        return code
+    run_id = None
+    for _ in range(30):
+        proc = subprocess.run(["gh", "run", "list", "--repo", "t-endo30/monobase",
+                               "--workflow", "order-candidates.yml", "--limit", "5",
+                               "--json", "databaseId,createdAt,status",
+                               "--jq", ".[] | select(.createdAt != null) | [.databaseId,.createdAt,.status] | @tsv"],
+                              cwd=ROOT, text=True, capture_output=True, check=False)
+        for line in proc.stdout.splitlines():
+            parts = line.split("\t")
+            if len(parts) == 3 and (time.time() - started < 5 or parts[2] in ("queued", "in_progress")):
+                run_id = parts[0]
+                break
+        if run_id:
+            break
+        time.sleep(2)
+    if not run_id:
+        print("購入履歴候補workflowの実行IDを取得できませんでした", file=sys.stderr)
+        return 1
+    watch = subprocess.run(["gh", "run", "watch", run_id, "--repo", "t-endo30/monobase", "--exit-status"], cwd=ROOT, check=False)
+    if watch.returncode:
+        return watch.returncode
+    with tempfile.TemporaryDirectory(prefix="monobase-order-candidates-") as tmp:
+        code = subprocess.run(["gh", "run", "download", run_id, "--repo", "t-endo30/monobase",
+                               "-n", "order-product-candidates", "-D", tmp], cwd=ROOT, check=False).returncode
+        if code:
+            return code
+        source = os.path.join(tmp, "candidates.json")
+        if not os.path.exists(source):
+            print("購入履歴候補artifactにcandidates.jsonがありません", file=sys.stderr)
+            return 1
+        with open(source, encoding="utf-8") as handle:
+            data = json.load(handle)
+        items = data.get("items") or []
+        if not all(x.get("source") == "amazon_order_history" for x in items):
+            print("購入履歴由来でない候補が混入したため採用しません", file=sys.stderr)
+            return 1
+        shutil.copy2(source, os.path.join(ROOT, "content", "candidates.json"))
+        print(f"購入履歴由来の照合済み候補 {len(items)} 件を取得しました")
+    return 0
 
 
 def run(args):
@@ -79,10 +199,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--take", type=int, default=2)
     ap.add_argument("--refresh", action="store_true", help="楽天・Yahoo!から候補を再収集")
+    ap.add_argument("--refresh-orders", action="store_true",
+                    help="Amazon購入履歴のASINを楽天・Yahoo!と照合して候補化")
     ap.add_argument("--limit", type=int, default=30, help="候補収集件数")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
-    if args.refresh:
+    if args.refresh_orders:
+        code = refresh_order_candidates(args.limit)
+        if code:
+            return code
+    elif args.refresh:
         code = refresh_candidates(args.limit)
         if code:
             return code
