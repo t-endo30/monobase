@@ -5450,8 +5450,11 @@ h1,h2,h3,h4,
   display:inline-flex;
   align-items:center;
   box-sizing:border-box;
-  height:24px;
-  min-height:24px;
-  padding-block:0;
-  line-height:1;
+  height:24px !important;
+  min-height:24px !important;
+  max-height:24px !important;
+  margin:0 !important;
+  padding:0 5px !important;
+  line-height:1 !important;
+  vertical-align:middle;
 }
