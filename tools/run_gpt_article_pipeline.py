@@ -73,6 +73,8 @@ def main():
     ap.add_argument("--refresh-products", action="store_true", help="候補をAPIから再収集してから選ぶ")
     ap.add_argument("--refresh-order-products", action="store_true",
                     help="購入履歴ASINを優先して候補を再収集する")
+    ap.add_argument("--order-offset", type=int, default=0,
+                    help="購入履歴候補の探索開始位置")
     ap.add_argument("--orders-first", action="store_true",
                     help="1日5本のうち先に購入履歴由来を3本確保し、残りを通常候補で作る")
     ap.add_argument("--take", type=int, default=5, help="その日の目標記事数")
@@ -125,6 +127,7 @@ def main():
         tried = 0
         refresh = args.refresh_products
         order_refresh = args.refresh_order_products
+        order_offset = max(0, args.order_offset)
         max_batches = max(1, (target_count * 3 + batch_size - 1) // batch_size)
         for batch_no in range(max_batches):
             remaining = target_count - len(succeeded)
@@ -135,7 +138,10 @@ def main():
             selection = [sys.executable, "tools/gpt_select_products.py", "--take", str(batch)]
             if order_refresh:
                 selection.append("--refresh-orders")
-                order_refresh = False
+                selection += ["--order-offset", str(order_offset)]
+                # 1ページ分ずつ先へ進める。前ページがレビュー不合格でも、
+                # 同じ候補を再取得せず、次の購入履歴商品を照合する。
+                order_offset += max(20, batch * 5)
             elif refresh:
                 selection.append("--refresh")
             selected = subprocess.run(selection, cwd=ROOT, check=False)

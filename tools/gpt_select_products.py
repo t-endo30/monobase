@@ -30,7 +30,7 @@ def _order_classifier():
     return module
 
 
-def order_items(limit=80):
+def order_items(limit=80, offset=0):
     """購入履歴の全ASINを再分類し、既出商品を除いてworkflowへ渡す。
 
     AmazonExport/candidates.csv は過去の分類結果なので信用せず、元の
@@ -70,16 +70,17 @@ def order_items(limit=80):
     for values in groups.values():
         values.sort(key=lambda x: (x["order_date"], x["asin"]), reverse=True)
     selected = []
-    while len(selected) < limit and any(groups.values()):
+    target = max(0, int(offset)) + max(0, int(limit))
+    while len(selected) < target and any(groups.values()):
         for category in sorted(groups):
             if groups[category]:
                 selected.append(groups[category].pop(0))
-                if len(selected) >= limit:
+                if len(selected) >= target:
                     break
-    return selected
+    return selected[max(0, int(offset)):max(0, int(offset)) + max(0, int(limit))]
 
 
-def refresh_order_candidates(limit):
+def refresh_order_candidates(limit, offset=0):
     """購入履歴由来候補を、Secretsを持つGitHub Actionsで照合する。"""
     if not shutil.which("gh"):
         print("gh CLIが見つかりません", file=sys.stderr)
@@ -87,7 +88,8 @@ def refresh_order_candidates(limit):
     try:
         # 1日3本の最低枠に対して、まず20件だけ照合する。APIの応答が遅い
         # ときに60件を一度に待ち続けると、日次処理全体を占有するため。
-        items = order_items(max(20, limit * 5))
+        page_size = max(20, limit * 5)
+        items = order_items(page_size, offset=offset)
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"購入履歴候補を準備できません: {exc}", file=sys.stderr)
         return 1
@@ -210,10 +212,12 @@ def main():
     ap.add_argument("--refresh-orders", action="store_true",
                     help="Amazon購入履歴のASINを楽天・Yahoo!と照合して候補化")
     ap.add_argument("--limit", type=int, default=30, help="候補収集件数")
+    ap.add_argument("--order-offset", type=int, default=0,
+                    help="購入履歴候補の探索開始位置（カテゴリ巡回後）")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
     if args.refresh_orders:
-        code = refresh_order_candidates(args.limit)
+        code = refresh_order_candidates(args.limit, offset=args.order_offset)
         if code:
             return code
     elif args.refresh:
