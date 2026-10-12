@@ -3,8 +3,8 @@ name: Check order-history candidates
 on:
   workflow_dispatch:
     inputs:
-      items_json:
-        description: 'Sanitized order items JSON (no raw order export)'
+      items_blob:
+        description: 'Compressed sanitized order items (no raw order export)'
         required: true
       limit:
         description: 'Maximum matched candidates'
@@ -25,8 +25,8 @@ jobs:
           python-version: '3.12'
       - name: 入力を一時ファイルへ保存
         env:
-          ITEMS_JSON: ${{ inputs.items_json }}
-        run: python3 -c 'import json,os; json.dump(json.loads(os.environ["ITEMS_JSON"]), open("/tmp/order-items.json","w",encoding="utf-8"), ensure_ascii=False)'
+          ITEMS_BLOB: ${{ inputs.items_blob }}
+        run: python3 -c 'import base64,json,os,zlib; json.dump(json.loads(zlib.decompress(base64.b64decode(os.environ["ITEMS_BLOB"])).decode("utf-8")), open("/tmp/order-items.json","w",encoding="utf-8"), ensure_ascii=False)'
       - name: 購入履歴ASINを非Amazon商品ページと照合
         env:
           RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}

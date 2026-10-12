@@ -7,6 +7,7 @@
 モデルに商品を自由選択させない。
 """
 import argparse
+import base64
 import csv
 import importlib.util
 import json
@@ -16,6 +17,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import zlib
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -90,10 +92,14 @@ def refresh_order_candidates(limit):
     if not items:
         print("未記事化でカテゴリ一致するASIN候補がありません", file=sys.stderr)
         return 1
-    payload = json.dumps(items, ensure_ascii=False, separators=(",", ":"))
+    # workflow_dispatchの入力上限を超えないよう、商品名を含む候補は
+    # zlib+base64で圧縮して渡す。注文履歴CSVそのものは渡さない。
+    payload = base64.b64encode(zlib.compress(
+        json.dumps(items, ensure_ascii=False, separators=(",", ":")).encode("utf-8"), 9
+    )).decode("ascii")
     started = time.time()
     code = subprocess.run(["gh", "workflow", "run", "order-candidates.yml", "--repo",
-                           "t-endo30/monobase", "-f", f"items_json={payload}",
+                           "t-endo30/monobase", "-f", f"items_blob={payload}",
                            "-f", f"limit={limit}"], cwd=ROOT, check=False).returncode
     if code:
         return code
