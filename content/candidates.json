@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-11T16:51:42+09:00",
+ "generated": "2026-10-12T06:57:36+09:00",
  "count": 30,
  "items": [
   {
@@ -85,7 +85,7 @@
    "jan": "",
    "category": "kitchen",
    "sub": "appliance",
-   "reviews": 2728,
+   "reviews": 2729,
    "rating": 4.42,
    "price": 4980,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/myhomeshop/cabinet/10352264/11477094/11675980/imgrc0332213479.jpg?_ex=128x128",
@@ -101,7 +101,7 @@
      "price": 4980,
      "shop_name": "My Home Shop 日用品楽天市場店",
      "postage_included": true,
-     "reviews": 2728,
+     "reviews": 2729,
      "rating": 4.42
     }
    }
@@ -133,28 +133,28 @@
    }
   },
   {
-   "name": "世界累計156万個販売 犬 ハーネス 小型犬 中型犬 大型犬 抜けにくい 超軽量 メッシュ 通気性 ベスト型【LEDライト付 PUPPIA パピア ソフトベストハーネス】犬用 胴輪 パピー ソフトハーネス ベストハーネス 首にやさしい 洗える 気管虚脱が気になる犬に XS S M L XL XXL 3L",
+   "name": "犬 ハーネス 負担が少ない 着けやすい 簡単装着 快適 メッシュ 小型犬 中型犬 大型犬 Truelove アウトドア 散歩 ひっぱり防止 しつけ トレーニング 耐久性抜群 丈夫 ナイロン ソフトパッド 軽量 新型バックル イージークリックハーネス TLH5653 TLH56512",
    "jan": "",
    "category": "pet",
    "sub": "dog",
-   "reviews": 1258,
-   "rating": 4.62,
-   "price": 2400,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/welrys/cabinet/puppia/puppiahtop.jpg?_ex=128x128",
+   "reviews": 120,
+   "rating": 4.73,
+   "price": 4380,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/wansuku/cabinet/tlh56512/tlh56512sam9.jpg?_ex=128x128",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/welrys/cabinet/puppia/puppiahtop.jpg?_ex=128x128"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/wansuku/cabinet/tlh56512/tlh56512sam9.jpg?_ex=128x128"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/welrys/puppia-harness002/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/wansuku/tlh56512/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": true,
    "shops": {
     "rakuten": {
-     "price": 2400,
-     "shop_name": "Best Friends/ベストフレンズ",
+     "price": 4380,
+     "shop_name": "Wanwan Square Garden",
      "postage_included": true,
-     "reviews": 1258,
-     "rating": 4.62
+     "reviews": 120,
+     "rating": 4.73
     }
    }
   },
@@ -341,28 +341,28 @@
    }
   },
   {
-   "name": "【公式】ZERO ウイルスセキュリティ 1台用 無期限【ダウンロード版】DL_SNR [Windows / Mac / iOS / Android対応][セキュリティソフト]セキュリティウイルス対策 更新料無料",
+   "name": "ESET HOME セキュリティ プレミアム 5台3年 ダウンロード( パソコン / スマホ / タブレット対応 | セキュリティ対策 / ウイルス対策 | セキュリティソフト | VPN 搭載 | 最新版 )",
    "jan": "",
    "category": "pc",
    "sub": "software",
-   "reviews": 793,
-   "rating": 4.49,
-   "price": 2970,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/pocketalk/cabinet/shuppin6/vs_dl_test.jpg?_ex=128x128",
+   "reviews": 96,
+   "rating": 4.44,
+   "price": 14520,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/canon-its/cabinet/campaign/pre53am20.jpg?_ex=128x128",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/pocketalk/cabinet/shuppin6/vs_dl_test.jpg?_ex=128x128"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/canon-its/cabinet/campaign/pre53am20.jpg?_ex=128x128"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/pocketalk/0000274750/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/canon-its/ehsp5_3/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": true,
    "shops": {
     "rakuten": {
-     "price": 2970,
-     "shop_name": "ソースネクスト 公式ショップ",
-     "postage_included": true,
-     "reviews": 793,
-     "rating": 4.49
+     "price": 14520,
+     "shop_name": "キヤノンITS 楽天市場店",
+     "postage_included": false,
+     "reviews": 96,
+     "rating": 4.44
     }
    }
   },
@@ -371,7 +371,7 @@
    "jan": "",
    "category": "pet",
    "sub": "dog",
-   "reviews": 1331,
+   "reviews": 1332,
    "rating": 4.64,
    "price": 3380,
    "image": "https://item-shopping.c.yimg.jp/i/g/wanwan-square-garden_tlh-sport",
@@ -387,7 +387,7 @@
      "price": 3380,
      "shop_name": "わんわん SQUARE GARDEN",
      "postage_included": true,
-     "reviews": 1331,
+     "reviews": 1332,
      "rating": 4.64
     }
    }
@@ -501,7 +501,7 @@
    "jan": "",
    "category": "smartphone",
    "sub": "charger",
-   "reviews": 17033,
+   "reviews": 17034,
    "rating": 4.27,
    "price": 1980,
    "image": "https://item-shopping.c.yimg.jp/i/g/meiseishop_544",
@@ -517,7 +517,7 @@
      "price": 1980,
      "shop_name": "明誠ショップ",
      "postage_included": true,
-     "reviews": 17033,
+     "reviews": 17034,
      "rating": 4.27
     }
    }
@@ -601,28 +601,28 @@
    }
   },
   {
-   "name": "犬 ハーネス 負担が少ない 着けやすい 簡単装着 快適 メッシュ 小型犬 中型犬 大型犬 Truelove アウトドア 散歩 ひっぱり防止 しつけ トレーニング 耐久性抜群 丈夫 ナイロン ソフトパッド 軽量 新型バックル イージークリックハーネス TLH5653 TLH56512",
+   "name": "Hakusan ハクサン ゼロハーネス 犬 犬用ハーネス 小型犬 大型犬 中型犬 抜けない 脱げない 負担が少ない クッション 散歩 お出かけ 丈夫 頑丈 Y型 気管 喉に優しい 気管虚脱 脇擦れ対策 簡単装着 サイズ調整 トレーニング 首 快適 軽量 胴輪",
    "jan": "",
    "category": "pet",
    "sub": "dog",
-   "reviews": 120,
-   "rating": 4.73,
-   "price": 4380,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/wansuku/cabinet/tlh56512/tlh56512sam9.jpg?_ex=128x128",
+   "reviews": 61,
+   "rating": 4.74,
+   "price": 4950,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/tsumugu-d/cabinet/homepage/hakusan/imgrc0083961573.jpg?_ex=128x128",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/wansuku/cabinet/tlh56512/tlh56512sam9.jpg?_ex=128x128"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tsumugu-d/cabinet/homepage/hakusan/imgrc0083961573.jpg?_ex=128x128"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/wansuku/tlh56512/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/tsumugu-d/zeroharness_01/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": true,
    "shops": {
     "rakuten": {
-     "price": 4380,
-     "shop_name": "Wanwan Square Garden",
+     "price": 4950,
+     "shop_name": "つむぐデザイン",
      "postage_included": true,
-     "reviews": 120,
-     "rating": 4.73
+     "reviews": 61,
+     "rating": 4.74
     }
    }
   },
@@ -761,7 +761,7 @@
    "jan": "",
    "category": "camera",
    "sub": "lens",
-   "reviews": 1989,
+   "reviews": 1990,
    "rating": 4.43,
    "price": 3580,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/smart-bl-stor/cabinet/051/051smm.jpg?_ex=128x128",
@@ -777,7 +777,7 @@
      "price": 3580,
      "shop_name": "スマートBL楽天市場店",
      "postage_included": true,
-     "reviews": 1989,
+     "reviews": 1990,
      "rating": 4.43
     }
    }
