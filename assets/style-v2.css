@@ -3720,6 +3720,20 @@ p,li,.card-desc{text-wrap:pretty;}
   .promo-row .row-body::after{font-size:10px;margin-top:3px;}
 }
 
+/* PC版の「最近見た記事」は情報量を絞り、本文タイルの基準を
+   タイトル・価格・評価・一言文章にそろえる。NEW/HOTは main.js が
+   .card-flags へ後付けするため、親枠単位で4種のバッジをまとめて隠す。
+   スマホのRECENTテキスト一覧と、NEW/PICK/RANKINGなど他の一覧には
+   適用しない。 */
+@media (min-width:861px){
+  .home-side .card-flags,
+  .home-side .card-badges,
+  .side-recent .card-flags,
+  .side-recent .card-badges{
+    display:none !important;
+  }
+}
+
 /* ============================================================
    横長バナーの帯（ホーム）
    ------------------------------------------------------------

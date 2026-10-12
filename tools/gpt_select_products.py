@@ -85,7 +85,9 @@ def refresh_order_candidates(limit):
         print("gh CLIが見つかりません", file=sys.stderr)
         return 1
     try:
-        items = order_items(max(60, limit * 12))
+        # 1日3本の最低枠に対して、まず20件だけ照合する。APIの応答が遅い
+        # ときに60件を一度に待ち続けると、日次処理全体を占有するため。
+        items = order_items(max(20, limit * 5))
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"購入履歴候補を準備できません: {exc}", file=sys.stderr)
         return 1
