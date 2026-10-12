@@ -158,15 +158,19 @@ def refresh_candidates(limit):
         print("gh CLIが見つかりません", file=sys.stderr)
         return 1
     repo = "t-endo30/monobase"
+    # ファイル名で run list を絞ると、同じ candidates ジョブを持つ購入履歴
+    # ワークフローを拾うことがある。通常候補の表示名を固定して、通常候補と
+    # 購入履歴候補の切替後に別ワークフローを確実に監視する。
+    workflow = "Check candidates"
     started = time.time()
-    code = subprocess.run(["gh", "workflow", "run", "candidates.yml", "--repo", repo,
+    code = subprocess.run(["gh", "workflow", "run", workflow, "--repo", repo,
                            "-f", f"limit={limit}"], cwd=ROOT, check=False).returncode
     if code:
         return code
     run_id = None
     for _ in range(30):
         proc = subprocess.run(["gh", "run", "list", "--repo", repo,
-                               "--workflow", "candidates.yml", "--limit", "5",
+                               "--workflow", workflow, "--limit", "5",
                                "--json", "databaseId,createdAt,status",
                                "--jq", ".[] | select(.createdAt != null) | [.databaseId,.createdAt,.status] | @tsv"],
                               cwd=ROOT, text=True, capture_output=True, check=False)
