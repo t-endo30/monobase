@@ -1986,7 +1986,13 @@ def v2_card(a, p, no=None, flags=""):
     badges = (f'<span class="card-badges">'
               f'<span class="card-cat-out">&nbsp;{e(cat)}&nbsp;</span>'
               f'{card_proof(a)}</span>')
-    title_html = f'<span class="card-title">{v2_title(title)}</span>'
+    # 新着のNew札は、PCホームでは商品名行の右側に置く。タイトル要素の
+    # 内側に入れておくと、タイトルの行高に追従し、サムネイル上に
+    # 浮いたりカテゴリー札と重なったりしない。ほかの一覧の札は従来の
+    # DOM位置を維持する。
+    title_flag = ('<span class="card-flags" aria-hidden="true"></span>'
+                  if flags == "new" else "")
+    title_html = f'<span class="card-title">{v2_title(title)}{title_flag}</span>'
     stats = card_stats(a, reserve_line=bool(no and a.get("category") == "feature"))
     note = f'<span class="card-note">{e(v2_appeal(a))}</span>'
     # FEATURE/RANKINGのカルーセルは、端末幅に依存しないようHTML自体を
@@ -2005,8 +2011,8 @@ def v2_card(a, p, no=None, flags=""):
             f'{badges}'
             # 閲覧数は GA4 の実数（content/ranking.json）を assets/main.js が入れる。
             f'<span class="card-views" hidden></span></span>')
-    return (href + thumb + '<span class="card-flags" aria-hidden="true"></span>'
-            + title_html + stats + note + meta + '</a>')
+    outer_flag = '' if flags == "new" else '<span class="card-flags" aria-hidden="true"></span>'
+    return (href + thumb + outer_flag + title_html + stats + note + meta + '</a>')
 
 
 def v2_row(a, p, numbered=None, detail=False, flags="", feature_list=False):
@@ -4758,7 +4764,7 @@ def build_index():
         # 「最近見た記事」は区画の外＝右サイドバー（v2_home_side）へ移した。
         + '</div>\n'
         + v2_sec_more(f"{p}new.html", cls="has-feat-ad has-side-ad"), tinted=True,
-        cls="is-section-frame")
+        cls="is-section-frame home-new")
 
     # ランキングの並びは、ランキングのページ（assets/main.js）と同じ規則で
     # 決める。直近の閲覧数があればそれを、無ければ累計を使い、同数なら

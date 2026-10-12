@@ -3734,6 +3734,28 @@ p,li,.card-desc{text-wrap:pretty;}
   }
 }
 
+/* PCホームの新着だけ、NEW札を商品名行の右側へ置く。タイトル内に
+   入った札を絶対配置するため、2行タイトルでも先頭行の右端に揃い、
+   サムネイル上のカテゴリー札と干渉しない。スマホや新着一覧、
+   RECENTの表示は従来の配置を維持する。 */
+@media (min-width:861px){
+  .home-new .card > .card-title{
+    position:relative;
+    padding-right:58px;
+    box-sizing:border-box;
+  }
+  .home-new .card > .card-title > .card-flags{
+    position:absolute;
+    top:0;
+    right:14px;
+    left:auto;
+    display:flex;
+    gap:4px;
+    align-items:center;
+    pointer-events:none;
+  }
+}
+
 /* ============================================================
    横長バナーの帯（ホーム）
    ------------------------------------------------------------
