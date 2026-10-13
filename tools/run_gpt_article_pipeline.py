@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """GPT記事経路を生成→レビューの順で実行する安全な入口。"""
 import argparse
+import csv
 import json
 import os
 import subprocess
@@ -42,6 +43,25 @@ def reviewed_successes(slugs):
                 score["total"] >= 85):
             result.add(article.get("slug"))
     return result
+
+
+def order_history_rows():
+    """購入履歴探索の上限を、固定値ではなく実CSVの行数から決める。
+
+    購入履歴経路は、先頭ページの候補が画像・個別URL・レビュー条件で
+    落ちても、別の商品へ進める必要がある。固定の1,200件上限だと、
+    現在の履歴件数がそれを超えたときに「候補枯渇」と誤判定するため、
+    元CSVを読むだけの有限な上限にする（秘密情報は読み込まない）。
+    """
+    path = os.path.join(ROOT, "AmazonExport", "Order History.csv")
+    try:
+        with open(path, encoding="utf-8-sig", newline="") as handle:
+            return sum(1 for row in csv.DictReader(handle)
+                       if str(row.get("ASIN") or "").strip()
+                       and str(row.get("Product Name") or "").strip())
+    except (OSError, csv.Error):
+        # CSVを読めない場合でも、従来の有限上限で通常の候補切替へ進む。
+        return 1200
 
 
 def remove_failed_new(slugs):
@@ -140,9 +160,15 @@ def main():
         order_refresh = args.refresh_order_products
         order_offset = max(0, args.order_offset)
         # 購入履歴は1ページで決め打ちせず、候補不成立なら別ページへ進む。
-        # 1ページ80件を最大15回（最大1,200件）探索してから、候補枯渇と
-        # 判断する。全履歴を毎回無限に再試行することはしない。
-        max_batches = max(5, (target_count * 10 + batch_size - 1) // batch_size)
+        # 1ページ80件を元CSVの行数ぶんだけ探索してから候補枯渇と判断する。
+        # CSV全体を上限にする有限走査なので、無限再試行にはならない。
+        if order_refresh:
+            order_page_size = 80
+            max_order_pages = max(1, (order_history_rows() + order_page_size - 1)
+                                  // order_page_size)
+            max_batches = max(5, max_order_pages)
+        else:
+            max_batches = max(5, (target_count * 10 + batch_size - 1) // batch_size)
         for batch_no in range(max_batches):
             remaining = target_count - len(succeeded)
             if remaining <= 0:
