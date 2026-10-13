@@ -139,7 +139,10 @@ def main():
         refresh = args.refresh_products
         order_refresh = args.refresh_order_products
         order_offset = max(0, args.order_offset)
-        max_batches = max(1, (target_count * 3 + batch_size - 1) // batch_size)
+        # 購入履歴は1ページで決め打ちせず、候補不成立なら別ページへ進む。
+        # 1ページ80件を最大15回（最大1,200件）探索してから、候補枯渇と
+        # 判断する。全履歴を毎回無限に再試行することはしない。
+        max_batches = max(5, (target_count * 10 + batch_size - 1) // batch_size)
         for batch_no in range(max_batches):
             remaining = target_count - len(succeeded)
             if remaining <= 0:
@@ -152,7 +155,7 @@ def main():
                 selection += ["--order-offset", str(order_offset)]
                 # 1ページ分ずつ先へ進める。前ページがレビュー不合格でも、
                 # 同じ候補を再取得せず、次の購入履歴商品を照合する。
-                order_offset += max(20, batch * 5)
+                order_offset += max(80, batch * 20)
             elif refresh:
                 selection.append("--refresh")
             selected = subprocess.run(selection, cwd=ROOT, check=False)

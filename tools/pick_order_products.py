@@ -59,6 +59,33 @@ def same_product(order_name, shop_name):
     return hits >= 2 or (hits >= 1 and len(chunks) == 1 and norm(chunks[0]) == b)
 
 
+def marketplace_query(name):
+    """購入履歴の商品名を楽天/Yahoo検索用の短い語へ整える。
+
+    購入履歴には、商品名に説明文やキャンペーン文言まで連結された行が
+    あり、楽天APIの keyword 上限（128文字）を超えることがある。長い文字列
+    をそのまま渡すと楽天が400を返し、その候補だけでなくページ全体の照合が
+    空振りになる。型番が見つかる場合は型番を優先し、見つからない場合は
+    商品名の先頭から検索に使える語だけを残す。
+    """
+    text = re.sub(r"[\r\n\t]+", " ", str(name or ""))
+    codes = sorted(model_codes(text))
+    if codes:
+        query = " ".join(codes)
+    else:
+        words = re.findall(
+            r"[A-Za-z0-9][A-Za-z0-9._/-]{1,}|[ぁ-んァ-ヶ一-龥]{2,}",
+            text,
+        )
+        query = " ".join(words[:10])
+    query = re.sub(r"\s+", " ", query).strip()
+    # 楽天の上限より十分短くして、全角文字を含む商品名でも400を避ける。
+    query = query[:96] or "商品"
+    while len(query.encode("utf-8")) > 120 and query:
+        query = query[:-1].rstrip()
+    return query or "商品"
+
+
 def eligible_shop(entry, order_name, category):
     if not entry.get("url", "").startswith(("http://", "https://")):
         return False
@@ -132,10 +159,7 @@ def main():
         if reason:
             continue
         shops = {}
-        query = name[:180]
-        codes = sorted(model_codes(name))
-        if codes:
-            query = " ".join(codes)
+        query = marketplace_query(name)
         rk_match = None
         try:
             if rk_id:

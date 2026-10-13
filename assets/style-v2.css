@@ -692,7 +692,17 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   font-size:10px;line-height:1.5;letter-spacing:.04em;
   white-space:nowrap;
 }
-.card-badges{display:contents;}
+.card-badges{
+  display:flex;align-items:center;gap:6px;min-width:0;
+}
+/* バッジを display:contents にすると、子要素の絶対配置がカード全体を
+   基準にしてサムネイル上へ抜け、確認バッジも日付行から外れていた。
+   日付行の中に実体のある1グループとして置き、カテゴリーと確認札の
+   高さ・縦位置を同じ基準でそろえる。 */
+.card-meta > .card-badges{
+  flex:0 1 auto;margin-left:0;align-items:center;
+}
+.card-meta > .card-badges .card-proof{margin-top:0;}
 /* カテゴリーは写真の右下に札で乗せる（2026-09-28、ユーザー指摘）。
    日付・VIEWと同じ行の右端に置いていたが、タイルの幅が足りず
    「家具・イン…」と見切れていた。写真の上なら行の幅に左右されない。

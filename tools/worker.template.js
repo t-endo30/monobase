@@ -47,6 +47,12 @@ const ARTICLE_REDIRECTS = {
   "/articles/recolte-capsule-cutter-bonne-rcp-3": "/articles/rcp-3-recolte-capsule-cutter-bonne",
   "/articles/salonia-hk-slall.html": "/articles/salonia",
   "/articles/salonia-hk-slall": "/articles/salonia",
+  "/articles/gunze-agw112.html": "/category-fashion-wear",
+  "/articles/gunze-agw112": "/category-fashion-wear",
+  "/articles/iris-panel-light-ceiling-review.html": "/category-appliance-light",
+  "/articles/iris-panel-light-ceiling-review": "/category-appliance-light",
+  "/articles/o-neil-of-dublin-w.html": "/category-fashion-wear",
+  "/articles/o-neil-of-dublin-w": "/category-fashion-wear",
 };
 
 // 中継してよい問い合わせ先。ここに無いものは通さない。

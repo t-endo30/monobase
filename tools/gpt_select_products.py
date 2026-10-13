@@ -86,9 +86,10 @@ def refresh_order_candidates(limit, offset=0):
         print("gh CLIが見つかりません", file=sys.stderr)
         return 1
     try:
-        # 1日3本の最低枠に対して、まず20件だけ照合する。APIの応答が遅い
-        # ときに60件を一度に待ち続けると、日次処理全体を占有するため。
-        page_size = max(20, limit * 5)
+        # 1ページを広めに取り、前ページが条件不足でも購入履歴CSVの
+        # 次の商品へ進める。旧設定は20件だけで止まり、検索語の400が
+        # 起きたときに「履歴に候補がない」と誤判定していた。
+        page_size = max(80, limit * 20)
         items = order_items(page_size, offset=offset)
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"購入履歴候補を準備できません: {exc}", file=sys.stderr)

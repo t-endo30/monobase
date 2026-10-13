@@ -88,7 +88,10 @@ def rank_item(a, p):
     src, is_shop, shop = card_visual(a, p)
     return {"slug": a["slug"],
             "title": a.get("list_title") or a["title"],
-            "url": f'{p}articles/{a["slug"]}.html',
+            # JSでランキング行を組み立てても、正規URL（拡張子なし）を
+            # 使う。ここだけ .html を残すと、一覧を切り替えた瞬間に
+            # すべて301を踏み、GSCのリダイレクト除外を増やす。
+            "url": f'{p}articles/{a["slug"]}',
             "cat": CAT_LABEL.get(a["category"], ""),
             "catKey": a["category"],
             "thumb": src,
@@ -4301,7 +4304,7 @@ def v2_pool_json(items, p):
     for a in items:
         shop_url, shop = shop_thumb(a)
         pool.append({
-            "u": f'{p}articles/{a["slug"]}.html',
+            "u": f'{p}articles/{a["slug"]}',
             "t": a.get("list_title") or a["title"],
             "x": v2_appeal(a),
             "c": CAT_LABEL.get(a.get("category", ""), ""),
@@ -5975,7 +5978,7 @@ def main():
             "score": a.get("rating", {}).get("score") or 0,
             "st": card_stats_data(a),
             "proof": bool(card_proof(a)),
-            "url": f'articles/{a["slug"]}.html'} for a in PUBLISHED]
+            "url": f'articles/{a["slug"]}'} for a in PUBLISHED]
     write("search.json", json.dumps(idx, ensure_ascii=False, separators=(",", ":")))
     written.append("search.json")
 
