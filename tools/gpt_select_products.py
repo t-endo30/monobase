@@ -21,6 +21,11 @@ import zlib
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# GitHub Actions の workflow_dispatch 入力にはサイズ上限があるため、
+# 購入履歴候補を一度に送りすぎない。30件なら商品名が長いページでも
+# 圧縮後の入力が上限を越えにくく、ページを進めてCSV全体を探索できる。
+ORDER_PAGE_SIZE = 30
+
 
 def _order_classifier():
     path = os.path.join(ROOT, "AmazonExport", "classify.py")
@@ -89,7 +94,7 @@ def refresh_order_candidates(limit, offset=0):
         # 1ページを広めに取り、前ページが条件不足でも購入履歴CSVの
         # 次の商品へ進める。旧設定は20件だけで止まり、検索語の400が
         # 起きたときに「履歴に候補がない」と誤判定していた。
-        page_size = max(80, limit * 20)
+        page_size = max(ORDER_PAGE_SIZE, limit * 10)
         items = order_items(page_size, offset=offset)
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"購入履歴候補を準備できません: {exc}", file=sys.stderr)

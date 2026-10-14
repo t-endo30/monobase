@@ -160,10 +160,10 @@ def main():
         order_refresh = args.refresh_order_products
         order_offset = max(0, args.order_offset)
         # 購入履歴は1ページで決め打ちせず、候補不成立なら別ページへ進む。
-        # 1ページ80件を元CSVの行数ぶんだけ探索してから候補枯渇と判断する。
+        # 1ページ30件を元CSVの行数ぶんだけ探索してから候補枯渇と判断する。
         # CSV全体を上限にする有限走査なので、無限再試行にはならない。
         if order_refresh:
-            order_page_size = 80
+            order_page_size = 30
             max_order_pages = max(1, (order_history_rows() + order_page_size - 1)
                                   // order_page_size)
             max_batches = max(5, max_order_pages)
@@ -181,7 +181,7 @@ def main():
                 selection += ["--order-offset", str(order_offset)]
                 # 1ページ分ずつ先へ進める。前ページがレビュー不合格でも、
                 # 同じ候補を再取得せず、次の購入履歴商品を照合する。
-                order_offset += max(80, batch * 20)
+                order_offset += order_page_size
             elif refresh:
                 selection.append("--refresh")
             selected = subprocess.run(selection, cwd=ROOT, check=False)
