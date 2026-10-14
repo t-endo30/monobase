@@ -78,10 +78,14 @@ def marketplace_query(name):
             text,
         )
         query = " ".join(words[:10])
+    # 楽天APIは記号の組み合わせを「keyword is not valid」として拒否する
+    # ことがある。商品同定に不要な記号を空白へ置き換え、語数も絞る。
+    query = re.sub(r"[^0-9A-Za-zぁ-んァ-ヶ一-龥 ]+", " ", query)
     query = re.sub(r"\s+", " ", query).strip()
+    query = " ".join(query.split()[:8])
     # 楽天の上限より十分短くして、全角文字を含む商品名でも400を避ける。
-    query = query[:96] or "商品"
-    while len(query.encode("utf-8")) > 120 and query:
+    query = query[:80] or "商品"
+    while len(query.encode("utf-8")) > 96 and query:
         query = query[:-1].rstrip()
     return query or "商品"
 
