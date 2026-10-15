@@ -7,6 +7,46 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>enevolt basic CR123A電池</title>
+    <link>https://monobase.site/articles/enevolt-basic-cr123a</link>
+    <guid isPermaLink="true">https://monobase.site/articles/enevolt-basic-cr123a</guid>
+    <description>CR123A形・3V指定の機器向け。用途と本数、購入前の確認点を整理。</description>
+    <category>家電</category>
+    <pubDate>Thu, 15 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>山崎実業 tower 4329</title>
+    <link>https://monobase.site/articles/appliance-20261015</link>
+    <guid isPermaLink="true">https://monobase.site/articles/appliance-20261015</guid>
+    <description>衣類スチーマーをドアに掛けて収納。折り畳み設計と設置前の注意点を整理。</description>
+    <category>家電</category>
+    <pubDate>Thu, 15 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>アイリスオーヤマ CEA-A08DLP</title>
+    <link>https://monobase.site/articles/panel-light-cea-a08dlp</link>
+    <guid isPermaLink="true">https://monobase.site/articles/panel-light-cea-a08dlp</guid>
+    <description>8畳向け・調光調色対応のCEA-A08DLPを、公式仕様と購入前の確認点から整理。</description>
+    <category>家電</category>
+    <pubDate>Thu, 15 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>パナソニック eneloop pro BK-4HCD/4H</title>
+    <link>https://monobase.site/articles/eneloop-bk-4hcd-4h</link>
+    <guid isPermaLink="true">https://monobase.site/articles/eneloop-bk-4hcd-4h</guid>
+    <description>単4形4本パックの容量・保管条件・温度範囲を公式仕様から確認。利用者の声と購入前に見るべき型番・対応条件も整理します。</description>
+    <category>家電</category>
+    <pubDate>Thu, 15 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>三菱電機 LR6N/10S単3電池</title>
+    <link>https://monobase.site/articles/lr6n-10s</link>
+    <guid isPermaLink="true">https://monobase.site/articles/lr6n-10s</guid>
+    <description>LR6N/10Sの仕様と、購入前に確認したい型番・本数・扱いを整理。</description>
+    <category>家電</category>
+    <pubDate>Thu, 15 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>HaruDesign GL-X 6K FtW｜植物育成LEDの確認点</title>
     <link>https://monobase.site/articles/harudesign-led-gl-x-6k-ftw-5800k</link>
     <guid isPermaLink="true">https://monobase.site/articles/harudesign-led-gl-x-6k-ftw-5800k</guid>
@@ -124,46 +164,6 @@
     <guid isPermaLink="true">https://monobase.site/articles/hkt-100</guid>
     <description>1LのコンパクトケトルHKT-100を、容量・安全機能・設置条件・利用者の声の分かれ目から確認します。</description>
     <category>キッチン</category>
-    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>Microsoft Surface Go 2 Model 1927</title>
-    <link>https://monobase.site/articles/microsoft-surface-go-model-8gb-128gb</link>
-    <guid isPermaLink="true">https://monobase.site/articles/microsoft-surface-go-model-8gb-128gb</guid>
-    <description>Surface Go 2 Model 1927中古の構成と、購入前に見るべき個体差・付属品を整理。</description>
-    <category>パソコン</category>
-    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>MYTREX REBIVE2 MT-RB2-24G｜深さ・速さ調整と重量感の確認</title>
-    <link>https://monobase.site/articles/mytrex-rebive2-mt-rb2-24g</link>
-    <guid isPermaLink="true">https://monobase.site/articles/mytrex-rebive2-mt-rb2-24g</guid>
-    <description>深さと速さを調整できるMYTREX REBIVE2 MT-RB2-24Gの仕様・利用者の声・向く人を整理。約729gの重量感や購入前の確認点も紹介します。</description>
-    <category>ヘルスケア</category>
-    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>JBL WAVE BEAM 2｜WAVE BEAM 2は、音楽専用より</title>
-    <link>https://monobase.site/articles/jbl-wave-beam</link>
-    <guid isPermaLink="true">https://monobase.site/articles/jbl-wave-beam</guid>
-    <description>JBL WAVE BEAM 2のANC・長時間再生・マルチポイントと利用者の声の確認点を整理。</description>
-    <category>AV機器</category>
-    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>SOUNDPEATS C30｜ANCと長時間再生の確認点</title>
-    <link>https://monobase.site/articles/soundpeats-c30</link>
-    <guid isPermaLink="true">https://monobase.site/articles/soundpeats-c30</guid>
-    <description>SOUNDPEATS C30のANC・LDAC・52時間再生と、購入前の接続・充電条件を解説。</description>
-    <category>AV機器</category>
-    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>TP-Link Tapo C520WS｜屋外カメラの設置とAI検知の確認点</title>
-    <link>https://monobase.site/articles/tp-link-tapo-c520ws-a-wi-fi</link>
-    <guid isPermaLink="true">https://monobase.site/articles/tp-link-tapo-c520ws-a-wi-fi</guid>
-    <description>屋外の広範囲を確認するTapo C520WSのAI検知、設置条件、保存方法を整理。</description>
-    <category>カメラ</category>
     <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
