@@ -10,6 +10,7 @@ import sys
 
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ORDER_PAGE_SIZE = 10
 
 
 def slugs_with_content():
@@ -176,7 +177,7 @@ def main():
         # 1ページ30件を元CSVの行数ぶんだけ探索してから候補枯渇と判断する。
         # CSV全体を上限にする有限走査なので、無限再試行にはならない。
         if order_refresh:
-            order_page_size = 30
+            order_page_size = ORDER_PAGE_SIZE
             max_order_pages = max(1, (order_history_rows() + order_page_size - 1)
                                   // order_page_size)
             max_batches = max(5, max_order_pages)

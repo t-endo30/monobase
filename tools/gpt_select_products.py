@@ -21,9 +21,9 @@ import zlib
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # GitHub Actions の workflow_dispatch 入力にはサイズ上限があるため、
-# 購入履歴候補を一度に送りすぎない。30件なら商品名が長いページでも
-# 圧縮後の入力が上限を越えにくく、ページを進めてCSV全体を探索できる。
-ORDER_PAGE_SIZE = 30
+# 購入履歴候補を一度に送りすぎない。外部API照合は商品ごとに待ち時間が
+# 発生するため、10件単位で区切って候補不足時だけ次ページへ進む。
+ORDER_PAGE_SIZE = 10
 
 
 def _filtered_order_pool():
@@ -89,10 +89,9 @@ def refresh_order_candidates(limit, offset=0):
         print("gh CLIが見つかりません", file=sys.stderr)
         return 1
     try:
-        # 1ページを広めに取り、前ページが条件不足でも購入履歴CSVの
-        # 次の商品へ進める。旧設定は20件だけで止まり、検索語の400が
-        # 起きたときに「履歴に候補がない」と誤判定していた。
-        page_size = max(ORDER_PAGE_SIZE, limit * 10)
+        # 前ページが条件不足でも候補プールの次の商品へ進める。10件単位に
+        # することで、外部APIの応答待ちで1回の実行全体が長時間止まらない。
+        page_size = max(ORDER_PAGE_SIZE, limit * 4)
         items = order_items(page_size, offset=offset)
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"購入履歴候補を準備できません: {exc}", file=sys.stderr)
