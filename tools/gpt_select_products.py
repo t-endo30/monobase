@@ -9,7 +9,6 @@
 import argparse
 import base64
 import csv
-import importlib.util
 import json
 import os
 import shutil
@@ -27,27 +26,30 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORDER_PAGE_SIZE = 30
 
 
-def _order_classifier():
-    path = os.path.join(ROOT, "AmazonExport", "classify.py")
-    spec = importlib.util.spec_from_file_location("monobase_order_classifier", path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+def _filtered_order_pool():
+    """再分類済みの購入履歴候補を読み込む。
+
+    candidates.csv は ``AmazonExport/classify.py`` を実行した時点の母集団。
+    当面はこのファイルだけを記事候補の入口にし、通常候補APIへ逃がさない。
+    ファイルが無い環境では元CSVから同じ分類を一度だけ再生成する。
+    """
+    pool = os.path.join(ROOT, "AmazonExport", "candidates.csv")
+    if not os.path.exists(pool):
+        code = subprocess.run([sys.executable, "AmazonExport/classify.py"],
+                              cwd=ROOT, check=False).returncode
+        if code or not os.path.exists(pool):
+            raise RuntimeError("再分類済み購入履歴候補が作成できません")
+    with open(pool, encoding="utf-8-sig", newline="") as f:
+        return list(csv.DictReader(f))
 
 
 def order_items(limit=80, offset=0):
-    """購入履歴の全ASINを再分類し、既出商品を除いてworkflowへ渡す。
+    """再分類済み1,372件を母集団にし、既出商品を除いてworkflowへ渡す。
 
-    AmazonExport/candidates.csv は過去の分類結果なので信用せず、元の
-    Order History.csv を再分類する。ここでは商品名・ASIN・日付・価格だけを
-    渡し、注文番号や配送情報などは外へ出さない。
+    注文番号や配送情報は外へ出さず、ASIN・商品名・分類・日付・価格だけを
+    GitHub Actionsへ渡す。候補不足時も通常候補APIへ切り替えない。
     """
-    src = os.path.join(ROOT, "AmazonExport", "Order History.csv")
-    if not os.path.exists(src):
-        raise RuntimeError("AmazonExport/Order History.csv が見つかりません")
-    classifier = _order_classifier()
-    with open(src, encoding="utf-8-sig", newline="") as f:
-        rows = list(csv.DictReader(f))
+    rows = _filtered_order_pool()
     with open(os.path.join(ROOT, "content", "articles.json"), encoding="utf-8") as f:
         articles = json.load(f)
     used = {str(a.get("asin") or "").upper() for a in articles if a.get("asin")}
@@ -59,13 +61,9 @@ def order_items(limit=80, offset=0):
         if len(asin) != 10 or asin in used or asin in seen or not name:
             continue
         seen.add(asin)
-        if classifier.excluded(name):
-            continue
-        category, sub, _matched = classifier.classify(name)
+        category = str(row.get("category") or "").strip()
+        sub = str(row.get("sub") or "").strip()
         if not category or not sub:
-            continue
-        # adult を含む分類漏れと、カテゴリ内の明白な取り違えを二重に除外。
-        if any(x.lower() in name.lower() for x in classifier.EXCLUDE):
             continue
         groups.setdefault(category, []).append({
             "asin": asin, "name": name, "category": category, "sub": sub,

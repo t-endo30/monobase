@@ -46,22 +46,30 @@ def reviewed_successes(slugs):
 
 
 def order_history_rows():
-    """購入履歴探索の上限を、固定値ではなく実CSVの行数から決める。
+    """購入履歴探索の上限を、固定値ではなく候補プールの行数から決める。
 
-    購入履歴経路は、先頭ページの候補が画像・個別URL・レビュー条件で
-    落ちても、別の商品へ進める必要がある。固定の1,200件上限だと、
-    現在の履歴件数がそれを超えたときに「候補枯渇」と誤判定するため、
-    元CSVを読むだけの有限な上限にする（秘密情報は読み込まない）。
+    候補経路は、先頭ページの商品が画像・個別URL・レビュー条件で落ちても
+    別の商品へ進める必要がある。ここでは再分類済み候補だけを有限走査する。
     """
-    path = os.path.join(ROOT, "AmazonExport", "Order History.csv")
+    path = os.path.join(ROOT, "AmazonExport", "candidates.csv")
     try:
         with open(path, encoding="utf-8-sig", newline="") as handle:
             return sum(1 for row in csv.DictReader(handle)
                        if str(row.get("ASIN") or "").strip()
-                       and str(row.get("Product Name") or "").strip())
+                       and str(row.get("Product Name") or "").strip()
+                       and str(row.get("category") or "").strip())
     except (OSError, csv.Error):
-        # CSVを読めない場合でも、従来の有限上限で通常の候補切替へ進む。
+        # 候補CSVを読めない場合でも、有限値で処理を止める。
         return 1200
+
+
+def order_history_only():
+    try:
+        with open(os.path.join(ROOT, "content", "site.json"), encoding="utf-8") as f:
+            return bool((json.load(f).get("automation") or {}).get(
+                "order_history_only", False))
+    except (OSError, ValueError, TypeError):
+        return False
 
 
 def remove_failed_new(slugs):
@@ -122,11 +130,12 @@ def main():
     if args.refresh_order_products or args.orders_first:
         args.select = True
     if args.orders_first and not args.dry_run:
-        # Amazon APIが使えない期間の固定運用。まず購入履歴由来を3本、
-        # その後に通常候補を2本処理する。各子プロセス自身がレビュー合格・
-        # 公開まで完了するため、片方が未達なら全体を成功扱いにしない。
+        # 当面は再分類済み購入履歴プールだけを母集団にする。設定が解除された
+        # 場合だけ、従来どおり購入履歴3本→通常候補へ切り替える。
+        pool_only = order_history_only()
+        order_target = args.take if pool_only else min(3, args.take)
         order_cmd = [sys.executable, __file__, "--select", "--refresh-order-products",
-                     "--take", "3", "--batch-size", str(args.batch_size),
+                     "--take", str(order_target), "--batch-size", str(args.batch_size),
                      "--model", args.model, "--review-model", args.review_model,
                      "--timeout", str(args.timeout)]
         if args.publish:
@@ -140,6 +149,10 @@ def main():
         if remaining == 0:
             print(f"目標達成: {args.take} 本（購入履歴由来 {order_published} 本）")
             return 0
+        if pool_only:
+            print(f"購入履歴候補プールのみで {order_published}/{args.take} 本。"
+                  "通常候補へは切り替えず、次回枠へ繰り越します。")
+            return 1
         if order_code:
             print(f"購入履歴由来は {order_published}/3 本。残り {remaining} 本を通常候補へ切り替えます。")
         normal_cmd = [sys.executable, __file__, "--select", "--refresh-products",

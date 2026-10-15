@@ -3775,16 +3775,18 @@
   }
  },
  "automation": {
-  "_note": "記事を自動で作る頻度と本数。Amazon APIが使えない期間も1日5本を目標にし、先に購入履歴ASIN由来を3本、残りを通常候補で作る。購入履歴はカテゴリ一致のみ、成人向けは除外し、根拠ゲートを通過した記事だけ公開する。",
+  "_note": "記事を自動で作る頻度と本数。当面は再分類済みの購入履歴候補プールだけを母集団にし、1日5本を目標にする。購入履歴はカテゴリ一致のみ、成人向けは除外し、根拠ゲートを通過した記事だけ公開する。",
   "enabled": true,
   "runs_per_week": 7,
   "articles_per_run": 5,
   "auto_publish": true,
   "order_history_enabled": true,
-  "order_history_source": "AmazonExport/Order History.csv",
-  "order_history_min_per_run": 3,
-  "order_history_max_per_run": 4,
-  "order_history_exclude_adult": true
+  "order_history_source": "AmazonExport/candidates.csv",
+  "order_history_min_per_run": 5,
+  "order_history_max_per_run": 5,
+  "order_history_exclude_adult": true,
+  "order_history_candidate_pool": "AmazonExport/candidates.csv",
+  "order_history_only": true
  },
  "hosting": {
   "_note": "配信先は Cloudflare Workers（静的アセット）。build.py が wrangler.jsonc と .assetsignore を書き出す。GitHub Pages へ戻す場合は clean_urls を false にする。",
