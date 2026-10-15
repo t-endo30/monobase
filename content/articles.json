@@ -295,6 +295,9 @@
     "total": 93,
     "notes": "根拠データの範囲を超える仕様・価格・Amazonレビュー評価を記載せず、未確認項目も購入前確認として整理できています。内容はやや定型的ですが、CR123A形・定格3V・用途・本数確認に具体的に結び付いています。"
    }
+  },
+  "health": {
+   "checked": "2026-10-15"
   }
  },
  {
@@ -612,6 +615,9 @@
     "total": 93,
     "notes": "公式確認済みの用途・折り畳み・ガラス戸注意・型番に基づき、未確認の寸法や耐荷重を断定していません。シリーズレビューは4329単体と断定せず、確認材料として限定されています。"
    }
+  },
+  "health": {
+   "checked": "2026-10-15"
   }
  },
  {
@@ -920,6 +926,9 @@
     "total": 91,
     "notes": "根拠データにない仕様やAmazon由来の評価を追加せず、公式仕様と利用者の声を概ね分離できています。定型的な説明と一部の反復が残るため、original_analysisとtemplate_avoidanceは満点にしていません。"
    }
+  },
+  "health": {
+   "checked": "2026-10-15"
   }
  },
  {
@@ -1281,6 +1290,9 @@
     "total": 92,
     "notes": "確認済みの公式仕様と利用者の声の範囲で構成され、価格やAmazon由来の星・件数も本文で使用していません。単一商品の確認済み仕様として整理され、購入前の型番・本数・画像・充電器確認も具体的です。"
    }
+  },
+  "health": {
+   "checked": "2026-10-15"
   }
  },
  {
@@ -1631,6 +1643,9 @@
     "total": 93,
     "notes": "確認済みの仕様・楽天市場の利用者の声・公式注意事項の範囲に概ね限定されている。価格への言及のみ修正した。"
    }
+  },
+  "health": {
+   "checked": "2026-10-15"
   }
  },
  {
@@ -28522,7 +28537,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T09:01:24+09:00",
@@ -28762,7 +28777,7 @@
   ],
   "personal_note": "",
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T08:57:36+09:00",
@@ -35543,10 +35558,7 @@
    "checked": "2026-10-09"
   },
   "health": {
-   "checked": "2026-10-09",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=A75C4419%20%E3%83%91%E3%83%8A%E3%82%BD%E3%83%8B%E3%83%83%E3%82%AF%20Panasonic%20%E3%82%A8%E3%82%A2%E3%82%B3%E3%83%B3%E7%94%A8%E3%83%AA%E3%83%A2%E3%82%B3%E3%83%B3%20%E3%82%B9%E3%83%94%E3%83%BC%E3%83%89%E7%99%BA%E9%80%81%20%E5%8D%B3%E6%B1%BA%20%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%20%E4%B8%8D%E8%89%AF%E5%93%81%E8%BF%94%E9%87%91%E4%BF%9D%E8%A8%BC%20%E7%B4%94%E6%AD%A3%20D2613&i=aps"
-   ]
+   "checked": "2026-10-15"
   },
   "unpublished_reason": "",
   "official_url": "https://panasonic.jp/manualdl/p-db/cs/cs_634_804_x.pdf",
@@ -36543,7 +36555,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -36884,7 +36896,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -37160,7 +37172,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -37454,7 +37466,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -41893,10 +41905,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-09",
-   "dead": [
-    "https://www.amazon.co.jp/s?k=%E3%82%A8%E3%83%97%E3%82%BD%E3%83%B3%20LP-S6160%E7%94%A8%E7%92%B0%E5%A2%83%E6%8E%A8%E9%80%B2%E3%83%88%E3%83%8A%E3%83%BC%20M%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%20LPC3T35KV&i=aps"
-   ]
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -42932,7 +42941,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -42998,7 +43007,7 @@
   "description": "リマナチュラル ボリュームアップシャンプー詰替の利用者の声と公式仕様を分析。すっきり感、ふんわり仕上がり、確認できる配合情報、向く人・注意点を整理します。",
   "excerpt": "すっきり感とふんわり仕上がりを利用者の声・公式仕様から分析。",
   "date": "2026-09-21",
-  "updated": "2026-10-06",
+  "updated": "2026-10-15",
   "tags": [
    "リマナチュラル",
    "ボリュームアップシャンプー",
@@ -43011,7 +43020,7 @@
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/shizenkan/cabinet/os002/2554.jpg?_ex=128x128",
   "jan": "4514991010093",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E3%83%9C%E3%83%AA%E3%83%A5%E3%83%BC%E3%83%A0%E3%82%A2%E3%83%83%E3%83%97%E3%82%B7%E3%83%A3%E3%83%B3%E3%83%97%E3%83%BC%E8%A9%B0%E6%9B%BF%E7%94%A8%20400ml%20%E3%83%AA%E3%83%9E%E3%83%8A%E3%83%81%E3%83%A5%E3%83%A9%E3%83%AB&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：すっきり洗ってふんわりした仕上がりを重視する人向け。発毛や治療目的とは分けて選びたい商品です",
   "summary": [
@@ -43246,7 +43255,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E3%83%9C%E3%83%AA%E3%83%A5%E3%83%BC%E3%83%A0%E3%82%A2%E3%83%83%E3%83%97%E3%82%B7%E3%83%A3%E3%83%B3%E3%83%97%E3%83%BC%E8%A9%B0%E6%9B%BF%E7%94%A8%20400ml%20%E3%83%AA%E3%83%9E%E3%83%8A%E3%83%81%E3%83%A5%E3%83%A9%E3%83%AB&i=aps"
+   ]
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://limanatural.net/item-detail/910448",
@@ -43584,7 +43596,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -43645,7 +43657,7 @@
   "description": "Fargo CT221GYの利用者の声と公式仕様を整理。AC4口、USB Type-A 2ポート、スマートフォンスタンド、雷サージガードの特徴と、大型ACアダプター使用時の注意点を解説します。",
   "excerpt": "AC4口・USB2ポート・スマホスタンドを備えたFargo CT221GYの特徴と、購入前に確認したいプラグ干渉を解説。",
   "date": "2026-09-21",
-  "updated": "2026-10-06",
+  "updated": "2026-10-15",
   "tags": [
    "Fargo",
    "SATI COLOR",
@@ -43658,7 +43670,7 @@
   "icon": "💻",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/asahiprocureace/cabinet/2025_trusco_sub/fd15/007/346-3026.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=Fargo%20SATI%20COLOR%20AC4%E5%80%8B%E5%8F%A3%204.2A%20USB%20%E3%83%A9%E3%82%A4%E3%83%88%E3%82%B0%E3%83%AC%E3%82%A4%20CT221GY%201%E5%80%8B%20%E2%96%BC346-3026&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：電源とスマホの置き場所をまとめたい人には買い。大型ACアダプターを多用するなら差し込み方を確認したい",
   "summary": [
@@ -43905,7 +43917,10 @@
    }
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=Fargo%20SATI%20COLOR%20AC4%E5%80%8B%E5%8F%A3%204.2A%20USB%20%E3%83%A9%E3%82%A4%E3%83%88%E3%82%B0%E3%83%AC%E3%82%A4%20CT221GY%201%E5%80%8B%20%E2%96%BC346-3026&i=aps"
+   ]
   },
   "review_stats": {
    "rakuten": {
@@ -45601,7 +45616,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -45901,7 +45916,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "official_url": "https://www.thermal-grizzly.com/en/cpu-contact-frame/s-tg-cf-i1700-lt",
   "facts": [
@@ -47665,7 +47680,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-goods/cabinet/th/ry1103674_th.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -47781,7 +47796,7 @@
   "description": "simplus SP-RCMC4を公式仕様と利用者の声から分析。4合炊き、早炊き、蒸し料理など8種類のメニュー、保温と自動オフの確認点を整理します。",
   "excerpt": "4合炊きと8種類のメニューが特徴。向く人と購入前の確認点を整理。",
   "date": "2026-09-17",
-  "updated": "2026-10-06",
+  "updated": "2026-10-15",
   "tags": [
    "simplus",
    "SP-RCMC4",
@@ -47793,7 +47808,7 @@
   "icon": "🍳",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/rcmdin/cabinet/eb06/eb-4582226844157.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=%E7%82%8A%E9%A3%AF%E5%99%A8%204%E5%90%88%E7%82%8A%E3%81%8D%20%E3%83%9E%E3%82%A4%E3%82%B3%E3%83%B3%E5%BC%8F%20%E7%82%8A%E9%A3%AF%E3%82%B8%E3%83%A3%E3%83%BC%20%E6%97%A9%E7%82%8A%E3%81%8D25%E5%88%86%20%E4%B8%80%E4%BA%BA%E6%9A%AE%E3%82%89%E3%81%97%20%E3%81%B2%E3%81%A8%E3%82%8A%E6%9A%AE%E3%82%89%E3%81%97%20%E6%96%B0%E7%94%9F%E6%B4%BB%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E8%92%B8%E3%81%97%20%E3%83%A8%E3%83%BC%E3%82%B0%E3%83%AB%E3%83%88%20%E3%82%B1%E3%83%BC%E3%82%AD%20%E3%82%B9%E3%83%BC%E3%83%97%20%E4%BF%9D%E6%B8%A9%20simplus%20%E3%82%B7%E3%83%B3%E3%83%97%E3%83%A9%E3%82%B9%20SP-RCMC4%20%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E5%A0%B1%E5%91%8A%E3%81%A7%E7%87%95%E4%B8%89%E6%9D%A1%E8%A3%BD%E3%83%88%E3%83%B3%E3%82%B0&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：炊飯以外の調理も1台にまとめたい人向け。購入前に寸法・消費電力・内釜仕様を確認",
   "summary": [
@@ -48020,7 +48035,10 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/rcmdin/cabinet/eb06/eb-4582226844157.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=%E7%82%8A%E9%A3%AF%E5%99%A8%204%E5%90%88%E7%82%8A%E3%81%8D%20%E3%83%9E%E3%82%A4%E3%82%B3%E3%83%B3%E5%BC%8F%20%E7%82%8A%E9%A3%AF%E3%82%B8%E3%83%A3%E3%83%BC%20%E6%97%A9%E7%82%8A%E3%81%8D25%E5%88%86%20%E4%B8%80%E4%BA%BA%E6%9A%AE%E3%82%89%E3%81%97%20%E3%81%B2%E3%81%A8%E3%82%8A%E6%9A%AE%E3%82%89%E3%81%97%20%E6%96%B0%E7%94%9F%E6%B4%BB%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E8%92%B8%E3%81%97%20%E3%83%A8%E3%83%BC%E3%82%B0%E3%83%AB%E3%83%88%20%E3%82%B1%E3%83%BC%E3%82%AD%20%E3%82%B9%E3%83%BC%E3%83%97%20%E4%BF%9D%E6%B8%A9%20simplus%20%E3%82%B7%E3%83%B3%E3%83%97%E3%83%A9%E3%82%B9%20SP-RCMC4%20%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E5%A0%B1%E5%91%8A%E3%81%A7%E7%87%95%E4%B8%89%E6%9D%A1%E8%A3%BD%E3%83%88%E3%83%B3%E3%82%B0&i=aps"
+   ]
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://simplus.style/sp-rcmc4/",
@@ -48348,7 +48366,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/aimere/cabinet/00785232/03220785/imgrc0121669408.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://recolte-jp.com/admin/wp-content/uploads/2023/01/RSB-4_Manual_4.pdf",
@@ -48627,7 +48645,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-kurashi/cabinet/main-img/012/main-r4f13.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://book.yamazen.co.jp/product/detail/I00005725",
@@ -48999,7 +49017,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tplinkdirect/cabinet/06321509/tapo-c200.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.tp-link.com/jp/smart-home/tapo/tapo-c200/?app=t",
@@ -49391,7 +49409,7 @@
   "description": "Fotopro DIGI-204の利用者の声と仕様を分析。軽さ・持ち運びやすさ・安定感の評価、雲台操作の注意点を購入前に確認できます。",
   "excerpt": "軽さと安定感を評価する声、雲台操作の注意点を整理。",
   "date": "2026-09-17",
-  "updated": "2026-10-06",
+  "updated": "2026-10-15",
   "tags": [
    "Fotopro",
    "DIGI-204",
@@ -49403,7 +49421,7 @@
   "icon": "📷",
   "thumb": "https://thumbnail.image.rakuten.co.jp/@0_mall/photolink/cabinet/fotopro/4906238810830_nnv11.jpg?_ex=128x128",
   "asin": "",
-  "amazon_url": "https://www.amazon.co.jp/s?k=Fotopro%EF%BC%BB%E3%83%95%E3%82%A9%E3%83%88%E3%83%97%E3%83%AD%EF%BC%BD%E4%B8%89%E8%84%9A%20DIGI-204%20%E3%82%A2%E3%83%AB%E3%83%9F%204%E6%AE%B5120cm%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%2C%E5%8D%98%E5%93%81-%E3%82%B9%E3%83%9E%E3%83%9B%E3%83%9B%E3%83%AB%E3%83%80%E3%83%BC%E3%82%BB%E3%83%83%E3%83%88%20%E3%83%87%E3%82%B8%E3%82%AB%E3%83%A1%20%E3%82%B3%E3%83%B3%E3%83%87%E3%82%B8%20%E3%83%9F%E3%83%A9%E3%83%BC%E3%83%AC%E3%82%B9%20%E3%82%B9%E3%83%9E%E3%83%9B%20%E5%86%99%E7%9C%9F%20%E3%82%A2%E3%82%A6%E3%83%88%E3%83%89%E3%82%A2%20%E9%81%8B%E5%8B%95%E4%BC%9A%20%E5%AD%A6%E8%8A%B8%E4%BC%9A%20%E6%92%AE%E5%BD%B1%20%E9%85%8D%E4%BF%A1%20%E8%BB%BD%E9%87%8F%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB&i=aps",
+  "amazon_url": "",
   "cta_label": "Amazonで価格と詳細を確認する",
   "verdict_title": "結論：携帯性と固定撮影を重視する人向け。雲台の操作感は確認が必要",
   "summary": [
@@ -49672,7 +49690,10 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/photolink/cabinet/fotopro/4906238810830_nnv11.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15",
+   "dead": [
+    "https://www.amazon.co.jp/s?k=Fotopro%EF%BC%BB%E3%83%95%E3%82%A9%E3%83%88%E3%83%97%E3%83%AD%EF%BC%BD%E4%B8%89%E8%84%9A%20DIGI-204%20%E3%82%A2%E3%83%AB%E3%83%9F%204%E6%AE%B5120cm%20%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%2C%E5%8D%98%E5%93%81-%E3%82%B9%E3%83%9E%E3%83%9B%E3%83%9B%E3%83%AB%E3%83%80%E3%83%BC%E3%82%BB%E3%83%83%E3%83%88%20%E3%83%87%E3%82%B8%E3%82%AB%E3%83%A1%20%E3%82%B3%E3%83%B3%E3%83%87%E3%82%B8%20%E3%83%9F%E3%83%A9%E3%83%BC%E3%83%AC%E3%82%B9%20%E3%82%B9%E3%83%9E%E3%83%9B%20%E5%86%99%E7%9C%9F%20%E3%82%A2%E3%82%A6%E3%83%88%E3%83%89%E3%82%A2%20%E9%81%8B%E5%8B%95%E4%BC%9A%20%E5%AD%A6%E8%8A%B8%E4%BC%9A%20%E6%92%AE%E5%BD%B1%20%E9%85%8D%E4%BF%A1%20%E8%BB%BD%E9%87%8F%20%E3%82%B3%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB&i=aps"
+   ]
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.asanumashoukai.co.jp/info/wp-content/uploads/2022/08/asanuma_price_revision20221001.pdf",
@@ -50728,7 +50749,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -51055,7 +51076,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_portable/slide/samune_black.jpg?_ex=600x600"
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -51397,7 +51418,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/pika831/cabinet/00176847/12211284/0624_h70ft_snbaaa.jpg?_ex=600x600"
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -52813,7 +52834,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -53170,7 +53191,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.plusminuszero.jp/faq/garment-steamer%EF%BC%88スタイルスチーマー%EF%BC%89/",
@@ -53787,7 +53808,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/roomy/cabinet/500cart_all/500cart_11g/p10n-4/win2006-mt005-1_gt01.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://recolte-jp.com/products/capsule-cutter-bonne/",
@@ -55859,7 +55880,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -59332,7 +59353,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T02:43:28+09:00",
@@ -60685,7 +60706,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/angfa/cabinet/2025/item/1080_packsd_rakuten2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "scenes": [
    {
@@ -61358,7 +61379,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/thum/bota-01_20off.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T12:04:08+09:00",
@@ -61655,7 +61676,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/attenir/cabinet/thum/166011_main_2609.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -61998,7 +62019,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
@@ -62369,7 +62390,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-09"
+   "checked": "2026-10-15"
   },
   "scenes": [
    {
@@ -62662,7 +62683,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "yahoo": {
@@ -63775,7 +63796,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/darkangel/cabinet/12863863/13830759/2536-main-260901-4.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-10"
+   "checked": "2026-10-15"
   },
   "review_stats": {
    "rakuten": {
