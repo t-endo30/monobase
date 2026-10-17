@@ -139,6 +139,8 @@ def main():
                      "--take", str(order_target), "--batch-size", str(args.batch_size),
                      "--model", args.model, "--review-model", args.review_model,
                      "--timeout", str(args.timeout)]
+        if args.order_offset:
+            order_cmd += ["--order-offset", str(args.order_offset)]
         if args.publish:
             order_cmd.append("--publish")
         if args.jev:
