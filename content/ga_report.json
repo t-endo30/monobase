@@ -1,115 +1,83 @@
 {
  "_note": "tools/ga_report.py が GA4 から自動生成します（毎週月曜）。",
- "generated": "2026-10-12",
+ "generated": "2026-10-19",
  "range": {
   "cur": [
-   "2026-10-05",
-   "2026-10-11"
+   "2026-10-12",
+   "2026-10-18"
   ],
   "prev": [
-   "2026-09-28",
-   "2026-10-04"
+   "2026-10-05",
+   "2026-10-11"
   ]
  },
  "totals": {
   "cur": {
    "dateRange": "cur",
+   "activeUsers": 4,
+   "newUsers": 2,
+   "sessions": 10,
+   "engagedSessions": 7,
+   "screenPageViews": 49,
+   "userEngagementDuration": 763
+  },
+  "prev": {
+   "dateRange": "prev",
    "activeUsers": 14,
    "newUsers": 11,
    "sessions": 36,
    "engagedSessions": 24,
    "screenPageViews": 331,
    "userEngagementDuration": 12057
-  },
-  "prev": {
-   "dateRange": "prev",
-   "activeUsers": 30,
-   "newUsers": 27,
-   "sessions": 45,
-   "engagedSessions": 19,
-   "screenPageViews": 206,
-   "userEngagementDuration": 3374
   }
  },
  "daily": [
   {
-   "date": "20261005",
+   "date": "20261012",
+   "activeUsers": 2,
+   "screenPageViews": 41
+  },
+  {
+   "date": "20261013",
    "activeUsers": 2,
    "screenPageViews": 4
   },
   {
-   "date": "20261006",
-   "activeUsers": 2,
-   "screenPageViews": 22
-  },
-  {
-   "date": "20261007",
-   "activeUsers": 1,
-   "screenPageViews": 43
-  },
-  {
-   "date": "20261008",
+   "date": "20261014",
    "activeUsers": 1,
    "screenPageViews": 2
   },
   {
-   "date": "20261009",
-   "activeUsers": 5,
-   "screenPageViews": 247
-  },
-  {
-   "date": "20261010",
-   "activeUsers": 5,
-   "screenPageViews": 10
-  },
-  {
-   "date": "20261011",
-   "activeUsers": 3,
-   "screenPageViews": 3
+   "date": "20261015",
+   "activeUsers": 1,
+   "screenPageViews": 2
   }
  ],
  "channels": [
   {
-   "sessionDefaultChannelGroup": "Direct",
-   "sessions": 17,
-   "activeUsers": 10
+   "sessionDefaultChannelGroup": "Organic Search",
+   "sessions": 5,
+   "activeUsers": 1
   },
   {
-   "sessionDefaultChannelGroup": "Organic Search",
-   "sessions": 16,
+   "sessionDefaultChannelGroup": "Direct",
+   "sessions": 4,
    "activeUsers": 2
   },
   {
    "sessionDefaultChannelGroup": "Organic Social",
-   "sessions": 2,
-   "activeUsers": 1
-  },
-  {
-   "sessionDefaultChannelGroup": "Referral",
    "sessions": 1,
    "activeUsers": 1
   }
  ],
  "sources": [
   {
-   "sessionSourceMedium": "(direct) / (none)",
-   "sessions": 17
-  },
-  {
    "sessionSourceMedium": "search.google.com / referral",
-   "sessions": 15
+   "sessions": 5
   },
   {
-   "sessionSourceMedium": "adv-console.a8.net / referral",
-   "sessions": 1
-  },
-  {
-   "sessionSourceMedium": "facebook.com / referral",
-   "sessions": 1
-  },
-  {
-   "sessionSourceMedium": "google / organic",
-   "sessions": 1
+   "sessionSourceMedium": "(direct) / (none)",
+   "sessions": 4
   },
   {
    "sessionSourceMedium": "ig / social",
@@ -120,252 +88,80 @@
   {
    "pagePath": "/",
    "pageTitle": "モノベース｜あらゆるモノのデータベース",
-   "screenPageViews": 284,
-   "activeUsers": 14,
-   "userEngagementDuration": 11014,
-   "avgEngagementSec": 38.8
+   "screenPageViews": 43,
+   "activeUsers": 3,
+   "userEngagementDuration": 696,
+   "avgEngagementSec": 16.2
   },
   {
    "pagePath": "/new",
    "pageTitle": "新着記事 - モノベース",
-   "screenPageViews": 8,
-   "activeUsers": 3,
-   "userEngagementDuration": 42,
-   "avgEngagementSec": 5.2
-  },
-  {
-   "pagePath": "/articles/feature-beauty-haircare-1",
-   "pageTitle": "ヘアケア用品の選び方｜使用工程と確認項目で整理 - モノベース",
-   "screenPageViews": 3,
-   "activeUsers": 1,
-   "userEngagementDuration": 51,
-   "avgEngagementSec": 17.0
-  },
-  {
-   "pagePath": "/articles/led-pv-bl2h-n",
-   "pageTitle": "日立 PV-BL2H N 口コミ・評判｜購入前の確認点 - モノベース",
-   "screenPageViews": 3,
+   "screenPageViews": 2,
    "activeUsers": 2,
-   "userEngagementDuration": 22,
-   "avgEngagementSec": 7.3
+   "userEngagementDuration": 46,
+   "avgEngagementSec": 23.0
   },
   {
-   "pagePath": "/articles/ylt-ag30e-yamazen",
-   "pageTitle": "山善 YLT-AG30Eの仕様と購入前の確認点 - モノベース",
-   "screenPageViews": 3,
-   "activeUsers": 2,
-   "userEngagementDuration": 29,
-   "avgEngagementSec": 9.7
-  },
-  {
-   "pagePath": "/ranking",
-   "pageTitle": "よく読まれている記事 - モノベース",
-   "screenPageViews": 3,
-   "activeUsers": 1,
-   "userEngagementDuration": 25,
-   "avgEngagementSec": 8.3
-  },
-  {
-   "pagePath": "/articles/feature-beauty-makeup-1",
-   "pageTitle": "美容アイテム3選比較｜悩み別の使い分け - モノベース",
-   "screenPageViews": 2,
-   "activeUsers": 1,
-   "userEngagementDuration": 254,
-   "avgEngagementSec": 127.0
-  },
-  {
-   "pagePath": "/articles/feature-camera-security-1",
-   "pageTitle": "見守り・防犯カメラの選び方｜屋内・屋外・Wi-Fiの条件で整理 - モノベース",
-   "screenPageViews": 2,
-   "activeUsers": 1,
-   "userEngagementDuration": 20,
-   "avgEngagementSec": 10.0
-  },
-  {
-   "pagePath": "/articles/kitchen-20261005",
-   "pageTitle": "チモトコーヒー 大入り福袋 2kg｜4種の銘柄と選び方 - モノベース",
-   "screenPageViews": 2,
-   "activeUsers": 1,
-   "userEngagementDuration": 51,
-   "avgEngagementSec": 25.5
-  },
-  {
-   "pagePath": "/articles/o-neil-of-dublin-w",
-   "pageTitle": "O'NEIL OF DUBLIN 10014983 利用者の声｜丈とサイズ感 - モノベース",
-   "screenPageViews": 2,
+   "pagePath": "/articles/fasoul-c2",
+   "pageTitle": "Fasoul C2｜1本2回使用とオート加熱の確認点 - モノベース",
+   "screenPageViews": 1,
    "activeUsers": 1,
    "userEngagementDuration": 5,
-   "avgEngagementSec": 2.5
+   "avgEngagementSec": 5.0
   },
   {
-   "pagePath": "/articles/ol-90185",
-   "pageTitle": "ルミナス OL-90185 利用者の声｜5段ラックの収納力と設置条件 - モノベース",
-   "screenPageViews": 2,
-   "activeUsers": 1,
-   "userEngagementDuration": 21,
-   "avgEngagementSec": 10.5
-  },
-  {
-   "pagePath": "/articles/switchbot-w3202106",
-   "pageTitle": "SwitchBot ハブ2 W3202106｜温湿度管理と赤外線家電操作の確認点 - モノベース",
-   "screenPageViews": 2,
-   "activeUsers": 1,
-   "userEngagementDuration": 51,
-   "avgEngagementSec": 25.5
-  },
-  {
-   "pagePath": "/category-feature",
-   "pageTitle": "特集・まとめの記事一覧 - モノベース",
-   "screenPageViews": 2,
-   "activeUsers": 1,
-   "userEngagementDuration": 336,
-   "avgEngagementSec": 168.0
-  },
-  {
-   "pagePath": "/search",
-   "pageTitle": "サイト内検索 - モノベース",
-   "screenPageViews": 2,
-   "activeUsers": 2,
-   "userEngagementDuration": 0,
-   "avgEngagementSec": 0.0
-  },
-  {
-   "pagePath": "/articles/00-9-clinique",
-   "pageTitle": "クリニーク ラッシュ パワー カーリング マスカラ 利用者の声 - モノベース",
+   "pagePath": "/articles/fasoul-q1",
+   "pageTitle": "Fasoul Q1｜1本2回加熱・TEREA/SENTIA対応の確認点 - モノベース",
    "screenPageViews": 1,
    "activeUsers": 1,
-   "userEngagementDuration": 15,
-   "avgEngagementSec": 15.0
-  },
-  {
-   "pagePath": "/articles/feature-pc-peripheral-4",
-   "pageTitle": "周辺機器の選び方｜接続・延長・保護・消耗品・業務用機器を用途別に整理 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 18,
-   "avgEngagementSec": 18.0
-  },
-  {
-   "pagePath": "/articles/furniture-20261006",
-   "pageTitle": "タンスのゲン 86500001 利用者の声｜遮光カーテンの選び方 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 6,
-   "avgEngagementSec": 6.0
-  },
-  {
-   "pagePath": "/articles/iface-reflection-iphone",
-   "pageTitle": "iFace Reflection 利用者の声｜iPhone 14の装着感 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 15,
-   "avgEngagementSec": 15.0
-  },
-  {
-   "pagePath": "/articles/iris-panel-light-ceiling-review",
-   "pageTitle": "アイリスオーヤマ CEA-A08DLPを含むパネルライト（導光板）の選び方 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 0,
-   "avgEngagementSec": 0.0
-  },
-  {
-   "pagePath": "/articles/iris-panel-light-ceiling-review",
-   "pageTitle": "シーリングライト（導光板）の選び方 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 10,
-   "avgEngagementSec": 10.0
-  },
-  {
-   "pagePath": "/articles/kaedear-kdr-m11c",
-   "pageTitle": "Kaedear KDR-M11C 口コミ｜着脱性と取り付け条件 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 9,
-   "avgEngagementSec": 9.0
+   "userEngagementDuration": 2,
+   "avgEngagementSec": 2.0
   },
   {
    "pagePath": "/articles/mytrex-rebive-mini-mt-by-rbm20b",
    "pageTitle": "MYTREX REBIVE MINI MT BY-RBM20B｜アタッチメントの使い分けと充電条件 - モノベース",
    "screenPageViews": 1,
    "activeUsers": 1,
-   "userEngagementDuration": 17,
-   "avgEngagementSec": 17.0
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
   },
   {
-   "pagePath": "/articles/tp-link-archer-ax3000-ax3000-wi-fi",
-   "pageTitle": "TP-Link Archer AX3000 利用者の声｜Wi-Fi 6ルーターの仕様と確認点 - モノベース",
+   "pagePath": "/articles/switchbot-w3202106",
+   "pageTitle": "SwitchBot ハブ2 W3202106｜温湿度管理と赤外線家電操作の確認点 - モノベース",
    "screenPageViews": 1,
    "activeUsers": 1,
-   "userEngagementDuration": 4,
-   "avgEngagementSec": 4.0
-  },
-  {
-   "pagePath": "/articles/w-hdd-tv-lt-40fsx-f1",
-   "pageTitle": "アイリスオーヤマ LT-40FSX-F1 利用者の声｜40V型テレビの設置条件 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 3,
-   "avgEngagementSec": 3.0
-  },
-  {
-   "pagePath": "/search",
-   "pageTitle": "Site Search - Monobase",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 4,
-   "avgEngagementSec": 4.0
-  },
-  {
-   "pagePath": "/",
-   "pageTitle": "Monobase | A database of all kinds of things",
-   "screenPageViews": 0,
-   "activeUsers": 1,
-   "userEngagementDuration": 16,
-   "avgEngagementSec": 16.0
-  },
-  {
-   "pagePath": "/articles/h70ft-h70ft-h70ft-bac06wh",
-   "pageTitle": "ヒューロム H70FT-BAC06WH 口コミ｜スロージューサーの特徴と注意点 - モノベース",
-   "screenPageViews": 0,
-   "activeUsers": 1,
-   "userEngagementDuration": 13,
-   "avgEngagementSec": 13.0
-  },
-  {
-   "pagePath": "/articles/salonia-salonia-2way-hk-2way-slall",
-   "pageTitle": "SALONIA 2WAYヘアアイロン32mm 利用者の声｜海外対応と確認点 - モノベース",
-   "screenPageViews": 0,
-   "activeUsers": 1,
-   "userEngagementDuration": 6,
-   "avgEngagementSec": 6.0
+   "userEngagementDuration": 14,
+   "avgEngagementSec": 14.0
   }
  ],
  "organic_landing": [
   {
    "landingPage": "/",
-   "sessions": 16
+   "sessions": 4
+  },
+  {
+   "landingPage": "/articles/switchbot-w3202106",
+   "sessions": 1
   }
  ],
  "devices": [
   {
    "deviceCategory": "desktop",
-   "activeUsers": 9
+   "activeUsers": 2
   },
   {
    "deviceCategory": "mobile",
-   "activeUsers": 5
+   "activeUsers": 2
   }
  ],
  "hosts": [
   {
    "hostName": "monobase.site",
-   "screenPageViews": 331
+   "screenPageViews": 49
   }
  ],
  "notes": [
-  "検索（自然）からの訪問は 16 回で、全体の 44% です。",
-  "3回以上読まれたのに平均10秒未満で離れているページ：/new、/articles/led-pv-bl2h-n、/articles/ylt-ag30e-yamazen、/ranking"
+  "閲覧0の日が 3 日ありました。",
+  "検索（自然）からの訪問は 5 回で、全体の 50% です。"
  ]
 }
