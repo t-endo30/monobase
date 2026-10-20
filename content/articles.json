@@ -16571,7 +16571,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -16937,7 +16937,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -17307,7 +17307,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -17684,7 +17684,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -18090,7 +18090,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -18477,7 +18477,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -18846,7 +18846,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -19102,7 +19102,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -19456,7 +19456,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -19793,7 +19793,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -19997,7 +19997,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -20195,7 +20195,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -20512,7 +20512,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -20840,7 +20840,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
@@ -21560,14 +21560,14 @@
    "read": "公式商品情報で確認できた仕様のみを掲載しています。解像度、端子数、付属品など根拠データにない項目は購入前に公式仕様や販売ページで確認してください。"
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   }
  },
  {
   "slug": "maxzen-j24ch06",
   "category": "av",
   "sub": "tv",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "MAXZEN J24CH06｜24型テレビの録画と設置条件",
   "list_title": "MAXZEN J24CH06 24型テレビの録画と設置条件",
@@ -21909,13 +21909,14 @@
    }
   },
   "health": {
-   "checked": "2026-10-14",
+   "checked": "2026-10-20",
    "dead": [
     "https://www。amazon。co。jp/s?k=4571495432677&i=aps",
     "https://item。rakuten。co。jp/maxzen/4571495432677/",
     "https://store。shopping。yahoo。co。jp/maxzen/4571495432677。html"
    ],
-   "dead_strikes": 2
+   "dead_strikes": 3,
+   "stopped_reason": "販売先のリンクがすべて切れています"
   }
  },
  {
@@ -32799,7 +32800,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   },
   "spec": {
    "intro": "公式で確認できる商品仕様と、購入前に販売ページで確認する項目を整理しています。価格帯や他商品との比較表ではありません。",
@@ -34541,7 +34542,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T09:01:24+09:00",
@@ -34781,7 +34782,7 @@
   ],
   "personal_note": "",
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T08:57:36+09:00",
@@ -41517,7 +41518,7 @@
    "checked": "2026-10-19"
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "unpublished_reason": "",
   "official_url": "https://panasonic.jp/manualdl/p-db/cs/cs_634_804_x.pdf",
@@ -42514,7 +42515,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
@@ -42855,7 +42856,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
@@ -43131,7 +43132,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
@@ -44067,7 +44068,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   },
   "official_url": "https://www.sanwa.co.jp/product/syohin?code=SW-KVM2LUN2",
   "facts": [
@@ -44455,7 +44456,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
@@ -50874,7 +50875,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-14"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
@@ -53635,7 +53636,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-goods/cabinet/th/ry1103674_th.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
@@ -54321,7 +54322,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/aimere/cabinet/00785232/03220785/imgrc0121669408.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://recolte-jp.com/admin/wp-content/uploads/2023/01/RSB-4_Manual_4.pdf",
@@ -54600,7 +54601,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/e-kurashi/cabinet/main-img/012/main-r4f13.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://book.yamazen.co.jp/product/detail/I00005725",
@@ -54972,7 +54973,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/tplinkdirect/cabinet/06321509/tapo-c200.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.tp-link.com/jp/smart-home/tapo/tapo-c200/?app=t",
@@ -56704,7 +56705,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
@@ -57031,7 +57032,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/entamefactory/cabinet/newlp/funlogy_portable/slide/samune_black.jpg?_ex=600x600"
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
@@ -57373,7 +57374,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/pika831/cabinet/00176847/12211284/0624_h70ft_snbaaa.jpg?_ex=600x600"
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
@@ -58789,7 +58790,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
@@ -59146,7 +59147,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.plusminuszero.jp/faq/garment-steamer%EF%BC%88スタイルスチーマー%EF%BC%89/",
@@ -59763,7 +59764,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/roomy/cabinet/500cart_all/500cart_11g/p10n-4/win2006-mt005-1_gt01.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://recolte-jp.com/products/capsule-cutter-bonne/",
@@ -67631,7 +67632,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/attenir/cabinet/thum/166011_main_2609.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
@@ -67974,7 +67975,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
@@ -68638,7 +68639,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "yahoo": {
@@ -69751,7 +69752,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/darkangel/cabinet/12863863/13830759/2536-main-260901-4.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-15"
+   "checked": "2026-10-20"
   },
   "review_stats": {
    "rakuten": {
