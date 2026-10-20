@@ -1,7 +1,7 @@
 {
   "_note": "tools/fetch_ranking.py が GA4 から自動生成します。手で編集しても、次回の実行で上書きされます。views は開設からの累計、views_recent は直近の集計期間ぶん、periods は日間（1日）・週間（7日）・月間（30日）。",
-  "updated": "2026-10-19",
-  "counted_through": "2026-10-18",
+  "updated": "2026-10-20",
+  "counted_through": "2026-10-19",
   "range_days": 28,
   "views": {
     "schick-3": 60,
@@ -177,7 +177,6 @@
   "periods": {
     "day": {},
     "week": {
-      "mytrex-rebive-mini-mt-by-rbm20b": 1,
       "switchbot-w3202106": 1
     },
     "month": {
@@ -212,7 +211,6 @@
       "kaedear-kdr-m11c": 1,
       "mrpe-1260-soho-yamazen": 1,
       "panasonic-led-8h-sb-lsew5046le1": 1,
-      "pd-829ws-u75cv-13a-withna": 1,
       "pet-20260909": 1,
       "pet-20260927": 1,
       "salonia-salonia-2way-hk-2way-slall": 1,
