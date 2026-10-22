@@ -1,7 +1,7 @@
 {
   "_note": "tools/fetch_ranking.py が GA4 から自動生成します。手で編集しても、次回の実行で上書きされます。views は開設からの累計、views_recent は直近の集計期間ぶん、periods は日間（1日）・週間（7日）・月間（30日）。",
-  "updated": "2026-10-21",
-  "counted_through": "2026-10-20",
+  "updated": "2026-10-22",
+  "counted_through": "2026-10-21",
   "range_days": 28,
   "views": {
     "schick-3": 60,
@@ -176,9 +176,7 @@
   },
   "periods": {
     "day": {},
-    "week": {
-      "switchbot-w3202106": 1
-    },
+    "week": {},
     "month": {
       "p10-yunth-c-c": 5,
       "200-bagin006": 3,
