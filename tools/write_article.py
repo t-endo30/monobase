@@ -295,6 +295,7 @@ def build_prompt(a, site, prompt_md, fetch_official=True):
         feature_covers_block(a),
         facts_block(a),
         reviews_block(a),
+        review_evidence_block(a),
         official_block(a, do_fetch=fetch_official),
         "",
         "---------------- 出力の決まり ----------------",
@@ -499,6 +500,26 @@ def reviews_block(a):
     return ("\n【価格・口コミの件数・平均評価（販売APIで取得済み。"
             f"確認日 {st.get('checked', '不明')}）】\n"
             + "\n".join(lines) + note)
+
+
+def review_evidence_block(a):
+    """人手で確認した個別投稿と出典を生成モデルへ明示する。"""
+    notes = a.get("source_notes") or []
+    reviews = a.get("review_texts") or []
+    lines = []
+    for item in notes:
+        if isinstance(item, dict):
+            lines.append(f"・{item.get('title') or item.get('type', '出典')} {item.get('url', '')}（確認日 {item.get('checked_at', '不明')}）")
+        elif isinstance(item, str):
+            lines.append(f"・{item}")
+    for item in reviews:
+        if isinstance(item, dict):
+            lines.append(f"・利用者の声（{item.get('source', '出典不明')}）: {item.get('text', '')}")
+    if not lines:
+        return ""
+    return ("\n【確認済みの出典・個別投稿】\n" + "\n".join(lines)
+            + "\n個別投稿を全体の傾向・件数・平均評価として扱わない。"
+              "情報が確認済みなら未取得と書かない。")
 
 
 def fetch_html(url):

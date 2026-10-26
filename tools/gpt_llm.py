@@ -58,6 +58,18 @@ def _request_codex(instructions, prompt, schema, *, model=None, timeout=900, cwd
     with tempfile.TemporaryDirectory(prefix="monobase-codex-") as tmp:
         schema_path = os.path.join(tmp, "schema.json")
         output_path = os.path.join(tmp, "last-message.txt")
+        # Codex.app の認証を使いつつ、CLIの状態DBは書き込み可能な一時領域へ。
+        # 定期タスクの sandbox では ~/.codex が読み取り専用になることがあり、
+        # 認証済みでも state DB 初期化で記事生成が止まっていた。
+        source_home = os.environ.get("CODEX_HOME") or os.path.expanduser("~/.codex")
+        codex_home = os.path.join(tmp, "codex-home")
+        os.mkdir(codex_home, 0o700)
+        for name in ("auth.json", "config.toml"):
+            source = os.path.join(source_home, name)
+            if os.path.isfile(source):
+                destination = os.path.join(codex_home, name)
+                shutil.copyfile(source, destination)
+                os.chmod(destination, 0o600)
         with open(schema_path, "w", encoding="utf-8") as handle:
             json.dump(schema["schema"], handle, ensure_ascii=False)
         command = [codex, "exec", "--ephemeral", "--sandbox", "read-only",
@@ -65,9 +77,10 @@ def _request_codex(instructions, prompt, schema, *, model=None, timeout=900, cwd
         if model:
             command.extend(["--model", model])
         full_prompt = instructions + "\n\n" + prompt
+        env = dict(os.environ, CODEX_HOME=codex_home)
         try:
             proc = subprocess.run(command, input=full_prompt, text=True,
-                                  capture_output=True, cwd=cwd, timeout=timeout,
+                                  capture_output=True, cwd=cwd, timeout=timeout, env=env,
                                   check=False)
         except (OSError, subprocess.TimeoutExpired) as exc:
             raise GPTError(f"Codex CLI実行失敗: {exc}") from exc
