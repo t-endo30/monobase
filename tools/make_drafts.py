@@ -28,6 +28,19 @@ def load(path):
     return json.load(io.open(os.path.join(ROOT, path), encoding="utf-8"))
 
 
+def require_amazon_product():
+    """通常候補のAmazon個別URLを必須にするか。
+
+    楽天・Yahoo!の個別商品URL、公式根拠、同一商品の画像が揃う候補は、
+    Amazon側の個別URLが取得できなくても記事化できるようにする。
+    """
+    try:
+        return bool((load("content/site.json").get("automation") or {})
+                    .get("require_amazon_product", True))
+    except (OSError, ValueError, TypeError):
+        return True
+
+
 def url_key(u):
     """商品URLから、アフィリエイトのトラッキング用クエリ（?rafcid=…等）を
        落とした比較用の値を作る。同じ商品を rafcid だけ変えて再取得すると
@@ -383,7 +396,7 @@ def main():
         # できる候補だけを本文生成へ送る。
         has_amazon = (has_amazon_product(c.get("asin")) or
                       has_amazon_product(c.get("amazon_url")))
-        if not has_amazon:
+        if require_amazon_product() and not has_amazon:
             print(f"Amazon個別商品導線不足のため事前スキップ: {name[:50]}")
             continue
         has_shop_url = bool(c.get("rakuten_url") or c.get("yahoo_url"))
