@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from article_evidence import stamp_evidence
 from gpt_llm import GPTError, jev_judge, request_json
 from gpt_schemas import REVIEW_SCHEMA
+from site_dates import today_jst
 from review_article import (CATEGORY_MAP, PUBLISH_SCORE, apply_fixed,
                             build_prompt, content_rev, duplicate_of,
                             has_publishable_thumbnail, lacks_shop_photo, load,
@@ -123,9 +124,14 @@ def main():
             passed = passed and not evidence_blockers and not thumbnail_blocker
         if passed:
             ok += 1
-            a["reviewed"] = {"at": time.strftime("%Y-%m-%d"), "rev": content_rev(a), "score": score}
+            today = today_jst()
+            a["reviewed"] = {"at": today, "rev": content_rev(a), "score": score}
             if args.publish and not args.dry_run:
+                first_publication = not a.get("published")
                 a["published"] = True
+                if first_publication:
+                    a["date"] = today
+                    a["updated"] = today
                 a.pop("unpublished_reason", None)
                 print("  ✓ 合格・published: true")
             else:

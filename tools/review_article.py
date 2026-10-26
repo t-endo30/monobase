@@ -24,6 +24,7 @@ import json, io, os, re, sys, time, argparse, subprocess, hashlib
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from article_evidence import stamp_evidence
+from site_dates import today_jst
 
 # 本文の生成・修正に任せる項目。slug・published・販売先URLは触らせない。
 from write_article import (GEN_FIELDS, NG_WORDS, MIN_CHARS, MAX_CHARS,
@@ -875,11 +876,15 @@ def main():
             if not (args.check_only or args.dry_run):
                 # 次の手順（--new での見直し）が同じ本文を
                 # もう一度opusに掛けないよう、通った印を残す。
-                a["reviewed"] = {"at": time.strftime("%Y-%m-%d"),
+                a["reviewed"] = {"at": today_jst(),
                                  "rev": content_rev(a),
                                  "score": score if isinstance(score, dict) else {}}
             if args.publish and not args.dry_run:
+                first_publication = not a.get("published")
                 a["published"] = True
+                if first_publication:
+                    a["date"] = today_jst()
+                    a["updated"] = a["date"]
                 print("    → published: true")
 
     if not args.dry_run and not args.check_only:

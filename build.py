@@ -15,6 +15,7 @@ Kurashi Pick - 静的サイトジェネレーター
 import json, io, os, re, html, random, shutil, sys, datetime, hashlib, urllib.parse
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tools'))
 from make_visual import build as make_visual
+from site_dates import today_jst
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
@@ -5030,7 +5031,7 @@ def build_new():
        掲載から1週間以内の記事だけを出す。「新着」という名前のページに
        何ヶ月も前の記事まで並ぶと、更新が止まっているサイトに見える。"""
     p = "./"
-    cutoff = (datetime.date.today() - datetime.timedelta(days=7)).isoformat()
+    cutoff = (datetime.date.fromisoformat(today_jst()) - datetime.timedelta(days=7)).isoformat()
     items = sorted(
         [a for a in PUBLISHED
          if a.get("date", "") >= cutoff and not is_feature_article(a)],

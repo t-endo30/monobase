@@ -35,6 +35,7 @@ YAMLを編集してコミットすることになるため、設定はサイト�
 """
 import argparse, io, json, os, sys
 from datetime import date
+from site_dates import today_jst
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -123,7 +124,7 @@ def main():
     auto_publish = a.get("auto_publish") is not False      # 既定は公開まで自動
     enabled = a.get("enabled") is not False
 
-    today = date.fromisoformat(args.date) if args.date else date.today()
+    today = date.fromisoformat(args.date) if args.date else date.fromisoformat(today_jst())
     days = run_days(n)
     # enabled は最後の元栓。手動で叩いたとき（--force）も、ここが切れていれば動かさない。
     # 管理画面でオフにしたつもりが裏で動いていた、という状態を作らないため。
