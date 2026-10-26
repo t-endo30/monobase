@@ -3786,7 +3786,7 @@
   "order_history_max_per_run": 5,
   "order_history_exclude_adult": true,
   "order_history_candidate_pool": "AmazonExport/candidates.csv",
-  "order_history_only": true
+  "order_history_only": false
  },
  "hosting": {
   "_note": "配信先は Cloudflare Workers（静的アセット）。build.py が wrangler.jsonc と .assetsignore を書き出す。GitHub Pages へ戻す場合は clean_urls を false にする。",

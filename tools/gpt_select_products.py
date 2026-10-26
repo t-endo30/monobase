@@ -24,6 +24,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 購入履歴候補を一度に送りすぎない。外部API照合は商品ごとに待ち時間が
 # 発生するため、10件単位で区切って候補不足時だけ次ページへ進む。
 ORDER_PAGE_SIZE = 10
+WATCH_TIMEOUT_SECONDS = 600
 
 
 def _filtered_order_pool():
@@ -128,7 +129,13 @@ def refresh_order_candidates(limit, offset=0):
     if not run_id:
         print("購入履歴候補workflowの実行IDを取得できませんでした", file=sys.stderr)
         return 1
-    watch = subprocess.run(["gh", "run", "watch", run_id, "--repo", "t-endo30/monobase", "--exit-status"], cwd=ROOT, check=False)
+    try:
+        watch = subprocess.run(["gh", "run", "watch", run_id, "--repo", "t-endo30/monobase", "--exit-status"],
+                               cwd=ROOT, check=False, timeout=WATCH_TIMEOUT_SECONDS)
+    except subprocess.TimeoutExpired:
+        subprocess.run(["gh", "run", "cancel", run_id, "--repo", "t-endo30/monobase"], cwd=ROOT, check=False)
+        print(f"購入履歴候補workflowが{WATCH_TIMEOUT_SECONDS}秒を超えたため停止しました。次回枠へ繰り越します。", file=sys.stderr)
+        return 124
     if watch.returncode:
         return watch.returncode
     with tempfile.TemporaryDirectory(prefix="monobase-order-candidates-") as tmp:
@@ -192,8 +199,13 @@ def refresh_candidates(limit):
     if not run_id:
         print("候補収集workflowの実行IDを取得できませんでした", file=sys.stderr)
         return 1
-    watch = subprocess.run(["gh", "run", "watch", run_id, "--repo", repo, "--exit-status"],
-                           cwd=ROOT, check=False)
+    try:
+        watch = subprocess.run(["gh", "run", "watch", run_id, "--repo", repo, "--exit-status"],
+                               cwd=ROOT, check=False, timeout=WATCH_TIMEOUT_SECONDS)
+    except subprocess.TimeoutExpired:
+        subprocess.run(["gh", "run", "cancel", run_id, "--repo", repo], cwd=ROOT, check=False)
+        print(f"候補収集workflowが{WATCH_TIMEOUT_SECONDS}秒を超えたため停止しました。次回枠へ繰り越します。", file=sys.stderr)
+        return 124
     if watch.returncode:
         return watch.returncode
     with tempfile.TemporaryDirectory(prefix="monobase-candidates-") as tmp:
