@@ -7,6 +7,46 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>Anker A1259 仕様と同時充電の確認点</title>
+    <link>https://monobase.site/articles/anker-nano-power-bank-built-in-usb-c</link>
+    <guid isPermaLink="true">https://monobase.site/articles/anker-nano-power-bank-built-in-usb-c</guid>
+    <description>内蔵USB-Cケーブルと30W出力、同時充電時の24W制限を確認。</description>
+    <category>日用品・雑貨</category>
+    <pubDate>Tue, 27 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>ザムスト EK-5のサイズ選び</title>
+    <link>https://monobase.site/articles/zamst-ek-5-s</link>
+    <guid isPermaLink="true">https://monobase.site/articles/zamst-ek-5-s</guid>
+    <description>EK-5はSサイズの測定と左右兼用の仕様確認が重要。公式情報と利用者の声から選び方を整理します。</description>
+    <category>ヘルスケア</category>
+    <pubDate>Tue, 27 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>Bauhutte BHD-1200HDM-BK</title>
+    <link>https://monobase.site/articles/bauhutte-hd-bhd-1200hdm-bk</link>
+    <guid isPermaLink="true">https://monobase.site/articles/bauhutte-hd-bhd-1200hdm-bk</guid>
+    <description>幅1200mm・高さ595〜810mmのBauhutte昇降デスクを、設置条件と組立の確認点から解説。</description>
+    <category>家具・インテリア</category>
+    <pubDate>Tue, 27 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>KANEBO スクラビング マッド ウォッシュ</title>
+    <link>https://monobase.site/articles/kanebo</link>
+    <guid isPermaLink="true">https://monobase.site/articles/kanebo</guid>
+    <description>内容量130gと泥状から泡状へ変化する特徴、刺激や洗い上がりの確認点を整理。</description>
+    <category>美容・コスメ</category>
+    <pubDate>Mon, 26 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
+    <title>DiCUNO JP-TRK-E26-PLC</title>
+    <link>https://monobase.site/articles/dicuno-e26</link>
+    <guid isPermaLink="true">https://monobase.site/articles/dicuno-e26</guid>
+    <description>E26電球をレール照明に使うブラック2個セット。規格と付属品の確認点を整理。</description>
+    <category>家電</category>
+    <pubDate>Tue, 27 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>enevolt basic CR123A電池</title>
     <link>https://monobase.site/articles/enevolt-basic-cr123a</link>
     <guid isPermaLink="true">https://monobase.site/articles/enevolt-basic-cr123a</guid>
@@ -125,46 +165,6 @@
     <description>防水・長時間再生・アプリ対応に対応したSoundcore 3の購入前確認点を整理。</description>
     <category>AV機器</category>
     <pubDate>Sat, 10 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>Marshall EMBERTON III</title>
-    <link>https://monobase.site/articles/marshall-emberton-iii-bluetooth</link>
-    <guid isPermaLink="true">https://monobase.site/articles/marshall-emberton-iii-bluetooth</guid>
-    <description>360°再生、最大32時間、IP67。Marshall EMBERTON IIIの仕様と利用者の声、購入前の確認事項を整理。</description>
-    <category>AV機器</category>
-    <pubDate>Sat, 10 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>VITAS ホエイプロテイン100</title>
-    <link>https://monobase.site/articles/vitas-wpc</link>
-    <guid isPermaLink="true">https://monobase.site/articles/vitas-wpc</guid>
-    <description>VITASのWPC 1kgを、容量・味・利用者の声の確認点から整理。</description>
-    <category>ヘルスケア</category>
-    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>武内製薬 THE PROTEIN ホエイプロテイン1kg｜甘さ・溶け方・フレーバーの選び方</title>
-    <link>https://monobase.site/articles/the-protein</link>
-    <guid isPermaLink="true">https://monobase.site/articles/the-protein</guid>
-    <description>1kgのWPCを複数味から選べる一方、甘さと溶け方は評価が分かれるプロテインです。</description>
-    <category>ヘルスケア</category>
-    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>NOR. AIRFITMASCARA｜カールキープとタイプ選び</title>
-    <link>https://monobase.site/articles/nor-airfitmascara</link>
-    <guid isPermaLink="true">https://monobase.site/articles/nor-airfitmascara</guid>
-    <description>カールキープを主題とするNOR. AIRFITMASCARAを、タイプ展開と利用者の声から分析。</description>
-    <category>美容・コスメ</category>
-    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>ヒロコーポレーション HKT-100</title>
-    <link>https://monobase.site/articles/hkt-100</link>
-    <guid isPermaLink="true">https://monobase.site/articles/hkt-100</guid>
-    <description>1LのコンパクトケトルHKT-100を、容量・安全機能・設置条件・利用者の声の分かれ目から確認します。</description>
-    <category>キッチン</category>
-    <pubDate>Fri, 09 Oct 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
 </rss>
