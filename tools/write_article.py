@@ -514,7 +514,8 @@ def review_evidence_block(a):
             lines.append(f"・{item}")
     for item in reviews:
         if isinstance(item, dict):
-            lines.append(f"・利用者の声（{item.get('source', '出典不明')}）: {item.get('text', '')}")
+            source = item.get('source') or item.get('url') or '出典不明'
+            lines.append(f"・利用者の声（{source}）: {item.get('text', '')}")
     if not lines:
         return ""
     return ("\n【確認済みの出典・個別投稿】\n" + "\n".join(lines)
