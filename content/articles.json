@@ -166,9 +166,10 @@
     "postage_included": true,
     "count": 32,
     "average": 4.44,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
-   "checked": "2026-10-15"
+   "checked": "2026-10-26"
   },
   "facts": [
    "E26口金の電球をダクトレールへ取り付けるソケットとして商品ページに掲載されている",
@@ -459,9 +460,10 @@
     "postage_included": true,
     "count": 374,
     "average": 4.52,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
-   "checked": "2026-10-16"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次のように、USB-C機器を中心に外出時の荷物と充電手順を減らしたい人に向きます。",
@@ -1112,9 +1114,10 @@
     "postage_included": false,
     "count": 42,
     "average": 4.45,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
-   "checked": "2026-10-16"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "公式仕様で寸法と昇降範囲が確認できるため、設置場所と作業姿勢が合う人には判断しやすいデスクです。",
@@ -1485,9 +1488,10 @@
     "postage_included": true,
     "count": 69,
     "average": 4.49,
-    "shops": 1
+    "shops": 1,
+    "count_scope": "single_listing"
    },
-   "checked": "2026-10-16"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "公式情報と確認できる利用者の声から、次のような選び方に向いています。",
@@ -1860,7 +1864,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://enevolt.jp/products/3r-cr123a",
   "facts": [
@@ -2811,7 +2815,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://panasonic.jp/battery/products/BK-4HCD_4H.html",
   "facts": [
@@ -3169,7 +3173,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.mitsubishielectric.co.jp/home/denchi/product/alkali/g/index.html",
   "facts": [
@@ -3776,8 +3780,8 @@
    "rakuten": {
     "price": 1410,
     "postage_included": false,
-    "count": 32,
-    "average": 4.38,
+    "count": 31,
+    "average": 4.35,
     "shops": 1,
     "count_scope": "single_listing"
    },
@@ -3789,7 +3793,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "確認済み仕様から見ると、少量の玉子焼きを作りたい人、収納寸法と熱源対応を先に確認したい人に向く商品です。",
@@ -4168,7 +4172,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次のように、タオルの置き場所を小さく整え、平滑な設置面へ両面テープで固定できる人と相性があります。",
@@ -4962,12 +4966,12 @@
    "rakuten": {
     "price": 2980,
     "postage_included": true,
-    "count": 298,
-    "average": 4.55,
+    "count": 301,
+    "average": 4.54,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://fasoul.flavor-kitchen.com/",
   "facts": [
@@ -5289,12 +5293,12 @@
    "rakuten": {
     "price": 4730,
     "postage_included": true,
-    "count": 518,
+    "count": 520,
     "average": 4.58,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://fasoul.flavor-kitchen.com/",
   "facts": [
@@ -5835,7 +5839,7 @@
     "price": 7918,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -6225,12 +6229,12 @@
    "rakuten": {
     "price": 6990,
     "postage_included": true,
-    "count": 1251,
+    "count": 1252,
     "average": 4.63,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.ankerjapan.com/products/a3117",
   "facts": [
@@ -6947,12 +6951,12 @@
    "rakuten": {
     "price": 5480,
     "postage_included": true,
-    "count": 5430,
+    "count": 5433,
     "average": 4.77,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://vitas.fitness/shop/",
   "facts": [
@@ -7274,12 +7278,12 @@
    "rakuten": {
     "price": 5980,
     "postage_included": true,
-    "count": 13697,
+    "count": 13701,
     "average": 4.58,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://the-protein.com/",
   "facts": [
@@ -7609,7 +7613,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://yumebank.com/products/detail/norlongvol",
   "facts": [
@@ -8026,7 +8030,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://support.kom408.com/wp-content/uploads/2024/06/HKT-100-manual_ALL.pdf",
   "facts": [
@@ -8364,7 +8368,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://support.microsoft.com/en-us/surface/surface-regulatory-information",
   "facts": [
@@ -8769,7 +8773,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://mytrex.jp/rebive2/",
   "facts": [
@@ -9119,14 +9123,14 @@
     "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 8030,
+    "price": 8000,
     "postage_included": true,
     "count": 426,
     "average": 4.5,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://jp.jbl.com/WAVE-BEAM-2.html",
   "facts": [
@@ -9474,7 +9478,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://jp.soundpeats.com/products/c30",
   "facts": [
@@ -9796,7 +9800,7 @@
    "rakuten": {
     "price": 7700,
     "postage_included": true,
-    "count": 2374,
+    "count": 2375,
     "average": 4.51,
     "shops": 1,
     "count_scope": "single_listing"
@@ -9804,12 +9808,12 @@
    "yahoo": {
     "price": 9500,
     "postage_included": true,
-    "count": 2300,
+    "count": 2301,
     "average": 4.63,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.tp-link.com/jp/home-networking/cloud-camera/tapo-c520ws/",
   "facts": [
@@ -10172,7 +10176,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.switchbot.jp/pages/switchbot-hub2",
   "official_ogp_title": "次世代スマートリモコン SwitchBot ハブ２・Hub 2",
@@ -10825,7 +10829,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.mtgec.jp/shop/g/g1229610101/",
   "official_ogp_image": "https://www.mtgec.jp/img/goods/S/1229610101_8c8a436db90f438db7fc8a09116a6c44.jpg",
@@ -11544,7 +11548,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=7058266",
   "official_ogp_image": "https://www.irisplaza.co.jp/IMAGE/INTERIOR/PRODUCT/7058266F.jpg",
@@ -12233,7 +12237,7 @@
    "rakuten": {
     "price": 2970,
     "postage_included": true,
-    "count": 2371,
+    "count": 2372,
     "average": 4.73,
     "shops": 1,
     "count_scope": "single_listing"
@@ -12246,7 +12250,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.kerastase.jp/products/nutritive/oleo-relax-magic-night-serum",
   "facts": [
@@ -12665,7 +12669,7 @@
    "rakuten": {
     "price": 748,
     "postage_included": true,
-    "count": 8340,
+    "count": 8341,
     "average": 4.67,
     "shops": 1,
     "count_scope": "single_listing"
@@ -12678,7 +12682,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://mytrex.jp/rebive-mini/",
   "facts": [
@@ -13072,7 +13076,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=105915",
   "facts": [
@@ -13391,7 +13395,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.mtgec.jp/shop/g/g1500720101/",
   "facts": [
@@ -14035,7 +14039,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.irisohyama.co.jp/kararie/futon/kfk-202-product/",
   "facts": [
@@ -14379,12 +14383,12 @@
    "yahoo": {
     "price": 742,
     "postage_included": true,
-    "count": 607,
+    "count": 610,
     "average": 4.83,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.lion-pet.co.jp/catsuna/product/",
   "facts": [
@@ -15130,7 +15134,7 @@
     "price": 71916,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.siroca.co.jp/product/dishwasher_largecapacity_ss-mh351/",
   "facts": [
@@ -15769,7 +15773,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://jp.iface.com/products/case-reflection?id=41-195509",
   "facts": [
@@ -16127,7 +16131,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://maxzen.jp/product/j43ch06/",
   "facts": [
@@ -16850,7 +16854,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次のような環境なら、WSR-3000AX4Pの機能を購入目的に結びつけやすくなります。",
@@ -17584,14 +17588,14 @@
     "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 2680,
+    "price": 1470,
     "postage_included": true,
     "count": 82,
     "average": 4.3,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.sanwa.co.jp/product/syohin?code=DG-CAM16",
   "facts": [
@@ -17947,7 +17951,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 72980,
+    "price": 75980,
     "postage_included": false,
     "count": 1,
     "average": 1.0,
@@ -17955,14 +17959,14 @@
     "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 72980,
+    "price": 75980,
     "postage_included": true,
-    "count": 44,
+    "count": 45,
     "average": 4.73,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.samsung.com/jp/smartphones/galaxy-a/galaxy-a57-5g-awesome-navy-128gb-sm-a576qdbasjp/",
   "product_url": "https://store.shopping.yahoo.co.jp/samsungonline/4986773267283v.html",
@@ -18322,20 +18326,20 @@
    "rakuten": {
     "price": 9900,
     "postage_included": false,
-    "count": 1911,
-    "average": 4.59,
+    "count": 1914,
+    "average": 4.6,
     "shops": 1,
     "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 7990,
+    "price": 7580,
     "postage_included": true,
-    "count": 789,
-    "average": 4.5,
+    "count": 790,
+    "average": 4.51,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.tp-link.com/jp/home-networking/wifi-router/archer-ax3000/",
   "product_url": "https://store.shopping.yahoo.co.jp/tplink/4895252502688/",
@@ -19025,7 +19029,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次の条件に当てはまるなら、IPDCI-T13の構成が購入後の使い方に合いやすくなります。",
@@ -19319,7 +19323,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "sections": [
    {
@@ -19630,12 +19634,12 @@
    "rakuten": {
     "price": 1999,
     "postage_included": false,
-    "count": 964,
+    "count": 966,
     "average": 4.63,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "sections": [
    {
@@ -20265,12 +20269,12 @@
    "rakuten": {
     "price": 3180,
     "postage_included": true,
-    "count": 2560,
+    "count": 2561,
     "average": 4.42,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "販売ページで確認できた部品と注意書きを踏まえた、検討しやすい用途です。",
@@ -21158,7 +21162,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次のような用途・環境なら、KDR-M11Cの仕様と特徴が目的に合いやすいでしょう。",
@@ -22175,7 +22179,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次のように、手持ちのバッグ内でカメラの収納位置を整えたい人に向きます。",
@@ -22458,7 +22462,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "確認済みの公式機能と利用者の声から、次のような重視点を持つ人が検討しやすい製品です。",
@@ -22758,7 +22762,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "確認できた公式説明と販売情報から、相性を判断しやすい使い方をまとめます。",
@@ -23407,7 +23411,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "机上の作業領域と、手を伸ばせる収納を一体で整えたい人に向きます。",
@@ -23786,7 +23790,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "SALONIA ロックスタイルミルクは、次のような使い方を考えている人に向きます。",
@@ -24431,7 +24435,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "45〜60cmクラスの水槽で、空気量を自分で加減したい人が主な対象です。",
@@ -24745,7 +24749,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "一脚の役割を理解し、使う機材との適合を購入前に確認できる人に向きます。",
@@ -25085,7 +25089,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "機材一式が耐荷重1.5kg以内で、41cmまで収納できる三脚を探している人に向きます。",
@@ -26064,7 +26068,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "測定値を健康管理の参考として記録し、自分の変化を振り返りたい人に向く製品です。",
@@ -26372,12 +26376,12 @@
    "rakuten": {
     "price": 17600,
     "postage_included": true,
-    "count": 272,
+    "count": 273,
     "average": 4.56,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "公開情報から見ると、次のような使い方なら検討しやすい商品です。",
@@ -26681,12 +26685,12 @@
    "rakuten": {
     "price": 2400,
     "postage_included": true,
-    "count": 2960,
+    "count": 2961,
     "average": 4.51,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次のような環境なら、PUPPIA ソフトベストハーネスの検討理由がはっきりします。",
@@ -27031,12 +27035,12 @@
    "rakuten": {
     "price": 1680,
     "postage_included": true,
-    "count": 3131,
+    "count": 3134,
     "average": 4.51,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次の条件に当てはまる人なら、用途と確認事項がはっきりしています。",
@@ -27417,12 +27421,12 @@
    "rakuten": {
     "price": 1790,
     "postage_included": true,
-    "count": 1056,
+    "count": 1059,
     "average": 4.16,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "重ね着の土台になる長袖を探していて、購入前に襟型・サイズ・色を確認できる人に向きます。",
@@ -27753,7 +27757,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "接続先の条件を確認したうえで、クリップ式マイクを導入したい人に向きます。",
@@ -28133,7 +28137,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "公式仕様と確認できた利用者の声から、次の条件に当てはまる人ほど選ぶ理由を見つけやすい商品です。",
@@ -29728,12 +29732,12 @@
    "rakuten": {
     "price": 3180,
     "postage_included": true,
-    "count": 1324,
+    "count": 1328,
     "average": 4.52,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "この商品は、利用台数とOSが合っていて、長期利用時の更新手続きを減らしたい人に向きます。",
@@ -30061,7 +30065,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次のような環境なら、SwitchBot ハブ3の機能を活かしやすいでしょう。",
@@ -30758,7 +30762,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "返礼品としての選びやすさと、公式に確認できる商品情報を重視する人に合います。",
@@ -31149,7 +31153,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "公式仕様と確認できた利用者の声から、次のような環境では選ぶ理由を作りやすい水槽です。",
@@ -31529,7 +31533,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次のような使い方なら、MOUTH MSB24101のサイズと構成が目的に合いやすいです。",
@@ -31877,7 +31881,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "細かな調整を使って、作業姿勢と休憩姿勢を一脚で切り替えたい人に向きます。",
@@ -32277,7 +32281,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次の条件に当てはまるなら、WSJ-4Lの構成が作業の負担を減らします。",
@@ -32620,7 +32624,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次のような環境なら、IHC-SG221の仕様と用途がかみ合います。",
@@ -33006,7 +33010,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次のような使い方なら、旅美人 ヘアトリートメントの目的と合いやすいでしょう。",
@@ -33390,7 +33394,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次のようなキッチン環境なら、仕様と利用者の声が用途に合いやすい商品です。",
@@ -34082,14 +34086,14 @@
     "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 1880,
+    "price": 1030,
     "postage_included": true,
     "count": 533,
     "average": 4.22,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "収納物をある程度絞り、旅行や出張でガジェット類をまとめたい人に向いています。",
@@ -34466,7 +34470,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "次のような目的なら、カメまるD DC53Bを購入候補として検討しやすくなります。",
@@ -34890,7 +34894,7 @@
     "price": 4361,
     "postage_included": false
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "health": {
    "checked": "2026-10-22"
@@ -35553,7 +35557,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "health": {
    "checked": "2026-10-22"
@@ -35958,7 +35962,7 @@
     "price": 41412,
     "postage_included": false
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "health": {
    "checked": "2026-10-24"
@@ -37289,7 +37293,7 @@
     "price": 108600,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.epson.jp/products/receiptprinter/tml90/spec.htm",
   "jan": "4988617314023",
@@ -37630,7 +37634,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T01:34:36+09:00",
@@ -37902,7 +37906,7 @@
     "price": 9834,
     "postage_included": false
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.lion-jimuki.co.jp/",
   "facts": [
@@ -38200,7 +38204,7 @@
     "price": 48010,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://inweb1.iodata.jp/product/memory/desktop/d5r4800/index.htm",
   "jan": "4957180177595",
@@ -38557,7 +38561,7 @@
     "price": 36780,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://e-hagihara.jp/webcatalog/2025%E5%AE%B6%E5%85%B7カタログ_wed.pdf",
@@ -38962,7 +38966,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -39238,7 +39242,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.elecom.co.jp/products/TK-FDM109MBK.html",
   "facts": [
@@ -39915,7 +39919,7 @@
     "price": 53992,
     "postage_included": false
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.startech.com/en-ca/universal-laptop-docking-stations/dk30ch2dep",
@@ -40232,7 +40236,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.morieng.co.jp/machine/product/window/wr/index.php",
@@ -40945,7 +40949,7 @@
     "price": 5856,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.sanwa.co.jp/product/syohin?code=KB-T7-02WN",
@@ -41301,7 +41305,7 @@
     "price": 47081,
     "postage_included": false
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://transcend-info.com/support/product/external-hard-drive/storejet-25h3",
@@ -41948,7 +41952,7 @@
     "price": 17596,
     "postage_included": false
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.tp-link.com/jp/home-networking/pci-adapter/tx401/v1/",
   "product_url": "https://item.rakuten.co.jp/doriem/b08gfgg888/",
@@ -42310,7 +42314,7 @@
     "price": 17490,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.audio-technica.co.jp/product/ATH-SR30BT",
   "facts": [
@@ -42637,7 +42641,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 10989,
+    "price": 7800,
     "postage_included": true,
     "count": 3,
     "average": 5.0,
@@ -42652,7 +42656,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T01:15:14+09:00",
@@ -42945,7 +42949,7 @@
     "price": 28390,
     "postage_included": false
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "scenes": [
    {
@@ -43287,7 +43291,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.elecom.co.jp/products/U2C-E10BK.html",
@@ -43677,7 +43681,7 @@
     "price": 6910,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T02:58:38+09:00",
@@ -44048,7 +44052,7 @@
     "price": 2282,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -44650,7 +44654,7 @@
     "price": 3678,
     "postage_included": false
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://fargo.co.jp/",
@@ -44938,7 +44942,7 @@
     "price": 2211,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T01:40:02+09:00",
@@ -45270,7 +45274,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.milbon.com/ja/brand/colorgadget/",
@@ -45655,7 +45659,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.iodata.jp/product/nas/personal/hdl2-le/index.htm",
   "facts": [
@@ -46010,7 +46014,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.paloma.co.jp/cgi-bin/productDetail.cgi?rno=310",
@@ -46346,7 +46350,7 @@
     "price": 3285,
     "postage_included": false
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "facts": [
    "ODELIC OD361234MLRを商品番号で同定",
@@ -46696,7 +46700,7 @@
     "price": 9800,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -47328,7 +47332,7 @@
     "price": 4310,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://mco.jp/products_pc/pc_cat/stand/stand-02/",
@@ -47788,7 +47792,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -48075,12 +48079,12 @@
    "rakuten": {
     "price": 7480,
     "postage_included": true,
-    "count": 3858,
+    "count": 3859,
     "average": 4.47,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.tiger-corporation.com/ja/jpn/product/others/kae-g13n/",
@@ -48403,12 +48407,12 @@
    "rakuten": {
     "price": 13200,
     "postage_included": true,
-    "count": 4038,
+    "count": 4039,
     "average": 4.67,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://recolte-jp.com/products/auto-cooking-pot/",
@@ -51471,7 +51475,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://winten.co.jp/products/view/22",
@@ -52140,7 +52144,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://huromjapan.com/product/h70ft.html",
@@ -52871,7 +52875,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "GPT利用者の声不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.trendmicro.com/ja_jp/forHome/products/vb.html",
@@ -53551,12 +53555,12 @@
    "rakuten": {
     "price": 5280,
     "postage_included": true,
-    "count": 10182,
+    "count": 10183,
     "average": 4.7,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://yamanakain.com/2026/06/04/news-5802/",
@@ -55542,7 +55546,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T01:52:30+09:00",
@@ -55921,14 +55925,14 @@
     "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 6980,
+    "price": 7500,
     "postage_included": true,
     "count": 585,
     "average": 4.52,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -56288,7 +56292,7 @@
    "rakuten": {
     "price": 6700,
     "postage_included": true,
-    "count": 11318,
+    "count": 11319,
     "average": 4.72,
     "shops": 1,
     "count_scope": "single_listing"
@@ -56301,7 +56305,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -56597,12 +56601,12 @@
    "rakuten": {
     "price": 3980,
     "postage_included": false,
-    "count": 14980,
+    "count": 14984,
     "average": 4.56,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T02:18:04+09:00",
@@ -59154,12 +59158,12 @@
    "rakuten": {
     "price": 2990,
     "postage_included": false,
-    "count": 19072,
+    "count": 19073,
     "average": 4.37,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "spec": {
    "intro": "公式商品ページで確認できる商品情報と、購入前に確認すべき項目を整理した表です。比較基準は、長時間着用の快適さ、補整・固定の必要性、洗濯環境、サイズ適合です。",
@@ -59759,7 +59763,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -60375,7 +60379,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://e-zakkamania.com/products/33566-1401336",
@@ -60693,12 +60697,12 @@
    "rakuten": {
     "price": 6160,
     "postage_included": true,
-    "count": 22326,
+    "count": 22327,
     "average": 4.42,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.yamazen-create.co.jp/uploads/post/650/2_1.pdf",
@@ -62393,12 +62397,12 @@
    "rakuten": {
     "price": 2200,
     "postage_included": true,
-    "count": 40357,
+    "count": 40360,
     "average": 4.75,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "商品同定情報または個別商品URLが不足し、公式根拠を確認できないため（2026-10-06）",
   "official_url": "https://www.attenir.co.jp/item/1662-22",
@@ -62749,7 +62753,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.tvfusion.co.jp/product/616",
@@ -64162,7 +64166,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 5060,
+    "price": 5426,
     "postage_included": false
    },
    "yahoo": {
@@ -64173,7 +64177,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.tanita.co.jp/support/manual/FS-101/",
@@ -64513,12 +64517,12 @@
    "rakuten": {
     "price": 1000,
     "postage_included": true,
-    "count": 49494,
+    "count": 49499,
     "average": 4.14,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "商品同定情報または個別商品URLが不足し、公式根拠を確認できないため（2026-10-06）",
   "official_url": "https://www.rakuten.ne.jp/gold/darkangel/tokushu/COOLIFY/index.html",
@@ -64861,12 +64865,12 @@
    "rakuten": {
     "price": 3960,
     "postage_included": true,
-    "count": 45367,
+    "count": 45369,
     "average": 4.69,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://yunth.jp/shop/products/101-01",
@@ -65303,7 +65307,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "spec": {
    "intro": "比較対象を置く表ではなく、LOWYA公式の選択中仕様を基準に、設置判断に必要な項目を整理しています。",
@@ -65625,12 +65629,12 @@
    "rakuten": {
     "price": 3630,
     "postage_included": true,
-    "count": 49975,
+    "count": 49997,
     "average": 4.8,
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.attenir.co.jp/item/1663-52",
@@ -66695,7 +66699,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "evidence_audit": {
@@ -68384,7 +68388,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "evidence_audit": {
    "checked_at": "2026-10-06T08:55:32+09:00",
@@ -68654,7 +68658,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_ogp_title": "電気圧力鍋 KPC-MA4 特設サイト|アイリスオーヤマ",
   "official_ogp_image": "https://www.irisohyama.co.jp/e-pressure-cooker/common/images/fb.png",
@@ -69032,14 +69036,14 @@
   "official_ogp_image": "https://www.zojirushi.co.jp/syohin/assets/img/pot_kettle/kettle/ck-ax/ogp.png",
   "review_stats": {
    "rakuten": {
-    "price": 16366,
+    "price": 16140,
     "postage_included": true
    },
    "yahoo": {
     "price": 20976,
     "postage_included": true
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "evidence_audit": {
    "checked_at": "2026-10-06T02:58:13+09:00",
@@ -69416,7 +69420,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://media.ergotron.com/reserved/resources/lx-deskmountarms-jp-orig.pdf",
@@ -69686,7 +69690,7 @@
     "price": 19371,
     "postage_included": false
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "evidence_audit": {
    "checked_at": "2026-10-06T11:17:35+09:00",
@@ -70472,7 +70476,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_ogp_title": "MX Master 3sワイヤレスマウス - 8Kオプティカルセンサー | Logicool",
   "official_ogp_image": "https://resource.logitech.com/c_fill,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/homepage/delorean-hp/logitech-global-og-image.png",
@@ -71157,7 +71161,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_ogp_title": "SwitchBot ハブ2 次世代スマートリモコン",
   "official_ogp_image": "http://www.switchbot.jp/cdn/shop/files/JP_Hub_2_2x_9a0ec3fb-beee-4124-8957-7de541b7eba2.webp?v=1745810078",
@@ -71892,7 +71896,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_ogp_title": "トラッシュカン タワー 角型ロング | 山崎実業【公式】",
   "official_ogp_image": "http://www.yamajitsu.co.jp/cdn/shop/files/241490_collection.jpg?v=1776999809",
@@ -72286,7 +72290,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "official_ogp_title": "DJI Mic Mini - 仕様 - DJI",
   "official_ogp_image": "https://www-cdn.djiits.com/cms/uploads/d561b942d2162842fdecae335b605d93@374*374.png",
@@ -73351,7 +73355,7 @@
     "price": 15840,
     "postage_included": false
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.bauhutte.jp/product/bft700/",
@@ -73711,7 +73715,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "evidence_audit": {
@@ -75230,7 +75234,7 @@
     "shops": 1,
     "count_scope": "single_listing"
    },
-   "checked": "2026-10-25"
+   "checked": "2026-10-26"
   },
   "good_for": {
    "intro": "確認できた商品情報と寸法から、次のような使い方に合うか判断できます。",
