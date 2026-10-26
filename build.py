@@ -6024,9 +6024,26 @@ def main():
               cat_mod(c["key"], sc["key"]))
              for c in CATS for sc in c.get("sub", [])
              if subcat_indexable(c["key"], sc["key"])]
-    # noindex の記事は載せない（載せると「noindex なのに sitemap にある」になる）
+    # noindex の記事は載せない（載せると「noindex なのに sitemap にある」になる）。
+    # worker.template.js で旧記事URLからカテゴリ・統合先へ301転送する記事も
+    # 転送元をサイトマップへ載せない。転送元を掲載すると、Search Consoleで
+    # 「ページにリダイレクトがあります」として扱われ、正規URLの評価を遅らせる。
+    sitemap_redirect_slugs = {
+        "gunze-agw112",
+        "iris-panel-light-ceiling-review",
+        "o-neil-of-dublin-w",
+        "salonia-hk-slall",
+        "rsy-2-recolte",
+        "recolte-rsy-2",
+        "recolte-rsy-2-2",
+        "rsy-2-recolte-2",
+        "rsy-2-recolte-auto-cooking-pot-ok",
+        "rcp-7-recolte",
+        "recolte-capsule-cutter-bonne-rcp-3",
+    }
     urls += [(f'{BASE_URL}/articles/{a["slug"]}.html', "0.9", mod(a))
-             for a in PUBLISHED if indexable(a)]
+             for a in PUBLISHED
+             if indexable(a) and a.get("slug") not in sitemap_redirect_slugs]
     static = ["about.html", "editorial-policy.html", "advertising.html",
               "privacy.html", "disclaimer.html", "sitemap.html"]
     if FEAT.get("contact_form"):
