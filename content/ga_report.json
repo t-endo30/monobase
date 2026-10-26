@@ -1,86 +1,96 @@
 {
  "_note": "tools/ga_report.py が GA4 から自動生成します（毎週月曜）。",
- "generated": "2026-10-19",
+ "generated": "2026-10-26",
  "range": {
   "cur": [
-   "2026-10-12",
-   "2026-10-18"
+   "2026-10-19",
+   "2026-10-25"
   ],
   "prev": [
-   "2026-10-05",
-   "2026-10-11"
+   "2026-10-12",
+   "2026-10-18"
   ]
  },
  "totals": {
   "cur": {
    "dateRange": "cur",
+   "activeUsers": 6,
+   "newUsers": 5,
+   "sessions": 7,
+   "engagedSessions": 1,
+   "screenPageViews": 8,
+   "userEngagementDuration": 53
+  },
+  "prev": {
+   "dateRange": "prev",
    "activeUsers": 4,
    "newUsers": 2,
    "sessions": 10,
    "engagedSessions": 7,
    "screenPageViews": 49,
    "userEngagementDuration": 763
-  },
-  "prev": {
-   "dateRange": "prev",
-   "activeUsers": 14,
-   "newUsers": 11,
-   "sessions": 36,
-   "engagedSessions": 24,
-   "screenPageViews": 331,
-   "userEngagementDuration": 12057
   }
  },
  "daily": [
   {
-   "date": "20261012",
-   "activeUsers": 2,
-   "screenPageViews": 41
+   "date": "20261019",
+   "activeUsers": 1,
+   "screenPageViews": 1
   },
   {
-   "date": "20261013",
-   "activeUsers": 2,
-   "screenPageViews": 4
+   "date": "20261020",
+   "activeUsers": 1,
+   "screenPageViews": 1
   },
   {
-   "date": "20261014",
+   "date": "20261021",
+   "activeUsers": 1,
+   "screenPageViews": 1
+  },
+  {
+   "date": "20261022",
    "activeUsers": 1,
    "screenPageViews": 2
   },
   {
-   "date": "20261015",
-   "activeUsers": 1,
+   "date": "20261023",
+   "activeUsers": 2,
    "screenPageViews": 2
+  },
+  {
+   "date": "20261024",
+   "activeUsers": 1,
+   "screenPageViews": 1
   }
  ],
  "channels": [
   {
+   "sessionDefaultChannelGroup": "Direct",
+   "sessions": 4,
+   "activeUsers": 4
+  },
+  {
    "sessionDefaultChannelGroup": "Organic Search",
-   "sessions": 5,
+   "sessions": 2,
    "activeUsers": 1
   },
   {
-   "sessionDefaultChannelGroup": "Direct",
-   "sessions": 4,
-   "activeUsers": 2
-  },
-  {
-   "sessionDefaultChannelGroup": "Organic Social",
+   "sessionDefaultChannelGroup": "Referral",
    "sessions": 1,
    "activeUsers": 1
   }
  ],
  "sources": [
   {
-   "sessionSourceMedium": "search.google.com / referral",
-   "sessions": 5
-  },
-  {
    "sessionSourceMedium": "(direct) / (none)",
    "sessions": 4
   },
   {
-   "sessionSourceMedium": "ig / social",
+   "sessionSourceMedium": "search.google.com / referral",
+   "sessions": 2
+  },
+  {
+   "sessionSourceMedium": "vcjp.cybozu.com / referral",
    "sessions": 1
   }
  ],
@@ -88,66 +98,30 @@
   {
    "pagePath": "/",
    "pageTitle": "モノベース｜あらゆるモノのデータベース",
-   "screenPageViews": 43,
-   "activeUsers": 3,
-   "userEngagementDuration": 696,
-   "avgEngagementSec": 16.2
+   "screenPageViews": 7,
+   "activeUsers": 6,
+   "userEngagementDuration": 47,
+   "avgEngagementSec": 6.7
   },
   {
-   "pagePath": "/new",
-   "pageTitle": "新着記事 - モノベース",
-   "screenPageViews": 2,
-   "activeUsers": 2,
-   "userEngagementDuration": 46,
-   "avgEngagementSec": 23.0
-  },
-  {
-   "pagePath": "/articles/fasoul-c2",
-   "pageTitle": "Fasoul C2｜1本2回使用とオート加熱の確認点 - モノベース",
+   "pagePath": "/ranking",
+   "pageTitle": "よく読まれている記事 - モノベース",
    "screenPageViews": 1,
    "activeUsers": 1,
-   "userEngagementDuration": 5,
-   "avgEngagementSec": 5.0
-  },
-  {
-   "pagePath": "/articles/fasoul-q1",
-   "pageTitle": "Fasoul Q1｜1本2回加熱・TEREA/SENTIA対応の確認点 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 2,
-   "avgEngagementSec": 2.0
-  },
-  {
-   "pagePath": "/articles/mytrex-rebive-mini-mt-by-rbm20b",
-   "pageTitle": "MYTREX REBIVE MINI MT BY-RBM20B｜アタッチメントの使い分けと充電条件 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 0,
-   "avgEngagementSec": 0.0
-  },
-  {
-   "pagePath": "/articles/switchbot-w3202106",
-   "pageTitle": "SwitchBot ハブ2 W3202106｜温湿度管理と赤外線家電操作の確認点 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 14,
-   "avgEngagementSec": 14.0
+   "userEngagementDuration": 6,
+   "avgEngagementSec": 6.0
   }
  ],
  "organic_landing": [
   {
    "landingPage": "/",
-   "sessions": 4
-  },
-  {
-   "landingPage": "/articles/switchbot-w3202106",
-   "sessions": 1
+   "sessions": 2
   }
  ],
  "devices": [
   {
    "deviceCategory": "desktop",
-   "activeUsers": 2
+   "activeUsers": 4
   },
   {
    "deviceCategory": "mobile",
@@ -157,11 +131,12 @@
  "hosts": [
   {
    "hostName": "monobase.site",
-   "screenPageViews": 49
+   "screenPageViews": 8
   }
  ],
  "notes": [
-  "閲覧0の日が 3 日ありました。",
-  "検索（自然）からの訪問は 5 回で、全体の 50% です。"
+  "閲覧0の日が 1 日ありました。",
+  "検索（自然）からの訪問は 2 回で、全体の 29% です。",
+  "3回以上読まれたのに平均10秒未満で離れているページ：/"
  ]
 }
