@@ -47,7 +47,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-beauty</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-27</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -187,7 +187,7 @@
   </url>
   <url>
     <loc>https://monobase.site/category-beauty-skincare</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-27</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -261,6 +261,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://monobase.site/articles/dicuno-e26</loc>
+    <lastmod>2026-10-27</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://monobase.site/articles/anker-nano-power-bank-built-in-usb-c</loc>
     <lastmod>2026-10-27</lastmod>
     <priority>0.9</priority>
@@ -277,11 +282,6 @@
   </url>
   <url>
     <loc>https://monobase.site/articles/kanebo</loc>
-    <lastmod>2026-10-26</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://monobase.site/articles/dicuno-e26</loc>
     <lastmod>2026-10-27</lastmod>
     <priority>0.9</priority>
   </url>
