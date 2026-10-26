@@ -85,7 +85,14 @@ jobs:
             git commit -m "Update product candidates"
             # 同時刻に別のCodex/Actions実行がpushしても候補を失わない。
             git pull --rebase origin main
-            git push
+            for attempt in 1 2 3 4 5; do
+              if git push; then exit 0; fi
+              echo "push failed (attempt ${attempt}/5); retrying"
+              sleep $((attempt * 5))
+              git pull --rebase origin main
+            done
+            echo "candidate update push failed after 5 attempts" >&2
+            exit 1
           fi
 
       # 何が取れたのかを、実行サマリーに残す（ログを追わなくて済むように）
