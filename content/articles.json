@@ -321,6 +321,9 @@
     "total": 91,
     "notes": "確認済み根拠のないratingやspecを出しておらず、商品固有の適合条件も整理できている。利用者の声は根拠データに対応しているが、公式仕様や比較対象がないため、評価の独自性には限界がある。"
    }
+  },
+  "health": {
+   "checked": "2026-10-26"
   }
  },
  {
@@ -630,6 +633,9 @@
     "total": 94,
     "notes": "提示された根拠に沿っており、未確認のrating/specや価格記載もない。公式が説明したとする一部表現だけを根拠に合わせて修正した。"
    }
+  },
+  "health": {
+   "checked": "2026-10-26"
   }
  },
  {
@@ -958,6 +964,9 @@
     "total": 90,
     "notes": "根拠データにないメーカー指定位置や公式サイズ基準の表現を販売ページの情報へ修正し、根拠の弱いratingとspecを削除しました。商品固有のサイズ確認には有用ですが、独自分析は測定条件と利用者の声の整理に限られます。"
    }
+  },
+  "health": {
+   "checked": "2026-10-26"
   }
  },
  {
@@ -1334,6 +1343,9 @@
     "total": 94,
     "notes": "確認済みの公式仕様と、根拠データにある個人投稿の範囲で記述されており、価格・Amazonレビュー評価の不適切な利用もありません。商品固有の寸法・昇降方式・設置条件に基づく分析も十分です。"
    }
+  },
+  "health": {
+   "checked": "2026-10-26"
   }
  },
  {
@@ -1667,6 +1679,9 @@
     "total": 90,
     "notes": "根拠データの範囲内で仕様・利用者の声・分析を分けており、ratingとspecにも確認根拠があります。商品固有の分析はあるものの、同じ注意事項の反復が多く、独自分析とテンプレート回避はやや控えめです。"
    }
+  },
+  "health": {
+   "checked": "2026-10-26"
   }
  },
  {
@@ -13593,7 +13608,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -13849,7 +13864,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -14203,7 +14218,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -14540,7 +14555,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -14744,7 +14759,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -14942,7 +14957,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -15259,7 +15274,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -15587,7 +15602,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -16307,14 +16322,14 @@
    "read": "公式商品情報で確認できた仕様のみを掲載しています。解像度、端子数、付属品など根拠データにない項目は購入前に公式仕様や販売ページで確認してください。"
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   }
  },
  {
   "slug": "maxzen-j24ch06",
   "category": "av",
   "sub": "tv",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "MAXZEN J24CH06｜24型テレビの録画と設置条件",
   "list_title": "MAXZEN J24CH06 24型テレビの録画と設置条件",
@@ -16656,13 +16671,13 @@
    }
   },
   "health": {
-   "checked": "2026-10-20",
+   "checked": "2026-10-26",
    "dead": [
     "https://www。amazon。co。jp/s?k=4571495432677&i=aps",
     "https://item。rakuten。co。jp/maxzen/4571495432677/",
     "https://store。shopping。yahoo。co。jp/maxzen/4571495432677。html"
    ],
-   "dead_strikes": 3,
+   "dead_strikes": 4,
    "stopped_reason": "販売先のリンクがすべて切れています"
   }
  },
@@ -19457,7 +19472,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   }
  },
  {
@@ -27548,7 +27563,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   },
   "spec": {
    "intro": "公式で確認できる商品仕様と、購入前に販売ページで確認する項目を整理しています。価格帯や他商品との比較表ではありません。",
@@ -29290,7 +29305,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T09:01:24+09:00",
@@ -29530,7 +29545,7 @@
   ],
   "personal_note": "",
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T08:57:36+09:00",
@@ -36266,7 +36281,7 @@
    "checked": "2026-10-20"
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "",
   "official_url": "https://panasonic.jp/manualdl/p-db/cs/cs_634_804_x.pdf",
@@ -37263,7 +37278,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -37604,7 +37619,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -37880,7 +37895,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -38174,7 +38189,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -38816,7 +38831,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   },
   "official_url": "https://www.sanwa.co.jp/product/syohin?code=SW-KVM2LUN2",
   "facts": [
@@ -39204,7 +39219,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -42618,7 +42633,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -43655,7 +43670,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -44307,7 +44322,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -44916,7 +44931,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -45621,7 +45636,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-20"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -46324,7 +46339,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -50750,7 +50765,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/secupcs/cabinet/1st-img/red/db74.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://bs.secu.jp/view/item/000000000339?category_page_id=scview",
@@ -51084,7 +51099,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/roomy/cabinet/500cart_all/500cart_11g/p10n-4/ide2006-kx027-1_gt01.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://bruno-inc.com/?am=07760192&pg=product_detail",
@@ -54857,7 +54872,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=K285289",
@@ -60349,7 +60364,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -60672,7 +60687,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -63749,7 +63764,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://salonia.jp/support/hair/iron/straight.php",
@@ -64143,7 +64158,7 @@
    }
   ],
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
@@ -65604,7 +65619,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/attenir/cabinet/thum/166013_main_2608-2.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-10-21"
+   "checked": "2026-10-26"
   },
   "review_stats": {
    "rakuten": {
