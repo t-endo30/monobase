@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-26T14:28:43+09:00",
+ "generated": "2026-10-26T14:41:45+09:00",
  "count": 30,
  "items": [
   {
@@ -397,7 +397,7 @@
    "jan": "",
    "category": "daily",
    "sub": "outdoor",
-   "reviews": 122,
+   "reviews": 123,
    "rating": 4.4,
    "price": 2980,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/s-life2021/cabinet/12456050/13793687/jhx01a.jpg?_ex=128x128",
@@ -413,7 +413,7 @@
      "price": 2980,
      "shop_name": "S-LIFESHOP",
      "postage_included": true,
-     "reviews": 122,
+     "reviews": 123,
      "rating": 4.4
     }
    }
