@@ -38,6 +38,9 @@ jobs:
       - name: Build site
         run: python3 build.py
 
+      - name: Check sitemap redirect guard
+        run: python3 tools/check_sitemap_redirects.py
+
       - name: Check images are optimized
         run: python3 tools/check_images.py
 
