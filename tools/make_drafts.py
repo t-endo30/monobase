@@ -187,6 +187,7 @@ def make_draft(c, site, taken):
         "category": cat_key, "sub": str(c.get("sub") or ""),
         "published": False, "featured": False,
         "title": name, "list_title": name[:30],
+        "source_name": str(c.get("name") or ""),
         # 仮の文章。本文を書くときに書き換わる。
         "description": f"{name}は買う価値があるのか。"
                        "レビューを読み込んで、良い点と注意点、向いている人を整理します。",

@@ -25,6 +25,11 @@ def slugs_with_content():
     }
 
 
+def all_slugs():
+    with open(os.path.join(ROOT, "content", "articles.json"), encoding="utf-8") as f:
+        return {a.get("slug") for a in json.load(f) if a.get("slug")}
+
+
 def published_slugs():
     with open(os.path.join(ROOT, "content", "articles.json"), encoding="utf-8") as f:
         articles = json.load(f)
@@ -94,6 +99,8 @@ def remove_failed_new(slugs):
         rejected = []
     for article in failed:
         rejected.append({"title": article.get("title"), "jan": article.get("jan"),
+                         "asin": article.get("asin"),
+                         "source_name": article.get("source_name"),
                          "urls": [article.get(k) for k in ("rakuten_url", "yahoo_url")
                                   if article.get(k)],
                          "reason": "GPT経路で目標品質に達しなかったため次候補へ切替"})
@@ -191,6 +198,7 @@ def main():
                 break
             batch = min(batch_size, remaining)
             before = slugs_with_content()
+            before_all = all_slugs()
             selection = [sys.executable, "tools/gpt_select_products.py", "--take", str(batch)]
             if order_refresh:
                 selection.append("--refresh-orders")
@@ -214,7 +222,12 @@ def main():
                 target.append("--dry-run")
             generated = subprocess.run(target, cwd=ROOT, check=False)
             after = slugs_with_content()
+            after_all = all_slugs()
             new_slugs = (after - before) if not args.dry_run else set()
+            blank_new = ((after_all - before_all) - new_slugs
+                         if not args.dry_run else set())
+            if blank_new:
+                remove_failed_new(blank_new)
             tried += len(new_slugs)
             if args.dry_run:
                 continue

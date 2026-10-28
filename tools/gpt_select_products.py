@@ -44,6 +44,36 @@ def _filtered_order_pool():
         return list(csv.DictReader(f))
 
 
+def _rejected_asins():
+    """レビュー不合格で切り替え済みのASINを候補母集団から除外する。"""
+    path = os.path.join(ROOT, "content", "candidates.rejected.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            rows = json.load(f)
+    except (OSError, ValueError, TypeError):
+        return set()
+    return {str(row.get("asin") or "").strip().upper()
+            for row in rows if isinstance(row, dict) and row.get("asin")}
+
+
+def _rejected_names():
+    """同一商品の重複表記を避けるため、不合格商品の元名も除外する。"""
+    path = os.path.join(ROOT, "content", "candidates.rejected.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            rows = json.load(f)
+    except (OSError, ValueError, TypeError):
+        return set()
+    values = set()
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        value = str(row.get("source_name") or "").strip().casefold()
+        if value:
+            values.add(value)
+    return values
+
+
 def order_items(limit=80, offset=0):
     """再分類済み1,372件を母集団にし、既出商品を除いてworkflowへ渡す。
 
@@ -54,12 +84,16 @@ def order_items(limit=80, offset=0):
     with open(os.path.join(ROOT, "content", "articles.json"), encoding="utf-8") as f:
         articles = json.load(f)
     used = {str(a.get("asin") or "").upper() for a in articles if a.get("asin")}
+    rejected = _rejected_asins()
+    rejected_names = _rejected_names()
     seen = set()
     groups = {}
     for row in rows:
         asin = str(row.get("ASIN") or "").strip().upper()
         name = str(row.get("Product Name") or "").strip()
-        if len(asin) != 10 or asin in used or asin in seen or not name:
+        if (len(asin) != 10 or asin in used or asin in rejected or
+                asin in seen or not name or
+                name.casefold() in rejected_names):
             continue
         seen.add(asin)
         category = str(row.get("category") or "").strip()
