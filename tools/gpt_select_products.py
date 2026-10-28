@@ -23,7 +23,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # GitHub Actions の workflow_dispatch 入力にはサイズ上限があるため、
 # 購入履歴候補を一度に送りすぎない。外部API照合は商品ごとに待ち時間が
 # 発生するため、10件単位で区切って候補不足時だけ次ページへ進む。
-ORDER_PAGE_SIZE = 10
+# 1回の照合で十分な候補を集め、候補不足時のGitHub Actions起動回数を
+# 抑える。取得した候補はcontent/candidates.jsonからローカルで順に消化する。
+ORDER_PAGE_SIZE = 120
 WATCH_TIMEOUT_SECONDS = 600
 
 
@@ -140,9 +142,12 @@ def refresh_order_candidates(limit, offset=0):
         json.dumps(items, ensure_ascii=False, separators=(",", ":")).encode("utf-8"), 9
     )).decode("ascii")
     started = time.time()
+    # 渡した照合ページの候補をできるだけ回収する。limit を小さく固定すると、
+    # 1ページ120件を調べても先頭30件しか候補化されず、残りを再照合する
+    # ことになっていた。照合済み候補はローカルで順番に消化する。
     code = subprocess.run(["gh", "workflow", "run", "order-candidates.yml", "--repo",
                            "t-endo30/monobase", "-f", f"items_blob={payload}",
-                           "-f", f"limit={limit}"], cwd=ROOT, check=False).returncode
+                           "-f", f"limit={page_size}"], cwd=ROOT, check=False).returncode
     if code:
         return code
     run_id = None

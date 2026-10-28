@@ -28,6 +28,43 @@ def load(path):
     return json.load(io.open(os.path.join(ROOT, path), encoding="utf-8"))
 
 
+def record_rejected_candidate(candidate, reason):
+    """本文生成前に落とした候補を記録し、同じ候補を再選択しない。"""
+    path = os.path.join(ROOT, "content", "candidates.rejected.json")
+    try:
+        rows = json.load(io.open(path, encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        rows = []
+    if not isinstance(rows, list):
+        rows = []
+    asin = str(candidate.get("asin") or "").strip().upper()
+    urls = [candidate.get(k) for k in ("rakuten_url", "yahoo_url")
+            if candidate.get(k)]
+    source_name = str(candidate.get("name") or "").strip()
+    keys = {asin} if asin else set()
+    keys.update(url_key(u) for u in urls if u)
+    if source_name:
+        keys.add(f"name:{source_name.casefold()}")
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        existing_keys = set()
+        existing_asin = str(row.get("asin") or "").strip().upper()
+        if existing_asin:
+            existing_keys.add(existing_asin)
+        existing_keys.update(url_key(u) for u in row.get("urls", []) if u)
+        existing_name = str(row.get("source_name") or "").strip()
+        if existing_name:
+            existing_keys.add(f"name:{existing_name.casefold()}")
+        if keys & existing_keys:
+            return
+    rows.append({"title": source_name, "jan": candidate.get("jan"),
+                 "asin": asin, "source_name": source_name, "urls": urls,
+                 "reason": reason})
+    with open(path, "w", encoding="utf-8") as handle:
+        json.dump(rows[-500:], handle, ensure_ascii=False, indent=1)
+
+
 def require_amazon_product():
     """通常候補のAmazon個別URLを必須にするか。
 
@@ -379,6 +416,19 @@ def main():
         name = clean_name(c.get("name", ""))
         if not name:
             continue
+        # 既出・不合格履歴の判定を事前ゲートより先に行う。後段に置くと、
+        # 既に不合格として記録した候補でも「根拠不足」と表示し続け、
+        # パイプラインが同じ候補を何度も再検査してしまう。
+        candidate_models = model_codes(name)
+        if c.get("jan") and str(c["jan"]) in seen_jan:
+            continue
+        if any(url_key(c.get(k)) in seen_url for k in ("rakuten_url", "yahoo_url")
+               if c.get(k)):
+            continue
+        if candidate_models & seen_models:
+            continue
+        if not candidate_models and name[:20] in seen_name:
+            continue
         # メーカー名・型番が名前から読み取れない商品は、本文を書いても
         # 校閲でほぼ確実に破棄される（docs/review-rules.md 5-1）。
         # 以前は「判定を外すと書ける商品まで取りこぼす」として並び順を
@@ -390,6 +440,7 @@ def main():
         if not args.allow_unidentifiable and not looks_identifiable(
                 name, c.get("shops"), c.get("official_url")):
             unidentifiable.append(name)
+            record_rejected_candidate(c, "メーカー名・型番を特定できないため事前スキップ")
             continue
         # 根拠ゲートと公開条件を満たせない候補は、本文生成前に落とす。
         # Amazon検索URLだけの商品は個別商品を特定できず、Amazon導線として
@@ -399,13 +450,16 @@ def main():
                       has_amazon_product(c.get("amazon_url")))
         if require_amazon_product() and not has_amazon:
             print(f"Amazon個別商品導線不足のため事前スキップ: {name[:50]}")
+            record_rejected_candidate(c, "Amazon個別商品導線不足")
             continue
         has_shop_url = bool(c.get("rakuten_url") or c.get("yahoo_url"))
         if not has_shop_url:
             print(f"個別販売URL不足のため事前スキップ: {name[:50]}")
+            record_rejected_candidate(c, "個別販売URL不足")
             continue
         if not has_verified_candidate_image(c):
             print(f"楽天/Yahoo!の商品画像不足のため事前スキップ: {name[:50]}")
+            record_rejected_candidate(c, "楽天/Yahoo!の商品画像不足")
             continue
         # 通常の自動候補は、公式資料・確認済みの根拠・レビュー本文が
         # 付いていないものを本文生成へ送らない。これらを後段のGPT校閲で
@@ -425,20 +479,11 @@ def main():
         order_history_candidate = c.get("source") == "amazon_order_history"
         if normal_candidates and not has_evidence and not order_history_candidate:
             print(f"公式資料・レビュー本文不足のため事前スキップ: {name[:50]}")
+            record_rejected_candidate(c, "公式資料・レビュー本文不足")
             continue
         # すでに書いた商品は飛ばす。型番が取れる商品は、共通する商品名の
         # 先頭より型番を優先する。同じシリーズでもW3202100とW3202106の
         # ようにSKUが異なる場合まで、名前の先頭一致だけで落とさない。
-        candidate_models = model_codes(name)
-        if c.get("jan") and str(c["jan"]) in seen_jan:
-            continue
-        if any(url_key(c.get(k)) in seen_url for k in ("rakuten_url", "yahoo_url")
-               if c.get(k)):
-            continue
-        if candidate_models & seen_models:
-            continue
-        if not candidate_models and name[:20] in seen_name:
-            continue
         seen_name.add(name[:20])
         seen_models |= candidate_models
         if c.get("jan"):

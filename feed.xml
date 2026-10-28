@@ -7,6 +7,14 @@
   <language>ja</language>
   <atom:link href="https://monobase.site/feed.xml" rel="self" type="application/rss+xml"/>
   <item>
+    <title>MAXZEN J24CH06｜24型テレビの設置・録画・接続条件</title>
+    <link>https://monobase.site/articles/maxzen-j24ch06</link>
+    <guid isPermaLink="true">https://monobase.site/articles/maxzen-j24ch06</guid>
+    <description>MAXZEN J24CH06は24型の液晶テレビ。放送対応、外付けHDD録画、HDMI接続の構成と購入前の確認項目をまとめます。</description>
+    <category>AV機器</category>
+    <pubDate>Wed, 28 Oct 2026 00:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>DiCUNO JP-TRK-E26-PLC</title>
     <link>https://monobase.site/articles/dicuno-e26</link>
     <guid isPermaLink="true">https://monobase.site/articles/dicuno-e26</guid>
@@ -157,14 +165,6 @@
     <description>ヘアケア5商品の使う時間帯と仕上がり別の選び方を整理。</description>
     <category>特集・まとめ</category>
     <pubDate>Sun, 11 Oct 2026 00:00:00 +0900</pubDate>
-  </item>
-  <item>
-    <title>Anker Soundcore 3 A3117｜防水・再生時間と接続条件</title>
-    <link>https://monobase.site/articles/anker-soundcore-bluetooth-a3117</link>
-    <guid isPermaLink="true">https://monobase.site/articles/anker-soundcore-bluetooth-a3117</guid>
-    <description>防水・長時間再生・アプリ対応に対応したSoundcore 3の購入前確認点を整理。</description>
-    <category>AV機器</category>
-    <pubDate>Sat, 10 Oct 2026 00:00:00 +0900</pubDate>
   </item>
 </channel>
 </rss>

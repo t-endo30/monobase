@@ -160,9 +160,12 @@ def main():
             print(f"目標達成: {args.take} 本（購入履歴由来 {order_published} 本）")
             return 0
         if pool_only:
-            print(f"購入履歴候補プールのみで {order_published}/{args.take} 本。"
-                  "通常候補へは切り替えず、次回枠へ繰り越します。")
-            return 1
+            # 購入履歴CSVを第一候補にする設定でも、Amazonの個別導線・画像・
+            # 根拠が揃わない候補だけで日次枠を止めない。ユーザー指定の
+            # フォールバックとして、残りは通常候補（Amazon導線なし可）へ
+            # 切り替え、同じ証拠ゲートとレビューを通す。
+            print(f"購入履歴候補プールで {order_published}/{args.take} 本。"
+                  f"残り {remaining} 本は通常候補へ切り替えます。")
         if order_code:
             print(f"購入履歴由来は {order_published}/3 本。残り {remaining} 本を通常候補へ切り替えます。")
         normal_cmd = [sys.executable, __file__, "--select", "--refresh-products",
@@ -182,6 +185,9 @@ def main():
         refresh = args.refresh_products
         order_refresh = args.refresh_order_products
         order_offset = max(0, args.order_offset)
+        # 1回の照合で複数候補が返るため、先に同じ candidates.json の
+        # 残りを使い切る。空になった時だけCSVの次ページを照合する。
+        reuse_order_candidates = False
         # 購入履歴は1ページで決め打ちせず、候補不成立なら別ページへ進む。
         # 1ページ30件を元CSVの行数ぶんだけ探索してから候補枯渇と判断する。
         # CSV全体を上限にする有限走査なので、無限再試行にはならない。
@@ -200,7 +206,12 @@ def main():
             before = slugs_with_content()
             before_all = all_slugs()
             selection = [sys.executable, "tools/gpt_select_products.py", "--take", str(batch)]
-            if order_refresh:
+            if order_refresh and reuse_order_candidates:
+                # 前回の照合済み候補から次の未処理候補を選ぶ。
+                # 不合格候補は candidates.rejected.json に記録されるため、
+                # make_drafts.py が同じ商品を再選択しない。
+                pass
+            elif order_refresh:
                 selection.append("--refresh-orders")
                 selection += ["--order-offset", str(order_offset)]
                 # 1ページ分ずつ先へ進める。前ページがレビュー不合格でも、
@@ -232,6 +243,9 @@ def main():
             if args.dry_run:
                 continue
             if not new_slugs:
+                # 照合済み候補を使い切ったので、次のループではCSVの
+                # 次ページを取りに行く。同じ空候補を再利用し続けない。
+                reuse_order_candidates = False
                 print("本文を作成できる候補がありません。次候補を探します。")
                 continue
             review = [sys.executable, "tools/gpt_review_article.py", *sorted(new_slugs),
@@ -246,6 +260,9 @@ def main():
             passed = reviewed_successes(new_slugs)
             succeeded |= passed
             remove_failed_new(new_slugs - passed)
+            # 今回の照合結果にまだ候補が残っている可能性があるため、
+            # 本文生成できた場合は次のループで再照合せず続ける。
+            reuse_order_candidates = bool(order_refresh and new_slugs)
             print(f"GPT経路: {len(succeeded)}/{target_count} 本を確保、"
                   f"今回試行 {tried} 本")
         if len(succeeded) < target_count:
