@@ -117,6 +117,8 @@ def main():
                     help="購入履歴ASINを優先して候補を再収集する")
     ap.add_argument("--order-offset", type=int, default=0,
                     help="購入履歴候補の探索開始位置")
+    ap.add_argument("--max-order-pages", type=int, default=0,
+                    help="購入履歴候補を照合する最大ページ数。0は候補プール全体")
     ap.add_argument("--orders-first", action="store_true",
                     help="1日5本のうち先に購入履歴由来を3本確保し、残りを通常候補で作る")
     ap.add_argument("--take", type=int, default=5, help="その日の目標記事数")
@@ -148,6 +150,9 @@ def main():
                      "--timeout", str(args.timeout)]
         if args.order_offset:
             order_cmd += ["--order-offset", str(args.order_offset)]
+        # 購入履歴を優先するが、候補プール全体の照合で通常候補を
+        # 遅延させない。1ページを有限試行して不足分は通常候補へ渡す。
+        order_cmd += ["--max-order-pages", "1"]
         if args.publish:
             order_cmd.append("--publish")
         if args.jev:
@@ -196,6 +201,8 @@ def main():
             max_order_pages = max(1, (order_history_rows() + order_page_size - 1)
                                   // order_page_size)
             max_batches = max(5, max_order_pages)
+            if args.max_order_pages > 0:
+                max_batches = min(max_batches, args.max_order_pages)
         else:
             max_batches = max(5, (target_count * 10 + batch_size - 1) // batch_size)
         for batch_no in range(max_batches):
