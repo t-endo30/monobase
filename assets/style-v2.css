@@ -4702,6 +4702,35 @@ h1,h2,h3,h4,
   }
 }
 
+/* スマホの横長記事行では、VIEWをメタ情報の右上に独立させる。
+   日付・カテゴリー・出典確認札と同じ行に置くと、幅の狭い本文列で
+   カテゴリー名が省略されてしまうため。カテゴリーと出典札は必要に応じて
+   次の行へ折り返し、ラベル自体は縮めない。 */
+@media (max-width:860px){
+  .row-item .row-meta{
+    flex-wrap:wrap;
+    row-gap:6px;
+  }
+  .row-item .row-meta > .card-views{
+    order:0;
+    flex:0 0 100%;
+    margin-left:0;
+    text-align:right;
+  }
+  .row-item .row-meta > .meta{order:1;}
+  .row-item .row-meta > .card-badges{
+    order:2;
+    flex:0 1 100%;
+    flex-wrap:wrap;
+    margin:0;
+  }
+  .row-item .row-meta > .card-badges > .card-cat-out,
+  .row-item .row-meta > .card-badges > .card-proof{
+    flex:0 0 auto;
+    max-width:100%;
+  }
+}
+
 /* スマホでも番号は行の左に置いたまま、まとまりごと枠の中央へ寄せる。
    1行ずつ中央に揃えると番号の位置が行ごとにずれて読みにくかった。 */
 @media (max-width:599px){
