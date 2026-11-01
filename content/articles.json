@@ -1423,7 +1423,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   }
  },
  {
@@ -1736,7 +1736,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   }
  },
  {
@@ -2067,7 +2067,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   }
  },
  {
@@ -2447,7 +2447,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   }
  },
  {
@@ -2784,7 +2784,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   }
  },
  {
@@ -4727,7 +4727,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   }
  },
  {
@@ -5118,7 +5118,7 @@
   },
   "jan": "4549308521894",
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   }
  },
  {
@@ -5431,7 +5431,7 @@
   },
   "jan": "4997337411707",
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   }
  },
  {
@@ -16377,7 +16377,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   }
  },
  {
@@ -16705,7 +16705,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   }
  },
  {
@@ -17425,14 +17425,14 @@
    "read": "公式商品情報で確認できた仕様のみを掲載しています。解像度、端子数、付属品など根拠データにない項目は購入前に公式仕様や販売ページで確認してください。"
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   }
  },
  {
   "slug": "maxzen-j24ch06",
   "category": "av",
   "sub": "tv",
-  "published": true,
+  "published": false,
   "featured": false,
   "title": "MAXZEN J24CH06｜24型テレビの設置・録画・接続条件",
   "list_title": "MAXZEN J24CH06｜24型テレビの設置・録画・接続条件",
@@ -17762,13 +17762,13 @@
    }
   },
   "health": {
-   "checked": "2026-10-26",
+   "checked": "2026-11-01",
    "dead": [
     "https://www。amazon。co。jp/s?k=4571495432677&i=aps",
     "https://item。rakuten。co。jp/maxzen/4571495432677/",
     "https://store。shopping。yahoo。co。jp/maxzen/4571495432677。html"
    ],
-   "dead_strikes": 4,
+   "dead_strikes": 5,
    "stopped_reason": "販売先のリンクがすべて切れています"
   },
   "spec": {
@@ -21514,7 +21514,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "facts": [
@@ -22105,7 +22105,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   },
   "official_url": "https://chimoto-coffee.co.jp/",
   "facts": [
@@ -22481,7 +22481,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   },
   "review_texts": [
    {
@@ -23086,7 +23086,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.rowa.co.jp/products/tc-2001",
@@ -23691,7 +23691,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.petkit.com/products/puramax-2-ultimate-bundles",
@@ -28680,7 +28680,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "spec": {
    "intro": "公式で確認できる商品仕様と、購入前に販売ページで確認する項目を整理しています。価格帯や他商品との比較表ではありません。",
@@ -30118,7 +30118,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   },
   "unpublished_reason": "",
   "official_url": "https://www.jackery.jp/collections/solar-panel/products/jackery-solarsaga-100",
@@ -30422,7 +30422,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T09:01:24+09:00",
@@ -30662,7 +30662,7 @@
   ],
   "personal_note": "",
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T08:57:36+09:00",
@@ -37398,7 +37398,7 @@
    "checked": "2026-10-30"
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "unpublished_reason": "",
   "official_url": "https://panasonic.jp/manualdl/p-db/cs/cs_634_804_x.pdf",
@@ -37719,7 +37719,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.elecom.co.jp/products/T-KS02-2430WH.html",
@@ -38061,7 +38061,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.elecom.co.jp/products/LD-CTTBU50.html",
@@ -38395,7 +38395,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -38736,7 +38736,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -39012,7 +39012,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -39306,7 +39306,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -39667,7 +39667,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -39948,7 +39948,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "official_url": "https://www.sanwa.co.jp/product/syohin?code=SW-KVM2LUN2",
   "facts": [
@@ -40336,7 +40336,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -40691,7 +40691,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -41338,7 +41338,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -41695,7 +41695,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-27"
+   "checked": "2026-11-01"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://cocorostore.jp.sharp/fz-w45hf.html",
@@ -43750,7 +43750,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -44783,7 +44783,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -45435,7 +45435,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -46044,7 +46044,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -46749,7 +46749,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
@@ -47452,7 +47452,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-26"
+   "checked": "2026-11-01"
   },
   "review_stats": {
    "rakuten": {
