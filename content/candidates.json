@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04T15:09:46+09:00",
+ "generated": "2026-11-05T15:10:58+09:00",
  "count": 30,
  "items": [
   {
@@ -137,7 +137,7 @@
    "jan": "",
    "category": "kitchen",
    "sub": "appliance",
-   "reviews": 2813,
+   "reviews": 2821,
    "rating": 4.42,
    "price": 4980,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/myhomeshop/cabinet/10352264/11477094/11675980/imgrc0332213479.jpg?_ex=128x128",
@@ -153,7 +153,7 @@
      "price": 4980,
      "shop_name": "My Home Shop 日用品楽天市場店",
      "postage_included": true,
-     "reviews": 2813,
+     "reviews": 2821,
      "rating": 4.42
     }
    }
@@ -553,7 +553,7 @@
    "jan": "",
    "category": "smartphone",
    "sub": "charger",
-   "reviews": 17058,
+   "reviews": 17059,
    "rating": 4.27,
    "price": 1980,
    "image": "https://item-shopping.c.yimg.jp/i/g/meiseishop_544",
@@ -569,7 +569,7 @@
      "price": 1980,
      "shop_name": "明誠ショップ",
      "postage_included": true,
-     "reviews": 17058,
+     "reviews": 17059,
      "rating": 4.27
     }
    }
@@ -579,7 +579,7 @@
    "jan": "",
    "category": "camera",
    "sub": "lens",
-   "reviews": 2186,
+   "reviews": 2187,
    "rating": 4.36,
    "price": 3380,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/invshop/cabinet/10144036/incase006_.jpg?_ex=128x128",
@@ -595,7 +595,7 @@
      "price": 3380,
      "shop_name": "invshop",
      "postage_included": true,
-     "reviews": 2186,
+     "reviews": 2187,
      "rating": 4.36
     }
    }
@@ -731,13 +731,13 @@
    }
   },
   {
-   "name": "本日限定値引 デスクトップ PC 新品 パソコン スリムタワー 12世代 COREi5 メモリ 16GB SSD 500GB Windows11 省スペース型 本体のみ おしゃれ 安い",
+   "name": "今日も当日発送 デスクトップ PC 新品 パソコン スリムタワー 12世代 COREi5 メモリ 16GB SSD 500GB Windows11 省スペース型 本体のみ おしゃれ 安い",
    "jan": "",
    "category": "pc",
    "sub": "parts",
    "reviews": 111,
    "rating": 4.58,
-   "price": 80890,
+   "price": 86200,
    "image": "https://item-shopping.c.yimg.jp/i/g/project-a_a574-hx",
    "images": {
     "yahoo": "https://item-shopping.c.yimg.jp/i/g/project-a_a574-hx"
@@ -748,7 +748,7 @@
    "trending": false,
    "shops": {
     "yahoo": {
-     "price": 80890,
+     "price": 86200,
      "shop_name": "パソコン専門店 ProjectA",
      "postage_included": true,
      "reviews": 111,
@@ -761,7 +761,7 @@
    "jan": "",
    "category": "pet",
    "sub": "dog",
-   "reviews": 1271,
+   "reviews": 1272,
    "rating": 4.62,
    "price": 2400,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/welrys/cabinet/puppia/puppiahtop.jpg?_ex=128x128",
@@ -777,7 +777,7 @@
      "price": 2400,
      "shop_name": "Best Friends/ベストフレンズ",
      "postage_included": true,
-     "reviews": 1271,
+     "reviews": 1272,
      "rating": 4.62
     }
    }
