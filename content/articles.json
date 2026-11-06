@@ -4727,7 +4727,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   }
  },
  {
@@ -5118,7 +5118,7 @@
   },
   "jan": "4549308521894",
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   }
  },
  {
@@ -5431,7 +5431,7 @@
   },
   "jan": "4997337411707",
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   }
  },
  {
@@ -14963,7 +14963,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   }
  },
  {
@@ -15317,7 +15317,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   }
  },
  {
@@ -15654,7 +15654,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   }
  },
  {
@@ -15858,7 +15858,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   }
  },
  {
@@ -16056,7 +16056,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   }
  },
  {
@@ -21506,7 +21506,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "facts": [
@@ -22097,7 +22097,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   },
   "official_url": "https://chimoto-coffee.co.jp/",
   "facts": [
@@ -22473,7 +22473,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   },
   "review_texts": [
    {
@@ -22847,7 +22847,7 @@
    "blockers": []
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   }
  },
  {
@@ -23078,7 +23078,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.rowa.co.jp/products/tc-2001",
@@ -23683,7 +23683,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.petkit.com/products/puramax-2-ultimate-bundles",
@@ -25375,7 +25375,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://support.microsoft.com/en-us/surface/models/surface-pro-5th-gen-specs-and-features",
@@ -25669,7 +25669,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.suisaku.com/product/air_pomp/122/",
@@ -26619,7 +26619,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.kai-group.com/products/kamisori/product/bihadaompa.html",
@@ -26975,7 +26975,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.i-de-al.com/c/gr001/gr007/gr1031",
@@ -27290,7 +27290,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://store.healthcare.omron.co.jp/support/download/catalog/pdf/hbf_series01.pdf",
@@ -27606,7 +27606,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://niplux.jp/collections/%E5%95%86%E5%93%81%E4%B8%80%E8%A6%A7%E7%94%A8/products/hair-dryer",
@@ -27928,7 +27928,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.puppia.jp/puppia2014fw.pdf",
@@ -28265,7 +28265,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://nimaso.co.jp/collections/iphone-camera-lens-protectors",
@@ -28995,7 +28995,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://images.agptek.us/Download/User_Manual/AC02B_User_Manual%28Quick_Start_in_Japanese%29.pdf.pdf",
@@ -29362,7 +29362,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.clinique.jp/product/1606/7079/makeup/mascara/lash-power-curling-mascara-long-wearing-formula",
@@ -29700,7 +29700,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.irisohyama.co.jp/products/manual/pdf/108963.pdf",
@@ -30110,7 +30110,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.jackery.jp/collections/solar-panel/products/jackery-solarsaga-100",
@@ -30958,7 +30958,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.sourcenext.com/product/security/zero-super-security/",
@@ -31287,7 +31287,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://www.switchbot.jp/collections/all/products/switchbot-hub3",
@@ -31667,7 +31667,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://book.yamazen.co.jp/product/detail/I00008450",
@@ -32000,7 +32000,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "",
   "official_url": "https://corp.valx.jp/services/valx/",
@@ -37711,7 +37711,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.elecom.co.jp/products/T-KS02-2430WH.html",
@@ -38053,7 +38053,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://www.elecom.co.jp/products/LD-CTTBU50.html",
@@ -39659,7 +39659,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   },
   "review_stats": {
    "rakuten": {
@@ -40683,7 +40683,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   },
   "review_stats": {
    "rakuten": {
@@ -41330,7 +41330,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   },
   "review_stats": {
    "rakuten": {
@@ -41687,7 +41687,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://cocorostore.jp.sharp/fz-w45hf.html",
@@ -43404,7 +43404,7 @@
    }
   },
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "review_stats": {
    "rakuten": {
@@ -71502,7 +71502,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/logicool/4943765058380.html",
   "jan": "4943765058380",
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "good_for": {
    "intro": "確認できる仕様から、次の作業や環境で検討しやすい製品です。",
@@ -73674,7 +73674,7 @@
   },
   "kind": "review",
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "good_for": {
    "intro": "次の条件に当てはまるなら、S360の仕様を活かしやすいでしょう。",
@@ -74782,7 +74782,7 @@
   "updated": "2026-10-10",
   "kind": "review",
   "health": {
-   "checked": "2026-10-31"
+   "checked": "2026-11-06"
   },
   "official_url": "https://www.fujiboeki.jp/products/86078/",
   "facts": [
