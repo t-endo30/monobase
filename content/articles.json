@@ -6065,7 +6065,7 @@
    "rakuten": {
     "price": 2980,
     "postage_included": true,
-    "count": 317,
+    "count": 320,
     "average": 4.56,
     "shops": 1,
     "count_scope": "single_listing"
@@ -6392,7 +6392,7 @@
    "rakuten": {
     "price": 4730,
     "postage_included": true,
-    "count": 565,
+    "count": 568,
     "average": 4.58,
     "shops": 1,
     "count_scope": "single_listing"
@@ -8050,7 +8050,7 @@
    "rakuten": {
     "price": 5480,
     "postage_included": true,
-    "count": 5469,
+    "count": 5472,
     "average": 4.77,
     "shops": 1,
     "count_scope": "single_listing"
@@ -8377,7 +8377,7 @@
    "rakuten": {
     "price": 5980,
     "postage_included": true,
-    "count": 13712,
+    "count": 13713,
     "average": 4.58,
     "shops": 1,
     "count_scope": "single_listing"
@@ -9122,7 +9122,7 @@
     "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 1680,
+    "price": 1780,
     "postage_included": true,
     "count": 2753,
     "average": 4.37,
@@ -9867,7 +9867,7 @@
    "yahoo": {
     "price": 25960,
     "postage_included": true,
-    "count": 390,
+    "count": 391,
     "average": 4.74,
     "shops": 1,
     "count_scope": "single_listing"
@@ -10218,7 +10218,7 @@
     "postage_included": false
    },
    "yahoo": {
-    "price": 7950,
+    "price": 6000,
     "postage_included": true,
     "count": 432,
     "average": 4.5,
@@ -10895,7 +10895,7 @@
    "rakuten": {
     "price": 7980,
     "postage_included": true,
-    "count": 2391,
+    "count": 2395,
     "average": 4.51,
     "shops": 1,
     "count_scope": "single_listing"
@@ -10903,7 +10903,7 @@
    "yahoo": {
     "price": 9500,
     "postage_included": true,
-    "count": 2307,
+    "count": 2308,
     "average": 4.63,
     "shops": 1,
     "count_scope": "single_listing"
@@ -11256,7 +11256,7 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 7570,
+    "price": 7880,
     "postage_included": false,
     "count": 18,
     "average": 4.56,
@@ -14158,7 +14158,7 @@
    "rakuten": {
     "price": 2981,
     "postage_included": true,
-    "count": 1573,
+    "count": 6003,
     "average": 4.55,
     "shops": 1,
     "count_scope": "single_listing"
@@ -15121,15 +15121,15 @@
    "rakuten": {
     "price": 11700,
     "postage_included": true,
-    "count": 54,
-    "average": 4.43,
+    "count": 387,
+    "average": 4.49,
     "shops": 1,
     "count_scope": "single_listing"
    },
    "yahoo": {
     "price": 11800,
     "postage_included": true,
-    "count": 1029,
+    "count": 1030,
     "average": 4.57,
     "shops": 1,
     "count_scope": "single_listing"
@@ -15470,7 +15470,7 @@
    "rakuten": {
     "price": 798,
     "postage_included": false,
-    "count": 1061,
+    "count": 1062,
     "average": 4.68,
     "shops": 1,
     "count_scope": "single_listing"
@@ -15478,7 +15478,7 @@
    "yahoo": {
     "price": 798,
     "postage_included": true,
-    "count": 627,
+    "count": 628,
     "average": 4.83,
     "shops": 1,
     "count_scope": "single_listing"
@@ -16863,7 +16863,7 @@
    "yahoo": {
     "price": 3520,
     "postage_included": true,
-    "count": 13301,
+    "count": 13302,
     "average": 4.66,
     "shops": 1,
     "count_scope": "single_listing"
@@ -17958,7 +17958,7 @@
    "rakuten": {
     "price": 6900,
     "postage_included": true,
-    "count": 3675,
+    "count": 3676,
     "average": 4.62,
     "shops": 1,
     "count_scope": "single_listing"
@@ -19431,7 +19431,7 @@
    "rakuten": {
     "price": 5680,
     "postage_included": true,
-    "count": 1933,
+    "count": 1935,
     "average": 4.59,
     "shops": 1,
     "count_scope": "single_listing"
@@ -19439,7 +19439,7 @@
    "yahoo": {
     "price": 7990,
     "postage_included": true,
-    "count": 798,
+    "count": 799,
     "average": 4.51,
     "shops": 1,
     "count_scope": "single_listing"
@@ -20739,7 +20739,7 @@
    "rakuten": {
     "price": 1999,
     "postage_included": false,
-    "count": 993,
+    "count": 995,
     "average": 4.63,
     "shops": 1,
     "count_scope": "single_listing"
@@ -22254,7 +22254,7 @@
    "rakuten": {
     "price": 2596,
     "postage_included": true,
-    "count": 1137,
+    "count": 1138,
     "average": 4.52,
     "shops": 1,
     "count_scope": "single_listing"
@@ -26187,7 +26187,7 @@
     "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 1880,
+    "price": 1875,
     "postage_included": true,
     "count": 247,
     "average": 4.19,
@@ -28140,7 +28140,7 @@
    "rakuten": {
     "price": 1680,
     "postage_included": true,
-    "count": 3152,
+    "count": 3153,
     "average": 4.51,
     "shops": 1,
     "count_scope": "single_listing"
@@ -28526,7 +28526,7 @@
    "rakuten": {
     "price": 1690,
     "postage_included": true,
-    "count": 1074,
+    "count": 1075,
     "average": 4.16,
     "shops": 1,
     "count_scope": "single_listing"
@@ -30837,7 +30837,7 @@
    "rakuten": {
     "price": 3180,
     "postage_included": true,
-    "count": 1332,
+    "count": 1333,
     "average": 4.52,
     "shops": 1,
     "count_scope": "single_listing"
@@ -32253,8 +32253,8 @@
    "rakuten": {
     "price": 5980,
     "postage_included": true,
-    "count": 214,
-    "average": 4.7,
+    "count": 215,
+    "average": 4.68,
     "shops": 1,
     "count_scope": "single_listing"
    },
@@ -34110,7 +34110,7 @@
    "yahoo": {
     "price": 1881,
     "postage_included": true,
-    "count": 363,
+    "count": 364,
     "average": 4.65,
     "shops": 1,
     "count_scope": "single_listing"
@@ -38391,8 +38391,8 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 111861,
-    "postage_included": true
+    "price": 111859,
+    "postage_included": false
    },
    "yahoo": {
     "price": 108599,
@@ -39306,7 +39306,7 @@
     "postage_included": false
    },
    "yahoo": {
-    "price": 49903,
+    "price": 47956,
     "postage_included": true
    },
    "checked": "2026-11-06"
@@ -40060,11 +40060,11 @@
   },
   "review_stats": {
    "rakuten": {
-    "price": 14608,
-    "postage_included": false
+    "price": 13300,
+    "postage_included": true
    },
    "yahoo": {
-    "price": 13209,
+    "price": 10000,
     "postage_included": true,
     "count": 1,
     "average": 0.0,
@@ -40690,7 +40690,7 @@
     "price": 31160,
     "postage_included": false
    },
-   "checked": "2026-11-05"
+   "checked": "2026-11-06"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://sanwajp.life/product/syohin?code=CR-LA602",
@@ -43409,11 +43409,7 @@
   "review_stats": {
    "rakuten": {
     "price": 8800,
-    "postage_included": true,
-    "count": 4,
-    "average": 4.25,
-    "shops": 1,
-    "count_scope": "single_listing"
+    "postage_included": true
    },
    "yahoo": {
     "price": 17710,
@@ -46753,7 +46749,7 @@
     "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 95610,
+    "price": 94777,
     "postage_included": true,
     "count": 1,
     "average": 0.0,
@@ -49508,7 +49504,7 @@
    "rakuten": {
     "price": 13200,
     "postage_included": true,
-    "count": 4063,
+    "count": 4064,
     "average": 4.67,
     "shops": 1,
     "count_scope": "single_listing"
@@ -57702,7 +57698,7 @@
    "rakuten": {
     "price": 3980,
     "postage_included": false,
-    "count": 15029,
+    "count": 15036,
     "average": 4.56,
     "shops": 1,
     "count_scope": "single_listing"
@@ -60259,7 +60255,7 @@
    "rakuten": {
     "price": 2990,
     "postage_included": false,
-    "count": 19101,
+    "count": 19103,
     "average": 4.37,
     "shops": 1,
     "count_scope": "single_listing"
@@ -61798,7 +61794,7 @@
    "rakuten": {
     "price": 6160,
     "postage_included": true,
-    "count": 22342,
+    "count": 22343,
     "average": 4.42,
     "shops": 1,
     "count_scope": "single_listing"
@@ -63498,7 +63494,7 @@
    "rakuten": {
     "price": 2200,
     "postage_included": true,
-    "count": 40416,
+    "count": 40424,
     "average": 4.75,
     "shops": 1,
     "count_scope": "single_listing"
@@ -63841,7 +63837,7 @@
    "rakuten": {
     "price": 13980,
     "postage_included": true,
-    "count": 6632,
+    "count": 6634,
     "average": 4.34,
     "shops": 1,
     "count_scope": "single_listing"
@@ -65273,7 +65269,7 @@
    "yahoo": {
     "price": 3498,
     "postage_included": true,
-    "count": 3803,
+    "count": 3804,
     "average": 4.44,
     "shops": 1,
     "count_scope": "single_listing"
@@ -65618,7 +65614,7 @@
    "rakuten": {
     "price": 1000,
     "postage_included": true,
-    "count": 49643,
+    "count": 49674,
     "average": 4.14,
     "shops": 1,
     "count_scope": "single_listing"
@@ -65966,7 +65962,7 @@
    "rakuten": {
     "price": 3960,
     "postage_included": true,
-    "count": 45402,
+    "count": 45405,
     "average": 4.69,
     "shops": 1,
     "count_scope": "single_listing"
@@ -66730,7 +66726,7 @@
    "rakuten": {
     "price": 3630,
     "postage_included": true,
-    "count": 50204,
+    "count": 50217,
     "average": 4.8,
     "shops": 1,
     "count_scope": "single_listing"
@@ -69752,7 +69748,7 @@
     "count_scope": "single_listing"
    },
    "yahoo": {
-    "price": 13800,
+    "price": 10150,
     "postage_included": true,
     "count": 161,
     "average": 4.66,
@@ -70784,7 +70780,7 @@
   "yahoo_url": "https://store.shopping.yahoo.co.jp/y-kojima/4544438000455.html",
   "review_stats": {
    "rakuten": {
-    "price": 20680,
+    "price": 19371,
     "postage_included": false
    },
    "checked": "2026-11-06"
@@ -71567,7 +71563,11 @@
    },
    "yahoo": {
     "price": 16500,
-    "postage_included": true
+    "postage_included": true,
+    "count": 1,
+    "average": 0.0,
+    "shops": 1,
+    "count_scope": "single_listing"
    },
    "checked": "2026-11-06"
   },
