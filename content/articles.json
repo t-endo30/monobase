@@ -1423,7 +1423,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   }
  },
  {
@@ -1736,7 +1736,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   }
  },
  {
@@ -2067,7 +2067,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   }
  },
  {
@@ -2447,7 +2447,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   }
  },
  {
@@ -2784,7 +2784,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   }
  },
  {
@@ -16373,7 +16373,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   }
  },
  {
@@ -16701,7 +16701,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   }
  },
  {
@@ -17421,7 +17421,7 @@
    "read": "公式商品情報で確認できた仕様のみを掲載しています。解像度、端子数、付属品など根拠データにない項目は購入前に公式仕様や販売ページで確認してください。"
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   }
  },
  {
@@ -28672,7 +28672,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "spec": {
    "intro": "公式で確認できる商品仕様と、購入前に販売ページで確認する項目を整理しています。価格帯や他商品との比較表ではありません。",
@@ -30414,7 +30414,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T09:01:24+09:00",
@@ -30654,7 +30654,7 @@
   ],
   "personal_note": "",
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "evidence_audit": {
    "checked_at": "2026-10-09T08:57:36+09:00",
@@ -37390,7 +37390,7 @@
    "checked": "2026-10-30"
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "unpublished_reason": "",
   "official_url": "https://panasonic.jp/manualdl/p-db/cs/cs_634_804_x.pdf",
@@ -38387,7 +38387,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -38728,7 +38728,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -39004,7 +39004,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -39298,7 +39298,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -39940,7 +39940,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "official_url": "https://www.sanwa.co.jp/product/syohin?code=SW-KVM2LUN2",
   "facts": [
@@ -40328,7 +40328,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -42047,7 +42047,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -42751,7 +42751,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://vtcosmetics.jp/product/cica-%E3%83%9E%E3%82%A4%E3%83%AB%E3%83%89%E3%83%88%E3%83%8A%E3%83%BC%E3%83%91%E3%83%83%E3%83%8960%E6%9E%9A%E5%85%A5%E3%82%8A/1077/",
@@ -43738,7 +43738,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -44771,7 +44771,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -45423,7 +45423,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -46032,7 +46032,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -46352,7 +46352,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -46737,7 +46737,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -47100,7 +47100,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -47440,7 +47440,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-01"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -47740,7 +47740,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "official_url": "https://www.thermal-grizzly.com/en/cpu-contact-frame/s-tg-cf-i1700-lt",
   "facts": [
@@ -48036,7 +48036,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -48422,7 +48422,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -53627,7 +53627,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/secupcs/cabinet/1st-img/pb/mf45a_pb.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://bs.secu.jp/view/item/000000000285?category_page_id=ct45",
@@ -53961,7 +53961,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
@@ -57295,7 +57295,7 @@
    }
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.lesthemo.jp/collections/%E3%82%AA%E3%83%BC%E3%83%AB%E3%82%A4%E3%83%B3%E3%83%AF%E3%83%B3%E3%82%B2%E3%83%AB",
@@ -57943,7 +57943,7 @@
   ],
   "kind": "review",
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "image_prompt": "A photograph of ANUA PDRNセラム, which is a 美容液, placed on a flat light oak wood tabletop in front of a plain matte white wall, nothing else on the surface. The product fills about 70 percent of the frame, positioned slightly off-centre following the rule of thirds, seen from a natural eye-level three-quarter angle. Use exactly this framing, background, and lighting for every image so that all article thumbnails look like one consistent series; only the product changes. No props, no decorations, no plants, no people. Shot on a full-frame mirrorless camera with an 85mm f/1.8 prime lens, ISO 200, 1/125s, shallow depth of field, background softly blurred so the product stays sharp. lit by soft diffused daylight from a large window on the left, a subtle fill from the right, gentle natural shadows that stay short. photorealistic, natural material texture — visible plastic grain, brushed metal, woven fabric and wood grain, realistic specular highlights and soft reflections, accurate white balance, fine surface detail, no digital smoothing. Render the product's real shape, proportions, colour, materials and the placement of its buttons and ports faithfully. Show NO lettering, numbers, logos, brand names, trademarks, model numbers, icons, pictograms, symbols or button markings anywhere — not on the product, not on its buttons, not in the background. Leave every such surface completely blank and unmarked: a plain button is correct, a button with any mark on it is wrong. Do not invent, distort or approximate any of them. Landscape orientation, 16:9. Do not produce: illustration, 3D render, CGI, cartoon or anime style, heavy retouching or plastic-looking surfaces, oversaturated colours, HDR glow, brand logos, any text or lettering, icons, pictograms, symbols, button markings, watermarks, full human figures or faces, distorted or extra fingers, warped straight edges, duplicated objects, props or decorative objects, patterned or coloured walls, floating or physically impossible arrangements, cluttered background.",
@@ -58656,7 +58656,7 @@
    }
   ],
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://recolte-jp.com/support/faq/rcp-7/",
@@ -59004,7 +59004,7 @@
    }
   ],
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://emoor.jp/products/ss-lmr",
@@ -62129,7 +62129,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/shuuemura/cabinet/12824584/13204797/13525001/new.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "unpublished_reason": "GPTレビュー不合格：根拠・独自性・安全性の再確認が必要",
   "official_url": "https://www.shuuemura.jp/new-best-seller/best-seller-product/",
@@ -62836,7 +62836,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/kobe-beauty-labo/cabinet/1st_thum/main-salo3.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "unpublished_reason": "公式資料または確認可能なレビュー本文が不足し、追加調査なしではGoogle向けの根拠を満たせないため（2026-10-06）",
   "official_url": "https://salonia.jp/product/hair/iron/2way/",
@@ -65956,7 +65956,7 @@
    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/yunth/cabinet/11294195/11294196/event/10000000_260906.jpg?_ex=128x128"
   },
   "health": {
-   "checked": "2026-11-03"
+   "checked": "2026-11-07"
   },
   "review_stats": {
    "rakuten": {
