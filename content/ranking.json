@@ -156,13 +156,7 @@
     "winten-fhd-ips-pc-switch-iphone": 1
   },
   "periods": {
-    "day": {
-      "lion": 1,
-      "p-5ghz-amazon": 1,
-      "rs-60e3-lcd-pdf": 1,
-      "rsy-2-recolte-3": 1,
-      "winten-fhd-ips-pc-switch-iphone": 1
-    },
+    "day": {},
     "week": {
       "eastforce-lumbirt": 1,
       "lion": 1,
