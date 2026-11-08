@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07T15:05:46+09:00",
+ "generated": "2026-11-08T15:05:26+09:00",
  "count": 30,
  "items": [
   {
@@ -137,7 +137,7 @@
    "jan": "",
    "category": "kitchen",
    "sub": "appliance",
-   "reviews": 2833,
+   "reviews": 2836,
    "rating": 4.42,
    "price": 4980,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/myhomeshop/cabinet/10352264/11477094/11675980/imgrc0332213479.jpg?_ex=128x128",
@@ -153,7 +153,7 @@
      "price": 4980,
      "shop_name": "My Home Shop 日用品楽天市場店",
      "postage_included": true,
-     "reviews": 2833,
+     "reviews": 2836,
      "rating": 4.42
     }
    }
@@ -345,7 +345,7 @@
    "jan": "",
    "category": "camera",
    "sub": "lens",
-   "reviews": 2525,
+   "reviews": 2527,
    "rating": 4.36,
    "price": 10980,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/yumenomori/cabinet/b2h211440he/h21prozt_m.jpg?_ex=128x128",
@@ -361,7 +361,7 @@
      "price": 10980,
      "shop_name": "夢の森",
      "postage_included": true,
-     "reviews": 2525,
+     "reviews": 2527,
      "rating": 4.36
     }
    }
@@ -523,28 +523,28 @@
    }
   },
   {
-   "name": "犬 ハーネス 負担が少ない 着けやすい 簡単装着 快適 メッシュ 小型犬 中型犬 大型犬 Truelove アウトドア 散歩 ひっぱり防止 しつけ トレーニング 耐久性抜群 丈夫 ナイロン ソフトパッド 軽量 新型バックル イージークリックハーネス TLH5653 TLH56512",
+   "name": "【 犬 ハーネス おしゃれ 抜けない 負担が少ない 小型犬 中型犬 大型犬】【 日本製 】【 洗える 】ciiron TOKYO ハーネスS〜Lサイズ（幅15mm〜25mm）犬 日本製 オシャレ カラー 抜けにくい 抜けない かわいい おしゃれ かっこいい 洗える 柴犬",
    "jan": "",
    "category": "pet",
    "sub": "dog",
-   "reviews": 128,
-   "rating": 4.73,
-   "price": 4380,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/wansuku/cabinet/tlh56512/tlh56512sam9.jpg?_ex=128x128",
+   "reviews": 248,
+   "rating": 4.63,
+   "price": 7550,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/ciirontokyo/cabinet/top/imgrc0110949994.jpg?_ex=128x128",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/wansuku/cabinet/tlh56512/tlh56512sam9.jpg?_ex=128x128"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/ciirontokyo/cabinet/top/imgrc0110949994.jpg?_ex=128x128"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/wansuku/tlh56512/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/ciirontokyo/harness_s/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": true,
    "shops": {
     "rakuten": {
-     "price": 4380,
-     "shop_name": "Wanwan Square Garden",
+     "price": 7550,
+     "shop_name": "ciironTOKYO楽天市場店",
      "postage_included": true,
-     "reviews": 128,
-     "rating": 4.73
+     "reviews": 248,
+     "rating": 4.63
     }
    }
   },
@@ -579,7 +579,7 @@
    "jan": "",
    "category": "camera",
    "sub": "lens",
-   "reviews": 2189,
+   "reviews": 2190,
    "rating": 4.36,
    "price": 3380,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/invshop/cabinet/10144036/incase006_.jpg?_ex=128x128",
@@ -595,7 +595,7 @@
      "price": 3380,
      "shop_name": "invshop",
      "postage_included": true,
-     "reviews": 2189,
+     "reviews": 2190,
      "rating": 4.36
     }
    }
@@ -605,7 +605,7 @@
    "jan": "",
    "category": "kitchen",
    "sub": "appliance",
-   "reviews": 2083,
+   "reviews": 2084,
    "rating": 4.76,
    "price": 18920,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/plywood/cabinet/503/14949100.jpg?_ex=128x128",
@@ -621,7 +621,7 @@
      "price": 18920,
      "shop_name": "plywood キッチン・インテリア雑貨",
      "postage_included": false,
-     "reviews": 2083,
+     "reviews": 2084,
      "rating": 4.76
     }
    }
@@ -731,13 +731,13 @@
    }
   },
   {
-   "name": "本日限定値引 デスクトップ PC 新品 パソコン スリムタワー 12世代 COREi5 メモリ 16GB SSD 500GB Windows11 省スペース型 本体のみ おしゃれ 安い",
+   "name": "今日も当日発送 デスクトップ PC 新品 パソコン スリムタワー 12世代 COREi5 メモリ 16GB SSD 500GB Windows11 省スペース型 本体のみ おしゃれ 安い",
    "jan": "",
    "category": "pc",
    "sub": "parts",
    "reviews": 111,
    "rating": 4.58,
-   "price": 80890,
+   "price": 86200,
    "image": "https://item-shopping.c.yimg.jp/i/g/project-a_a574-hx",
    "images": {
     "yahoo": "https://item-shopping.c.yimg.jp/i/g/project-a_a574-hx"
@@ -748,7 +748,7 @@
    "trending": false,
    "shops": {
     "yahoo": {
-     "price": 80890,
+     "price": 86200,
      "shop_name": "パソコン専門店 ProjectA",
      "postage_included": true,
      "reviews": 111,
