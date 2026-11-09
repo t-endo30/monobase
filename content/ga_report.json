@@ -1,94 +1,82 @@
 {
  "_note": "tools/ga_report.py が GA4 から自動生成します（毎週月曜）。",
- "generated": "2026-11-02",
+ "generated": "2026-11-09",
  "range": {
   "cur": [
-   "2026-10-26",
-   "2026-11-01"
+   "2026-11-02",
+   "2026-11-08"
   ],
   "prev": [
-   "2026-10-19",
-   "2026-10-25"
+   "2026-10-26",
+   "2026-11-01"
   ]
  },
  "totals": {
   "cur": {
    "dateRange": "cur",
+   "activeUsers": 15,
+   "newUsers": 15,
+   "sessions": 15,
+   "engagedSessions": 2,
+   "screenPageViews": 16,
+   "userEngagementDuration": 28
+  },
+  "prev": {
+   "dateRange": "prev",
    "activeUsers": 5,
    "newUsers": 4,
    "sessions": 7,
    "engagedSessions": 5,
    "screenPageViews": 18,
    "userEngagementDuration": 126
-  },
-  "prev": {
-   "dateRange": "prev",
-   "activeUsers": 6,
-   "newUsers": 5,
-   "sessions": 7,
-   "engagedSessions": 1,
-   "screenPageViews": 8,
-   "userEngagementDuration": 53
   }
  },
  "daily": [
   {
-   "date": "20261027",
-   "activeUsers": 1,
-   "screenPageViews": 11
+   "date": "20261102",
+   "activeUsers": 6,
+   "screenPageViews": 7
   },
   {
-   "date": "20261028",
-   "activeUsers": 1,
-   "screenPageViews": 2
-  },
-  {
-   "date": "20261030",
+   "date": "20261104",
    "activeUsers": 1,
    "screenPageViews": 1
   },
   {
-   "date": "20261101",
-   "activeUsers": 3,
-   "screenPageViews": 4
+   "date": "20261105",
+   "activeUsers": 1,
+   "screenPageViews": 1
+  },
+  {
+   "date": "20261106",
+   "activeUsers": 5,
+   "screenPageViews": 5
+  },
+  {
+   "date": "20261107",
+   "activeUsers": 2,
+   "screenPageViews": 2
   }
  ],
  "channels": [
   {
-   "sessionDefaultChannelGroup": "Organic Search",
-   "sessions": 4,
-   "activeUsers": 2
-  },
-  {
-   "sessionDefaultChannelGroup": "Organic Social",
-   "sessions": 2,
-   "activeUsers": 2
-  },
-  {
    "sessionDefaultChannelGroup": "Direct",
+   "sessions": 14,
+   "activeUsers": 14
+  },
+  {
+   "sessionDefaultChannelGroup": "Organic Search",
    "sessions": 1,
    "activeUsers": 1
   }
  ],
  "sources": [
   {
-   "sessionSourceMedium": "search.google.com / referral",
-   "sessions": 3
-  },
-  {
    "sessionSourceMedium": "(direct) / (none)",
-   "sessions": 1
+   "sessions": 14
   },
   {
-   "sessionSourceMedium": "facebook.com / referral",
-   "sessions": 1
-  },
-  {
-   "sessionSourceMedium": "google / organic",
-   "sessions": 1
-  },
-  {
-   "sessionSourceMedium": "ig / social",
+   "sessionSourceMedium": "openai / organic",
    "sessions": 1
   }
  ],
@@ -96,89 +84,101 @@
   {
    "pagePath": "/",
    "pageTitle": "モノベース｜あらゆるモノのデータベース",
-   "screenPageViews": 10,
-   "activeUsers": 3,
-   "userEngagementDuration": 86,
-   "avgEngagementSec": 8.6
+   "screenPageViews": 8,
+   "activeUsers": 7,
+   "userEngagementDuration": 17,
+   "avgEngagementSec": 2.1
   },
   {
-   "pagePath": "/new",
-   "pageTitle": "新着記事 - モノベース",
-   "screenPageViews": 3,
-   "activeUsers": 1,
-   "userEngagementDuration": 8,
-   "avgEngagementSec": 2.7
-  },
-  {
-   "pagePath": "/about",
-   "pageTitle": "運営者情報 - モノベース",
+   "pagePath": "/articles/eastforce-lumbirt",
+   "pageTitle": "EastForce LUMBIRT 4.0｜合う人と注意点 - モノベース",
    "screenPageViews": 1,
    "activeUsers": 1,
-   "userEngagementDuration": 12,
-   "avgEngagementSec": 12.0
+   "userEngagementDuration": 11,
+   "avgEngagementSec": 11.0
   },
   {
-   "pagePath": "/articles/bauhutte-hd-bhd-1200hdm-bk",
-   "pageTitle": "Bauhutte BHD-1200HDM-BK｜設置寸法と手動昇降の選び方 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 8,
-   "avgEngagementSec": 8.0
-  },
-  {
-   "pagePath": "/articles/coolify",
-   "pageTitle": "Dark Angel coolify とろみ冷感ワイドパンツ 利用者の声｜丈・生地感と選び方 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 10,
-   "avgEngagementSec": 10.0
-  },
-  {
-   "pagePath": "/editorial-policy",
-   "pageTitle": "記事作成方針 - モノベース",
+   "pagePath": "/articles/lion",
+   "pageTitle": "LION ニオイをとる砂 5L×4個｜鉱物系の固まり方と処分条件 - モノベース",
    "screenPageViews": 1,
    "activeUsers": 1,
    "userEngagementDuration": 0,
    "avgEngagementSec": 0.0
   },
   {
-   "pagePath": "/ranking",
-   "pageTitle": "よく読まれている記事 - モノベース",
+   "pagePath": "/articles/p-5ghz-amazon",
+   "pageTitle": "塚本無線 WTW-IPW108｜屋内見守りカメラの確認点 - モノベース",
    "screenPageViews": 1,
    "activeUsers": 1,
-   "userEngagementDuration": 2,
-   "avgEngagementSec": 2.0
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/articles/rs-60e3-lcd-pdf",
+   "pageTitle": "ロワジャパン TC-2001｜RS-60E3互換と対応機種の確認点 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/articles/rsy-2-recolte-3",
+   "pageTitle": "レコルト RSY-2｜自動調理ポットの注意点 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/articles/winten-fhd-ips-pc-switch-iphone",
+   "pageTitle": "WINTEN WT-156H2-BS｜持ち運び用モニターの確認点 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/contact",
+   "pageTitle": "お問い合わせ - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
+  },
+  {
+   "pagePath": "/disclaimer",
+   "pageTitle": "免責事項 - モノベース",
+   "screenPageViews": 1,
+   "activeUsers": 1,
+   "userEngagementDuration": 0,
+   "avgEngagementSec": 0.0
   }
  ],
  "organic_landing": [
   {
-   "landingPage": "/",
-   "sessions": 3
-  },
-  {
-   "landingPage": "/articles/coolify",
+   "landingPage": "/articles/eastforce-lumbirt",
    "sessions": 1
   }
  ],
  "devices": [
   {
-   "deviceCategory": "mobile",
-   "activeUsers": 3
+   "deviceCategory": "desktop",
+   "activeUsers": 12
   },
   {
-   "deviceCategory": "desktop",
-   "activeUsers": 2
+   "deviceCategory": "mobile",
+   "activeUsers": 3
   }
  ],
  "hosts": [
   {
    "hostName": "monobase.site",
-   "screenPageViews": 18
+   "screenPageViews": 16
   }
  ],
  "notes": [
-  "閲覧0の日が 3 日ありました。",
-  "検索（自然）からの訪問は 4 回で、全体の 57% です。",
-  "3回以上読まれたのに平均10秒未満で離れているページ：/、/new"
+  "閲覧0の日が 2 日ありました。",
+  "検索（自然）からの訪問は 1 回で、全体の 7% です。",
+  "3回以上読まれたのに平均10秒未満で離れているページ：/"
  ]
 }
