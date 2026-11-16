@@ -1,71 +1,76 @@
 {
  "_note": "tools/ga_report.py が GA4 から自動生成します（毎週月曜）。",
- "generated": "2026-11-09",
+ "generated": "2026-11-16",
  "range": {
   "cur": [
-   "2026-11-02",
-   "2026-11-08"
+   "2026-11-09",
+   "2026-11-15"
   ],
   "prev": [
-   "2026-10-26",
-   "2026-11-01"
+   "2026-11-02",
+   "2026-11-08"
   ]
  },
  "totals": {
   "cur": {
    "dateRange": "cur",
+   "activeUsers": 11,
+   "newUsers": 11,
+   "sessions": 12,
+   "engagedSessions": 2,
+   "screenPageViews": 12,
+   "userEngagementDuration": 7
+  },
+  "prev": {
+   "dateRange": "prev",
    "activeUsers": 15,
    "newUsers": 15,
    "sessions": 15,
    "engagedSessions": 2,
    "screenPageViews": 16,
    "userEngagementDuration": 28
-  },
-  "prev": {
-   "dateRange": "prev",
-   "activeUsers": 5,
-   "newUsers": 4,
-   "sessions": 7,
-   "engagedSessions": 5,
-   "screenPageViews": 18,
-   "userEngagementDuration": 126
   }
  },
  "daily": [
   {
-   "date": "20261102",
-   "activeUsers": 6,
-   "screenPageViews": 7
-  },
-  {
-   "date": "20261104",
-   "activeUsers": 1,
-   "screenPageViews": 1
-  },
-  {
-   "date": "20261105",
-   "activeUsers": 1,
-   "screenPageViews": 1
-  },
-  {
-   "date": "20261106",
-   "activeUsers": 5,
-   "screenPageViews": 5
-  },
-  {
-   "date": "20261107",
+   "date": "20261109",
    "activeUsers": 2,
-   "screenPageViews": 2
+   "screenPageViews": 3
+  },
+  {
+   "date": "20261111",
+   "activeUsers": 3,
+   "screenPageViews": 3
+  },
+  {
+   "date": "20261112",
+   "activeUsers": 1,
+   "screenPageViews": 1
+  },
+  {
+   "date": "20261113",
+   "activeUsers": 4,
+   "screenPageViews": 4
+  },
+  {
+   "date": "20261115",
+   "activeUsers": 1,
+   "screenPageViews": 1
   }
  ],
  "channels": [
   {
    "sessionDefaultChannelGroup": "Direct",
-   "sessions": 14,
-   "activeUsers": 14
+   "sessions": 9,
+   "activeUsers": 8
   },
   {
-   "sessionDefaultChannelGroup": "Organic Search",
+   "sessionDefaultChannelGroup": "Organic Social",
+   "sessions": 2,
+   "activeUsers": 2
+  },
+  {
+   "sessionDefaultChannelGroup": "AI Assistant",
    "sessions": 1,
    "activeUsers": 1
   }
@@ -73,10 +78,14 @@
  "sources": [
   {
    "sessionSourceMedium": "(direct) / (none)",
-   "sessions": 14
+   "sessions": 9
   },
   {
-   "sessionSourceMedium": "openai / organic",
+   "sessionSourceMedium": "ig / social",
+   "sessions": 2
+  },
+  {
+   "sessionSourceMedium": "chatgpt.com / ai-assistant",
    "sessions": 1
   }
  ],
@@ -86,99 +95,62 @@
    "pageTitle": "モノベース｜あらゆるモノのデータベース",
    "screenPageViews": 8,
    "activeUsers": 7,
-   "userEngagementDuration": 17,
-   "avgEngagementSec": 2.1
+   "userEngagementDuration": 6,
+   "avgEngagementSec": 0.8
   },
   {
-   "pagePath": "/articles/eastforce-lumbirt",
-   "pageTitle": "EastForce LUMBIRT 4.0｜合う人と注意点 - モノベース",
+   "pagePath": "/articles/vitas-wpc",
+   "pageTitle": "VITAS バイタス ホエイプロテイン100 WPC 1kg｜フレーバーと表示確認のポイント - モノベース",
    "screenPageViews": 1,
    "activeUsers": 1,
-   "userEngagementDuration": 11,
-   "avgEngagementSec": 11.0
+   "userEngagementDuration": 1,
+   "avgEngagementSec": 1.0
   },
   {
-   "pagePath": "/articles/lion",
-   "pageTitle": "LION ニオイをとる砂 5L×4個｜鉱物系の固まり方と処分条件 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 0,
-   "avgEngagementSec": 0.0
-  },
-  {
-   "pagePath": "/articles/p-5ghz-amazon",
-   "pageTitle": "塚本無線 WTW-IPW108｜屋内見守りカメラの確認点 - モノベース",
+   "pagePath": "/categories",
+   "pageTitle": "カテゴリー一覧 - モノベース",
    "screenPageViews": 1,
    "activeUsers": 1,
    "userEngagementDuration": 0,
    "avgEngagementSec": 0.0
   },
   {
-   "pagePath": "/articles/rs-60e3-lcd-pdf",
-   "pageTitle": "ロワジャパン TC-2001｜RS-60E3互換と対応機種の確認点 - モノベース",
+   "pagePath": "/category-pc-monitor",
+   "pageTitle": "ディスプレイ・モニターの記事一覧 - モノベース",
    "screenPageViews": 1,
    "activeUsers": 1,
    "userEngagementDuration": 0,
    "avgEngagementSec": 0.0
   },
   {
-   "pagePath": "/articles/rsy-2-recolte-3",
-   "pageTitle": "レコルト RSY-2｜自動調理ポットの注意点 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 0,
-   "avgEngagementSec": 0.0
-  },
-  {
-   "pagePath": "/articles/winten-fhd-ips-pc-switch-iphone",
-   "pageTitle": "WINTEN WT-156H2-BS｜持ち運び用モニターの確認点 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 0,
-   "avgEngagementSec": 0.0
-  },
-  {
-   "pagePath": "/contact",
-   "pageTitle": "お問い合わせ - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 0,
-   "avgEngagementSec": 0.0
-  },
-  {
-   "pagePath": "/disclaimer",
-   "pageTitle": "免責事項 - モノベース",
+   "pagePath": "/new",
+   "pageTitle": "新着記事 - モノベース",
    "screenPageViews": 1,
    "activeUsers": 1,
    "userEngagementDuration": 0,
    "avgEngagementSec": 0.0
   }
  ],
- "organic_landing": [
-  {
-   "landingPage": "/articles/eastforce-lumbirt",
-   "sessions": 1
-  }
- ],
+ "organic_landing": [],
  "devices": [
   {
    "deviceCategory": "desktop",
-   "activeUsers": 12
+   "activeUsers": 7
   },
   {
    "deviceCategory": "mobile",
-   "activeUsers": 3
+   "activeUsers": 4
   }
  ],
  "hosts": [
   {
    "hostName": "monobase.site",
-   "screenPageViews": 16
+   "screenPageViews": 12
   }
  ],
  "notes": [
   "閲覧0の日が 2 日ありました。",
-  "検索（自然）からの訪問は 1 回で、全体の 7% です。",
+  "検索（自然）からの訪問は 0 回で、全体の 0% です。",
   "3回以上読まれたのに平均10秒未満で離れているページ：/"
  ]
 }
