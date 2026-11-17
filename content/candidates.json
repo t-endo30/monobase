@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-16T15:46:03+09:00",
+ "generated": "2026-11-17T15:11:15+09:00",
  "count": 30,
  "items": [
   {
@@ -33,7 +33,7 @@
    "jan": "",
    "category": "pc",
    "sub": "tablet",
-   "reviews": 139,
+   "reviews": 140,
    "rating": 4.51,
    "price": 22990,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/rainbowpc/cabinet/12656538/12759204/12763143/sony5-xxx-1.jpg?_ex=128x128",
@@ -49,7 +49,7 @@
      "price": 22990,
      "shop_name": "レインボー家電",
      "postage_included": true,
-     "reviews": 139,
+     "reviews": 140,
      "rating": 4.51
     }
    }
@@ -137,7 +137,7 @@
    "jan": "",
    "category": "kitchen",
    "sub": "appliance",
-   "reviews": 2862,
+   "reviews": 2865,
    "rating": 4.42,
    "price": 4980,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/myhomeshop/cabinet/10352264/11477094/11675980/imgrc0332213479.jpg?_ex=128x128",
@@ -153,7 +153,7 @@
      "price": 4980,
      "shop_name": "My Home Shop 日用品楽天市場店",
      "postage_included": true,
-     "reviews": 2862,
+     "reviews": 2865,
      "rating": 4.42
     }
    }
@@ -419,28 +419,28 @@
    }
   },
   {
-   "name": "【80×40CM 超大型！日本人のデスクにぴったり!全品送料無料】デスクマット 防縮 マット ゲーミング デスク おしゃれ 防滑 オフィス 大型 おしゃれ マウスパッド レザー調 光学式マウス対応 グリーン ブラック パソコン シンプル 無地 かわいい 防水",
+   "name": "【両面同じ色】デスクマット テーブルマット 滑り止め 100cm 80cm 60cm 防水PUレザー作り おしゃれ 大型マウスパッド ゲーミングマウスパッド 汚れ防止 多機能デスクマット飾りマット 学習机 光学マウス対応 在宅勤務 テレワーク 在宅ワーク オフィス及び自宅用 子供 9色",
    "jan": "",
    "category": "daily",
    "sub": "hobby",
-   "reviews": 23,
-   "rating": 4.65,
-   "price": 2998,
-   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/sixspace/cabinet/07829690/07829692/download.jpg?_ex=128x128",
+   "reviews": 86,
+   "rating": 4.19,
+   "price": 1580,
+   "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/rupinasu/cabinet/06528025/imgrc0093040904.jpg?_ex=128x128",
    "images": {
-    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/sixspace/cabinet/07829690/07829692/download.jpg?_ex=128x128"
+    "rakuten": "https://thumbnail.image.rakuten.co.jp/@0_mall/rupinasu/cabinet/06528025/imgrc0093040904.jpg?_ex=128x128"
    },
-   "rakuten_url": "https://item.rakuten.co.jp/sixspace/19000002/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
+   "rakuten_url": "https://item.rakuten.co.jp/rupinasu/gz-l-deskmat-s12-600/?rafcid=wsc_i_is_162cb305-c486-48c9-910f-11a7c2915f08",
    "yahoo_url": "",
    "amazon_url": "",
    "trending": true,
    "shops": {
     "rakuten": {
-     "price": 2998,
-     "shop_name": "SIXSPACE",
+     "price": 1580,
+     "shop_name": "ルピナス",
      "postage_included": true,
-     "reviews": 23,
-     "rating": 4.65
+     "reviews": 86,
+     "rating": 4.19
     }
    }
   },
@@ -501,7 +501,7 @@
    "jan": "",
    "category": "pc",
    "sub": "tablet",
-   "reviews": 1461,
+   "reviews": 1462,
    "rating": 4.54,
    "price": 2980,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/ezone/cabinet/0660/100676-m1.jpg?_ex=128x128",
@@ -517,7 +517,7 @@
      "price": 2980,
      "shop_name": "e-zone",
      "postage_included": true,
-     "reviews": 1461,
+     "reviews": 1462,
      "rating": 4.54
     }
    }
@@ -527,7 +527,7 @@
    "jan": "",
    "category": "pet",
    "sub": "dog",
-   "reviews": 130,
+   "reviews": 131,
    "rating": 4.73,
    "price": 4380,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/wansuku/cabinet/tlh56512/tlh56512sam9.jpg?_ex=128x128",
@@ -543,7 +543,7 @@
      "price": 4380,
      "shop_name": "Wanwan Square Garden",
      "postage_included": true,
-     "reviews": 130,
+     "reviews": 131,
      "rating": 4.73
     }
    }
@@ -553,7 +553,7 @@
    "jan": "",
    "category": "smartphone",
    "sub": "charger",
-   "reviews": 17067,
+   "reviews": 17068,
    "rating": 4.27,
    "price": 1980,
    "image": "https://item-shopping.c.yimg.jp/i/g/meiseishop_544",
@@ -569,7 +569,7 @@
      "price": 1980,
      "shop_name": "明誠ショップ",
      "postage_included": true,
-     "reviews": 17067,
+     "reviews": 17068,
      "rating": 4.27
     }
    }
@@ -579,7 +579,7 @@
    "jan": "",
    "category": "camera",
    "sub": "lens",
-   "reviews": 2197,
+   "reviews": 2198,
    "rating": 4.36,
    "price": 3380,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/invshop/cabinet/10144036/incase006_.jpg?_ex=128x128",
@@ -595,7 +595,7 @@
      "price": 3380,
      "shop_name": "invshop",
      "postage_included": true,
-     "reviews": 2197,
+     "reviews": 2198,
      "rating": 4.36
     }
    }
@@ -657,7 +657,7 @@
    "jan": "",
    "category": "daily",
    "sub": "fashion",
-   "reviews": 5747,
+   "reviews": 5748,
    "rating": 4.51,
    "price": 2050,
    "image": "https://item-shopping.c.yimg.jp/i/g/timelovers_s-mq24",
@@ -673,7 +673,7 @@
      "price": 2050,
      "shop_name": "TIME LOVERS",
      "postage_included": true,
-     "reviews": 5747,
+     "reviews": 5748,
      "rating": 4.51
     }
    }
@@ -709,7 +709,7 @@
    "jan": "",
    "category": "fashion",
    "sub": "bag",
-   "reviews": 9288,
+   "reviews": 9292,
    "rating": 4.26,
    "price": 5380,
    "image": "https://thumbnail.image.rakuten.co.jp/@0_mall/azusa/cabinet/rain/109yy_main05.jpg?_ex=128x128",
@@ -725,7 +725,7 @@
      "price": 5380,
      "shop_name": "春夏秋冬",
      "postage_included": true,
-     "reviews": 9288,
+     "reviews": 9292,
      "rating": 4.26
     }
    }
