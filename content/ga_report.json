@@ -1,76 +1,66 @@
 {
  "_note": "tools/ga_report.py が GA4 から自動生成します（毎週月曜）。",
- "generated": "2026-11-16",
+ "generated": "2026-11-23",
  "range": {
   "cur": [
-   "2026-11-09",
-   "2026-11-15"
+   "2026-11-16",
+   "2026-11-22"
   ],
   "prev": [
-   "2026-11-02",
-   "2026-11-08"
+   "2026-11-09",
+   "2026-11-15"
   ]
  },
  "totals": {
   "cur": {
    "dateRange": "cur",
+   "activeUsers": 4,
+   "newUsers": 3,
+   "sessions": 4,
+   "engagedSessions": 2,
+   "screenPageViews": 4,
+   "userEngagementDuration": 19
+  },
+  "prev": {
+   "dateRange": "prev",
    "activeUsers": 11,
    "newUsers": 11,
    "sessions": 12,
    "engagedSessions": 2,
    "screenPageViews": 12,
    "userEngagementDuration": 7
-  },
-  "prev": {
-   "dateRange": "prev",
-   "activeUsers": 15,
-   "newUsers": 15,
-   "sessions": 15,
-   "engagedSessions": 2,
-   "screenPageViews": 16,
-   "userEngagementDuration": 28
   }
  },
  "daily": [
   {
-   "date": "20261109",
+   "date": "20261116",
+   "activeUsers": 1,
+   "screenPageViews": 1
+  },
+  {
+   "date": "20261117",
+   "activeUsers": 1,
+   "screenPageViews": 1
+  },
+  {
+   "date": "20261118",
    "activeUsers": 2,
-   "screenPageViews": 3
-  },
-  {
-   "date": "20261111",
-   "activeUsers": 3,
-   "screenPageViews": 3
-  },
-  {
-   "date": "20261112",
-   "activeUsers": 1,
-   "screenPageViews": 1
-  },
-  {
-   "date": "20261113",
-   "activeUsers": 4,
-   "screenPageViews": 4
-  },
-  {
-   "date": "20261115",
-   "activeUsers": 1,
-   "screenPageViews": 1
+   "screenPageViews": 2
   }
  ],
  "channels": [
-  {
-   "sessionDefaultChannelGroup": "Direct",
-   "sessions": 9,
-   "activeUsers": 8
-  },
   {
    "sessionDefaultChannelGroup": "Organic Social",
    "sessions": 2,
    "activeUsers": 2
   },
   {
-   "sessionDefaultChannelGroup": "AI Assistant",
+   "sessionDefaultChannelGroup": "Direct",
+   "sessions": 1,
+   "activeUsers": 1
+  },
+  {
+   "sessionDefaultChannelGroup": "Organic Search",
    "sessions": 1,
    "activeUsers": 1
   }
@@ -78,14 +68,18 @@
  "sources": [
   {
    "sessionSourceMedium": "(direct) / (none)",
-   "sessions": 9
+   "sessions": 1
+  },
+  {
+   "sessionSourceMedium": "facebook.com / referral",
+   "sessions": 1
   },
   {
    "sessionSourceMedium": "ig / social",
-   "sessions": 2
+   "sessions": 1
   },
   {
-   "sessionSourceMedium": "chatgpt.com / ai-assistant",
+   "sessionSourceMedium": "search.google.com / referral",
    "sessions": 1
   }
  ],
@@ -93,64 +87,45 @@
   {
    "pagePath": "/",
    "pageTitle": "モノベース｜あらゆるモノのデータベース",
-   "screenPageViews": 8,
-   "activeUsers": 7,
-   "userEngagementDuration": 6,
-   "avgEngagementSec": 0.8
+   "screenPageViews": 3,
+   "activeUsers": 3,
+   "userEngagementDuration": 19,
+   "avgEngagementSec": 6.3
   },
   {
-   "pagePath": "/articles/vitas-wpc",
-   "pageTitle": "VITAS バイタス ホエイプロテイン100 WPC 1kg｜フレーバーと表示確認のポイント - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 1,
-   "avgEngagementSec": 1.0
-  },
-  {
-   "pagePath": "/categories",
-   "pageTitle": "カテゴリー一覧 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 0,
-   "avgEngagementSec": 0.0
-  },
-  {
-   "pagePath": "/category-pc-monitor",
-   "pageTitle": "ディスプレイ・モニターの記事一覧 - モノベース",
-   "screenPageViews": 1,
-   "activeUsers": 1,
-   "userEngagementDuration": 0,
-   "avgEngagementSec": 0.0
-  },
-  {
-   "pagePath": "/new",
-   "pageTitle": "新着記事 - モノベース",
+   "pagePath": "/category-fashion",
+   "pageTitle": "ファッションの記事一覧 - モノベース",
    "screenPageViews": 1,
    "activeUsers": 1,
    "userEngagementDuration": 0,
    "avgEngagementSec": 0.0
   }
  ],
- "organic_landing": [],
+ "organic_landing": [
+  {
+   "landingPage": "/",
+   "sessions": 1
+  }
+ ],
  "devices": [
   {
    "deviceCategory": "desktop",
-   "activeUsers": 7
+   "activeUsers": 3
   },
   {
    "deviceCategory": "mobile",
-   "activeUsers": 4
+   "activeUsers": 1
   }
  ],
  "hosts": [
   {
    "hostName": "monobase.site",
-   "screenPageViews": 12
+   "screenPageViews": 4
   }
  ],
  "notes": [
-  "閲覧0の日が 2 日ありました。",
-  "検索（自然）からの訪問は 0 回で、全体の 0% です。",
+  "閲覧0の日が 4 日ありました。",
+  "検索（自然）からの訪問は 1 回で、全体の 25% です。",
   "3回以上読まれたのに平均10秒未満で離れているページ：/"
  ]
 }
